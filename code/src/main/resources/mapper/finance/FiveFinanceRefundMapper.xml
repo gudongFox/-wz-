@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.finance.dao.FiveFinanceRefundMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.finance.entity.FiveFinanceRefund">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="form_no" jdbcType="VARCHAR" property="formNo" />
+    <result column="receipts_number" jdbcType="VARCHAR" property="receiptsNumber" />
+    <result column="receipts_state" jdbcType="VARCHAR" property="receiptsState" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="applicant" jdbcType="VARCHAR" property="applicant" />
+    <result column="applicant_name" jdbcType="VARCHAR" property="applicantName" />
+    <result column="applicant_time" jdbcType="VARCHAR" property="applicantTime" />
+    <result column="unit" jdbcType="VARCHAR" property="unit" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="reimburse_id" jdbcType="INTEGER" property="reimburseId" />
+    <result column="pay_name" jdbcType="VARCHAR" property="payName" />
+    <result column="pay_id" jdbcType="VARCHAR" property="payId" />
+    <result column="pay_dept" jdbcType="VARCHAR" property="payDept" />
+    <result column="pay_bank" jdbcType="VARCHAR" property="payBank" />
+    <result column="pay_account" jdbcType="VARCHAR" property="payAccount" />
+    <result column="receive_name" jdbcType="VARCHAR" property="receiveName" />
+    <result column="receive_id" jdbcType="INTEGER" property="receiveId" />
+    <result column="receive_dept" jdbcType="VARCHAR" property="receiveDept" />
+    <result column="receive_bank" jdbcType="VARCHAR" property="receiveBank" />
+    <result column="receive_account" jdbcType="VARCHAR" property="receiveAccount" />
+    <result column="total_refund_money" jdbcType="VARCHAR" property="totalRefundMoney" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="travel_id" jdbcType="INTEGER" property="travelId" />
+    <result column="should_refund_money" jdbcType="VARCHAR" property="shouldRefundMoney" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_finance_refund
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.finance.entity.FiveFinanceRefund">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_finance_refund (business_key, form_no, receipts_number, 
+      receipts_state, dept_id, dept_name, 
+      applicant, applicant_name, applicant_time, 
+      unit, project_id, project_name, 
+      remark, creator, creator_name, 
+      is_deleted, is_process_end, gmt_create, 
+      gmt_modified, process_instance_id, reimburse_id, 
+      pay_name, pay_id, pay_dept, 
+      pay_bank, pay_account, receive_name, 
+      receive_id, receive_dept, receive_bank, 
+      receive_account, total_refund_money, title, 
+      travel_id, should_refund_money)
+    values (#{businessKey,jdbcType=VARCHAR}, #{formNo,jdbcType=VARCHAR}, #{receiptsNumber,jdbcType=VARCHAR}, 
+      #{receiptsState,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, 
+      #{applicant,jdbcType=VARCHAR}, #{applicantName,jdbcType=VARCHAR}, #{applicantTime,jdbcType=VARCHAR}, 
+      #{unit,jdbcType=VARCHAR}, #{projectId,jdbcType=INTEGER}, #{projectName,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=BIT}, #{processEnd,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{processInstanceId,jdbcType=VARCHAR}, #{reimburseId,jdbcType=INTEGER}, 
+      #{payName,jdbcType=VARCHAR}, #{payId,jdbcType=VARCHAR}, #{payDept,jdbcType=VARCHAR}, 
+      #{payBank,jdbcType=VARCHAR}, #{payAccount,jdbcType=VARCHAR}, #{receiveName,jdbcType=VARCHAR}, 
+      #{receiveId,jdbcType=INTEGER}, #{receiveDept,jdbcType=VARCHAR}, #{receiveBank,jdbcType=VARCHAR}, 
+      #{receiveAccount,jdbcType=VARCHAR}, #{totalRefundMoney,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{travelId,jdbcType=INTEGER}, #{shouldRefundMoney,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.finance.entity.FiveFinanceRefund">
+    update five_finance_refund
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      form_no = #{formNo,jdbcType=VARCHAR},
+      receipts_number = #{receiptsNumber,jdbcType=VARCHAR},
+      receipts_state = #{receiptsState,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      applicant = #{applicant,jdbcType=VARCHAR},
+      applicant_name = #{applicantName,jdbcType=VARCHAR},
+      applicant_time = #{applicantTime,jdbcType=VARCHAR},
+      unit = #{unit,jdbcType=VARCHAR},
+      project_id = #{projectId,jdbcType=INTEGER},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      is_process_end = #{processEnd,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      reimburse_id = #{reimburseId,jdbcType=INTEGER},
+      pay_name = #{payName,jdbcType=VARCHAR},
+      pay_id = #{payId,jdbcType=VARCHAR},
+      pay_dept = #{payDept,jdbcType=VARCHAR},
+      pay_bank = #{payBank,jdbcType=VARCHAR},
+      pay_account = #{payAccount,jdbcType=VARCHAR},
+      receive_name = #{receiveName,jdbcType=VARCHAR},
+      receive_id = #{receiveId,jdbcType=INTEGER},
+      receive_dept = #{receiveDept,jdbcType=VARCHAR},
+      receive_bank = #{receiveBank,jdbcType=VARCHAR},
+      receive_account = #{receiveAccount,jdbcType=VARCHAR},
+      total_refund_money = #{totalRefundMoney,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      travel_id = #{travelId,jdbcType=INTEGER},
+      should_refund_money = #{shouldRefundMoney,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, form_no, receipts_number, receipts_state, dept_id, dept_name, 
+    applicant, applicant_name, applicant_time, unit, project_id, project_name, remark, 
+    creator, creator_name, is_deleted, is_process_end, gmt_create, gmt_modified, process_instance_id, 
+    reimburse_id, pay_name, pay_id, pay_dept, pay_bank, pay_account, receive_name, receive_id, 
+    receive_dept, receive_bank, receive_account, total_refund_money, title, travel_id, 
+    should_refund_money
+    from five_finance_refund
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, form_no, receipts_number, receipts_state, dept_id, dept_name, 
+    applicant, applicant_name, applicant_time, unit, project_id, project_name, remark, 
+    creator, creator_name, is_deleted, is_process_end, gmt_create, gmt_modified, process_instance_id, 
+    reimburse_id, pay_name, pay_id, pay_dept, pay_bank, pay_account, receive_name, receive_id, 
+    receive_dept, receive_bank, receive_account, total_refund_money, title, travel_id, 
+    should_refund_money
+    from five_finance_refund
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and isLikeSelect==null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="formNo != null and isLikeSelect==null and formNo != ''">
+         AND form_no = #{formNo}
+      </if>
+      <if test="receiptsNumber != null and isLikeSelect==null and receiptsNumber != ''">
+         AND receipts_number = #{receiptsNumber}
+      </if>
+      <if test="receiptsState != null and isLikeSelect==null and receiptsState != ''">
+         AND receipts_state = #{receiptsState}
+      </if>
+      <if test="deptId != null and isLikeSelect==null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and isLikeSelect==null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="applicant != null and isLikeSelect==null and applicant != ''">
+         AND applicant = #{applicant}
+      </if>
+      <if test="applicantName != null and isLikeSelect==null and applicantName != ''">
+         AND applicant_name = #{applicantName}
+      </if>
+      <if test="applicantTime != null and isLikeSelect==null and applicantTime != ''">
+         AND applicant_time = #{applicantTime}
+      </if>
+      <if test="unit != null and isLikeSelect==null and unit != ''">
+         AND unit = #{unit}
+      </if>
+      <if test="projectId != null and isLikeSelect==null">
+         AND project_id = #{projectId}
+      </if>
+      <if test="projectName != null and isLikeSelect==null and projectName != ''">
+         AND project_name = #{projectName}
+      </if>
+      <if test="remark != null and isLikeSelect==null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="processEnd != null and isLikeSelect==null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="processInstanceId != null and isLikeSelect==null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="reimburseId != null and isLikeSelect==null">
+         AND reimburse_id = #{reimburseId}
+      </if>
+      <if test="payName != null and isLikeSelect==null and payName != ''">
+         AND pay_name = #{payName}
+      </if>
+      <if test="payId != null and isLikeSelect==null and payId != ''">
+         AND pay_id = #{payId}
+      </if>
+      <if test="payDept != null and isLikeSelect==null and payDept != ''">
+         AND pay_dept = #{payDept}
+      </if>
+      <if test="payBank != null and isLikeSelect==null and payBank != ''">
+         AND pay_bank = #{payBank}
+      </if>
+      <if test="payAccount != null and isLikeSelect==null and payAccount != ''">
+         AND pay_account = #{payAccount}
+      </if>
+      <if test="receiveName != null and isLikeSelect==null and receiveName != ''">
+         AND receive_name = #{receiveName}
+      </if>
+      <if test="receiveId != null and isLikeSelect==null">
+         AND receive_id = #{receiveId}
+      </if>
+      <if test="receiveDept != null and isLikeSelect==null and receiveDept != ''">
+         AND receive_dept = #{receiveDept}
+      </if>
+      <if test="receiveBank != null and isLikeSelect==null and receiveBank != ''">
+         AND receive_bank = #{receiveBank}
+      </if>
+      <if test="receiveAccount != null and isLikeSelect==null and receiveAccount != ''">
+         AND receive_account = #{receiveAccount}
+      </if>
+      <if test="totalRefundMoney != null and isLikeSelect==null and totalRefundMoney != ''">
+         AND total_refund_money = #{totalRefundMoney}
+      </if>
+      <if test="title != null and isLikeSelect==null and title != ''">
+         AND title = #{title}
+      </if>
+      <if test="travelId != null and isLikeSelect==null">
+         AND travel_id = #{travelId}
+      </if>
+      <if test="shouldRefundMoney != null and isLikeSelect==null and shouldRefundMoney != ''">
+         AND should_refund_money = #{shouldRefundMoney}
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="businessKey != null and isLikeSelect!= null and businessKey != '' ">
+         AND business_key like  CONCAT('%',#{businessKey},'%')
+      </if>
+      <if test="formNo != null and isLikeSelect!= null and formNo != '' ">
+         AND form_no like  CONCAT('%',#{formNo},'%')
+      </if>
+      <if test="receiptsNumber != null and isLikeSelect!= null and receiptsNumber != '' ">
+         AND receipts_number like  CONCAT('%',#{receiptsNumber},'%')
+      </if>
+      <if test="receiptsState != null and isLikeSelect!= null and receiptsState != '' ">
+         AND receipts_state like  CONCAT('%',#{receiptsState},'%')
+      </if>
+      <if test="deptName != null and isLikeSelect!= null and deptName != '' ">
+         AND dept_name like  CONCAT('%',#{deptName},'%')
+      </if>
+      <if test="applicant != null and isLikeSelect!= null and applicant != '' ">
+         AND applicant like  CONCAT('%',#{applicant},'%')
+      </if>
+      <if test="applicantName != null and isLikeSelect!= null and applicantName != '' ">
+         AND applicant_name like  CONCAT('%',#{applicantName},'%')
+      </if>
+      <if test="applicantTime != null and isLikeSelect!= null and applicantTime != '' ">
+         AND applicant_time like  CONCAT('%',#{applicantTime},'%')
+      </if>
+      <if test="unit != null and isLikeSelect!= null and unit != '' ">
+         AND unit like  CONCAT('%',#{unit},'%')
+      </if>
+      <if test="projectName != null and isLikeSelect!= null and projectName != '' ">
+         AND project_name like  CONCAT('%',#{projectName},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="processInstanceId != null and isLikeSelect!= null and processInstanceId != '' ">
+         AND process_instance_id like  CONCAT('%',#{processInstanceId},'%')
+      </if>
+      <if test="payName != null and isLikeSelect!= null and payName != '' ">
+         AND pay_name like  CONCAT('%',#{payName},'%')
+      </if>
+      <if test="payId != null and isLikeSelect!= null and payId != '' ">
+         AND pay_id like  CONCAT('%',#{payId},'%')
+      </if>
+      <if test="payDept != null and isLikeSelect!= null and payDept != '' ">
+         AND pay_dept like  CONCAT('%',#{payDept},'%')
+      </if>
+      <if test="payBank != null and isLikeSelect!= null and payBank != '' ">
+         AND pay_bank like  CONCAT('%',#{payBank},'%')
+      </if>
+      <if test="payAccount != null and isLikeSelect!= null and payAccount != '' ">
+         AND pay_account like  CONCAT('%',#{payAccount},'%')
+      </if>
+      <if test="receiveName != null and isLikeSelect!= null and receiveName != '' ">
+         AND receive_name like  CONCAT('%',#{receiveName},'%')
+      </if>
+      <if test="receiveDept != null and isLikeSelect!= null and receiveDept != '' ">
+         AND receive_dept like  CONCAT('%',#{receiveDept},'%')
+      </if>
+      <if test="receiveBank != null and isLikeSelect!= null and receiveBank != '' ">
+         AND receive_bank like  CONCAT('%',#{receiveBank},'%')
+      </if>
+      <if test="receiveAccount != null and isLikeSelect!= null and receiveAccount != '' ">
+         AND receive_account like  CONCAT('%',#{receiveAccount},'%')
+      </if>
+      <if test="totalRefundMoney != null and isLikeSelect!= null and totalRefundMoney != '' ">
+         AND total_refund_money like  CONCAT('%',#{totalRefundMoney},'%')
+      </if>
+      <if test="title != null and isLikeSelect!= null and title != '' ">
+         AND title like  CONCAT('%',#{title},'%')
+      </if>
+      <if test="shouldRefundMoney != null and isLikeSelect!= null and shouldRefundMoney != '' ">
+         AND should_refund_money like  CONCAT('%',#{shouldRefundMoney},'%')
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+    </where>
+  </sql>
+</mapper>

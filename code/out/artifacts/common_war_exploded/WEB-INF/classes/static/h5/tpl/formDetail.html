@@ -1,0 +1,79 @@
+﻿<div class="mui-card" ng-repeat="group in groupList" style="border-bottom: 2px solid #efeff4;">
+    <div class="mui-card-header" ng-show="$index==0">
+        <a class="mui-icon mui-icon-left-nav mui-pull-left" ng-click="vm.backUrl();" style="font-size:17px;">返回</a>
+
+        <a class="mui-icon mui-icon-trash mui-pull-right" ng-show="processInstance.firstTask" ng-click="vm.remove();" style="font-size:15px;color: red;">删除</a>
+    </div>
+    <div class="mui-card-header">
+        <span ng-bind="($index+1)+'.'+group.groupName"></span>
+        <a class="mui-icon mui-icon-star-filled" ng-show="processInstance.stared&&$index==0"
+           ng-click="vm.toggleStar()"></a>
+        <a class="mui-icon mui-icon-starhalf" ng-show="!processInstance.finished&&!processInstance.stared&&$index==0" ng-click="vm.toggleStar()"></a>
+    </div>
+    <div class="mui-card-content">
+        <form class="mui-input-group">
+            <div class="mui-input-row" ng-repeat="item in group.items"
+                 ng-if="!item.commonFormDetail.detailHidden" ng-style="{'color':'{{item.commonFormDetail.editable?'black':'grey'}}'}">
+
+                <label>
+                    <span ng-bind="item.commonFormDetail.inputText"></span>
+                    <span style="color: red;" ng-if="item.commonFormDetail.required">*</span>
+                </label>
+
+                <input type="number" ng-if="item.commonFormDetail.inputType=='number'" ng-model="item.inputValue" ng-disabled="!item.commonFormDetail.editable"/>
+
+                <input type="text"
+                       ng-if="item.commonFormDetail.inputType=='text'||item.commonFormDetail.inputType=='textarea'"
+                       ng-model="item.inputValue" />
+
+                <input type="text" ng-if="item.commonFormDetail.inputType=='date'" class="mui-date-picker"
+                       ng-model="item.inputValue" ng-disabled="!item.commonFormDetail.editable"/>
+
+                <input type="text" ng-if="item.commonFormDetail.inputType=='datetime'" class="mui-date-time-picker"
+                       ng-model="item.inputValue" ng-disabled="!item.commonFormDetail.editable"/>
+
+                <select ng-options="s.codeValue as s.name for s in item.dataSource"
+                        ng-if="!item.commonFormDetail.multiple&&item.commonFormDetail.inputType=='select'" ng-disabled="!item.commonFormDetail.editable"
+                        ng-model="item.inputValue">
+                </select>
+
+                <select ng-options="s.data.codeValue as s.data.name for s in item.dataSource"
+                        ng-if="!item.commonFormDetail.multiple&&item.commonFormDetail.inputType=='tree'" ng-disabled="!item.commonFormDetail.editable"
+                        ng-model="item.inputValue">
+                </select>
+
+                <input type="text" ng-if="item.commonFormDetail.multiple&&item.commonFormDetail.inputType=='select'"
+                       ng-model="item.inputValue"
+                       ng-focus="vm.toggleMultipleModal(item);"/>
+
+                <input type="text" ng-if="item.commonFormDetail.inputType=='user'" ng-model="item.inputValue"
+                       ng-focus="vm.showUserModal(item,group);"/>
+
+
+                <input type="text" ng-if="item.commonFormDetail.inputType=='dept'" ng-model="item.inputValue"
+                        ng-focus="vm.showDeptModal(item,group);"/>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="multipleSheet" class="mui-popover mui-popover-bottom mui-popover-action ">
+    <!-- 可选择菜单 -->
+    <ul class="mui-table-view">
+        <li class="mui-table-view-cell" ng-repeat="code in vm.detail.dataSource"
+            ng-click="code.selected=!code.selected">
+            <span ng-if="code.selected"> ✔ </span>
+            <span ng-bind="code.name"></span>
+        </li>
+    </ul>
+    <!-- 取消菜单 -->
+    <ul class="mui-table-view">
+        <li class="mui-table-view-cell">
+            <a ng-click="vm.saveMultiple();"><b>确定</b></a>
+        </li>
+    </ul>
+</div>
+
+
+

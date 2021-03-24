@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.supervise.dao.FiveOaSuperviseFileMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.supervise.entity.FiveOaSuperviseFile">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="file_header" jdbcType="VARCHAR" property="fileHeader" />
+    <result column="supervise_type" jdbcType="VARCHAR" property="superviseType" />
+    <result column="feedback_time" jdbcType="VARCHAR" property="feedbackTime" />
+    <result column="transaction_plan" jdbcType="VARCHAR" property="transactionPlan" />
+    <result column="task_definition" jdbcType="VARCHAR" property="taskDefinition" />
+    <result column="time_limit" jdbcType="VARCHAR" property="timeLimit" />
+    <result column="transactor" jdbcType="VARCHAR" property="transactor" />
+    <result column="transactor_name" jdbcType="VARCHAR" property="transactorName" />
+    <result column="transactor_opinion" jdbcType="VARCHAR" property="transactorOpinion" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="company_leader" jdbcType="VARCHAR" property="companyLeader" />
+    <result column="company_leader_name" jdbcType="VARCHAR" property="companyLeaderName" />
+    <result column="company_leader_opinion" jdbcType="VARCHAR" property="companyLeaderOpinion" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_oa_supervise_file
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.supervise.entity.FiveOaSuperviseFile">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_oa_supervise_file (business_key, dept_id, dept_name, 
+      file_header, supervise_type, feedback_time, 
+      transaction_plan, task_definition, time_limit, 
+      transactor, transactor_name, transactor_opinion, 
+      remark, company_leader, company_leader_name, 
+      company_leader_opinion, creator, creator_name, 
+      gmt_create, gmt_modified, is_deleted, 
+      is_process_end, process_instance_id)
+    values (#{businessKey,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, 
+      #{fileHeader,jdbcType=VARCHAR}, #{superviseType,jdbcType=VARCHAR}, #{feedbackTime,jdbcType=VARCHAR}, 
+      #{transactionPlan,jdbcType=VARCHAR}, #{taskDefinition,jdbcType=VARCHAR}, #{timeLimit,jdbcType=VARCHAR}, 
+      #{transactor,jdbcType=VARCHAR}, #{transactorName,jdbcType=VARCHAR}, #{transactorOpinion,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{companyLeader,jdbcType=VARCHAR}, #{companyLeaderName,jdbcType=VARCHAR}, 
+      #{companyLeaderOpinion,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}, 
+      #{processEnd,jdbcType=BIT}, #{processInstanceId,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.supervise.entity.FiveOaSuperviseFile">
+    update five_oa_supervise_file
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      file_header = #{fileHeader,jdbcType=VARCHAR},
+      supervise_type = #{superviseType,jdbcType=VARCHAR},
+      feedback_time = #{feedbackTime,jdbcType=VARCHAR},
+      transaction_plan = #{transactionPlan,jdbcType=VARCHAR},
+      task_definition = #{taskDefinition,jdbcType=VARCHAR},
+      time_limit = #{timeLimit,jdbcType=VARCHAR},
+      transactor = #{transactor,jdbcType=VARCHAR},
+      transactor_name = #{transactorName,jdbcType=VARCHAR},
+      transactor_opinion = #{transactorOpinion,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      company_leader = #{companyLeader,jdbcType=VARCHAR},
+      company_leader_name = #{companyLeaderName,jdbcType=VARCHAR},
+      company_leader_opinion = #{companyLeaderOpinion,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      is_deleted = #{deleted,jdbcType=BIT},
+      is_process_end = #{processEnd,jdbcType=BIT},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, dept_id, dept_name, file_header, supervise_type, feedback_time, 
+    transaction_plan, task_definition, time_limit, transactor, transactor_name, transactor_opinion, 
+    remark, company_leader, company_leader_name, company_leader_opinion, creator, creator_name, 
+    gmt_create, gmt_modified, is_deleted, is_process_end, process_instance_id
+    from five_oa_supervise_file
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, dept_id, dept_name, file_header, supervise_type, feedback_time, 
+    transaction_plan, task_definition, time_limit, transactor, transactor_name, transactor_opinion, 
+    remark, company_leader, company_leader_name, company_leader_opinion, creator, creator_name, 
+    gmt_create, gmt_modified, is_deleted, is_process_end, process_instance_id
+    from five_oa_supervise_file
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and isLikeSelect==null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="deptId != null and isLikeSelect==null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and isLikeSelect==null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="fileHeader != null and isLikeSelect==null and fileHeader != ''">
+         AND file_header = #{fileHeader}
+      </if>
+      <if test="superviseType != null and isLikeSelect==null and superviseType != ''">
+         AND supervise_type = #{superviseType}
+      </if>
+      <if test="feedbackTime != null and isLikeSelect==null and feedbackTime != ''">
+         AND feedback_time = #{feedbackTime}
+      </if>
+      <if test="transactionPlan != null and isLikeSelect==null and transactionPlan != ''">
+         AND transaction_plan = #{transactionPlan}
+      </if>
+      <if test="taskDefinition != null and isLikeSelect==null and taskDefinition != ''">
+         AND task_definition = #{taskDefinition}
+      </if>
+      <if test="timeLimit != null and isLikeSelect==null and timeLimit != ''">
+         AND time_limit = #{timeLimit}
+      </if>
+      <if test="transactor != null and isLikeSelect==null and transactor != ''">
+         AND transactor = #{transactor}
+      </if>
+      <if test="transactorName != null and isLikeSelect==null and transactorName != ''">
+         AND transactor_name = #{transactorName}
+      </if>
+      <if test="transactorOpinion != null and isLikeSelect==null and transactorOpinion != ''">
+         AND transactor_opinion = #{transactorOpinion}
+      </if>
+      <if test="remark != null and isLikeSelect==null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="companyLeader != null and isLikeSelect==null and companyLeader != ''">
+         AND company_leader = #{companyLeader}
+      </if>
+      <if test="companyLeaderName != null and isLikeSelect==null and companyLeaderName != ''">
+         AND company_leader_name = #{companyLeaderName}
+      </if>
+      <if test="companyLeaderOpinion != null and isLikeSelect==null and companyLeaderOpinion != ''">
+         AND company_leader_opinion = #{companyLeaderOpinion}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="processEnd != null and isLikeSelect==null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="processInstanceId != null and isLikeSelect==null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect==null">
+        AND (
+        dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+        <if test="initiator != null and initiator != ''">
+          or creator = #{initiator}
+        </if>
+        )
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="businessKey != null and isLikeSelect!= null and businessKey != '' ">
+         AND business_key like  CONCAT('%',#{businessKey},'%')
+      </if>
+      <if test="deptName != null and isLikeSelect!= null and deptName != '' ">
+         AND dept_name like  CONCAT('%',#{deptName},'%')
+      </if>
+      <if test="fileHeader != null and isLikeSelect!= null and fileHeader != '' ">
+         AND file_header like  CONCAT('%',#{fileHeader},'%')
+      </if>
+      <if test="superviseType != null and isLikeSelect!= null and superviseType != '' ">
+         AND supervise_type like  CONCAT('%',#{superviseType},'%')
+      </if>
+      <if test="feedbackTime != null and isLikeSelect!= null and feedbackTime != '' ">
+         AND feedback_time like  CONCAT('%',#{feedbackTime},'%')
+      </if>
+      <if test="transactionPlan != null and isLikeSelect!= null and transactionPlan != '' ">
+         AND transaction_plan like  CONCAT('%',#{transactionPlan},'%')
+      </if>
+      <if test="taskDefinition != null and isLikeSelect!= null and taskDefinition != '' ">
+         AND task_definition like  CONCAT('%',#{taskDefinition},'%')
+      </if>
+      <if test="timeLimit != null and isLikeSelect!= null and timeLimit != '' ">
+         AND time_limit like  CONCAT('%',#{timeLimit},'%')
+      </if>
+      <if test="transactor != null and isLikeSelect!= null and transactor != '' ">
+         AND transactor like  CONCAT('%',#{transactor},'%')
+      </if>
+      <if test="transactorName != null and isLikeSelect!= null and transactorName != '' ">
+         AND transactor_name like  CONCAT('%',#{transactorName},'%')
+      </if>
+      <if test="transactorOpinion != null and isLikeSelect!= null and transactorOpinion != '' ">
+         AND transactor_opinion like  CONCAT('%',#{transactorOpinion},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="companyLeader != null and isLikeSelect!= null and companyLeader != '' ">
+         AND company_leader like  CONCAT('%',#{companyLeader},'%')
+      </if>
+      <if test="companyLeaderName != null and isLikeSelect!= null and companyLeaderName != '' ">
+         AND company_leader_name like  CONCAT('%',#{companyLeaderName},'%')
+      </if>
+      <if test="companyLeaderOpinion != null and isLikeSelect!= null and companyLeaderOpinion != '' ">
+         AND company_leader_opinion like  CONCAT('%',#{companyLeaderOpinion},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="processInstanceId != null and isLikeSelect!= null and processInstanceId != '' ">
+         AND process_instance_id like  CONCAT('%',#{processInstanceId},'%')
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="deptId != null and isLikeSelect!=null">
+        AND dept_id = #{deptId}
+      </if>
+
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect!=null">
+        AND (
+        dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+        <if test="initiator != null and initiator != ''">
+          or creator = #{initiator}
+        </if>
+        )
+      </if>
+    </where>
+  </sql>
+</mapper>

@@ -1,0 +1,37 @@
+﻿
+
+<a href="javascript:;" class="btn btn-sm btn-default" ng-show="currentTask.takeAble"
+   ng-click="showTakeTask(currentTask.id)" >
+    <i class="fa fa-save"></i> 接受任务 </a>
+
+
+<a href="javascript:;" class="btn btn-sm btn-default" ng-show="currentTask.fetchAble"
+   ng-click="showFetchTask(currentTask.id);" >
+    <i class="fa fa-send-o"></i> 取回任务 </a>
+
+
+<a href="javascript:;" class="btn btn-sm btn-default" ng-show="currentTask.sendAble"
+   ng-click="showSendTask(currentTask.id,true);">
+    <i class="fa fa-send"></i> {{currentTask.firstTask?'提交审批':'同意通过'}} </a>
+
+
+<a href="javascript:;" class="btn btn-sm btn-default" ng-show="currentTask.backAble"
+   ng-click="showSendTask(currentTask.id,false);">
+    <i class="fa fa-reply"></i> 打回修改 </a>
+
+<a href="javascript:;" class="btn btn-sm btn-default" ng-show="currentTask.delegateAble"
+   ng-click="showDelegateTask(currentTask.id);">
+    <i class="fa fa-send"></i> 委托任务 </a>
+
+
+<a href="javascript:;" class="btn btn-sm btn-default" ng-show="currentTask.transferAble"
+   ng-click="showTransferTask(currentTask.id);">
+    <i class="fa fa-send"></i> 移交任务 </a>
+
+
+<a href="javascript:;" class="btn btn-sm btn-default" ng-show="currentTask.resolveAble"
+   ng-click="showResolveTask(currentTask.id);">
+    <i class="fa fa-send"></i> 完成任务 </a>
+
+
+

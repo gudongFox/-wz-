@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveOaPlatformRecordDetailMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveOaPlatformRecordDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="record_id" jdbcType="INTEGER" property="recordId" />
+    <result column="record_man" jdbcType="VARCHAR" property="recordMan" />
+    <result column="record_time" jdbcType="VARCHAR" property="recordTime" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="platform_name" jdbcType="VARCHAR" property="platformName" />
+    <result column="platform_url" jdbcType="VARCHAR" property="platformUrl" />
+    <result column="record_content" jdbcType="VARCHAR" property="recordContent" />
+    <result column="record_validity" jdbcType="VARCHAR" property="recordValidity" />
+    <result column="is_password" jdbcType="BIT" property="password" />
+    <result column="password_custodian" jdbcType="VARCHAR" property="passwordCustodian" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_oa_platform_record_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveOaPlatformRecordDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_oa_platform_record_detail (record_id, record_man, record_time, 
+      province, city, platform_name, 
+      platform_url, record_content, record_validity, 
+      is_password, password_custodian, remark, 
+      creator, creator_name, gmt_create, 
+      gmt_modified, is_deleted)
+    values (#{recordId,jdbcType=INTEGER}, #{recordMan,jdbcType=VARCHAR}, #{recordTime,jdbcType=VARCHAR}, 
+      #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{platformName,jdbcType=VARCHAR}, 
+      #{platformUrl,jdbcType=VARCHAR}, #{recordContent,jdbcType=VARCHAR}, #{recordValidity,jdbcType=VARCHAR}, 
+      #{password,jdbcType=BIT}, #{passwordCustodian,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveOaPlatformRecordDetail">
+    update five_oa_platform_record_detail
+    set record_id = #{recordId,jdbcType=INTEGER},
+      record_man = #{recordMan,jdbcType=VARCHAR},
+      record_time = #{recordTime,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      platform_name = #{platformName,jdbcType=VARCHAR},
+      platform_url = #{platformUrl,jdbcType=VARCHAR},
+      record_content = #{recordContent,jdbcType=VARCHAR},
+      record_validity = #{recordValidity,jdbcType=VARCHAR},
+      is_password = #{password,jdbcType=BIT},
+      password_custodian = #{passwordCustodian,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      is_deleted = #{deleted,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, record_id, record_man, record_time, province, city, platform_name, platform_url, 
+    record_content, record_validity, is_password, password_custodian, remark, creator, 
+    creator_name, gmt_create, gmt_modified, is_deleted
+    from five_oa_platform_record_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, record_id, record_man, record_time, province, city, platform_name, platform_url, 
+    record_content, record_validity, is_password, password_custodian, remark, creator, 
+    creator_name, gmt_create, gmt_modified, is_deleted
+    from five_oa_platform_record_detail
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="recordId != null">
+         AND record_id = #{recordId}
+      </if>
+      <if test="recordMan != null and recordMan != ''">
+         AND record_man = #{recordMan}
+      </if>
+      <if test="recordTime != null and recordTime != ''">
+         AND record_time = #{recordTime}
+      </if>
+      <if test="province != null and province != ''">
+         AND province = #{province}
+      </if>
+      <if test="city != null and city != ''">
+         AND city = #{city}
+      </if>
+      <if test="platformName != null and platformName != ''">
+         AND platform_name = #{platformName}
+      </if>
+      <if test="platformUrl != null and platformUrl != ''">
+         AND platform_url = #{platformUrl}
+      </if>
+      <if test="recordContent != null and recordContent != ''">
+         AND record_content = #{recordContent}
+      </if>
+      <if test="recordValidity != null and recordValidity != ''">
+         AND record_validity = #{recordValidity}
+      </if>
+      <if test="password != null">
+         AND is_password = #{password}
+      </if>
+      <if test="passwordCustodian != null and passwordCustodian != ''">
+         AND password_custodian = #{passwordCustodian}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+    </where>
+  </sql>
+</mapper>

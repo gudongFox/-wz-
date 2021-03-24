@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveOaProjectfundplanMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveOaProjectfundplan">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="project_no" jdbcType="VARCHAR" property="projectNo" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="plan_time" jdbcType="VARCHAR" property="planTime" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="total_manger" jdbcType="VARCHAR" property="totalManger" />
+    <result column="total_manger_name" jdbcType="VARCHAR" property="totalMangerName" />
+    <result column="total_accountant" jdbcType="VARCHAR" property="totalAccountant" />
+    <result column="total_accountant_name" jdbcType="VARCHAR" property="totalAccountantName" />
+    <result column="charge_leader_man" jdbcType="VARCHAR" property="chargeLeaderMan" />
+    <result column="charge_leader_man_name" jdbcType="VARCHAR" property="chargeLeaderManName" />
+    <result column="finance_dept_men" jdbcType="VARCHAR" property="financeDeptMen" />
+    <result column="finance_dept_men_name" jdbcType="VARCHAR" property="financeDeptMenName" />
+    <result column="project_management_men" jdbcType="VARCHAR" property="projectManagementMen" />
+    <result column="project_management_men_name" jdbcType="VARCHAR" property="projectManagementMenName" />
+    <result column="dept_charge_men" jdbcType="VARCHAR" property="deptChargeMen" />
+    <result column="dept_charge_men_name" jdbcType="VARCHAR" property="deptChargeMenName" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+    <result column="contract_no" jdbcType="VARCHAR" property="contractNo" />
+    <result column="total_contract_price_receipt" jdbcType="VARCHAR" property="totalContractPriceReceipt" />
+    <result column="total_accumulative_price_receipt" jdbcType="VARCHAR" property="totalAccumulativePriceReceipt" />
+    <result column="total_receivable_price_receipt" jdbcType="VARCHAR" property="totalReceivablePriceReceipt" />
+    <result column="total_final_price_receipt" jdbcType="VARCHAR" property="totalFinalPriceReceipt" />
+    <result column="total_contract_price_pay" jdbcType="VARCHAR" property="totalContractPricePay" />
+    <result column="total_accumulative_price_pay" jdbcType="VARCHAR" property="totalAccumulativePricePay" />
+    <result column="total_receivable_price_pay" jdbcType="VARCHAR" property="totalReceivablePricePay" />
+    <result column="total_final_price_pay" jdbcType="VARCHAR" property="totalFinalPricePay" />
+    <result column="all_project_money" jdbcType="VARCHAR" property="allProjectMoney" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_oa_projectfundplan
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveOaProjectfundplan">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_oa_projectfundplan (business_key, project_no, project_name, 
+      plan_time, dept_id, dept_name, 
+      total_manger, total_manger_name, total_accountant, 
+      total_accountant_name, charge_leader_man, charge_leader_man_name, 
+      finance_dept_men, finance_dept_men_name, project_management_men, 
+      project_management_men_name, dept_charge_men, 
+      dept_charge_men_name, remark, creator, 
+      creator_name, is_deleted, gmt_create, 
+      gmt_modified, process_instance_id, is_process_end, 
+      contract_no, total_contract_price_receipt, 
+      total_accumulative_price_receipt, total_receivable_price_receipt, 
+      total_final_price_receipt, total_contract_price_pay, 
+      total_accumulative_price_pay, total_receivable_price_pay, 
+      total_final_price_pay, all_project_money)
+    values (#{businessKey,jdbcType=VARCHAR}, #{projectNo,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR}, 
+      #{planTime,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, 
+      #{totalManger,jdbcType=VARCHAR}, #{totalMangerName,jdbcType=VARCHAR}, #{totalAccountant,jdbcType=VARCHAR}, 
+      #{totalAccountantName,jdbcType=VARCHAR}, #{chargeLeaderMan,jdbcType=VARCHAR}, #{chargeLeaderManName,jdbcType=VARCHAR}, 
+      #{financeDeptMen,jdbcType=VARCHAR}, #{financeDeptMenName,jdbcType=VARCHAR}, #{projectManagementMen,jdbcType=VARCHAR}, 
+      #{projectManagementMenName,jdbcType=VARCHAR}, #{deptChargeMen,jdbcType=VARCHAR}, 
+      #{deptChargeMenName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{creatorName,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{processInstanceId,jdbcType=VARCHAR}, #{processEnd,jdbcType=BIT}, 
+      #{contractNo,jdbcType=VARCHAR}, #{totalContractPriceReceipt,jdbcType=VARCHAR}, 
+      #{totalAccumulativePriceReceipt,jdbcType=VARCHAR}, #{totalReceivablePriceReceipt,jdbcType=VARCHAR}, 
+      #{totalFinalPriceReceipt,jdbcType=VARCHAR}, #{totalContractPricePay,jdbcType=VARCHAR}, 
+      #{totalAccumulativePricePay,jdbcType=VARCHAR}, #{totalReceivablePricePay,jdbcType=VARCHAR}, 
+      #{totalFinalPricePay,jdbcType=VARCHAR}, #{allProjectMoney,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveOaProjectfundplan">
+    update five_oa_projectfundplan
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      project_no = #{projectNo,jdbcType=VARCHAR},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      plan_time = #{planTime,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      total_manger = #{totalManger,jdbcType=VARCHAR},
+      total_manger_name = #{totalMangerName,jdbcType=VARCHAR},
+      total_accountant = #{totalAccountant,jdbcType=VARCHAR},
+      total_accountant_name = #{totalAccountantName,jdbcType=VARCHAR},
+      charge_leader_man = #{chargeLeaderMan,jdbcType=VARCHAR},
+      charge_leader_man_name = #{chargeLeaderManName,jdbcType=VARCHAR},
+      finance_dept_men = #{financeDeptMen,jdbcType=VARCHAR},
+      finance_dept_men_name = #{financeDeptMenName,jdbcType=VARCHAR},
+      project_management_men = #{projectManagementMen,jdbcType=VARCHAR},
+      project_management_men_name = #{projectManagementMenName,jdbcType=VARCHAR},
+      dept_charge_men = #{deptChargeMen,jdbcType=VARCHAR},
+      dept_charge_men_name = #{deptChargeMenName,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      is_process_end = #{processEnd,jdbcType=BIT},
+      contract_no = #{contractNo,jdbcType=VARCHAR},
+      total_contract_price_receipt = #{totalContractPriceReceipt,jdbcType=VARCHAR},
+      total_accumulative_price_receipt = #{totalAccumulativePriceReceipt,jdbcType=VARCHAR},
+      total_receivable_price_receipt = #{totalReceivablePriceReceipt,jdbcType=VARCHAR},
+      total_final_price_receipt = #{totalFinalPriceReceipt,jdbcType=VARCHAR},
+      total_contract_price_pay = #{totalContractPricePay,jdbcType=VARCHAR},
+      total_accumulative_price_pay = #{totalAccumulativePricePay,jdbcType=VARCHAR},
+      total_receivable_price_pay = #{totalReceivablePricePay,jdbcType=VARCHAR},
+      total_final_price_pay = #{totalFinalPricePay,jdbcType=VARCHAR},
+      all_project_money = #{allProjectMoney,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, project_no, project_name, plan_time, dept_id, dept_name, 
+    total_manger, total_manger_name, total_accountant, total_accountant_name, charge_leader_man, 
+    charge_leader_man_name, finance_dept_men, finance_dept_men_name, project_management_men, 
+    project_management_men_name, dept_charge_men, dept_charge_men_name, remark, creator, 
+    creator_name, is_deleted, gmt_create, gmt_modified, process_instance_id, is_process_end, 
+    contract_no, total_contract_price_receipt, total_accumulative_price_receipt, total_receivable_price_receipt, 
+    total_final_price_receipt, total_contract_price_pay, total_accumulative_price_pay, 
+    total_receivable_price_pay, total_final_price_pay, all_project_money
+    from five_oa_projectfundplan
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, project_no, project_name, plan_time, dept_id, dept_name, 
+    total_manger, total_manger_name, total_accountant, total_accountant_name, charge_leader_man, 
+    charge_leader_man_name, finance_dept_men, finance_dept_men_name, project_management_men, 
+    project_management_men_name, dept_charge_men, dept_charge_men_name, remark, creator, 
+    creator_name, is_deleted, gmt_create, gmt_modified, process_instance_id, is_process_end, 
+    contract_no, total_contract_price_receipt, total_accumulative_price_receipt, total_receivable_price_receipt, 
+    total_final_price_receipt, total_contract_price_pay, total_accumulative_price_pay, 
+    total_receivable_price_pay, total_final_price_pay, all_project_money
+    from five_oa_projectfundplan
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="projectNo != null and projectNo != ''">
+         AND project_no = #{projectNo}
+      </if>
+      <if test="projectName != null and projectName != ''">
+         AND project_name = #{projectName}
+      </if>
+      <if test="planTime != null and planTime != ''">
+         AND plan_time = #{planTime}
+      </if>
+      <if test="deptId != null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="totalManger != null and totalManger != ''">
+         AND total_manger = #{totalManger}
+      </if>
+      <if test="totalMangerName != null and totalMangerName != ''">
+         AND total_manger_name = #{totalMangerName}
+      </if>
+      <if test="totalAccountant != null and totalAccountant != ''">
+         AND total_accountant = #{totalAccountant}
+      </if>
+      <if test="totalAccountantName != null and totalAccountantName != ''">
+         AND total_accountant_name = #{totalAccountantName}
+      </if>
+      <if test="chargeLeaderMan != null and chargeLeaderMan != ''">
+         AND charge_leader_man = #{chargeLeaderMan}
+      </if>
+      <if test="chargeLeaderManName != null and chargeLeaderManName != ''">
+         AND charge_leader_man_name = #{chargeLeaderManName}
+      </if>
+      <if test="financeDeptMen != null and financeDeptMen != ''">
+         AND finance_dept_men = #{financeDeptMen}
+      </if>
+      <if test="financeDeptMenName != null and financeDeptMenName != ''">
+         AND finance_dept_men_name = #{financeDeptMenName}
+      </if>
+      <if test="projectManagementMen != null and projectManagementMen != ''">
+         AND project_management_men = #{projectManagementMen}
+      </if>
+      <if test="projectManagementMenName != null and projectManagementMenName != ''">
+         AND project_management_men_name = #{projectManagementMenName}
+      </if>
+      <if test="deptChargeMen != null and deptChargeMen != ''">
+         AND dept_charge_men = #{deptChargeMen}
+      </if>
+      <if test="deptChargeMenName != null and deptChargeMenName != ''">
+         AND dept_charge_men_name = #{deptChargeMenName}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="processInstanceId != null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="processEnd != null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="contractNo != null and contractNo != ''">
+         AND contract_no = #{contractNo}
+      </if>
+      <if test="totalContractPriceReceipt != null and totalContractPriceReceipt != ''">
+         AND total_contract_price_receipt = #{totalContractPriceReceipt}
+      </if>
+      <if test="totalAccumulativePriceReceipt != null and totalAccumulativePriceReceipt != ''">
+         AND total_accumulative_price_receipt = #{totalAccumulativePriceReceipt}
+      </if>
+      <if test="totalReceivablePriceReceipt != null and totalReceivablePriceReceipt != ''">
+         AND total_receivable_price_receipt = #{totalReceivablePriceReceipt}
+      </if>
+      <if test="totalFinalPriceReceipt != null and totalFinalPriceReceipt != ''">
+         AND total_final_price_receipt = #{totalFinalPriceReceipt}
+      </if>
+      <if test="totalContractPricePay != null and totalContractPricePay != ''">
+         AND total_contract_price_pay = #{totalContractPricePay}
+      </if>
+      <if test="totalAccumulativePricePay != null and totalAccumulativePricePay != ''">
+         AND total_accumulative_price_pay = #{totalAccumulativePricePay}
+      </if>
+      <if test="totalReceivablePricePay != null and totalReceivablePricePay != ''">
+         AND total_receivable_price_pay = #{totalReceivablePricePay}
+      </if>
+      <if test="totalFinalPricePay != null and totalFinalPricePay != ''">
+         AND total_final_price_pay = #{totalFinalPricePay}
+      </if>
+      <if test="allProjectMoney != null and allProjectMoney != ''">
+         AND all_project_money = #{allProjectMoney}
+      </if>
+      <if test="contactNos != null and contactNos != '' ">
+        AND (
+        contract_no like CONCAT('%',#{contactNos},'%')
+        )
+      </if>
+      <if test="projectNames != null and projectNames != '' ">
+        AND (
+        project_name like CONCAT('%',#{projectNames},'%')
+        )
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect==null">
+        AND (
+        dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+        <if test="initiator != null and initiator != ''">or creator = #{initiator}
+        </if>
+        )
+      </if>
+    </where>
+  </sql>
+  <select id="fuzzySearch" resultMap="BaseResultMap">
+    select id, business_key, project_no, project_name, plan_time, dept_id, dept_name,
+    total_manger, total_manger_name, total_accountant, total_accountant_name, charge_leader_man,
+    charge_leader_man_name, finance_dept_men, finance_dept_men_name, project_management_men,
+    project_management_men_name, dept_charge_men, dept_charge_men_name, remark, creator,
+    creator_name, is_deleted, gmt_create, gmt_modified, process_instance_id, is_process_end,
+    contract_no, total_contract_price_receipt, total_accumulative_price_receipt, total_receivable_price_receipt,
+    total_final_price_receipt, total_contract_price_pay, total_accumulative_price_pay,
+    total_receivable_price_pay, total_final_price_pay, all_project_money
+    from five_oa_projectfundplan
+    <include refid="Base_Where_Fuzzy_List" />
+    order by id desc
+  </select>
+  <sql id="Base_Where_Fuzzy_List">
+    <where>
+      <if test="deleted != null">
+        AND is_deleted = #{deleted}
+      </if>
+      <if test="projectNo != null and projectNo != ''">
+        AND project_no like CONCAT('%', #{projectNo},'%')
+      </if>
+      <if test="projectName != null and projectName != ''">
+        AND  project_name like CONCAT('%',#{projectName},'%')
+      </if>
+      <if test="planTime != null and planTime != ''">
+        AND plan_time like CONCAT('%', #{planTime},'%')
+      </if>
+      <if test="deptName != null and deptName != ''">
+        AND dept_name like CONCAT('%', #{deptName},'%')
+      </if>
+      <if test="deptId != null and deptId != ''">
+        AND dept_id = #{deptId}
+      </if>
+      <if test="gmtCreate != null">
+        AND gmt_create like CONCAT('%', #{gmtCreate},'%')
+      </if>
+      <if test="processEnd != null">
+        AND is_process_end = #{processEnd}
+      </if>
+      <if test="contractNo != null and contractNo != ''">
+        AND contract_no like CONCAT('%',#{contractNo},'%')
+      </if>
+      <if test="creator != null and creator != ''">
+        AND creator = #{creator}
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect==null">
+        AND (
+        dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+        <if test="initiator != null and initiator != ''">
+        or creator = #{initiator}
+        </if>
+        )
+      </if>
+    </where>
+  </sql>
+</mapper>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.sys.dao.SysConfigMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.sys.entity.SysConfig">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="default_pwd" jdbcType="VARCHAR" property="defaultPwd" />
+    <result column="default_url" jdbcType="VARCHAR" property="defaultUrl" />
+    <result column="app_code" jdbcType="VARCHAR" property="appCode" />
+    <result column="app_name" jdbcType="VARCHAR" property="appName" />
+    <result column="dir_path" jdbcType="VARCHAR" property="dirPath" />
+    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
+    <result column="company_address" jdbcType="VARCHAR" property="companyAddress" />
+    <result column="company_link_man" jdbcType="VARCHAR" property="companyLinkMan" />
+    <result column="company_tel" jdbcType="VARCHAR" property="companyTel" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="wx_corp_id" jdbcType="VARCHAR" property="wxCorpId" />
+    <result column="wx_corp_secret" jdbcType="VARCHAR" property="wxCorpSecret" />
+    <result column="wx_agent_id" jdbcType="INTEGER" property="wxAgentId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_config
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.sys.entity.SysConfig">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sys_config (default_pwd, default_url, app_code, 
+      app_name, dir_path, company_name, 
+      company_address, company_link_man, company_tel, 
+      gmt_create, gmt_modified, wx_corp_id, 
+      wx_corp_secret, wx_agent_id)
+    values (#{defaultPwd,jdbcType=VARCHAR}, #{defaultUrl,jdbcType=VARCHAR}, #{appCode,jdbcType=VARCHAR}, 
+      #{appName,jdbcType=VARCHAR}, #{dirPath,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, 
+      #{companyAddress,jdbcType=VARCHAR}, #{companyLinkMan,jdbcType=VARCHAR}, #{companyTel,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{wxCorpId,jdbcType=VARCHAR}, 
+      #{wxCorpSecret,jdbcType=VARCHAR}, #{wxAgentId,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.sys.entity.SysConfig">
+    update sys_config
+    set default_pwd = #{defaultPwd,jdbcType=VARCHAR},
+      default_url = #{defaultUrl,jdbcType=VARCHAR},
+      app_code = #{appCode,jdbcType=VARCHAR},
+      app_name = #{appName,jdbcType=VARCHAR},
+      dir_path = #{dirPath,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      company_address = #{companyAddress,jdbcType=VARCHAR},
+      company_link_man = #{companyLinkMan,jdbcType=VARCHAR},
+      company_tel = #{companyTel,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      wx_corp_id = #{wxCorpId,jdbcType=VARCHAR},
+      wx_corp_secret = #{wxCorpSecret,jdbcType=VARCHAR},
+      wx_agent_id = #{wxAgentId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, default_pwd, default_url, app_code, app_name, dir_path, company_name, 
+    company_address, company_link_man, company_tel, gmt_create, gmt_modified, wx_corp_id, 
+    wx_corp_secret, wx_agent_id
+    from sys_config
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, default_pwd, default_url, app_code, app_name, dir_path, company_name, 
+    company_address, company_link_man, company_tel, gmt_create, gmt_modified, wx_corp_id, 
+    wx_corp_secret, wx_agent_id
+    from sys_config
+    <include refid="Base_Where_List" />
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="defaultPwd != null and defaultPwd != ''">
+         AND default_pwd = #{defaultPwd}
+      </if>
+      <if test="defaultUrl != null and defaultUrl != ''">
+         AND default_url = #{defaultUrl}
+      </if>
+      <if test="appCode != null and appCode != ''">
+         AND app_code = #{appCode}
+      </if>
+      <if test="appName != null and appName != ''">
+         AND app_name = #{appName}
+      </if>
+      <if test="dirPath != null and dirPath != ''">
+         AND dir_path = #{dirPath}
+      </if>
+      <if test="companyName != null and companyName != ''">
+         AND company_name = #{companyName}
+      </if>
+      <if test="companyAddress != null and companyAddress != ''">
+         AND company_address = #{companyAddress}
+      </if>
+      <if test="companyLinkMan != null and companyLinkMan != ''">
+         AND company_link_man = #{companyLinkMan}
+      </if>
+      <if test="companyTel != null and companyTel != ''">
+         AND company_tel = #{companyTel}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="wxCorpId != null and wxCorpId != ''">
+         AND wx_corp_id = #{wxCorpId}
+      </if>
+      <if test="wxCorpSecret != null and wxCorpSecret != ''">
+         AND wx_corp_secret = #{wxCorpSecret}
+      </if>
+      <if test="wxAgentId != null">
+         AND wx_agent_id = #{wxAgentId}
+      </if>
+    </where>
+  </sql>
+</mapper>

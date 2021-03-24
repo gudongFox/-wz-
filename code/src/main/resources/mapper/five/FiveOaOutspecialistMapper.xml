@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveOaOutSpecialistMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveOaOutSpecialist">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="form_no" jdbcType="VARCHAR" property="formNo" />
+    <result column="submit_time" jdbcType="VARCHAR" property="submitTime" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="identity_card_no" jdbcType="VARCHAR" property="identityCardNo" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="position" jdbcType="VARCHAR" property="position" />
+    <result column="ranks" jdbcType="VARCHAR" property="ranks" />
+    <result column="rank_code" jdbcType="VARCHAR" property="rankCode" />
+    <result column="politics_status" jdbcType="VARCHAR" property="politicsStatus" />
+    <result column="label" jdbcType="VARCHAR" property="label" />
+    <result column="graduate_college" jdbcType="VARCHAR" property="graduateCollege" />
+    <result column="highest_education" jdbcType="VARCHAR" property="highestEducation" />
+    <result column="good" jdbcType="VARCHAR" property="good" />
+    <result column="major" jdbcType="VARCHAR" property="major" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="specialist_group" jdbcType="VARCHAR" property="specialistGroup" />
+    <result column="institution_name" jdbcType="VARCHAR" property="institutionName" />
+    <result column="company_stamp" jdbcType="VARCHAR" property="companyStamp" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_oa_out_specialist
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveOaOutSpecialist">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_oa_out_specialist (business_key, form_no, submit_time, 
+      name, identity_card_no, dept_id, 
+      dept_name, address, position, 
+      ranks, rank_code, politics_status, 
+      label, graduate_college, highest_education, 
+      good, major, phone, 
+      telephone, specialist_group, institution_name, 
+      company_stamp, remark, creator, 
+      creator_name, is_deleted, gmt_create, 
+      gmt_modified, process_instance_id, is_process_end
+      )
+    values (#{businessKey,jdbcType=VARCHAR}, #{formNo,jdbcType=VARCHAR}, #{submitTime,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{identityCardNo,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, 
+      #{deptName,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, 
+      #{ranks,jdbcType=VARCHAR}, #{rankCode,jdbcType=VARCHAR}, #{politicsStatus,jdbcType=VARCHAR}, 
+      #{label,jdbcType=VARCHAR}, #{graduateCollege,jdbcType=VARCHAR}, #{highestEducation,jdbcType=VARCHAR}, 
+      #{good,jdbcType=VARCHAR}, #{major,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{telephone,jdbcType=VARCHAR}, #{specialistGroup,jdbcType=VARCHAR}, #{institutionName,jdbcType=VARCHAR}, 
+      #{companyStamp,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{creatorName,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{processInstanceId,jdbcType=VARCHAR}, #{processEnd,jdbcType=BIT}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveOaOutSpecialist">
+    update five_oa_out_specialist
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      form_no = #{formNo,jdbcType=VARCHAR},
+      submit_time = #{submitTime,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      identity_card_no = #{identityCardNo,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      position = #{position,jdbcType=VARCHAR},
+      ranks = #{ranks,jdbcType=VARCHAR},
+      rank_code = #{rankCode,jdbcType=VARCHAR},
+      politics_status = #{politicsStatus,jdbcType=VARCHAR},
+      label = #{label,jdbcType=VARCHAR},
+      graduate_college = #{graduateCollege,jdbcType=VARCHAR},
+      highest_education = #{highestEducation,jdbcType=VARCHAR},
+      good = #{good,jdbcType=VARCHAR},
+      major = #{major,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      specialist_group = #{specialistGroup,jdbcType=VARCHAR},
+      institution_name = #{institutionName,jdbcType=VARCHAR},
+      company_stamp = #{companyStamp,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      is_process_end = #{processEnd,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, form_no, submit_time, name, identity_card_no, dept_id, dept_name, 
+    address, position, ranks, rank_code, politics_status, label, graduate_college, highest_education, 
+    good, major, phone, telephone, specialist_group, institution_name, company_stamp, 
+    remark, creator, creator_name, is_deleted, gmt_create, gmt_modified, process_instance_id, 
+    is_process_end
+    from five_oa_out_specialist
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, form_no, submit_time, name, identity_card_no, dept_id, dept_name, 
+    address, position, ranks, rank_code, politics_status, label, graduate_college, highest_education, 
+    good, major, phone, telephone, specialist_group, institution_name, company_stamp, 
+    remark, creator, creator_name, is_deleted, gmt_create, gmt_modified, process_instance_id, 
+    is_process_end
+    from five_oa_out_specialist
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and isLikeSelect==null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="formNo != null and isLikeSelect==null and formNo != ''">
+         AND form_no = #{formNo}
+      </if>
+      <if test="submitTime != null and isLikeSelect==null and submitTime != ''">
+         AND submit_time = #{submitTime}
+      </if>
+      <if test="name != null and isLikeSelect==null and name != ''">
+         AND name = #{name}
+      </if>
+      <if test="identityCardNo != null and isLikeSelect==null and identityCardNo != ''">
+         AND identity_card_no = #{identityCardNo}
+      </if>
+      <if test="deptId != null and isLikeSelect==null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and isLikeSelect==null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="address != null and isLikeSelect==null and address != ''">
+         AND address = #{address}
+      </if>
+      <if test="position != null and isLikeSelect==null and position != ''">
+         AND position = #{position}
+      </if>
+      <if test="ranks != null and isLikeSelect==null and ranks != ''">
+         AND ranks = #{ranks}
+      </if>
+      <if test="rankCode != null and isLikeSelect==null and rankCode != ''">
+         AND rank_code = #{rankCode}
+      </if>
+      <if test="politicsStatus != null and isLikeSelect==null and politicsStatus != ''">
+         AND politics_status = #{politicsStatus}
+      </if>
+      <if test="label != null and isLikeSelect==null and label != ''">
+         AND label = #{label}
+      </if>
+      <if test="graduateCollege != null and isLikeSelect==null and graduateCollege != ''">
+         AND graduate_college = #{graduateCollege}
+      </if>
+      <if test="highestEducation != null and isLikeSelect==null and highestEducation != ''">
+         AND highest_education = #{highestEducation}
+      </if>
+      <if test="good != null and isLikeSelect==null and good != ''">
+         AND good = #{good}
+      </if>
+      <if test="major != null and isLikeSelect==null and major != ''">
+         AND major = #{major}
+      </if>
+      <if test="phone != null and isLikeSelect==null and phone != ''">
+         AND phone = #{phone}
+      </if>
+      <if test="telephone != null and isLikeSelect==null and telephone != ''">
+         AND telephone = #{telephone}
+      </if>
+      <if test="specialistGroup != null and isLikeSelect==null and specialistGroup != ''">
+         AND specialist_group = #{specialistGroup}
+      </if>
+      <if test="institutionName != null and isLikeSelect==null and institutionName != ''">
+         AND institution_name = #{institutionName}
+      </if>
+      <if test="companyStamp != null and isLikeSelect==null and companyStamp != ''">
+         AND company_stamp = #{companyStamp}
+      </if>
+      <if test="remark != null and isLikeSelect==null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="processInstanceId != null and isLikeSelect==null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="processEnd != null and isLikeSelect==null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect==null">
+        AND (
+        dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+        <if test="initiator != null and initiator != ''">
+          or creator = #{initiator}
+        </if>
+        )
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="businessKey != null and isLikeSelect!= null and businessKey != '' ">
+         AND business_key like  CONCAT('%',#{businessKey},'%')
+      </if>
+      <if test="formNo != null and isLikeSelect!= null and formNo != '' ">
+         AND form_no like  CONCAT('%',#{formNo},'%')
+      </if>
+      <if test="submitTime != null and isLikeSelect!= null and submitTime != '' ">
+         AND submit_time like  CONCAT('%',#{submitTime},'%')
+      </if>
+      <if test="name != null and isLikeSelect!= null and name != '' ">
+         AND name like  CONCAT('%',#{name},'%')
+      </if>
+      <if test="identityCardNo != null and isLikeSelect!= null and identityCardNo != '' ">
+         AND identity_card_no like  CONCAT('%',#{identityCardNo},'%')
+      </if>
+      <if test="deptName != null and isLikeSelect!= null and deptName != '' ">
+         AND dept_name like  CONCAT('%',#{deptName},'%')
+      </if>
+      <if test="address != null and isLikeSelect!= null and address != '' ">
+         AND address like  CONCAT('%',#{address},'%')
+      </if>
+      <if test="position != null and isLikeSelect!= null and position != '' ">
+         AND position like  CONCAT('%',#{position},'%')
+      </if>
+      <if test="ranks != null and isLikeSelect!= null and ranks != '' ">
+         AND ranks like  CONCAT('%',#{ranks},'%')
+      </if>
+      <if test="rankCode != null and isLikeSelect!= null and rankCode != '' ">
+         AND rank_code like  CONCAT('%',#{rankCode},'%')
+      </if>
+      <if test="politicsStatus != null and isLikeSelect!= null and politicsStatus != '' ">
+         AND politics_status like  CONCAT('%',#{politicsStatus},'%')
+      </if>
+      <if test="label != null and isLikeSelect!= null and label != '' ">
+         AND label like  CONCAT('%',#{label},'%')
+      </if>
+      <if test="graduateCollege != null and isLikeSelect!= null and graduateCollege != '' ">
+         AND graduate_college like  CONCAT('%',#{graduateCollege},'%')
+      </if>
+      <if test="highestEducation != null and isLikeSelect!= null and highestEducation != '' ">
+         AND highest_education like  CONCAT('%',#{highestEducation},'%')
+      </if>
+      <if test="good != null and isLikeSelect!= null and good != '' ">
+         AND good like  CONCAT('%',#{good},'%')
+      </if>
+      <if test="major != null and isLikeSelect!= null and major != '' ">
+         AND major like  CONCAT('%',#{major},'%')
+      </if>
+      <if test="phone != null and isLikeSelect!= null and phone != '' ">
+         AND phone like  CONCAT('%',#{phone},'%')
+      </if>
+      <if test="telephone != null and isLikeSelect!= null and telephone != '' ">
+         AND telephone like  CONCAT('%',#{telephone},'%')
+      </if>
+      <if test="specialistGroup != null and isLikeSelect!= null and specialistGroup != '' ">
+         AND specialist_group like  CONCAT('%',#{specialistGroup},'%')
+      </if>
+      <if test="institutionName != null and isLikeSelect!= null and institutionName != '' ">
+         AND institution_name like  CONCAT('%',#{institutionName},'%')
+      </if>
+      <if test="companyStamp != null and isLikeSelect!= null and companyStamp != '' ">
+         AND company_stamp like  CONCAT('%',#{companyStamp},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="processInstanceId != null and isLikeSelect!= null and processInstanceId != '' ">
+         AND process_instance_id like  CONCAT('%',#{processInstanceId},'%')
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect!=null">
+        AND (
+        dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+        <if test="initiator != null and initiator != ''">
+          or creator = #{initiator}
+        </if>
+        )
+      </if>
+    </where>
+  </sql>
+</mapper>

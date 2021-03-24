@@ -1,0 +1,38 @@
+#print_area {
+    display: none;
+}
+.print_table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 14px;
+}
+.print_table td{
+    border: solid #000 1px;
+    height: 35px;
+    text-align: center;
+}
+.print_table_big {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 14px;
+}
+
+.print_table_big td{
+    border: solid #000 1px;
+    height: 45px;
+    text-align: center;
+}
+
+
+.control-label.required::after {
+    content: '* ';
+    color: red;
+    margin-left: 2px;
+}
+
+.h3{
+    text-align: center;letter-spacing:8px;color: red;
+}
+.h2{
+    text-align: center;letter-spacing:40px;color: red;
+}

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.hr.dao.HrEmployeeSysMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.hr.entity.HrEmployeeSys">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_login" jdbcType="VARCHAR" property="userLogin" />
+    <result column="wx_id" jdbcType="VARCHAR" property="wxId" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="position_ids" jdbcType="VARCHAR" property="positionIds" />
+    <result column="position_names" jdbcType="VARCHAR" property="positionNames" />
+    <result column="role_ids" jdbcType="VARCHAR" property="roleIds" />
+    <result column="role_names" jdbcType="VARCHAR" property="roleNames" />
+    <result column="config_data" jdbcType="VARCHAR" property="configData" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="cad_hide" jdbcType="VARCHAR" property="cadHide" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from hr_employee_sys
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.hr.entity.HrEmployeeSys">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into hr_employee_sys (user_login,wx_id, dept_id, password,
+      position_ids, position_names, role_ids, 
+      role_names, config_data, is_deleted, 
+      cad_hide, gmt_modified)
+    values (#{userLogin,jdbcType=VARCHAR},#{wxId,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR},
+      #{positionIds,jdbcType=VARCHAR}, #{positionNames,jdbcType=VARCHAR}, #{roleIds,jdbcType=VARCHAR}, 
+      #{roleNames,jdbcType=VARCHAR}, #{configData,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, 
+      #{cadHide,jdbcType=VARCHAR}, #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.hr.entity.HrEmployeeSys">
+    update hr_employee_sys
+    set user_login = #{userLogin,jdbcType=VARCHAR},
+      wx_id = #{wxId,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      password = #{password,jdbcType=VARCHAR},
+      position_ids = #{positionIds,jdbcType=VARCHAR},
+      position_names = #{positionNames,jdbcType=VARCHAR},
+      role_ids = #{roleIds,jdbcType=VARCHAR},
+      role_names = #{roleNames,jdbcType=VARCHAR},
+      config_data = #{configData,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      cad_hide = #{cadHide,jdbcType=VARCHAR},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, user_login, wx_id,dept_id, password, position_ids, position_names, role_ids,
+    role_names, config_data, is_deleted, cad_hide, gmt_modified
+    from hr_employee_sys
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectLastOne"  resultMap="BaseResultMap">
+    select *
+    from hr_employee_sys
+    order by id desc
+    limit 1
+  </select>
+  <select id="selectByUserLogin" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select *
+    from hr_employee_sys
+    where user_login = #{userLogin,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, user_login, wx_id,dept_id, password, position_ids, position_names, role_ids,
+    role_names, config_data, is_deleted, cad_hide, gmt_modified
+    from hr_employee_sys
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="userLogin != null and userLogin != ''">
+         AND user_login = #{userLogin}
+      </if>
+      <if test="wxId != null and wxId != ''">
+        AND wx_id = #{wxId}
+      </if>
+      <if test="deptId != null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="password != null and password != ''">
+         AND password = #{password}
+      </if>
+      <if test="positionIds != null and positionIds != ''">
+         AND position_ids = #{positionIds}
+      </if>
+      <if test="positionNames != null and positionNames != ''">
+         AND position_names = #{positionNames}
+      </if>
+      <if test="roleIds != null and roleIds != ''">
+         AND role_ids = #{roleIds}
+      </if>
+      <if test="roleNames != null and roleNames != ''">
+         AND role_names = #{roleNames}
+      </if>
+      <if test="configData != null and configData != ''">
+         AND config_data = #{configData}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="cadHide != null and cadHide != ''">
+         AND cad_hide = #{cadHide}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="positionName != null and positionName != ''">
+        AND position_names like CONCAT('%',#{positionName},'%')
+      </if>
+      <if test="positionId != null and positionId != ''">
+        AND position_ids like CONCAT('%',#{positionId},'%')
+      </if>
+      <if test="roleName != null and roleName != ''">
+        AND role_names like CONCAT('%',#{roleName},'%')
+      </if>
+    </where>
+  </sql>
+</mapper>

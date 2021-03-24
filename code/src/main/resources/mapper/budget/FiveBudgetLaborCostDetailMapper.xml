@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.budget.dao.FiveBudgetLaborCostDetailMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.budget.entity.FiveBudgetLaborCostDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="labor_cost_id" jdbcType="INTEGER" property="laborCostId" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="type_name" jdbcType="VARCHAR" property="typeName" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="budget_money" jdbcType="VARCHAR" property="budgetMoney" />
+    <result column="budget_proportion" jdbcType="VARCHAR" property="budgetProportion" />
+    <result column="seq" jdbcType="INTEGER" property="seq" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="salary_money" jdbcType="VARCHAR" property="salaryMoney" />
+    <result column="bonus_money" jdbcType="VARCHAR" property="bonusMoney" />
+    <result column="cooling_money" jdbcType="VARCHAR" property="coolingMoney" />
+    <result column="car_money" jdbcType="VARCHAR" property="carMoney" />
+    <result column="eating_money" jdbcType="VARCHAR" property="eatingMoney" />
+    <result column="health_money" jdbcType="VARCHAR" property="healthMoney" />
+    <result column="house_money" jdbcType="VARCHAR" property="houseMoney" />
+    <result column="heating_money" jdbcType="VARCHAR" property="heatingMoney" />
+    <result column="society_money" jdbcType="VARCHAR" property="societyMoney" />
+    <result column="funds_money" jdbcType="VARCHAR" property="fundsMoney" />
+    <result column="labor_union_money" jdbcType="VARCHAR" property="laborUnionMoney" />
+    <result column="education_money" jdbcType="VARCHAR" property="educationMoney" />
+    <result column="labour_service_money" jdbcType="VARCHAR" property="labourServiceMoney" />
+    <result column="other_money" jdbcType="VARCHAR" property="otherMoney" />
+    <result column="staff_number" jdbcType="VARCHAR" property="staffNumber" />
+    <result column="employee_number" jdbcType="VARCHAR" property="employeeNumber" />
+    <result column="last_year_staff" jdbcType="VARCHAR" property="lastYearStaff" />
+    <result column="last_year_employee" jdbcType="VARCHAR" property="lastYearEmployee" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_budget_labor_cost_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.budget.entity.FiveBudgetLaborCostDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_budget_labor_cost_detail (business_key, labor_cost_id, parent_id, 
+      type_name, dept_id, budget_money, 
+      budget_proportion, seq, remark, 
+      creator, creator_name, is_deleted, 
+      gmt_create, gmt_modified, salary_money, 
+      bonus_money, cooling_money, car_money, 
+      eating_money, health_money, house_money, 
+      heating_money, society_money, funds_money, 
+      labor_union_money, education_money, labour_service_money, 
+      other_money, staff_number, employee_number, 
+      last_year_staff, last_year_employee)
+    values (#{businessKey,jdbcType=VARCHAR}, #{laborCostId,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, 
+      #{typeName,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, #{budgetMoney,jdbcType=VARCHAR}, 
+      #{budgetProportion,jdbcType=VARCHAR}, #{seq,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
+      #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{salaryMoney,jdbcType=VARCHAR}, 
+      #{bonusMoney,jdbcType=VARCHAR}, #{coolingMoney,jdbcType=VARCHAR}, #{carMoney,jdbcType=VARCHAR}, 
+      #{eatingMoney,jdbcType=VARCHAR}, #{healthMoney,jdbcType=VARCHAR}, #{houseMoney,jdbcType=VARCHAR}, 
+      #{heatingMoney,jdbcType=VARCHAR}, #{societyMoney,jdbcType=VARCHAR}, #{fundsMoney,jdbcType=VARCHAR}, 
+      #{laborUnionMoney,jdbcType=VARCHAR}, #{educationMoney,jdbcType=VARCHAR}, #{labourServiceMoney,jdbcType=VARCHAR}, 
+      #{otherMoney,jdbcType=VARCHAR}, #{staffNumber,jdbcType=VARCHAR}, #{employeeNumber,jdbcType=VARCHAR}, 
+      #{lastYearStaff,jdbcType=VARCHAR}, #{lastYearEmployee,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.budget.entity.FiveBudgetLaborCostDetail">
+    update five_budget_labor_cost_detail
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      labor_cost_id = #{laborCostId,jdbcType=INTEGER},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      type_name = #{typeName,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      budget_money = #{budgetMoney,jdbcType=VARCHAR},
+      budget_proportion = #{budgetProportion,jdbcType=VARCHAR},
+      seq = #{seq,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      salary_money = #{salaryMoney,jdbcType=VARCHAR},
+      bonus_money = #{bonusMoney,jdbcType=VARCHAR},
+      cooling_money = #{coolingMoney,jdbcType=VARCHAR},
+      car_money = #{carMoney,jdbcType=VARCHAR},
+      eating_money = #{eatingMoney,jdbcType=VARCHAR},
+      health_money = #{healthMoney,jdbcType=VARCHAR},
+      house_money = #{houseMoney,jdbcType=VARCHAR},
+      heating_money = #{heatingMoney,jdbcType=VARCHAR},
+      society_money = #{societyMoney,jdbcType=VARCHAR},
+      funds_money = #{fundsMoney,jdbcType=VARCHAR},
+      labor_union_money = #{laborUnionMoney,jdbcType=VARCHAR},
+      education_money = #{educationMoney,jdbcType=VARCHAR},
+      labour_service_money = #{labourServiceMoney,jdbcType=VARCHAR},
+      other_money = #{otherMoney,jdbcType=VARCHAR},
+      staff_number = #{staffNumber,jdbcType=VARCHAR},
+      employee_number = #{employeeNumber,jdbcType=VARCHAR},
+      last_year_staff = #{lastYearStaff,jdbcType=VARCHAR},
+      last_year_employee = #{lastYearEmployee,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, labor_cost_id, parent_id, type_name, dept_id, budget_money, 
+    budget_proportion, seq, remark, creator, creator_name, is_deleted, gmt_create, gmt_modified, 
+    salary_money, bonus_money, cooling_money, car_money, eating_money, health_money, 
+    house_money, heating_money, society_money, funds_money, labor_union_money, education_money, 
+    labour_service_money, other_money, staff_number, employee_number, last_year_staff, 
+    last_year_employee
+    from five_budget_labor_cost_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, labor_cost_id, parent_id, type_name, dept_id, budget_money, 
+    budget_proportion, seq, remark, creator, creator_name, is_deleted, gmt_create, gmt_modified, 
+    salary_money, bonus_money, cooling_money, car_money, eating_money, health_money, 
+    house_money, heating_money, society_money, funds_money, labor_union_money, education_money, 
+    labour_service_money, other_money, staff_number, employee_number, last_year_staff, 
+    last_year_employee
+    from five_budget_labor_cost_detail
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and isLikeSelect==null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="laborCostId != null and isLikeSelect==null">
+         AND labor_cost_id = #{laborCostId}
+      </if>
+      <if test="parentId != null and isLikeSelect==null">
+         AND parent_id = #{parentId}
+      </if>
+      <if test="typeName != null and isLikeSelect==null and typeName != ''">
+         AND type_name = #{typeName}
+      </if>
+      <if test="deptId != null and isLikeSelect==null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="budgetMoney != null and isLikeSelect==null and budgetMoney != ''">
+         AND budget_money = #{budgetMoney}
+      </if>
+      <if test="budgetProportion != null and isLikeSelect==null and budgetProportion != ''">
+         AND budget_proportion = #{budgetProportion}
+      </if>
+      <if test="seq != null and isLikeSelect==null">
+         AND seq = #{seq}
+      </if>
+      <if test="remark != null and isLikeSelect==null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="salaryMoney != null and isLikeSelect==null and salaryMoney != ''">
+         AND salary_money = #{salaryMoney}
+      </if>
+      <if test="bonusMoney != null and isLikeSelect==null and bonusMoney != ''">
+         AND bonus_money = #{bonusMoney}
+      </if>
+      <if test="coolingMoney != null and isLikeSelect==null and coolingMoney != ''">
+         AND cooling_money = #{coolingMoney}
+      </if>
+      <if test="carMoney != null and isLikeSelect==null and carMoney != ''">
+         AND car_money = #{carMoney}
+      </if>
+      <if test="eatingMoney != null and isLikeSelect==null and eatingMoney != ''">
+         AND eating_money = #{eatingMoney}
+      </if>
+      <if test="healthMoney != null and isLikeSelect==null and healthMoney != ''">
+         AND health_money = #{healthMoney}
+      </if>
+      <if test="houseMoney != null and isLikeSelect==null and houseMoney != ''">
+         AND house_money = #{houseMoney}
+      </if>
+      <if test="heatingMoney != null and isLikeSelect==null and heatingMoney != ''">
+         AND heating_money = #{heatingMoney}
+      </if>
+      <if test="societyMoney != null and isLikeSelect==null and societyMoney != ''">
+         AND society_money = #{societyMoney}
+      </if>
+      <if test="fundsMoney != null and isLikeSelect==null and fundsMoney != ''">
+         AND funds_money = #{fundsMoney}
+      </if>
+      <if test="laborUnionMoney != null and isLikeSelect==null and laborUnionMoney != ''">
+         AND labor_union_money = #{laborUnionMoney}
+      </if>
+      <if test="educationMoney != null and isLikeSelect==null and educationMoney != ''">
+         AND education_money = #{educationMoney}
+      </if>
+      <if test="labourServiceMoney != null and isLikeSelect==null and labourServiceMoney != ''">
+         AND labour_service_money = #{labourServiceMoney}
+      </if>
+      <if test="otherMoney != null and isLikeSelect==null and otherMoney != ''">
+         AND other_money = #{otherMoney}
+      </if>
+      <if test="staffNumber != null and isLikeSelect==null and staffNumber != ''">
+         AND staff_number = #{staffNumber}
+      </if>
+      <if test="employeeNumber != null and isLikeSelect==null and employeeNumber != ''">
+         AND employee_number = #{employeeNumber}
+      </if>
+      <if test="lastYearStaff != null and isLikeSelect==null and lastYearStaff != ''">
+         AND last_year_staff = #{lastYearStaff}
+      </if>
+      <if test="lastYearEmployee != null and isLikeSelect==null and lastYearEmployee != ''">
+         AND last_year_employee = #{lastYearEmployee}
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="businessKey != null and isLikeSelect!= null and businessKey != '' ">
+         AND business_key like  CONCAT('%',#{businessKey},'%')
+      </if>
+      <if test="typeName != null and isLikeSelect!= null and typeName != '' ">
+         AND type_name like  CONCAT('%',#{typeName},'%')
+      </if>
+      <if test="budgetMoney != null and isLikeSelect!= null and budgetMoney != '' ">
+         AND budget_money like  CONCAT('%',#{budgetMoney},'%')
+      </if>
+      <if test="budgetProportion != null and isLikeSelect!= null and budgetProportion != '' ">
+         AND budget_proportion like  CONCAT('%',#{budgetProportion},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="salaryMoney != null and isLikeSelect!= null and salaryMoney != '' ">
+         AND salary_money like  CONCAT('%',#{salaryMoney},'%')
+      </if>
+      <if test="bonusMoney != null and isLikeSelect!= null and bonusMoney != '' ">
+         AND bonus_money like  CONCAT('%',#{bonusMoney},'%')
+      </if>
+      <if test="coolingMoney != null and isLikeSelect!= null and coolingMoney != '' ">
+         AND cooling_money like  CONCAT('%',#{coolingMoney},'%')
+      </if>
+      <if test="carMoney != null and isLikeSelect!= null and carMoney != '' ">
+         AND car_money like  CONCAT('%',#{carMoney},'%')
+      </if>
+      <if test="eatingMoney != null and isLikeSelect!= null and eatingMoney != '' ">
+         AND eating_money like  CONCAT('%',#{eatingMoney},'%')
+      </if>
+      <if test="healthMoney != null and isLikeSelect!= null and healthMoney != '' ">
+         AND health_money like  CONCAT('%',#{healthMoney},'%')
+      </if>
+      <if test="houseMoney != null and isLikeSelect!= null and houseMoney != '' ">
+         AND house_money like  CONCAT('%',#{houseMoney},'%')
+      </if>
+      <if test="heatingMoney != null and isLikeSelect!= null and heatingMoney != '' ">
+         AND heating_money like  CONCAT('%',#{heatingMoney},'%')
+      </if>
+      <if test="societyMoney != null and isLikeSelect!= null and societyMoney != '' ">
+         AND society_money like  CONCAT('%',#{societyMoney},'%')
+      </if>
+      <if test="fundsMoney != null and isLikeSelect!= null and fundsMoney != '' ">
+         AND funds_money like  CONCAT('%',#{fundsMoney},'%')
+      </if>
+      <if test="laborUnionMoney != null and isLikeSelect!= null and laborUnionMoney != '' ">
+         AND labor_union_money like  CONCAT('%',#{laborUnionMoney},'%')
+      </if>
+      <if test="educationMoney != null and isLikeSelect!= null and educationMoney != '' ">
+         AND education_money like  CONCAT('%',#{educationMoney},'%')
+      </if>
+      <if test="labourServiceMoney != null and isLikeSelect!= null and labourServiceMoney != '' ">
+         AND labour_service_money like  CONCAT('%',#{labourServiceMoney},'%')
+      </if>
+      <if test="otherMoney != null and isLikeSelect!= null and otherMoney != '' ">
+         AND other_money like  CONCAT('%',#{otherMoney},'%')
+      </if>
+      <if test="staffNumber != null and isLikeSelect!= null and staffNumber != '' ">
+         AND staff_number like  CONCAT('%',#{staffNumber},'%')
+      </if>
+      <if test="employeeNumber != null and isLikeSelect!= null and employeeNumber != '' ">
+         AND employee_number like  CONCAT('%',#{employeeNumber},'%')
+      </if>
+      <if test="lastYearStaff != null and isLikeSelect!= null and lastYearStaff != '' ">
+         AND last_year_staff like  CONCAT('%',#{lastYearStaff},'%')
+      </if>
+      <if test="lastYearEmployee != null and isLikeSelect!= null and lastYearEmployee != '' ">
+         AND last_year_employee like  CONCAT('%',#{lastYearEmployee},'%')
+      </if>
+    </where>
+  </sql>
+</mapper>

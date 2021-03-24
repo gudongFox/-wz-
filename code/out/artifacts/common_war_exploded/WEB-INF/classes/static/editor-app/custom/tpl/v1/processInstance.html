@@ -1,0 +1,130 @@
+﻿<div class="page-bar" id="pageBar">
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="fa fa-home"></i>
+            <a ui-sref="dashboard">流程引擎</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <span>流程实例</span>
+        </li>
+    </ul>
+</div>
+
+<div class="portlet box blue">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-note"></i> <span>流程实例</span>
+        </div>
+        <div class="actions">
+
+
+            <a href="javascript:;" class="btn btn-sm btn-default" ng-click="vm.loadPagedData();">
+                <i class="fa fa-refresh"></i> 刷新 </a>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="row">
+            <div class="col-md-12">
+
+                <label style="margin-left: 10px;">流程标识：<input type="search"
+                                                              class="form-control input-inline input-sm"
+                                                              placeholder="流程名称"
+                                                              ng-model="vm.params.modelKey"
+                                                              style="width: 150px;"></label>
+
+                <label style="margin-left: 10px;">流程名称：<input type="search"
+                                                              class="form-control input-inline input-sm"
+                                                              placeholder="流程名称"
+                                                              ng-model="vm.params.processDefinitionName"
+                                                              style="width: 150px;"></label>
+
+                <label style="margin-left: 10px;">流程类别：<select
+                        ng-options="s.code as s.name for s in vm.modelCategoryList"
+                        ng-model="vm.params.modelCategory" class="form-control input-inline input-sm"></select>
+                </label>
+            </div>
+            <div class="col-md-12">
+                <label style="margin-left: 10px;">业务标识：<input type="search"
+                                                              class="form-control input-inline input-sm"
+                                                              placeholder="业务标识"
+                                                              ng-model="vm.params.businessKey"
+                                                              style="width: 150px;"></label>
+
+
+                <label style="margin-left: 10px;">发起人员：<input type="search"
+                                                              class="form-control input-inline input-sm"
+                                                              placeholder="发起人"
+                                                              ng-model="vm.params.initiatorName" style="width: 150px;"></label>
+
+                <a class="btn green btn-sm" ng-click="vm.queryData();" style="margin-left: 10px;"><i
+                        class="fa fa-search"></i> 查询 </a>
+            </div>
+        </div>
+
+        <div class="table-scrollable">
+            <table class="table table-striped table-hover table-bordered table-advance no-footer">
+                <thead>
+                <tr>
+                    <th style="width: 40px;">#</th>
+                    <th>流程名称</th>
+                    <th style="width: 130px;">业务标识</th>
+                    <th style="width: 100px;">发起人</th>
+                    <th style="width: 150px;">开始时间</th>
+                    <th style="width: 150px;">结束时间</th>
+                    <th>流程状态</th>
+                    <th style="width: 60px;">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in vm.pageInfo.list">
+                    <td ng-bind="$index+vm.pageInfo.startRow"></td>
+                    <td>
+                                  <span ng-bind="item.instance.processDefinitionName+'('+item.instance.processDefinitionId+')'"
+                                  ></span>
+                        <i class="fa fa-image" ng-click="vm.showImage(item);"></i>
+                    </td>
+                    <td>
+                        <span ng-bind="item.instance.businessKey"></span>
+                        <i class="fa fa-trash-o font-red" title="删除数据和流程" style="margin-right: 5px;"
+                           ng-click="vm.deleteProcessDataById(item.processInstanceId);"
+                           ng-if="item.instance.endTime"></i>
+                    </td>
+                    <td ng-bind="item.initiatorName"></td>
+                    <td ng-bind="item.instance.startTime|date:'yyyy-MM-dd HH:mm'"></td>
+                    <td ng-bind="item.instance.endTime|date:'yyyy-MM-dd HH:mm'"></td>
+                    <td ng-click="vm.showDetail(item.instance.id);" ng-bind="item.currentTaskName"
+                        style="color: {{item.finished?'green':'blue'}};cursor: pointer;font-weight: bold;"></td>
+                    <td>
+                        <i class="fa fa-trash-o font-red" style="margin-left: 5px;cursor: pointer;" title="删除"
+                           ng-show="!item.finished" ng-click="vm.deleteProcessInstanceById(item.instance.id);"/>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <my-pager data-page-info="vm.pageInfo" on-load="vm.loadPagedData()"></my-pager>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="instanceImageModal">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"
+                    ng-bind="vm.item.processDefinitionName+' '+vm.item.processDefinitionId"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <img ng-src="{{'/act/processQuery/image/'+vm.item.id}}" style="width: auto;height: auto;"/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+

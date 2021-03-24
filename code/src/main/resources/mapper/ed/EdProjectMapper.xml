@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.ed.dao.EdProjectMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.ed.entity.EdProject">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="contract_id" jdbcType="VARCHAR" property="contractId" />
+    <result column="project_no" jdbcType="VARCHAR" property="projectNo" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="contract_no" jdbcType="VARCHAR" property="contractNo" />
+    <result column="project_type" jdbcType="VARCHAR" property="projectType" />
+    <result column="stage_names" jdbcType="VARCHAR" property="stageNames" />
+    <result column="charge_men" jdbcType="VARCHAR" property="chargeMen" />
+    <result column="charge_men_name" jdbcType="VARCHAR" property="chargeMenName" />
+    <result column="exe_charge_men" jdbcType="VARCHAR" property="exeChargeMen" />
+    <result column="exe_charge_men_name" jdbcType="VARCHAR" property="exeChargeMenName" />
+    <result column="seq" jdbcType="INTEGER" property="seq" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ed_project
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.ed.entity.EdProject">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ed_project (dept_id, dept_name,contract_id, project_no,
+      project_name, contract_no, project_type, 
+      stage_names, charge_men, charge_men_name, 
+      exe_charge_men, exe_charge_men_name, seq, 
+      is_deleted, gmt_create, gmt_modified, 
+      remark)
+    values (#{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR},#{contractId,jdbcType=VARCHAR},
+     #{projectNo,jdbcType=VARCHAR},
+      #{projectName,jdbcType=VARCHAR}, #{contractNo,jdbcType=VARCHAR}, #{projectType,jdbcType=VARCHAR}, 
+      #{stageNames,jdbcType=VARCHAR}, #{chargeMen,jdbcType=VARCHAR}, #{chargeMenName,jdbcType=VARCHAR}, 
+      #{exeChargeMen,jdbcType=VARCHAR}, #{exeChargeMenName,jdbcType=VARCHAR}, #{seq,jdbcType=INTEGER}, 
+      #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.ed.entity.EdProject">
+    update ed_project
+    set dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      contract_id = #{contractId,jdbcType=VARCHAR},
+      project_no = #{projectNo,jdbcType=VARCHAR},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      contract_no = #{contractNo,jdbcType=VARCHAR},
+      project_type = #{projectType,jdbcType=VARCHAR},
+      stage_names = #{stageNames,jdbcType=VARCHAR},
+      charge_men = #{chargeMen,jdbcType=VARCHAR},
+      charge_men_name = #{chargeMenName,jdbcType=VARCHAR},
+      exe_charge_men = #{exeChargeMen,jdbcType=VARCHAR},
+      exe_charge_men_name = #{exeChargeMenName,jdbcType=VARCHAR},
+      seq = #{seq,jdbcType=INTEGER},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, dept_id, dept_name, contract_id,project_no, project_name, contract_no, project_type,
+    stage_names, charge_men, charge_men_name, exe_charge_men, exe_charge_men_name, seq, 
+    is_deleted, gmt_create, gmt_modified, remark
+    from ed_project
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, dept_id, dept_name,contract_id, project_no, project_name, contract_no, project_type,
+    stage_names, charge_men, charge_men_name, exe_charge_men, exe_charge_men_name, seq, 
+    is_deleted, gmt_create, gmt_modified, remark
+    from ed_project
+    <include refid="Base_Where_List" />
+    order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="deptId != null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="contractId != null">
+        AND contract_id = #{contractId}
+      </if>
+      <if test="projectNo != null and projectNo != ''">
+         AND project_no = #{projectNo}
+      </if>
+      <if test="projectName != null and projectName != ''">
+         AND project_name = #{projectName}
+      </if>
+      <if test="contractNo != null and contractNo != ''">
+         AND contract_no = #{contractNo}
+      </if>
+      <if test="projectType != null and projectType != ''">
+         AND project_type = #{projectType}
+      </if>
+      <if test="stageNames != null and stageNames != ''">
+         AND stage_names = #{stageNames}
+      </if>
+      <if test="chargeMen != null and chargeMen != ''">
+         AND charge_men = #{chargeMen}
+      </if>
+      <if test="chargeMenName != null and chargeMenName != ''">
+         AND charge_men_name = #{chargeMenName}
+      </if>
+      <if test="exeChargeMen != null and exeChargeMen != ''">
+         AND exe_charge_men = #{exeChargeMen}
+      </if>
+      <if test="exeChargeMenName != null and exeChargeMenName != ''">
+         AND exe_charge_men_name = #{exeChargeMenName}
+      </if>
+      <if test="seq != null">
+         AND seq = #{seq}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+    </where>
+  </sql>
+
+  <select id="listAttendProject" parameterType="java.lang.String" resultMap="BaseResultMap">
+      select * from ed_project where is_deleted=0 and
+      (charge_men like CONCAT('%,',#{userLogin},',%') or exe_charge_men like CONCAT('%,',#{userLogin},',%') or id in  ( select project_id from ed_project_step where attend_user like CONCAT('%,',#{userLogin},',%')))
+      order by seq asc
+     </select>
+
+
+</mapper>

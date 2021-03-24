@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.common.dao.CommonActActionMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.common.entity.CommonActAction">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="tenet_id" jdbcType="VARCHAR" property="tenetId" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="en_login" jdbcType="VARCHAR" property="enLogin" />
+    <result column="action_name" jdbcType="VARCHAR" property="actionName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from common_act_action
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.common.entity.CommonActAction">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into common_act_action (tenet_id, process_instance_id, en_login, 
+      action_name, is_deleted, gmt_create, 
+      gmt_modified)
+    values (#{tenetId,jdbcType=VARCHAR}, #{processInstanceId,jdbcType=VARCHAR}, #{enLogin,jdbcType=VARCHAR}, 
+      #{actionName,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.common.entity.CommonActAction">
+    update common_act_action
+    set tenet_id = #{tenetId,jdbcType=VARCHAR},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      en_login = #{enLogin,jdbcType=VARCHAR},
+      action_name = #{actionName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, tenet_id, process_instance_id, en_login, action_name, is_deleted, gmt_create, 
+    gmt_modified
+    from common_act_action
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="getModel" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select id, tenet_id, process_instance_id, en_login, action_name, is_deleted, gmt_create,
+    gmt_modified
+    from common_act_action
+    where
+    tenet_id = #{tenetId,jdbcType=VARCHAR}
+    and  en_login = #{enLogin,jdbcType=VARCHAR}
+    and  process_instance_id = #{processInstanceId,jdbcType=VARCHAR}
+    limit 1
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, tenet_id, process_instance_id, en_login, action_name, is_deleted, gmt_create, 
+    gmt_modified
+    from common_act_action
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="tenetId != null and tenetId != ''">
+         AND tenet_id = #{tenetId}
+      </if>
+      <if test="processInstanceId != null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="enLogin != null and enLogin != ''">
+         AND en_login = #{enLogin}
+      </if>
+      <if test="actionName != null and actionName != ''">
+         AND action_name = #{actionName}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+    </where>
+  </sql>
+</mapper>

@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveOaPressurePipSealExamineMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveOaPressurePipSealExamine">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="form_no" jdbcType="VARCHAR" property="formNo" />
+    <result column="seal" jdbcType="VARCHAR" property="seal" />
+    <result column="apply_man" jdbcType="VARCHAR" property="applyMan" />
+    <result column="apply_man_name" jdbcType="VARCHAR" property="applyManName" />
+    <result column="apply_man_link" jdbcType="VARCHAR" property="applyManLink" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="use_time" jdbcType="VARCHAR" property="useTime" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="pip_draw_name" jdbcType="VARCHAR" property="pipDrawName" />
+    <result column="draw_complete_time" jdbcType="VARCHAR" property="drawCompleteTime" />
+    <result column="pressure_pip_type" jdbcType="VARCHAR" property="pressurePipType" />
+    <result column="draw_num" jdbcType="VARCHAR" property="drawNum" />
+    <result column="dept_charge_man" jdbcType="VARCHAR" property="deptChargeMan" />
+    <result column="dept_charge_man_name" jdbcType="VARCHAR" property="deptChargeManName" />
+    <result column="dept_charge_man_comment" jdbcType="VARCHAR" property="deptChargeManComment" />
+    <result column="pressure_pip_charge_man" jdbcType="VARCHAR" property="pressurePipChargeMan" />
+    <result column="pressure_pip_charge_man_name" jdbcType="VARCHAR" property="pressurePipChargeManName" />
+    <result column="pressure_pip_charge_man_comment" jdbcType="VARCHAR" property="pressurePipChargeManComment" />
+    <result column="technology_charge_man" jdbcType="VARCHAR" property="technologyChargeMan" />
+    <result column="technology_charge_man_name" jdbcType="VARCHAR" property="technologyChargeManName" />
+    <result column="technology_charge_man_comment" jdbcType="VARCHAR" property="technologyChargeManComment" />
+    <result column="seal_man" jdbcType="VARCHAR" property="sealMan" />
+    <result column="seal_man_name" jdbcType="VARCHAR" property="sealManName" />
+    <result column="supervise_man" jdbcType="VARCHAR" property="superviseMan" />
+    <result column="supervise_man_name" jdbcType="VARCHAR" property="superviseManName" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_oa_pressure_pip_seal_examine
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveOaPressurePipSealExamine">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_oa_pressure_pip_seal_examine (business_key, form_no, seal, 
+      apply_man, apply_man_name, apply_man_link, 
+      dept_id, dept_name, use_time, 
+      project_name, pip_draw_name, draw_complete_time, 
+      pressure_pip_type, draw_num, dept_charge_man, 
+      dept_charge_man_name, dept_charge_man_comment, 
+      pressure_pip_charge_man, pressure_pip_charge_man_name, 
+      pressure_pip_charge_man_comment, technology_charge_man, 
+      technology_charge_man_name, technology_charge_man_comment, 
+      seal_man, seal_man_name, supervise_man, 
+      supervise_man_name, remark, creator, 
+      creator_name, is_deleted, gmt_create, 
+      gmt_modified, process_instance_id, is_process_end
+      )
+    values (#{businessKey,jdbcType=VARCHAR}, #{formNo,jdbcType=VARCHAR}, #{seal,jdbcType=VARCHAR}, 
+      #{applyMan,jdbcType=VARCHAR}, #{applyManName,jdbcType=VARCHAR}, #{applyManLink,jdbcType=VARCHAR}, 
+      #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, #{useTime,jdbcType=VARCHAR}, 
+      #{projectName,jdbcType=VARCHAR}, #{pipDrawName,jdbcType=VARCHAR}, #{drawCompleteTime,jdbcType=VARCHAR}, 
+      #{pressurePipType,jdbcType=VARCHAR}, #{drawNum,jdbcType=VARCHAR}, #{deptChargeMan,jdbcType=VARCHAR}, 
+      #{deptChargeManName,jdbcType=VARCHAR}, #{deptChargeManComment,jdbcType=VARCHAR}, 
+      #{pressurePipChargeMan,jdbcType=VARCHAR}, #{pressurePipChargeManName,jdbcType=VARCHAR}, 
+      #{pressurePipChargeManComment,jdbcType=VARCHAR}, #{technologyChargeMan,jdbcType=VARCHAR}, 
+      #{technologyChargeManName,jdbcType=VARCHAR}, #{technologyChargeManComment,jdbcType=VARCHAR}, 
+      #{sealMan,jdbcType=VARCHAR}, #{sealManName,jdbcType=VARCHAR}, #{superviseMan,jdbcType=VARCHAR}, 
+      #{superviseManName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{creatorName,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{processInstanceId,jdbcType=VARCHAR}, #{processEnd,jdbcType=BIT}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveOaPressurePipSealExamine">
+    update five_oa_pressure_pip_seal_examine
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      form_no = #{formNo,jdbcType=VARCHAR},
+      seal = #{seal,jdbcType=VARCHAR},
+      apply_man = #{applyMan,jdbcType=VARCHAR},
+      apply_man_name = #{applyManName,jdbcType=VARCHAR},
+      apply_man_link = #{applyManLink,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      use_time = #{useTime,jdbcType=VARCHAR},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      pip_draw_name = #{pipDrawName,jdbcType=VARCHAR},
+      draw_complete_time = #{drawCompleteTime,jdbcType=VARCHAR},
+      pressure_pip_type = #{pressurePipType,jdbcType=VARCHAR},
+      draw_num = #{drawNum,jdbcType=VARCHAR},
+      dept_charge_man = #{deptChargeMan,jdbcType=VARCHAR},
+      dept_charge_man_name = #{deptChargeManName,jdbcType=VARCHAR},
+      dept_charge_man_comment = #{deptChargeManComment,jdbcType=VARCHAR},
+      pressure_pip_charge_man = #{pressurePipChargeMan,jdbcType=VARCHAR},
+      pressure_pip_charge_man_name = #{pressurePipChargeManName,jdbcType=VARCHAR},
+      pressure_pip_charge_man_comment = #{pressurePipChargeManComment,jdbcType=VARCHAR},
+      technology_charge_man = #{technologyChargeMan,jdbcType=VARCHAR},
+      technology_charge_man_name = #{technologyChargeManName,jdbcType=VARCHAR},
+      technology_charge_man_comment = #{technologyChargeManComment,jdbcType=VARCHAR},
+      seal_man = #{sealMan,jdbcType=VARCHAR},
+      seal_man_name = #{sealManName,jdbcType=VARCHAR},
+      supervise_man = #{superviseMan,jdbcType=VARCHAR},
+      supervise_man_name = #{superviseManName,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      is_process_end = #{processEnd,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, form_no, seal, apply_man, apply_man_name, apply_man_link, 
+    dept_id, dept_name, use_time, project_name, pip_draw_name, draw_complete_time, pressure_pip_type, 
+    draw_num, dept_charge_man, dept_charge_man_name, dept_charge_man_comment, pressure_pip_charge_man, 
+    pressure_pip_charge_man_name, pressure_pip_charge_man_comment, technology_charge_man, 
+    technology_charge_man_name, technology_charge_man_comment, seal_man, seal_man_name, 
+    supervise_man, supervise_man_name, remark, creator, creator_name, is_deleted, gmt_create, 
+    gmt_modified, process_instance_id, is_process_end
+    from five_oa_pressure_pip_seal_examine
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, form_no, seal, apply_man, apply_man_name, apply_man_link, 
+    dept_id, dept_name, use_time, project_name, pip_draw_name, draw_complete_time, pressure_pip_type, 
+    draw_num, dept_charge_man, dept_charge_man_name, dept_charge_man_comment, pressure_pip_charge_man, 
+    pressure_pip_charge_man_name, pressure_pip_charge_man_comment, technology_charge_man, 
+    technology_charge_man_name, technology_charge_man_comment, seal_man, seal_man_name, 
+    supervise_man, supervise_man_name, remark, creator, creator_name, is_deleted, gmt_create, 
+    gmt_modified, process_instance_id, is_process_end
+    from five_oa_pressure_pip_seal_examine
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and isLikeSelect==null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="formNo != null and isLikeSelect==null and formNo != ''">
+         AND form_no = #{formNo}
+      </if>
+      <if test="seal != null and isLikeSelect==null and seal != ''">
+         AND seal = #{seal}
+      </if>
+      <if test="applyMan != null and isLikeSelect==null and applyMan != ''">
+         AND apply_man = #{applyMan}
+      </if>
+      <if test="applyManName != null and isLikeSelect==null and applyManName != ''">
+         AND apply_man_name = #{applyManName}
+      </if>
+      <if test="applyManLink != null and isLikeSelect==null and applyManLink != ''">
+         AND apply_man_link = #{applyManLink}
+      </if>
+      <if test="deptId != null and isLikeSelect==null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and isLikeSelect==null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="useTime != null and isLikeSelect==null and useTime != ''">
+         AND use_time = #{useTime}
+      </if>
+      <if test="projectName != null and isLikeSelect==null and projectName != ''">
+         AND project_name = #{projectName}
+      </if>
+      <if test="pipDrawName != null and isLikeSelect==null and pipDrawName != ''">
+         AND pip_draw_name = #{pipDrawName}
+      </if>
+      <if test="drawCompleteTime != null and isLikeSelect==null and drawCompleteTime != ''">
+         AND draw_complete_time = #{drawCompleteTime}
+      </if>
+      <if test="pressurePipType != null and isLikeSelect==null and pressurePipType != ''">
+         AND pressure_pip_type = #{pressurePipType}
+      </if>
+      <if test="drawNum != null and isLikeSelect==null and drawNum != ''">
+         AND draw_num = #{drawNum}
+      </if>
+      <if test="deptChargeMan != null and isLikeSelect==null and deptChargeMan != ''">
+         AND dept_charge_man = #{deptChargeMan}
+      </if>
+      <if test="deptChargeManName != null and isLikeSelect==null and deptChargeManName != ''">
+         AND dept_charge_man_name = #{deptChargeManName}
+      </if>
+      <if test="deptChargeManComment != null and isLikeSelect==null and deptChargeManComment != ''">
+         AND dept_charge_man_comment = #{deptChargeManComment}
+      </if>
+      <if test="pressurePipChargeMan != null and isLikeSelect==null and pressurePipChargeMan != ''">
+         AND pressure_pip_charge_man = #{pressurePipChargeMan}
+      </if>
+      <if test="pressurePipChargeManName != null and isLikeSelect==null and pressurePipChargeManName != ''">
+         AND pressure_pip_charge_man_name = #{pressurePipChargeManName}
+      </if>
+      <if test="pressurePipChargeManComment != null and isLikeSelect==null and pressurePipChargeManComment != ''">
+         AND pressure_pip_charge_man_comment = #{pressurePipChargeManComment}
+      </if>
+      <if test="technologyChargeMan != null and isLikeSelect==null and technologyChargeMan != ''">
+         AND technology_charge_man = #{technologyChargeMan}
+      </if>
+      <if test="technologyChargeManName != null and isLikeSelect==null and technologyChargeManName != ''">
+         AND technology_charge_man_name = #{technologyChargeManName}
+      </if>
+      <if test="technologyChargeManComment != null and isLikeSelect==null and technologyChargeManComment != ''">
+         AND technology_charge_man_comment = #{technologyChargeManComment}
+      </if>
+      <if test="sealMan != null and isLikeSelect==null and sealMan != ''">
+         AND seal_man = #{sealMan}
+      </if>
+      <if test="sealManName != null and isLikeSelect==null and sealManName != ''">
+         AND seal_man_name = #{sealManName}
+      </if>
+      <if test="superviseMan != null and isLikeSelect==null and superviseMan != ''">
+         AND supervise_man = #{superviseMan}
+      </if>
+      <if test="superviseManName != null and isLikeSelect==null and superviseManName != ''">
+         AND supervise_man_name = #{superviseManName}
+      </if>
+      <if test="remark != null and isLikeSelect==null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="processInstanceId != null and isLikeSelect==null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="processEnd != null and isLikeSelect==null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect==null">
+        AND (
+        dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+        <if test="initiator != null and initiator != ''">
+          or creator = #{initiator}
+        </if>
+        )
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="businessKey != null and isLikeSelect!= null and businessKey != '' ">
+         AND business_key like  CONCAT('%',#{businessKey},'%')
+      </if>
+      <if test="formNo != null and isLikeSelect!= null and formNo != '' ">
+         AND form_no like  CONCAT('%',#{formNo},'%')
+      </if>
+      <if test="seal != null and isLikeSelect!= null and seal != '' ">
+         AND seal like  CONCAT('%',#{seal},'%')
+      </if>
+      <if test="applyMan != null and isLikeSelect!= null and applyMan != '' ">
+         AND apply_man like  CONCAT('%',#{applyMan},'%')
+      </if>
+      <if test="applyManName != null and isLikeSelect!= null and applyManName != '' ">
+         AND apply_man_name like  CONCAT('%',#{applyManName},'%')
+      </if>
+      <if test="applyManLink != null and isLikeSelect!= null and applyManLink != '' ">
+         AND apply_man_link like  CONCAT('%',#{applyManLink},'%')
+      </if>
+      <if test="deptName != null and isLikeSelect!= null and deptName != '' ">
+         AND dept_name like  CONCAT('%',#{deptName},'%')
+      </if>
+      <if test="useTime != null and isLikeSelect!= null and useTime != '' ">
+         AND use_time like  CONCAT('%',#{useTime},'%')
+      </if>
+      <if test="projectName != null and isLikeSelect!= null and projectName != '' ">
+         AND project_name like  CONCAT('%',#{projectName},'%')
+      </if>
+      <if test="pipDrawName != null and isLikeSelect!= null and pipDrawName != '' ">
+         AND pip_draw_name like  CONCAT('%',#{pipDrawName},'%')
+      </if>
+      <if test="drawCompleteTime != null and isLikeSelect!= null and drawCompleteTime != '' ">
+         AND draw_complete_time like  CONCAT('%',#{drawCompleteTime},'%')
+      </if>
+      <if test="pressurePipType != null and isLikeSelect!= null and pressurePipType != '' ">
+         AND pressure_pip_type like  CONCAT('%',#{pressurePipType},'%')
+      </if>
+      <if test="drawNum != null and isLikeSelect!= null and drawNum != '' ">
+         AND draw_num like  CONCAT('%',#{drawNum},'%')
+      </if>
+      <if test="deptChargeMan != null and isLikeSelect!= null and deptChargeMan != '' ">
+         AND dept_charge_man like  CONCAT('%',#{deptChargeMan},'%')
+      </if>
+      <if test="deptChargeManName != null and isLikeSelect!= null and deptChargeManName != '' ">
+         AND dept_charge_man_name like  CONCAT('%',#{deptChargeManName},'%')
+      </if>
+      <if test="deptChargeManComment != null and isLikeSelect!= null and deptChargeManComment != '' ">
+         AND dept_charge_man_comment like  CONCAT('%',#{deptChargeManComment},'%')
+      </if>
+      <if test="pressurePipChargeMan != null and isLikeSelect!= null and pressurePipChargeMan != '' ">
+         AND pressure_pip_charge_man like  CONCAT('%',#{pressurePipChargeMan},'%')
+      </if>
+      <if test="pressurePipChargeManName != null and isLikeSelect!= null and pressurePipChargeManName != '' ">
+         AND pressure_pip_charge_man_name like  CONCAT('%',#{pressurePipChargeManName},'%')
+      </if>
+      <if test="pressurePipChargeManComment != null and isLikeSelect!= null and pressurePipChargeManComment != '' ">
+         AND pressure_pip_charge_man_comment like  CONCAT('%',#{pressurePipChargeManComment},'%')
+      </if>
+      <if test="technologyChargeMan != null and isLikeSelect!= null and technologyChargeMan != '' ">
+         AND technology_charge_man like  CONCAT('%',#{technologyChargeMan},'%')
+      </if>
+      <if test="technologyChargeManName != null and isLikeSelect!= null and technologyChargeManName != '' ">
+         AND technology_charge_man_name like  CONCAT('%',#{technologyChargeManName},'%')
+      </if>
+      <if test="technologyChargeManComment != null and isLikeSelect!= null and technologyChargeManComment != '' ">
+         AND technology_charge_man_comment like  CONCAT('%',#{technologyChargeManComment},'%')
+      </if>
+      <if test="sealMan != null and isLikeSelect!= null and sealMan != '' ">
+         AND seal_man like  CONCAT('%',#{sealMan},'%')
+      </if>
+      <if test="sealManName != null and isLikeSelect!= null and sealManName != '' ">
+         AND seal_man_name like  CONCAT('%',#{sealManName},'%')
+      </if>
+      <if test="superviseMan != null and isLikeSelect!= null and superviseMan != '' ">
+         AND supervise_man like  CONCAT('%',#{superviseMan},'%')
+      </if>
+      <if test="superviseManName != null and isLikeSelect!= null and superviseManName != '' ">
+         AND supervise_man_name like  CONCAT('%',#{superviseManName},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="processInstanceId != null and isLikeSelect!= null and processInstanceId != '' ">
+         AND process_instance_id like  CONCAT('%',#{processInstanceId},'%')
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="deptId != null and isLikeSelect!=null">
+        AND dept_id = #{deptId}
+      </if>
+
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect!=null">
+        AND (
+        dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+        <if test="initiator != null and initiator != ''">
+          or creator = #{initiator}
+        </if>
+        )
+      </if>
+    </where>
+  </sql>
+</mapper>

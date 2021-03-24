@@ -1,0 +1,63 @@
+<div class="form-group row" style="margin-bottom: 0.5rem;">
+    <div ng-repeat="item in group.items"
+         ng-class="{true:'col-md-6',false:'col-md-12'}[item.commonFormDetail.inputSize==6]"
+         style="margin-bottom: 0.5rem;" ng-if="!item.commonFormDetail.detailHidden">
+        <label>
+          <span ng-bind="item.commonFormDetail.inputText"></span> <span style="color: red;" ng-if="item.commonFormDetail.required">*</span>
+        </label>
+
+        <input ng-if="item.commonFormDetail.inputType=='text'" type="text" class="form-control"
+               placeholder="{{item.commonFormDetail.inputTip}}" ng-model="item.inputValue"
+               ng-disabled="!item.commonFormDetail.editable"/>
+
+
+        <input ng-if="item.commonFormDetail.inputType=='number'" type="number" class="form-control"
+               placeholder="{{item.commonFormDetail.inputTip}}" ng-model="item.inputValue"
+               ng-disabled="!item.commonFormDetail.editable"/>
+
+        <select ng-if="item.commonFormDetail.inputType=='select'&&!item.inputConfigDto.multiple"
+                ng-options="s.code as s.name for s in item.dataSource"
+                class="form-control kt-selectpicker" placeholder="{{item.commonFormDetail.inputTip}}"
+                ng-model="item.inputValue"
+                ng-disabled="!item.commonFormDetail.editable"/>
+
+
+        <select class="form-control kt-select2"
+                ng-if="item.commonFormDetail.inputType=='select'&&item.inputConfigDto.multiple"
+                ng-disabled="!item.commonFormDetail.editable"
+                name="{{item.commonFormDetail.inputCode}}"
+                multiple>
+            <option ng-repeat="cv in item.dataSource" ng-bind="cv.name" ng-value="cv.code"
+                    ng-selected="item.inputValue.indexOf(cv.code)>=0"></option>
+        </select>
+
+
+        <textarea ng-if="item.commonFormDetail.inputType=='textarea'" class="form-control"
+                  placeholder="{{item.commonFormDetail.inputTip}}"
+                  ng-model="item.inputValue" rows="{{item.inputConfigDto.rows}}"
+                  ng-disabled="!item.commonFormDetail.editable"/>
+
+
+        <div class="input-group date" ng-if="item.commonFormDetail.inputType=='date'">
+            <input type="text" class="form-control date-picker" readonly=""
+                   placeholder="{{item.commonFormDetail.inputTip}}" ng-model="item.inputValue"
+                   ng-disabled="!item.commonFormDetail.editable">
+            <div class="input-group-append">
+                    <span class="input-group-text">
+                        <i class="la la-calendar-check-o"></i>
+                    </span>
+            </div>
+        </div>
+
+        <div class="input-group" ng-if="item.commonFormDetail.inputType=='user'">
+            <input type="text" class="form-control" placeholder="{{item.commonFormDetail.inputTip}}"  ng-model="item.inputValue"  disabled="disabled" />
+            <div class="input-group-append">
+                <span class="input-group-text">
+                <i class="la la-user" style="color: blue;" ng-click="showFormSelectUser(item,group);" ng-show="item.commonFormDetail.editable"></i>
+                 <i class="la la-user" ng-show="!item.commonFormDetail.editable"></i>
+                </span>
+            </div>
+        </div>
+        <span class="form-text text-muted" ng-bind="item.commonFormDetail.inputTip" ng-show="item.inputConfigDto.underTip"></span>
+    </div>
+</div>

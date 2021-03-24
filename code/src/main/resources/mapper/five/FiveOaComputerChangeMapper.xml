@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveOaComputerChangeMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveOaComputerChange">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="asset_id" jdbcType="INTEGER" property="assetId" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="computer_no" jdbcType="VARCHAR" property="computerNo" />
+    <result column="computer_name" jdbcType="VARCHAR" property="computerName" />
+    <result column="asset_no" jdbcType="VARCHAR" property="assetNo" />
+    <result column="mac_address" jdbcType="VARCHAR" property="macAddress" />
+    <result column="apply_user_login" jdbcType="VARCHAR" property="applyUserLogin" />
+    <result column="apply_user_name" jdbcType="VARCHAR" property="applyUserName" />
+    <result column="apply_phone" jdbcType="VARCHAR" property="applyPhone" />
+    <result column="reason" jdbcType="VARCHAR" property="reason" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="duty_name" jdbcType="VARCHAR" property="dutyName" />
+    <result column="duty_login" jdbcType="VARCHAR" property="dutyLogin" />
+    <result column="duty_security" jdbcType="VARCHAR" property="dutySecurity" />
+    <result column="duty_dept_id" jdbcType="INTEGER" property="dutyDeptId" />
+    <result column="duty_dept_name" jdbcType="VARCHAR" property="dutyDeptName" />
+    <result column="users_name" jdbcType="VARCHAR" property="usersName" />
+    <result column="users_login" jdbcType="VARCHAR" property="usersLogin" />
+    <result column="users_securty" jdbcType="VARCHAR" property="usersSecurty" />
+    <result column="users_dept_id" jdbcType="INTEGER" property="usersDeptId" />
+    <result column="users_dept_name" jdbcType="VARCHAR" property="usersDeptName" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="use_situation" jdbcType="VARCHAR" property="useSituation" />
+    <result column="use_way" jdbcType="VARCHAR" property="useWay" />
+    <result column="use_type" jdbcType="VARCHAR" property="useType" />
+    <result column="network" jdbcType="VARCHAR" property="network" />
+    <result column="room" jdbcType="VARCHAR" property="room" />
+    <result column="hard_disk" jdbcType="VARCHAR" property="hardDisk" />
+    <result column="usb" jdbcType="VARCHAR" property="usb" />
+    <result column="new_duty_name" jdbcType="VARCHAR" property="newDutyName" />
+    <result column="new_duty_login" jdbcType="VARCHAR" property="newDutyLogin" />
+    <result column="new_duty_security" jdbcType="VARCHAR" property="newDutySecurity" />
+    <result column="new_duty_dept_id" jdbcType="INTEGER" property="newDutyDeptId" />
+    <result column="new_duty_dept_name" jdbcType="VARCHAR" property="newDutyDeptName" />
+    <result column="new_users_name" jdbcType="VARCHAR" property="newUsersName" />
+    <result column="new_users_login" jdbcType="VARCHAR" property="newUsersLogin" />
+    <result column="new_users_securty" jdbcType="VARCHAR" property="newUsersSecurty" />
+    <result column="new_users_dept_id" jdbcType="INTEGER" property="newUsersDeptId" />
+    <result column="new_users_dept_name" jdbcType="VARCHAR" property="newUsersDeptName" />
+    <result column="new_dept_id" jdbcType="INTEGER" property="newDeptId" />
+    <result column="new_dept_name" jdbcType="VARCHAR" property="newDeptName" />
+    <result column="new_use_situation" jdbcType="VARCHAR" property="newUseSituation" />
+    <result column="new_use_way" jdbcType="VARCHAR" property="newUseWay" />
+    <result column="new_use_type" jdbcType="VARCHAR" property="newUseType" />
+    <result column="new_network" jdbcType="VARCHAR" property="newNetwork" />
+    <result column="new_room" jdbcType="VARCHAR" property="newRoom" />
+    <result column="new_hard_disk" jdbcType="VARCHAR" property="newHardDisk" />
+    <result column="new_usb" jdbcType="VARCHAR" property="newUsb" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_oa_computer_change
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveOaComputerChange">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_oa_computer_change (asset_id, business_key, computer_no, 
+      computer_name, asset_no, mac_address, 
+      apply_user_login, apply_user_name, apply_phone, 
+      reason, creator, creator_name, 
+      gmt_create, gmt_modified, is_deleted, 
+      is_process_end, process_instance_id, duty_name, 
+      duty_login, duty_security, duty_dept_id, 
+      duty_dept_name, users_name, users_login, 
+      users_securty, users_dept_id, users_dept_name, 
+      dept_id, dept_name, use_situation, 
+      use_way, use_type, network, 
+      room, hard_disk, usb, 
+      new_duty_name, new_duty_login, new_duty_security, 
+      new_duty_dept_id, new_duty_dept_name, new_users_name, 
+      new_users_login, new_users_securty, new_users_dept_id, 
+      new_users_dept_name, new_dept_id, new_dept_name, 
+      new_use_situation, new_use_way, new_use_type, 
+      new_network, new_room, new_hard_disk, 
+      new_usb)
+    values (#{assetId,jdbcType=INTEGER}, #{businessKey,jdbcType=VARCHAR}, #{computerNo,jdbcType=VARCHAR}, 
+      #{computerName,jdbcType=VARCHAR}, #{assetNo,jdbcType=VARCHAR}, #{macAddress,jdbcType=VARCHAR}, 
+      #{applyUserLogin,jdbcType=VARCHAR}, #{applyUserName,jdbcType=VARCHAR}, #{applyPhone,jdbcType=VARCHAR}, 
+      #{reason,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}, 
+      #{processEnd,jdbcType=BIT}, #{processInstanceId,jdbcType=VARCHAR}, #{dutyName,jdbcType=VARCHAR}, 
+      #{dutyLogin,jdbcType=VARCHAR}, #{dutySecurity,jdbcType=VARCHAR}, #{dutyDeptId,jdbcType=INTEGER}, 
+      #{dutyDeptName,jdbcType=VARCHAR}, #{usersName,jdbcType=VARCHAR}, #{usersLogin,jdbcType=VARCHAR}, 
+      #{usersSecurty,jdbcType=VARCHAR}, #{usersDeptId,jdbcType=INTEGER}, #{usersDeptName,jdbcType=VARCHAR}, 
+      #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, #{useSituation,jdbcType=VARCHAR}, 
+      #{useWay,jdbcType=VARCHAR}, #{useType,jdbcType=VARCHAR}, #{network,jdbcType=VARCHAR}, 
+      #{room,jdbcType=VARCHAR}, #{hardDisk,jdbcType=VARCHAR}, #{usb,jdbcType=VARCHAR}, 
+      #{newDutyName,jdbcType=VARCHAR}, #{newDutyLogin,jdbcType=VARCHAR}, #{newDutySecurity,jdbcType=VARCHAR}, 
+      #{newDutyDeptId,jdbcType=INTEGER}, #{newDutyDeptName,jdbcType=VARCHAR}, #{newUsersName,jdbcType=VARCHAR}, 
+      #{newUsersLogin,jdbcType=VARCHAR}, #{newUsersSecurty,jdbcType=VARCHAR}, #{newUsersDeptId,jdbcType=INTEGER}, 
+      #{newUsersDeptName,jdbcType=VARCHAR}, #{newDeptId,jdbcType=INTEGER}, #{newDeptName,jdbcType=VARCHAR}, 
+      #{newUseSituation,jdbcType=VARCHAR}, #{newUseWay,jdbcType=VARCHAR}, #{newUseType,jdbcType=VARCHAR}, 
+      #{newNetwork,jdbcType=VARCHAR}, #{newRoom,jdbcType=VARCHAR}, #{newHardDisk,jdbcType=VARCHAR}, 
+      #{newUsb,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveOaComputerChange">
+    update five_oa_computer_change
+    set asset_id = #{assetId,jdbcType=INTEGER},
+      business_key = #{businessKey,jdbcType=VARCHAR},
+      computer_no = #{computerNo,jdbcType=VARCHAR},
+      computer_name = #{computerName,jdbcType=VARCHAR},
+      asset_no = #{assetNo,jdbcType=VARCHAR},
+      mac_address = #{macAddress,jdbcType=VARCHAR},
+      apply_user_login = #{applyUserLogin,jdbcType=VARCHAR},
+      apply_user_name = #{applyUserName,jdbcType=VARCHAR},
+      apply_phone = #{applyPhone,jdbcType=VARCHAR},
+      reason = #{reason,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      is_deleted = #{deleted,jdbcType=BIT},
+      is_process_end = #{processEnd,jdbcType=BIT},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      duty_name = #{dutyName,jdbcType=VARCHAR},
+      duty_login = #{dutyLogin,jdbcType=VARCHAR},
+      duty_security = #{dutySecurity,jdbcType=VARCHAR},
+      duty_dept_id = #{dutyDeptId,jdbcType=INTEGER},
+      duty_dept_name = #{dutyDeptName,jdbcType=VARCHAR},
+      users_name = #{usersName,jdbcType=VARCHAR},
+      users_login = #{usersLogin,jdbcType=VARCHAR},
+      users_securty = #{usersSecurty,jdbcType=VARCHAR},
+      users_dept_id = #{usersDeptId,jdbcType=INTEGER},
+      users_dept_name = #{usersDeptName,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      use_situation = #{useSituation,jdbcType=VARCHAR},
+      use_way = #{useWay,jdbcType=VARCHAR},
+      use_type = #{useType,jdbcType=VARCHAR},
+      network = #{network,jdbcType=VARCHAR},
+      room = #{room,jdbcType=VARCHAR},
+      hard_disk = #{hardDisk,jdbcType=VARCHAR},
+      usb = #{usb,jdbcType=VARCHAR},
+      new_duty_name = #{newDutyName,jdbcType=VARCHAR},
+      new_duty_login = #{newDutyLogin,jdbcType=VARCHAR},
+      new_duty_security = #{newDutySecurity,jdbcType=VARCHAR},
+      new_duty_dept_id = #{newDutyDeptId,jdbcType=INTEGER},
+      new_duty_dept_name = #{newDutyDeptName,jdbcType=VARCHAR},
+      new_users_name = #{newUsersName,jdbcType=VARCHAR},
+      new_users_login = #{newUsersLogin,jdbcType=VARCHAR},
+      new_users_securty = #{newUsersSecurty,jdbcType=VARCHAR},
+      new_users_dept_id = #{newUsersDeptId,jdbcType=INTEGER},
+      new_users_dept_name = #{newUsersDeptName,jdbcType=VARCHAR},
+      new_dept_id = #{newDeptId,jdbcType=INTEGER},
+      new_dept_name = #{newDeptName,jdbcType=VARCHAR},
+      new_use_situation = #{newUseSituation,jdbcType=VARCHAR},
+      new_use_way = #{newUseWay,jdbcType=VARCHAR},
+      new_use_type = #{newUseType,jdbcType=VARCHAR},
+      new_network = #{newNetwork,jdbcType=VARCHAR},
+      new_room = #{newRoom,jdbcType=VARCHAR},
+      new_hard_disk = #{newHardDisk,jdbcType=VARCHAR},
+      new_usb = #{newUsb,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, asset_id, business_key, computer_no, computer_name, asset_no, mac_address, 
+    apply_user_login, apply_user_name, apply_phone, reason, creator, creator_name, gmt_create, 
+    gmt_modified, is_deleted, is_process_end, process_instance_id, duty_name, duty_login, 
+    duty_security, duty_dept_id, duty_dept_name, users_name, users_login, users_securty, 
+    users_dept_id, users_dept_name, dept_id, dept_name, use_situation, use_way, use_type, 
+    network, room, hard_disk, usb, new_duty_name, new_duty_login, new_duty_security, 
+    new_duty_dept_id, new_duty_dept_name, new_users_name, new_users_login, new_users_securty, 
+    new_users_dept_id, new_users_dept_name, new_dept_id, new_dept_name, new_use_situation, 
+    new_use_way, new_use_type, new_network, new_room, new_hard_disk, new_usb
+    from five_oa_computer_change
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, asset_id, business_key, computer_no, computer_name, asset_no, mac_address, 
+    apply_user_login, apply_user_name, apply_phone, reason, creator, creator_name, gmt_create, 
+    gmt_modified, is_deleted, is_process_end, process_instance_id, duty_name, duty_login, 
+    duty_security, duty_dept_id, duty_dept_name, users_name, users_login, users_securty, 
+    users_dept_id, users_dept_name, dept_id, dept_name, use_situation, use_way, use_type, 
+    network, room, hard_disk, usb, new_duty_name, new_duty_login, new_duty_security, 
+    new_duty_dept_id, new_duty_dept_name, new_users_name, new_users_login, new_users_securty, 
+    new_users_dept_id, new_users_dept_name, new_dept_id, new_dept_name, new_use_situation, 
+    new_use_way, new_use_type, new_network, new_room, new_hard_disk, new_usb
+    from five_oa_computer_change
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="assetId != null and isLikeSelect==null">
+         AND asset_id = #{assetId}
+      </if>
+      <if test="businessKey != null and isLikeSelect==null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="computerNo != null and isLikeSelect==null and computerNo != ''">
+         AND computer_no = #{computerNo}
+      </if>
+      <if test="computerName != null and isLikeSelect==null and computerName != ''">
+         AND computer_name = #{computerName}
+      </if>
+      <if test="assetNo != null and isLikeSelect==null and assetNo != ''">
+         AND asset_no = #{assetNo}
+      </if>
+      <if test="macAddress != null and isLikeSelect==null and macAddress != ''">
+         AND mac_address = #{macAddress}
+      </if>
+      <if test="applyUserLogin != null and isLikeSelect==null and applyUserLogin != ''">
+         AND apply_user_login = #{applyUserLogin}
+      </if>
+      <if test="applyUserName != null and isLikeSelect==null and applyUserName != ''">
+         AND apply_user_name = #{applyUserName}
+      </if>
+      <if test="applyPhone != null and isLikeSelect==null and applyPhone != ''">
+         AND apply_phone = #{applyPhone}
+      </if>
+      <if test="reason != null and isLikeSelect==null and reason != ''">
+         AND reason = #{reason}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="processEnd != null and isLikeSelect==null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="processInstanceId != null and isLikeSelect==null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="dutyName != null and isLikeSelect==null and dutyName != ''">
+         AND duty_name = #{dutyName}
+      </if>
+      <if test="dutyLogin != null and isLikeSelect==null and dutyLogin != ''">
+         AND duty_login = #{dutyLogin}
+      </if>
+      <if test="dutySecurity != null and isLikeSelect==null and dutySecurity != ''">
+         AND duty_security = #{dutySecurity}
+      </if>
+      <if test="dutyDeptId != null and isLikeSelect==null">
+         AND duty_dept_id = #{dutyDeptId}
+      </if>
+      <if test="dutyDeptName != null and isLikeSelect==null and dutyDeptName != ''">
+         AND duty_dept_name = #{dutyDeptName}
+      </if>
+      <if test="usersName != null and isLikeSelect==null and usersName != ''">
+         AND users_name = #{usersName}
+      </if>
+      <if test="usersLogin != null and isLikeSelect==null and usersLogin != ''">
+         AND users_login = #{usersLogin}
+      </if>
+      <if test="usersSecurty != null and isLikeSelect==null and usersSecurty != ''">
+         AND users_securty = #{usersSecurty}
+      </if>
+      <if test="usersDeptId != null and isLikeSelect==null">
+         AND users_dept_id = #{usersDeptId}
+      </if>
+      <if test="usersDeptName != null and isLikeSelect==null and usersDeptName != ''">
+         AND users_dept_name = #{usersDeptName}
+      </if>
+      <if test="deptId != null and isLikeSelect==null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and isLikeSelect==null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="useSituation != null and isLikeSelect==null and useSituation != ''">
+         AND use_situation = #{useSituation}
+      </if>
+      <if test="useWay != null and isLikeSelect==null and useWay != ''">
+         AND use_way = #{useWay}
+      </if>
+      <if test="useType != null and isLikeSelect==null and useType != ''">
+         AND use_type = #{useType}
+      </if>
+      <if test="network != null and isLikeSelect==null and network != ''">
+         AND network = #{network}
+      </if>
+      <if test="room != null and isLikeSelect==null and room != ''">
+         AND room = #{room}
+      </if>
+      <if test="hardDisk != null and isLikeSelect==null and hardDisk != ''">
+         AND hard_disk = #{hardDisk}
+      </if>
+      <if test="usb != null and isLikeSelect==null and usb != ''">
+         AND usb = #{usb}
+      </if>
+      <if test="newDutyName != null and isLikeSelect==null and newDutyName != ''">
+         AND new_duty_name = #{newDutyName}
+      </if>
+      <if test="newDutyLogin != null and isLikeSelect==null and newDutyLogin != ''">
+         AND new_duty_login = #{newDutyLogin}
+      </if>
+      <if test="newDutySecurity != null and isLikeSelect==null and newDutySecurity != ''">
+         AND new_duty_security = #{newDutySecurity}
+      </if>
+      <if test="newDutyDeptId != null and isLikeSelect==null">
+         AND new_duty_dept_id = #{newDutyDeptId}
+      </if>
+      <if test="newDutyDeptName != null and isLikeSelect==null and newDutyDeptName != ''">
+         AND new_duty_dept_name = #{newDutyDeptName}
+      </if>
+      <if test="newUsersName != null and isLikeSelect==null and newUsersName != ''">
+         AND new_users_name = #{newUsersName}
+      </if>
+      <if test="newUsersLogin != null and isLikeSelect==null and newUsersLogin != ''">
+         AND new_users_login = #{newUsersLogin}
+      </if>
+      <if test="newUsersSecurty != null and isLikeSelect==null and newUsersSecurty != ''">
+         AND new_users_securty = #{newUsersSecurty}
+      </if>
+      <if test="newUsersDeptId != null and isLikeSelect==null">
+         AND new_users_dept_id = #{newUsersDeptId}
+      </if>
+      <if test="newUsersDeptName != null and isLikeSelect==null and newUsersDeptName != ''">
+         AND new_users_dept_name = #{newUsersDeptName}
+      </if>
+      <if test="newDeptId != null and isLikeSelect==null">
+         AND new_dept_id = #{newDeptId}
+      </if>
+      <if test="newDeptName != null and isLikeSelect==null and newDeptName != ''">
+         AND new_dept_name = #{newDeptName}
+      </if>
+      <if test="newUseSituation != null and isLikeSelect==null and newUseSituation != ''">
+         AND new_use_situation = #{newUseSituation}
+      </if>
+      <if test="newUseWay != null and isLikeSelect==null and newUseWay != ''">
+         AND new_use_way = #{newUseWay}
+      </if>
+      <if test="newUseType != null and isLikeSelect==null and newUseType != ''">
+         AND new_use_type = #{newUseType}
+      </if>
+      <if test="newNetwork != null and isLikeSelect==null and newNetwork != ''">
+         AND new_network = #{newNetwork}
+      </if>
+      <if test="newRoom != null and isLikeSelect==null and newRoom != ''">
+         AND new_room = #{newRoom}
+      </if>
+      <if test="newHardDisk != null and isLikeSelect==null and newHardDisk != ''">
+         AND new_hard_disk = #{newHardDisk}
+      </if>
+      <if test="newUsb != null and isLikeSelect==null and newUsb != ''">
+         AND new_usb = #{newUsb}
+      </if>
+        <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect==null">
+            AND (
+            dept_id in
+            <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+                #{deptId}
+            </foreach>
+            <if test="initiator != null and initiator != ''">
+                or creator = #{initiator}
+            </if>
+            )
+        </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="businessKey != null and isLikeSelect!= null and businessKey != '' ">
+         AND business_key like  CONCAT('%',#{businessKey},'%')
+      </if>
+      <if test="computerNo != null and isLikeSelect!= null and computerNo != '' ">
+         AND computer_no like  CONCAT('%',#{computerNo},'%')
+      </if>
+      <if test="computerName != null and isLikeSelect!= null and computerName != '' ">
+         AND computer_name like  CONCAT('%',#{computerName},'%')
+      </if>
+      <if test="assetNo != null and isLikeSelect!= null and assetNo != '' ">
+         AND asset_no like  CONCAT('%',#{assetNo},'%')
+      </if>
+      <if test="macAddress != null and isLikeSelect!= null and macAddress != '' ">
+         AND mac_address like  CONCAT('%',#{macAddress},'%')
+      </if>
+      <if test="applyUserLogin != null and isLikeSelect!= null and applyUserLogin != '' ">
+         AND apply_user_login like  CONCAT('%',#{applyUserLogin},'%')
+      </if>
+      <if test="applyUserName != null and isLikeSelect!= null and applyUserName != '' ">
+         AND apply_user_name like  CONCAT('%',#{applyUserName},'%')
+      </if>
+      <if test="applyPhone != null and isLikeSelect!= null and applyPhone != '' ">
+         AND apply_phone like  CONCAT('%',#{applyPhone},'%')
+      </if>
+      <if test="reason != null and isLikeSelect!= null and reason != '' ">
+         AND reason like  CONCAT('%',#{reason},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="processInstanceId != null and isLikeSelect!= null and processInstanceId != '' ">
+         AND process_instance_id like  CONCAT('%',#{processInstanceId},'%')
+      </if>
+      <if test="dutyName != null and isLikeSelect!= null and dutyName != '' ">
+         AND duty_name like  CONCAT('%',#{dutyName},'%')
+      </if>
+      <if test="dutyLogin != null and isLikeSelect!= null and dutyLogin != '' ">
+         AND duty_login like  CONCAT('%',#{dutyLogin},'%')
+      </if>
+      <if test="dutySecurity != null and isLikeSelect!= null and dutySecurity != '' ">
+         AND duty_security like  CONCAT('%',#{dutySecurity},'%')
+      </if>
+      <if test="dutyDeptName != null and isLikeSelect!= null and dutyDeptName != '' ">
+         AND duty_dept_name like  CONCAT('%',#{dutyDeptName},'%')
+      </if>
+      <if test="usersName != null and isLikeSelect!= null and usersName != '' ">
+         AND users_name like  CONCAT('%',#{usersName},'%')
+      </if>
+      <if test="usersLogin != null and isLikeSelect!= null and usersLogin != '' ">
+         AND users_login like  CONCAT('%',#{usersLogin},'%')
+      </if>
+      <if test="usersSecurty != null and isLikeSelect!= null and usersSecurty != '' ">
+         AND users_securty like  CONCAT('%',#{usersSecurty},'%')
+      </if>
+      <if test="usersDeptName != null and isLikeSelect!= null and usersDeptName != '' ">
+         AND users_dept_name like  CONCAT('%',#{usersDeptName},'%')
+      </if>
+      <if test="deptName != null and isLikeSelect!= null and deptName != '' ">
+         AND dept_name like  CONCAT('%',#{deptName},'%')
+      </if>
+      <if test="useSituation != null and isLikeSelect!= null and useSituation != '' ">
+         AND use_situation like  CONCAT('%',#{useSituation},'%')
+      </if>
+      <if test="useWay != null and isLikeSelect!= null and useWay != '' ">
+         AND use_way like  CONCAT('%',#{useWay},'%')
+      </if>
+      <if test="useType != null and isLikeSelect!= null and useType != '' ">
+         AND use_type like  CONCAT('%',#{useType},'%')
+      </if>
+      <if test="network != null and isLikeSelect!= null and network != '' ">
+         AND network like  CONCAT('%',#{network},'%')
+      </if>
+      <if test="room != null and isLikeSelect!= null and room != '' ">
+         AND room like  CONCAT('%',#{room},'%')
+      </if>
+      <if test="hardDisk != null and isLikeSelect!= null and hardDisk != '' ">
+         AND hard_disk like  CONCAT('%',#{hardDisk},'%')
+      </if>
+      <if test="usb != null and isLikeSelect!= null and usb != '' ">
+         AND usb like  CONCAT('%',#{usb},'%')
+      </if>
+      <if test="newDutyName != null and isLikeSelect!= null and newDutyName != '' ">
+         AND new_duty_name like  CONCAT('%',#{newDutyName},'%')
+      </if>
+      <if test="newDutyLogin != null and isLikeSelect!= null and newDutyLogin != '' ">
+         AND new_duty_login like  CONCAT('%',#{newDutyLogin},'%')
+      </if>
+      <if test="newDutySecurity != null and isLikeSelect!= null and newDutySecurity != '' ">
+         AND new_duty_security like  CONCAT('%',#{newDutySecurity},'%')
+      </if>
+      <if test="newDutyDeptName != null and isLikeSelect!= null and newDutyDeptName != '' ">
+         AND new_duty_dept_name like  CONCAT('%',#{newDutyDeptName},'%')
+      </if>
+      <if test="newUsersName != null and isLikeSelect!= null and newUsersName != '' ">
+         AND new_users_name like  CONCAT('%',#{newUsersName},'%')
+      </if>
+      <if test="newUsersLogin != null and isLikeSelect!= null and newUsersLogin != '' ">
+         AND new_users_login like  CONCAT('%',#{newUsersLogin},'%')
+      </if>
+      <if test="newUsersSecurty != null and isLikeSelect!= null and newUsersSecurty != '' ">
+         AND new_users_securty like  CONCAT('%',#{newUsersSecurty},'%')
+      </if>
+      <if test="newUsersDeptName != null and isLikeSelect!= null and newUsersDeptName != '' ">
+         AND new_users_dept_name like  CONCAT('%',#{newUsersDeptName},'%')
+      </if>
+      <if test="newDeptName != null and isLikeSelect!= null and newDeptName != '' ">
+         AND new_dept_name like  CONCAT('%',#{newDeptName},'%')
+      </if>
+      <if test="newUseSituation != null and isLikeSelect!= null and newUseSituation != '' ">
+         AND new_use_situation like  CONCAT('%',#{newUseSituation},'%')
+      </if>
+      <if test="newUseWay != null and isLikeSelect!= null and newUseWay != '' ">
+         AND new_use_way like  CONCAT('%',#{newUseWay},'%')
+      </if>
+      <if test="newUseType != null and isLikeSelect!= null and newUseType != '' ">
+         AND new_use_type like  CONCAT('%',#{newUseType},'%')
+      </if>
+      <if test="newNetwork != null and isLikeSelect!= null and newNetwork != '' ">
+         AND new_network like  CONCAT('%',#{newNetwork},'%')
+      </if>
+      <if test="newRoom != null and isLikeSelect!= null and newRoom != '' ">
+         AND new_room like  CONCAT('%',#{newRoom},'%')
+      </if>
+      <if test="newHardDisk != null and isLikeSelect!= null and newHardDisk != '' ">
+         AND new_hard_disk like  CONCAT('%',#{newHardDisk},'%')
+      </if>
+      <if test="newUsb != null and isLikeSelect!= null and newUsb != '' ">
+         AND new_usb like  CONCAT('%',#{newUsb},'%')
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="deptId != null and isLikeSelect!=null">
+          AND dept_id = #{deptId}
+      </if>
+      <if test="processEnd != null and isLikeSelect!=null">
+          AND is_process_end = #{processEnd}
+      </if>
+
+      <if test="gmtCreate != null and isLikeSelect!=null">
+          AND gmt_create = #{gmtCreate}
+      </if>
+
+      <if test="startTime1 != null and startTime1 !='' and isLikeSelect!=null">
+          AND gmt_create  &gt;= CONCAT('','${startTime1}',' 00:00:00')
+      </if>
+      <if test="endTime1 != null and endTime1 !='' and isLikeSelect!=null">
+          AND gmt_create  &lt;= CONCAT('','${endTime1}',' 23:59:59')
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect!=null">
+        AND (
+        dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+            #{deptId}
+        </foreach>
+        <if test="initiator != null and initiator != ''">
+            or creator = #{initiator}
+        </if>
+        )
+      </if>
+    </where>
+  </sql>
+</mapper>

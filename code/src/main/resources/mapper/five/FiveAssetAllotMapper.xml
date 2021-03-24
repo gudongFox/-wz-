@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveAssetAllotMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveAssetAllot">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="form_no" jdbcType="VARCHAR" property="formNo" />
+    <result column="applicant" jdbcType="VARCHAR" property="applicant" />
+    <result column="applicant_name" jdbcType="VARCHAR" property="applicantName" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="enter_time" jdbcType="VARCHAR" property="enterTime" />
+    <result column="asset_code" jdbcType="VARCHAR" property="assetCode" />
+    <result column="asset_name" jdbcType="VARCHAR" property="assetName" />
+    <result column="model" jdbcType="VARCHAR" property="model" />
+    <result column="use_unit" jdbcType="VARCHAR" property="useUnit" />
+    <result column="use_man" jdbcType="VARCHAR" property="useMan" />
+    <result column="use_man_name" jdbcType="VARCHAR" property="useManName" />
+    <result column="transfer_unit" jdbcType="VARCHAR" property="transferUnit" />
+    <result column="reserve_man" jdbcType="VARCHAR" property="reserveMan" />
+    <result column="reserve_man_name" jdbcType="VARCHAR" property="reserveManName" />
+    <result column="receive" jdbcType="VARCHAR" property="receive" />
+    <result column="receive_name" jdbcType="VARCHAR" property="receiveName" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+    <result column="use_unit_id" jdbcType="INTEGER" property="useUnitId" />
+    <result column="transfer_unit_id" jdbcType="INTEGER" property="transferUnitId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_asset_allot
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveAssetAllot">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_asset_allot (business_key, form_no, applicant, 
+      applicant_name, dept_id, dept_name, 
+      enter_time, asset_code, asset_name, 
+      model, use_unit, use_man, 
+      use_man_name, transfer_unit, reserve_man, 
+      reserve_man_name, receive, receive_name, 
+      remark, creator, creator_name, 
+      is_deleted, gmt_create, gmt_modified, 
+      process_instance_id, is_process_end, use_unit_id, 
+      transfer_unit_id)
+    values (#{businessKey,jdbcType=VARCHAR}, #{formNo,jdbcType=VARCHAR}, #{applicant,jdbcType=VARCHAR}, 
+      #{applicantName,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, 
+      #{enterTime,jdbcType=VARCHAR}, #{assetCode,jdbcType=VARCHAR}, #{assetName,jdbcType=VARCHAR}, 
+      #{model,jdbcType=VARCHAR}, #{useUnit,jdbcType=VARCHAR}, #{useMan,jdbcType=VARCHAR}, 
+      #{useManName,jdbcType=VARCHAR}, #{transferUnit,jdbcType=VARCHAR}, #{reserveMan,jdbcType=VARCHAR}, 
+      #{reserveManName,jdbcType=VARCHAR}, #{receive,jdbcType=VARCHAR}, #{receiveName,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{processInstanceId,jdbcType=VARCHAR}, #{processEnd,jdbcType=BIT}, #{useUnitId,jdbcType=INTEGER}, 
+      #{transferUnitId,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveAssetAllot">
+    update five_asset_allot
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      form_no = #{formNo,jdbcType=VARCHAR},
+      applicant = #{applicant,jdbcType=VARCHAR},
+      applicant_name = #{applicantName,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      enter_time = #{enterTime,jdbcType=VARCHAR},
+      asset_code = #{assetCode,jdbcType=VARCHAR},
+      asset_name = #{assetName,jdbcType=VARCHAR},
+      model = #{model,jdbcType=VARCHAR},
+      use_unit = #{useUnit,jdbcType=VARCHAR},
+      use_man = #{useMan,jdbcType=VARCHAR},
+      use_man_name = #{useManName,jdbcType=VARCHAR},
+      transfer_unit = #{transferUnit,jdbcType=VARCHAR},
+      reserve_man = #{reserveMan,jdbcType=VARCHAR},
+      reserve_man_name = #{reserveManName,jdbcType=VARCHAR},
+      receive = #{receive,jdbcType=VARCHAR},
+      receive_name = #{receiveName,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      is_process_end = #{processEnd,jdbcType=BIT},
+      use_unit_id = #{useUnitId,jdbcType=INTEGER},
+      transfer_unit_id = #{transferUnitId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, form_no, applicant, applicant_name, dept_id, dept_name, 
+    enter_time, asset_code, asset_name, model, use_unit, use_man, use_man_name, transfer_unit, 
+    reserve_man, reserve_man_name, receive, receive_name, remark, creator, creator_name, 
+    is_deleted, gmt_create, gmt_modified, process_instance_id, is_process_end, use_unit_id, 
+    transfer_unit_id
+    from five_asset_allot
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, form_no, applicant, applicant_name, dept_id, dept_name, 
+    enter_time, asset_code, asset_name, model, use_unit, use_man, use_man_name, transfer_unit, 
+    reserve_man, reserve_man_name, receive, receive_name, remark, creator, creator_name, 
+    is_deleted, gmt_create, gmt_modified, process_instance_id, is_process_end, use_unit_id, 
+    transfer_unit_id
+    from five_asset_allot
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and isLikeSelect==null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="formNo != null and isLikeSelect==null and formNo != ''">
+         AND form_no = #{formNo}
+      </if>
+      <if test="applicant != null and isLikeSelect==null and applicant != ''">
+         AND applicant = #{applicant}
+      </if>
+      <if test="applicantName != null and isLikeSelect==null and applicantName != ''">
+         AND applicant_name = #{applicantName}
+      </if>
+      <if test="deptId != null and isLikeSelect==null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and isLikeSelect==null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="enterTime != null and isLikeSelect==null and enterTime != ''">
+         AND enter_time = #{enterTime}
+      </if>
+      <if test="assetCode != null and isLikeSelect==null and assetCode != ''">
+         AND asset_code = #{assetCode}
+      </if>
+      <if test="assetName != null and isLikeSelect==null and assetName != ''">
+         AND asset_name = #{assetName}
+      </if>
+      <if test="model != null and isLikeSelect==null and model != ''">
+         AND model = #{model}
+      </if>
+      <if test="useUnit != null and isLikeSelect==null and useUnit != ''">
+         AND use_unit = #{useUnit}
+      </if>
+      <if test="useMan != null and isLikeSelect==null and useMan != ''">
+         AND use_man = #{useMan}
+      </if>
+      <if test="useManName != null and isLikeSelect==null and useManName != ''">
+         AND use_man_name = #{useManName}
+      </if>
+      <if test="transferUnit != null and isLikeSelect==null and transferUnit != ''">
+         AND transfer_unit = #{transferUnit}
+      </if>
+      <if test="reserveMan != null and isLikeSelect==null and reserveMan != ''">
+         AND reserve_man = #{reserveMan}
+      </if>
+      <if test="reserveManName != null and isLikeSelect==null and reserveManName != ''">
+         AND reserve_man_name = #{reserveManName}
+      </if>
+      <if test="receive != null and isLikeSelect==null and receive != ''">
+         AND receive = #{receive}
+      </if>
+      <if test="receiveName != null and isLikeSelect==null and receiveName != ''">
+         AND receive_name = #{receiveName}
+      </if>
+      <if test="remark != null and isLikeSelect==null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="processInstanceId != null and isLikeSelect==null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="processEnd != null and isLikeSelect==null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="useUnitId != null and isLikeSelect==null">
+         AND use_unit_id = #{useUnitId}
+      </if>
+      <if test="transferUnitId != null and isLikeSelect==null">
+         AND transfer_unit_id = #{transferUnitId}
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect==null">
+        AND (
+        dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+        <if test="initiator != null and initiator != ''">
+          or creator = #{initiator}
+        </if>
+        )
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="businessKey != null and isLikeSelect!= null and businessKey != '' ">
+         AND business_key like  CONCAT('%',#{businessKey},'%')
+      </if>
+      <if test="formNo != null and isLikeSelect!= null and formNo != '' ">
+         AND form_no like  CONCAT('%',#{formNo},'%')
+      </if>
+      <if test="applicant != null and isLikeSelect!= null and applicant != '' ">
+         AND applicant like  CONCAT('%',#{applicant},'%')
+      </if>
+      <if test="applicantName != null and isLikeSelect!= null and applicantName != '' ">
+         AND applicant_name like  CONCAT('%',#{applicantName},'%')
+      </if>
+      <if test="deptName != null and isLikeSelect!= null and deptName != '' ">
+         AND dept_name like  CONCAT('%',#{deptName},'%')
+      </if>
+      <if test="enterTime != null and isLikeSelect!= null and enterTime != '' ">
+         AND enter_time like  CONCAT('%',#{enterTime},'%')
+      </if>
+      <if test="assetCode != null and isLikeSelect!= null and assetCode != '' ">
+         AND asset_code like  CONCAT('%',#{assetCode},'%')
+      </if>
+      <if test="assetName != null and isLikeSelect!= null and assetName != '' ">
+         AND asset_name like  CONCAT('%',#{assetName},'%')
+      </if>
+      <if test="model != null and isLikeSelect!= null and model != '' ">
+         AND model like  CONCAT('%',#{model},'%')
+      </if>
+      <if test="useUnit != null and isLikeSelect!= null and useUnit != '' ">
+         AND use_unit like  CONCAT('%',#{useUnit},'%')
+      </if>
+      <if test="useMan != null and isLikeSelect!= null and useMan != '' ">
+         AND use_man like  CONCAT('%',#{useMan},'%')
+      </if>
+      <if test="useManName != null and isLikeSelect!= null and useManName != '' ">
+         AND use_man_name like  CONCAT('%',#{useManName},'%')
+      </if>
+      <if test="transferUnit != null and isLikeSelect!= null and transferUnit != '' ">
+         AND transfer_unit like  CONCAT('%',#{transferUnit},'%')
+      </if>
+      <if test="reserveMan != null and isLikeSelect!= null and reserveMan != '' ">
+         AND reserve_man like  CONCAT('%',#{reserveMan},'%')
+      </if>
+      <if test="reserveManName != null and isLikeSelect!= null and reserveManName != '' ">
+         AND reserve_man_name like  CONCAT('%',#{reserveManName},'%')
+      </if>
+      <if test="receive != null and isLikeSelect!= null and receive != '' ">
+         AND receive like  CONCAT('%',#{receive},'%')
+      </if>
+      <if test="receiveName != null and isLikeSelect!= null and receiveName != '' ">
+         AND receive_name like  CONCAT('%',#{receiveName},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="processInstanceId != null and isLikeSelect!= null and processInstanceId != '' ">
+         AND process_instance_id like  CONCAT('%',#{processInstanceId},'%')
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+
+      <if test="deptId != null and isLikeSelect!=null">
+        AND dept_id = #{deptId}
+      </if>
+
+      <if test="gmtCreate != null and isLikeSelect!=null">
+        AND gmt_create = #{gmtCreate}
+      </if>
+
+      <if test="startTime1 != null and startTime1 !='' and isLikeSelect!=null">
+        AND gmt_create  &gt;= CONCAT('','${startTime1}',' 00:00:00')
+      </if>
+      <if test="endTime1 != null and endTime1 !='' and isLikeSelect!=null">
+        AND gmt_create  &lt;= CONCAT('','${endTime1}',' 23:59:59')
+      </if>
+
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect!=null">
+        AND (
+        dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+        <if test="initiator != null and initiator != ''">
+          or creator = #{initiator}
+        </if>
+        )
+      </if>
+
+    </where>
+  </sql>
+</mapper>

@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="utf-8">
+    <title>任务</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!--标准mui.css-->
+    <link rel="stylesheet" href="/h5/mui/css/mui.min.css">
+    <link rel="shortcut icon" href="/m/favicon.ico"/>
+</head>
+
+<body>
+<nav class="mui-bar mui-bar-tab" ng-controller="BaseController">
+    <a class="mui-tab-item" ui-sref="dashboard" ng-if="appName.indexOf('wuzhou')>=0">
+        <span class="mui-icon mui-icon-home"></span>
+        <span class="mui-tab-label">首页</span>
+    </a>
+    <a class="mui-tab-item mui-active" ui-sref="task">
+        <span class="mui-icon mui-icon-email"><span class="mui-badge" ng-bind="taskCount" ng-if="taskCount>0"></span></span>
+        <span class="mui-tab-label">任务</span>
+    </a>
+<!--    <a class="mui-tab-item" ui-sref="project">-->
+<!--        <span class="mui-icon mui-icon-star"></span>-->
+<!--        <span class="mui-tab-label">项目</span>-->
+<!--    </a>-->
+    <a class="mui-tab-item" ui-sref="me">
+        <span class="mui-icon mui-icon-gear"></span>
+        <span class="mui-tab-label">设置</span>
+    </a>
+</nav>
+<div class="mui-content">
+    <div ui-view=""></div>
+</div>
+</body>
+<!--<script src="/mui/js/mui.min.js"></script>-->
+<script src="/assets/js/jquery.min.js" type="text/javascript"></script>
+<script src="/h5/mui/js/mui.min.js" type="text/javascript"></script>
+<script src="/assets/js/angular.js" type="text/javascript"></script>
+<script src="/assets/js/angular-ui-router.min.js" type="text/javascript"></script>
+<script src="/assets/js/stateEvents.js" type="text/javascript"></script>
+<script src="/editor-app/custom/js/services.act.js" type="text/javascript"></script>
+<script src="/assets/page/services.common.js" type="text/javascript"></script>
+<script src="/h5/js/mobileApp.js" type="text/javascript"></script>
+<script src="/assets/js/angular-sanitize.min.js" type="text/javascript"></script>
+</html>

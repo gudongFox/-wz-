@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.business.dao.BusinessSupplierMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.business.entity.BusinessSupplier">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="in_type" jdbcType="VARCHAR" property="inType" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="credit_code" jdbcType="VARCHAR" property="creditCode" />
+    <result column="legal_person" jdbcType="VARCHAR" property="legalPerson" />
+    <result column="legal_person_tel" jdbcType="VARCHAR" property="legalPersonTel" />
+    <result column="link_man" jdbcType="VARCHAR" property="linkMan" />
+    <result column="link_tel" jdbcType="VARCHAR" property="linkTel" />
+    <result column="link_title" jdbcType="VARCHAR" property="linkTitle" />
+    <result column="link_fax" jdbcType="VARCHAR" property="linkFax" />
+    <result column="link_mail" jdbcType="VARCHAR" property="linkMail" />
+    <result column="deposit_bank" jdbcType="VARCHAR" property="depositBank" />
+    <result column="bank_account" jdbcType="VARCHAR" property="bankAccount" />
+    <result column="tax_no" jdbcType="VARCHAR" property="taxNo" />
+    <result column="tax_type" jdbcType="VARCHAR" property="taxType" />
+    <result column="business_scope" jdbcType="VARCHAR" property="businessScope" />
+    <result column="supplier_type" jdbcType="VARCHAR" property="supplierType" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="registered_fund" jdbcType="VARCHAR" property="registeredFund" />
+    <result column="seq" jdbcType="INTEGER" property="seq" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="system_in_name" jdbcType="VARCHAR" property="systemInName" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from business_supplier
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.business.entity.BusinessSupplier">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into business_supplier (business_key, code, name, 
+      in_type, address, credit_code, 
+      legal_person, legal_person_tel, link_man, 
+      link_tel, link_title, link_fax, 
+      link_mail, deposit_bank, bank_account, 
+      tax_no, tax_type, business_scope, 
+      supplier_type, dept_id, dept_name, 
+      registered_fund, seq, is_deleted, 
+      gmt_create, gmt_modified, remark, 
+      creator, creator_name, is_process_end, 
+      process_instance_id, system_in_name)
+    values (#{businessKey,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{inType,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{creditCode,jdbcType=VARCHAR}, 
+      #{legalPerson,jdbcType=VARCHAR}, #{legalPersonTel,jdbcType=VARCHAR}, #{linkMan,jdbcType=VARCHAR}, 
+      #{linkTel,jdbcType=VARCHAR}, #{linkTitle,jdbcType=VARCHAR}, #{linkFax,jdbcType=VARCHAR}, 
+      #{linkMail,jdbcType=VARCHAR}, #{depositBank,jdbcType=VARCHAR}, #{bankAccount,jdbcType=VARCHAR}, 
+      #{taxNo,jdbcType=VARCHAR}, #{taxType,jdbcType=VARCHAR}, #{businessScope,jdbcType=VARCHAR}, 
+      #{supplierType,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, 
+      #{registeredFund,jdbcType=VARCHAR}, #{seq,jdbcType=INTEGER}, #{deleted,jdbcType=BIT}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, 
+      #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, #{processEnd,jdbcType=BIT}, 
+      #{processInstanceId,jdbcType=VARCHAR}, #{systemInName,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.business.entity.BusinessSupplier">
+    update business_supplier
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      in_type = #{inType,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      credit_code = #{creditCode,jdbcType=VARCHAR},
+      legal_person = #{legalPerson,jdbcType=VARCHAR},
+      legal_person_tel = #{legalPersonTel,jdbcType=VARCHAR},
+      link_man = #{linkMan,jdbcType=VARCHAR},
+      link_tel = #{linkTel,jdbcType=VARCHAR},
+      link_title = #{linkTitle,jdbcType=VARCHAR},
+      link_fax = #{linkFax,jdbcType=VARCHAR},
+      link_mail = #{linkMail,jdbcType=VARCHAR},
+      deposit_bank = #{depositBank,jdbcType=VARCHAR},
+      bank_account = #{bankAccount,jdbcType=VARCHAR},
+      tax_no = #{taxNo,jdbcType=VARCHAR},
+      tax_type = #{taxType,jdbcType=VARCHAR},
+      business_scope = #{businessScope,jdbcType=VARCHAR},
+      supplier_type = #{supplierType,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      registered_fund = #{registeredFund,jdbcType=VARCHAR},
+      seq = #{seq,jdbcType=INTEGER},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_process_end = #{processEnd,jdbcType=BIT},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      system_in_name = #{systemInName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, code, name, in_type, address, credit_code, legal_person, 
+    legal_person_tel, link_man, link_tel, link_title, link_fax, link_mail, deposit_bank, 
+    bank_account, tax_no, tax_type, business_scope, supplier_type, dept_id, dept_name, 
+    registered_fund, seq, is_deleted, gmt_create, gmt_modified, remark, creator, creator_name, 
+    is_process_end, process_instance_id, system_in_name
+    from business_supplier
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, code, name, in_type, address, credit_code, legal_person, 
+    legal_person_tel, link_man, link_tel, link_title, link_fax, link_mail, deposit_bank, 
+    bank_account, tax_no, tax_type, business_scope, supplier_type, dept_id, dept_name, 
+    registered_fund, seq, is_deleted, gmt_create, gmt_modified, remark, creator, creator_name, 
+    is_process_end, process_instance_id, system_in_name
+    from business_supplier
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and isLikeSelect==null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="code != null and isLikeSelect==null and code != ''">
+         AND code = #{code}
+      </if>
+      <if test="name != null and isLikeSelect==null and name != ''">
+         AND name = #{name}
+      </if>
+      <if test="inType != null and isLikeSelect==null and inType != ''">
+         AND in_type = #{inType}
+      </if>
+      <if test="address != null and isLikeSelect==null and address != ''">
+         AND address = #{address}
+      </if>
+      <if test="creditCode != null and isLikeSelect==null and creditCode != ''">
+         AND credit_code = #{creditCode}
+      </if>
+      <if test="legalPerson != null and isLikeSelect==null and legalPerson != ''">
+         AND legal_person = #{legalPerson}
+      </if>
+      <if test="legalPersonTel != null and isLikeSelect==null and legalPersonTel != ''">
+         AND legal_person_tel = #{legalPersonTel}
+      </if>
+      <if test="linkMan != null and isLikeSelect==null and linkMan != ''">
+         AND link_man = #{linkMan}
+      </if>
+      <if test="linkTel != null and isLikeSelect==null and linkTel != ''">
+         AND link_tel = #{linkTel}
+      </if>
+      <if test="linkTitle != null and isLikeSelect==null and linkTitle != ''">
+         AND link_title = #{linkTitle}
+      </if>
+      <if test="linkFax != null and isLikeSelect==null and linkFax != ''">
+         AND link_fax = #{linkFax}
+      </if>
+      <if test="linkMail != null and isLikeSelect==null and linkMail != ''">
+         AND link_mail = #{linkMail}
+      </if>
+      <if test="depositBank != null and isLikeSelect==null and depositBank != ''">
+         AND deposit_bank = #{depositBank}
+      </if>
+      <if test="bankAccount != null and isLikeSelect==null and bankAccount != ''">
+         AND bank_account = #{bankAccount}
+      </if>
+      <if test="taxNo != null and isLikeSelect==null and taxNo != ''">
+         AND tax_no = #{taxNo}
+      </if>
+      <if test="taxType != null and isLikeSelect==null and taxType != ''">
+         AND tax_type = #{taxType}
+      </if>
+      <if test="businessScope != null and isLikeSelect==null and businessScope != ''">
+         AND business_scope = #{businessScope}
+      </if>
+      <if test="supplierType != null and isLikeSelect==null and supplierType != ''">
+         AND supplier_type = #{supplierType}
+      </if>
+      <if test="deptId != null and isLikeSelect==null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and isLikeSelect==null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="registeredFund != null and isLikeSelect==null and registeredFund != ''">
+         AND registered_fund = #{registeredFund}
+      </if>
+      <if test="seq != null and isLikeSelect==null">
+         AND seq = #{seq}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="remark != null and isLikeSelect==null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="processEnd != null and isLikeSelect==null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="processInstanceId != null and isLikeSelect==null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="systemInName != null and isLikeSelect==null and systemInName != ''">
+         AND system_in_name = #{systemInName}
+      </if>
+      <if test="processEndPo != null and isLikeSelect==null">
+        AND  (creator= #{processEndPo} or is_process_end=1)
+      </if>
+      <if test="q != null and q != ''and isLikeSelect==null">
+        AND (
+        code like CONCAT('%',#{q},'%') or
+        name like CONCAT('%',#{q},'%')
+        )
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect==null">
+        AND dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="businessKey != null and isLikeSelect!= null and businessKey != '' ">
+         AND business_key like  CONCAT('%',#{businessKey},'%')
+      </if>
+      <if test="code != null and isLikeSelect!= null and code != '' ">
+         AND code like  CONCAT('%',#{code},'%')
+      </if>
+      <if test="name != null and isLikeSelect!= null and name != '' ">
+         AND name like  CONCAT('%',#{name},'%')
+      </if>
+      <if test="inType != null and isLikeSelect!= null and inType != '' ">
+         AND in_type like  CONCAT('%',#{inType},'%')
+      </if>
+      <if test="address != null and isLikeSelect!= null and address != '' ">
+         AND address like  CONCAT('%',#{address},'%')
+      </if>
+      <if test="creditCode != null and isLikeSelect!= null and creditCode != '' ">
+         AND credit_code like  CONCAT('%',#{creditCode},'%')
+      </if>
+      <if test="legalPerson != null and isLikeSelect!= null and legalPerson != '' ">
+         AND legal_person like  CONCAT('%',#{legalPerson},'%')
+      </if>
+      <if test="legalPersonTel != null and isLikeSelect!= null and legalPersonTel != '' ">
+         AND legal_person_tel like  CONCAT('%',#{legalPersonTel},'%')
+      </if>
+      <if test="linkMan != null and isLikeSelect!= null and linkMan != '' ">
+         AND link_man like  CONCAT('%',#{linkMan},'%')
+      </if>
+      <if test="linkTel != null and isLikeSelect!= null and linkTel != '' ">
+         AND link_tel like  CONCAT('%',#{linkTel},'%')
+      </if>
+      <if test="linkTitle != null and isLikeSelect!= null and linkTitle != '' ">
+         AND link_title like  CONCAT('%',#{linkTitle},'%')
+      </if>
+      <if test="linkFax != null and isLikeSelect!= null and linkFax != '' ">
+         AND link_fax like  CONCAT('%',#{linkFax},'%')
+      </if>
+      <if test="linkMail != null and isLikeSelect!= null and linkMail != '' ">
+         AND link_mail like  CONCAT('%',#{linkMail},'%')
+      </if>
+      <if test="depositBank != null and isLikeSelect!= null and depositBank != '' ">
+         AND deposit_bank like  CONCAT('%',#{depositBank},'%')
+      </if>
+      <if test="bankAccount != null and isLikeSelect!= null and bankAccount != '' ">
+         AND bank_account like  CONCAT('%',#{bankAccount},'%')
+      </if>
+      <if test="taxNo != null and isLikeSelect!= null and taxNo != '' ">
+         AND tax_no like  CONCAT('%',#{taxNo},'%')
+      </if>
+      <if test="taxType != null and isLikeSelect!= null and taxType != '' ">
+         AND tax_type like  CONCAT('%',#{taxType},'%')
+      </if>
+      <if test="businessScope != null and isLikeSelect!= null and businessScope != '' ">
+         AND business_scope like  CONCAT('%',#{businessScope},'%')
+      </if>
+      <if test="supplierType != null and isLikeSelect!= null and supplierType != '' ">
+         AND supplier_type like  CONCAT('%',#{supplierType},'%')
+      </if>
+      <if test="deptName != null and isLikeSelect!= null and deptName != '' ">
+         AND dept_name like  CONCAT('%',#{deptName},'%')
+      </if>
+      <if test="registeredFund != null and isLikeSelect!= null and registeredFund != '' ">
+         AND registered_fund like  CONCAT('%',#{registeredFund},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="processInstanceId != null and isLikeSelect!= null and processInstanceId != '' ">
+         AND process_instance_id like  CONCAT('%',#{processInstanceId},'%')
+      </if>
+      <if test="systemInName != null and isLikeSelect!= null and systemInName != '' ">
+         AND system_in_name like  CONCAT('%',#{systemInName},'%')
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="deptId != null and isLikeSelect!=null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="processEndPo != null and isLikeSelect!=null">
+        AND  (creator= #{processEndPo} or is_process_end=1)
+      </if>
+      <if test="q != null and q != ''and isLikeSelect!=null">
+        AND (
+        code like CONCAT('%',#{q},'%') or
+        name like CONCAT('%',#{q},'%')
+        )
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect!=null">
+        AND dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+      </if>
+    </where>
+  </sql>
+</mapper>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveOaMaterialBorrowDetailMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveOaMaterialBorrowDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="form_no" jdbcType="VARCHAR" property="formNo" />
+    <result column="material_borrow_id" jdbcType="INTEGER" property="materialBorrowId" />
+    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+    <result column="file_no" jdbcType="VARCHAR" property="fileNo" />
+    <result column="file_type" jdbcType="VARCHAR" property="fileType" />
+    <result column="major" jdbcType="VARCHAR" property="major" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="file_level" jdbcType="VARCHAR" property="fileLevel" />
+    <result column="draft" jdbcType="BIT" property="draft" />
+    <result column="blueprint" jdbcType="BIT" property="blueprint" />
+    <result column="word" jdbcType="BIT" property="word" />
+    <result column="dwg" jdbcType="BIT" property="dwg" />
+    <result column="pdf" jdbcType="BIT" property="pdf" />
+    <result column="count" jdbcType="VARCHAR" property="count" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_oa_material_borrow_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveOaMaterialBorrowDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_oa_material_borrow_detail (form_no, material_borrow_id, file_name, 
+      file_no, file_type, major, 
+      dept_id, dept_name, file_level, 
+      draft, blueprint, word, dwg, 
+      pdf, count, remark, is_deleted, 
+      gmt_create, gmt_modified)
+    values (#{formNo,jdbcType=VARCHAR}, #{materialBorrowId,jdbcType=INTEGER}, #{fileName,jdbcType=VARCHAR}, 
+      #{fileNo,jdbcType=VARCHAR}, #{fileType,jdbcType=VARCHAR}, #{major,jdbcType=VARCHAR}, 
+      #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, #{fileLevel,jdbcType=VARCHAR}, 
+      #{draft,jdbcType=BIT}, #{blueprint,jdbcType=BIT}, #{word,jdbcType=BIT}, #{dwg,jdbcType=BIT}, 
+      #{pdf,jdbcType=BIT}, #{count,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveOaMaterialBorrowDetail">
+    update five_oa_material_borrow_detail
+    set form_no = #{formNo,jdbcType=VARCHAR},
+      material_borrow_id = #{materialBorrowId,jdbcType=INTEGER},
+      file_name = #{fileName,jdbcType=VARCHAR},
+      file_no = #{fileNo,jdbcType=VARCHAR},
+      file_type = #{fileType,jdbcType=VARCHAR},
+      major = #{major,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      file_level = #{fileLevel,jdbcType=VARCHAR},
+      draft = #{draft,jdbcType=BIT},
+      blueprint = #{blueprint,jdbcType=BIT},
+      word = #{word,jdbcType=BIT},
+      dwg = #{dwg,jdbcType=BIT},
+      pdf = #{pdf,jdbcType=BIT},
+      count = #{count,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, form_no, material_borrow_id, file_name, file_no, file_type, major, dept_id, 
+    dept_name, file_level, draft, blueprint, word, dwg, pdf, count, remark, is_deleted, 
+    gmt_create, gmt_modified
+    from five_oa_material_borrow_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, form_no, material_borrow_id, file_name, file_no, file_type, major, dept_id, 
+    dept_name, file_level, draft, blueprint, word, dwg, pdf, count, remark, is_deleted, 
+    gmt_create, gmt_modified
+    from five_oa_material_borrow_detail
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="formNo != null and formNo != ''">
+         AND form_no = #{formNo}
+      </if>
+      <if test="materialBorrowId != null">
+         AND material_borrow_id = #{materialBorrowId}
+      </if>
+      <if test="fileName != null and fileName != ''">
+         AND file_name = #{fileName}
+      </if>
+      <if test="fileNo != null and fileNo != ''">
+         AND file_no = #{fileNo}
+      </if>
+      <if test="fileType != null and fileType != ''">
+         AND file_type = #{fileType}
+      </if>
+      <if test="major != null and major != ''">
+         AND major = #{major}
+      </if>
+      <if test="deptId != null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="fileLevel != null and fileLevel != ''">
+         AND file_level = #{fileLevel}
+      </if>
+      <if test="draft != null">
+         AND draft = #{draft}
+      </if>
+      <if test="blueprint != null">
+         AND blueprint = #{blueprint}
+      </if>
+      <if test="word != null">
+         AND word = #{word}
+      </if>
+      <if test="dwg != null">
+         AND dwg = #{dwg}
+      </if>
+      <if test="pdf != null">
+         AND pdf = #{pdf}
+      </if>
+      <if test="count != null and count != ''">
+         AND count = #{count}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+    </where>
+  </sql>
+</mapper>

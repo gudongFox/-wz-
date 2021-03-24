@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveOaStampApplyOfficeMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveOaStampApplyOffice">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="form_no" jdbcType="VARCHAR" property="formNo" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="item" jdbcType="VARCHAR" property="item" />
+    <result column="stamp_name" jdbcType="VARCHAR" property="stampName" />
+    <result column="stamp_date" jdbcType="VARCHAR" property="stampDate" />
+    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+    <result column="file_count" jdbcType="VARCHAR" property="fileCount" />
+    <result column="is_legal_review" jdbcType="BIT" property="legalReview" />
+    <result column="vice_leader" jdbcType="VARCHAR" property="viceLeader" />
+    <result column="vice_leader_name" jdbcType="VARCHAR" property="viceLeaderName" />
+    <result column="item_dept" jdbcType="INTEGER" property="itemDept" />
+    <result column="item_dept_name" jdbcType="VARCHAR" property="itemDeptName" />
+    <result column="is_record" jdbcType="BIT" property="record" />
+    <result column="is_contracted" jdbcType="BIT" property="contracted" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="item_dept_charge_men" jdbcType="VARCHAR" property="itemDeptChargeMen" />
+    <result column="contract_no" jdbcType="VARCHAR" property="contractNo" />
+    <result column="second_dept_id" jdbcType="INTEGER" property="secondDeptId" />
+    <result column="dept_vice_charge_men" jdbcType="VARCHAR" property="deptViceChargeMen" />
+    <result column="is_secrecy" jdbcType="BIT" property="secrecy" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_oa_stamp_apply_office
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveOaStampApplyOffice">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_oa_stamp_apply_office (business_key, form_no, dept_id,
+      dept_name, item, stamp_name, 
+      stamp_date, file_name, file_count, 
+      is_legal_review, vice_leader, vice_leader_name, 
+      item_dept, item_dept_name, is_record, 
+      is_contracted, is_deleted, item_dept_charge_men, 
+      contract_no, second_dept_id, dept_vice_charge_men, 
+      is_secrecy, remark, creator, 
+      creator_name, gmt_create, gmt_modified, 
+      process_instance_id, is_process_end)
+    values (#{businessKey,jdbcType=VARCHAR}, #{formNo,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER},
+      #{deptName,jdbcType=VARCHAR}, #{item,jdbcType=VARCHAR}, #{stampName,jdbcType=VARCHAR}, 
+      #{stampDate,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, #{fileCount,jdbcType=VARCHAR}, 
+      #{legalReview,jdbcType=BIT}, #{viceLeader,jdbcType=VARCHAR}, #{viceLeaderName,jdbcType=VARCHAR}, 
+      #{itemDept,jdbcType=INTEGER}, #{itemDeptName,jdbcType=VARCHAR}, #{record,jdbcType=BIT}, 
+      #{contracted,jdbcType=BIT}, #{deleted,jdbcType=BIT}, #{itemDeptChargeMen,jdbcType=VARCHAR}, 
+      #{contractNo,jdbcType=VARCHAR}, #{secondDeptId,jdbcType=INTEGER}, #{deptViceChargeMen,jdbcType=VARCHAR}, 
+      #{secrecy,jdbcType=BIT}, #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{creatorName,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{processInstanceId,jdbcType=VARCHAR}, #{processEnd,jdbcType=BIT})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveOaStampApplyOffice">
+    update five_oa_stamp_apply_office
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      form_no = #{formNo,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      item = #{item,jdbcType=VARCHAR},
+      stamp_name = #{stampName,jdbcType=VARCHAR},
+      stamp_date = #{stampDate,jdbcType=VARCHAR},
+      file_name = #{fileName,jdbcType=VARCHAR},
+      file_count = #{fileCount,jdbcType=VARCHAR},
+      is_legal_review = #{legalReview,jdbcType=BIT},
+      vice_leader = #{viceLeader,jdbcType=VARCHAR},
+      vice_leader_name = #{viceLeaderName,jdbcType=VARCHAR},
+      item_dept = #{itemDept,jdbcType=INTEGER},
+      item_dept_name = #{itemDeptName,jdbcType=VARCHAR},
+      is_record = #{record,jdbcType=BIT},
+      is_contracted = #{contracted,jdbcType=BIT},
+      is_deleted = #{deleted,jdbcType=BIT},
+      item_dept_charge_men = #{itemDeptChargeMen,jdbcType=VARCHAR},
+      contract_no = #{contractNo,jdbcType=VARCHAR},
+      second_dept_id = #{secondDeptId,jdbcType=INTEGER},
+      dept_vice_charge_men = #{deptViceChargeMen,jdbcType=VARCHAR},
+      is_secrecy = #{secrecy,jdbcType=BIT},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      is_process_end = #{processEnd,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, form_no, dept_id, dept_name, item, stamp_name, stamp_date, 
+    file_name, file_count, is_legal_review, vice_leader, vice_leader_name, item_dept, 
+    item_dept_name, is_record, is_contracted, is_deleted, item_dept_charge_men, contract_no, 
+    second_dept_id, dept_vice_charge_men, is_secrecy, remark, creator, creator_name, 
+    gmt_create, gmt_modified, process_instance_id, is_process_end
+    from five_oa_stamp_apply_office
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, form_no, dept_id, dept_name, item, stamp_name, stamp_date, 
+    file_name, file_count, is_legal_review, vice_leader, vice_leader_name, item_dept, 
+    item_dept_name, is_record, is_contracted, is_deleted, item_dept_charge_men, contract_no, 
+    second_dept_id, dept_vice_charge_men, is_secrecy, remark, creator, creator_name, 
+    gmt_create, gmt_modified, process_instance_id, is_process_end
+    from five_oa_stamp_apply_office
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and isLikeSelect==null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="formNo != null and isLikeSelect==null and formNo != ''">
+         AND form_no = #{formNo}
+      </if>
+      <if test="deptId != null and isLikeSelect==null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and isLikeSelect==null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="item != null and isLikeSelect==null and item != ''">
+         AND item = #{item}
+      </if>
+      <if test="stampName != null and isLikeSelect==null and stampName != ''">
+         AND stamp_name = #{stampName}
+      </if>
+      <if test="stampDate != null and isLikeSelect==null and stampDate != ''">
+         AND stamp_date = #{stampDate}
+      </if>
+      <if test="fileName != null and isLikeSelect==null and fileName != ''">
+         AND file_name = #{fileName}
+      </if>
+      <if test="fileCount != null and isLikeSelect==null and fileCount != ''">
+         AND file_count = #{fileCount}
+      </if>
+      <if test="legalReview != null and isLikeSelect==null">
+         AND is_legal_review = #{legalReview}
+      </if>
+      <if test="viceLeader != null and isLikeSelect==null and viceLeader != ''">
+         AND vice_leader = #{viceLeader}
+      </if>
+      <if test="viceLeaderName != null and isLikeSelect==null and viceLeaderName != ''">
+         AND vice_leader_name = #{viceLeaderName}
+      </if>
+      <if test="itemDept != null and isLikeSelect==null">
+         AND item_dept = #{itemDept}
+      </if>
+      <if test="itemDeptName != null and isLikeSelect==null and itemDeptName != ''">
+         AND item_dept_name = #{itemDeptName}
+      </if>
+      <if test="record != null and isLikeSelect==null">
+         AND is_record = #{record}
+      </if>
+      <if test="contracted != null and isLikeSelect==null">
+         AND is_contracted = #{contracted}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="itemDeptChargeMen != null and isLikeSelect==null and itemDeptChargeMen != ''">
+         AND item_dept_charge_men = #{itemDeptChargeMen}
+      </if>
+      <if test="contractNo != null and isLikeSelect==null and contractNo != ''">
+         AND contract_no = #{contractNo}
+      </if>
+      <if test="secondDeptId != null and isLikeSelect==null">
+         AND second_dept_id = #{secondDeptId}
+      </if>
+      <if test="deptViceChargeMen != null and isLikeSelect==null and deptViceChargeMen != ''">
+         AND dept_vice_charge_men = #{deptViceChargeMen}
+      </if>
+      <if test="secrecy != null and isLikeSelect==null">
+         AND is_secrecy = #{secrecy}
+      </if>
+      <if test="remark != null and isLikeSelect==null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="processInstanceId != null and isLikeSelect==null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="processEnd != null and isLikeSelect==null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect==null">
+        AND (
+        dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+        <if test="initiator != null and initiator != ''">
+          or creator = #{initiator}
+        </if>
+        )
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="businessKey != null and isLikeSelect!= null and businessKey != '' ">
+         AND business_key like  CONCAT('%',#{businessKey},'%')
+      </if>
+      <if test="formNo != null and isLikeSelect!= null and formNo != '' ">
+         AND form_no like  CONCAT('%',#{formNo},'%')
+      </if>
+      <if test="deptName != null and isLikeSelect!= null and deptName != '' ">
+         AND dept_name like  CONCAT('%',#{deptName},'%')
+      </if>
+      <if test="item != null and isLikeSelect!= null and item != '' ">
+         AND item like  CONCAT('%',#{item},'%')
+      </if>
+      <if test="stampName != null and isLikeSelect!= null and stampName != '' ">
+         AND stamp_name like  CONCAT('%',#{stampName},'%')
+      </if>
+      <if test="stampDate != null and isLikeSelect!= null and stampDate != '' ">
+         AND stamp_date like  CONCAT('%',#{stampDate},'%')
+      </if>
+      <if test="fileName != null and isLikeSelect!= null and fileName != '' ">
+         AND file_name like  CONCAT('%',#{fileName},'%')
+      </if>
+      <if test="fileCount != null and isLikeSelect!= null and fileCount != '' ">
+         AND file_count like  CONCAT('%',#{fileCount},'%')
+      </if>
+      <if test="viceLeader != null and isLikeSelect!= null and viceLeader != '' ">
+         AND vice_leader like  CONCAT('%',#{viceLeader},'%')
+      </if>
+      <if test="viceLeaderName != null and isLikeSelect!= null and viceLeaderName != '' ">
+         AND vice_leader_name like  CONCAT('%',#{viceLeaderName},'%')
+      </if>
+      <if test="itemDeptName != null and isLikeSelect!= null and itemDeptName != '' ">
+         AND item_dept_name like  CONCAT('%',#{itemDeptName},'%')
+      </if>
+      <if test="itemDeptChargeMen != null and isLikeSelect!= null and itemDeptChargeMen != '' ">
+         AND item_dept_charge_men like  CONCAT('%',#{itemDeptChargeMen},'%')
+      </if>
+      <if test="contractNo != null and isLikeSelect!= null and contractNo != '' ">
+         AND contract_no like  CONCAT('%',#{contractNo},'%')
+      </if>
+      <if test="deptViceChargeMen != null and isLikeSelect!= null and deptViceChargeMen != '' ">
+         AND dept_vice_charge_men like  CONCAT('%',#{deptViceChargeMen},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="processInstanceId != null and isLikeSelect!= null and processInstanceId != '' ">
+         AND process_instance_id like  CONCAT('%',#{processInstanceId},'%')
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="deptId != null and isLikeSelect!=null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="startTime1 != null and startTime1 !='' and isLikeSelect!=null">
+        AND gmt_create  &gt;= CONCAT('','${startTime1}',' 00:00:00')
+      </if>
+      <if test="endTime1 != null and endTime1 !='' and isLikeSelect!=null">
+        AND gmt_create  &lt;= CONCAT('','${endTime1}',' 23:59:59')
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect!=null">
+        AND (
+        dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+        <if test="initiator != null and initiator != ''">
+          or creator = #{initiator}
+        </if>
+        )
+      </if>
+    </where>
+  </sql>
+</mapper>

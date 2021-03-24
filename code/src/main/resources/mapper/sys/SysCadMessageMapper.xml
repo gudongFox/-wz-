@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.sys.dao.SysCadMessageMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.sys.entity.SysCadMessage">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="message_type" jdbcType="VARCHAR" property="messageType" />
+    <result column="message_caption" jdbcType="VARCHAR" property="messageCaption" />
+    <result column="message_content" jdbcType="VARCHAR" property="messageContent" />
+    <result column="sender" jdbcType="VARCHAR" property="sender" />
+    <result column="sender_name" jdbcType="VARCHAR" property="senderName" />
+    <result column="receiver" jdbcType="VARCHAR" property="receiver" />
+    <result column="receiver_name" jdbcType="VARCHAR" property="receiverName" />
+    <result column="delay_second" jdbcType="INTEGER" property="delaySecond" />
+    <result column="is_received" jdbcType="BIT" property="received" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_received" jdbcType="TIMESTAMP" property="gmtReceived" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_cad_message
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.sys.entity.SysCadMessage">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sys_cad_message (message_type, message_caption, message_content, 
+      sender, sender_name, receiver, 
+      receiver_name, delay_second, is_received, 
+      gmt_create, gmt_received)
+    values (#{messageType,jdbcType=VARCHAR}, #{messageCaption,jdbcType=VARCHAR}, #{messageContent,jdbcType=VARCHAR}, 
+      #{sender,jdbcType=VARCHAR}, #{senderName,jdbcType=VARCHAR}, #{receiver,jdbcType=VARCHAR}, 
+      #{receiverName,jdbcType=VARCHAR}, #{delaySecond,jdbcType=INTEGER}, #{received,jdbcType=BIT}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtReceived,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.sys.entity.SysCadMessage">
+    update sys_cad_message
+    set message_type = #{messageType,jdbcType=VARCHAR},
+      message_caption = #{messageCaption,jdbcType=VARCHAR},
+      message_content = #{messageContent,jdbcType=VARCHAR},
+      sender = #{sender,jdbcType=VARCHAR},
+      sender_name = #{senderName,jdbcType=VARCHAR},
+      receiver = #{receiver,jdbcType=VARCHAR},
+      receiver_name = #{receiverName,jdbcType=VARCHAR},
+      delay_second = #{delaySecond,jdbcType=INTEGER},
+      is_received = #{received,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_received = #{gmtReceived,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, message_type, message_caption, message_content, sender, sender_name, receiver, 
+    receiver_name, delay_second, is_received, gmt_create, gmt_received
+    from sys_cad_message
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, message_type, message_caption, message_content, sender, sender_name, receiver, 
+    receiver_name, delay_second, is_received, gmt_create, gmt_received
+    from sys_cad_message
+    <include refid="Base_Where_List" />
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="messageType != null and messageType != ''">
+         AND message_type = #{messageType}
+      </if>
+      <if test="messageCaption != null and messageCaption != ''">
+         AND message_caption = #{messageCaption}
+      </if>
+      <if test="messageContent != null and messageContent != ''">
+         AND message_content = #{messageContent}
+      </if>
+      <if test="sender != null and sender != ''">
+         AND sender = #{sender}
+      </if>
+      <if test="senderName != null and senderName != ''">
+         AND sender_name = #{senderName}
+      </if>
+      <if test="receiver != null and receiver != ''">
+         AND receiver = #{receiver}
+      </if>
+      <if test="receiverName != null and receiverName != ''">
+         AND receiver_name = #{receiverName}
+      </if>
+      <if test="delaySecond != null">
+         AND delay_second = #{delaySecond}
+      </if>
+      <if test="received != null">
+         AND is_received = #{received}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtReceived != null">
+         AND gmt_received = #{gmtReceived}
+      </if>
+    </where>
+  </sql>
+</mapper>

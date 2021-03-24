@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.sys.dao.SysScheduleMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.sys.entity.SysSchedule">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_login" jdbcType="VARCHAR" property="userLogin" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="is_all_day" jdbcType="BIT" property="allDay" />
+    <result column="start" jdbcType="VARCHAR" property="start" />
+    <result column="end" jdbcType="VARCHAR" property="end" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_finished" jdbcType="BIT" property="finished" />
+    <result column="remind" jdbcType="VARCHAR" property="remind" />
+    <result column="repetition" jdbcType="VARCHAR" property="repetition" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="background_color" jdbcType="VARCHAR" property="backgroundColor" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_schedule
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.sys.entity.SysSchedule">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sys_schedule (user_login, user_name, type, 
+      title, is_all_day, start, 
+      end, remark, is_finished, 
+      remind, repetition, creator, 
+      creator_name, dept_id, dept_name, 
+      gmt_create, gmt_modified, is_deleted, 
+      url, background_color)
+    values (#{userLogin,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{allDay,jdbcType=BIT}, #{start,jdbcType=VARCHAR}, 
+      #{end,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{finished,jdbcType=BIT}, 
+      #{remind,jdbcType=VARCHAR}, #{repetition,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{creatorName,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}, 
+      #{url,jdbcType=VARCHAR}, #{backgroundColor,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.sys.entity.SysSchedule">
+    update sys_schedule
+    set user_login = #{userLogin,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      is_all_day = #{allDay,jdbcType=BIT},
+      start = #{start,jdbcType=VARCHAR},
+      end = #{end,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_finished = #{finished,jdbcType=BIT},
+      remind = #{remind,jdbcType=VARCHAR},
+      repetition = #{repetition,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      is_deleted = #{deleted,jdbcType=BIT},
+      url = #{url,jdbcType=VARCHAR},
+      background_color = #{backgroundColor,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, user_login, user_name, type, title, is_all_day, start, end, remark, is_finished, 
+    remind, repetition, creator, creator_name, dept_id, dept_name, gmt_create, gmt_modified, 
+    is_deleted, url, background_color
+    from sys_schedule
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, user_login, user_name, type, title, is_all_day, start, end, remark, is_finished, 
+    remind, repetition, creator, creator_name, dept_id, dept_name, gmt_create, gmt_modified, 
+    is_deleted, url, background_color
+    from sys_schedule
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="userLogin != null and userLogin != ''">
+         AND user_login = #{userLogin}
+      </if>
+      <if test="userName != null and userName != ''">
+         AND user_name = #{userName}
+      </if>
+      <if test="type != null and type != ''">
+         AND type = #{type}
+      </if>
+      <if test="title != null and title != ''">
+         AND title = #{title}
+      </if>
+      <if test="allDay != null">
+         AND is_all_day = #{allDay}
+      </if>
+      <if test="start != null and start != ''">
+         AND start = #{start}
+      </if>
+      <if test="end != null and end != ''">
+         AND end = #{end}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="finished != null">
+         AND is_finished = #{finished}
+      </if>
+      <if test="remind != null and remind != ''">
+         AND remind = #{remind}
+      </if>
+      <if test="repetition != null and repetition != ''">
+         AND repetition = #{repetition}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deptId != null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="url != null and url != ''">
+         AND url = #{url}
+      </if>
+      <if test="backgroundColor != null and backgroundColor != ''">
+         AND background_color = #{backgroundColor}
+      </if>
+    </where>
+  </sql>
+</mapper>

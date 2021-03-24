@@ -1,0 +1,34 @@
+﻿<div class="mui-card" ng-repeat="item in vm.list">
+    <div class="mui-card-header">
+        <a class="mui-navigate-right" data-title-type="native"
+           ng-bind="$index+1+'印章类型['+item.stampName+']'"
+           ng-href="{{'/h5/taskDetail.html?businessKey='+item.businessKey}}">
+        </a>
+    </div>
+    <div class="mui-card-content">
+        <form class="mui-input-group">
+            <div class="mui-input-row" >
+                <label>用印事由</label>
+                <input ng-value="item.item" type="text" placeholder="" readonly="readonly">
+            </div>
+            <div class="mui-input-row" >
+                <label>创建人</label>
+                <input ng-value="item.creatorName" type="text" placeholder="" readonly="readonly">
+            </div>
+            <div class="mui-input-row" >
+                <label>创建时间</label>
+                <input ng-value="item.gmtCreate|data:'yyyy-MM-dd'" type="text" placeholder="" readonly="readonly">
+            </div>
+            <div class="mui-input-row" >
+                <label>当前状态</label>
+                <input ng-value="item.processName" type="text" placeholder="" readonly="readonly">
+            </div>
+        </form>
+    </div>
+</div>
+
+<img src="/assets/img/new.png" title="创建" style="height: 30px;position: fixed;bottom: 100px;right: 15px;"
+     ng-click="vm.add();"/>
+
+
+

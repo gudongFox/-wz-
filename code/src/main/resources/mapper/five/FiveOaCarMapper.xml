@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveOaCarMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveOaCar">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="car_no" jdbcType="VARCHAR" property="carNo" />
+    <result column="car_type" jdbcType="VARCHAR" property="carType" />
+    <result column="car_cc" jdbcType="VARCHAR" property="carCc" />
+    <result column="car_price" jdbcType="DECIMAL" property="carPrice" />
+    <result column="car_brand" jdbcType="VARCHAR" property="carBrand" />
+    <result column="car_color" jdbcType="VARCHAR" property="carColor" />
+    <result column="car_status" jdbcType="VARCHAR" property="carStatus" />
+    <result column="buy_date" jdbcType="VARCHAR" property="buyDate" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="charge_man" jdbcType="VARCHAR" property="chargeMan" />
+    <result column="charge_man_name" jdbcType="VARCHAR" property="chargeManName" />
+    <result column="seating" jdbcType="VARCHAR" property="seating" />
+    <result column="use_nature" jdbcType="VARCHAR" property="useNature" />
+    <result column="oil_card_no" jdbcType="VARCHAR" property="oilCardNo" />
+    <result column="register_time" jdbcType="VARCHAR" property="registerTime" />
+    <result column="certificate_type" jdbcType="VARCHAR" property="certificateType" />
+    <result column="vehicle_identification_code" jdbcType="VARCHAR" property="vehicleIdentificationCode" />
+    <result column="engine_number" jdbcType="VARCHAR" property="engineNumber" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_oa_car
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveOaCar">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_oa_car (business_key, dept_id, dept_name, 
+      car_no, car_type, car_cc, 
+      car_price, car_brand, car_color, 
+      car_status, buy_date, is_deleted, 
+      creator, creator_name, gmt_create, 
+      gmt_modified, remark, charge_man, 
+      charge_man_name, seating, use_nature, 
+      oil_card_no, register_time, certificate_type, 
+      vehicle_identification_code, engine_number
+      )
+    values (#{businessKey,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, 
+      #{carNo,jdbcType=VARCHAR}, #{carType,jdbcType=VARCHAR}, #{carCc,jdbcType=VARCHAR}, 
+      #{carPrice,jdbcType=DECIMAL}, #{carBrand,jdbcType=VARCHAR}, #{carColor,jdbcType=VARCHAR}, 
+      #{carStatus,jdbcType=VARCHAR}, #{buyDate,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, 
+      #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{chargeMan,jdbcType=VARCHAR}, 
+      #{chargeManName,jdbcType=VARCHAR}, #{seating,jdbcType=VARCHAR}, #{useNature,jdbcType=VARCHAR}, 
+      #{oilCardNo,jdbcType=VARCHAR}, #{registerTime,jdbcType=VARCHAR}, #{certificateType,jdbcType=VARCHAR}, 
+      #{vehicleIdentificationCode,jdbcType=VARCHAR}, #{engineNumber,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveOaCar">
+    update five_oa_car
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      car_no = #{carNo,jdbcType=VARCHAR},
+      car_type = #{carType,jdbcType=VARCHAR},
+      car_cc = #{carCc,jdbcType=VARCHAR},
+      car_price = #{carPrice,jdbcType=DECIMAL},
+      car_brand = #{carBrand,jdbcType=VARCHAR},
+      car_color = #{carColor,jdbcType=VARCHAR},
+      car_status = #{carStatus,jdbcType=VARCHAR},
+      buy_date = #{buyDate,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      charge_man = #{chargeMan,jdbcType=VARCHAR},
+      charge_man_name = #{chargeManName,jdbcType=VARCHAR},
+      seating = #{seating,jdbcType=VARCHAR},
+      use_nature = #{useNature,jdbcType=VARCHAR},
+      oil_card_no = #{oilCardNo,jdbcType=VARCHAR},
+      register_time = #{registerTime,jdbcType=VARCHAR},
+      certificate_type = #{certificateType,jdbcType=VARCHAR},
+      vehicle_identification_code = #{vehicleIdentificationCode,jdbcType=VARCHAR},
+      engine_number = #{engineNumber,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, dept_id, dept_name, car_no, car_type, car_cc, car_price, 
+    car_brand, car_color, car_status, buy_date, is_deleted, creator, creator_name, gmt_create, 
+    gmt_modified, remark, charge_man, charge_man_name, seating, use_nature, oil_card_no, 
+    register_time, certificate_type, vehicle_identification_code, engine_number
+    from five_oa_car
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, dept_id, dept_name, car_no, car_type, car_cc, car_price, 
+    car_brand, car_color, car_status, buy_date, is_deleted, creator, creator_name, gmt_create, 
+    gmt_modified, remark, charge_man, charge_man_name, seating, use_nature, oil_card_no, 
+    register_time, certificate_type, vehicle_identification_code, engine_number
+    from five_oa_car
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="deptId != null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="carNo != null and carNo != ''">
+         AND car_no = #{carNo}
+      </if>
+      <if test="carType != null and carType != ''">
+         AND car_type = #{carType}
+      </if>
+      <if test="carCc != null and carCc != ''">
+         AND car_cc = #{carCc}
+      </if>
+      <if test="carPrice != null">
+         AND car_price = #{carPrice}
+      </if>
+      <if test="carBrand != null and carBrand != ''">
+         AND car_brand = #{carBrand}
+      </if>
+      <if test="carColor != null and carColor != ''">
+         AND car_color = #{carColor}
+      </if>
+      <if test="carStatus != null and carStatus != ''">
+         AND car_status = #{carStatus}
+      </if>
+      <if test="buyDate != null and buyDate != ''">
+         AND buy_date = #{buyDate}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="chargeMan != null and chargeMan != ''">
+         AND charge_man = #{chargeMan}
+      </if>
+      <if test="chargeManName != null and chargeManName != ''">
+         AND charge_man_name = #{chargeManName}
+      </if>
+      <if test="seating != null and seating != ''">
+         AND seating = #{seating}
+      </if>
+      <if test="useNature != null and useNature != ''">
+         AND use_nature = #{useNature}
+      </if>
+      <if test="oilCardNo != null and oilCardNo != ''">
+         AND oil_card_no = #{oilCardNo}
+      </if>
+      <if test="registerTime != null and registerTime != ''">
+         AND register_time = #{registerTime}
+      </if>
+      <if test="certificateType != null and certificateType != ''">
+         AND certificate_type = #{certificateType}
+      </if>
+      <if test="vehicleIdentificationCode != null and vehicleIdentificationCode != ''">
+         AND vehicle_identification_code = #{vehicleIdentificationCode}
+      </if>
+      <if test="engineNumber != null and engineNumber != ''">
+         AND engine_number = #{engineNumber}
+      </if>
+    </where>
+  </sql>
+</mapper>

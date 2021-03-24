@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveOaEquipmentAcceptanceDetailMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveOaEquipmentAcceptanceDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="invoice_no" jdbcType="VARCHAR" property="invoiceNo" />
+    <result column="fixed_asset_no" jdbcType="VARCHAR" property="fixedAssetNo" />
+    <result column="equipment_id" jdbcType="INTEGER" property="equipmentId" />
+    <result column="equipment_name" jdbcType="VARCHAR" property="equipmentName" />
+    <result column="specification" jdbcType="VARCHAR" property="specification" />
+    <result column="dept_id" jdbcType="VARCHAR" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="price" jdbcType="VARCHAR" property="price" />
+    <result column="total_price" jdbcType="VARCHAR" property="totalPrice" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="is_uploadFile" jdbcType="BIT" property="uploadfile" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_oa_equipment_acceptance_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveOaEquipmentAcceptanceDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_oa_equipment_acceptance_detail (business_key, invoice_no, fixed_asset_no, 
+      equipment_id, equipment_name, specification, 
+      dept_id, dept_name, number, 
+      price, total_price, remark, 
+      is_deleted, is_uploadFile, creator, 
+      creator_name, gmt_create, gmt_modified
+      )
+    values (#{businessKey,jdbcType=VARCHAR}, #{invoiceNo,jdbcType=VARCHAR}, #{fixedAssetNo,jdbcType=VARCHAR}, 
+      #{equipmentId,jdbcType=INTEGER}, #{equipmentName,jdbcType=VARCHAR}, #{specification,jdbcType=VARCHAR}, 
+      #{deptId,jdbcType=VARCHAR}, #{deptName,jdbcType=VARCHAR}, #{number,jdbcType=INTEGER}, 
+      #{price,jdbcType=VARCHAR}, #{totalPrice,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=BIT}, #{uploadfile,jdbcType=BIT}, #{creator,jdbcType=VARCHAR}, 
+      #{creatorName,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveOaEquipmentAcceptanceDetail">
+    update five_oa_equipment_acceptance_detail
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      invoice_no = #{invoiceNo,jdbcType=VARCHAR},
+      fixed_asset_no = #{fixedAssetNo,jdbcType=VARCHAR},
+      equipment_id = #{equipmentId,jdbcType=INTEGER},
+      equipment_name = #{equipmentName,jdbcType=VARCHAR},
+      specification = #{specification,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=VARCHAR},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      number = #{number,jdbcType=INTEGER},
+      price = #{price,jdbcType=VARCHAR},
+      total_price = #{totalPrice,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      is_uploadFile = #{uploadfile,jdbcType=BIT},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, invoice_no, fixed_asset_no, equipment_id, equipment_name, 
+    specification, dept_id, dept_name, number, price, total_price, remark, is_deleted, 
+    is_uploadFile, creator, creator_name, gmt_create, gmt_modified
+    from five_oa_equipment_acceptance_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, invoice_no, fixed_asset_no, equipment_id, equipment_name, 
+    specification, dept_id, dept_name, number, price, total_price, remark, is_deleted, 
+    is_uploadFile, creator, creator_name, gmt_create, gmt_modified
+    from five_oa_equipment_acceptance_detail
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and isLikeSelect==null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="invoiceNo != null and isLikeSelect==null and invoiceNo != ''">
+         AND invoice_no = #{invoiceNo}
+      </if>
+      <if test="fixedAssetNo != null and isLikeSelect==null and fixedAssetNo != ''">
+         AND fixed_asset_no = #{fixedAssetNo}
+      </if>
+      <if test="equipmentId != null and isLikeSelect==null">
+         AND equipment_id = #{equipmentId}
+      </if>
+      <if test="equipmentName != null and isLikeSelect==null and equipmentName != ''">
+         AND equipment_name = #{equipmentName}
+      </if>
+      <if test="specification != null and isLikeSelect==null and specification != ''">
+         AND specification = #{specification}
+      </if>
+      <if test="deptId != null and isLikeSelect==null and deptId != ''">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and isLikeSelect==null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="number != null and isLikeSelect==null">
+         AND number = #{number}
+      </if>
+      <if test="price != null and isLikeSelect==null and price != ''">
+         AND price = #{price}
+      </if>
+      <if test="totalPrice != null and isLikeSelect==null and totalPrice != ''">
+         AND total_price = #{totalPrice}
+      </if>
+      <if test="remark != null and isLikeSelect==null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="uploadfile != null and isLikeSelect==null">
+         AND is_uploadFile = #{uploadfile}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="businessKey != null and isLikeSelect!= null and businessKey != '' ">
+         AND business_key like  CONCAT('%',#{businessKey},'%')
+      </if>
+      <if test="invoiceNo != null and isLikeSelect!= null and invoiceNo != '' ">
+         AND invoice_no like  CONCAT('%',#{invoiceNo},'%')
+      </if>
+      <if test="fixedAssetNo != null and isLikeSelect!= null and fixedAssetNo != '' ">
+         AND fixed_asset_no like  CONCAT('%',#{fixedAssetNo},'%')
+      </if>
+      <if test="equipmentName != null and isLikeSelect!= null and equipmentName != '' ">
+         AND equipment_name like  CONCAT('%',#{equipmentName},'%')
+      </if>
+      <if test="specification != null and isLikeSelect!= null and specification != '' ">
+         AND specification like  CONCAT('%',#{specification},'%')
+      </if>
+      <if test="deptId != null and isLikeSelect!= null and deptId != '' ">
+         AND dept_id like  CONCAT('%',#{deptId},'%')
+      </if>
+      <if test="deptName != null and isLikeSelect!= null and deptName != '' ">
+         AND dept_name like  CONCAT('%',#{deptName},'%')
+      </if>
+      <if test="price != null and isLikeSelect!= null and price != '' ">
+         AND price like  CONCAT('%',#{price},'%')
+      </if>
+      <if test="totalPrice != null and isLikeSelect!= null and totalPrice != '' ">
+         AND total_price like  CONCAT('%',#{totalPrice},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="deptId != null and isLikeSelect!=null">
+         AND dept_id = #{deptId}
+      </if>
+    </where>
+  </sql>
+</mapper>

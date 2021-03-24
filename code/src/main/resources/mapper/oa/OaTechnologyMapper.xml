@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.oa.dao.OaTechnologyMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.oa.entity.OaTechnology">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="technology_title" jdbcType="VARCHAR" property="technologyTitle" />
+    <result column="technology_desc" jdbcType="VARCHAR" property="technologyDesc" />
+    <result column="technology_type" jdbcType="VARCHAR" property="technologyType" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from oa_technology
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.oa.entity.OaTechnology">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into oa_technology (business_key, technology_title, technology_desc, 
+      technology_type, dept_id, dept_name, 
+      creator, creator_name, is_deleted, 
+      remark, gmt_create, gmt_modified, 
+      process_instance_id, is_process_end)
+    values (#{businessKey,jdbcType=VARCHAR}, #{technologyTitle,jdbcType=VARCHAR}, #{technologyDesc,jdbcType=VARCHAR}, 
+      #{technologyType,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, 
+      #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, 
+      #{remark,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{processInstanceId,jdbcType=VARCHAR}, #{processEnd,jdbcType=BIT})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.oa.entity.OaTechnology">
+    update oa_technology
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      technology_title = #{technologyTitle,jdbcType=VARCHAR},
+      technology_desc = #{technologyDesc,jdbcType=VARCHAR},
+      technology_type = #{technologyType,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      remark = #{remark,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      is_process_end = #{processEnd,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, technology_title, technology_desc, technology_type, dept_id, 
+    dept_name, creator, creator_name, is_deleted, remark, gmt_create, gmt_modified, process_instance_id, 
+    is_process_end
+    from oa_technology
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, technology_title, technology_desc, technology_type, dept_id, 
+    dept_name, creator, creator_name, is_deleted, remark, gmt_create, gmt_modified, process_instance_id, 
+    is_process_end
+    from oa_technology
+    <include refid="Base_Where_List" />
+    order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="technologyTitle != null and technologyTitle != ''">
+         AND technology_title = #{technologyTitle}
+      </if>
+      <if test="technologyDesc != null and technologyDesc != ''">
+         AND technology_desc = #{technologyDesc}
+      </if>
+      <if test="technologyType != null and technologyType != ''">
+         AND technology_type = #{technologyType}
+      </if>
+      <if test="deptId != null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="processInstanceId != null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="processEnd != null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="technologyTitles != null and technologyTitles != '' ">
+        AND (
+        technology_title like CONCAT('%',#{technologyTitles},'%')
+        )
+      </if>
+      <if test="deptNames != null and deptNames != '' ">
+        AND (
+        dept_name like CONCAT('%',#{deptNames},'%')
+        )
+      </if>
+    </where>
+  </sql>
+</mapper>

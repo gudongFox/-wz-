@@ -1,0 +1,160 @@
+<link href="/assets/js/vakata-jstree-3.3.8/dist/themes/default/style.min.css" rel="stylesheet"/>
+<script charset="utf-8" src="/assets/js/vakata-jstree-3.3.8/dist/jstree.min.js"/>
+
+<br/>
+
+<!-- begin:: Content -->
+<div class="kt-container  kt-grid__item kt-grid__item--fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <!--begin::Portlet-->
+            <div class="kt-portlet">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <span class="kt-portlet__head-icon">
+															<i class="flaticon2-gear"></i>
+														</span>
+                        <h3 class="kt-portlet__head-title">
+                            <span ng-bind="processInstance.instance.processDefinitionName+'-'+processInstance.currentTaskName"></span>
+                        </h3>
+                    </div>
+
+                    <div class="kt-portlet__head-toolbar">
+                        <div class="kt-portlet__head-wrapper">
+                            <div class="kt-portlet__head-actions">
+                                <div class="kt-subheader">
+                                    <div class="kt-subheader__toolbar">
+                                        <div class="kt-subheader__wrapper">
+
+                                            <span ng-include="'/web/tpl/actAction.html'"></span>
+
+                                            <a class="btn kt-subheader__btn-primary btn-icon" title="刷新数据"
+                                               ng-click="refresh();">
+                                                <i class="flaticon2-refresh"></i>
+                                            </a>
+                                            <a class="btn kt-subheader__btn-primary btn-icon" title="返回"
+                                               ng-click="vm.back();">
+                                                <i class="flaticon2-back"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="kt-portlet__body" style="padding-top: 5px;">
+                    <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-2x nav-tabs-line-success" role="tablist"
+                        style="margin-bottom: 10px;">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#tab_1" role="tab">基础信息</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tab_2" role="tab">流程信息</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tab_3" role="tab">流程图</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab_1" role="tabpanel">
+
+
+                            <div class="kt-portlet" style="margin-bottom: 10px;">
+                                <div class="kt-portlet__head">
+                                    <div class="kt-portlet__head-label">
+                                        <span class="kt-portlet__head-icon">
+                                                <i class="flaticon2-crisp-icons-1"></i>
+                                        </span>
+                                        <h3 class="kt-portlet__head-title">流程实例
+                                        </h3>
+                                    </div>
+                                </div>
+                                <form class="kt-form kt-form--label-right">
+                                    <div class="kt-portlet__body" style="padding-bottom: 5px;padding-top: 5px;">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-body">
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <label>业务标识</label>
+                                                                <input type="text" class="form-control" placeholder=""
+                                                                       ng-model="processInstance.instance.businessKey"
+                                                                       disabled="disabled"/>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label>流程标识</label>
+                                                                <input type="text" class="form-control" placeholder=""
+                                                                       ng-model="processInstance.instance.processDefinitionId"
+                                                                       disabled="disabled"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <label>发起人</label>
+                                                                <input type="text" class="form-control" placeholder=""
+                                                                       ng-model="processInstance.initiatorName"
+                                                                       disabled="disabled"/>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label>发起时间</label>
+                                                                <input type="text" class="form-control" placeholder=""
+                                                                       ng-model="processInstance.initiatorTime"
+                                                                       disabled="disabled"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+
+                            <div class="kt-portlet" style="margin-bottom: 10px;" ng-repeat="group in vm.groupList">
+                                <div class="kt-portlet__head">
+                                    <div class="kt-portlet__head-label">
+          		<span class="kt-portlet__head-icon">
+						<i class="fa fa-edit"></i>
+				</span>
+                                        <h3 class="kt-portlet__head-title" ng-bind="($index+1)+'.'+group.groupName">
+                                        </h3>
+                                    </div>
+                                </div>
+                                <form class="kt-form kt-form--label-right">
+                                    <div class="kt-portlet__body" style="padding-bottom: 5px;padding-top: 5px;">
+                                        <div ng-include="'/web/tpl/formData.html'"></div>
+                                    </div>
+                                </form>
+                            </div>
+
+
+
+                        </div>
+                        <div class="tab-pane" id="tab_2" role="tabpanel">
+                            <div ng-include="'/web/tpl/actTaskList.html'"></div>
+                        </div>
+                        <div class="tab-pane" id="tab_3" role="tabpanel">
+                            <img ng-src="{{'/act/processQuery/image/'+processInstance.instance.processInstanceId+'?'+refeshTime}}"
+                                 style="max-width: 99%;"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end::Portlet-->
+
+            <span ng-include="'/web/tpl/cloudDirAndFile.html'" ng-show="tplConfig.showBusinessFile"></span>
+        </div>
+    </div>
+
+</div>
+<!-- end:: Content -->
+
+
+<div ng-include="'/editor-app/custom/tpl/v1/processModalList.html'"></div>
+

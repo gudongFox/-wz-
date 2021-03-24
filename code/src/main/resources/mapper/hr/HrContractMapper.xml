@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.hr.dao.HrContractMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.hr.entity.HrContract">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_login" jdbcType="VARCHAR" property="userLogin" />
+    <result column="contract_type" jdbcType="VARCHAR" property="contractType" />
+    <result column="work_type" jdbcType="VARCHAR" property="workType" />
+    <result column="contract_location" jdbcType="VARCHAR" property="contractLocation" />
+    <result column="insure_location" jdbcType="VARCHAR" property="insureLocation" />
+    <result column="contract_year" jdbcType="INTEGER" property="contractYear" />
+    <result column="begin_time" jdbcType="VARCHAR" property="beginTime" />
+    <result column="end_time" jdbcType="VARCHAR" property="endTime" />
+    <result column="notice_time" jdbcType="VARCHAR" property="noticeTime" />
+    <result column="receive_time" jdbcType="VARCHAR" property="receiveTime" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from hr_contract
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.hr.entity.HrContract">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into hr_contract (user_login, contract_type, work_type, 
+      contract_location, insure_location, contract_year, 
+      begin_time, end_time, notice_time, 
+      receive_time, is_deleted, gmt_create, 
+      gmt_modified)
+    values (#{userLogin,jdbcType=VARCHAR}, #{contractType,jdbcType=VARCHAR}, #{workType,jdbcType=VARCHAR}, 
+      #{contractLocation,jdbcType=VARCHAR}, #{insureLocation,jdbcType=VARCHAR}, #{contractYear,jdbcType=INTEGER}, 
+      #{beginTime,jdbcType=VARCHAR}, #{endTime,jdbcType=VARCHAR}, #{noticeTime,jdbcType=VARCHAR}, 
+      #{receiveTime,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.hr.entity.HrContract">
+    update hr_contract
+    set user_login = #{userLogin,jdbcType=VARCHAR},
+      contract_type = #{contractType,jdbcType=VARCHAR},
+      work_type = #{workType,jdbcType=VARCHAR},
+      contract_location = #{contractLocation,jdbcType=VARCHAR},
+      insure_location = #{insureLocation,jdbcType=VARCHAR},
+      contract_year = #{contractYear,jdbcType=INTEGER},
+      begin_time = #{beginTime,jdbcType=VARCHAR},
+      end_time = #{endTime,jdbcType=VARCHAR},
+      notice_time = #{noticeTime,jdbcType=VARCHAR},
+      receive_time = #{receiveTime,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, user_login, contract_type, work_type, contract_location, insure_location, 
+    contract_year, begin_time, end_time, notice_time, receive_time, is_deleted, gmt_create, 
+    gmt_modified
+    from hr_contract
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, user_login, contract_type, work_type, contract_location, insure_location, 
+    contract_year, begin_time, end_time, notice_time, receive_time, is_deleted, gmt_create, 
+    gmt_modified
+    from hr_contract
+    <include refid="Base_Where_List" />
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="userLogin != null and userLogin != ''">
+         AND user_login = #{userLogin}
+      </if>
+      <if test="contractType != null and contractType != ''">
+         AND contract_type = #{contractType}
+      </if>
+      <if test="workType != null and workType != ''">
+         AND work_type = #{workType}
+      </if>
+      <if test="contractLocation != null and contractLocation != ''">
+         AND contract_location = #{contractLocation}
+      </if>
+      <if test="insureLocation != null and insureLocation != ''">
+         AND insure_location = #{insureLocation}
+      </if>
+      <if test="contractYear != null">
+         AND contract_year = #{contractYear}
+      </if>
+      <if test="beginTime != null and beginTime != ''">
+         AND begin_time = #{beginTime}
+      </if>
+      <if test="endTime != null and endTime != ''">
+         AND end_time = #{endTime}
+      </if>
+      <if test="noticeTime != null and noticeTime != ''">
+         AND notice_time = #{noticeTime}
+      </if>
+      <if test="receiveTime != null and receiveTime != ''">
+         AND receive_time = #{receiveTime}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="q != null and q != '' ">
+        AND (
+        contract_type like CONCAT('%',#{q},'%') or
+        work_type like CONCAT('%',#{q},'%')
+        )
+      </if>
+    </where>
+  </sql>
+</mapper>

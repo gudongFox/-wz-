@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveEdReviewMajorMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveEdReviewMajor">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="project_no" jdbcType="VARCHAR" property="projectNo" />
+    <result column="contract_no" jdbcType="VARCHAR" property="contractNo" />
+    <result column="step_id" jdbcType="INTEGER" property="stepId" />
+    <result column="step_name" jdbcType="VARCHAR" property="stepName" />
+    <result column="stage_name" jdbcType="VARCHAR" property="stageName" />
+    <result column="major_name" jdbcType="VARCHAR" property="majorName" />
+    <result column="design_review_type" jdbcType="VARCHAR" property="designReviewType" />
+    <result column="review_type" jdbcType="VARCHAR" property="reviewType" />
+    <result column="attend_user" jdbcType="VARCHAR" property="attendUser" />
+    <result column="attend_user_name" jdbcType="VARCHAR" property="attendUserName" />
+    <result column="proofread_men" jdbcType="VARCHAR" property="proofreadMen" />
+    <result column="proofread_men_name" jdbcType="VARCHAR" property="proofreadMenName" />
+    <result column="audit_men" jdbcType="VARCHAR" property="auditMen" />
+    <result column="audit_men_name" jdbcType="VARCHAR" property="auditMenName" />
+    <result column="approve_men" jdbcType="VARCHAR" property="approveMen" />
+    <result column="approve_men_name" jdbcType="VARCHAR" property="approveMenName" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+    <result column="solution_overview" jdbcType="VARCHAR" property="solutionOverview" />
+    <result column="solution_guidance" jdbcType="VARCHAR" property="solutionGuidance" />
+    <result column="solution_discussion" jdbcType="VARCHAR" property="solutionDiscussion" />
+    <result column="host_men" jdbcType="VARCHAR" property="hostMen" />
+    <result column="host_men_name" jdbcType="VARCHAR" property="hostMenName" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_ed_review_major
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveEdReviewMajor">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_ed_review_major (business_key, project_id, project_name, 
+      project_no, contract_no, step_id, 
+      step_name, stage_name, major_name, 
+      design_review_type, review_type, attend_user, 
+      attend_user_name, proofread_men, proofread_men_name, 
+      audit_men, audit_men_name, approve_men, 
+      approve_men_name, remark, is_deleted, 
+      creator, creator_name, gmt_create, 
+      gmt_modified, process_instance_id, is_process_end, 
+      solution_overview, solution_guidance, solution_discussion, 
+      host_men, host_men_name)
+    values (#{businessKey,jdbcType=VARCHAR}, #{projectId,jdbcType=INTEGER}, #{projectName,jdbcType=VARCHAR}, 
+      #{projectNo,jdbcType=VARCHAR}, #{contractNo,jdbcType=VARCHAR}, #{stepId,jdbcType=INTEGER}, 
+      #{stepName,jdbcType=VARCHAR}, #{stageName,jdbcType=VARCHAR}, #{majorName,jdbcType=VARCHAR}, 
+      #{designReviewType,jdbcType=VARCHAR}, #{reviewType,jdbcType=VARCHAR}, #{attendUser,jdbcType=VARCHAR}, 
+      #{attendUserName,jdbcType=VARCHAR}, #{proofreadMen,jdbcType=VARCHAR}, #{proofreadMenName,jdbcType=VARCHAR}, 
+      #{auditMen,jdbcType=VARCHAR}, #{auditMenName,jdbcType=VARCHAR}, #{approveMen,jdbcType=VARCHAR}, 
+      #{approveMenName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, 
+      #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{processInstanceId,jdbcType=VARCHAR}, #{processEnd,jdbcType=BIT}, 
+      #{solutionOverview,jdbcType=VARCHAR}, #{solutionGuidance,jdbcType=VARCHAR}, #{solutionDiscussion,jdbcType=VARCHAR}, 
+      #{hostMen,jdbcType=VARCHAR}, #{hostMenName,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveEdReviewMajor">
+    update five_ed_review_major
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      project_id = #{projectId,jdbcType=INTEGER},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      project_no = #{projectNo,jdbcType=VARCHAR},
+      contract_no = #{contractNo,jdbcType=VARCHAR},
+      step_id = #{stepId,jdbcType=INTEGER},
+      step_name = #{stepName,jdbcType=VARCHAR},
+      stage_name = #{stageName,jdbcType=VARCHAR},
+      major_name = #{majorName,jdbcType=VARCHAR},
+      design_review_type = #{designReviewType,jdbcType=VARCHAR},
+      review_type = #{reviewType,jdbcType=VARCHAR},
+      attend_user = #{attendUser,jdbcType=VARCHAR},
+      attend_user_name = #{attendUserName,jdbcType=VARCHAR},
+      proofread_men = #{proofreadMen,jdbcType=VARCHAR},
+      proofread_men_name = #{proofreadMenName,jdbcType=VARCHAR},
+      audit_men = #{auditMen,jdbcType=VARCHAR},
+      audit_men_name = #{auditMenName,jdbcType=VARCHAR},
+      approve_men = #{approveMen,jdbcType=VARCHAR},
+      approve_men_name = #{approveMenName,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      is_process_end = #{processEnd,jdbcType=BIT},
+      solution_overview = #{solutionOverview,jdbcType=VARCHAR},
+      solution_guidance = #{solutionGuidance,jdbcType=VARCHAR},
+      solution_discussion = #{solutionDiscussion,jdbcType=VARCHAR},
+      host_men = #{hostMen,jdbcType=VARCHAR},
+      host_men_name = #{hostMenName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, project_id, project_name, project_no, contract_no, step_id, 
+    step_name, stage_name, major_name, design_review_type, review_type, attend_user, 
+    attend_user_name, proofread_men, proofread_men_name, audit_men, audit_men_name, approve_men, 
+    approve_men_name, remark, is_deleted, creator, creator_name, gmt_create, gmt_modified, 
+    process_instance_id, is_process_end, solution_overview, solution_guidance, solution_discussion, 
+    host_men, host_men_name
+    from five_ed_review_major
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, project_id, project_name, project_no, contract_no, step_id, 
+    step_name, stage_name, major_name, design_review_type, review_type, attend_user, 
+    attend_user_name, proofread_men, proofread_men_name, audit_men, audit_men_name, approve_men, 
+    approve_men_name, remark, is_deleted, creator, creator_name, gmt_create, gmt_modified, 
+    process_instance_id, is_process_end, solution_overview, solution_guidance, solution_discussion, 
+    host_men, host_men_name
+    from five_ed_review_major
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="projectId != null">
+         AND project_id = #{projectId}
+      </if>
+      <if test="projectName != null and projectName != ''">
+         AND project_name = #{projectName}
+      </if>
+      <if test="projectNo != null and projectNo != ''">
+         AND project_no = #{projectNo}
+      </if>
+      <if test="contractNo != null and contractNo != ''">
+         AND contract_no = #{contractNo}
+      </if>
+      <if test="stepId != null">
+         AND step_id = #{stepId}
+      </if>
+      <if test="stepName != null and stepName != ''">
+         AND step_name = #{stepName}
+      </if>
+      <if test="stageName != null and stageName != ''">
+         AND stage_name = #{stageName}
+      </if>
+      <if test="majorName != null and majorName != ''">
+         AND major_name = #{majorName}
+      </if>
+      <if test="designReviewType != null and designReviewType != ''">
+         AND design_review_type = #{designReviewType}
+      </if>
+      <if test="reviewType != null and reviewType != ''">
+         AND review_type = #{reviewType}
+      </if>
+      <if test="attendUser != null and attendUser != ''">
+         AND attend_user = #{attendUser}
+      </if>
+      <if test="attendUserName != null and attendUserName != ''">
+         AND attend_user_name = #{attendUserName}
+      </if>
+      <if test="proofreadMen != null and proofreadMen != ''">
+         AND proofread_men = #{proofreadMen}
+      </if>
+      <if test="proofreadMenName != null and proofreadMenName != ''">
+         AND proofread_men_name = #{proofreadMenName}
+      </if>
+      <if test="auditMen != null and auditMen != ''">
+         AND audit_men = #{auditMen}
+      </if>
+      <if test="auditMenName != null and auditMenName != ''">
+         AND audit_men_name = #{auditMenName}
+      </if>
+      <if test="approveMen != null and approveMen != ''">
+         AND approve_men = #{approveMen}
+      </if>
+      <if test="approveMenName != null and approveMenName != ''">
+         AND approve_men_name = #{approveMenName}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="processInstanceId != null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="processEnd != null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="solutionOverview != null and solutionOverview != ''">
+         AND solution_overview = #{solutionOverview}
+      </if>
+      <if test="solutionGuidance != null and solutionGuidance != ''">
+         AND solution_guidance = #{solutionGuidance}
+      </if>
+      <if test="solutionDiscussion != null and solutionDiscussion != ''">
+         AND solution_discussion = #{solutionDiscussion}
+      </if>
+      <if test="hostMen != null and hostMen != ''">
+         AND host_men = #{hostMen}
+      </if>
+      <if test="hostMenName != null and hostMenName != ''">
+         AND host_men_name = #{hostMenName}
+      </if>
+    </where>
+  </sql>
+</mapper>

@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveOaDecisionMarkingDetailMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveOaDecisionMarkingDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="main_business" jdbcType="VARCHAR" property="mainBusiness" />
+    <result column="linked_business" jdbcType="VARCHAR" property="linkedBusiness" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="seq" jdbcType="INTEGER" property="seq" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="detail" jdbcType="VARCHAR" property="detail" />
+    <result column="attendance" jdbcType="VARCHAR" property="attendance" />
+    <result column="attendance_name" jdbcType="VARCHAR" property="attendanceName" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="detail_type" jdbcType="VARCHAR" property="detailType" />
+    <result column="original_title" jdbcType="VARCHAR" property="originalTitle" />
+    <result column="leader" jdbcType="VARCHAR" property="leader" />
+    <result column="issue_status" jdbcType="VARCHAR" property="issueStatus" />
+    <result column="attach_id" jdbcType="VARCHAR" property="attachId" />
+    <result column="attach_name" jdbcType="VARCHAR" property="attachName" />
+    <result column="conclusion" jdbcType="VARCHAR" property="conclusion" />
+    <result column="arrange_man" jdbcType="VARCHAR" property="arrangeMan" />
+    <result column="arrange_man_name" jdbcType="VARCHAR" property="arrangeManName" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_oa_decision_marking_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveOaDecisionMarkingDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_oa_decision_marking_detail (business_key, main_business, linked_business, 
+      title, seq, is_deleted, 
+      creator, creator_name, gmt_create, 
+      gmt_modified, detail, attendance, 
+      attendance_name, dept_id, dept_name, 
+      detail_type, original_title, leader, 
+      issue_status, attach_id, attach_name, 
+      conclusion, arrange_man, arrange_man_name
+      )
+    values (#{businessKey,jdbcType=VARCHAR}, #{mainBusiness,jdbcType=VARCHAR}, #{linkedBusiness,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{seq,jdbcType=INTEGER}, #{deleted,jdbcType=BIT}, 
+      #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{detail,jdbcType=VARCHAR}, #{attendance,jdbcType=VARCHAR}, 
+      #{attendanceName,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, 
+      #{detailType,jdbcType=VARCHAR}, #{originalTitle,jdbcType=VARCHAR}, #{leader,jdbcType=VARCHAR}, 
+      #{issueStatus,jdbcType=VARCHAR}, #{attachId,jdbcType=VARCHAR}, #{attachName,jdbcType=VARCHAR},
+      #{conclusion,jdbcType=VARCHAR}, #{arrangeMan,jdbcType=VARCHAR}, #{arrangeManName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveOaDecisionMarkingDetail">
+    update five_oa_decision_marking_detail
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      main_business = #{mainBusiness,jdbcType=VARCHAR},
+      linked_business = #{linkedBusiness,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      seq = #{seq,jdbcType=INTEGER},
+      is_deleted = #{deleted,jdbcType=BIT},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      detail = #{detail,jdbcType=VARCHAR},
+      attendance = #{attendance,jdbcType=VARCHAR},
+      attendance_name = #{attendanceName,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      detail_type = #{detailType,jdbcType=VARCHAR},
+      original_title = #{originalTitle,jdbcType=VARCHAR},
+      leader = #{leader,jdbcType=VARCHAR},
+      issue_status = #{issueStatus,jdbcType=VARCHAR},
+      attach_id = #{attachId,jdbcType=VARCHAR},
+      attach_name = #{attachName,jdbcType=VARCHAR},
+      conclusion = #{conclusion,jdbcType=VARCHAR},
+      arrange_man = #{arrangeMan,jdbcType=VARCHAR},
+      arrange_man_name = #{arrangeManName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, main_business, linked_business, title, seq, is_deleted, 
+    creator, creator_name, gmt_create, gmt_modified, detail, attendance, attendance_name, 
+    dept_id, dept_name, detail_type, original_title, leader, issue_status, attach_id, 
+    attach_name, conclusion, arrange_man, arrange_man_name
+    from five_oa_decision_marking_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, main_business, linked_business, title, seq, is_deleted, 
+    creator, creator_name, gmt_create, gmt_modified, detail, attendance, attendance_name, 
+    dept_id, dept_name, detail_type, original_title, leader, issue_status, attach_id,
+    attach_name, conclusion, arrange_man, arrange_man_name
+    from five_oa_decision_marking_detail
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by seq asc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and isLikeSelect==null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="mainBusiness != null and isLikeSelect==null and mainBusiness != ''">
+         AND main_business = #{mainBusiness}
+      </if>
+      <if test="linkedBusiness != null and isLikeSelect==null and linkedBusiness != ''">
+         AND linked_business = #{linkedBusiness}
+      </if>
+      <if test="title != null and isLikeSelect==null and title != ''">
+         AND title = #{title}
+      </if>
+      <if test="seq != null and isLikeSelect==null">
+         AND seq = #{seq}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="detail != null and isLikeSelect==null and detail != ''">
+         AND detail = #{detail}
+      </if>
+      <if test="attendance != null and isLikeSelect==null and attendance != ''">
+         AND attendance = #{attendance}
+      </if>
+      <if test="attendanceName != null and isLikeSelect==null and attendanceName != ''">
+         AND attendance_name = #{attendanceName}
+      </if>
+      <if test="deptId != null and isLikeSelect==null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and isLikeSelect==null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="detailType != null and isLikeSelect==null and detailType != ''">
+         AND detail_type = #{detailType}
+      </if>
+      <if test="originalTitle != null and isLikeSelect==null and originalTitle != ''">
+         AND original_title = #{originalTitle}
+      </if>
+      <if test="leader != null and isLikeSelect==null and leader != ''">
+         AND leader = #{leader}
+      </if>
+      <if test="issueStatus != null and isLikeSelect==null and issueStatus != ''">
+         AND issue_status = #{issueStatus}
+      </if>
+      <if test="attachId != null and isLikeSelect==null and attachId != ''">
+         AND attach_id = #{attachId}
+      </if>
+      <if test="attachName != null and isLikeSelect==null and attachName != ''">
+         AND attach_name = #{attachName}
+      </if>
+      <if test="conclusion != null and isLikeSelect==null and conclusion != ''">
+         AND conclusion = #{conclusion}
+      </if>
+      <if test="arrangeMan != null and isLikeSelect==null and arrangeMan != ''">
+         AND arrange_man = #{arrangeMan}
+      </if>
+      <if test="arrangeManName != null and isLikeSelect==null and arrangeManName != ''">
+         AND arrange_man_name = #{arrangeManName}
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="businessKey != null and isLikeSelect!= null and businessKey != '' ">
+         AND business_key like  CONCAT('%',#{businessKey},'%')
+      </if>
+      <if test="mainBusiness != null and isLikeSelect!= null and mainBusiness != '' ">
+         AND main_business like  CONCAT('%',#{mainBusiness},'%')
+      </if>
+      <if test="linkedBusiness != null and isLikeSelect!= null and linkedBusiness != '' ">
+         AND linked_business like  CONCAT('%',#{linkedBusiness},'%')
+      </if>
+      <if test="title != null and isLikeSelect!= null and title != '' ">
+         AND title like  CONCAT('%',#{title},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="detail != null and isLikeSelect!= null and detail != '' ">
+         AND detail like  CONCAT('%',#{detail},'%')
+      </if>
+      <if test="attendance != null and isLikeSelect!= null and attendance != '' ">
+         AND attendance like  CONCAT('%',#{attendance},'%')
+      </if>
+      <if test="attendanceName != null and isLikeSelect!= null and attendanceName != '' ">
+         AND attendance_name like  CONCAT('%',#{attendanceName},'%')
+      </if>
+      <if test="deptName != null and isLikeSelect!= null and deptName != '' ">
+         AND dept_name like  CONCAT('%',#{deptName},'%')
+      </if>
+      <if test="detailType != null and isLikeSelect!= null and detailType != '' ">
+         AND detail_type like  CONCAT('%',#{detailType},'%')
+      </if>
+      <if test="originalTitle != null and isLikeSelect!= null and originalTitle != '' ">
+         AND original_title like  CONCAT('%',#{originalTitle},'%')
+      </if>
+      <if test="leader != null and isLikeSelect!= null and leader != '' ">
+         AND leader like  CONCAT('%',#{leader},'%')
+      </if>
+      <if test="issueStatus != null and isLikeSelect!= null and issueStatus != '' ">
+         AND issue_status like  CONCAT('%',#{issueStatus},'%')
+      </if>
+      <if test="attachId != null and isLikeSelect!= null and attachId != '' ">
+         AND attach_id like  CONCAT('%',#{attachId},'%')
+      </if>
+      <if test="attachName != null and isLikeSelect!= null and attachName != '' ">
+         AND attach_name like  CONCAT('%',#{attachName},'%')
+      </if>
+      <if test="conclusion != null and isLikeSelect!= null and conclusion != '' ">
+         AND conclusion like  CONCAT('%',#{conclusion},'%')
+      </if>
+      <if test="arrangeMan != null and isLikeSelect!= null and arrangeMan != '' ">
+         AND arrange_man like  CONCAT('%',#{arrangeMan},'%')
+      </if>
+      <if test="arrangeManName != null and isLikeSelect!= null and arrangeManName != '' ">
+         AND arrange_man_name like  CONCAT('%',#{arrangeManName},'%')
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="deptId != null and isLikeSelect!=null">
+         AND dept_id = #{deptId}
+      </if>
+    </where>
+  </sql>
+</mapper>

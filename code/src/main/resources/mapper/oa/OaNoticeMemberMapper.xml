@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.oa.dao.OaNoticeMemberMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.oa.entity.OaNoticeMember">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="notice_member_id" jdbcType="VARCHAR" property="noticeMemberId" />
+    <result column="users" jdbcType="VARCHAR" property="users" />
+    <result column="users_name" jdbcType="VARCHAR" property="usersName" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from oa_notice_member
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.oa.entity.OaNoticeMember">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into oa_notice_member (business_key, notice_member_id, users, 
+      users_name)
+    values (#{businessKey,jdbcType=VARCHAR}, #{noticeMemberId,jdbcType=VARCHAR}, #{users,jdbcType=VARCHAR}, 
+      #{usersName,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.oa.entity.OaNoticeMember">
+    update oa_notice_member
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      notice_member_id = #{noticeMemberId,jdbcType=VARCHAR},
+      users = #{users,jdbcType=VARCHAR},
+      users_name = #{usersName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, notice_member_id, users, users_name
+    from oa_notice_member
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, notice_member_id, users, users_name
+    from oa_notice_member
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="noticeMemberId != null and noticeMemberId != ''">
+         AND notice_member_id = #{noticeMemberId}
+      </if>
+      <if test="users != null and users != ''">
+         AND users = #{users}
+      </if>
+      <if test="usersName != null and usersName != ''">
+         AND users_name = #{usersName}
+      </if>
+    </where>
+  </sql>
+</mapper>

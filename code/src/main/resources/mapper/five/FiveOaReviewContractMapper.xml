@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveOaReviewContractMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveOaReviewContract">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_Name" jdbcType="VARCHAR" property="deptName" />
+    <result column="project_type" jdbcType="VARCHAR" property="projectType" />
+    <result column="contract_time" jdbcType="VARCHAR" property="contractTime" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="contract_no" jdbcType="VARCHAR" property="contractNo" />
+    <result column="contract_money" jdbcType="VARCHAR" property="contractMoney" />
+    <result column="review_level" jdbcType="VARCHAR" property="reviewLevel" />
+    <result column="first_party" jdbcType="VARCHAR" property="firstParty" />
+    <result column="second_party" jdbcType="VARCHAR" property="secondParty" />
+    <result column="total_designer" jdbcType="VARCHAR" property="totalDesigner" />
+    <result column="total_designer_name" jdbcType="VARCHAR" property="totalDesignerName" />
+    <result column="review_time" jdbcType="VARCHAR" property="reviewTime" />
+    <result column="review_address" jdbcType="VARCHAR" property="reviewAddress" />
+    <result column="review_user" jdbcType="VARCHAR" property="reviewUser" />
+    <result column="review_user_name" jdbcType="VARCHAR" property="reviewUserName" />
+    <result column="contract_content" jdbcType="VARCHAR" property="contractContent" />
+    <result column="review_content" jdbcType="VARCHAR" property="reviewContent" />
+    <result column="review_conclusion" jdbcType="VARCHAR" property="reviewConclusion" />
+    <result column="review_law_id" jdbcType="VARCHAR" property="reviewLawId" />
+    <result column="review_law_name" jdbcType="VARCHAR" property="reviewLawName" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_oa_review_contract
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveOaReviewContract">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_oa_review_contract (business_key, dept_id, dept_Name, 
+      project_type, contract_time, project_name, 
+      contract_no, contract_money, review_level, 
+      first_party, second_party, total_designer, 
+      total_designer_name, review_time, review_address, 
+      review_user, review_user_name, contract_content, 
+      review_content, review_conclusion, review_law_id, 
+      review_law_name, remark, creator, 
+      creator_name, gmt_create, gmt_modified, 
+      is_deleted, is_process_end, process_instance_id
+      )
+    values (#{businessKey,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, 
+      #{projectType,jdbcType=VARCHAR}, #{contractTime,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR}, 
+      #{contractNo,jdbcType=VARCHAR}, #{contractMoney,jdbcType=VARCHAR}, #{reviewLevel,jdbcType=VARCHAR}, 
+      #{firstParty,jdbcType=VARCHAR}, #{secondParty,jdbcType=VARCHAR}, #{totalDesigner,jdbcType=VARCHAR}, 
+      #{totalDesignerName,jdbcType=VARCHAR}, #{reviewTime,jdbcType=VARCHAR}, #{reviewAddress,jdbcType=VARCHAR}, 
+      #{reviewUser,jdbcType=VARCHAR}, #{reviewUserName,jdbcType=VARCHAR}, #{contractContent,jdbcType=VARCHAR}, 
+      #{reviewContent,jdbcType=VARCHAR}, #{reviewConclusion,jdbcType=VARCHAR}, #{reviewLawId,jdbcType=VARCHAR}, 
+      #{reviewLawName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{creatorName,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{deleted,jdbcType=BIT}, #{processEnd,jdbcType=BIT}, #{processInstanceId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveOaReviewContract">
+    update five_oa_review_contract
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_Name = #{deptName,jdbcType=VARCHAR},
+      project_type = #{projectType,jdbcType=VARCHAR},
+      contract_time = #{contractTime,jdbcType=VARCHAR},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      contract_no = #{contractNo,jdbcType=VARCHAR},
+      contract_money = #{contractMoney,jdbcType=VARCHAR},
+      review_level = #{reviewLevel,jdbcType=VARCHAR},
+      first_party = #{firstParty,jdbcType=VARCHAR},
+      second_party = #{secondParty,jdbcType=VARCHAR},
+      total_designer = #{totalDesigner,jdbcType=VARCHAR},
+      total_designer_name = #{totalDesignerName,jdbcType=VARCHAR},
+      review_time = #{reviewTime,jdbcType=VARCHAR},
+      review_address = #{reviewAddress,jdbcType=VARCHAR},
+      review_user = #{reviewUser,jdbcType=VARCHAR},
+      review_user_name = #{reviewUserName,jdbcType=VARCHAR},
+      contract_content = #{contractContent,jdbcType=VARCHAR},
+      review_content = #{reviewContent,jdbcType=VARCHAR},
+      review_conclusion = #{reviewConclusion,jdbcType=VARCHAR},
+      review_law_id = #{reviewLawId,jdbcType=VARCHAR},
+      review_law_name = #{reviewLawName,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      is_deleted = #{deleted,jdbcType=BIT},
+      is_process_end = #{processEnd,jdbcType=BIT},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, dept_id, dept_Name, project_type, contract_time, project_name, 
+    contract_no, contract_money, review_level, first_party, second_party, total_designer, 
+    total_designer_name, review_time, review_address, review_user, review_user_name, 
+    contract_content, review_content, review_conclusion, review_law_id, review_law_name, 
+    remark, creator, creator_name, gmt_create, gmt_modified, is_deleted, is_process_end, 
+    process_instance_id
+    from five_oa_review_contract
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, dept_id, dept_Name, project_type, contract_time, project_name, 
+    contract_no, contract_money, review_level, first_party, second_party, total_designer, 
+    total_designer_name, review_time, review_address, review_user, review_user_name, 
+    contract_content, review_content, review_conclusion, review_law_id, review_law_name, 
+    remark, creator, creator_name, gmt_create, gmt_modified, is_deleted, is_process_end, 
+    process_instance_id
+    from five_oa_review_contract
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="deptId != null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and deptName != ''">
+         AND dept_Name = #{deptName}
+      </if>
+      <if test="projectType != null and projectType != ''">
+         AND project_type = #{projectType}
+      </if>
+      <if test="contractTime != null and contractTime != ''">
+         AND contract_time = #{contractTime}
+      </if>
+      <if test="projectName != null and projectName != ''">
+         AND project_name = #{projectName}
+      </if>
+      <if test="contractNo != null and contractNo != ''">
+         AND contract_no = #{contractNo}
+      </if>
+      <if test="contractMoney != null and contractMoney != ''">
+         AND contract_money = #{contractMoney}
+      </if>
+      <if test="reviewLevel != null and reviewLevel != ''">
+         AND review_level = #{reviewLevel}
+      </if>
+      <if test="firstParty != null and firstParty != ''">
+         AND first_party = #{firstParty}
+      </if>
+      <if test="secondParty != null and secondParty != ''">
+         AND second_party = #{secondParty}
+      </if>
+      <if test="totalDesigner != null and totalDesigner != ''">
+         AND total_designer = #{totalDesigner}
+      </if>
+      <if test="totalDesignerName != null and totalDesignerName != ''">
+         AND total_designer_name = #{totalDesignerName}
+      </if>
+      <if test="reviewTime != null and reviewTime != ''">
+         AND review_time = #{reviewTime}
+      </if>
+      <if test="reviewAddress != null and reviewAddress != ''">
+         AND review_address = #{reviewAddress}
+      </if>
+      <if test="reviewUser != null and reviewUser != ''">
+         AND review_user = #{reviewUser}
+      </if>
+      <if test="reviewUserName != null and reviewUserName != ''">
+         AND review_user_name = #{reviewUserName}
+      </if>
+      <if test="contractContent != null and contractContent != ''">
+         AND contract_content = #{contractContent}
+      </if>
+      <if test="reviewContent != null and reviewContent != ''">
+         AND review_content = #{reviewContent}
+      </if>
+      <if test="reviewConclusion != null and reviewConclusion != ''">
+         AND review_conclusion = #{reviewConclusion}
+      </if>
+      <if test="reviewLawId != null and reviewLawId != ''">
+         AND review_law_id = #{reviewLawId}
+      </if>
+      <if test="reviewLawName != null and reviewLawName != ''">
+         AND review_law_name = #{reviewLawName}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="processEnd != null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="processInstanceId != null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0">
+        AND dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+      </if>
+    </where>
+  </sql>
+</mapper>

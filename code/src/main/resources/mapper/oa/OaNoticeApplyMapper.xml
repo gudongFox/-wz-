@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.oa.dao.OaNoticeApplyMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.oa.entity.OaNoticeApply">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="notice_type" jdbcType="VARCHAR" property="noticeType" />
+    <result column="notice_title" jdbcType="VARCHAR" property="noticeTitle" />
+    <result column="publish_user_name" jdbcType="VARCHAR" property="publishUserName" />
+    <result column="publish_dept_name" jdbcType="VARCHAR" property="publishDeptName" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="is_top" jdbcType="BIT" property="top" />
+    <result column="is_publish" jdbcType="BIT" property="publish" />
+    <result column="view_mans" jdbcType="VARCHAR" property="viewMans" />
+    <result column="view_mans_name" jdbcType="VARCHAR" property="viewMansName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+    <result column="is_firm" jdbcType="BIT" property="firm" />
+    <result column="notice_level" jdbcType="VARCHAR" property="noticeLevel" />
+    <result column="attach_ids" jdbcType="VARCHAR" property="attachIds" />
+    <result column="attach_name" jdbcType="VARCHAR" property="attachName" />
+    <result column="notice_desc" jdbcType="VARCHAR" property="noticeDesc" />
+    <result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
+    <result column="notice_system_type" jdbcType="VARCHAR" property="noticeSystemType" />
+    <result column="photo_attach_id" jdbcType="VARCHAR" property="photoAttachId" />
+    <result column="photo_attach_name" jdbcType="VARCHAR" property="photoAttachName" />
+    <result column="notice_content" jdbcType="LONGVARCHAR" property="noticeContent" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from oa_notice_apply
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.oa.entity.OaNoticeApply">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into oa_notice_apply (business_key, notice_type, notice_title, 
+      publish_user_name, publish_dept_name, creator, 
+      creator_name, dept_id, dept_name, 
+      is_deleted, is_top, is_publish, view_mans, 
+      view_mans_name, gmt_create, gmt_modified, 
+      remark, process_instance_id, is_process_end, 
+      is_firm, notice_level, attach_ids, 
+      attach_name, notice_desc, pic_url, 
+      notice_system_type, photo_attach_id, photo_attach_name, 
+      notice_content)
+    values (#{businessKey,jdbcType=VARCHAR}, #{noticeType,jdbcType=VARCHAR}, #{noticeTitle,jdbcType=VARCHAR}, 
+      #{publishUserName,jdbcType=VARCHAR}, #{publishDeptName,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{creatorName,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=BIT}, #{top,jdbcType=BIT}, #{publish,jdbcType=BIT}, #{viewMans,jdbcType=VARCHAR}, 
+      #{viewMansName,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR}, #{processInstanceId,jdbcType=VARCHAR}, #{processEnd,jdbcType=BIT}, 
+      #{firm,jdbcType=BIT}, #{noticeLevel,jdbcType=VARCHAR}, #{attachIds,jdbcType=VARCHAR}, 
+      #{attachName,jdbcType=VARCHAR}, #{noticeDesc,jdbcType=VARCHAR}, #{picUrl,jdbcType=VARCHAR}, 
+      #{noticeSystemType,jdbcType=VARCHAR}, #{photoAttachId,jdbcType=VARCHAR}, #{photoAttachName,jdbcType=VARCHAR}, 
+      #{noticeContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.oa.entity.OaNoticeApply">
+    update oa_notice_apply
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      notice_type = #{noticeType,jdbcType=VARCHAR},
+      notice_title = #{noticeTitle,jdbcType=VARCHAR},
+      publish_user_name = #{publishUserName,jdbcType=VARCHAR},
+      publish_dept_name = #{publishDeptName,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      is_top = #{top,jdbcType=BIT},
+      is_publish = #{publish,jdbcType=BIT},
+      view_mans = #{viewMans,jdbcType=VARCHAR},
+      view_mans_name = #{viewMansName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      is_process_end = #{processEnd,jdbcType=BIT},
+      is_firm = #{firm,jdbcType=BIT},
+      notice_level = #{noticeLevel,jdbcType=VARCHAR},
+      attach_ids = #{attachIds,jdbcType=VARCHAR},
+      attach_name = #{attachName,jdbcType=VARCHAR},
+      notice_desc = #{noticeDesc,jdbcType=VARCHAR},
+      pic_url = #{picUrl,jdbcType=VARCHAR},
+      notice_system_type = #{noticeSystemType,jdbcType=VARCHAR},
+      photo_attach_id = #{photoAttachId,jdbcType=VARCHAR},
+      photo_attach_name = #{photoAttachName,jdbcType=VARCHAR},
+      notice_content = #{noticeContent,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, notice_type, notice_title, publish_user_name, publish_dept_name, 
+    creator, creator_name, dept_id, dept_name, is_deleted, is_top, is_publish, view_mans, 
+    view_mans_name, gmt_create, gmt_modified, remark, process_instance_id, is_process_end, 
+    is_firm, notice_level, attach_ids, attach_name, notice_desc, pic_url, notice_system_type, 
+    photo_attach_id, photo_attach_name, notice_content
+    from oa_notice_apply
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, notice_type, notice_title, publish_user_name, publish_dept_name, 
+    creator, creator_name, dept_id, dept_name, is_deleted, is_top, is_publish, view_mans, 
+    view_mans_name, gmt_create, gmt_modified, remark, process_instance_id, is_process_end, 
+    is_firm, notice_level, attach_ids, attach_name, notice_desc, pic_url, notice_system_type, 
+    photo_attach_id, photo_attach_name, notice_content
+    from oa_notice_apply
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and isLikeSelect==null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="noticeType != null and isLikeSelect==null and noticeType != ''">
+         AND notice_type = #{noticeType}
+      </if>
+      <if test="noticeTitle != null and isLikeSelect==null and noticeTitle != ''">
+         AND notice_title = #{noticeTitle}
+      </if>
+      <if test="publishUserName != null and isLikeSelect==null and publishUserName != ''">
+         AND publish_user_name = #{publishUserName}
+      </if>
+      <if test="publishDeptName != null and isLikeSelect==null and publishDeptName != ''">
+         AND publish_dept_name = #{publishDeptName}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deptId != null and isLikeSelect==null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and isLikeSelect==null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="top != null and isLikeSelect==null">
+         AND is_top = #{top}
+      </if>
+      <if test="publish != null and isLikeSelect==null">
+         AND is_publish = #{publish}
+      </if>
+      <if test="viewMans != null and isLikeSelect==null and viewMans != ''">
+         AND view_mans = #{viewMans}
+      </if>
+      <if test="viewMansName != null and isLikeSelect==null and viewMansName != ''">
+         AND view_mans_name = #{viewMansName}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="remark != null and isLikeSelect==null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="processInstanceId != null and isLikeSelect==null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="processEnd != null and isLikeSelect==null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="firm != null and isLikeSelect==null">
+         AND is_firm = #{firm}
+      </if>
+      <if test="noticeLevel != null and isLikeSelect==null and noticeLevel != ''">
+         AND notice_level = #{noticeLevel}
+      </if>
+      <if test="attachIds != null and isLikeSelect==null and attachIds != ''">
+         AND attach_ids = #{attachIds}
+      </if>
+      <if test="attachName != null and isLikeSelect==null and attachName != ''">
+         AND attach_name = #{attachName}
+      </if>
+      <if test="noticeDesc != null and isLikeSelect==null and noticeDesc != ''">
+         AND notice_desc = #{noticeDesc}
+      </if>
+      <if test="picUrl != null and isLikeSelect==null and picUrl != ''">
+         AND pic_url = #{picUrl}
+      </if>
+      <if test="noticeSystemType != null and isLikeSelect==null and noticeSystemType != ''">
+         AND notice_system_type = #{noticeSystemType}
+      </if>
+      <if test="photoAttachId != null and isLikeSelect==null and photoAttachId != ''">
+         AND photo_attach_id = #{photoAttachId}
+      </if>
+      <if test="photoAttachName != null and isLikeSelect==null and photoAttachName != ''">
+         AND photo_attach_name = #{photoAttachName}
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="businessKey != null and isLikeSelect!= null and businessKey != '' ">
+         AND business_key like  CONCAT('%',#{businessKey},'%')
+      </if>
+      <if test="noticeType != null and isLikeSelect!= null and noticeType != '' ">
+         AND notice_type like  CONCAT('%',#{noticeType},'%')
+      </if>
+      <if test="noticeTitle != null and isLikeSelect!= null and noticeTitle != '' ">
+         AND notice_title like  CONCAT('%',#{noticeTitle},'%')
+      </if>
+      <if test="publishUserName != null and isLikeSelect!= null and publishUserName != '' ">
+         AND publish_user_name like  CONCAT('%',#{publishUserName},'%')
+      </if>
+      <if test="publishDeptName != null and isLikeSelect!= null and publishDeptName != '' ">
+         AND publish_dept_name like  CONCAT('%',#{publishDeptName},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="deptName != null and isLikeSelect!= null and deptName != '' ">
+         AND dept_name like  CONCAT('%',#{deptName},'%')
+      </if>
+      <if test="viewMans != null and isLikeSelect!= null and viewMans != '' ">
+         AND view_mans like  CONCAT('%',#{viewMans},'%')
+      </if>
+      <if test="viewMansName != null and isLikeSelect!= null and viewMansName != '' ">
+         AND view_mans_name like  CONCAT('%',#{viewMansName},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="processInstanceId != null and isLikeSelect!= null and processInstanceId != '' ">
+         AND process_instance_id like  CONCAT('%',#{processInstanceId},'%')
+      </if>
+      <if test="noticeLevel != null and isLikeSelect!= null and noticeLevel != '' ">
+         AND notice_level like  CONCAT('%',#{noticeLevel},'%')
+      </if>
+      <if test="attachIds != null and isLikeSelect!= null and attachIds != '' ">
+         AND attach_ids like  CONCAT('%',#{attachIds},'%')
+      </if>
+      <if test="attachName != null and isLikeSelect!= null and attachName != '' ">
+         AND attach_name like  CONCAT('%',#{attachName},'%')
+      </if>
+      <if test="noticeDesc != null and isLikeSelect!= null and noticeDesc != '' ">
+         AND notice_desc like  CONCAT('%',#{noticeDesc},'%')
+      </if>
+      <if test="picUrl != null and isLikeSelect!= null and picUrl != '' ">
+         AND pic_url like  CONCAT('%',#{picUrl},'%')
+      </if>
+      <if test="noticeSystemType != null and isLikeSelect!= null and noticeSystemType != '' ">
+         AND notice_system_type like  CONCAT('%',#{noticeSystemType},'%')
+      </if>
+      <if test="photoAttachId != null and isLikeSelect!= null and photoAttachId != '' ">
+         AND photo_attach_id like  CONCAT('%',#{photoAttachId},'%')
+      </if>
+      <if test="photoAttachName != null and isLikeSelect!= null and photoAttachName != '' ">
+         AND photo_attach_name like  CONCAT('%',#{photoAttachName},'%')
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+    </where>
+  </sql>
+</mapper>

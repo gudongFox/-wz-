@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveOaInventPaymentDetailMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveOaInventPaymentDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="payment_id" jdbcType="INTEGER" property="paymentId" />
+    <result column="invent_no" jdbcType="VARCHAR" property="inventNo" />
+    <result column="invent_name" jdbcType="VARCHAR" property="inventName" />
+    <result column="keep_give_up" jdbcType="VARCHAR" property="keepGiveUp" />
+    <result column="reason" jdbcType="VARCHAR" property="reason" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="year" jdbcType="VARCHAR" property="year" />
+    <result column="money" jdbcType="VARCHAR" property="money" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_oa_invent_payment_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveOaInventPaymentDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_oa_invent_payment_detail (payment_id, invent_no, invent_name, 
+      keep_give_up, reason, creator, 
+      creator_name, gmt_create, gmt_modified, 
+      is_deleted, year, money)
+    values (#{paymentId,jdbcType=INTEGER}, #{inventNo,jdbcType=VARCHAR}, #{inventName,jdbcType=VARCHAR}, 
+      #{keepGiveUp,jdbcType=VARCHAR}, #{reason,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{creatorName,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{deleted,jdbcType=BIT}, #{year,jdbcType=VARCHAR}, #{money,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveOaInventPaymentDetail">
+    update five_oa_invent_payment_detail
+    set payment_id = #{paymentId,jdbcType=INTEGER},
+      invent_no = #{inventNo,jdbcType=VARCHAR},
+      invent_name = #{inventName,jdbcType=VARCHAR},
+      keep_give_up = #{keepGiveUp,jdbcType=VARCHAR},
+      reason = #{reason,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      is_deleted = #{deleted,jdbcType=BIT},
+      year = #{year,jdbcType=VARCHAR},
+      money = #{money,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, payment_id, invent_no, invent_name, keep_give_up, reason, creator, creator_name, 
+    gmt_create, gmt_modified, is_deleted, year, money
+    from five_oa_invent_payment_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, payment_id, invent_no, invent_name, keep_give_up, reason, creator, creator_name, 
+    gmt_create, gmt_modified, is_deleted, year, money
+    from five_oa_invent_payment_detail
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="paymentId != null">
+         AND payment_id = #{paymentId}
+      </if>
+      <if test="inventNo != null and inventNo != ''">
+         AND invent_no = #{inventNo}
+      </if>
+      <if test="inventName != null and inventName != ''">
+         AND invent_name = #{inventName}
+      </if>
+      <if test="keepGiveUp != null and keepGiveUp != ''">
+         AND keep_give_up = #{keepGiveUp}
+      </if>
+      <if test="reason != null and reason != ''">
+         AND reason = #{reason}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="year != null and year != ''">
+         AND year = #{year}
+      </if>
+      <if test="money != null and money != ''">
+         AND money = #{money}
+      </if>
+    </where>
+  </sql>
+</mapper>

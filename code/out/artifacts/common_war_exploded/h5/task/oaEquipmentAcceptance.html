@@ -1,0 +1,59 @@
+﻿<span id="contentForm">
+    <div >
+        <div id="segmentedControl" class="mui-segmented-control">
+            <a class="mui-control-item mui-active">基础信息</a>
+            <a class="mui-control-item">流程信息</a>
+            <a class="mui-control-item">流程图</a>
+        </div>
+    </div>
+    <!--设备验收-->
+    <div >
+        <div class="mui-control-content mui-active">
+
+            <span ng-include="'/h5/tpl/formDetail.html'"></span>
+               <div class="mui-card">
+                <div class="mui-card-header">
+                    <span ng-bind="'2.验收设备列表'"></span>
+                </div>
+                   <!--内容区-->
+                <div class="mui-card-content">
+                    <ul class="mui-table-view mui-table-view-chevron">
+                       <li class="mui-table-view-cell mui-collapse" ng-repeat="decision in vm.decisions" >
+                           <a class="mui-navigate-right" href="#">
+                                <span style="line-height: 30px;margin-left: 10px;font-weight: bold;" ng-bind="decision.equipmentName"></span>
+                           </a>
+                           <ul class="mui-table-view mui-table-view-chevron">
+                            <li class="mui-table-view-cell"><span ng-bind="'固定资产编号：'+decision.fixedAssetNo"></span></li>
+                            <li class="mui-table-view-cell"><span ng-bind="'设备规格：'+decision.specification"></span></li>
+                            <li class="mui-table-view-cell"><span ng-bind="'所属部门：'+decision.deptName"></span></li>
+                            <li class="mui-table-view-cell"><span ng-bind="'单价（元）：'+decision.price"></span></li>
+                            <li class="mui-table-view-cell"><span ng-bind="'数量：'+decision.number"></span></li>
+                            <li class="mui-table-view-cell"><span ng-bind="'总价（元）：'+decision.totalPrice"></span></li>
+                            <li class="mui-table-view-cell"><span ng-bind="'备注：'+decision.remark"></span></li>
+                        </ul>
+                       </li>
+                     </ul>
+                </div>
+                   <!--页脚，放置补充信息或支持的操作-->
+            </div>
+             <span ng-include="'/h5/tpl/businessFile.html'" ng-init="fileTplTitle='3.业务附件'"></span>
+
+            <div style="height: 40px;">&nbsp;</div>
+        </div>
+        <div class="mui-control-content">
+             <span ng-include="'/h5/tpl/taskHistory.html'"></span>
+        </div>
+        <div class="mui-control-content" style="overflow-x: auto;">
+             <span ng-include="'/h5/tpl/taskPicture.html'"></span>
+        </div>
+        <div style="height: 50px;">&nbsp;</div>
+    </div>
+
+</span>
+<span ng-include="'/h5/tpl/taskAction.html'"></span>
+<span ng-include="'/h5/tpl/selectUser.html'"></span>
+
+
+
+
+

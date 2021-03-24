@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveEdArrangePlanMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveEdArrangePlan">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="arrange_id" jdbcType="INTEGER" property="arrangeId" />
+    <result column="major_name" jdbcType="VARCHAR" property="majorName" />
+    <result column="dest_general_view" jdbcType="VARCHAR" property="destGeneralView" />
+    <result column="dest_craft" jdbcType="VARCHAR" property="destCraft" />
+    <result column="dest_architecture" jdbcType="VARCHAR" property="destArchitecture" />
+    <result column="dest_structure" jdbcType="VARCHAR" property="destStructure" />
+    <result column="dest_waterway" jdbcType="VARCHAR" property="destWaterway" />
+    <result column="dest_hvac" jdbcType="VARCHAR" property="destHvac" />
+    <result column="dest_heat_engine" jdbcType="VARCHAR" property="destHeatEngine" />
+    <result column="dest_electric" jdbcType="VARCHAR" property="destElectric" />
+    <result column="dest_automatic" jdbcType="VARCHAR" property="destAutomatic" />
+    <result column="dest_equipment" jdbcType="VARCHAR" property="destEquipment" />
+    <result column="dest_telecom" jdbcType="VARCHAR" property="destTelecom" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="dest_value1" jdbcType="VARCHAR" property="destValue1" />
+    <result column="dest_value2" jdbcType="VARCHAR" property="destValue2" />
+    <result column="dest_value3" jdbcType="VARCHAR" property="destValue3" />
+    <result column="seq" jdbcType="INTEGER" property="seq" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_ed_arrange_plan
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveEdArrangePlan">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_ed_arrange_plan (arrange_id, major_name, dest_general_view, 
+      dest_craft, dest_architecture, dest_structure, 
+      dest_waterway, dest_hvac, dest_heat_engine, 
+      dest_electric, dest_automatic, dest_equipment, 
+      dest_telecom, is_deleted, gmt_create, 
+      gmt_modified, dest_value1, dest_value2, 
+      dest_value3, seq)
+    values (#{arrangeId,jdbcType=INTEGER}, #{majorName,jdbcType=VARCHAR}, #{destGeneralView,jdbcType=VARCHAR}, 
+      #{destCraft,jdbcType=VARCHAR}, #{destArchitecture,jdbcType=VARCHAR}, #{destStructure,jdbcType=VARCHAR}, 
+      #{destWaterway,jdbcType=VARCHAR}, #{destHvac,jdbcType=VARCHAR}, #{destHeatEngine,jdbcType=VARCHAR}, 
+      #{destElectric,jdbcType=VARCHAR}, #{destAutomatic,jdbcType=VARCHAR}, #{destEquipment,jdbcType=VARCHAR}, 
+      #{destTelecom,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{destValue1,jdbcType=VARCHAR}, #{destValue2,jdbcType=VARCHAR}, 
+      #{destValue3,jdbcType=VARCHAR}, #{seq,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveEdArrangePlan">
+    update five_ed_arrange_plan
+    set arrange_id = #{arrangeId,jdbcType=INTEGER},
+      major_name = #{majorName,jdbcType=VARCHAR},
+      dest_general_view = #{destGeneralView,jdbcType=VARCHAR},
+      dest_craft = #{destCraft,jdbcType=VARCHAR},
+      dest_architecture = #{destArchitecture,jdbcType=VARCHAR},
+      dest_structure = #{destStructure,jdbcType=VARCHAR},
+      dest_waterway = #{destWaterway,jdbcType=VARCHAR},
+      dest_hvac = #{destHvac,jdbcType=VARCHAR},
+      dest_heat_engine = #{destHeatEngine,jdbcType=VARCHAR},
+      dest_electric = #{destElectric,jdbcType=VARCHAR},
+      dest_automatic = #{destAutomatic,jdbcType=VARCHAR},
+      dest_equipment = #{destEquipment,jdbcType=VARCHAR},
+      dest_telecom = #{destTelecom,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      dest_value1 = #{destValue1,jdbcType=VARCHAR},
+      dest_value2 = #{destValue2,jdbcType=VARCHAR},
+      dest_value3 = #{destValue3,jdbcType=VARCHAR},
+      seq = #{seq,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, arrange_id, major_name, dest_general_view, dest_craft, dest_architecture, 
+    dest_structure, dest_waterway, dest_hvac, dest_heat_engine, dest_electric, dest_automatic, 
+    dest_equipment, dest_telecom, is_deleted, gmt_create, gmt_modified, dest_value1, 
+    dest_value2, dest_value3, seq
+    from five_ed_arrange_plan
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, arrange_id, major_name, dest_general_view, dest_craft, dest_architecture, 
+    dest_structure, dest_waterway, dest_hvac, dest_heat_engine, dest_electric, dest_automatic, 
+    dest_equipment, dest_telecom, is_deleted, gmt_create, gmt_modified, dest_value1, 
+    dest_value2, dest_value3, seq
+    from five_ed_arrange_plan
+    <include refid="Base_Where_List" />
+    order by seq
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="arrangeId != null">
+         AND arrange_id = #{arrangeId}
+      </if>
+      <if test="majorName != null and majorName != ''">
+         AND major_name = #{majorName}
+      </if>
+      <if test="destGeneralView != null and destGeneralView != ''">
+         AND dest_general_view = #{destGeneralView}
+      </if>
+      <if test="destCraft != null and destCraft != ''">
+         AND dest_craft = #{destCraft}
+      </if>
+      <if test="destArchitecture != null and destArchitecture != ''">
+         AND dest_architecture = #{destArchitecture}
+      </if>
+      <if test="destStructure != null and destStructure != ''">
+         AND dest_structure = #{destStructure}
+      </if>
+      <if test="destWaterway != null and destWaterway != ''">
+         AND dest_waterway = #{destWaterway}
+      </if>
+      <if test="destHvac != null and destHvac != ''">
+         AND dest_hvac = #{destHvac}
+      </if>
+      <if test="destHeatEngine != null and destHeatEngine != ''">
+         AND dest_heat_engine = #{destHeatEngine}
+      </if>
+      <if test="destElectric != null and destElectric != ''">
+         AND dest_electric = #{destElectric}
+      </if>
+      <if test="destAutomatic != null and destAutomatic != ''">
+         AND dest_automatic = #{destAutomatic}
+      </if>
+      <if test="destEquipment != null and destEquipment != ''">
+         AND dest_equipment = #{destEquipment}
+      </if>
+      <if test="destTelecom != null and destTelecom != ''">
+         AND dest_telecom = #{destTelecom}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="destValue1 != null and destValue1 != ''">
+         AND dest_value1 = #{destValue1}
+      </if>
+      <if test="destValue2 != null and destValue2 != ''">
+         AND dest_value2 = #{destValue2}
+      </if>
+      <if test="destValue3 != null and destValue3 != ''">
+         AND dest_value3 = #{destValue3}
+      </if>
+      <if test="seq != null">
+         AND seq = #{seq}
+      </if>
+    </where>
+  </sql>
+</mapper>

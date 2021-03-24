@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.oa.dao.OaTrainOutMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.oa.entity.OaTrainOut">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="train_title" jdbcType="VARCHAR" property="trainTitle" />
+    <result column="train_desc" jdbcType="VARCHAR" property="trainDesc" />
+    <result column="train_org" jdbcType="VARCHAR" property="trainOrg" />
+    <result column="attend_users" jdbcType="VARCHAR" property="attendUsers" />
+    <result column="attend_user_count" jdbcType="INTEGER" property="attendUserCount" />
+    <result column="train_cost" jdbcType="VARCHAR" property="trainCost" />
+    <result column="train_total_cost" jdbcType="VARCHAR" property="trainTotalCost" />
+    <result column="start_time" jdbcType="VARCHAR" property="startTime" />
+    <result column="end_time" jdbcType="VARCHAR" property="endTime" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from oa_train_out
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.oa.entity.OaTrainOut">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into oa_train_out (business_key, dept_id, dept_name, 
+      train_title, train_desc, train_org, 
+      attend_users, attend_user_count, train_cost, 
+      train_total_cost, start_time, end_time, 
+      is_deleted, creator, creator_name, 
+      gmt_create, gmt_modified, remark, 
+      process_instance_id, is_process_end)
+    values (#{businessKey,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, 
+      #{trainTitle,jdbcType=VARCHAR}, #{trainDesc,jdbcType=VARCHAR}, #{trainOrg,jdbcType=VARCHAR}, 
+      #{attendUsers,jdbcType=VARCHAR}, #{attendUserCount,jdbcType=INTEGER}, #{trainCost,jdbcType=VARCHAR}, 
+      #{trainTotalCost,jdbcType=VARCHAR}, #{startTime,jdbcType=VARCHAR}, #{endTime,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=BIT}, #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, 
+      #{processInstanceId,jdbcType=VARCHAR}, #{processEnd,jdbcType=BIT})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.oa.entity.OaTrainOut">
+    update oa_train_out
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      train_title = #{trainTitle,jdbcType=VARCHAR},
+      train_desc = #{trainDesc,jdbcType=VARCHAR},
+      train_org = #{trainOrg,jdbcType=VARCHAR},
+      attend_users = #{attendUsers,jdbcType=VARCHAR},
+      attend_user_count = #{attendUserCount,jdbcType=INTEGER},
+      train_cost = #{trainCost,jdbcType=VARCHAR},
+      train_total_cost = #{trainTotalCost,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=VARCHAR},
+      end_time = #{endTime,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      is_process_end = #{processEnd,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, dept_id, dept_name, train_title, train_desc, train_org, 
+    attend_users, attend_user_count, train_cost, train_total_cost, start_time, end_time, 
+    is_deleted, creator, creator_name, gmt_create, gmt_modified, remark, process_instance_id, 
+    is_process_end
+    from oa_train_out
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, dept_id, dept_name, train_title, train_desc, train_org, 
+    attend_users, attend_user_count, train_cost, train_total_cost, start_time, end_time, 
+    is_deleted, creator, creator_name, gmt_create, gmt_modified, remark, process_instance_id, 
+    is_process_end
+    from oa_train_out
+    <include refid="Base_Where_List" />
+    order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="deptId != null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="trainTitle != null and trainTitle != ''">
+         AND train_title = #{trainTitle}
+      </if>
+      <if test="trainDesc != null and trainDesc != ''">
+         AND train_desc = #{trainDesc}
+      </if>
+      <if test="trainOrg != null and trainOrg != ''">
+         AND train_org = #{trainOrg}
+      </if>
+      <if test="attendUsers != null and attendUsers != ''">
+         AND attend_users = #{attendUsers}
+      </if>
+      <if test="attendUserCount != null">
+         AND attend_user_count = #{attendUserCount}
+      </if>
+      <if test="trainCost != null and trainCost != ''">
+         AND train_cost = #{trainCost}
+      </if>
+      <if test="trainTotalCost != null and trainTotalCost != ''">
+         AND train_total_cost = #{trainTotalCost}
+      </if>
+      <if test="startTime != null and startTime != ''">
+         AND start_time = #{startTime}
+      </if>
+      <if test="endTime != null and endTime != ''">
+         AND end_time = #{endTime}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="processInstanceId != null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="processEnd != null">
+         AND is_process_end = #{processEnd}
+      </if>
+    </where>
+  </sql>
+</mapper>

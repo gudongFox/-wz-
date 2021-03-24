@@ -1,0 +1,129 @@
+﻿
+
+
+
+<div class="portlet-body">
+    <div class="tabbable-line">
+        <ul class="nav nav-tabs ">
+            <li class="active">
+                <a href="#tab_detail_1" data-toggle="tab" aria-expanded="true">
+                    文件详情 </a>
+            </li>
+            <li class="">
+                <a href="#tab_detail_2" data-toggle="tab" aria-expanded="false">
+                    历史记录
+                </a>
+            </li>
+            <li class="">
+                <a href="#tab_detail_3" data-toggle="tab" aria-expanded="false">
+                    文件意见 </a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="tab_detail_1"
+                 style="min-height: 420px;overflow-y: auto;overflow-x: hidden;">
+                <form class="form-horizontal" role="form" id="detail_form">
+                    <div class="form-body">
+
+                        <div class="form-group" style="margin-bottom: 0.5rem;">
+                            <label class="col-md-2 control-label">文件名称<span style="color: red;margin-left: 2px;">*</span></label>
+                            <div class="col-md-10">
+                                <input type="text" class=" form-control" ng-model="item.fileName"
+                                       placeholder="请输入名称">
+                            </div>
+
+                        </div>
+
+                        <div class="form-group" >
+                            <label class="col-md-2 control-label" ng-if="fileTypes.length>0">文件类型<span style="color: red;margin-left: 2px;">*</span></label>
+                            <div class="col-md-4" ng-if="fileTypes.length>0" >
+                                <select class="form-control" ng-options="s.code as s.name for s in fileTypes"
+                                        ng-model="item.fileType"></select>
+                            </div>
+
+                            <label class="col-md-2 control-label" >文件排序<span style="color: red;margin-left: 2px;">*</span></label>
+                            <div class="col-md-4"  >
+                                <input type="number" class="form-control" ng-model="item.seq"
+                                       placeholder="请输入名称">
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 0.5rem;" ng-show="item.commonFileProperty.signAttachId">
+
+                            <label class="col-md-2 control-label" ng-bind="'专家打码('+item.commonFileProperty.signUserName+')'">专家签章<span
+                                    style="color: red;margin-left: 2px;">*</span></label>
+                            <div class="col-md-4">
+                                <div class="input-group ">
+                                    <input type="text" class="form-control"
+                                           ng-value="item.commonFileProperty.signTime|date:'yyyy-MM-dd HH:mm:ss'"
+                                           disabled="disabled"/>
+                                    <span class="input-group-btn">
+                                        <button class="btn default" type="button" ng-click="downloadAttach(item.commonFileProperty.signAttachId);"><i  class="la la-download"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" >创建人</label>
+                            <div class="col-md-4"  >
+                                <input type="text" class="form-control" ng-model="item.creatorName"
+                                       disabled="disabled">
+                            </div>
+                            <label class="col-md-2 control-label" >创建时间</label>
+                            <div class="col-md-4"  >
+                                <input type="text" class="form-control"
+                                       ng-value="item.gmtCreate|date:'yyyy-MM-dd HH:mm:ss'" disabled="disabled">
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">备注</label>
+                            <div class="col-md-10"  >
+                                <input type="text" class="form-control" ng-model="item.remark"
+                                       placeholder="">
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            <div class="tab-pane" id="tab_detail_2"
+                 style="height: 380px;overflow-y: auto;overflow-x: hidden;">
+                <table class="table  table-bordered table-hover dataTable" style="table-layout: fixed;">
+                    <thead>
+                    <tr>
+                        <th style="width: 30px;">#</th>
+                        <th style="width: 150px;">上传时间</th>
+                        <th style="width: 90px;">上传人</th>
+                        <th style="width: 120px;">文件大小</th>
+                        <th>备注</th>
+                        <th style="width: 50px;" ng-show="tplConfig.editable">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr role="row" ng-repeat="history in historyList">
+                        <td ng-bind="$index+1"></td>
+                        <td ng-bind="history.gmtCreate|date:'yyyy-MM-dd HH:mm'"
+                            ng-click="downloadAttach(history.id);" style="color: blue;cursor: pointer;"></td>
+                        <td ng-bind="history.creator"></td>
+                        <td ng-bind="history.sizeName"></td>
+                        <td ng-bind="history.remark" class="no-wrap" title="{{history.remark}}"></td>
+                        <td ng-show="tplConfig.editable">
+                            <i class="flaticon-delete kt-ml-5" style="cursor: pointer;" title="删除"
+                               ng-click="removeHistory(history.id);" ng-show="history.creator==user.enLogin"/>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="tab-pane" id="tab_detail_3"
+                 style="height: 380px;overflow-y: auto;overflow-x: hidden;">
+
+            </div>
+        </div>
+
+    </div>
+</div>

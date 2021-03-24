@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveEdDesignDrawingDetailMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveEdDesignDrawingDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="drawing_id" jdbcType="INTEGER" property="drawingId" />
+    <result column="step_id" jdbcType="INTEGER" property="stepId" />
+    <result column="build_id" jdbcType="INTEGER" property="buildId" />
+    <result column="build_name" jdbcType="VARCHAR" property="buildName" />
+    <result column="major_name" jdbcType="VARCHAR" property="majorName" />
+    <result column="form_no" jdbcType="VARCHAR" property="formNo" />
+    <result column="draw_no" jdbcType="VARCHAR" property="drawNo" />
+    <result column="secret_level" jdbcType="VARCHAR" property="secretLevel" />
+    <result column="is_change" jdbcType="BIT" property="change" />
+    <result column="build_area" jdbcType="VARCHAR" property="buildArea" />
+    <result column="foreign_page" jdbcType="VARCHAR" property="foreignPage" />
+    <result column="inland_page" jdbcType="VARCHAR" property="inlandPage" />
+    <result column="inland_a1_page" jdbcType="VARCHAR" property="inlandA1Page" />
+    <result column="draw_number" jdbcType="VARCHAR" property="drawNumber" />
+    <result column="draw_a1_number" jdbcType="VARCHAR" property="drawA1Number" />
+    <result column="copy_number" jdbcType="VARCHAR" property="copyNumber" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="dept_id" jdbcType="VARCHAR" property="deptId" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_ed_design_drawing_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveEdDesignDrawingDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_ed_design_drawing_detail (drawing_id, step_id, build_id, 
+      build_name, major_name, form_no, 
+      draw_no, secret_level, is_change, 
+      build_area, foreign_page, inland_page, 
+      inland_a1_page, draw_number, draw_a1_number, 
+      copy_number, dept_name, dept_id, 
+      remark, is_deleted, creator, 
+      creator_name, gmt_create, gmt_modified
+      )
+    values (#{drawingId,jdbcType=INTEGER}, #{stepId,jdbcType=INTEGER}, #{buildId,jdbcType=INTEGER}, 
+      #{buildName,jdbcType=VARCHAR}, #{majorName,jdbcType=VARCHAR}, #{formNo,jdbcType=VARCHAR}, 
+      #{drawNo,jdbcType=VARCHAR}, #{secretLevel,jdbcType=VARCHAR}, #{change,jdbcType=BIT}, 
+      #{buildArea,jdbcType=VARCHAR}, #{foreignPage,jdbcType=VARCHAR}, #{inlandPage,jdbcType=VARCHAR}, 
+      #{inlandA1Page,jdbcType=VARCHAR}, #{drawNumber,jdbcType=VARCHAR}, #{drawA1Number,jdbcType=VARCHAR}, 
+      #{copyNumber,jdbcType=VARCHAR}, #{deptName,jdbcType=VARCHAR}, #{deptId,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, #{creator,jdbcType=VARCHAR}, 
+      #{creatorName,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveEdDesignDrawingDetail">
+    update five_ed_design_drawing_detail
+    set drawing_id = #{drawingId,jdbcType=INTEGER},
+      step_id = #{stepId,jdbcType=INTEGER},
+      build_id = #{buildId,jdbcType=INTEGER},
+      build_name = #{buildName,jdbcType=VARCHAR},
+      major_name = #{majorName,jdbcType=VARCHAR},
+      form_no = #{formNo,jdbcType=VARCHAR},
+      draw_no = #{drawNo,jdbcType=VARCHAR},
+      secret_level = #{secretLevel,jdbcType=VARCHAR},
+      is_change = #{change,jdbcType=BIT},
+      build_area = #{buildArea,jdbcType=VARCHAR},
+      foreign_page = #{foreignPage,jdbcType=VARCHAR},
+      inland_page = #{inlandPage,jdbcType=VARCHAR},
+      inland_a1_page = #{inlandA1Page,jdbcType=VARCHAR},
+      draw_number = #{drawNumber,jdbcType=VARCHAR},
+      draw_a1_number = #{drawA1Number,jdbcType=VARCHAR},
+      copy_number = #{copyNumber,jdbcType=VARCHAR},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, drawing_id, step_id, build_id, build_name, major_name, form_no, draw_no, 
+    secret_level, is_change, build_area, foreign_page, inland_page, inland_a1_page, draw_number, 
+    draw_a1_number, copy_number, dept_name, dept_id, remark, is_deleted, creator, creator_name, 
+    gmt_create, gmt_modified
+    from five_ed_design_drawing_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, drawing_id, step_id, build_id, build_name, major_name, form_no, draw_no, 
+    secret_level, is_change, build_area, foreign_page, inland_page, inland_a1_page, draw_number, 
+    draw_a1_number, copy_number, dept_name, dept_id, remark, is_deleted, creator, creator_name, 
+    gmt_create, gmt_modified
+    from five_ed_design_drawing_detail
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="drawingId != null and isLikeSelect==null">
+         AND drawing_id = #{drawingId}
+      </if>
+      <if test="stepId != null and isLikeSelect==null">
+         AND step_id = #{stepId}
+      </if>
+      <if test="buildId != null and isLikeSelect==null">
+         AND build_id = #{buildId}
+      </if>
+      <if test="buildName != null and isLikeSelect==null and buildName != ''">
+         AND build_name = #{buildName}
+      </if>
+      <if test="majorName != null and isLikeSelect==null and majorName != ''">
+         AND major_name = #{majorName}
+      </if>
+      <if test="formNo != null and isLikeSelect==null and formNo != ''">
+         AND form_no = #{formNo}
+      </if>
+      <if test="drawNo != null and isLikeSelect==null and drawNo != ''">
+         AND draw_no = #{drawNo}
+      </if>
+      <if test="secretLevel != null and isLikeSelect==null and secretLevel != ''">
+         AND secret_level = #{secretLevel}
+      </if>
+      <if test="change != null and isLikeSelect==null">
+         AND is_change = #{change}
+      </if>
+      <if test="buildArea != null and isLikeSelect==null and buildArea != ''">
+         AND build_area = #{buildArea}
+      </if>
+      <if test="foreignPage != null and isLikeSelect==null and foreignPage != ''">
+         AND foreign_page = #{foreignPage}
+      </if>
+      <if test="inlandPage != null and isLikeSelect==null and inlandPage != ''">
+         AND inland_page = #{inlandPage}
+      </if>
+      <if test="inlandA1Page != null and isLikeSelect==null and inlandA1Page != ''">
+         AND inland_a1_page = #{inlandA1Page}
+      </if>
+      <if test="drawNumber != null and isLikeSelect==null and drawNumber != ''">
+         AND draw_number = #{drawNumber}
+      </if>
+      <if test="drawA1Number != null and isLikeSelect==null and drawA1Number != ''">
+         AND draw_a1_number = #{drawA1Number}
+      </if>
+      <if test="copyNumber != null and isLikeSelect==null and copyNumber != ''">
+         AND copy_number = #{copyNumber}
+      </if>
+      <if test="deptName != null and isLikeSelect==null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="deptId != null and isLikeSelect==null and deptId != ''">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="remark != null and isLikeSelect==null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="buildName != null and isLikeSelect!= null and buildName != '' ">
+         AND build_name like  CONCAT('%',#{buildName},'%')
+      </if>
+      <if test="majorName != null and isLikeSelect!= null and majorName != '' ">
+         AND major_name like  CONCAT('%',#{majorName},'%')
+      </if>
+      <if test="formNo != null and isLikeSelect!= null and formNo != '' ">
+         AND form_no like  CONCAT('%',#{formNo},'%')
+      </if>
+      <if test="drawNo != null and isLikeSelect!= null and drawNo != '' ">
+         AND draw_no like  CONCAT('%',#{drawNo},'%')
+      </if>
+      <if test="secretLevel != null and isLikeSelect!= null and secretLevel != '' ">
+         AND secret_level like  CONCAT('%',#{secretLevel},'%')
+      </if>
+      <if test="buildArea != null and isLikeSelect!= null and buildArea != '' ">
+         AND build_area like  CONCAT('%',#{buildArea},'%')
+      </if>
+      <if test="foreignPage != null and isLikeSelect!= null and foreignPage != '' ">
+         AND foreign_page like  CONCAT('%',#{foreignPage},'%')
+      </if>
+      <if test="inlandPage != null and isLikeSelect!= null and inlandPage != '' ">
+         AND inland_page like  CONCAT('%',#{inlandPage},'%')
+      </if>
+      <if test="inlandA1Page != null and isLikeSelect!= null and inlandA1Page != '' ">
+         AND inland_a1_page like  CONCAT('%',#{inlandA1Page},'%')
+      </if>
+      <if test="drawNumber != null and isLikeSelect!= null and drawNumber != '' ">
+         AND draw_number like  CONCAT('%',#{drawNumber},'%')
+      </if>
+      <if test="drawA1Number != null and isLikeSelect!= null and drawA1Number != '' ">
+         AND draw_a1_number like  CONCAT('%',#{drawA1Number},'%')
+      </if>
+      <if test="copyNumber != null and isLikeSelect!= null and copyNumber != '' ">
+         AND copy_number like  CONCAT('%',#{copyNumber},'%')
+      </if>
+      <if test="deptName != null and isLikeSelect!= null and deptName != '' ">
+         AND dept_name like  CONCAT('%',#{deptName},'%')
+      </if>
+      <if test="deptId != null and isLikeSelect!= null and deptId != '' ">
+         AND dept_id like  CONCAT('%',#{deptId},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="deptId != null and isLikeSelect!=null">
+         AND dept_id = #{deptId}
+      </if>
+    </where>
+  </sql>
+</mapper>

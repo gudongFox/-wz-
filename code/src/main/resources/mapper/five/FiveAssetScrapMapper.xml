@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveAssetScrapMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveAssetScrap">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="form_no" jdbcType="VARCHAR" property="formNo" />
+    <result column="applicant" jdbcType="VARCHAR" property="applicant" />
+    <result column="applicant_name" jdbcType="VARCHAR" property="applicantName" />
+    <result column="applicant_time" jdbcType="VARCHAR" property="applicantTime" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="applicant_reason" jdbcType="VARCHAR" property="applicantReason" />
+    <result column="applicant_dept_opinion" jdbcType="VARCHAR" property="applicantDeptOpinion" />
+    <result column="handle_opinion" jdbcType="VARCHAR" property="handleOpinion" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_asset_scrap
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveAssetScrap">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_asset_scrap (business_key, form_no, applicant, 
+      applicant_name, applicant_time, dept_id, 
+      dept_name, applicant_reason, applicant_dept_opinion, 
+      handle_opinion, remark, creator, 
+      creator_name, is_deleted, gmt_create, 
+      gmt_modified, process_instance_id, is_process_end
+      )
+    values (#{businessKey,jdbcType=VARCHAR}, #{formNo,jdbcType=VARCHAR}, #{applicant,jdbcType=VARCHAR}, 
+      #{applicantName,jdbcType=VARCHAR}, #{applicantTime,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, 
+      #{deptName,jdbcType=VARCHAR}, #{applicantReason,jdbcType=VARCHAR}, #{applicantDeptOpinion,jdbcType=VARCHAR}, 
+      #{handleOpinion,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{creatorName,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{processInstanceId,jdbcType=VARCHAR}, #{processEnd,jdbcType=BIT}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveAssetScrap">
+    update five_asset_scrap
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      form_no = #{formNo,jdbcType=VARCHAR},
+      applicant = #{applicant,jdbcType=VARCHAR},
+      applicant_name = #{applicantName,jdbcType=VARCHAR},
+      applicant_time = #{applicantTime,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      applicant_reason = #{applicantReason,jdbcType=VARCHAR},
+      applicant_dept_opinion = #{applicantDeptOpinion,jdbcType=VARCHAR},
+      handle_opinion = #{handleOpinion,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      is_process_end = #{processEnd,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, form_no, applicant, applicant_name, applicant_time, dept_id, 
+    dept_name, applicant_reason, applicant_dept_opinion, handle_opinion, remark, creator, 
+    creator_name, is_deleted, gmt_create, gmt_modified, process_instance_id, is_process_end
+    from five_asset_scrap
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, form_no, applicant, applicant_name, applicant_time, dept_id, 
+    dept_name, applicant_reason, applicant_dept_opinion, handle_opinion, remark, creator, 
+    creator_name, is_deleted, gmt_create, gmt_modified, process_instance_id, is_process_end
+    from five_asset_scrap
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and isLikeSelect==null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="formNo != null and isLikeSelect==null and formNo != ''">
+         AND form_no = #{formNo}
+      </if>
+      <if test="applicant != null and isLikeSelect==null and applicant != ''">
+         AND applicant = #{applicant}
+      </if>
+      <if test="applicantName != null and isLikeSelect==null and applicantName != ''">
+         AND applicant_name = #{applicantName}
+      </if>
+      <if test="applicantTime != null and isLikeSelect==null and applicantTime != ''">
+         AND applicant_time = #{applicantTime}
+      </if>
+      <if test="deptId != null and isLikeSelect==null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and isLikeSelect==null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="applicantReason != null and isLikeSelect==null and applicantReason != ''">
+         AND applicant_reason = #{applicantReason}
+      </if>
+      <if test="applicantDeptOpinion != null and isLikeSelect==null and applicantDeptOpinion != ''">
+         AND applicant_dept_opinion = #{applicantDeptOpinion}
+      </if>
+      <if test="handleOpinion != null and isLikeSelect==null and handleOpinion != ''">
+         AND handle_opinion = #{handleOpinion}
+      </if>
+      <if test="remark != null and isLikeSelect==null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="processInstanceId != null and isLikeSelect==null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="processEnd != null and isLikeSelect==null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect==null">
+        AND (
+        dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+        <if test="initiator != null and initiator != ''">
+          or creator = #{initiator}
+        </if>
+        )
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="businessKey != null and isLikeSelect!= null and businessKey != '' ">
+         AND business_key like  CONCAT('%',#{businessKey},'%')
+      </if>
+      <if test="formNo != null and isLikeSelect!= null and formNo != '' ">
+         AND form_no like  CONCAT('%',#{formNo},'%')
+      </if>
+      <if test="applicant != null and isLikeSelect!= null and applicant != '' ">
+         AND applicant like  CONCAT('%',#{applicant},'%')
+      </if>
+      <if test="applicantName != null and isLikeSelect!= null and applicantName != '' ">
+         AND applicant_name like  CONCAT('%',#{applicantName},'%')
+      </if>
+      <if test="applicantTime != null and isLikeSelect!= null and applicantTime != '' ">
+         AND applicant_time like  CONCAT('%',#{applicantTime},'%')
+      </if>
+      <if test="deptName != null and isLikeSelect!= null and deptName != '' ">
+         AND dept_name like  CONCAT('%',#{deptName},'%')
+      </if>
+      <if test="applicantReason != null and isLikeSelect!= null and applicantReason != '' ">
+         AND applicant_reason like  CONCAT('%',#{applicantReason},'%')
+      </if>
+      <if test="applicantDeptOpinion != null and isLikeSelect!= null and applicantDeptOpinion != '' ">
+         AND applicant_dept_opinion like  CONCAT('%',#{applicantDeptOpinion},'%')
+      </if>
+      <if test="handleOpinion != null and isLikeSelect!= null and handleOpinion != '' ">
+         AND handle_opinion like  CONCAT('%',#{handleOpinion},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="processInstanceId != null and isLikeSelect!= null and processInstanceId != '' ">
+         AND process_instance_id like  CONCAT('%',#{processInstanceId},'%')
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="deptId != null and isLikeSelect!=null">
+        AND dept_id = #{deptId}
+      </if>
+      <if test="processEnd != null and isLikeSelect!=null">
+        AND is_process_end = #{processEnd}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect!=null">
+        AND gmt_create = #{gmtCreate}
+      </if>
+
+      <if test="startTime1 != null and startTime1 !='' and isLikeSelect!=null">
+        AND gmt_create  &gt;= CONCAT('','${startTime1}',' 00:00:00')
+      </if>
+      <if test="endTime1 != null and endTime1 !='' and isLikeSelect!=null">
+        AND gmt_create  &lt;= CONCAT('','${endTime1}',' 23:59:59')
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect!=null">
+        AND (
+        dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+        <if test="initiator != null and initiator != ''">
+          or creator = #{initiator}
+        </if>
+        )
+      </if>
+    </where>
+  </sql>
+</mapper>

@@ -1,0 +1,72 @@
+﻿<span id="contentForm">
+    <div >
+        <div id="segmentedControl" class="mui-segmented-control">
+            <a class="mui-control-item mui-active">基础信息</a>
+            <a class="mui-control-item">流程信息</a>
+            <a class="mui-control-item">流程图</a>
+        </div>
+    </div>
+    <!--决策会议-->
+    <div >
+        <div class="mui-control-content mui-active">
+
+            <span ng-include="'/h5/tpl/formDetail.html'"></span>
+
+            <div class="mui-card">
+                <div class="mui-card-header">
+                    <span ng-bind="'2.会议主题'"></span>
+                </div>
+                <!--内容区-->
+                <div class="mui-card-content">
+                    <ul class="mui-table-view mui-table-view-chevron">
+                       <li id="listView" class="mui-table-view-cell mui-collapse" ng-repeat="decision in vm.decisions"  >
+                            <a class="mui-navigate-right"  >
+                                <span style="line-height: 30px;margin-left: 10px;font-weight: bold;"  ng-bind="decision.title"></span>
+                            </a>
+                      <ul class="mui-table-view mui-table-view-chevron"  >
+                    <li class="mui-table-view-cell" ng-show="decision.detail"><span ng-bind="'类型：'+decision.detail"></span>
+                    </li>
+                    <li class="mui-table-view-cell"><span ng-bind="'列席：'+decision.attendanceName"></span>
+                    </li>
+                    <li class="mui-table-view-cell"><span ng-bind="'结论：'+decision.conclusion"></span>
+                    </li>
+                    <li class="mui-table-view-cell" ng-if="decision.attachName" >
+                        <span style="cursor: pointer;color: blue;"  ng-bind="'附件：'+decision.attachName"  ng-click="downloadAttach(decision.attachId)"></span>
+                    </li>
+                   <li class="mui-table-view-cell "  ng-repeat="file in decision.fileList" >
+                        <span style="color: blue;cursor: pointer;" ng-bind="'附件：'+file.fileName" ng-click="downloadFile(file,true);"></span>
+                       <!-- <i class="mui-icon mui-icon-download " ><a ng-href="/common/attach/download/{{file.attachId}}"></a></i>-->
+                    </li>
+
+                     <li class="mui-table-view-cell" ng-if="decision.linkedBusiness">
+                        <span  ng-click="vm.showLink(decision.linkedBusiness);"  style="cursor: pointer;color: blue;">查看详情</span>
+                    </li>
+                </ul>
+                       </li>
+                     </ul>
+                </div>
+                <!--页脚，放置补充信息或支持的操作-->
+            </div>
+            <span ng-include="'/h5/tpl/businessFile.html'" ng-init="fileTplTitle='3.业务附件'"></span>
+            <div style="height: 40px;">&nbsp;</div>
+        </div>
+        <div class="mui-control-content">
+             <span ng-include="'/h5/tpl/taskHistory.html'"></span>
+        </div>
+        <div class="mui-control-content" style="overflow-x: auto;">
+             <span ng-include="'/h5/tpl/taskPicture.html'"></span>
+        </div>
+        <div style="height: 50px;">&nbsp;</div>
+    </div>
+
+</span>
+
+<span ng-include="'/h5/tpl/taskAction.html'"></span>
+<span ng-include="'/h5/tpl/selectUser.html'"></span>
+
+
+
+
+
+
+

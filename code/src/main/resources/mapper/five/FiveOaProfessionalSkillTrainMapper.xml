@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveOaProfessionalSkillTrainMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveOaProfessionalSkillTrain">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="form_no" jdbcType="VARCHAR" property="formNo" />
+    <result column="apply_dept_id" jdbcType="INTEGER" property="applyDeptId" />
+    <result column="apply_dept_name" jdbcType="VARCHAR" property="applyDeptName" />
+    <result column="train_time" jdbcType="VARCHAR" property="trainTime" />
+    <result column="train_type" jdbcType="VARCHAR" property="trainType" />
+    <result column="apply_man" jdbcType="VARCHAR" property="applyMan" />
+    <result column="apply_man_name" jdbcType="VARCHAR" property="applyManName" />
+    <result column="train_address" jdbcType="VARCHAR" property="trainAddress" />
+    <result column="train_price" jdbcType="VARCHAR" property="trainPrice" />
+    <result column="dept_comment" jdbcType="VARCHAR" property="deptComment" />
+    <result column="technology_comment" jdbcType="VARCHAR" property="technologyComment" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_plan" jdbcType="BIT" property="plan" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+    <result column="train_content" jdbcType="LONGVARCHAR" property="trainContent" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_oa_professional_skill_train
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveOaProfessionalSkillTrain">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_oa_professional_skill_train (business_key, form_no, apply_dept_id, 
+      apply_dept_name, train_time, train_type, 
+      apply_man, apply_man_name, train_address, 
+      train_price, dept_comment, technology_comment, 
+      remark, creator, creator_name, 
+      is_plan, is_deleted, gmt_create, 
+      gmt_modified, process_instance_id, is_process_end, 
+      train_content)
+    values (#{businessKey,jdbcType=VARCHAR}, #{formNo,jdbcType=VARCHAR}, #{applyDeptId,jdbcType=INTEGER}, 
+      #{applyDeptName,jdbcType=VARCHAR}, #{trainTime,jdbcType=VARCHAR}, #{trainType,jdbcType=VARCHAR}, 
+      #{applyMan,jdbcType=VARCHAR}, #{applyManName,jdbcType=VARCHAR}, #{trainAddress,jdbcType=VARCHAR}, 
+      #{trainPrice,jdbcType=VARCHAR}, #{deptComment,jdbcType=VARCHAR}, #{technologyComment,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, 
+      #{plan,jdbcType=BIT}, #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{processInstanceId,jdbcType=VARCHAR}, #{processEnd,jdbcType=BIT}, 
+      #{trainContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveOaProfessionalSkillTrain">
+    update five_oa_professional_skill_train
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      form_no = #{formNo,jdbcType=VARCHAR},
+      apply_dept_id = #{applyDeptId,jdbcType=INTEGER},
+      apply_dept_name = #{applyDeptName,jdbcType=VARCHAR},
+      train_time = #{trainTime,jdbcType=VARCHAR},
+      train_type = #{trainType,jdbcType=VARCHAR},
+      apply_man = #{applyMan,jdbcType=VARCHAR},
+      apply_man_name = #{applyManName,jdbcType=VARCHAR},
+      train_address = #{trainAddress,jdbcType=VARCHAR},
+      train_price = #{trainPrice,jdbcType=VARCHAR},
+      dept_comment = #{deptComment,jdbcType=VARCHAR},
+      technology_comment = #{technologyComment,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_plan = #{plan,jdbcType=BIT},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      is_process_end = #{processEnd,jdbcType=BIT},
+      train_content = #{trainContent,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, form_no, apply_dept_id, apply_dept_name, train_time, train_type, 
+    apply_man, apply_man_name, train_address, train_price, dept_comment, technology_comment, 
+    remark, creator, creator_name, is_plan, is_deleted, gmt_create, gmt_modified, process_instance_id, 
+    is_process_end, train_content
+    from five_oa_professional_skill_train
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, form_no, apply_dept_id, apply_dept_name, train_time, train_type, 
+    apply_man, apply_man_name, train_address, train_price, dept_comment, technology_comment, 
+    remark, creator, creator_name, is_plan, is_deleted, gmt_create, gmt_modified, process_instance_id, 
+    is_process_end, train_content
+    from five_oa_professional_skill_train
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and isLikeSelect==null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="formNo != null and isLikeSelect==null and formNo != ''">
+         AND form_no = #{formNo}
+      </if>
+      <if test="applyDeptId != null and isLikeSelect==null">
+         AND apply_dept_id = #{applyDeptId}
+      </if>
+      <if test="applyDeptName != null and isLikeSelect==null and applyDeptName != ''">
+         AND apply_dept_name = #{applyDeptName}
+      </if>
+      <if test="trainTime != null and isLikeSelect==null and trainTime != ''">
+         AND train_time = #{trainTime}
+      </if>
+      <if test="trainType != null and isLikeSelect==null and trainType != ''">
+         AND train_type = #{trainType}
+      </if>
+      <if test="applyMan != null and isLikeSelect==null and applyMan != ''">
+         AND apply_man = #{applyMan}
+      </if>
+      <if test="applyManName != null and isLikeSelect==null and applyManName != ''">
+         AND apply_man_name = #{applyManName}
+      </if>
+      <if test="trainAddress != null and isLikeSelect==null and trainAddress != ''">
+         AND train_address = #{trainAddress}
+      </if>
+      <if test="trainPrice != null and isLikeSelect==null and trainPrice != ''">
+         AND train_price = #{trainPrice}
+      </if>
+      <if test="deptComment != null and isLikeSelect==null and deptComment != ''">
+         AND dept_comment = #{deptComment}
+      </if>
+      <if test="technologyComment != null and isLikeSelect==null and technologyComment != ''">
+         AND technology_comment = #{technologyComment}
+      </if>
+      <if test="remark != null and isLikeSelect==null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="plan != null and isLikeSelect==null">
+         AND is_plan = #{plan}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="processInstanceId != null and isLikeSelect==null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="processEnd != null and isLikeSelect==null">
+         AND is_process_end = #{processEnd}
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="businessKey != null and isLikeSelect!= null and businessKey != '' ">
+         AND business_key like  CONCAT('%',#{businessKey},'%')
+      </if>
+      <if test="formNo != null and isLikeSelect!= null and formNo != '' ">
+         AND form_no like  CONCAT('%',#{formNo},'%')
+      </if>
+      <if test="applyDeptName != null and isLikeSelect!= null and applyDeptName != '' ">
+         AND apply_dept_name like  CONCAT('%',#{applyDeptName},'%')
+      </if>
+      <if test="trainTime != null and isLikeSelect!= null and trainTime != '' ">
+         AND train_time like  CONCAT('%',#{trainTime},'%')
+      </if>
+      <if test="trainType != null and isLikeSelect!= null and trainType != '' ">
+         AND train_type like  CONCAT('%',#{trainType},'%')
+      </if>
+      <if test="applyMan != null and isLikeSelect!= null and applyMan != '' ">
+         AND apply_man like  CONCAT('%',#{applyMan},'%')
+      </if>
+      <if test="applyManName != null and isLikeSelect!= null and applyManName != '' ">
+         AND apply_man_name like  CONCAT('%',#{applyManName},'%')
+      </if>
+      <if test="trainAddress != null and isLikeSelect!= null and trainAddress != '' ">
+         AND train_address like  CONCAT('%',#{trainAddress},'%')
+      </if>
+      <if test="trainPrice != null and isLikeSelect!= null and trainPrice != '' ">
+         AND train_price like  CONCAT('%',#{trainPrice},'%')
+      </if>
+      <if test="deptComment != null and isLikeSelect!= null and deptComment != '' ">
+         AND dept_comment like  CONCAT('%',#{deptComment},'%')
+      </if>
+      <if test="technologyComment != null and isLikeSelect!= null and technologyComment != '' ">
+         AND technology_comment like  CONCAT('%',#{technologyComment},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="processInstanceId != null and isLikeSelect!= null and processInstanceId != '' ">
+         AND process_instance_id like  CONCAT('%',#{processInstanceId},'%')
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+    </where>
+  </sql>
+</mapper>

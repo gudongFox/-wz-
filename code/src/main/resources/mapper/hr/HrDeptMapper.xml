@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.hr.dao.HrDeptMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.hr.entity.HrDept">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="dept_code" jdbcType="VARCHAR" property="deptCode" />
+    <result column="dept_type" jdbcType="VARCHAR" property="deptType" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="seq" jdbcType="INTEGER" property="seq" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="dept_charge_man" jdbcType="VARCHAR" property="deptChargeMan" />
+    <result column="dept_charge_man_name" jdbcType="VARCHAR" property="deptChargeManName" />
+    <result column="dept_first_leader" jdbcType="VARCHAR" property="deptFirstLeader" />
+    <result column="dept_first_leader_name" jdbcType="VARCHAR" property="deptFirstLeaderName" />
+    <result column="dept_second_leader" jdbcType="VARCHAR" property="deptSecondLeader" />
+    <result column="dept_second_leader_name" jdbcType="VARCHAR" property="deptSecondLeaderName" />
+    <result column="dept_finance_man" jdbcType="VARCHAR" property="deptFinanceMan" />
+    <result column="dept_finance_man_name" jdbcType="VARCHAR" property="deptFinanceManName" />
+    <result column="design_manager" jdbcType="VARCHAR" property="designManager" />
+    <result column="design_manager_name" jdbcType="VARCHAR" property="designManagerName" />
+    <result column="project_manager" jdbcType="VARCHAR" property="projectManager" />
+    <result column="project_manager_name" jdbcType="VARCHAR" property="projectManagerName" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from hr_dept
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.hr.entity.HrDept">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into hr_dept (name, dept_code, dept_type, 
+      parent_id, seq, is_deleted, 
+      gmt_create, gmt_modified, remark, 
+      dept_charge_man, dept_charge_man_name, dept_first_leader, 
+      dept_first_leader_name, dept_second_leader, 
+      dept_second_leader_name, dept_finance_man, dept_finance_man_name, 
+      design_manager, design_manager_name, project_manager, 
+      project_manager_name)
+    values (#{name,jdbcType=VARCHAR}, #{deptCode,jdbcType=VARCHAR}, #{deptType,jdbcType=VARCHAR}, 
+      #{parentId,jdbcType=INTEGER}, #{seq,jdbcType=INTEGER}, #{deleted,jdbcType=BIT}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, 
+      #{deptChargeMan,jdbcType=VARCHAR}, #{deptChargeManName,jdbcType=VARCHAR}, #{deptFirstLeader,jdbcType=VARCHAR}, 
+      #{deptFirstLeaderName,jdbcType=VARCHAR}, #{deptSecondLeader,jdbcType=VARCHAR}, 
+      #{deptSecondLeaderName,jdbcType=VARCHAR}, #{deptFinanceMan,jdbcType=VARCHAR}, #{deptFinanceManName,jdbcType=VARCHAR}, 
+      #{designManager,jdbcType=VARCHAR}, #{designManagerName,jdbcType=VARCHAR}, #{projectManager,jdbcType=VARCHAR}, 
+      #{projectManagerName,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.hr.entity.HrDept">
+    update hr_dept
+    set name = #{name,jdbcType=VARCHAR},
+      dept_code = #{deptCode,jdbcType=VARCHAR},
+      dept_type = #{deptType,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      seq = #{seq,jdbcType=INTEGER},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      dept_charge_man = #{deptChargeMan,jdbcType=VARCHAR},
+      dept_charge_man_name = #{deptChargeManName,jdbcType=VARCHAR},
+      dept_first_leader = #{deptFirstLeader,jdbcType=VARCHAR},
+      dept_first_leader_name = #{deptFirstLeaderName,jdbcType=VARCHAR},
+      dept_second_leader = #{deptSecondLeader,jdbcType=VARCHAR},
+      dept_second_leader_name = #{deptSecondLeaderName,jdbcType=VARCHAR},
+      dept_finance_man = #{deptFinanceMan,jdbcType=VARCHAR},
+      dept_finance_man_name = #{deptFinanceManName,jdbcType=VARCHAR},
+      design_manager = #{designManager,jdbcType=VARCHAR},
+      design_manager_name = #{designManagerName,jdbcType=VARCHAR},
+      project_manager = #{projectManager,jdbcType=VARCHAR},
+      project_manager_name = #{projectManagerName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, name, dept_code, dept_type, parent_id, seq, is_deleted, gmt_create, gmt_modified, 
+    remark, dept_charge_man, dept_charge_man_name, dept_first_leader, dept_first_leader_name, 
+    dept_second_leader, dept_second_leader_name, dept_finance_man, dept_finance_man_name, 
+    design_manager, design_manager_name, project_manager, project_manager_name
+    from hr_dept
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, name, dept_code, dept_type, parent_id, seq, is_deleted, gmt_create, gmt_modified, 
+    remark, dept_charge_man, dept_charge_man_name, dept_first_leader, dept_first_leader_name, 
+    dept_second_leader, dept_second_leader_name, dept_finance_man, dept_finance_man_name, 
+    design_manager, design_manager_name, project_manager, project_manager_name
+    from hr_dept
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by seq asc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="name != null and isLikeSelect==null and name != ''">
+         AND name = #{name}
+      </if>
+      <if test="deptCode != null and isLikeSelect==null and deptCode != ''">
+         AND dept_code = #{deptCode}
+      </if>
+      <if test="deptType != null and isLikeSelect==null and deptType != ''">
+         AND dept_type = #{deptType}
+      </if>
+      <if test="parentId != null and isLikeSelect==null">
+         AND parent_id = #{parentId}
+      </if>
+      <if test="seq != null and isLikeSelect==null">
+         AND seq = #{seq}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="remark != null and isLikeSelect==null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="deptChargeMan != null and isLikeSelect==null and deptChargeMan != ''">
+         AND dept_charge_man = #{deptChargeMan}
+      </if>
+      <if test="deptChargeManName != null and isLikeSelect==null and deptChargeManName != ''">
+         AND dept_charge_man_name = #{deptChargeManName}
+      </if>
+      <if test="deptFirstLeader != null and isLikeSelect==null and deptFirstLeader != ''">
+         AND dept_first_leader = #{deptFirstLeader}
+      </if>
+      <if test="deptFirstLeaderName != null and isLikeSelect==null and deptFirstLeaderName != ''">
+         AND dept_first_leader_name = #{deptFirstLeaderName}
+      </if>
+      <if test="deptSecondLeader != null and isLikeSelect==null and deptSecondLeader != ''">
+         AND dept_second_leader = #{deptSecondLeader}
+      </if>
+      <if test="deptSecondLeaderName != null and isLikeSelect==null and deptSecondLeaderName != ''">
+         AND dept_second_leader_name = #{deptSecondLeaderName}
+      </if>
+      <if test="deptFinanceMan != null and isLikeSelect==null and deptFinanceMan != ''">
+         AND dept_finance_man = #{deptFinanceMan}
+      </if>
+      <if test="deptFinanceManName != null and isLikeSelect==null and deptFinanceManName != ''">
+         AND dept_finance_man_name = #{deptFinanceManName}
+      </if>
+      <if test="designManager != null and isLikeSelect==null and designManager != ''">
+         AND design_manager = #{designManager}
+      </if>
+      <if test="designManagerName != null and isLikeSelect==null and designManagerName != ''">
+         AND design_manager_name = #{designManagerName}
+      </if>
+      <if test="projectManager != null and isLikeSelect==null and projectManager != ''">
+         AND project_manager = #{projectManager}
+      </if>
+      <if test="projectManagerName != null and isLikeSelect==null and projectManagerName != ''">
+         AND project_manager_name = #{projectManagerName}
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="name != null and isLikeSelect!= null and name != '' ">
+         AND name like  CONCAT('%',#{name},'%')
+      </if>
+      <if test="deptCode != null and isLikeSelect!= null and deptCode != '' ">
+         AND dept_code like  CONCAT('%',#{deptCode},'%')
+      </if>
+      <if test="deptType != null and isLikeSelect!= null and deptType != '' ">
+         AND dept_type like  CONCAT('%',#{deptType},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="deptChargeMan != null and isLikeSelect!= null and deptChargeMan != '' ">
+         AND dept_charge_man like  CONCAT('%',#{deptChargeMan},'%')
+      </if>
+      <if test="deptChargeManName != null and isLikeSelect!= null and deptChargeManName != '' ">
+         AND dept_charge_man_name like  CONCAT('%',#{deptChargeManName},'%')
+      </if>
+      <if test="deptFirstLeader != null and isLikeSelect!= null and deptFirstLeader != '' ">
+         AND dept_first_leader like  CONCAT('%',#{deptFirstLeader},'%')
+      </if>
+      <if test="deptFirstLeaderName != null and isLikeSelect!= null and deptFirstLeaderName != '' ">
+         AND dept_first_leader_name like  CONCAT('%',#{deptFirstLeaderName},'%')
+      </if>
+      <if test="deptSecondLeader != null and isLikeSelect!= null and deptSecondLeader != '' ">
+         AND dept_second_leader like  CONCAT('%',#{deptSecondLeader},'%')
+      </if>
+      <if test="deptSecondLeaderName != null and isLikeSelect!= null and deptSecondLeaderName != '' ">
+         AND dept_second_leader_name like  CONCAT('%',#{deptSecondLeaderName},'%')
+      </if>
+      <if test="deptFinanceMan != null and isLikeSelect!= null and deptFinanceMan != '' ">
+         AND dept_finance_man like  CONCAT('%',#{deptFinanceMan},'%')
+      </if>
+      <if test="deptFinanceManName != null and isLikeSelect!= null and deptFinanceManName != '' ">
+         AND dept_finance_man_name like  CONCAT('%',#{deptFinanceManName},'%')
+      </if>
+      <if test="designManager != null and isLikeSelect!= null and designManager != '' ">
+         AND design_manager like  CONCAT('%',#{designManager},'%')
+      </if>
+      <if test="designManagerName != null and isLikeSelect!= null and designManagerName != '' ">
+         AND design_manager_name like  CONCAT('%',#{designManagerName},'%')
+      </if>
+      <if test="projectManager != null and isLikeSelect!= null and projectManager != '' ">
+         AND project_manager like  CONCAT('%',#{projectManager},'%')
+      </if>
+      <if test="projectManagerName != null and isLikeSelect!= null and projectManagerName != '' ">
+         AND project_manager_name like  CONCAT('%',#{projectManagerName},'%')
+      </if>
+        <if test="deleted != null and isLikeSelect!=null">
+            AND is_deleted = #{deleted}
+        </if>
+        <if test="deptIds != null">
+            AND id in
+            <foreach collection="deptIds" open="(" close=")" separator="," item="deptId" index="i">
+                #{deptId}
+            </foreach>
+        </if>
+    </where>
+  </sql>
+</mapper>

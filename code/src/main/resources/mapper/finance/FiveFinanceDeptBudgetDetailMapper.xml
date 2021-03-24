@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.finance.dao.FiveFinanceDeptBudgetDetailMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.finance.entity.FiveFinanceDeptBudgetDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="dept_budget_id" jdbcType="INTEGER" property="deptBudgetId" />
+    <result column="form_no" jdbcType="VARCHAR" property="formNo" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="seq" jdbcType="VARCHAR" property="seq" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="last_year_remain_money" jdbcType="VARCHAR" property="lastYearRemainMoney" />
+    <result column="budget_money" jdbcType="VARCHAR" property="budgetMoney" />
+    <result column="travel_money" jdbcType="VARCHAR" property="travelMoney" />
+    <result column="car_money" jdbcType="VARCHAR" property="carMoney" />
+    <result column="materials_money" jdbcType="VARCHAR" property="materialsMoney" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_finance_dept_budget_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.finance.entity.FiveFinanceDeptBudgetDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_finance_dept_budget_detail (business_key, dept_budget_id, form_no, 
+      dept_id, dept_name, seq, 
+      remark, creator, creator_name, 
+      is_deleted, gmt_create, gmt_modified, 
+      last_year_remain_money, budget_money, travel_money, 
+      car_money, materials_money)
+    values (#{businessKey,jdbcType=VARCHAR}, #{deptBudgetId,jdbcType=INTEGER}, #{formNo,jdbcType=VARCHAR}, 
+      #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, #{seq,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{lastYearRemainMoney,jdbcType=VARCHAR}, #{budgetMoney,jdbcType=VARCHAR}, #{travelMoney,jdbcType=VARCHAR}, 
+      #{carMoney,jdbcType=VARCHAR}, #{materialsMoney,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.finance.entity.FiveFinanceDeptBudgetDetail">
+    update five_finance_dept_budget_detail
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      dept_budget_id = #{deptBudgetId,jdbcType=INTEGER},
+      form_no = #{formNo,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      seq = #{seq,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      last_year_remain_money = #{lastYearRemainMoney,jdbcType=VARCHAR},
+      budget_money = #{budgetMoney,jdbcType=VARCHAR},
+      travel_money = #{travelMoney,jdbcType=VARCHAR},
+      car_money = #{carMoney,jdbcType=VARCHAR},
+      materials_money = #{materialsMoney,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, dept_budget_id, form_no, dept_id, dept_name, seq, remark, 
+    creator, creator_name, is_deleted, gmt_create, gmt_modified, last_year_remain_money, 
+    budget_money, travel_money, car_money, materials_money
+    from five_finance_dept_budget_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, dept_budget_id, form_no, dept_id, dept_name, seq, remark, 
+    creator, creator_name, is_deleted, gmt_create, gmt_modified, last_year_remain_money, 
+    budget_money, travel_money, car_money, materials_money
+    from five_finance_dept_budget_detail
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="deptBudgetId != null">
+         AND dept_budget_id = #{deptBudgetId}
+      </if>
+      <if test="formNo != null and formNo != ''">
+         AND form_no = #{formNo}
+      </if>
+      <if test="deptId != null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="seq != null and seq != ''">
+         AND seq = #{seq}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="lastYearRemainMoney != null and lastYearRemainMoney != ''">
+         AND last_year_remain_money = #{lastYearRemainMoney}
+      </if>
+      <if test="budgetMoney != null and budgetMoney != ''">
+         AND budget_money = #{budgetMoney}
+      </if>
+      <if test="travelMoney != null and travelMoney != ''">
+         AND travel_money = #{travelMoney}
+      </if>
+      <if test="carMoney != null and carMoney != ''">
+         AND car_money = #{carMoney}
+      </if>
+      <if test="materialsMoney != null and materialsMoney != ''">
+         AND materials_money = #{materialsMoney}
+      </if>
+    </where>
+  </sql>
+</mapper>

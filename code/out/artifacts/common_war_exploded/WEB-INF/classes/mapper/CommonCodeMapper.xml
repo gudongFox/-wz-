@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.common.dao.CommonCodeMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.common.entity.CommonCode">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="tenet_id" jdbcType="VARCHAR" property="tenetId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="code_catalog" jdbcType="VARCHAR" property="codeCatalog" />
+    <result column="code_type" jdbcType="VARCHAR" property="codeType" />
+    <result column="seq" jdbcType="INTEGER" property="seq" />
+    <result column="is_defaulted" jdbcType="BIT" property="defaulted" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from common_code
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.common.entity.CommonCode">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into common_code (parent_id,tenet_id, name, code,
+      code_catalog, code_type, seq, 
+      is_defaulted, is_deleted, gmt_create, 
+      gmt_modified, remark)
+    values ( #{parentId,jdbcType=INTEGER}, #{tenetId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR},
+      #{codeCatalog,jdbcType=VARCHAR}, #{codeType,jdbcType=VARCHAR}, #{seq,jdbcType=INTEGER}, 
+      #{defaulted,jdbcType=BIT}, #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.common.entity.CommonCode">
+    update common_code
+    set
+      parent_id = #{parentId,jdbcType=INTEGER},
+      tenet_id = #{tenetId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR},
+      code_catalog = #{codeCatalog,jdbcType=VARCHAR},
+      code_type = #{codeType,jdbcType=VARCHAR},
+      seq = #{seq,jdbcType=INTEGER},
+      is_defaulted = #{defaulted,jdbcType=BIT},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from common_code
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select *
+    from common_code
+    <include refid="Base_Where_List" />
+    order by code_catalog desc,seq asc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="parentId != null">
+        AND parent_id = #{parentId}
+      </if>
+      <if test="tenetId != null and tenetId != ''">
+         AND tenet_id = #{tenetId}
+      </if>
+      <if test="name != null and name != ''">
+         AND name = #{name}
+      </if>
+      <if test="code != null and code != ''">
+         AND code = #{code}
+      </if>
+      <if test="codeCatalog != null and codeCatalog != ''">
+         AND code_catalog like CONCAT('%',#{codeCatalog},'%')
+      </if>
+      <if test="equalCodeCatalog != null and equalCodeCatalog != ''">
+        AND code_catalog = #{equalCodeCatalog}
+      </if>
+      <if test="codeType != null and codeType != ''">
+         AND code_type = #{codeType}
+      </if>
+      <if test="seq != null">
+         AND seq = #{seq}
+      </if>
+      <if test="defaulted != null">
+         AND is_defaulted = #{defaulted}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="q != null and q != ''">
+        AND  (name like CONCAT('%',#{q},'%') or  code_catalog like CONCAT('%',#{q},'%')  or code like CONCAT('%',#{q},'%'))
+      </if>
+    </where>
+  </sql>
+
+  <select id="getLatest" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from common_code where is_deleted=0 and tenet_id=#{tenetId} order by gmt_modified desc limit 1
+  </select>
+
+  <select id="listCodeCategory" parameterType="java.lang.String" resultType="java.lang.String">
+    select distinct(code_catalog) from common_code where is_deleted=0 and tenet_id=#{tenetId} order by code_catalog desc
+  </select>
+
+
+</mapper>

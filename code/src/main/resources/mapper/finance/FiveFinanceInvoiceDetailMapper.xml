@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.finance.dao.FiveFinanceInvoiceDetailMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.finance.entity.FiveFinanceInvoiceDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="invoice_id" jdbcType="INTEGER" property="invoiceId" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="form_no" jdbcType="VARCHAR" property="formNo" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="contract_library_id" jdbcType="INTEGER" property="contractLibraryId" />
+    <result column="contract_no" jdbcType="VARCHAR" property="contractNo" />
+    <result column="contract_name" jdbcType="VARCHAR" property="contractName" />
+    <result column="contract_money" jdbcType="VARCHAR" property="contractMoney" />
+    <result column="contract_get_invoice" jdbcType="VARCHAR" property="contractGetInvoice" />
+    <result column="receive_type" jdbcType="VARCHAR" property="receiveType" />
+    <result column="invoice_money" jdbcType="VARCHAR" property="invoiceMoney" />
+    <result column="charge_against_pre_money" jdbcType="VARCHAR" property="chargeAgainstPreMoney" />
+    <result column="sale_money" jdbcType="VARCHAR" property="saleMoney" />
+    <result column="out_put_tax_money" jdbcType="VARCHAR" property="outPutTaxMoney" />
+    <result column="invoice_no" jdbcType="VARCHAR" property="invoiceNo" />
+    <result column="promise_remittance_no" jdbcType="VARCHAR" property="promiseRemittanceNo" />
+    <result column="note_money" jdbcType="VARCHAR" property="noteMoney" />
+    <result column="income_stage" jdbcType="VARCHAR" property="incomeStage" />
+    <result column="income_build" jdbcType="VARCHAR" property="incomeBuild" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_finance_invoice_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.finance.entity.FiveFinanceInvoiceDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_finance_invoice_detail (invoice_id, business_key, form_no, 
+      remark, creator, creator_name, 
+      is_deleted, gmt_create, gmt_modified, 
+      contract_library_id, contract_no, contract_name, 
+      contract_money, contract_get_invoice, receive_type, 
+      invoice_money, charge_against_pre_money, sale_money, 
+      out_put_tax_money, invoice_no, promise_remittance_no, 
+      note_money, income_stage, income_build
+      )
+    values (#{invoiceId,jdbcType=INTEGER}, #{businessKey,jdbcType=VARCHAR}, #{formNo,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{contractLibraryId,jdbcType=INTEGER}, #{contractNo,jdbcType=VARCHAR}, #{contractName,jdbcType=VARCHAR}, 
+      #{contractMoney,jdbcType=VARCHAR}, #{contractGetInvoice,jdbcType=VARCHAR}, #{receiveType,jdbcType=VARCHAR}, 
+      #{invoiceMoney,jdbcType=VARCHAR}, #{chargeAgainstPreMoney,jdbcType=VARCHAR}, #{saleMoney,jdbcType=VARCHAR}, 
+      #{outPutTaxMoney,jdbcType=VARCHAR}, #{invoiceNo,jdbcType=VARCHAR}, #{promiseRemittanceNo,jdbcType=VARCHAR}, 
+      #{noteMoney,jdbcType=VARCHAR}, #{incomeStage,jdbcType=VARCHAR}, #{incomeBuild,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.finance.entity.FiveFinanceInvoiceDetail">
+    update five_finance_invoice_detail
+    set invoice_id = #{invoiceId,jdbcType=INTEGER},
+      business_key = #{businessKey,jdbcType=VARCHAR},
+      form_no = #{formNo,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      contract_library_id = #{contractLibraryId,jdbcType=INTEGER},
+      contract_no = #{contractNo,jdbcType=VARCHAR},
+      contract_name = #{contractName,jdbcType=VARCHAR},
+      contract_money = #{contractMoney,jdbcType=VARCHAR},
+      contract_get_invoice = #{contractGetInvoice,jdbcType=VARCHAR},
+      receive_type = #{receiveType,jdbcType=VARCHAR},
+      invoice_money = #{invoiceMoney,jdbcType=VARCHAR},
+      charge_against_pre_money = #{chargeAgainstPreMoney,jdbcType=VARCHAR},
+      sale_money = #{saleMoney,jdbcType=VARCHAR},
+      out_put_tax_money = #{outPutTaxMoney,jdbcType=VARCHAR},
+      invoice_no = #{invoiceNo,jdbcType=VARCHAR},
+      promise_remittance_no = #{promiseRemittanceNo,jdbcType=VARCHAR},
+      note_money = #{noteMoney,jdbcType=VARCHAR},
+      income_stage = #{incomeStage,jdbcType=VARCHAR},
+      income_build = #{incomeBuild,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, invoice_id, business_key, form_no, remark, creator, creator_name, is_deleted, 
+    gmt_create, gmt_modified, contract_library_id, contract_no, contract_name, contract_money, 
+    contract_get_invoice, receive_type, invoice_money, charge_against_pre_money, sale_money, 
+    out_put_tax_money, invoice_no, promise_remittance_no, note_money, income_stage, income_build
+    from five_finance_invoice_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, invoice_id, business_key, form_no, remark, creator, creator_name, is_deleted, 
+    gmt_create, gmt_modified, contract_library_id, contract_no, contract_name, contract_money, 
+    contract_get_invoice, receive_type, invoice_money, charge_against_pre_money, sale_money, 
+    out_put_tax_money, invoice_no, promise_remittance_no, note_money, income_stage, income_build
+    from five_finance_invoice_detail
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="invoiceId != null">
+         AND invoice_id = #{invoiceId}
+      </if>
+      <if test="businessKey != null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="formNo != null and formNo != ''">
+         AND form_no = #{formNo}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="contractLibraryId != null">
+         AND contract_library_id = #{contractLibraryId}
+      </if>
+      <if test="contractNo != null and contractNo != ''">
+         AND contract_no = #{contractNo}
+      </if>
+      <if test="contractName != null and contractName != ''">
+         AND contract_name = #{contractName}
+      </if>
+      <if test="contractMoney != null and contractMoney != ''">
+         AND contract_money = #{contractMoney}
+      </if>
+      <if test="contractGetInvoice != null and contractGetInvoice != ''">
+         AND contract_get_invoice = #{contractGetInvoice}
+      </if>
+      <if test="receiveType != null and receiveType != ''">
+         AND receive_type = #{receiveType}
+      </if>
+      <if test="invoiceMoney != null and invoiceMoney != ''">
+         AND invoice_money = #{invoiceMoney}
+      </if>
+      <if test="chargeAgainstPreMoney != null and chargeAgainstPreMoney != ''">
+         AND charge_against_pre_money = #{chargeAgainstPreMoney}
+      </if>
+      <if test="saleMoney != null and saleMoney != ''">
+         AND sale_money = #{saleMoney}
+      </if>
+      <if test="outPutTaxMoney != null and outPutTaxMoney != ''">
+         AND out_put_tax_money = #{outPutTaxMoney}
+      </if>
+      <if test="invoiceNo != null and invoiceNo != ''">
+         AND invoice_no = #{invoiceNo}
+      </if>
+      <if test="promiseRemittanceNo != null and promiseRemittanceNo != ''">
+         AND promise_remittance_no = #{promiseRemittanceNo}
+      </if>
+      <if test="noteMoney != null and noteMoney != ''">
+         AND note_money = #{noteMoney}
+      </if>
+      <if test="incomeStage != null and incomeStage != ''">
+         AND income_stage = #{incomeStage}
+      </if>
+      <if test="incomeBuild != null and incomeBuild != ''">
+         AND income_build = #{incomeBuild}
+      </if>
+    </where>
+  </sql>
+</mapper>

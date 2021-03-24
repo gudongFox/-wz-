@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveOaDispatchMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveOaDispatch">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="file_id" jdbcType="INTEGER" property="fileId" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="dispatch_type" jdbcType="VARCHAR" property="dispatchType" />
+    <result column="signer" jdbcType="VARCHAR" property="signer" />
+    <result column="signer_name" jdbcType="VARCHAR" property="signerName" />
+    <result column="countersign" jdbcType="VARCHAR" property="countersign" />
+    <result column="countersign_name" jdbcType="VARCHAR" property="countersignName" />
+    <result column="secret_grade" jdbcType="VARCHAR" property="secretGrade" />
+    <result column="allotted_time" jdbcType="VARCHAR" property="allottedTime" />
+    <result column="company_office" jdbcType="VARCHAR" property="companyOffice" />
+    <result column="company_office_name" jdbcType="VARCHAR" property="companyOfficeName" />
+    <result column="company_security" jdbcType="VARCHAR" property="companySecurity" />
+    <result column="company_security_name" jdbcType="VARCHAR" property="companySecurityName" />
+    <result column="audit_man" jdbcType="VARCHAR" property="auditMan" />
+    <result column="audit_man_name" jdbcType="VARCHAR" property="auditManName" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="drafter" jdbcType="VARCHAR" property="drafter" />
+    <result column="drafter_name" jdbcType="VARCHAR" property="drafterName" />
+    <result column="dispatch" jdbcType="VARCHAR" property="dispatch" />
+    <result column="dispatch_title" jdbcType="VARCHAR" property="dispatchTitle" />
+    <result column="real_send_man" jdbcType="VARCHAR" property="realSendMan" />
+    <result column="real_send_man_name" jdbcType="VARCHAR" property="realSendManName" />
+    <result column="copy_send_man" jdbcType="VARCHAR" property="copySendMan" />
+    <result column="copy_send_man_name" jdbcType="VARCHAR" property="copySendManName" />
+    <result column="subject_term" jdbcType="VARCHAR" property="subjectTerm" />
+    <result column="typist" jdbcType="VARCHAR" property="typist" />
+    <result column="typist_name" jdbcType="VARCHAR" property="typistName" />
+    <result column="proofreader" jdbcType="VARCHAR" property="proofreader" />
+    <result column="proofreader_name" jdbcType="VARCHAR" property="proofreaderName" />
+    <result column="print_number" jdbcType="VARCHAR" property="printNumber" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="word" jdbcType="VARCHAR" property="word" />
+    <result column="year" jdbcType="VARCHAR" property="year" />
+    <result column="mark" jdbcType="INTEGER" property="mark" />
+    <result column="copy_men" jdbcType="VARCHAR" property="copyMen" />
+    <result column="copy_men_name" jdbcType="VARCHAR" property="copyMenName" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_oa_dispatch
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveOaDispatch">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_oa_dispatch (file_id, business_key, dispatch_type, 
+      signer, signer_name, countersign, 
+      countersign_name, secret_grade, allotted_time, 
+      company_office, company_office_name, company_security, 
+      company_security_name, audit_man, audit_man_name, 
+      dept_id, dept_name, drafter, 
+      drafter_name, dispatch, dispatch_title, 
+      real_send_man, real_send_man_name, copy_send_man, 
+      copy_send_man_name, subject_term, typist, 
+      typist_name, proofreader, proofreader_name, 
+      print_number, creator, creator_name, 
+      gmt_create, gmt_modified, is_deleted, 
+      is_process_end, process_instance_id, word, 
+      year, mark, copy_men, 
+      copy_men_name)
+    values (#{fileId,jdbcType=INTEGER}, #{businessKey,jdbcType=VARCHAR}, #{dispatchType,jdbcType=VARCHAR}, 
+      #{signer,jdbcType=VARCHAR}, #{signerName,jdbcType=VARCHAR}, #{countersign,jdbcType=VARCHAR}, 
+      #{countersignName,jdbcType=VARCHAR}, #{secretGrade,jdbcType=VARCHAR}, #{allottedTime,jdbcType=VARCHAR}, 
+      #{companyOffice,jdbcType=VARCHAR}, #{companyOfficeName,jdbcType=VARCHAR}, #{companySecurity,jdbcType=VARCHAR}, 
+      #{companySecurityName,jdbcType=VARCHAR}, #{auditMan,jdbcType=VARCHAR}, #{auditManName,jdbcType=VARCHAR}, 
+      #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, #{drafter,jdbcType=VARCHAR}, 
+      #{drafterName,jdbcType=VARCHAR}, #{dispatch,jdbcType=VARCHAR}, #{dispatchTitle,jdbcType=VARCHAR}, 
+      #{realSendMan,jdbcType=VARCHAR}, #{realSendManName,jdbcType=VARCHAR}, #{copySendMan,jdbcType=VARCHAR}, 
+      #{copySendManName,jdbcType=VARCHAR}, #{subjectTerm,jdbcType=VARCHAR}, #{typist,jdbcType=VARCHAR}, 
+      #{typistName,jdbcType=VARCHAR}, #{proofreader,jdbcType=VARCHAR}, #{proofreaderName,jdbcType=VARCHAR}, 
+      #{printNumber,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}, 
+      #{processEnd,jdbcType=BIT}, #{processInstanceId,jdbcType=VARCHAR}, #{word,jdbcType=VARCHAR}, 
+      #{year,jdbcType=VARCHAR}, #{mark,jdbcType=INTEGER}, #{copyMen,jdbcType=VARCHAR}, 
+      #{copyMenName,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveOaDispatch">
+    update five_oa_dispatch
+    set file_id = #{fileId,jdbcType=INTEGER},
+      business_key = #{businessKey,jdbcType=VARCHAR},
+      dispatch_type = #{dispatchType,jdbcType=VARCHAR},
+      signer = #{signer,jdbcType=VARCHAR},
+      signer_name = #{signerName,jdbcType=VARCHAR},
+      countersign = #{countersign,jdbcType=VARCHAR},
+      countersign_name = #{countersignName,jdbcType=VARCHAR},
+      secret_grade = #{secretGrade,jdbcType=VARCHAR},
+      allotted_time = #{allottedTime,jdbcType=VARCHAR},
+      company_office = #{companyOffice,jdbcType=VARCHAR},
+      company_office_name = #{companyOfficeName,jdbcType=VARCHAR},
+      company_security = #{companySecurity,jdbcType=VARCHAR},
+      company_security_name = #{companySecurityName,jdbcType=VARCHAR},
+      audit_man = #{auditMan,jdbcType=VARCHAR},
+      audit_man_name = #{auditManName,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      drafter = #{drafter,jdbcType=VARCHAR},
+      drafter_name = #{drafterName,jdbcType=VARCHAR},
+      dispatch = #{dispatch,jdbcType=VARCHAR},
+      dispatch_title = #{dispatchTitle,jdbcType=VARCHAR},
+      real_send_man = #{realSendMan,jdbcType=VARCHAR},
+      real_send_man_name = #{realSendManName,jdbcType=VARCHAR},
+      copy_send_man = #{copySendMan,jdbcType=VARCHAR},
+      copy_send_man_name = #{copySendManName,jdbcType=VARCHAR},
+      subject_term = #{subjectTerm,jdbcType=VARCHAR},
+      typist = #{typist,jdbcType=VARCHAR},
+      typist_name = #{typistName,jdbcType=VARCHAR},
+      proofreader = #{proofreader,jdbcType=VARCHAR},
+      proofreader_name = #{proofreaderName,jdbcType=VARCHAR},
+      print_number = #{printNumber,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      is_deleted = #{deleted,jdbcType=BIT},
+      is_process_end = #{processEnd,jdbcType=BIT},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      word = #{word,jdbcType=VARCHAR},
+      year = #{year,jdbcType=VARCHAR},
+      mark = #{mark,jdbcType=INTEGER},
+      copy_men = #{copyMen,jdbcType=VARCHAR},
+      copy_men_name = #{copyMenName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, file_id, business_key, dispatch_type, signer, signer_name, countersign, 
+    countersign_name, secret_grade, allotted_time, company_office, company_office_name, 
+    company_security, company_security_name, audit_man, audit_man_name, dept_id, dept_name, 
+    drafter, drafter_name, dispatch, dispatch_title, real_send_man, real_send_man_name, 
+    copy_send_man, copy_send_man_name, subject_term, typist, typist_name, proofreader, 
+    proofreader_name, print_number, creator, creator_name, gmt_create, gmt_modified, 
+    is_deleted, is_process_end, process_instance_id, word, year, mark, copy_men, copy_men_name
+    from five_oa_dispatch
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, file_id, business_key, dispatch_type, signer, signer_name, countersign, 
+    countersign_name, secret_grade, allotted_time, company_office, company_office_name, 
+    company_security, company_security_name, audit_man, audit_man_name, dept_id, dept_name, 
+    drafter, drafter_name, dispatch, dispatch_title, real_send_man, real_send_man_name, 
+    copy_send_man, copy_send_man_name, subject_term, typist, typist_name, proofreader, 
+    proofreader_name, print_number, creator, creator_name, gmt_create, gmt_modified, 
+    is_deleted, is_process_end, process_instance_id, word, year, mark, copy_men, copy_men_name
+    from five_oa_dispatch
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="fileId != null and isLikeSelect==null">
+         AND file_id = #{fileId}
+      </if>
+      <if test="businessKey != null and isLikeSelect==null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="dispatchType != null and isLikeSelect==null and dispatchType != ''">
+         AND dispatch_type = #{dispatchType}
+      </if>
+      <if test="signer != null and isLikeSelect==null and signer != ''">
+         AND signer = #{signer}
+      </if>
+      <if test="signerName != null and isLikeSelect==null and signerName != ''">
+         AND signer_name = #{signerName}
+      </if>
+      <if test="countersign != null and isLikeSelect==null and countersign != ''">
+         AND countersign = #{countersign}
+      </if>
+      <if test="countersignName != null and isLikeSelect==null and countersignName != ''">
+         AND countersign_name = #{countersignName}
+      </if>
+      <if test="secretGrade != null and isLikeSelect==null and secretGrade != ''">
+         AND secret_grade = #{secretGrade}
+      </if>
+      <if test="allottedTime != null and isLikeSelect==null and allottedTime != ''">
+         AND allotted_time = #{allottedTime}
+      </if>
+      <if test="companyOffice != null and isLikeSelect==null and companyOffice != ''">
+         AND company_office = #{companyOffice}
+      </if>
+      <if test="companyOfficeName != null and isLikeSelect==null and companyOfficeName != ''">
+         AND company_office_name = #{companyOfficeName}
+      </if>
+      <if test="companySecurity != null and isLikeSelect==null and companySecurity != ''">
+         AND company_security = #{companySecurity}
+      </if>
+      <if test="companySecurityName != null and isLikeSelect==null and companySecurityName != ''">
+         AND company_security_name = #{companySecurityName}
+      </if>
+      <if test="auditMan != null and isLikeSelect==null and auditMan != ''">
+         AND audit_man = #{auditMan}
+      </if>
+      <if test="auditManName != null and isLikeSelect==null and auditManName != ''">
+         AND audit_man_name = #{auditManName}
+      </if>
+      <if test="deptId != null and isLikeSelect==null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and isLikeSelect==null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="drafter != null and isLikeSelect==null and drafter != ''">
+         AND drafter = #{drafter}
+      </if>
+      <if test="drafterName != null and isLikeSelect==null and drafterName != ''">
+         AND drafter_name = #{drafterName}
+      </if>
+      <if test="dispatch != null and isLikeSelect==null and dispatch != ''">
+         AND dispatch = #{dispatch}
+      </if>
+      <if test="dispatchTitle != null and isLikeSelect==null and dispatchTitle != ''">
+         AND dispatch_title = #{dispatchTitle}
+      </if>
+      <if test="realSendMan != null and isLikeSelect==null and realSendMan != ''">
+         AND real_send_man = #{realSendMan}
+      </if>
+      <if test="realSendManName != null and isLikeSelect==null and realSendManName != ''">
+         AND real_send_man_name = #{realSendManName}
+      </if>
+      <if test="copySendMan != null and isLikeSelect==null and copySendMan != ''">
+         AND copy_send_man = #{copySendMan}
+      </if>
+      <if test="copySendManName != null and isLikeSelect==null and copySendManName != ''">
+         AND copy_send_man_name = #{copySendManName}
+      </if>
+      <if test="subjectTerm != null and isLikeSelect==null and subjectTerm != ''">
+         AND subject_term = #{subjectTerm}
+      </if>
+      <if test="typist != null and isLikeSelect==null and typist != ''">
+         AND typist = #{typist}
+      </if>
+      <if test="typistName != null and isLikeSelect==null and typistName != ''">
+         AND typist_name = #{typistName}
+      </if>
+      <if test="proofreader != null and isLikeSelect==null and proofreader != ''">
+         AND proofreader = #{proofreader}
+      </if>
+      <if test="proofreaderName != null and isLikeSelect==null and proofreaderName != ''">
+         AND proofreader_name = #{proofreaderName}
+      </if>
+      <if test="printNumber != null and isLikeSelect==null and printNumber != ''">
+         AND print_number = #{printNumber}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="processEnd != null and isLikeSelect==null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="processInstanceId != null and isLikeSelect==null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="word != null and isLikeSelect==null and word != ''">
+         AND word = #{word}
+      </if>
+      <if test="year != null and isLikeSelect==null and year != ''">
+         AND year = #{year}
+      </if>
+      <if test="mark != null and isLikeSelect==null">
+         AND mark = #{mark}
+      </if>
+      <if test="copyMen != null and isLikeSelect==null and copyMen != ''">
+         AND copy_men = #{copyMen}
+      </if>
+      <if test="copyMenName != null and isLikeSelect==null and copyMenName != ''">
+         AND copy_men_name = #{copyMenName}
+      </if>
+      <if test="qName != null and qName != ''">
+        AND (
+        dispatch_title like CONCAT('%',#{qName},'%')
+        )
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect==null">
+        AND (
+        dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+        <if test="initiator != null and initiator != ''">
+          or creator = #{initiator}
+        </if>
+        )
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="businessKey != null and isLikeSelect!= null and businessKey != '' ">
+         AND business_key like  CONCAT('%',#{businessKey},'%')
+      </if>
+      <if test="dispatchType != null and isLikeSelect!= null and dispatchType != '' ">
+         AND dispatch_type like  CONCAT('%',#{dispatchType},'%')
+      </if>
+      <if test="signer != null and isLikeSelect!= null and signer != '' ">
+         AND signer like  CONCAT('%',#{signer},'%')
+      </if>
+      <if test="signerName != null and isLikeSelect!= null and signerName != '' ">
+         AND signer_name like  CONCAT('%',#{signerName},'%')
+      </if>
+      <if test="countersign != null and isLikeSelect!= null and countersign != '' ">
+         AND countersign like  CONCAT('%',#{countersign},'%')
+      </if>
+      <if test="countersignName != null and isLikeSelect!= null and countersignName != '' ">
+         AND countersign_name like  CONCAT('%',#{countersignName},'%')
+      </if>
+      <if test="secretGrade != null and isLikeSelect!= null and secretGrade != '' ">
+         AND secret_grade like  CONCAT('%',#{secretGrade},'%')
+      </if>
+      <if test="allottedTime != null and isLikeSelect!= null and allottedTime != '' ">
+         AND allotted_time like  CONCAT('%',#{allottedTime},'%')
+      </if>
+      <if test="companyOffice != null and isLikeSelect!= null and companyOffice != '' ">
+         AND company_office like  CONCAT('%',#{companyOffice},'%')
+      </if>
+      <if test="companyOfficeName != null and isLikeSelect!= null and companyOfficeName != '' ">
+         AND company_office_name like  CONCAT('%',#{companyOfficeName},'%')
+      </if>
+      <if test="companySecurity != null and isLikeSelect!= null and companySecurity != '' ">
+         AND company_security like  CONCAT('%',#{companySecurity},'%')
+      </if>
+      <if test="companySecurityName != null and isLikeSelect!= null and companySecurityName != '' ">
+         AND company_security_name like  CONCAT('%',#{companySecurityName},'%')
+      </if>
+      <if test="auditMan != null and isLikeSelect!= null and auditMan != '' ">
+         AND audit_man like  CONCAT('%',#{auditMan},'%')
+      </if>
+      <if test="auditManName != null and isLikeSelect!= null and auditManName != '' ">
+         AND audit_man_name like  CONCAT('%',#{auditManName},'%')
+      </if>
+      <if test="deptName != null and isLikeSelect!= null and deptName != '' ">
+         AND dept_name like  CONCAT('%',#{deptName},'%')
+      </if>
+      <if test="drafter != null and isLikeSelect!= null and drafter != '' ">
+         AND drafter like  CONCAT('%',#{drafter},'%')
+      </if>
+      <if test="drafterName != null and isLikeSelect!= null and drafterName != '' ">
+         AND drafter_name like  CONCAT('%',#{drafterName},'%')
+      </if>
+      <if test="dispatch != null and isLikeSelect!= null and dispatch != '' ">
+         AND dispatch like  CONCAT('%',#{dispatch},'%')
+      </if>
+      <if test="dispatchTitle != null and isLikeSelect!= null and dispatchTitle != '' ">
+         AND dispatch_title like  CONCAT('%',#{dispatchTitle},'%')
+      </if>
+      <if test="realSendMan != null and isLikeSelect!= null and realSendMan != '' ">
+         AND real_send_man like  CONCAT('%',#{realSendMan},'%')
+      </if>
+      <if test="realSendManName != null and isLikeSelect!= null and realSendManName != '' ">
+         AND real_send_man_name like  CONCAT('%',#{realSendManName},'%')
+      </if>
+      <if test="copySendMan != null and isLikeSelect!= null and copySendMan != '' ">
+         AND copy_send_man like  CONCAT('%',#{copySendMan},'%')
+      </if>
+      <if test="copySendManName != null and isLikeSelect!= null and copySendManName != '' ">
+         AND copy_send_man_name like  CONCAT('%',#{copySendManName},'%')
+      </if>
+      <if test="subjectTerm != null and isLikeSelect!= null and subjectTerm != '' ">
+         AND subject_term like  CONCAT('%',#{subjectTerm},'%')
+      </if>
+      <if test="typist != null and isLikeSelect!= null and typist != '' ">
+         AND typist like  CONCAT('%',#{typist},'%')
+      </if>
+      <if test="typistName != null and isLikeSelect!= null and typistName != '' ">
+         AND typist_name like  CONCAT('%',#{typistName},'%')
+      </if>
+      <if test="proofreader != null and isLikeSelect!= null and proofreader != '' ">
+         AND proofreader like  CONCAT('%',#{proofreader},'%')
+      </if>
+      <if test="proofreaderName != null and isLikeSelect!= null and proofreaderName != '' ">
+         AND proofreader_name like  CONCAT('%',#{proofreaderName},'%')
+      </if>
+      <if test="printNumber != null and isLikeSelect!= null and printNumber != '' ">
+         AND print_number like  CONCAT('%',#{printNumber},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="processInstanceId != null and isLikeSelect!= null and processInstanceId != '' ">
+         AND process_instance_id like  CONCAT('%',#{processInstanceId},'%')
+      </if>
+      <if test="word != null and isLikeSelect!= null and word != '' ">
+         AND word like  CONCAT('%',#{word},'%')
+      </if>
+      <if test="year != null and isLikeSelect!= null and year != '' ">
+         AND year like  CONCAT('%',#{year},'%')
+      </if>
+      <if test="copyMen != null and isLikeSelect!= null and copyMen != '' ">
+         AND copy_men like  CONCAT('%',#{copyMen},'%')
+      </if>
+      <if test="copyMenName != null and isLikeSelect!= null and copyMenName != '' ">
+         AND copy_men_name like  CONCAT('%',#{copyMenName},'%')
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="deptId != null and isLikeSelect!=null">
+         AND dept_id = #{deptId}
+      </if>
+    </where>
+  </sql>
+
+  <select id="fuzzySearch" resultMap="BaseResultMap">
+    select id, file_id, business_key, dispatch_type, signer, signer_name, countersign,
+    countersign_name, secret_grade, allotted_time, company_office, company_office_name,
+    company_security, company_security_name, audit_man, audit_man_name, dept_id, dept_name,
+    drafter, drafter_name, dispatch, dispatch_title, real_send_man, real_send_man_name,
+    copy_send_man, copy_send_man_name, subject_term, typist, typist_name, proofreader,
+    proofreader_name, print_number, creator, creator_name, gmt_create, gmt_modified,
+    is_deleted, is_process_end, process_instance_id, word, year, mark
+    from five_oa_dispatch
+    <include refid="Base_Where_Fuzzy_List" />
+    order by id desc
+  </select>
+  <sql id="Base_Where_Fuzzy_List">
+    <where>
+      <if test="dispatchType != null and dispatchType != ''">
+        AND dispatch_type like CONCAT('%',#{dispatchType},'%')
+      </if>
+      <if test="signerName != null and signerName != ''">
+        AND signer_name like CONCAT('%',#{signerName},'%')
+      </if>
+
+      <if test="countersignName != null and countersignName != ''">
+        AND countersign_name like CONCAT('%',#{countersignName},'%')
+      </if>
+      <if test="secretGrade != null and secretGrade != ''">
+        AND secret_grade like CONCAT('%', #{secretGrade},'%')
+      </if>
+      <if test="companyOfficeName != null and companyOfficeName != ''">
+        AND company_office_name like CONCAT('%',#{companyOfficeName},'%')
+      </if>
+      <if test="companySecurity != null and companySecurity != ''">
+        AND company_security like CONCAT('%', #{companySecurity},'%')
+      </if>
+      <if test="companySecurityName != null and companySecurityName != ''">
+        AND company_security_name like CONCAT('%', #{companySecurityName},'%')
+      </if>
+      <if test="auditManName != null and auditManName != ''">
+        AND audit_man_name like CONCAT('%', #{auditManName},'%')
+      </if>
+      <if test="deptName != null and deptName != ''">
+        AND dept_name like CONCAT('%', #{deptName},'%')
+      </if>
+      <if test="deptId != null and deptId != ''">
+        AND dept_id like CONCAT('%', #{deptId},'%')
+      </if>
+      <if test="drafterName != null and drafterName != ''">
+        AND drafter_name like CONCAT('%', #{drafterName},'%')
+      </if>
+      <if test="dispatchTitle != null and dispatchTitle != ''">
+        AND dispatch_title like CONCAT('%', #{dispatchTitle},'%')
+      </if>
+      <if test="realSendManName != null and realSendManName != ''">
+        AND real_send_man_name like CONCAT('%', #{realSendManName},'%')
+      </if>
+      <if test="copySendManName != null and copySendManName != ''">
+        AND copy_send_man_name like CONCAT('%', #{copySendManName},'%')
+      </if>
+      <if test="subjectTerm != null and subjectTerm != ''">
+        AND subject_term like CONCAT('%', #{subjectTerm},'%')
+      </if>
+      <if test="typistName != null and typistName != ''">
+        AND typist_name like CONCAT('%', #{typistName},'%')
+      </if>
+      <if test="proofreaderName != null and proofreaderName != ''">
+        AND proofreader_name like CONCAT('%', #{proofreaderName},'%')
+      </if>
+      <if test="printNumber != null and printNumber != ''">
+        AND print_number like CONCAT('%', #{printNumber},'%')
+      </if>
+      <if test="creator != null and creator != ''">
+        AND creator like CONCAT('%', #{creator},'%')
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+        AND creator_name like CONCAT('%', #{creatorName},'%')
+      </if>
+      <if test="gmtCreate != null">
+        AND gmt_create like CONCAT('%', #{gmtCreate},'%')
+      </if>
+      <if test="gmtModified != null">
+        AND gmt_modified like CONCAT('%', #{gmtModified},'%')
+      </if>
+      <if test="deleted != null">
+        AND is_deleted = #{deleted}
+      </if>
+      <if test="processEnd != null">
+        AND is_process_end = #{processEnd}
+      </if>
+
+      <if test="word != null and word != ''">
+        AND word = #{word}
+      </if>
+      <if test="year != null and year != ''">
+        AND year = #{year}
+      </if>
+      <if test="mark != null">
+        AND mark like CONCAT('%', #{mark},'%')
+      </if>
+      <if test="deptId != null and isLikeSelect!=null">
+        AND dept_id = #{deptId}
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0 ">
+        AND (
+        dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+        <if test="initiator != null and initiator != ''">
+          or creator = #{initiator}
+        </if>
+        )
+      </if>
+    </where>
+  </sql>
+</mapper>

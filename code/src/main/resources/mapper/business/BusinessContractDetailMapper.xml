@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.business.dao.BusinessContractDetailMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.business.entity.BusinessContractDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="contract_id" jdbcType="INTEGER" property="contractId" />
+    <result column="project_code" jdbcType="VARCHAR" property="projectCode" />
+    <result column="sec_type" jdbcType="VARCHAR" property="secType" />
+    <result column="plan_begin_time" jdbcType="VARCHAR" property="planBeginTime" />
+    <result column="plan_end_time" jdbcType="VARCHAR" property="planEndTime" />
+    <result column="review_type" jdbcType="VARCHAR" property="reviewType" />
+    <result column="total_designer" jdbcType="VARCHAR" property="totalDesigner" />
+    <result column="total_designer_name" jdbcType="VARCHAR" property="totalDesignerName" />
+    <result column="part_time_job" jdbcType="VARCHAR" property="partTimeJob" />
+    <result column="other_designer" jdbcType="VARCHAR" property="otherDesigner" />
+    <result column="other_designer_name" jdbcType="VARCHAR" property="otherDesignerName" />
+    <result column="project_no" jdbcType="VARCHAR" property="projectNo" />
+    <result column="charge_men" jdbcType="VARCHAR" property="chargeMen" />
+    <result column="charge_men_name" jdbcType="VARCHAR" property="chargeMenName" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from business_contract_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.business.entity.BusinessContractDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into business_contract_detail (contract_id, project_code, sec_type, 
+      plan_begin_time, plan_end_time, review_type, 
+      total_designer, total_designer_name, part_time_job, 
+      other_designer, other_designer_name, project_no, 
+      charge_men, charge_men_name)
+    values (#{contractId,jdbcType=INTEGER}, #{projectCode,jdbcType=VARCHAR}, #{secType,jdbcType=VARCHAR}, 
+      #{planBeginTime,jdbcType=VARCHAR}, #{planEndTime,jdbcType=VARCHAR}, #{reviewType,jdbcType=VARCHAR}, 
+      #{totalDesigner,jdbcType=VARCHAR}, #{totalDesignerName,jdbcType=VARCHAR}, #{partTimeJob,jdbcType=VARCHAR}, 
+      #{otherDesigner,jdbcType=VARCHAR}, #{otherDesignerName,jdbcType=VARCHAR}, #{projectNo,jdbcType=VARCHAR}, 
+      #{chargeMen,jdbcType=VARCHAR}, #{chargeMenName,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.business.entity.BusinessContractDetail">
+    update business_contract_detail
+    set contract_id = #{contractId,jdbcType=INTEGER},
+      project_code = #{projectCode,jdbcType=VARCHAR},
+      sec_type = #{secType,jdbcType=VARCHAR},
+      plan_begin_time = #{planBeginTime,jdbcType=VARCHAR},
+      plan_end_time = #{planEndTime,jdbcType=VARCHAR},
+      review_type = #{reviewType,jdbcType=VARCHAR},
+      total_designer = #{totalDesigner,jdbcType=VARCHAR},
+      total_designer_name = #{totalDesignerName,jdbcType=VARCHAR},
+      part_time_job = #{partTimeJob,jdbcType=VARCHAR},
+      other_designer = #{otherDesigner,jdbcType=VARCHAR},
+      other_designer_name = #{otherDesignerName,jdbcType=VARCHAR},
+      project_no = #{projectNo,jdbcType=VARCHAR},
+      charge_men = #{chargeMen,jdbcType=VARCHAR},
+      charge_men_name = #{chargeMenName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, contract_id, project_code, sec_type, plan_begin_time, plan_end_time, review_type, 
+    total_designer, total_designer_name, part_time_job, other_designer, other_designer_name, 
+    project_no, charge_men, charge_men_name
+    from business_contract_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+
+  <select id="selectByContractId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select *
+    from business_contract_detail
+    where contract_id = #{contractId,jdbcType=INTEGER}
+    order by id desc
+    limit 1
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, contract_id, project_code, sec_type, plan_begin_time, plan_end_time, review_type, 
+    total_designer, total_designer_name, part_time_job, other_designer, other_designer_name, 
+    project_no, charge_men, charge_men_name
+    from business_contract_detail
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+
+
+
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="contractId != null">
+         AND contract_id = #{contractId}
+      </if>
+      <if test="projectCode != null and projectCode != ''">
+         AND project_code = #{projectCode}
+      </if>
+      <if test="secType != null and secType != ''">
+         AND sec_type = #{secType}
+      </if>
+      <if test="planBeginTime != null and planBeginTime != ''">
+         AND plan_begin_time = #{planBeginTime}
+      </if>
+      <if test="planEndTime != null and planEndTime != ''">
+         AND plan_end_time = #{planEndTime}
+      </if>
+      <if test="reviewType != null and reviewType != ''">
+         AND review_type = #{reviewType}
+      </if>
+      <if test="totalDesigner != null and totalDesigner != ''">
+         AND total_designer = #{totalDesigner}
+      </if>
+      <if test="totalDesignerName != null and totalDesignerName != ''">
+         AND total_designer_name = #{totalDesignerName}
+      </if>
+      <if test="partTimeJob != null and partTimeJob != ''">
+         AND part_time_job = #{partTimeJob}
+      </if>
+      <if test="otherDesigner != null and otherDesigner != ''">
+         AND other_designer = #{otherDesigner}
+      </if>
+      <if test="otherDesignerName != null and otherDesignerName != ''">
+         AND other_designer_name = #{otherDesignerName}
+      </if>
+      <if test="projectNo != null and projectNo != ''">
+         AND project_no = #{projectNo}
+      </if>
+      <if test="chargeMen != null and chargeMen != ''">
+         AND charge_men = #{chargeMen}
+      </if>
+      <if test="chargeMenName != null and chargeMenName != ''">
+         AND charge_men_name = #{chargeMenName}
+      </if>
+    </where>
+  </sql>
+</mapper>

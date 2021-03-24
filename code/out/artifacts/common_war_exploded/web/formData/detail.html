@@ -1,0 +1,124 @@
+<!--begin::Portlet-->
+
+<br/>
+<!-- begin:: Content -->
+<div class="kt-container  kt-grid__item kt-grid__item--fluid">
+
+    <div class="kt-portlet" style="margin-bottom: 10px;" ng-repeat="group in vm.groupList" ng-if="$index==0&&vm.data.processInstanceId">
+        <div class="kt-portlet__head">
+            <div class="kt-portlet__head-label">
+                 <span class="kt-portlet__head-icon">
+                                                        <i class="{{vm.template.formIcon}}"></i>
+                                                    </span>
+                <h3 class="kt-portlet__head-title" ng-bind="vm.template.formDesc" style="margin-right: 5px;"></h3>
+                <small ng-if="!processInstance.myRunningTaskName" ng-bind="processInstance.currentTaskName"></small>
+                <small ng-if="processInstance.myRunningTaskName" ng-bind="processInstance.myRunningTaskName" style="color: blue;"></small>
+            </div>
+
+            <div class="kt-portlet__head-toolbar">
+                <div class="kt-portlet__head-wrapper">
+                    <div class="kt-portlet__head-actions">
+                        <div class="kt-subheader">
+                            <div class="kt-subheader__toolbar">
+                                <div class="kt-subheader__wrapper">
+
+                                    <a class="btn kt-subheader__btn-primary btn-icon" title="保存信息" ng-click="vm.save()" ng-show="tplConfig.saveAble">
+                                        <i class="flaticon2-file"></i>
+                                    </a>
+
+                                    <span ng-include="'/web/tpl/actAction.html'" ng-if="vm.data.processInstanceId"></span>
+
+                                    <a class="btn kt-subheader__btn-primary btn-icon" title="刷新数据"
+                                       ng-click="vm.init();">
+                                        <i class="flaticon2-refresh"></i>
+                                    </a>
+
+                                    <a class="btn kt-subheader__btn-primary btn-icon" title="返回" ng-click="back();">
+                                        <i class="flaticon2-back"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="kt-portlet__body" style="padding-bottom: 5px;padding-top: 0px;">
+            <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-2x nav-tabs-line-success" role="tablist"
+                style="margin-bottom: 10px;">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#tab_basic_data" role="tab"
+                       ng-bind="group.groupName"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#tab_act_task" role="tab">流程信息</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#tab_act_diagram" role="tab">流程图</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_basic_data" role="tabpanel">
+                    <div ng-include="'/web/tpl/formData.html'"></div>
+                </div>
+                <div class="tab-pane" id="tab_act_task" role="tabpanel">
+                    <div ng-include="'/web/tpl/actTaskList.html'"></div>
+                </div>
+                <div class="tab-pane" id="tab_act_diagram" role="tabpanel">
+                    <img ng-src="{{'/act/processQuery/image/'+vm.data.processInstanceId+'?'+refreshTime}}"
+                         style="max-width: 99%;"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="kt-portlet" style="margin-bottom: 10px;" ng-repeat="group in vm.groupList" ng-if="!vm.data.processInstanceId||$index>0">
+        <div class="kt-portlet__head">
+            <div class="kt-portlet__head-label">
+                    <span class="kt-portlet__head-icon">
+                                                        <i class="fa fa-edit" ng-show="$index>0"></i>
+                                                        <i class="{{vm.template.formIcon}}" ng-show="$index===0"></i>
+                                                    </span>
+                <h3 class="kt-portlet__head-title" ng-bind="vm.template.formDesc" ng-show="$index===0"></h3>
+                <h3 class="kt-portlet__head-title" ng-bind="($index+1)+'.'+group.groupName" ng-show="$index>0">
+                </h3>
+            </div>
+
+
+            <div class="kt-portlet__head-toolbar" ng-if="$index===0">
+                <div class="kt-portlet__head-wrapper">
+                    <div class="kt-portlet__head-actions">
+                        <div class="kt-subheader">
+                            <div class="kt-subheader__toolbar">
+                                <div class="kt-subheader__wrapper">
+
+                                    <a class="btn kt-subheader__btn-primary btn-icon" title="保存信息" ng-click="vm.save()" ng-show="tplConfig.saveAble">
+                                        <i class="flaticon2-file"></i>
+                                    </a>
+
+                                    <a class="btn kt-subheader__btn-primary btn-icon" title="刷新数据"
+                                       ng-click="refresh();">
+                                        <i class="flaticon2-refresh"></i>
+                                    </a>
+
+                                    <a class="btn kt-subheader__btn-primary btn-icon" title="返回" ng-click="back();">
+                                        <i class="flaticon2-back"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <form class="kt-form kt-form--label-right">
+            <div class="kt-portlet__body" style="padding-bottom: 5px;padding-top: 5px;">
+                <div ng-include="'/web/tpl/formData.html'"></div>
+            </div>
+        </form>
+    </div>
+
+    <div ng-include="'/web/tpl/cloudDirAndFile.html'" ng-show="tplConfig.showBusinessFile" ng-init="fileTplTitle=vm.groupList.length+'业务附件'"></div>
+
+</div>

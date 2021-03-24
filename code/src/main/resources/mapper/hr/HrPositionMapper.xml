@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.hr.dao.HrPositionMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.hr.entity.HrPosition">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="position_name" jdbcType="VARCHAR" property="positionName" />
+    <result column="position_lv" jdbcType="INTEGER" property="positionLv" />
+    <result column="seq" jdbcType="INTEGER" property="seq" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="is_dept_charge" jdbcType="BIT" property="deptCharge" />
+    <result column="child_dept_ids" jdbcType="VARCHAR" property="childDeptIds" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from hr_position
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.hr.entity.HrPosition">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into hr_position (position_name, position_lv, seq, 
+      remark, is_deleted, gmt_create, 
+      gmt_modified, is_dept_charge, child_dept_ids
+      )
+    values (#{positionName,jdbcType=VARCHAR}, #{positionLv,jdbcType=INTEGER}, #{seq,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{deptCharge,jdbcType=BIT}, #{childDeptIds,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.hr.entity.HrPosition">
+    update hr_position
+    set position_name = #{positionName,jdbcType=VARCHAR},
+      position_lv = #{positionLv,jdbcType=INTEGER},
+      seq = #{seq,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      is_dept_charge = #{deptCharge,jdbcType=BIT},
+      child_dept_ids = #{childDeptIds,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, position_name, position_lv, seq, remark, is_deleted, gmt_create, gmt_modified, 
+    is_dept_charge, child_dept_ids
+    from hr_position
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, position_name, position_lv, seq, remark, is_deleted, gmt_create, gmt_modified, 
+    is_dept_charge, child_dept_ids
+    from hr_position
+    <include refid="Base_Where_List" />
+    order by seq
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="positionName != null and positionName != ''">
+         AND position_name = #{positionName}
+      </if>
+      <if test="positionLv != null">
+         AND position_lv = #{positionLv}
+      </if>
+      <if test="seq != null">
+         AND seq = #{seq}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="deptCharge != null">
+         AND is_dept_charge = #{deptCharge}
+      </if>
+      <if test="childDeptIds != null and childDeptIds != ''">
+         AND child_dept_ids = #{childDeptIds}
+      </if>
+    </where>
+  </sql>
+</mapper>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveOaDecisionMarkingDetailMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveOaDecisionMarkingDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="main_business" jdbcType="VARCHAR" property="mainBusiness" />
+    <result column="linked_business" jdbcType="VARCHAR" property="linkedBusiness" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="seq" jdbcType="INTEGER" property="seq" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="detail" jdbcType="VARCHAR" property="detail" />
+    <result column="attendance" jdbcType="VARCHAR" property="attendance" />
+    <result column="attendance_name" jdbcType="VARCHAR" property="attendanceName" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="detail_type" jdbcType="VARCHAR" property="detailType" />
+    <result column="original_title" jdbcType="VARCHAR" property="originalTitle" />
+    <result column="leader" jdbcType="VARCHAR" property="leader" />
+    <result column="issue_status" jdbcType="VARCHAR" property="issueStatus" />
+    <result column="attach_id" jdbcType="VARCHAR" property="attachId" />
+    <result column="attach_name" jdbcType="VARCHAR" property="attachName" />
+    <result column="conclusion" jdbcType="VARCHAR" property="conclusion" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_oa_decision_marking_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveOaDecisionMarkingDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_oa_decision_marking_detail (main_business, linked_business, title, 
+      seq, is_deleted, creator, 
+      creator_name, gmt_create, gmt_modified, 
+      detail, attendance, attendance_name, 
+      dept_id, dept_name, detail_type, 
+      original_title, leader, issue_status, 
+      attach_id, attach_name, conclusion
+      )
+    values (#{mainBusiness,jdbcType=VARCHAR}, #{linkedBusiness,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{seq,jdbcType=INTEGER}, #{deleted,jdbcType=BIT}, #{creator,jdbcType=VARCHAR}, 
+      #{creatorName,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{detail,jdbcType=VARCHAR}, #{attendance,jdbcType=VARCHAR}, #{attendanceName,jdbcType=VARCHAR}, 
+      #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, #{detailType,jdbcType=VARCHAR}, 
+      #{originalTitle,jdbcType=VARCHAR}, #{leader,jdbcType=VARCHAR}, #{sueStatus,jdbcType=VARCHAR}, 
+      #{attachId,jdbcType=VARCHAR}, #{attachName,jdbcType=VARCHAR}, #{conclusion,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveOaDecisionMarkingDetail">
+    update five_oa_decision_marking_detail
+    set main_business = #{mainBusiness,jdbcType=VARCHAR},
+      linked_business = #{linkedBusiness,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      seq = #{seq,jdbcType=INTEGER},
+      is_deleted = #{deleted,jdbcType=BIT},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      detail = #{detail,jdbcType=VARCHAR},
+      attendance = #{attendance,jdbcType=VARCHAR},
+      attendance_name = #{attendanceName,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      detail_type = #{detailType,jdbcType=VARCHAR},
+      original_title = #{originalTitle,jdbcType=VARCHAR},
+      leader = #{leader,jdbcType=VARCHAR},
+      issue_status = #{sueStatus,jdbcType=VARCHAR},
+      attach_id = #{attachId,jdbcType=VARCHAR},
+      attach_name = #{attachName,jdbcType=VARCHAR},
+      conclusion = #{conclusion,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, main_business, linked_business, title, seq, is_deleted, creator, creator_name, 
+    gmt_create, gmt_modified, detail, attendance, attendance_name, dept_id, dept_name, 
+    detail_type, original_title, leader, issue_status, attach_id, attach_name, conclusion
+    from five_oa_decision_marking_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, main_business, linked_business, title, seq, is_deleted, creator, creator_name, 
+    gmt_create, gmt_modified, detail, attendance, attendance_name, dept_id, dept_name, 
+    detail_type, original_title, leader, issue_status, attach_id, attach_name, conclusion
+    from five_oa_decision_marking_detail
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="mainBusiness != null and mainBusiness != ''">
+         AND main_business = #{mainBusiness}
+      </if>
+      <if test="linkedBusiness != null and linkedBusiness != ''">
+         AND linked_business = #{linkedBusiness}
+      </if>
+      <if test="title != null and title != ''">
+         AND title = #{title}
+      </if>
+      <if test="seq != null">
+         AND seq = #{seq}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="detail != null and detail != ''">
+         AND detail = #{detail}
+      </if>
+      <if test="attendance != null and attendance != ''">
+         AND attendance = #{attendance}
+      </if>
+      <if test="attendanceName != null and attendanceName != ''">
+         AND attendance_name = #{attendanceName}
+      </if>
+      <if test="deptId != null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="detailType != null and detailType != ''">
+         AND detail_type = #{detailType}
+      </if>
+      <if test="originalTitle != null and originalTitle != ''">
+         AND original_title = #{originalTitle}
+      </if>
+      <if test="leader != null and leader != ''">
+         AND leader = #{leader}
+      </if>
+      <if test="issueStatus != null and issueStatus != ''">
+         AND issue_status = #{issueStatus}
+      </if>
+      <if test="attachId != null and attachId != ''">
+         AND attach_id = #{attachId}
+      </if>
+      <if test="attachName != null and attachName != ''">
+         AND attach_name = #{attachName}
+      </if>
+      <if test="conclusion != null and conclusion != ''">
+         AND conclusion = #{conclusion}
+      </if>
+    </where>
+  </sql>
+</mapper>

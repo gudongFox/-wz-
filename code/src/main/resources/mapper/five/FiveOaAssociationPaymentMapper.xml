@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveOaAssociationPaymentMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveOaAssociationPayment">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="apply_id" jdbcType="INTEGER" property="applyId" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_Name" jdbcType="VARCHAR" property="deptName" />
+    <result column="handle_man" jdbcType="VARCHAR" property="handleMan" />
+    <result column="handle_man_name" jdbcType="VARCHAR" property="handleManName" />
+    <result column="association_name" jdbcType="VARCHAR" property="associationName" />
+    <result column="association_level" jdbcType="VARCHAR" property="associationLevel" />
+    <result column="dept_charge_name" jdbcType="VARCHAR" property="deptChargeName" />
+    <result column="recommend_man" jdbcType="VARCHAR" property="recommendMan" />
+    <result column="association_role" jdbcType="VARCHAR" property="associationRole" />
+    <result column="link_man" jdbcType="VARCHAR" property="linkMan" />
+    <result column="association_fee" jdbcType="VARCHAR" property="associationFee" />
+    <result column="payment_money" jdbcType="VARCHAR" property="paymentMoney" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_oa_association_payment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveOaAssociationPayment">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_oa_association_payment (business_key, apply_id, dept_id, 
+      dept_Name, handle_man, handle_man_name, 
+      association_name, association_level, dept_charge_name, 
+      recommend_man, association_role, link_man, 
+      association_fee, payment_money, remark, 
+      creator, creator_name, gmt_create, 
+      gmt_modified, is_deleted, is_process_end, 
+      process_instance_id)
+    values (#{businessKey,jdbcType=VARCHAR}, #{applyId,jdbcType=INTEGER}, #{deptId,jdbcType=INTEGER}, 
+      #{deptName,jdbcType=VARCHAR}, #{handleMan,jdbcType=VARCHAR}, #{handleManName,jdbcType=VARCHAR}, 
+      #{associationName,jdbcType=VARCHAR}, #{associationLevel,jdbcType=VARCHAR}, #{deptChargeName,jdbcType=VARCHAR}, 
+      #{recommendMan,jdbcType=VARCHAR}, #{associationRole,jdbcType=VARCHAR}, #{linkMan,jdbcType=VARCHAR}, 
+      #{associationFee,jdbcType=VARCHAR}, #{paymentMoney,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}, #{processEnd,jdbcType=BIT}, 
+      #{processInstanceId,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveOaAssociationPayment">
+    update five_oa_association_payment
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      apply_id = #{applyId,jdbcType=INTEGER},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_Name = #{deptName,jdbcType=VARCHAR},
+      handle_man = #{handleMan,jdbcType=VARCHAR},
+      handle_man_name = #{handleManName,jdbcType=VARCHAR},
+      association_name = #{associationName,jdbcType=VARCHAR},
+      association_level = #{associationLevel,jdbcType=VARCHAR},
+      dept_charge_name = #{deptChargeName,jdbcType=VARCHAR},
+      recommend_man = #{recommendMan,jdbcType=VARCHAR},
+      association_role = #{associationRole,jdbcType=VARCHAR},
+      link_man = #{linkMan,jdbcType=VARCHAR},
+      association_fee = #{associationFee,jdbcType=VARCHAR},
+      payment_money = #{paymentMoney,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      is_deleted = #{deleted,jdbcType=BIT},
+      is_process_end = #{processEnd,jdbcType=BIT},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, apply_id, dept_id, dept_Name, handle_man, handle_man_name, 
+    association_name, association_level, dept_charge_name, recommend_man, association_role, 
+    link_man, association_fee, payment_money, remark, creator, creator_name, gmt_create, 
+    gmt_modified, is_deleted, is_process_end, process_instance_id
+    from five_oa_association_payment
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, apply_id, dept_id, dept_Name, handle_man, handle_man_name, 
+    association_name, association_level, dept_charge_name, recommend_man, association_role, 
+    link_man, association_fee, payment_money, remark, creator, creator_name, gmt_create, 
+    gmt_modified, is_deleted, is_process_end, process_instance_id
+    from five_oa_association_payment
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and isLikeSelect==null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="applyId != null and isLikeSelect==null">
+         AND apply_id = #{applyId}
+      </if>
+      <if test="deptId != null and isLikeSelect==null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and isLikeSelect==null and deptName != ''">
+         AND dept_Name = #{deptName}
+      </if>
+      <if test="handleMan != null and isLikeSelect==null and handleMan != ''">
+         AND handle_man = #{handleMan}
+      </if>
+      <if test="handleManName != null and isLikeSelect==null and handleManName != ''">
+         AND handle_man_name = #{handleManName}
+      </if>
+      <if test="associationName != null and isLikeSelect==null and associationName != ''">
+         AND association_name = #{associationName}
+      </if>
+      <if test="associationLevel != null and isLikeSelect==null and associationLevel != ''">
+         AND association_level = #{associationLevel}
+      </if>
+      <if test="deptChargeName != null and isLikeSelect==null and deptChargeName != ''">
+         AND dept_charge_name = #{deptChargeName}
+      </if>
+      <if test="recommendMan != null and isLikeSelect==null and recommendMan != ''">
+         AND recommend_man = #{recommendMan}
+      </if>
+      <if test="associationRole != null and isLikeSelect==null and associationRole != ''">
+         AND association_role = #{associationRole}
+      </if>
+      <if test="linkMan != null and isLikeSelect==null and linkMan != ''">
+         AND link_man = #{linkMan}
+      </if>
+      <if test="associationFee != null and isLikeSelect==null and associationFee != ''">
+         AND association_fee = #{associationFee}
+      </if>
+      <if test="paymentMoney != null and isLikeSelect==null and paymentMoney != ''">
+         AND payment_money = #{paymentMoney}
+      </if>
+      <if test="remark != null and isLikeSelect==null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="processEnd != null and isLikeSelect==null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="processInstanceId != null and isLikeSelect==null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect==null">
+        AND (
+        dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+        <if test="initiator != null and initiator != ''">
+          or creator = #{initiator}
+        </if>
+        )
+      </if>
+
+
+
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="businessKey != null and isLikeSelect!= null and businessKey != '' ">
+         AND business_key like  CONCAT('%',#{businessKey},'%')
+      </if>
+      <if test="deptName != null and isLikeSelect!= null and deptName != '' ">
+         AND dept_Name like  CONCAT('%',#{deptName},'%')
+      </if>
+      <if test="handleMan != null and isLikeSelect!= null and handleMan != '' ">
+         AND handle_man like  CONCAT('%',#{handleMan},'%')
+      </if>
+      <if test="handleManName != null and isLikeSelect!= null and handleManName != '' ">
+         AND handle_man_name like  CONCAT('%',#{handleManName},'%')
+      </if>
+      <if test="associationName != null and isLikeSelect!= null and associationName != '' ">
+         AND association_name like  CONCAT('%',#{associationName},'%')
+      </if>
+      <if test="associationLevel != null and isLikeSelect!= null and associationLevel != '' ">
+         AND association_level like  CONCAT('%',#{associationLevel},'%')
+      </if>
+      <if test="deptChargeName != null and isLikeSelect!= null and deptChargeName != '' ">
+         AND dept_charge_name like  CONCAT('%',#{deptChargeName},'%')
+      </if>
+      <if test="recommendMan != null and isLikeSelect!= null and recommendMan != '' ">
+         AND recommend_man like  CONCAT('%',#{recommendMan},'%')
+      </if>
+      <if test="associationRole != null and isLikeSelect!= null and associationRole != '' ">
+         AND association_role like  CONCAT('%',#{associationRole},'%')
+      </if>
+      <if test="linkMan != null and isLikeSelect!= null and linkMan != '' ">
+         AND link_man like  CONCAT('%',#{linkMan},'%')
+      </if>
+      <if test="associationFee != null and isLikeSelect!= null and associationFee != '' ">
+         AND association_fee like  CONCAT('%',#{associationFee},'%')
+      </if>
+      <if test="paymentMoney != null and isLikeSelect!= null and paymentMoney != '' ">
+         AND payment_money like  CONCAT('%',#{paymentMoney},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="processInstanceId != null and isLikeSelect!= null and processInstanceId != '' ">
+         AND process_instance_id like  CONCAT('%',#{processInstanceId},'%')
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+
+      <if test="deptId != null and isLikeSelect!=null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect!=null">
+        AND (
+        dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+        <if test="initiator != null and initiator != ''">
+          or creator = #{initiator}
+        </if>
+        )
+      </if>
+      
+    </where>
+  </sql>
+</mapper>

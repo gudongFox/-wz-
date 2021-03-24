@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.common.dao.CommonEdStampMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.common.entity.CommonEdStamp">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="tenet_id" jdbcType="VARCHAR" property="tenetId" />
+    <result column="stamp_type" jdbcType="VARCHAR" property="stampType" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="attach_id" jdbcType="INTEGER" property="attachId" />
+    <result column="seq" jdbcType="INTEGER" property="seq" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from common_ed_stamp
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.common.entity.CommonEdStamp">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into common_ed_stamp (tenet_id, stamp_type, user_name, 
+      attach_id, seq, is_deleted, 
+      gmt_create, gmt_modified, remark
+      )
+    values (#{tenetId,jdbcType=VARCHAR}, #{stampType,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{attachId,jdbcType=INTEGER}, #{seq,jdbcType=INTEGER}, #{deleted,jdbcType=BIT}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.common.entity.CommonEdStamp">
+    update common_ed_stamp
+    set tenet_id = #{tenetId,jdbcType=VARCHAR},
+      stamp_type = #{stampType,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      attach_id = #{attachId,jdbcType=INTEGER},
+      seq = #{seq,jdbcType=INTEGER},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, tenet_id, stamp_type, user_name, attach_id, seq, is_deleted, gmt_create, 
+    gmt_modified, remark
+    from common_ed_stamp
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, tenet_id, stamp_type, user_name, attach_id, seq, is_deleted, gmt_create, 
+    gmt_modified, remark
+    from common_ed_stamp
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="tenetId != null and tenetId != ''">
+         AND tenet_id = #{tenetId}
+      </if>
+      <if test="stampType != null and stampType != ''">
+         AND stamp_type = #{stampType}
+      </if>
+      <if test="userName != null and userName != ''">
+         AND user_name = #{userName}
+      </if>
+      <if test="attachId != null">
+         AND attach_id = #{attachId}
+      </if>
+      <if test="seq != null">
+         AND seq = #{seq}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+    </where>
+  </sql>
+</mapper>

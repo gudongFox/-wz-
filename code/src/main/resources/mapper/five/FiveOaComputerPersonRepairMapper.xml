@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveOaComputerPersonRepairMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveOaComputerPersonRepair">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="form_no" jdbcType="VARCHAR" property="formNo" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+    <result column="duty_person_id" jdbcType="VARCHAR" property="dutyPersonId" />
+    <result column="duty_person_name" jdbcType="VARCHAR" property="dutyPersonName" />
+    <result column="device_no" jdbcType="VARCHAR" property="deviceNo" />
+    <result column="repair_man" jdbcType="VARCHAR" property="repairMan" />
+    <result column="repair_man_name" jdbcType="VARCHAR" property="repairManName" />
+    <result column="device_name" jdbcType="VARCHAR" property="deviceName" />
+    <result column="repair_id_card" jdbcType="VARCHAR" property="repairIdCard" />
+    <result column="device_security" jdbcType="VARCHAR" property="deviceSecurity" />
+    <result column="repair_tel" jdbcType="VARCHAR" property="repairTel" />
+    <result column="reason" jdbcType="VARCHAR" property="reason" />
+    <result column="solve_way" jdbcType="VARCHAR" property="solveWay" />
+    <result column="result" jdbcType="VARCHAR" property="result" />
+    <result column="change_is" jdbcType="VARCHAR" property="changeIs" />
+    <result column="removel_situation" jdbcType="VARCHAR" property="removelSituation" />
+    <result column="change_situation" jdbcType="VARCHAR" property="changeSituation" />
+    <result column="removel_man" jdbcType="VARCHAR" property="removelMan" />
+    <result column="removel_man_name" jdbcType="VARCHAR" property="removelManName" />
+    <result column="accompany_man" jdbcType="VARCHAR" property="accompanyMan" />
+    <result column="accompany_man_name" jdbcType="VARCHAR" property="accompanyManName" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_oa_computer_person_repair
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveOaComputerPersonRepair">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_oa_computer_person_repair (business_key, form_no, dept_id, 
+      dept_name, remark, creator, 
+      creator_name, is_deleted, gmt_create, 
+      gmt_modified, process_instance_id, is_process_end, 
+      duty_person_id, duty_person_name, device_no, 
+      repair_man, repair_man_name, device_name, 
+      repair_id_card, device_security, repair_tel, 
+      reason, solve_way, result, 
+      change_is, removel_situation, change_situation, 
+      removel_man, removel_man_name, accompany_man, 
+      accompany_man_name)
+    values (#{businessKey,jdbcType=VARCHAR}, #{formNo,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, 
+      #{deptName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{creatorName,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{processInstanceId,jdbcType=VARCHAR}, #{processEnd,jdbcType=BIT}, 
+      #{dutyPersonId,jdbcType=VARCHAR}, #{dutyPersonName,jdbcType=VARCHAR}, #{deviceNo,jdbcType=VARCHAR}, 
+      #{repairMan,jdbcType=VARCHAR}, #{repairManName,jdbcType=VARCHAR}, #{deviceName,jdbcType=VARCHAR}, 
+      #{repairIdCard,jdbcType=VARCHAR}, #{deviceSecurity,jdbcType=VARCHAR}, #{repairTel,jdbcType=VARCHAR}, 
+      #{reason,jdbcType=VARCHAR}, #{solveWay,jdbcType=VARCHAR}, #{result,jdbcType=VARCHAR}, 
+      #{changeIs,jdbcType=VARCHAR}, #{removelSituation,jdbcType=VARCHAR}, #{changeSituation,jdbcType=VARCHAR}, 
+      #{removelMan,jdbcType=VARCHAR}, #{removelManName,jdbcType=VARCHAR}, #{accompanyMan,jdbcType=VARCHAR}, 
+      #{accompanyManName,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveOaComputerPersonRepair">
+    update five_oa_computer_person_repair
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      form_no = #{formNo,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      is_process_end = #{processEnd,jdbcType=BIT},
+      duty_person_id = #{dutyPersonId,jdbcType=VARCHAR},
+      duty_person_name = #{dutyPersonName,jdbcType=VARCHAR},
+      device_no = #{deviceNo,jdbcType=VARCHAR},
+      repair_man = #{repairMan,jdbcType=VARCHAR},
+      repair_man_name = #{repairManName,jdbcType=VARCHAR},
+      device_name = #{deviceName,jdbcType=VARCHAR},
+      repair_id_card = #{repairIdCard,jdbcType=VARCHAR},
+      device_security = #{deviceSecurity,jdbcType=VARCHAR},
+      repair_tel = #{repairTel,jdbcType=VARCHAR},
+      reason = #{reason,jdbcType=VARCHAR},
+      solve_way = #{solveWay,jdbcType=VARCHAR},
+      result = #{result,jdbcType=VARCHAR},
+      change_is = #{changeIs,jdbcType=VARCHAR},
+      removel_situation = #{removelSituation,jdbcType=VARCHAR},
+      change_situation = #{changeSituation,jdbcType=VARCHAR},
+      removel_man = #{removelMan,jdbcType=VARCHAR},
+      removel_man_name = #{removelManName,jdbcType=VARCHAR},
+      accompany_man = #{accompanyMan,jdbcType=VARCHAR},
+      accompany_man_name = #{accompanyManName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, form_no, dept_id, dept_name, remark, creator, creator_name, 
+    is_deleted, gmt_create, gmt_modified, process_instance_id, is_process_end, duty_person_id, 
+    duty_person_name, device_no, repair_man, repair_man_name, device_name, repair_id_card, 
+    device_security, repair_tel, reason, solve_way, result, change_is, removel_situation, 
+    change_situation, removel_man, removel_man_name, accompany_man, accompany_man_name
+    from five_oa_computer_person_repair
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, form_no, dept_id, dept_name, remark, creator, creator_name, 
+    is_deleted, gmt_create, gmt_modified, process_instance_id, is_process_end, duty_person_id, 
+    duty_person_name, device_no, repair_man, repair_man_name, device_name, repair_id_card, 
+    device_security, repair_tel, reason, solve_way, result, change_is, removel_situation, 
+    change_situation, removel_man, removel_man_name, accompany_man, accompany_man_name
+    from five_oa_computer_person_repair
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and isLikeSelect==null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="formNo != null and isLikeSelect==null and formNo != ''">
+         AND form_no = #{formNo}
+      </if>
+      <if test="deptId != null and isLikeSelect==null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and isLikeSelect==null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="remark != null and isLikeSelect==null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="processInstanceId != null and isLikeSelect==null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="processEnd != null and isLikeSelect==null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="dutyPersonId != null and isLikeSelect==null and dutyPersonId != ''">
+         AND duty_person_id = #{dutyPersonId}
+      </if>
+      <if test="dutyPersonName != null and isLikeSelect==null and dutyPersonName != ''">
+         AND duty_person_name = #{dutyPersonName}
+      </if>
+      <if test="deviceNo != null and isLikeSelect==null and deviceNo != ''">
+         AND device_no = #{deviceNo}
+      </if>
+      <if test="repairMan != null and isLikeSelect==null and repairMan != ''">
+         AND repair_man = #{repairMan}
+      </if>
+      <if test="repairManName != null and isLikeSelect==null and repairManName != ''">
+         AND repair_man_name = #{repairManName}
+      </if>
+      <if test="deviceName != null and isLikeSelect==null and deviceName != ''">
+         AND device_name = #{deviceName}
+      </if>
+      <if test="repairIdCard != null and isLikeSelect==null and repairIdCard != ''">
+         AND repair_id_card = #{repairIdCard}
+      </if>
+      <if test="deviceSecurity != null and isLikeSelect==null and deviceSecurity != ''">
+         AND device_security = #{deviceSecurity}
+      </if>
+      <if test="repairTel != null and isLikeSelect==null and repairTel != ''">
+         AND repair_tel = #{repairTel}
+      </if>
+      <if test="reason != null and isLikeSelect==null and reason != ''">
+         AND reason = #{reason}
+      </if>
+      <if test="solveWay != null and isLikeSelect==null and solveWay != ''">
+         AND solve_way = #{solveWay}
+      </if>
+      <if test="result != null and isLikeSelect==null and result != ''">
+         AND result = #{result}
+      </if>
+      <if test="changeIs != null and isLikeSelect==null and changeIs != ''">
+         AND change_is = #{changeIs}
+      </if>
+      <if test="removelSituation != null and isLikeSelect==null and removelSituation != ''">
+         AND removel_situation = #{removelSituation}
+      </if>
+      <if test="changeSituation != null and isLikeSelect==null and changeSituation != ''">
+         AND change_situation = #{changeSituation}
+      </if>
+      <if test="removelMan != null and isLikeSelect==null and removelMan != ''">
+         AND removel_man = #{removelMan}
+      </if>
+      <if test="removelManName != null and isLikeSelect==null and removelManName != ''">
+         AND removel_man_name = #{removelManName}
+      </if>
+      <if test="accompanyMan != null and isLikeSelect==null and accompanyMan != ''">
+         AND accompany_man = #{accompanyMan}
+      </if>
+      <if test="accompanyManName != null and isLikeSelect==null and accompanyManName != ''">
+         AND accompany_man_name = #{accompanyManName}
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect==null">
+        AND (
+        dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+        <if test="initiator != null and initiator != ''">
+          or creator = #{initiator}
+        </if>
+        )
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="businessKey != null and isLikeSelect!= null and businessKey != '' ">
+         AND business_key like  CONCAT('%',#{businessKey},'%')
+      </if>
+      <if test="formNo != null and isLikeSelect!= null and formNo != '' ">
+         AND form_no like  CONCAT('%',#{formNo},'%')
+      </if>
+      <if test="deptName != null and isLikeSelect!= null and deptName != '' ">
+         AND dept_name like  CONCAT('%',#{deptName},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="processInstanceId != null and isLikeSelect!= null and processInstanceId != '' ">
+         AND process_instance_id like  CONCAT('%',#{processInstanceId},'%')
+      </if>
+      <if test="dutyPersonId != null and isLikeSelect!= null and dutyPersonId != '' ">
+         AND duty_person_id like  CONCAT('%',#{dutyPersonId},'%')
+      </if>
+      <if test="dutyPersonName != null and isLikeSelect!= null and dutyPersonName != '' ">
+         AND duty_person_name like  CONCAT('%',#{dutyPersonName},'%')
+      </if>
+      <if test="deviceNo != null and isLikeSelect!= null and deviceNo != '' ">
+         AND device_no like  CONCAT('%',#{deviceNo},'%')
+      </if>
+      <if test="repairMan != null and isLikeSelect!= null and repairMan != '' ">
+         AND repair_man like  CONCAT('%',#{repairMan},'%')
+      </if>
+      <if test="repairManName != null and isLikeSelect!= null and repairManName != '' ">
+         AND repair_man_name like  CONCAT('%',#{repairManName},'%')
+      </if>
+      <if test="deviceName != null and isLikeSelect!= null and deviceName != '' ">
+         AND device_name like  CONCAT('%',#{deviceName},'%')
+      </if>
+      <if test="repairIdCard != null and isLikeSelect!= null and repairIdCard != '' ">
+         AND repair_id_card like  CONCAT('%',#{repairIdCard},'%')
+      </if>
+      <if test="deviceSecurity != null and isLikeSelect!= null and deviceSecurity != '' ">
+         AND device_security like  CONCAT('%',#{deviceSecurity},'%')
+      </if>
+      <if test="repairTel != null and isLikeSelect!= null and repairTel != '' ">
+         AND repair_tel like  CONCAT('%',#{repairTel},'%')
+      </if>
+      <if test="reason != null and isLikeSelect!= null and reason != '' ">
+         AND reason like  CONCAT('%',#{reason},'%')
+      </if>
+      <if test="solveWay != null and isLikeSelect!= null and solveWay != '' ">
+         AND solve_way like  CONCAT('%',#{solveWay},'%')
+      </if>
+      <if test="result != null and isLikeSelect!= null and result != '' ">
+         AND result like  CONCAT('%',#{result},'%')
+      </if>
+      <if test="changeIs != null and isLikeSelect!= null and changeIs != '' ">
+         AND change_is like  CONCAT('%',#{changeIs},'%')
+      </if>
+      <if test="removelSituation != null and isLikeSelect!= null and removelSituation != '' ">
+         AND removel_situation like  CONCAT('%',#{removelSituation},'%')
+      </if>
+      <if test="changeSituation != null and isLikeSelect!= null and changeSituation != '' ">
+         AND change_situation like  CONCAT('%',#{changeSituation},'%')
+      </if>
+      <if test="removelMan != null and isLikeSelect!= null and removelMan != '' ">
+         AND removel_man like  CONCAT('%',#{removelMan},'%')
+      </if>
+      <if test="removelManName != null and isLikeSelect!= null and removelManName != '' ">
+         AND removel_man_name like  CONCAT('%',#{removelManName},'%')
+      </if>
+      <if test="accompanyMan != null and isLikeSelect!= null and accompanyMan != '' ">
+         AND accompany_man like  CONCAT('%',#{accompanyMan},'%')
+      </if>
+      <if test="accompanyManName != null and isLikeSelect!= null and accompanyManName != '' ">
+         AND accompany_man_name like  CONCAT('%',#{accompanyManName},'%')
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="deptId != null and isLikeSelect!=null">
+        AND dept_id = #{deptId}
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect!=null">
+        AND (
+        dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+        <if test="initiator != null and initiator != ''">
+          or creator = #{initiator}
+        </if>
+        )
+      </if>
+    </where>
+  </sql>
+</mapper>

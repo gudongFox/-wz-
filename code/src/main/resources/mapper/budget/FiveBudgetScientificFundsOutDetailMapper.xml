@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.budget.dao.FiveBudgetScientificFundsOutDetailMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.budget.entity.FiveBudgetScientificFundsOutDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="scientific_funds_out_id" jdbcType="INTEGER" property="scientificFundsOutId" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="type_name" jdbcType="VARCHAR" property="typeName" />
+    <result column="budget_money" jdbcType="VARCHAR" property="budgetMoney" />
+    <result column="budget_proportion" jdbcType="VARCHAR" property="budgetProportion" />
+    <result column="seq" jdbcType="INTEGER" property="seq" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="design_money" jdbcType="VARCHAR" property="designMoney" />
+    <result column="materials_money" jdbcType="VARCHAR" property="materialsMoney" />
+    <result column="out_assist_money" jdbcType="VARCHAR" property="outAssistMoney" />
+    <result column="test_money" jdbcType="VARCHAR" property="testMoney" />
+    <result column="dedicated_money" jdbcType="VARCHAR" property="dedicatedMoney" />
+    <result column="asset_money" jdbcType="VARCHAR" property="assetMoney" />
+    <result column="payroll_money" jdbcType="VARCHAR" property="payrollMoney" />
+    <result column="manger_money" jdbcType="VARCHAR" property="mangerMoney" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_budget_scientific_funds_out_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.budget.entity.FiveBudgetScientificFundsOutDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_budget_scientific_funds_out_detail (business_key, scientific_funds_out_id, 
+      parent_id, type_name, budget_money, 
+      budget_proportion, seq, remark, 
+      creator, creator_name, is_deleted, 
+      gmt_create, gmt_modified, design_money, 
+      materials_money, out_assist_money, test_money, 
+      dedicated_money, asset_money, payroll_money, 
+      manger_money)
+    values (#{businessKey,jdbcType=VARCHAR}, #{scientificFundsOutId,jdbcType=INTEGER}, 
+      #{parentId,jdbcType=INTEGER}, #{typeName,jdbcType=VARCHAR}, #{budgetMoney,jdbcType=VARCHAR}, 
+      #{budgetProportion,jdbcType=VARCHAR}, #{seq,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
+      #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{designMoney,jdbcType=VARCHAR}, 
+      #{materialsMoney,jdbcType=VARCHAR}, #{outAssistMoney,jdbcType=VARCHAR}, #{testMoney,jdbcType=VARCHAR}, 
+      #{dedicatedMoney,jdbcType=VARCHAR}, #{assetMoney,jdbcType=VARCHAR}, #{payrollMoney,jdbcType=VARCHAR}, 
+      #{mangerMoney,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.budget.entity.FiveBudgetScientificFundsOutDetail">
+    update five_budget_scientific_funds_out_detail
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      scientific_funds_out_id = #{scientificFundsOutId,jdbcType=INTEGER},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      type_name = #{typeName,jdbcType=VARCHAR},
+      budget_money = #{budgetMoney,jdbcType=VARCHAR},
+      budget_proportion = #{budgetProportion,jdbcType=VARCHAR},
+      seq = #{seq,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      design_money = #{designMoney,jdbcType=VARCHAR},
+      materials_money = #{materialsMoney,jdbcType=VARCHAR},
+      out_assist_money = #{outAssistMoney,jdbcType=VARCHAR},
+      test_money = #{testMoney,jdbcType=VARCHAR},
+      dedicated_money = #{dedicatedMoney,jdbcType=VARCHAR},
+      asset_money = #{assetMoney,jdbcType=VARCHAR},
+      payroll_money = #{payrollMoney,jdbcType=VARCHAR},
+      manger_money = #{mangerMoney,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, scientific_funds_out_id, parent_id, type_name, budget_money, 
+    budget_proportion, seq, remark, creator, creator_name, is_deleted, gmt_create, gmt_modified, 
+    design_money, materials_money, out_assist_money, test_money, dedicated_money, asset_money, 
+    payroll_money, manger_money
+    from five_budget_scientific_funds_out_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, scientific_funds_out_id, parent_id, type_name, budget_money, 
+    budget_proportion, seq, remark, creator, creator_name, is_deleted, gmt_create, gmt_modified, 
+    design_money, materials_money, out_assist_money, test_money, dedicated_money, asset_money, 
+    payroll_money, manger_money
+    from five_budget_scientific_funds_out_detail
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="scientificFundsOutId != null">
+         AND scientific_funds_out_id = #{scientificFundsOutId}
+      </if>
+      <if test="parentId != null">
+         AND parent_id = #{parentId}
+      </if>
+      <if test="typeName != null and typeName != ''">
+         AND type_name = #{typeName}
+      </if>
+      <if test="budgetMoney != null and budgetMoney != ''">
+         AND budget_money = #{budgetMoney}
+      </if>
+      <if test="budgetProportion != null and budgetProportion != ''">
+         AND budget_proportion = #{budgetProportion}
+      </if>
+      <if test="seq != null">
+         AND seq = #{seq}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="designMoney != null and designMoney != ''">
+         AND design_money = #{designMoney}
+      </if>
+      <if test="materialsMoney != null and materialsMoney != ''">
+         AND materials_money = #{materialsMoney}
+      </if>
+      <if test="outAssistMoney != null and outAssistMoney != ''">
+         AND out_assist_money = #{outAssistMoney}
+      </if>
+      <if test="testMoney != null and testMoney != ''">
+         AND test_money = #{testMoney}
+      </if>
+      <if test="dedicatedMoney != null and dedicatedMoney != ''">
+         AND dedicated_money = #{dedicatedMoney}
+      </if>
+      <if test="assetMoney != null and assetMoney != ''">
+         AND asset_money = #{assetMoney}
+      </if>
+      <if test="payrollMoney != null and payrollMoney != ''">
+         AND payroll_money = #{payrollMoney}
+      </if>
+      <if test="mangerMoney != null and mangerMoney != ''">
+         AND manger_money = #{mangerMoney}
+      </if>
+    </where>
+  </sql>
+</mapper>

@@ -1,0 +1,168 @@
+﻿<span ng-controller="CommonFileMarkController">
+<div class="portlet box blue">
+    <div class="portlet-title ">
+        <div class="caption">
+                <i class="icon-note"></i>
+                <span class="caption-subject">文件意见标注</span>
+                <span style="margin-left:15px;font-size: 10px;color: white"><i
+                        class="fa fa-map-marker"></i>：该意见存在定位</span>
+                <span style="font-size: 10px;color: white;"><i class="fa fa-picture-o"></i>：该意见存在图片(点击查看)</span>
+        </div>
+        <div class="toolbar-separator">
+<!--              <a href="javascript:;"
+                 style="float:right;margin-top: 5px;margin-left:5px;border: 1px solid #fff;color:white;background: transparent !important;background-color: transparent !important;"
+                 class="btn btn-sm btn-default"
+                 ng-click="loadData();" ng-show="tplConfig.markAddRoleName"><i class="fa fa-refresh" style="color: white;"></i> 刷新 </a>
+
+             <a href="javascript:;"
+                style="float:right;margin-top: 5px;border: 1px solid #fff;color:white;background: transparent !important;background-color: transparent !important;"
+                class="btn btn-sm btn-default"
+                ng-click="newMark();" ng-show="tplConfig.markAddRoleName"><i class="fa fa-plus"
+                                                                             style="color: white;"></i> 新增 </a>-->
+
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="tabbable-line">
+            <div class="tab-content">
+                    <div class="table-scrollable">
+                        <table class="table table-striped table-hover table-bordered table-advance no-footer">
+                            <thead>
+                            <tr>
+                                <th style="width: 35px;">#</th>
+                                <th style="width: 260px;"><span>意见内容</span></th>
+                                <th>设计回复</th>
+                                <th style="width:70px;">创建人</th>
+                                <th style="width:150px;">创建时间</th>
+                                <th style="width:60px;">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="mark in marks">
+                                <td class="dt-right" ng-bind="$index+1"></td>
+                                <td title="{{mark.questionContent}}">
+                                    <i class="fa fa-map-marker" ng-show="mark.cloudLocation"></i>
+                                    <span ng-bind="mark.questionContent"></span>
+                                    <i title="意见图片" class="fa fa-picture-o" ng-click="showImage(mark);"
+                                       ng-show="mark.picAttachId!=0"></i>
+                                </td>
+                                <td ng-bind="mark.questionAnswer" title="{{mark.markAnswer}}"></td>
+                                <td ng-bind="mark.creatorName"></td>
+                                <td ng-bind="mark.gmtCreate|date:'yyyy-MM-dd HH:mm'"></td>
+                                <td>
+                                    <i class="fa fa-edit margin-right-5" ng-click="showMark(mark);" title="详情"></i>
+                                    <i class="fa fa-trash" ng-show="mark.editAble" ng-click="removeMark(mark.id);"></i>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="modal fade" id="markModal" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title" ng-bind="targerMark.roleName+'-意见'"></h4>
+
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">意见类型</label>
+                            <div class="col-md-10">
+                                <select ng-options="s.codeValue as s.name for s in sysCodes | filter:{codeCatalog:'校审意见类型'}:true"
+                                        ng-model="targerMark.questionLevel" ng-disabled="!targerMark.editAble"
+                                        class="form-control"></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">图名图号</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" ng-model="targerMark.drawName"
+                                       ng-disabled="!targerMark.editAble"/>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">校审意见</label>
+                            <div class="col-md-10">
+                                <textarea class="form-control" ng-model="targerMark.questionContent" rows="3"
+                                          ng-disabled="!targerMark.editAble"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">设计回复</label>
+                            <div class="col-md-10">
+                                <textarea class="form-control" ng-model="targerMark.questionAnswer" rows="3"
+                                          ng-disabled="!targerMark.answerAble"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" ng-bind="targerMark.roleName"></label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" ng-model="targerMark.creatorName"
+                                       disabled="disabled"/>
+                            </div>
+                            <label class="col-md-2 control-label">创建时间</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control"
+                                       value="{{targerMark.gmtCreate|date:'yyyy-MM-dd HH:mm'}}" disabled="disabled"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">设计人</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" ng-model="targerMark.answerName"
+                                       disabled="disabled"/>
+                            </div>
+                            <label class="col-md-2 control-label">回复时间</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control"
+                                       value="{{targerMark.answerTime|date:'yyyy-MM-dd HH:mm'}}" disabled="disabled"/>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn blue" ng-click="saveMark();"
+                        ng-show="targerMark.editAble||targerMark.answerAble">保存</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+        <!-- /.modal-dialog -->
+</div>
+
+    <div class="modal fade" id="definitionImageModal" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title" ng-bind="item.questionContent"></h4>
+            </div>
+            <div class="modal-body">
+                <form class="kt-form">
+                    <div class="kt-portlet__body">
+                        <img ng-src="{{'/common/attach/download/'+item.picAttachId}}" class="img-responsive"/>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</span>
+
+

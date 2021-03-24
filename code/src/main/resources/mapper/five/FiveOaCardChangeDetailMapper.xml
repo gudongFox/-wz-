@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveOaCardChangeDetailMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveOaCardChangeDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="change_id" jdbcType="INTEGER" property="changeId" />
+    <result column="user_login" jdbcType="VARCHAR" property="userLogin" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_type" jdbcType="VARCHAR" property="userType" />
+    <result column="card_type_now" jdbcType="VARCHAR" property="cardTypeNow" />
+    <result column="card_type_change" jdbcType="VARCHAR" property="cardTypeChange" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_oa_card_change_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveOaCardChangeDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_oa_card_change_detail (change_id, user_login, user_name, 
+      user_type, card_type_now, card_type_change, 
+      remark, creator, creator_name, 
+      gmt_create, gmt_modified, is_deleted
+      )
+    values (#{changeId,jdbcType=INTEGER}, #{userLogin,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{userType,jdbcType=VARCHAR}, #{cardTypeNow,jdbcType=VARCHAR}, #{cardTypeChange,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveOaCardChangeDetail">
+    update five_oa_card_change_detail
+    set change_id = #{changeId,jdbcType=INTEGER},
+      user_login = #{userLogin,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_type = #{userType,jdbcType=VARCHAR},
+      card_type_now = #{cardTypeNow,jdbcType=VARCHAR},
+      card_type_change = #{cardTypeChange,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      is_deleted = #{deleted,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, change_id, user_login, user_name, user_type, card_type_now, card_type_change, 
+    remark, creator, creator_name, gmt_create, gmt_modified, is_deleted
+    from five_oa_card_change_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, change_id, user_login, user_name, user_type, card_type_now, card_type_change, 
+    remark, creator, creator_name, gmt_create, gmt_modified, is_deleted
+    from five_oa_card_change_detail
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="changeId != null">
+         AND change_id = #{changeId}
+      </if>
+      <if test="userLogin != null and userLogin != ''">
+         AND user_login = #{userLogin}
+      </if>
+      <if test="userName != null and userName != ''">
+         AND user_name = #{userName}
+      </if>
+      <if test="userType != null and userType != ''">
+         AND user_type = #{userType}
+      </if>
+      <if test="cardTypeNow != null and cardTypeNow != ''">
+         AND card_type_now = #{cardTypeNow}
+      </if>
+      <if test="cardTypeChange != null and cardTypeChange != ''">
+         AND card_type_change = #{cardTypeChange}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+    </where>
+  </sql>
+</mapper>

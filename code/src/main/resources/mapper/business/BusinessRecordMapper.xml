@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.business.dao.BusinessRecordMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.business.entity.BusinessRecord">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="pre_contract_ids" jdbcType="VARCHAR" property="preContractIds" />
+    <result column="contract_review_ids" jdbcType="VARCHAR" property="contractReviewIds" />
+    <result column="customer_id" jdbcType="INTEGER" property="customerId" />
+    <result column="customer_code" jdbcType="VARCHAR" property="customerCode" />
+    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+    <result column="customer_address" jdbcType="VARCHAR" property="customerAddress" />
+    <result column="link_man" jdbcType="VARCHAR" property="linkMan" />
+    <result column="link_tel" jdbcType="VARCHAR" property="linkTel" />
+    <result column="link_title" jdbcType="VARCHAR" property="linkTitle" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="project_address" jdbcType="VARCHAR" property="projectAddress" />
+    <result column="project_scale" jdbcType="VARCHAR" property="projectScale" />
+    <result column="business_content" jdbcType="VARCHAR" property="businessContent" />
+    <result column="project_type" jdbcType="VARCHAR" property="projectType" />
+    <result column="project_invest" jdbcType="VARCHAR" property="projectInvest" />
+    <result column="invest_source" jdbcType="VARCHAR" property="investSource" />
+    <result column="is_tender_bond" jdbcType="BIT" property="tenderBond" />
+    <result column="tender_bond_type" jdbcType="VARCHAR" property="tenderBondType" />
+    <result column="tender_bond_money" jdbcType="VARCHAR" property="tenderBondMoney" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="business_user" jdbcType="VARCHAR" property="businessUser" />
+    <result column="business_user_name" jdbcType="VARCHAR" property="businessUserName" />
+    <result column="bid_plan_open" jdbcType="VARCHAR" property="bidPlanOpen" />
+    <result column="bid_real_open" jdbcType="VARCHAR" property="bidRealOpen" />
+    <result column="is_attend" jdbcType="BIT" property="attend" />
+    <result column="is_win" jdbcType="BIT" property="win" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="message_dept_id" jdbcType="INTEGER" property="messageDeptId" />
+    <result column="message_dept_name" jdbcType="VARCHAR" property="messageDeptName" />
+    <result column="message_user" jdbcType="VARCHAR" property="messageUser" />
+    <result column="message_user_name" jdbcType="VARCHAR" property="messageUserName" />
+    <result column="is_secret" jdbcType="BIT" property="secret" />
+    <result column="project_no" jdbcType="VARCHAR" property="projectNo" />
+    <result column="plan_begin_time" jdbcType="VARCHAR" property="planBeginTime" />
+    <result column="plan_end_time" jdbcType="VARCHAR" property="planEndTime" />
+    <result column="platform_id" jdbcType="INTEGER" property="platformId" />
+    <result column="subpackage_id" jdbcType="INTEGER" property="subpackageId" />
+    <result column="bid_apply_id" jdbcType="INTEGER" property="bidApplyId" />
+    <result column="industry_type" jdbcType="VARCHAR" property="industryType" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from business_record
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.business.entity.BusinessRecord">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into business_record (business_key, pre_contract_ids, contract_review_ids, 
+      customer_id, customer_code, customer_name, 
+      customer_address, link_man, link_tel, 
+      link_title, project_name, project_address, 
+      project_scale, business_content, project_type, 
+      project_invest, invest_source, is_tender_bond, 
+      tender_bond_type, tender_bond_money, dept_id, 
+      dept_name, business_user, business_user_name, 
+      bid_plan_open, bid_real_open, is_attend, 
+      is_win, remark, creator, 
+      creator_name, gmt_create, gmt_modified, 
+      is_deleted, process_instance_id, is_process_end, 
+      status, message_dept_id, message_dept_name, 
+      message_user, message_user_name, is_secret, 
+      project_no, plan_begin_time, plan_end_time, 
+      platform_id, subpackage_id, bid_apply_id, 
+      industry_type)
+    values (#{businessKey,jdbcType=VARCHAR}, #{preContractIds,jdbcType=VARCHAR}, #{contractReviewIds,jdbcType=VARCHAR}, 
+      #{customerId,jdbcType=INTEGER}, #{customerCode,jdbcType=VARCHAR}, #{customerName,jdbcType=VARCHAR}, 
+      #{customerAddress,jdbcType=VARCHAR}, #{linkMan,jdbcType=VARCHAR}, #{linkTel,jdbcType=VARCHAR}, 
+      #{linkTitle,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR}, #{projectAddress,jdbcType=VARCHAR}, 
+      #{projectScale,jdbcType=VARCHAR}, #{businessContent,jdbcType=VARCHAR}, #{projectType,jdbcType=VARCHAR}, 
+      #{projectInvest,jdbcType=VARCHAR}, #{investSource,jdbcType=VARCHAR}, #{tenderBond,jdbcType=BIT}, 
+      #{tenderBondType,jdbcType=VARCHAR}, #{tenderBondMoney,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, 
+      #{deptName,jdbcType=VARCHAR}, #{businessUser,jdbcType=VARCHAR}, #{businessUserName,jdbcType=VARCHAR}, 
+      #{bidPlanOpen,jdbcType=VARCHAR}, #{bidRealOpen,jdbcType=VARCHAR}, #{attend,jdbcType=BIT}, 
+      #{win,jdbcType=BIT}, #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{creatorName,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{deleted,jdbcType=BIT}, #{processInstanceId,jdbcType=VARCHAR}, #{processEnd,jdbcType=BIT}, 
+      #{status,jdbcType=VARCHAR}, #{messageDeptId,jdbcType=INTEGER}, #{messageDeptName,jdbcType=VARCHAR}, 
+      #{messageUser,jdbcType=VARCHAR}, #{messageUserName,jdbcType=VARCHAR}, #{secret,jdbcType=BIT}, 
+      #{projectNo,jdbcType=VARCHAR}, #{planBeginTime,jdbcType=VARCHAR}, #{planEndTime,jdbcType=VARCHAR}, 
+      #{platformId,jdbcType=INTEGER}, #{subpackageId,jdbcType=INTEGER}, #{bidApplyId,jdbcType=INTEGER}, 
+      #{industryType,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.business.entity.BusinessRecord">
+    update business_record
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      pre_contract_ids = #{preContractIds,jdbcType=VARCHAR},
+      contract_review_ids = #{contractReviewIds,jdbcType=VARCHAR},
+      customer_id = #{customerId,jdbcType=INTEGER},
+      customer_code = #{customerCode,jdbcType=VARCHAR},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      customer_address = #{customerAddress,jdbcType=VARCHAR},
+      link_man = #{linkMan,jdbcType=VARCHAR},
+      link_tel = #{linkTel,jdbcType=VARCHAR},
+      link_title = #{linkTitle,jdbcType=VARCHAR},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      project_address = #{projectAddress,jdbcType=VARCHAR},
+      project_scale = #{projectScale,jdbcType=VARCHAR},
+      business_content = #{businessContent,jdbcType=VARCHAR},
+      project_type = #{projectType,jdbcType=VARCHAR},
+      project_invest = #{projectInvest,jdbcType=VARCHAR},
+      invest_source = #{investSource,jdbcType=VARCHAR},
+      is_tender_bond = #{tenderBond,jdbcType=BIT},
+      tender_bond_type = #{tenderBondType,jdbcType=VARCHAR},
+      tender_bond_money = #{tenderBondMoney,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      business_user = #{businessUser,jdbcType=VARCHAR},
+      business_user_name = #{businessUserName,jdbcType=VARCHAR},
+      bid_plan_open = #{bidPlanOpen,jdbcType=VARCHAR},
+      bid_real_open = #{bidRealOpen,jdbcType=VARCHAR},
+      is_attend = #{attend,jdbcType=BIT},
+      is_win = #{win,jdbcType=BIT},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      is_deleted = #{deleted,jdbcType=BIT},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      is_process_end = #{processEnd,jdbcType=BIT},
+      status = #{status,jdbcType=VARCHAR},
+      message_dept_id = #{messageDeptId,jdbcType=INTEGER},
+      message_dept_name = #{messageDeptName,jdbcType=VARCHAR},
+      message_user = #{messageUser,jdbcType=VARCHAR},
+      message_user_name = #{messageUserName,jdbcType=VARCHAR},
+      is_secret = #{secret,jdbcType=BIT},
+      project_no = #{projectNo,jdbcType=VARCHAR},
+      plan_begin_time = #{planBeginTime,jdbcType=VARCHAR},
+      plan_end_time = #{planEndTime,jdbcType=VARCHAR},
+      platform_id = #{platformId,jdbcType=INTEGER},
+      subpackage_id = #{subpackageId,jdbcType=INTEGER},
+      bid_apply_id = #{bidApplyId,jdbcType=INTEGER},
+      industry_type = #{industryType,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, pre_contract_ids, contract_review_ids, customer_id, customer_code, 
+    customer_name, customer_address, link_man, link_tel, link_title, project_name, project_address, 
+    project_scale, business_content, project_type, project_invest, invest_source, is_tender_bond, 
+    tender_bond_type, tender_bond_money, dept_id, dept_name, business_user, business_user_name, 
+    bid_plan_open, bid_real_open, is_attend, is_win, remark, creator, creator_name, gmt_create, 
+    gmt_modified, is_deleted, process_instance_id, is_process_end, status, message_dept_id, 
+    message_dept_name, message_user, message_user_name, is_secret, project_no, plan_begin_time, 
+    plan_end_time, platform_id, subpackage_id, bid_apply_id, industry_type
+    from business_record
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, pre_contract_ids, contract_review_ids, customer_id, customer_code, 
+    customer_name, customer_address, link_man, link_tel, link_title, project_name, project_address, 
+    project_scale, business_content, project_type, project_invest, invest_source, is_tender_bond, 
+    tender_bond_type, tender_bond_money, dept_id, dept_name, business_user, business_user_name, 
+    bid_plan_open, bid_real_open, is_attend, is_win, remark, creator, creator_name, gmt_create, 
+    gmt_modified, is_deleted, process_instance_id, is_process_end, status, message_dept_id, 
+    message_dept_name, message_user, message_user_name, is_secret, project_no, plan_begin_time, 
+    plan_end_time, platform_id, subpackage_id, bid_apply_id, industry_type
+    from business_record
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and isLikeSelect==null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="preContractIds != null and isLikeSelect==null and preContractIds != ''">
+         AND pre_contract_ids = #{preContractIds}
+      </if>
+      <if test="contractReviewIds != null and isLikeSelect==null and contractReviewIds != ''">
+         AND contract_review_ids = #{contractReviewIds}
+      </if>
+      <if test="customerId != null and isLikeSelect==null">
+         AND customer_id = #{customerId}
+      </if>
+      <if test="customerCode != null and isLikeSelect==null and customerCode != ''">
+         AND customer_code = #{customerCode}
+      </if>
+      <if test="customerName != null and isLikeSelect==null and customerName != ''">
+         AND customer_name = #{customerName}
+      </if>
+      <if test="customerAddress != null and isLikeSelect==null and customerAddress != ''">
+         AND customer_address = #{customerAddress}
+      </if>
+      <if test="linkMan != null and isLikeSelect==null and linkMan != ''">
+         AND link_man = #{linkMan}
+      </if>
+      <if test="linkTel != null and isLikeSelect==null and linkTel != ''">
+         AND link_tel = #{linkTel}
+      </if>
+      <if test="linkTitle != null and isLikeSelect==null and linkTitle != ''">
+         AND link_title = #{linkTitle}
+      </if>
+      <if test="projectName != null and isLikeSelect==null and projectName != ''">
+         AND project_name = #{projectName}
+      </if>
+      <if test="projectAddress != null and isLikeSelect==null and projectAddress != ''">
+         AND project_address = #{projectAddress}
+      </if>
+      <if test="projectScale != null and isLikeSelect==null and projectScale != ''">
+         AND project_scale = #{projectScale}
+      </if>
+      <if test="businessContent != null and isLikeSelect==null and businessContent != ''">
+         AND business_content = #{businessContent}
+      </if>
+      <if test="projectType != null and isLikeSelect==null and projectType != ''">
+         AND project_type = #{projectType}
+      </if>
+      <if test="projectInvest != null and isLikeSelect==null and projectInvest != ''">
+         AND project_invest = #{projectInvest}
+      </if>
+      <if test="investSource != null and isLikeSelect==null and investSource != ''">
+         AND invest_source = #{investSource}
+      </if>
+      <if test="tenderBond != null and isLikeSelect==null">
+         AND is_tender_bond = #{tenderBond}
+      </if>
+      <if test="tenderBondType != null and isLikeSelect==null and tenderBondType != ''">
+         AND tender_bond_type = #{tenderBondType}
+      </if>
+      <if test="tenderBondMoney != null and isLikeSelect==null and tenderBondMoney != ''">
+         AND tender_bond_money = #{tenderBondMoney}
+      </if>
+      <if test="deptId != null and isLikeSelect==null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and isLikeSelect==null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="businessUser != null and isLikeSelect==null and businessUser != ''">
+         AND business_user = #{businessUser}
+      </if>
+      <if test="businessUserName != null and isLikeSelect==null and businessUserName != ''">
+         AND business_user_name = #{businessUserName}
+      </if>
+      <if test="bidPlanOpen != null and isLikeSelect==null and bidPlanOpen != ''">
+         AND bid_plan_open = #{bidPlanOpen}
+      </if>
+      <if test="bidRealOpen != null and isLikeSelect==null and bidRealOpen != ''">
+         AND bid_real_open = #{bidRealOpen}
+      </if>
+      <if test="attend != null and isLikeSelect==null">
+         AND is_attend = #{attend}
+      </if>
+      <if test="win != null and isLikeSelect==null">
+         AND is_win = #{win}
+      </if>
+      <if test="remark != null and isLikeSelect==null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="processInstanceId != null and isLikeSelect==null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="processEnd != null and isLikeSelect==null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="status != null and isLikeSelect==null and status != ''">
+         AND status = #{status}
+      </if>
+      <if test="messageDeptId != null and isLikeSelect==null">
+         AND message_dept_id = #{messageDeptId}
+      </if>
+      <if test="messageDeptName != null and isLikeSelect==null and messageDeptName != ''">
+         AND message_dept_name = #{messageDeptName}
+      </if>
+      <if test="messageUser != null and isLikeSelect==null and messageUser != ''">
+         AND message_user = #{messageUser}
+      </if>
+      <if test="messageUserName != null and isLikeSelect==null and messageUserName != ''">
+         AND message_user_name = #{messageUserName}
+      </if>
+      <if test="secret != null and isLikeSelect==null">
+         AND is_secret = #{secret}
+      </if>
+      <if test="projectNo != null and isLikeSelect==null and projectNo != ''">
+         AND project_no = #{projectNo}
+      </if>
+      <if test="planBeginTime != null and isLikeSelect==null and planBeginTime != ''">
+         AND plan_begin_time = #{planBeginTime}
+      </if>
+      <if test="planEndTime != null and isLikeSelect==null and planEndTime != ''">
+         AND plan_end_time = #{planEndTime}
+      </if>
+      <if test="platformId != null and isLikeSelect==null">
+         AND platform_id = #{platformId}
+      </if>
+      <if test="subpackageId != null and isLikeSelect==null">
+         AND subpackage_id = #{subpackageId}
+      </if>
+      <if test="bidApplyId != null and isLikeSelect==null">
+         AND bid_apply_id = #{bidApplyId}
+      </if>
+      <if test="industryType != null and isLikeSelect==null and industryType != ''">
+         AND industry_type = #{industryType}
+      </if>
+      <if test="q != null and q != '' and isLikeSelect==null">
+        AND (
+        project_name like CONCAT('%',#{q},'%') or
+        project_no like CONCAT('%',#{q},'%')
+        )
+      </if>
+
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect==null">
+        AND (
+        dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+        <if test="initiator != null and initiator != ''">or creator = #{initiator}
+        </if>
+        )
+      </if>
+
+      <if test="projectNoHead != null and projectNoHead != '' and isLikeSelect==null">
+        AND project_no like  CONCAT('%',#{projectNoHead},'%')
+      </if>
+
+      <if test="planSStartTime != null and planSEndTime != null and isLikeSelect==null">
+        AND plan_begin_time &lt; #{planSEndTime} AND plan_begin_time &gt; #{planSStartTime}
+      </if>
+      <if test="planEStartTime != null and planEEndTime != null and isLikeSelect==null">
+        AND plan_end_time &lt; #{planEEndTime} AND plan_end_time &gt; #{planEStartTime}
+      </if>
+      <if test="bidStartTime != null and bidEndTime != null and isLikeSelect==null">
+        AND bid_plan_open &lt; #{bidEndTime} AND bid_plan_open &gt; #{bidStartTime}
+      </if>
+      <if test="createStartTime != null and createEndTime != null and isLikeSelect==null">
+        AND gmt_create &lt; #{createEndTime} AND gmt_create &gt; #{createStartTime}
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="businessKey != null and isLikeSelect!= null and businessKey != '' ">
+         AND business_key like  CONCAT('%',#{businessKey},'%')
+      </if>
+      <if test="preContractIds != null and isLikeSelect!= null and preContractIds != '' ">
+         AND pre_contract_ids like  CONCAT('%',#{preContractIds},'%')
+      </if>
+      <if test="contractReviewIds != null and isLikeSelect!= null and contractReviewIds != '' ">
+         AND contract_review_ids like  CONCAT('%',#{contractReviewIds},'%')
+      </if>
+      <if test="customerCode != null and isLikeSelect!= null and customerCode != '' ">
+         AND customer_code like  CONCAT('%',#{customerCode},'%')
+      </if>
+      <if test="customerName != null and isLikeSelect!= null and customerName != '' ">
+         AND customer_name like  CONCAT('%',#{customerName},'%')
+      </if>
+      <if test="customerAddress != null and isLikeSelect!= null and customerAddress != '' ">
+         AND customer_address like  CONCAT('%',#{customerAddress},'%')
+      </if>
+      <if test="linkMan != null and isLikeSelect!= null and linkMan != '' ">
+         AND link_man like  CONCAT('%',#{linkMan},'%')
+      </if>
+      <if test="linkTel != null and isLikeSelect!= null and linkTel != '' ">
+         AND link_tel like  CONCAT('%',#{linkTel},'%')
+      </if>
+      <if test="linkTitle != null and isLikeSelect!= null and linkTitle != '' ">
+         AND link_title like  CONCAT('%',#{linkTitle},'%')
+      </if>
+      <if test="projectName != null and isLikeSelect!= null and projectName != '' ">
+         AND project_name like  CONCAT('%',#{projectName},'%')
+      </if>
+      <if test="projectAddress != null and isLikeSelect!= null and projectAddress != '' ">
+         AND project_address like  CONCAT('%',#{projectAddress},'%')
+      </if>
+      <if test="projectScale != null and isLikeSelect!= null and projectScale != '' ">
+         AND project_scale like  CONCAT('%',#{projectScale},'%')
+      </if>
+      <if test="businessContent != null and isLikeSelect!= null and businessContent != '' ">
+         AND business_content like  CONCAT('%',#{businessContent},'%')
+      </if>
+      <if test="projectType != null and isLikeSelect!= null and projectType != '' ">
+         AND project_type like  CONCAT('%',#{projectType},'%')
+      </if>
+      <if test="projectInvest != null and isLikeSelect!= null and projectInvest != '' ">
+         AND project_invest like  CONCAT('%',#{projectInvest},'%')
+      </if>
+      <if test="investSource != null and isLikeSelect!= null and investSource != '' ">
+         AND invest_source like  CONCAT('%',#{investSource},'%')
+      </if>
+      <if test="tenderBondType != null and isLikeSelect!= null and tenderBondType != '' ">
+         AND tender_bond_type like  CONCAT('%',#{tenderBondType},'%')
+      </if>
+      <if test="tenderBondMoney != null and isLikeSelect!= null and tenderBondMoney != '' ">
+         AND tender_bond_money like  CONCAT('%',#{tenderBondMoney},'%')
+      </if>
+      <if test="deptName != null and isLikeSelect!= null and deptName != '' ">
+         AND dept_name like  CONCAT('%',#{deptName},'%')
+      </if>
+      <if test="businessUser != null and isLikeSelect!= null and businessUser != '' ">
+         AND business_user like  CONCAT('%',#{businessUser},'%')
+      </if>
+      <if test="businessUserName != null and isLikeSelect!= null and businessUserName != '' ">
+         AND business_user_name like  CONCAT('%',#{businessUserName},'%')
+      </if>
+      <if test="bidPlanOpen != null and isLikeSelect!= null and bidPlanOpen != '' ">
+         AND bid_plan_open like  CONCAT('%',#{bidPlanOpen},'%')
+      </if>
+      <if test="bidRealOpen != null and isLikeSelect!= null and bidRealOpen != '' ">
+         AND bid_real_open like  CONCAT('%',#{bidRealOpen},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="processInstanceId != null and isLikeSelect!= null and processInstanceId != '' ">
+         AND process_instance_id like  CONCAT('%',#{processInstanceId},'%')
+      </if>
+      <if test="status != null and isLikeSelect!= null and status != '' ">
+         AND status like  CONCAT('%',#{status},'%')
+      </if>
+      <if test="messageDeptName != null and isLikeSelect!= null and messageDeptName != '' ">
+         AND message_dept_name like  CONCAT('%',#{messageDeptName},'%')
+      </if>
+      <if test="messageUser != null and isLikeSelect!= null and messageUser != '' ">
+         AND message_user like  CONCAT('%',#{messageUser},'%')
+      </if>
+      <if test="messageUserName != null and isLikeSelect!= null and messageUserName != '' ">
+         AND message_user_name like  CONCAT('%',#{messageUserName},'%')
+      </if>
+      <if test="projectNo != null and isLikeSelect!= null and projectNo != '' ">
+         AND project_no like  CONCAT('%',#{projectNo},'%')
+      </if>
+      <if test="planBeginTime != null and isLikeSelect!= null and planBeginTime != '' ">
+         AND plan_begin_time like  CONCAT('%',#{planBeginTime},'%')
+      </if>
+      <if test="planEndTime != null and isLikeSelect!= null and planEndTime != '' ">
+         AND plan_end_time like  CONCAT('%',#{planEndTime},'%')
+      </if>
+      <if test="industryType != null and isLikeSelect!= null and industryType != '' ">
+         AND industry_type like  CONCAT('%',#{industryType},'%')
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="q != null and q != '' and isLikeSelect!=null">
+        AND (
+        project_name like CONCAT('%',#{q},'%') or
+        project_no like CONCAT('%',#{q},'%')
+        )
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect!=null">
+        AND (
+        dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+        <if test="initiator != null and initiator != ''">or creator = #{initiator}
+        </if>
+        )
+      </if>
+      <if test="deptId != null and isLikeSelect!=null">
+        AND dept_id = #{deptId}
+      </if>
+      <if test="projectNoHead != null and projectNoHead != '' and isLikeSelect!=null">
+        AND project_no like  CONCAT('%',#{projectNoHead},'%')
+      </if>
+
+      <if test="planSStartTime != null and planSEndTime != null and isLikeSelect!=null">
+        AND plan_begin_time &lt; #{planSEndTime} AND plan_begin_time &gt; #{planSStartTime}
+      </if>
+      <if test="planEStartTime != null and planEEndTime != null and isLikeSelect!=null">
+        AND plan_end_time &lt; #{planEEndTime} AND plan_end_time &gt; #{planEStartTime}
+      </if>
+      <if test="bidStartTime != null and bidEndTime != null and isLikeSelect!=null">
+        AND bid_plan_open &lt; #{bidEndTime} AND bid_plan_open &gt; #{bidStartTime}
+      </if>
+      <if test="createStartTime != null and createEndTime != null and isLikeSelect!=null">
+        AND gmt_create &lt; #{createEndTime} AND gmt_create &gt; #{createStartTime}
+      </if>
+    </where>
+  </sql>
+</mapper>

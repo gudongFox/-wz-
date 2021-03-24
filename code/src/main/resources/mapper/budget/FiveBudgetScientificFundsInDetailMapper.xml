@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.budget.dao.FiveBudgetScientificFundsInDetailMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.budget.entity.FiveBudgetScientificFundsInDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="scientific_funds_in_id" jdbcType="INTEGER" property="scientificFundsInId" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="type_name" jdbcType="VARCHAR" property="typeName" />
+    <result column="budget_money" jdbcType="VARCHAR" property="budgetMoney" />
+    <result column="budget_proportion" jdbcType="VARCHAR" property="budgetProportion" />
+    <result column="seq" jdbcType="INTEGER" property="seq" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="begin_time" jdbcType="VARCHAR" property="beginTime" />
+    <result column="end_time" jdbcType="VARCHAR" property="endTime" />
+    <result column="allow_no" jdbcType="VARCHAR" property="allowNo" />
+    <result column="total_target" jdbcType="VARCHAR" property="totalTarget" />
+    <result column="project_total_money" jdbcType="VARCHAR" property="projectTotalMoney" />
+    <result column="country_money" jdbcType="VARCHAR" property="countryMoney" />
+    <result column="self_money" jdbcType="VARCHAR" property="selfMoney" />
+    <result column="other_money" jdbcType="VARCHAR" property="otherMoney" />
+    <result column="project_add_in_money" jdbcType="VARCHAR" property="projectAddInMoney" />
+    <result column="project_add_out_money" jdbcType="VARCHAR" property="projectAddOutMoney" />
+    <result column="project_year_money" jdbcType="VARCHAR" property="projectYearMoney" />
+    <result column="year_country_money" jdbcType="VARCHAR" property="yearCountryMoney" />
+    <result column="year_self_money" jdbcType="VARCHAR" property="yearSelfMoney" />
+    <result column="year_other_money" jdbcType="VARCHAR" property="yearOtherMoney" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_budget_scientific_funds_in_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.budget.entity.FiveBudgetScientificFundsInDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_budget_scientific_funds_in_detail (business_key, scientific_funds_in_id, 
+      parent_id, type_name, budget_money, 
+      budget_proportion, seq, remark, 
+      creator, creator_name, is_deleted, 
+      gmt_create, gmt_modified, begin_time, 
+      end_time, allow_no, total_target, 
+      project_total_money, country_money, self_money, 
+      other_money, project_add_in_money, project_add_out_money, 
+      project_year_money, year_country_money, year_self_money, 
+      year_other_money)
+    values (#{businessKey,jdbcType=VARCHAR}, #{scientificFundsInId,jdbcType=INTEGER}, 
+      #{parentId,jdbcType=INTEGER}, #{typeName,jdbcType=VARCHAR}, #{budgetMoney,jdbcType=VARCHAR}, 
+      #{budgetProportion,jdbcType=VARCHAR}, #{seq,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
+      #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{beginTime,jdbcType=VARCHAR}, 
+      #{endTime,jdbcType=VARCHAR}, #{allowNo,jdbcType=VARCHAR}, #{totalTarget,jdbcType=VARCHAR}, 
+      #{projectTotalMoney,jdbcType=VARCHAR}, #{countryMoney,jdbcType=VARCHAR}, #{selfMoney,jdbcType=VARCHAR}, 
+      #{otherMoney,jdbcType=VARCHAR}, #{projectAddInMoney,jdbcType=VARCHAR}, #{projectAddOutMoney,jdbcType=VARCHAR}, 
+      #{projectYearMoney,jdbcType=VARCHAR}, #{yearCountryMoney,jdbcType=VARCHAR}, #{yearSelfMoney,jdbcType=VARCHAR}, 
+      #{yearOtherMoney,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.budget.entity.FiveBudgetScientificFundsInDetail">
+    update five_budget_scientific_funds_in_detail
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      scientific_funds_in_id = #{scientificFundsInId,jdbcType=INTEGER},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      type_name = #{typeName,jdbcType=VARCHAR},
+      budget_money = #{budgetMoney,jdbcType=VARCHAR},
+      budget_proportion = #{budgetProportion,jdbcType=VARCHAR},
+      seq = #{seq,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      begin_time = #{beginTime,jdbcType=VARCHAR},
+      end_time = #{endTime,jdbcType=VARCHAR},
+      allow_no = #{allowNo,jdbcType=VARCHAR},
+      total_target = #{totalTarget,jdbcType=VARCHAR},
+      project_total_money = #{projectTotalMoney,jdbcType=VARCHAR},
+      country_money = #{countryMoney,jdbcType=VARCHAR},
+      self_money = #{selfMoney,jdbcType=VARCHAR},
+      other_money = #{otherMoney,jdbcType=VARCHAR},
+      project_add_in_money = #{projectAddInMoney,jdbcType=VARCHAR},
+      project_add_out_money = #{projectAddOutMoney,jdbcType=VARCHAR},
+      project_year_money = #{projectYearMoney,jdbcType=VARCHAR},
+      year_country_money = #{yearCountryMoney,jdbcType=VARCHAR},
+      year_self_money = #{yearSelfMoney,jdbcType=VARCHAR},
+      year_other_money = #{yearOtherMoney,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, scientific_funds_in_id, parent_id, type_name, budget_money, 
+    budget_proportion, seq, remark, creator, creator_name, is_deleted, gmt_create, gmt_modified, 
+    begin_time, end_time, allow_no, total_target, project_total_money, country_money, 
+    self_money, other_money, project_add_in_money, project_add_out_money, project_year_money, 
+    year_country_money, year_self_money, year_other_money
+    from five_budget_scientific_funds_in_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, scientific_funds_in_id, parent_id, type_name, budget_money, 
+    budget_proportion, seq, remark, creator, creator_name, is_deleted, gmt_create, gmt_modified, 
+    begin_time, end_time, allow_no, total_target, project_total_money, country_money, 
+    self_money, other_money, project_add_in_money, project_add_out_money, project_year_money, 
+    year_country_money, year_self_money, year_other_money
+    from five_budget_scientific_funds_in_detail
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="scientificFundsInId != null">
+         AND scientific_funds_in_id = #{scientificFundsInId}
+      </if>
+      <if test="parentId != null">
+         AND parent_id = #{parentId}
+      </if>
+      <if test="typeName != null and typeName != ''">
+         AND type_name = #{typeName}
+      </if>
+      <if test="budgetMoney != null and budgetMoney != ''">
+         AND budget_money = #{budgetMoney}
+      </if>
+      <if test="budgetProportion != null and budgetProportion != ''">
+         AND budget_proportion = #{budgetProportion}
+      </if>
+      <if test="seq != null">
+         AND seq = #{seq}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="beginTime != null and beginTime != ''">
+         AND begin_time = #{beginTime}
+      </if>
+      <if test="endTime != null and endTime != ''">
+         AND end_time = #{endTime}
+      </if>
+      <if test="allowNo != null and allowNo != ''">
+         AND allow_no = #{allowNo}
+      </if>
+      <if test="totalTarget != null and totalTarget != ''">
+         AND total_target = #{totalTarget}
+      </if>
+      <if test="projectTotalMoney != null and projectTotalMoney != ''">
+         AND project_total_money = #{projectTotalMoney}
+      </if>
+      <if test="countryMoney != null and countryMoney != ''">
+         AND country_money = #{countryMoney}
+      </if>
+      <if test="selfMoney != null and selfMoney != ''">
+         AND self_money = #{selfMoney}
+      </if>
+      <if test="otherMoney != null and otherMoney != ''">
+         AND other_money = #{otherMoney}
+      </if>
+      <if test="projectAddInMoney != null and projectAddInMoney != ''">
+         AND project_add_in_money = #{projectAddInMoney}
+      </if>
+      <if test="projectAddOutMoney != null and projectAddOutMoney != ''">
+         AND project_add_out_money = #{projectAddOutMoney}
+      </if>
+      <if test="projectYearMoney != null and projectYearMoney != ''">
+         AND project_year_money = #{projectYearMoney}
+      </if>
+      <if test="yearCountryMoney != null and yearCountryMoney != ''">
+         AND year_country_money = #{yearCountryMoney}
+      </if>
+      <if test="yearSelfMoney != null and yearSelfMoney != ''">
+         AND year_self_money = #{yearSelfMoney}
+      </if>
+      <if test="yearOtherMoney != null and yearOtherMoney != ''">
+         AND year_other_money = #{yearOtherMoney}
+      </if>
+    </where>
+  </sql>
+</mapper>

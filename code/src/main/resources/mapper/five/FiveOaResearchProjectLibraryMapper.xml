@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveOaResearchProjectLibraryMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveOaResearchProjectLibrary">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="project_no" jdbcType="VARCHAR" property="projectNo" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="project_content" jdbcType="VARCHAR" property="projectContent" />
+    <result column="project_type" jdbcType="VARCHAR" property="projectType" />
+    <result column="achievement" jdbcType="VARCHAR" property="achievement" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="commencement_date" jdbcType="VARCHAR" property="commencementDate" />
+    <result column="completion_date" jdbcType="VARCHAR" property="completionDate" />
+    <result column="charge_men" jdbcType="VARCHAR" property="chargeMen" />
+    <result column="charge_men_name" jdbcType="VARCHAR" property="chargeMenName" />
+    <result column="attender" jdbcType="VARCHAR" property="attender" />
+    <result column="attender_name" jdbcType="VARCHAR" property="attenderName" />
+    <result column="is_secret" jdbcType="BIT" property="secret" />
+    <result column="outside_payment" jdbcType="VARCHAR" property="outsidePayment" />
+    <result column="year_except_payment" jdbcType="VARCHAR" property="yearExceptPayment" />
+    <result column="year_repayment" jdbcType="VARCHAR" property="yearRepayment" />
+    <result column="total_price" jdbcType="VARCHAR" property="totalPrice" />
+    <result column="materials_cost" jdbcType="VARCHAR" property="materialsCost" />
+    <result column="appropriative_cost" jdbcType="VARCHAR" property="appropriativeCost" />
+    <result column="outsource_cost" jdbcType="VARCHAR" property="outsourceCost" />
+    <result column="meeting_cost" jdbcType="VARCHAR" property="meetingCost" />
+    <result column="travel_cost" jdbcType="VARCHAR" property="travelCost" />
+    <result column="specialist_cost" jdbcType="VARCHAR" property="specialistCost" />
+    <result column="fixe_asset_depreciation_cost" jdbcType="VARCHAR" property="fixeAssetDepreciationCost" />
+    <result column="fuel_power_cost" jdbcType="VARCHAR" property="fuelPowerCost" />
+    <result column="salary_service_cost" jdbcType="VARCHAR" property="salaryServiceCost" />
+    <result column="scientific_first_trial" jdbcType="VARCHAR" property="scientificFirstTrial" />
+    <result column="scientific_first_trial_name" jdbcType="VARCHAR" property="scientificFirstTrialName" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_oa_research_project_library
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveOaResearchProjectLibrary">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_oa_research_project_library (business_key, project_no, project_name, 
+      project_content, project_type, achievement, 
+      dept_id, dept_name, commencement_date, 
+      completion_date, charge_men, charge_men_name, 
+      attender, attender_name, is_secret, 
+      outside_payment, year_except_payment, year_repayment, 
+      total_price, materials_cost, appropriative_cost, 
+      outsource_cost, meeting_cost, travel_cost, 
+      specialist_cost, fixe_asset_depreciation_cost, 
+      fuel_power_cost, salary_service_cost, scientific_first_trial, 
+      scientific_first_trial_name, remark, creator, 
+      gmt_create, creator_name, gmt_modified, 
+      is_deleted, process_instance_id)
+    values (#{businessKey,jdbcType=VARCHAR}, #{projectNo,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR}, 
+      #{projectContent,jdbcType=VARCHAR}, #{projectType,jdbcType=VARCHAR}, #{achievement,jdbcType=VARCHAR}, 
+      #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, #{commencementDate,jdbcType=VARCHAR}, 
+      #{completionDate,jdbcType=VARCHAR}, #{chargeMen,jdbcType=VARCHAR}, #{chargeMenName,jdbcType=VARCHAR}, 
+      #{attender,jdbcType=VARCHAR}, #{attenderName,jdbcType=VARCHAR}, #{secret,jdbcType=BIT}, 
+      #{outsidePayment,jdbcType=VARCHAR}, #{yearExceptPayment,jdbcType=VARCHAR}, #{yearRepayment,jdbcType=VARCHAR}, 
+      #{totalPrice,jdbcType=VARCHAR}, #{materialsCost,jdbcType=VARCHAR}, #{appropriativeCost,jdbcType=VARCHAR}, 
+      #{outsourceCost,jdbcType=VARCHAR}, #{meetingCost,jdbcType=VARCHAR}, #{travelCost,jdbcType=VARCHAR}, 
+      #{specialistCost,jdbcType=VARCHAR}, #{fixeAssetDepreciationCost,jdbcType=VARCHAR}, 
+      #{fuelPowerCost,jdbcType=VARCHAR}, #{salaryServiceCost,jdbcType=VARCHAR}, #{scientificFirstTrial,jdbcType=VARCHAR}, 
+      #{scientificFirstTrialName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{creatorName,jdbcType=VARCHAR}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{deleted,jdbcType=BIT}, #{processInstanceId,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveOaResearchProjectLibrary">
+    update five_oa_research_project_library
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      project_no = #{projectNo,jdbcType=VARCHAR},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      project_content = #{projectContent,jdbcType=VARCHAR},
+      project_type = #{projectType,jdbcType=VARCHAR},
+      achievement = #{achievement,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      commencement_date = #{commencementDate,jdbcType=VARCHAR},
+      completion_date = #{completionDate,jdbcType=VARCHAR},
+      charge_men = #{chargeMen,jdbcType=VARCHAR},
+      charge_men_name = #{chargeMenName,jdbcType=VARCHAR},
+      attender = #{attender,jdbcType=VARCHAR},
+      attender_name = #{attenderName,jdbcType=VARCHAR},
+      is_secret = #{secret,jdbcType=BIT},
+      outside_payment = #{outsidePayment,jdbcType=VARCHAR},
+      year_except_payment = #{yearExceptPayment,jdbcType=VARCHAR},
+      year_repayment = #{yearRepayment,jdbcType=VARCHAR},
+      total_price = #{totalPrice,jdbcType=VARCHAR},
+      materials_cost = #{materialsCost,jdbcType=VARCHAR},
+      appropriative_cost = #{appropriativeCost,jdbcType=VARCHAR},
+      outsource_cost = #{outsourceCost,jdbcType=VARCHAR},
+      meeting_cost = #{meetingCost,jdbcType=VARCHAR},
+      travel_cost = #{travelCost,jdbcType=VARCHAR},
+      specialist_cost = #{specialistCost,jdbcType=VARCHAR},
+      fixe_asset_depreciation_cost = #{fixeAssetDepreciationCost,jdbcType=VARCHAR},
+      fuel_power_cost = #{fuelPowerCost,jdbcType=VARCHAR},
+      salary_service_cost = #{salaryServiceCost,jdbcType=VARCHAR},
+      scientific_first_trial = #{scientificFirstTrial,jdbcType=VARCHAR},
+      scientific_first_trial_name = #{scientificFirstTrialName,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      is_deleted = #{deleted,jdbcType=BIT},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, project_no, project_name, project_content, project_type, 
+    achievement, dept_id, dept_name, commencement_date, completion_date, charge_men, 
+    charge_men_name, attender, attender_name, is_secret, outside_payment, year_except_payment, 
+    year_repayment, total_price, materials_cost, appropriative_cost, outsource_cost, 
+    meeting_cost, travel_cost, specialist_cost, fixe_asset_depreciation_cost, fuel_power_cost, 
+    salary_service_cost, scientific_first_trial, scientific_first_trial_name, remark, 
+    creator, gmt_create, creator_name, gmt_modified, is_deleted, process_instance_id
+    from five_oa_research_project_library
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, project_no, project_name, project_content, project_type, 
+    achievement, dept_id, dept_name, commencement_date, completion_date, charge_men, 
+    charge_men_name, attender, attender_name, is_secret, outside_payment, year_except_payment, 
+    year_repayment, total_price, materials_cost, appropriative_cost, outsource_cost, 
+    meeting_cost, travel_cost, specialist_cost, fixe_asset_depreciation_cost, fuel_power_cost, 
+    salary_service_cost, scientific_first_trial, scientific_first_trial_name, remark, 
+    creator, gmt_create, creator_name, gmt_modified, is_deleted, process_instance_id
+    from five_oa_research_project_library
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and isLikeSelect==null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="projectNo != null and isLikeSelect==null and projectNo != ''">
+         AND project_no = #{projectNo}
+      </if>
+      <if test="projectName != null and isLikeSelect==null and projectName != ''">
+         AND project_name = #{projectName}
+      </if>
+      <if test="projectContent != null and isLikeSelect==null and projectContent != ''">
+         AND project_content = #{projectContent}
+      </if>
+      <if test="projectType != null and isLikeSelect==null and projectType != ''">
+         AND project_type = #{projectType}
+      </if>
+      <if test="achievement != null and isLikeSelect==null and achievement != ''">
+         AND achievement = #{achievement}
+      </if>
+      <if test="deptId != null and isLikeSelect==null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and isLikeSelect==null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="commencementDate != null and isLikeSelect==null and commencementDate != ''">
+         AND commencement_date = #{commencementDate}
+      </if>
+      <if test="completionDate != null and isLikeSelect==null and completionDate != ''">
+         AND completion_date = #{completionDate}
+      </if>
+      <if test="chargeMen != null and isLikeSelect==null and chargeMen != ''">
+         AND charge_men = #{chargeMen}
+      </if>
+      <if test="chargeMenName != null and isLikeSelect==null and chargeMenName != ''">
+         AND charge_men_name = #{chargeMenName}
+      </if>
+      <if test="attender != null and isLikeSelect==null and attender != ''">
+         AND attender = #{attender}
+      </if>
+      <if test="attenderName != null and isLikeSelect==null and attenderName != ''">
+         AND attender_name = #{attenderName}
+      </if>
+      <if test="secret != null and isLikeSelect==null">
+         AND is_secret = #{secret}
+      </if>
+      <if test="outsidePayment != null and isLikeSelect==null and outsidePayment != ''">
+         AND outside_payment = #{outsidePayment}
+      </if>
+      <if test="yearExceptPayment != null and isLikeSelect==null and yearExceptPayment != ''">
+         AND year_except_payment = #{yearExceptPayment}
+      </if>
+      <if test="yearRepayment != null and isLikeSelect==null and yearRepayment != ''">
+         AND year_repayment = #{yearRepayment}
+      </if>
+      <if test="totalPrice != null and isLikeSelect==null and totalPrice != ''">
+         AND total_price = #{totalPrice}
+      </if>
+      <if test="materialsCost != null and isLikeSelect==null and materialsCost != ''">
+         AND materials_cost = #{materialsCost}
+      </if>
+      <if test="appropriativeCost != null and isLikeSelect==null and appropriativeCost != ''">
+         AND appropriative_cost = #{appropriativeCost}
+      </if>
+      <if test="outsourceCost != null and isLikeSelect==null and outsourceCost != ''">
+         AND outsource_cost = #{outsourceCost}
+      </if>
+      <if test="meetingCost != null and isLikeSelect==null and meetingCost != ''">
+         AND meeting_cost = #{meetingCost}
+      </if>
+      <if test="travelCost != null and isLikeSelect==null and travelCost != ''">
+         AND travel_cost = #{travelCost}
+      </if>
+      <if test="specialistCost != null and isLikeSelect==null and specialistCost != ''">
+         AND specialist_cost = #{specialistCost}
+      </if>
+      <if test="fixeAssetDepreciationCost != null and isLikeSelect==null and fixeAssetDepreciationCost != ''">
+         AND fixe_asset_depreciation_cost = #{fixeAssetDepreciationCost}
+      </if>
+      <if test="fuelPowerCost != null and isLikeSelect==null and fuelPowerCost != ''">
+         AND fuel_power_cost = #{fuelPowerCost}
+      </if>
+      <if test="salaryServiceCost != null and isLikeSelect==null and salaryServiceCost != ''">
+         AND salary_service_cost = #{salaryServiceCost}
+      </if>
+      <if test="scientificFirstTrial != null and isLikeSelect==null and scientificFirstTrial != ''">
+         AND scientific_first_trial = #{scientificFirstTrial}
+      </if>
+      <if test="scientificFirstTrialName != null and isLikeSelect==null and scientificFirstTrialName != ''">
+         AND scientific_first_trial_name = #{scientificFirstTrialName}
+      </if>
+      <if test="remark != null and isLikeSelect==null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="processInstanceId != null and isLikeSelect==null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="businessKey != null and isLikeSelect!= null and businessKey != '' ">
+         AND business_key like  CONCAT('%',#{businessKey},'%')
+      </if>
+      <if test="projectNo != null and isLikeSelect!= null and projectNo != '' ">
+         AND project_no like  CONCAT('%',#{projectNo},'%')
+      </if>
+      <if test="projectName != null and isLikeSelect!= null and projectName != '' ">
+         AND project_name like  CONCAT('%',#{projectName},'%')
+      </if>
+      <if test="projectContent != null and isLikeSelect!= null and projectContent != '' ">
+         AND project_content like  CONCAT('%',#{projectContent},'%')
+      </if>
+      <if test="projectType != null and isLikeSelect!= null and projectType != '' ">
+         AND project_type like  CONCAT('%',#{projectType},'%')
+      </if>
+      <if test="achievement != null and isLikeSelect!= null and achievement != '' ">
+         AND achievement like  CONCAT('%',#{achievement},'%')
+      </if>
+      <if test="deptName != null and isLikeSelect!= null and deptName != '' ">
+         AND dept_name like  CONCAT('%',#{deptName},'%')
+      </if>
+      <if test="commencementDate != null and isLikeSelect!= null and commencementDate != '' ">
+         AND commencement_date like  CONCAT('%',#{commencementDate},'%')
+      </if>
+      <if test="completionDate != null and isLikeSelect!= null and completionDate != '' ">
+         AND completion_date like  CONCAT('%',#{completionDate},'%')
+      </if>
+      <if test="chargeMen != null and isLikeSelect!= null and chargeMen != '' ">
+         AND charge_men like  CONCAT('%',#{chargeMen},'%')
+      </if>
+      <if test="chargeMenName != null and isLikeSelect!= null and chargeMenName != '' ">
+         AND charge_men_name like  CONCAT('%',#{chargeMenName},'%')
+      </if>
+      <if test="attender != null and isLikeSelect!= null and attender != '' ">
+         AND attender like  CONCAT('%',#{attender},'%')
+      </if>
+      <if test="attenderName != null and isLikeSelect!= null and attenderName != '' ">
+         AND attender_name like  CONCAT('%',#{attenderName},'%')
+      </if>
+      <if test="outsidePayment != null and isLikeSelect!= null and outsidePayment != '' ">
+         AND outside_payment like  CONCAT('%',#{outsidePayment},'%')
+      </if>
+      <if test="yearExceptPayment != null and isLikeSelect!= null and yearExceptPayment != '' ">
+         AND year_except_payment like  CONCAT('%',#{yearExceptPayment},'%')
+      </if>
+      <if test="yearRepayment != null and isLikeSelect!= null and yearRepayment != '' ">
+         AND year_repayment like  CONCAT('%',#{yearRepayment},'%')
+      </if>
+      <if test="totalPrice != null and isLikeSelect!= null and totalPrice != '' ">
+         AND total_price like  CONCAT('%',#{totalPrice},'%')
+      </if>
+      <if test="materialsCost != null and isLikeSelect!= null and materialsCost != '' ">
+         AND materials_cost like  CONCAT('%',#{materialsCost},'%')
+      </if>
+      <if test="appropriativeCost != null and isLikeSelect!= null and appropriativeCost != '' ">
+         AND appropriative_cost like  CONCAT('%',#{appropriativeCost},'%')
+      </if>
+      <if test="outsourceCost != null and isLikeSelect!= null and outsourceCost != '' ">
+         AND outsource_cost like  CONCAT('%',#{outsourceCost},'%')
+      </if>
+      <if test="meetingCost != null and isLikeSelect!= null and meetingCost != '' ">
+         AND meeting_cost like  CONCAT('%',#{meetingCost},'%')
+      </if>
+      <if test="travelCost != null and isLikeSelect!= null and travelCost != '' ">
+         AND travel_cost like  CONCAT('%',#{travelCost},'%')
+      </if>
+      <if test="specialistCost != null and isLikeSelect!= null and specialistCost != '' ">
+         AND specialist_cost like  CONCAT('%',#{specialistCost},'%')
+      </if>
+      <if test="fixeAssetDepreciationCost != null and isLikeSelect!= null and fixeAssetDepreciationCost != '' ">
+         AND fixe_asset_depreciation_cost like  CONCAT('%',#{fixeAssetDepreciationCost},'%')
+      </if>
+      <if test="fuelPowerCost != null and isLikeSelect!= null and fuelPowerCost != '' ">
+         AND fuel_power_cost like  CONCAT('%',#{fuelPowerCost},'%')
+      </if>
+      <if test="salaryServiceCost != null and isLikeSelect!= null and salaryServiceCost != '' ">
+         AND salary_service_cost like  CONCAT('%',#{salaryServiceCost},'%')
+      </if>
+      <if test="scientificFirstTrial != null and isLikeSelect!= null and scientificFirstTrial != '' ">
+         AND scientific_first_trial like  CONCAT('%',#{scientificFirstTrial},'%')
+      </if>
+      <if test="scientificFirstTrialName != null and isLikeSelect!= null and scientificFirstTrialName != '' ">
+         AND scientific_first_trial_name like  CONCAT('%',#{scientificFirstTrialName},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="processInstanceId != null and isLikeSelect!= null and processInstanceId != '' ">
+         AND process_instance_id like  CONCAT('%',#{processInstanceId},'%')
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="deptId != null and isLikeSelect!=null">
+         AND dept_id = #{deptId}
+      </if>
+    </where>
+  </sql>
+</mapper>

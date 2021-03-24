@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveOaContractLawExamineMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveOaContractLawExamine">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="form_no" jdbcType="VARCHAR" property="formNo" />
+    <result column="examine_time" jdbcType="VARCHAR" property="examineTime" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="contract_no" jdbcType="VARCHAR" property="contractNo" />
+    <result column="contract_property" jdbcType="VARCHAR" property="contractProperty" />
+    <result column="first_party" jdbcType="VARCHAR" property="firstParty" />
+    <result column="second_party" jdbcType="VARCHAR" property="secondParty" />
+    <result column="third_party" jdbcType="VARCHAR" property="thirdParty" />
+    <result column="fourth_party" jdbcType="VARCHAR" property="fourthParty" />
+    <result column="submit_man" jdbcType="VARCHAR" property="submitMan" />
+    <result column="submit_man_name" jdbcType="VARCHAR" property="submitManName" />
+    <result column="link" jdbcType="VARCHAR" property="link" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="contract_price" jdbcType="VARCHAR" property="contractPrice" />
+    <result column="performance_deadline" jdbcType="VARCHAR" property="performanceDeadline" />
+    <result column="project_address" jdbcType="VARCHAR" property="projectAddress" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="law_examine_comment" jdbcType="VARCHAR" property="lawExamineComment" />
+    <result column="change_reason" jdbcType="VARCHAR" property="changeReason" />
+    <result column="law_audit_comment" jdbcType="VARCHAR" property="lawAuditComment" />
+    <result column="submit_dept_leader_comment" jdbcType="VARCHAR" property="submitDeptLeaderComment" />
+    <result column="company_leader_comment" jdbcType="VARCHAR" property="companyLeaderComment" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+    <result column="flag" jdbcType="VARCHAR" property="flag" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_oa_contract_law_examine
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveOaContractLawExamine">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_oa_contract_law_examine (business_key, form_no, examine_time, 
+      dept_id, dept_name, contract_no, 
+      contract_property, first_party, second_party, 
+      third_party, fourth_party, submit_man, 
+      submit_man_name, link, project_name, 
+      contract_price, performance_deadline, project_address, 
+      remark, law_examine_comment, change_reason, 
+      law_audit_comment, submit_dept_leader_comment, 
+      company_leader_comment, creator, creator_name, 
+      is_deleted, gmt_create, gmt_modified, 
+      process_instance_id, is_process_end, flag
+      )
+    values (#{businessKey,jdbcType=VARCHAR}, #{formNo,jdbcType=VARCHAR}, #{examineTime,jdbcType=VARCHAR}, 
+      #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, #{contractNo,jdbcType=VARCHAR}, 
+      #{contractProperty,jdbcType=VARCHAR}, #{firstParty,jdbcType=VARCHAR}, #{secondParty,jdbcType=VARCHAR}, 
+      #{thirdParty,jdbcType=VARCHAR}, #{fourthParty,jdbcType=VARCHAR}, #{submitMan,jdbcType=VARCHAR}, 
+      #{submitManName,jdbcType=VARCHAR}, #{link,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR}, 
+      #{contractPrice,jdbcType=VARCHAR}, #{performanceDeadline,jdbcType=VARCHAR}, #{projectAddress,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{lawExamineComment,jdbcType=VARCHAR}, #{changeReason,jdbcType=VARCHAR}, 
+      #{lawAuditComment,jdbcType=VARCHAR}, #{submitDeptLeaderComment,jdbcType=VARCHAR}, 
+      #{companyLeaderComment,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{processInstanceId,jdbcType=VARCHAR}, #{processEnd,jdbcType=BIT}, #{flag,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveOaContractLawExamine">
+    update five_oa_contract_law_examine
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      form_no = #{formNo,jdbcType=VARCHAR},
+      examine_time = #{examineTime,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      contract_no = #{contractNo,jdbcType=VARCHAR},
+      contract_property = #{contractProperty,jdbcType=VARCHAR},
+      first_party = #{firstParty,jdbcType=VARCHAR},
+      second_party = #{secondParty,jdbcType=VARCHAR},
+      third_party = #{thirdParty,jdbcType=VARCHAR},
+      fourth_party = #{fourthParty,jdbcType=VARCHAR},
+      submit_man = #{submitMan,jdbcType=VARCHAR},
+      submit_man_name = #{submitManName,jdbcType=VARCHAR},
+      link = #{link,jdbcType=VARCHAR},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      contract_price = #{contractPrice,jdbcType=VARCHAR},
+      performance_deadline = #{performanceDeadline,jdbcType=VARCHAR},
+      project_address = #{projectAddress,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      law_examine_comment = #{lawExamineComment,jdbcType=VARCHAR},
+      change_reason = #{changeReason,jdbcType=VARCHAR},
+      law_audit_comment = #{lawAuditComment,jdbcType=VARCHAR},
+      submit_dept_leader_comment = #{submitDeptLeaderComment,jdbcType=VARCHAR},
+      company_leader_comment = #{companyLeaderComment,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      is_process_end = #{processEnd,jdbcType=BIT},
+      flag = #{flag,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, form_no, examine_time, dept_id, dept_name, contract_no, 
+    contract_property, first_party, second_party, third_party, fourth_party, submit_man, 
+    submit_man_name, link, project_name, contract_price, performance_deadline, project_address, 
+    remark, law_examine_comment, change_reason, law_audit_comment, submit_dept_leader_comment, 
+    company_leader_comment, creator, creator_name, is_deleted, gmt_create, gmt_modified, 
+    process_instance_id, is_process_end, flag
+    from five_oa_contract_law_examine
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, form_no, examine_time, dept_id, dept_name, contract_no, 
+    contract_property, first_party, second_party, third_party, fourth_party, submit_man, 
+    submit_man_name, link, project_name, contract_price, performance_deadline, project_address, 
+    remark, law_examine_comment, change_reason, law_audit_comment, submit_dept_leader_comment, 
+    company_leader_comment, creator, creator_name, is_deleted, gmt_create, gmt_modified, 
+    process_instance_id, is_process_end, flag
+    from five_oa_contract_law_examine
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="formNo != null and formNo != ''">
+         AND form_no = #{formNo}
+      </if>
+      <if test="examineTime != null and examineTime != ''">
+         AND examine_time = #{examineTime}
+      </if>
+      <if test="deptId != null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="contractNo != null and contractNo != ''">
+         AND contract_no = #{contractNo}
+      </if>
+      <if test="contractProperty != null and contractProperty != ''">
+         AND contract_property = #{contractProperty}
+      </if>
+      <if test="firstParty != null and firstParty != ''">
+         AND first_party = #{firstParty}
+      </if>
+      <if test="secondParty != null and secondParty != ''">
+         AND second_party = #{secondParty}
+      </if>
+      <if test="thirdParty != null and thirdParty != ''">
+         AND third_party = #{thirdParty}
+      </if>
+      <if test="fourthParty != null and fourthParty != ''">
+         AND fourth_party = #{fourthParty}
+      </if>
+      <if test="submitMan != null and submitMan != ''">
+         AND submit_man = #{submitMan}
+      </if>
+      <if test="submitManName != null and submitManName != ''">
+         AND submit_man_name = #{submitManName}
+      </if>
+      <if test="link != null and link != ''">
+         AND link = #{link}
+      </if>
+      <if test="projectName != null and projectName != ''">
+         AND project_name = #{projectName}
+      </if>
+      <if test="contractPrice != null and contractPrice != ''">
+         AND contract_price = #{contractPrice}
+      </if>
+      <if test="performanceDeadline != null and performanceDeadline != ''">
+         AND performance_deadline = #{performanceDeadline}
+      </if>
+      <if test="projectAddress != null and projectAddress != ''">
+         AND project_address = #{projectAddress}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="lawExamineComment != null and lawExamineComment != ''">
+         AND law_examine_comment = #{lawExamineComment}
+      </if>
+      <if test="changeReason != null and changeReason != ''">
+         AND change_reason = #{changeReason}
+      </if>
+      <if test="lawAuditComment != null and lawAuditComment != ''">
+         AND law_audit_comment = #{lawAuditComment}
+      </if>
+      <if test="submitDeptLeaderComment != null and submitDeptLeaderComment != ''">
+         AND submit_dept_leader_comment = #{submitDeptLeaderComment}
+      </if>
+      <if test="companyLeaderComment != null and companyLeaderComment != ''">
+         AND company_leader_comment = #{companyLeaderComment}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="processInstanceId != null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="processEnd != null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="flag != null and flag != ''">
+         AND flag = #{flag}
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0">
+        AND dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+      </if>
+    </where>
+  </sql>
+</mapper>

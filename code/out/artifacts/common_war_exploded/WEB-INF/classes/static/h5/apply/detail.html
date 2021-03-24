@@ -1,0 +1,84 @@
+
+
+<div style="padding: 10px 10px 0px 10px;">
+    <div id="segmentedControl" class="mui-segmented-control">
+        <a class="mui-control-item mui-active">基础信息</a>
+        <a class="mui-control-item">流程信息</a>
+        <a class="mui-control-item">流程图</a>
+    </div>
+</div>
+<div style="padding:10px;">
+    <div class="mui-control-content mui-active">
+
+
+
+        <div class="mui-card" ng-repeat="group in vm.groupList">
+            <div class="mui-card-header" ng-show="$index==0">
+                <a class="mui-icon mui-icon-left-nav mui-pull-left" ng-click="vm.backUrl();" style="font-size:17px;">返回</a>
+            </div>
+            <div class="mui-card-header">
+                <span ng-bind="($index+1)+'.'+group.groupName"></span>
+                <a class="mui-icon mui-icon-star-filled" ng-show="processInstance.stared" ng-show="$index==0" ng-click="vm.toggleStar()"></a>
+                <a class="mui-icon mui-icon-starhalf" ng-show="!processInstance.finished&&!processInstance.stared" ng-show="$index==0"  ng-click="vm.toggleStar()"></a>
+            </div>
+            <div class="mui-card-content">
+                <form class="mui-input-group">
+                    <div class="mui-input-row" ng-repeat="item in group.items"
+                         ng-if="!item.commonFormDetail.detailHidden">
+                        <label>
+                            <span ng-bind="item.commonFormDetail.inputText"></span>
+                            <span style="color: red;" ng-if="item.commonFormDetail.required">*</span>
+                        </label>
+
+                        <input type="text"  ng-if="item.commonFormDetail.inputType!='select'" ng-model="item.inputValue" ng-disabled="!item.commonFormDetail.editable" />
+                        <select  ng-options="s.codeValue as s.name for s in item.dataSource" ng-if="item.commonFormDetail.inputType=='select'" ng-model="item.inputValue">
+
+                        </select>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <span ng-include="'/h5/task/businessFile.html'"></span>
+
+        <div style="height: 40px;">&nbsp;</div>
+
+
+    </div>
+    <div class="mui-control-content">
+        <div class="mui-card" ng-repeat="task in tasks">
+            <div class="mui-card-header" style="color: {{!task.endTime?'blue':''}}">
+                <span ng-bind="task.name+'-'+task.assigneeName" ng-if="task.assigneeName"></span>
+                <span ng-bind="task.name" ng-if="!task.assigneeName"></span>
+                <img ng-src="{{task.avatar}}" onerror="this.src='/assets/img/avatar.jpg'" style="width: 30px;height: 30px;"/>
+            </div>
+            <div class="mui-card-content">
+                <div class="mui-card-content-inner">
+                                                <span ng-show="!task.endTime">
+                                                    <span ng-show="task.claimTime">待处理</span>
+                                                    <span ng-show="!task.claimTime" style="color: grey;">待接收</span>
+                                                </span>
+                    <span ng-show="task.endTime">
+                                                    <span ng-bind="task.passed?'通过':'打回'"
+                                                          style="color: {{task.passed?'green':'red'}};font-weight: bold;"></span>
+                                                    <span ng-bind="task.latestComment"></span>
+                                                </span>
+                </div>
+            </div>
+            <div class="mui-card-footer">
+                <span ng-bind="(task.startTime|date:'yyyy-MM-dd HH:mm')+(task.endTime?' > ':'')+  (task.endTime|date:'yyyy-MM-dd HH:mm')"></span>
+            </div>
+        </div>
+    </div>
+    <div class="mui-control-content">
+        <img ng-src="{{'/act/processQuery/image/'+processInstanceId+'?'+refreshTime}}"
+             style="width:100%;height: auto;"/>
+    </div>
+    <div style="height: 50px;">&nbsp;</div>
+</div>
+
+
+
+
+

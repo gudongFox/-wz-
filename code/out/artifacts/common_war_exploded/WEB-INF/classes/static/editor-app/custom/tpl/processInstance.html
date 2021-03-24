@@ -1,0 +1,119 @@
+<br/>
+
+<!-- begin:: Content -->
+<div class="kt-container  kt-grid__item kt-grid__item--fluid">
+
+    <div class="kt-portlet">
+        <div class="kt-portlet__head kt-portlet__head--lg">
+            <div class="kt-portlet__head-label">
+												<span class="kt-portlet__head-icon">
+													<i class="kt-font-brand flaticon2-document"></i>
+												</span>
+                <h3 class="kt-portlet__head-title">
+                    数据列表
+                </h3>
+            </div>
+
+            <div class="kt-portlet__head-toolbar">
+                <div class="kt-portlet__head-wrapper">
+                    <div class="kt-portlet__head-actions">
+                        <div class="kt-subheader">
+                            <div class="kt-subheader__toolbar">
+                                <div class="kt-subheader__wrapper">
+
+                                    <a class="btn kt-subheader__btn-primary btn-icon" title="刷新数据" ng-click="vm.init();">
+                                        <i class="flaticon2-refresh"></i>
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="kt-portlet__body">
+            <!--begin: Datatable -->
+            <div class="dataTables_wrapper dt-bootstrap4">
+                <div class="row">
+                    <div class="col-sm-6 text-left">
+                        <div class="dataTables_filter"><label>Search:<input type="search"
+                                                                            class="form-control form-control-sm"
+                                                                            placeholder="名称"
+                                                                            ng-model="vm.params.q"/></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-bordered table-hover  dataTable ">
+                            <thead>
+                            <tr>
+                                <th style="width: 30px;">#</th>
+                                <th style="width: 60px;">客户</th>
+                                <th>流程名称</th>
+                                <th style="width: 130px;">业务标识</th>
+                                <th style="width: 65px;">发起人</th>
+                                <th style="width: 120px;">开始时间</th>
+                                <th style="width: 120px;">结束时间</th>
+                                <th>流程状态</th>
+                                <th style="width: 40px;">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in vm.pageInfo.list">
+                                <td ng-bind="$index+vm.pageInfo.startRow"></td>
+                                <td ng-bind="item.instance.tenantId"></td>
+                                <td>
+                                  <span ng-bind="item.instance.processDefinitionName+'('+item.instance.processDefinitionId+')'"
+                                     ></span>
+                                    <i class="fa fa-image" ng-click="vm.showImage(item);"></i>
+                                </td>
+                                <td>
+                                    <span ng-bind="item.instance.businessKey"></span>
+                                    <i class="fa fa-trash-o font-red" title="删除数据和流程" style="margin-right: 5px;"
+                                       ng-click="vm.deleteProcessDataById(item.processInstanceId);"
+                                       ng-if="item.instance.endTime"></i>
+                                </td>
+                                <td ng-bind="item.initiatorName"></td>
+                                <td ng-bind="item.instance.startTime|date:'yyyy-MM-dd HH:mm'"></td>
+                                <td ng-bind="item.instance.endTime|date:'yyyy-MM-dd HH:mm'"></td>
+                                <td ng-click="vm.showDetail(item.instance.id);" ng-bind="item.currentTaskName" style="color: {{item.finished?'green':'blue'}};cursor: pointer;font-weight: bold;"></td>
+                                <td>
+                                    <i class="flaticon2-trash" style="margin-left: 5px;cursor: pointer;" title="删除" ng-show="!item.finished" ng-click="vm.deleteProcessInstanceById(item.instance.id);"/>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <my-pager data-page-info="vm.pageInfo" on-load="vm.loadPagedData()"></my-pager>
+            </div>
+            <!--end: Datatable -->
+        </div>
+    </div>
+</div>
+<!-- end:: Content -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="instanceImageModal">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"
+                    ng-bind="vm.item.instance.processDefinitionName+' '+vm.item.instance.processDefinitionId"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <img ng-src="{{'/act/processQuery/image/'+vm.item.instance.id}}" style="max-width: 99%;"/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

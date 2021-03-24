@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.budget.dao.FiveBudgetIndependentDetailMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.budget.entity.FiveBudgetIndependentDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="budget_independent_id" jdbcType="INTEGER" property="budgetIndependentId" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="type_name" jdbcType="VARCHAR" property="typeName" />
+    <result column="purchase_no" jdbcType="VARCHAR" property="purchaseNo" />
+    <result column="budget_money" jdbcType="VARCHAR" property="budgetMoney" />
+    <result column="budget_proportion" jdbcType="VARCHAR" property="budgetProportion" />
+    <result column="seq" jdbcType="INTEGER" property="seq" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="foreign_key" jdbcType="INTEGER" property="foreignKey" />
+    <result column="last_year_money" jdbcType="VARCHAR" property="lastYearMoney" />
+    <result column="last_year_success" jdbcType="VARCHAR" property="lastYearSuccess" />
+    <result column="is_public_budget" jdbcType="BIT" property="publicBudget" />
+    <result column="public_dept_ids" jdbcType="VARCHAR" property="publicDeptIds" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_budget_independent_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.budget.entity.FiveBudgetIndependentDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_budget_independent_detail (business_key, budget_independent_id, 
+      parent_id, type_name, purchase_no, 
+      budget_money, budget_proportion, seq, 
+      remark, creator, creator_name, 
+      is_deleted, gmt_create, gmt_modified, 
+      foreign_key, last_year_money, last_year_success, 
+      is_public_budget, public_dept_ids)
+    values (#{businessKey,jdbcType=VARCHAR}, #{budgetIndependentId,jdbcType=INTEGER}, 
+      #{parentId,jdbcType=INTEGER}, #{typeName,jdbcType=VARCHAR}, #{purchaseNo,jdbcType=VARCHAR}, 
+      #{budgetMoney,jdbcType=VARCHAR}, #{budgetProportion,jdbcType=VARCHAR}, #{seq,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{foreignKey,jdbcType=INTEGER}, #{lastYearMoney,jdbcType=VARCHAR}, #{lastYearSuccess,jdbcType=VARCHAR}, 
+      #{publicBudget,jdbcType=BIT}, #{publicDeptIds,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.budget.entity.FiveBudgetIndependentDetail">
+    update five_budget_independent_detail
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      budget_independent_id = #{budgetIndependentId,jdbcType=INTEGER},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      type_name = #{typeName,jdbcType=VARCHAR},
+      purchase_no = #{purchaseNo,jdbcType=VARCHAR},
+      budget_money = #{budgetMoney,jdbcType=VARCHAR},
+      budget_proportion = #{budgetProportion,jdbcType=VARCHAR},
+      seq = #{seq,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      foreign_key = #{foreignKey,jdbcType=INTEGER},
+      last_year_money = #{lastYearMoney,jdbcType=VARCHAR},
+      last_year_success = #{lastYearSuccess,jdbcType=VARCHAR},
+      is_public_budget = #{publicBudget,jdbcType=BIT},
+      public_dept_ids = #{publicDeptIds,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, budget_independent_id, parent_id, type_name, purchase_no, 
+    budget_money, budget_proportion, seq, remark, creator, creator_name, is_deleted, 
+    gmt_create, gmt_modified, foreign_key, last_year_money, last_year_success, is_public_budget, 
+    public_dept_ids
+    from five_budget_independent_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, budget_independent_id, parent_id, type_name, purchase_no, 
+    budget_money, budget_proportion, seq, remark, creator, creator_name, is_deleted, 
+    gmt_create, gmt_modified, foreign_key, last_year_money, last_year_success, is_public_budget, 
+    public_dept_ids
+    from five_budget_independent_detail
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and isLikeSelect==null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="budgetIndependentId != null and isLikeSelect==null">
+         AND budget_independent_id = #{budgetIndependentId}
+      </if>
+      <if test="parentId != null and isLikeSelect==null">
+         AND parent_id = #{parentId}
+      </if>
+      <if test="typeName != null and isLikeSelect==null and typeName != ''">
+         AND type_name = #{typeName}
+      </if>
+      <if test="purchaseNo != null and isLikeSelect==null and purchaseNo != ''">
+         AND purchase_no = #{purchaseNo}
+      </if>
+      <if test="budgetMoney != null and isLikeSelect==null and budgetMoney != ''">
+         AND budget_money = #{budgetMoney}
+      </if>
+      <if test="budgetProportion != null and isLikeSelect==null and budgetProportion != ''">
+         AND budget_proportion = #{budgetProportion}
+      </if>
+      <if test="seq != null and isLikeSelect==null">
+         AND seq = #{seq}
+      </if>
+      <if test="remark != null and isLikeSelect==null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="foreignKey != null and isLikeSelect==null">
+         AND foreign_key = #{foreignKey}
+      </if>
+      <if test="lastYearMoney != null and isLikeSelect==null and lastYearMoney != ''">
+         AND last_year_money = #{lastYearMoney}
+      </if>
+      <if test="lastYearSuccess != null and isLikeSelect==null and lastYearSuccess != ''">
+         AND last_year_success = #{lastYearSuccess}
+      </if>
+      <if test="publicBudget != null and isLikeSelect==null">
+         AND is_public_budget = #{publicBudget}
+      </if>
+      <if test="publicDeptIds != null and isLikeSelect==null and publicDeptIds != ''">
+         AND public_dept_ids = #{publicDeptIds}
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="businessKey != null and isLikeSelect!= null and businessKey != '' ">
+         AND business_key like  CONCAT('%',#{businessKey},'%')
+      </if>
+      <if test="typeName != null and isLikeSelect!= null and typeName != '' ">
+         AND type_name like  CONCAT('%',#{typeName},'%')
+      </if>
+      <if test="purchaseNo != null and isLikeSelect!= null and purchaseNo != '' ">
+         AND purchase_no like  CONCAT('%',#{purchaseNo},'%')
+      </if>
+      <if test="budgetMoney != null and isLikeSelect!= null and budgetMoney != '' ">
+         AND budget_money like  CONCAT('%',#{budgetMoney},'%')
+      </if>
+      <if test="budgetProportion != null and isLikeSelect!= null and budgetProportion != '' ">
+         AND budget_proportion like  CONCAT('%',#{budgetProportion},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="lastYearMoney != null and isLikeSelect!= null and lastYearMoney != '' ">
+         AND last_year_money like  CONCAT('%',#{lastYearMoney},'%')
+      </if>
+      <if test="lastYearSuccess != null and isLikeSelect!= null and lastYearSuccess != '' ">
+         AND last_year_success like  CONCAT('%',#{lastYearSuccess},'%')
+      </if>
+      <if test="publicDeptIds != null and isLikeSelect!= null and publicDeptIds != '' ">
+         AND public_dept_ids like  CONCAT('%',#{publicDeptIds},'%')
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="deptId != null and isLikeSelect!=null">
+         AND dept_id = #{deptId}
+      </if>
+    </where>
+  </sql>
+</mapper>

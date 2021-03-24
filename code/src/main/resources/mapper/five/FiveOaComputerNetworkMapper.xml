@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveOaComputerNetworkMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveOaComputerNetwork">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_Name" jdbcType="VARCHAR" property="deptName" />
+    <result column="user_login" jdbcType="VARCHAR" property="userLogin" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="charge_man" jdbcType="VARCHAR" property="chargeMan" />
+    <result column="charge_man_name" jdbcType="VARCHAR" property="chargeManName" />
+    <result column="equipment_no" jdbcType="VARCHAR" property="equipmentNo" />
+    <result column="equipment_name" jdbcType="VARCHAR" property="equipmentName" />
+    <result column="equipment_type" jdbcType="VARCHAR" property="equipmentType" />
+    <result column="link_phone" jdbcType="VARCHAR" property="linkPhone" />
+    <result column="network_each" jdbcType="BIT" property="networkEach" />
+    <result column="network_no_secret" jdbcType="BIT" property="networkNoSecret" />
+    <result column="network_middle" jdbcType="BIT" property="networkMiddle" />
+    <result column="network_alone" jdbcType="BIT" property="networkAlone" />
+    <result column="network_other" jdbcType="BIT" property="networkOther" />
+    <result column="network_other_remark" jdbcType="VARCHAR" property="networkOtherRemark" />
+    <result column="model_cd" jdbcType="BIT" property="modelCd" />
+    <result column="model_usb" jdbcType="BIT" property="modelUsb" />
+    <result column="model_other" jdbcType="BIT" property="modelOther" />
+    <result column="model_other_remark" jdbcType="VARCHAR" property="modelOtherRemark" />
+    <result column="apply_reason" jdbcType="VARCHAR" property="applyReason" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="hard_disk_no" jdbcType="VARCHAR" property="hardDiskNo" />
+    <result column="operating_system" jdbcType="VARCHAR" property="operatingSystem" />
+    <result column="operating_system_time" jdbcType="VARCHAR" property="operatingSystemTime" />
+    <result column="mac_address" jdbcType="VARCHAR" property="macAddress" />
+    <result column="ip_address" jdbcType="VARCHAR" property="ipAddress" />
+    <result column="serial_no" jdbcType="VARCHAR" property="serialNo" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_oa_computer_network
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveOaComputerNetwork">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_oa_computer_network (business_key, dept_id, dept_Name, 
+      user_login, user_name, charge_man, 
+      charge_man_name, equipment_no, equipment_name, 
+      equipment_type, link_phone, network_each, 
+      network_no_secret, network_middle, network_alone, 
+      network_other, network_other_remark, model_cd, 
+      model_usb, model_other, model_other_remark, 
+      apply_reason, remark, creator, 
+      creator_name, gmt_create, gmt_modified, 
+      is_deleted, is_process_end, process_instance_id, 
+      hard_disk_no, operating_system, operating_system_time, 
+      mac_address, ip_address, serial_no
+      )
+    values (#{businessKey,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, 
+      #{userLogin,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{chargeMan,jdbcType=VARCHAR}, 
+      #{chargeManName,jdbcType=VARCHAR}, #{equipmentNo,jdbcType=VARCHAR}, #{equipmentName,jdbcType=VARCHAR}, 
+      #{equipmentType,jdbcType=VARCHAR}, #{linkPhone,jdbcType=VARCHAR}, #{networkEach,jdbcType=BIT}, 
+      #{networkNoSecret,jdbcType=BIT}, #{networkMiddle,jdbcType=BIT}, #{networkAlone,jdbcType=BIT}, 
+      #{networkOther,jdbcType=BIT}, #{networkOtherRemark,jdbcType=VARCHAR}, #{modelCd,jdbcType=BIT}, 
+      #{modelUsb,jdbcType=BIT}, #{modelOther,jdbcType=BIT}, #{modelOtherRemark,jdbcType=VARCHAR}, 
+      #{applyReason,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{creatorName,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{deleted,jdbcType=BIT}, #{processEnd,jdbcType=BIT}, #{processInstanceId,jdbcType=VARCHAR}, 
+      #{hardDiskNo,jdbcType=VARCHAR}, #{operatingSystem,jdbcType=VARCHAR}, #{operatingSystemTime,jdbcType=VARCHAR}, 
+      #{macAddress,jdbcType=VARCHAR}, #{ipAddress,jdbcType=VARCHAR}, #{serialNo,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveOaComputerNetwork">
+    update five_oa_computer_network
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_Name = #{deptName,jdbcType=VARCHAR},
+      user_login = #{userLogin,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      charge_man = #{chargeMan,jdbcType=VARCHAR},
+      charge_man_name = #{chargeManName,jdbcType=VARCHAR},
+      equipment_no = #{equipmentNo,jdbcType=VARCHAR},
+      equipment_name = #{equipmentName,jdbcType=VARCHAR},
+      equipment_type = #{equipmentType,jdbcType=VARCHAR},
+      link_phone = #{linkPhone,jdbcType=VARCHAR},
+      network_each = #{networkEach,jdbcType=BIT},
+      network_no_secret = #{networkNoSecret,jdbcType=BIT},
+      network_middle = #{networkMiddle,jdbcType=BIT},
+      network_alone = #{networkAlone,jdbcType=BIT},
+      network_other = #{networkOther,jdbcType=BIT},
+      network_other_remark = #{networkOtherRemark,jdbcType=VARCHAR},
+      model_cd = #{modelCd,jdbcType=BIT},
+      model_usb = #{modelUsb,jdbcType=BIT},
+      model_other = #{modelOther,jdbcType=BIT},
+      model_other_remark = #{modelOtherRemark,jdbcType=VARCHAR},
+      apply_reason = #{applyReason,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      is_deleted = #{deleted,jdbcType=BIT},
+      is_process_end = #{processEnd,jdbcType=BIT},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      hard_disk_no = #{hardDiskNo,jdbcType=VARCHAR},
+      operating_system = #{operatingSystem,jdbcType=VARCHAR},
+      operating_system_time = #{operatingSystemTime,jdbcType=VARCHAR},
+      mac_address = #{macAddress,jdbcType=VARCHAR},
+      ip_address = #{ipAddress,jdbcType=VARCHAR},
+      serial_no = #{serialNo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, dept_id, dept_Name, user_login, user_name, charge_man, charge_man_name, 
+    equipment_no, equipment_name, equipment_type, link_phone, network_each, network_no_secret, 
+    network_middle, network_alone, network_other, network_other_remark, model_cd, model_usb, 
+    model_other, model_other_remark, apply_reason, remark, creator, creator_name, gmt_create, 
+    gmt_modified, is_deleted, is_process_end, process_instance_id, hard_disk_no, operating_system, 
+    operating_system_time, mac_address, ip_address, serial_no
+    from five_oa_computer_network
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, dept_id, dept_Name, user_login, user_name, charge_man, charge_man_name, 
+    equipment_no, equipment_name, equipment_type, link_phone, network_each, network_no_secret, 
+    network_middle, network_alone, network_other, network_other_remark, model_cd, model_usb, 
+    model_other, model_other_remark, apply_reason, remark, creator, creator_name, gmt_create, 
+    gmt_modified, is_deleted, is_process_end, process_instance_id, hard_disk_no, operating_system, 
+    operating_system_time, mac_address, ip_address, serial_no
+    from five_oa_computer_network
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and isLikeSelect==null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="deptId != null and isLikeSelect==null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and isLikeSelect==null and deptName != ''">
+         AND dept_Name = #{deptName}
+      </if>
+      <if test="userLogin != null and isLikeSelect==null and userLogin != ''">
+         AND user_login = #{userLogin}
+      </if>
+      <if test="userName != null and isLikeSelect==null and userName != ''">
+         AND user_name = #{userName}
+      </if>
+      <if test="chargeMan != null and isLikeSelect==null and chargeMan != ''">
+         AND charge_man = #{chargeMan}
+      </if>
+      <if test="chargeManName != null and isLikeSelect==null and chargeManName != ''">
+         AND charge_man_name = #{chargeManName}
+      </if>
+      <if test="equipmentNo != null and isLikeSelect==null and equipmentNo != ''">
+         AND equipment_no = #{equipmentNo}
+      </if>
+      <if test="equipmentName != null and isLikeSelect==null and equipmentName != ''">
+         AND equipment_name = #{equipmentName}
+      </if>
+      <if test="equipmentType != null and isLikeSelect==null and equipmentType != ''">
+         AND equipment_type = #{equipmentType}
+      </if>
+      <if test="linkPhone != null and isLikeSelect==null and linkPhone != ''">
+         AND link_phone = #{linkPhone}
+      </if>
+      <if test="networkEach != null and isLikeSelect==null">
+         AND network_each = #{networkEach}
+      </if>
+      <if test="networkNoSecret != null and isLikeSelect==null">
+         AND network_no_secret = #{networkNoSecret}
+      </if>
+      <if test="networkMiddle != null and isLikeSelect==null">
+         AND network_middle = #{networkMiddle}
+      </if>
+      <if test="networkAlone != null and isLikeSelect==null">
+         AND network_alone = #{networkAlone}
+      </if>
+      <if test="networkOther != null and isLikeSelect==null">
+         AND network_other = #{networkOther}
+      </if>
+      <if test="networkOtherRemark != null and isLikeSelect==null and networkOtherRemark != ''">
+         AND network_other_remark = #{networkOtherRemark}
+      </if>
+      <if test="modelCd != null and isLikeSelect==null">
+         AND model_cd = #{modelCd}
+      </if>
+      <if test="modelUsb != null and isLikeSelect==null">
+         AND model_usb = #{modelUsb}
+      </if>
+      <if test="modelOther != null and isLikeSelect==null">
+         AND model_other = #{modelOther}
+      </if>
+      <if test="modelOtherRemark != null and isLikeSelect==null and modelOtherRemark != ''">
+         AND model_other_remark = #{modelOtherRemark}
+      </if>
+      <if test="applyReason != null and isLikeSelect==null and applyReason != ''">
+         AND apply_reason = #{applyReason}
+      </if>
+      <if test="remark != null and isLikeSelect==null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="processEnd != null and isLikeSelect==null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="processInstanceId != null and isLikeSelect==null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="hardDiskNo != null and isLikeSelect==null and hardDiskNo != ''">
+         AND hard_disk_no = #{hardDiskNo}
+      </if>
+      <if test="operatingSystem != null and isLikeSelect==null and operatingSystem != ''">
+         AND operating_system = #{operatingSystem}
+      </if>
+      <if test="operatingSystemTime != null and isLikeSelect==null and operatingSystemTime != ''">
+         AND operating_system_time = #{operatingSystemTime}
+      </if>
+      <if test="macAddress != null and isLikeSelect==null and macAddress != ''">
+         AND mac_address = #{macAddress}
+      </if>
+      <if test="ipAddress != null and isLikeSelect==null and ipAddress != ''">
+         AND ip_address = #{ipAddress}
+      </if>
+      <if test="serialNo != null and isLikeSelect==null and serialNo != ''">
+         AND serial_no = #{serialNo}
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect==null">
+        AND (
+        dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+        <if test="initiator != null and initiator != ''">
+          or creator = #{initiator}
+        </if>
+        )
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="businessKey != null and isLikeSelect!= null and businessKey != '' ">
+         AND business_key like  CONCAT('%',#{businessKey},'%')
+      </if>
+      <if test="deptName != null and isLikeSelect!= null and deptName != '' ">
+         AND dept_Name like  CONCAT('%',#{deptName},'%')
+      </if>
+      <if test="userLogin != null and isLikeSelect!= null and userLogin != '' ">
+         AND user_login like  CONCAT('%',#{userLogin},'%')
+      </if>
+      <if test="userName != null and isLikeSelect!= null and userName != '' ">
+         AND user_name like  CONCAT('%',#{userName},'%')
+      </if>
+      <if test="chargeMan != null and isLikeSelect!= null and chargeMan != '' ">
+         AND charge_man like  CONCAT('%',#{chargeMan},'%')
+      </if>
+      <if test="chargeManName != null and isLikeSelect!= null and chargeManName != '' ">
+         AND charge_man_name like  CONCAT('%',#{chargeManName},'%')
+      </if>
+      <if test="equipmentNo != null and isLikeSelect!= null and equipmentNo != '' ">
+         AND equipment_no like  CONCAT('%',#{equipmentNo},'%')
+      </if>
+      <if test="equipmentName != null and isLikeSelect!= null and equipmentName != '' ">
+         AND equipment_name like  CONCAT('%',#{equipmentName},'%')
+      </if>
+      <if test="equipmentType != null and isLikeSelect!= null and equipmentType != '' ">
+         AND equipment_type like  CONCAT('%',#{equipmentType},'%')
+      </if>
+      <if test="linkPhone != null and isLikeSelect!= null and linkPhone != '' ">
+         AND link_phone like  CONCAT('%',#{linkPhone},'%')
+      </if>
+      <if test="networkOtherRemark != null and isLikeSelect!= null and networkOtherRemark != '' ">
+         AND network_other_remark like  CONCAT('%',#{networkOtherRemark},'%')
+      </if>
+      <if test="modelOtherRemark != null and isLikeSelect!= null and modelOtherRemark != '' ">
+         AND model_other_remark like  CONCAT('%',#{modelOtherRemark},'%')
+      </if>
+      <if test="applyReason != null and isLikeSelect!= null and applyReason != '' ">
+         AND apply_reason like  CONCAT('%',#{applyReason},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="processInstanceId != null and isLikeSelect!= null and processInstanceId != '' ">
+         AND process_instance_id like  CONCAT('%',#{processInstanceId},'%')
+      </if>
+      <if test="hardDiskNo != null and isLikeSelect!= null and hardDiskNo != '' ">
+         AND hard_disk_no like  CONCAT('%',#{hardDiskNo},'%')
+      </if>
+      <if test="operatingSystem != null and isLikeSelect!= null and operatingSystem != '' ">
+         AND operating_system like  CONCAT('%',#{operatingSystem},'%')
+      </if>
+      <if test="operatingSystemTime != null and isLikeSelect!= null and operatingSystemTime != '' ">
+         AND operating_system_time like  CONCAT('%',#{operatingSystemTime},'%')
+      </if>
+      <if test="macAddress != null and isLikeSelect!= null and macAddress != '' ">
+         AND mac_address like  CONCAT('%',#{macAddress},'%')
+      </if>
+      <if test="ipAddress != null and isLikeSelect!= null and ipAddress != '' ">
+         AND ip_address like  CONCAT('%',#{ipAddress},'%')
+      </if>
+      <if test="serialNo != null and isLikeSelect!= null and serialNo != '' ">
+         AND serial_no like  CONCAT('%',#{serialNo},'%')
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="deptId != null and isLikeSelect!=null">
+        AND dept_id = #{deptId}
+      </if>
+      <if test="processEnd != null and isLikeSelect!=null">
+        AND is_process_end = #{processEnd}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect!=null">
+        AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="startTime1 != null and startTime1 !='' and isLikeSelect!=null">
+        AND gmt_create  &gt;= CONCAT('','${startTime1}',' 00:00:00')
+      </if>
+      <if test="endTime1 != null and endTime1 !='' and isLikeSelect!=null">
+        AND gmt_create  &lt;= CONCAT('','${endTime1}',' 23:59:59')
+      </if>
+
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect!=null">
+        AND (
+        dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+        <if test="initiator != null and initiator != ''">
+          or creator = #{initiator}
+        </if>
+        )
+      </if>
+    </where>
+  </sql>
+</mapper>

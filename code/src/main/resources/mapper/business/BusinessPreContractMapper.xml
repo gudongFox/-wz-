@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.business.dao.BusinessPreContractMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.business.entity.BusinessPreContract">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="contract_id" jdbcType="INTEGER" property="contractId" />
+    <result column="record_id" jdbcType="INTEGER" property="recordId" />
+    <result column="record_project_name" jdbcType="VARCHAR" property="recordProjectName" />
+    <result column="review_contract_id" jdbcType="INTEGER" property="reviewContractId" />
+    <result column="project_no" jdbcType="VARCHAR" property="projectNo" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="project_address" jdbcType="VARCHAR" property="projectAddress" />
+    <result column="customer_id" jdbcType="VARCHAR" property="customerId" />
+    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+    <result column="customer_code" jdbcType="VARCHAR" property="customerCode" />
+    <result column="customer_address" jdbcType="VARCHAR" property="customerAddress" />
+    <result column="link_man" jdbcType="VARCHAR" property="linkMan" />
+    <result column="link_tel" jdbcType="VARCHAR" property="linkTel" />
+    <result column="link_title" jdbcType="VARCHAR" property="linkTitle" />
+    <result column="invest_source" jdbcType="VARCHAR" property="investSource" />
+    <result column="charge_men" jdbcType="VARCHAR" property="chargeMen" />
+    <result column="charge_men_name" jdbcType="VARCHAR" property="chargeMenName" />
+    <result column="stage_name" jdbcType="VARCHAR" property="stageName" />
+    <result column="construction_area" jdbcType="VARCHAR" property="constructionArea" />
+    <result column="invest_money" jdbcType="VARCHAR" property="investMoney" />
+    <result column="plan_begin_time" jdbcType="VARCHAR" property="planBeginTime" />
+    <result column="plan_end_time" jdbcType="VARCHAR" property="planEndTime" />
+    <result column="design_type" jdbcType="VARCHAR" property="designType" />
+    <result column="design_major" jdbcType="VARCHAR" property="designMajor" />
+    <result column="design_content" jdbcType="VARCHAR" property="designContent" />
+    <result column="pre_desc" jdbcType="VARCHAR" property="preDesc" />
+    <result column="pre_condition" jdbcType="VARCHAR" property="preCondition" />
+    <result column="pre_condition_remark" jdbcType="VARCHAR" property="preConditionRemark" />
+    <result column="other_situation" jdbcType="VARCHAR" property="otherSituation" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="arrange_end_time" jdbcType="VARCHAR" property="arrangeEndTime" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_ed" jdbcType="BIT" property="ed" />
+    <result column="project_nature" jdbcType="VARCHAR" property="projectNature" />
+    <result column="total_designer" jdbcType="VARCHAR" property="totalDesigner" />
+    <result column="total_designer_name" jdbcType="VARCHAR" property="totalDesignerName" />
+    <result column="project_manager" jdbcType="VARCHAR" property="projectManager" />
+    <result column="project_manager_name" jdbcType="VARCHAR" property="projectManagerName" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from business_pre_contract
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.business.entity.BusinessPreContract">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into business_pre_contract (business_key, contract_id, record_id, 
+      record_project_name, review_contract_id, project_no, 
+      project_name, project_address, customer_id, 
+      customer_name, customer_code, customer_address, 
+      link_man, link_tel, link_title, 
+      invest_source, charge_men, charge_men_name, 
+      stage_name, construction_area, invest_money, 
+      plan_begin_time, plan_end_time, design_type, 
+      design_major, design_content, pre_desc, 
+      pre_condition, pre_condition_remark, other_situation, 
+      dept_id, dept_name, arrange_end_time, 
+      creator, creator_name, is_deleted, 
+      gmt_create, gmt_modified, is_process_end, 
+      process_instance_id, remark, is_ed, 
+      project_nature, total_designer, total_designer_name, 
+      project_manager, project_manager_name)
+    values (#{businessKey,jdbcType=VARCHAR}, #{contractId,jdbcType=INTEGER}, #{recordId,jdbcType=INTEGER}, 
+      #{recordProjectName,jdbcType=VARCHAR}, #{reviewContractId,jdbcType=INTEGER}, #{projectNo,jdbcType=VARCHAR}, 
+      #{projectName,jdbcType=VARCHAR}, #{projectAddress,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR}, 
+      #{customerName,jdbcType=VARCHAR}, #{customerCode,jdbcType=VARCHAR}, #{customerAddress,jdbcType=VARCHAR}, 
+      #{linkMan,jdbcType=VARCHAR}, #{linkTel,jdbcType=VARCHAR}, #{linkTitle,jdbcType=VARCHAR}, 
+      #{investSource,jdbcType=VARCHAR}, #{chargeMen,jdbcType=VARCHAR}, #{chargeMenName,jdbcType=VARCHAR}, 
+      #{stageName,jdbcType=VARCHAR}, #{constructionArea,jdbcType=VARCHAR}, #{investMoney,jdbcType=VARCHAR}, 
+      #{planBeginTime,jdbcType=VARCHAR}, #{planEndTime,jdbcType=VARCHAR}, #{designType,jdbcType=VARCHAR}, 
+      #{designMajor,jdbcType=VARCHAR}, #{designContent,jdbcType=VARCHAR}, #{preDesc,jdbcType=VARCHAR}, 
+      #{preCondition,jdbcType=VARCHAR}, #{preConditionRemark,jdbcType=VARCHAR}, #{otherSituation,jdbcType=VARCHAR}, 
+      #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, #{arrangeEndTime,jdbcType=VARCHAR}, 
+      #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{processEnd,jdbcType=BIT}, 
+      #{processInstanceId,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{ed,jdbcType=BIT}, 
+      #{projectNature,jdbcType=VARCHAR}, #{totalDesigner,jdbcType=VARCHAR}, #{totalDesignerName,jdbcType=VARCHAR}, 
+      #{projectManager,jdbcType=VARCHAR}, #{projectManagerName,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.business.entity.BusinessPreContract">
+    update business_pre_contract
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      contract_id = #{contractId,jdbcType=INTEGER},
+      record_id = #{recordId,jdbcType=INTEGER},
+      record_project_name = #{recordProjectName,jdbcType=VARCHAR},
+      review_contract_id = #{reviewContractId,jdbcType=INTEGER},
+      project_no = #{projectNo,jdbcType=VARCHAR},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      project_address = #{projectAddress,jdbcType=VARCHAR},
+      customer_id = #{customerId,jdbcType=VARCHAR},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      customer_code = #{customerCode,jdbcType=VARCHAR},
+      customer_address = #{customerAddress,jdbcType=VARCHAR},
+      link_man = #{linkMan,jdbcType=VARCHAR},
+      link_tel = #{linkTel,jdbcType=VARCHAR},
+      link_title = #{linkTitle,jdbcType=VARCHAR},
+      invest_source = #{investSource,jdbcType=VARCHAR},
+      charge_men = #{chargeMen,jdbcType=VARCHAR},
+      charge_men_name = #{chargeMenName,jdbcType=VARCHAR},
+      stage_name = #{stageName,jdbcType=VARCHAR},
+      construction_area = #{constructionArea,jdbcType=VARCHAR},
+      invest_money = #{investMoney,jdbcType=VARCHAR},
+      plan_begin_time = #{planBeginTime,jdbcType=VARCHAR},
+      plan_end_time = #{planEndTime,jdbcType=VARCHAR},
+      design_type = #{designType,jdbcType=VARCHAR},
+      design_major = #{designMajor,jdbcType=VARCHAR},
+      design_content = #{designContent,jdbcType=VARCHAR},
+      pre_desc = #{preDesc,jdbcType=VARCHAR},
+      pre_condition = #{preCondition,jdbcType=VARCHAR},
+      pre_condition_remark = #{preConditionRemark,jdbcType=VARCHAR},
+      other_situation = #{otherSituation,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      arrange_end_time = #{arrangeEndTime,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      is_process_end = #{processEnd,jdbcType=BIT},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_ed = #{ed,jdbcType=BIT},
+      project_nature = #{projectNature,jdbcType=VARCHAR},
+      total_designer = #{totalDesigner,jdbcType=VARCHAR},
+      total_designer_name = #{totalDesignerName,jdbcType=VARCHAR},
+      project_manager = #{projectManager,jdbcType=VARCHAR},
+      project_manager_name = #{projectManagerName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, contract_id, record_id, record_project_name, review_contract_id, 
+    project_no, project_name, project_address, customer_id, customer_name, customer_code, 
+    customer_address, link_man, link_tel, link_title, invest_source, charge_men, charge_men_name, 
+    stage_name, construction_area, invest_money, plan_begin_time, plan_end_time, design_type, 
+    design_major, design_content, pre_desc, pre_condition, pre_condition_remark, other_situation, 
+    dept_id, dept_name, arrange_end_time, creator, creator_name, is_deleted, gmt_create, 
+    gmt_modified, is_process_end, process_instance_id, remark, is_ed, project_nature, 
+    total_designer, total_designer_name, project_manager, project_manager_name
+    from business_pre_contract
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, contract_id, record_id, record_project_name, review_contract_id, 
+    project_no, project_name, project_address, customer_id, customer_name, customer_code, 
+    customer_address, link_man, link_tel, link_title, invest_source, charge_men, charge_men_name, 
+    stage_name, construction_area, invest_money, plan_begin_time, plan_end_time, design_type, 
+    design_major, design_content, pre_desc, pre_condition, pre_condition_remark, other_situation, 
+    dept_id, dept_name, arrange_end_time, creator, creator_name, is_deleted, gmt_create, 
+    gmt_modified, is_process_end, process_instance_id, remark, is_ed, project_nature, 
+    total_designer, total_designer_name, project_manager, project_manager_name
+    from business_pre_contract
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="contractId != null">
+         AND contract_id = #{contractId}
+      </if>
+      <if test="recordId != null">
+         AND record_id = #{recordId}
+      </if>
+      <if test="recordProjectName != null and recordProjectName != ''">
+         AND record_project_name = #{recordProjectName}
+      </if>
+      <if test="reviewContractId != null">
+         AND review_contract_id = #{reviewContractId}
+      </if>
+      <if test="projectNo != null and projectNo != ''">
+         AND project_no = #{projectNo}
+      </if>
+      <if test="projectName != null and projectName != ''">
+         AND project_name = #{projectName}
+      </if>
+      <if test="projectAddress != null and projectAddress != ''">
+         AND project_address = #{projectAddress}
+      </if>
+      <if test="customerId != null and customerId != ''">
+         AND customer_id = #{customerId}
+      </if>
+      <if test="customerName != null and customerName != ''">
+         AND customer_name = #{customerName}
+      </if>
+      <if test="customerCode != null and customerCode != ''">
+         AND customer_code = #{customerCode}
+      </if>
+      <if test="customerAddress != null and customerAddress != ''">
+         AND customer_address = #{customerAddress}
+      </if>
+      <if test="linkMan != null and linkMan != ''">
+         AND link_man = #{linkMan}
+      </if>
+      <if test="linkTel != null and linkTel != ''">
+         AND link_tel = #{linkTel}
+      </if>
+      <if test="linkTitle != null and linkTitle != ''">
+         AND link_title = #{linkTitle}
+      </if>
+      <if test="investSource != null and investSource != ''">
+         AND invest_source = #{investSource}
+      </if>
+      <if test="chargeMen != null and chargeMen != ''">
+         AND charge_men = #{chargeMen}
+      </if>
+      <if test="chargeMenName != null and chargeMenName != ''">
+         AND charge_men_name = #{chargeMenName}
+      </if>
+      <if test="stageName != null and stageName != ''">
+         AND stage_name = #{stageName}
+      </if>
+      <if test="constructionArea != null and constructionArea != ''">
+         AND construction_area = #{constructionArea}
+      </if>
+      <if test="investMoney != null and investMoney != ''">
+         AND invest_money = #{investMoney}
+      </if>
+      <if test="planBeginTime != null and planBeginTime != ''">
+         AND plan_begin_time = #{planBeginTime}
+      </if>
+      <if test="planEndTime != null and planEndTime != ''">
+         AND plan_end_time = #{planEndTime}
+      </if>
+      <if test="designType != null and designType != ''">
+         AND design_type = #{designType}
+      </if>
+      <if test="designMajor != null and designMajor != ''">
+         AND design_major = #{designMajor}
+      </if>
+      <if test="designContent != null and designContent != ''">
+         AND design_content = #{designContent}
+      </if>
+      <if test="preDesc != null and preDesc != ''">
+         AND pre_desc = #{preDesc}
+      </if>
+      <if test="preCondition != null and preCondition != ''">
+         AND pre_condition = #{preCondition}
+      </if>
+      <if test="preConditionRemark != null and preConditionRemark != ''">
+         AND pre_condition_remark = #{preConditionRemark}
+      </if>
+      <if test="otherSituation != null and otherSituation != ''">
+         AND other_situation = #{otherSituation}
+      </if>
+      <if test="deptId != null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="arrangeEndTime != null and arrangeEndTime != ''">
+         AND arrange_end_time = #{arrangeEndTime}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="processEnd != null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="processInstanceId != null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="ed != null">
+         AND is_ed = #{ed}
+      </if>
+      <if test="projectNature != null and projectNature != ''">
+         AND project_nature = #{projectNature}
+      </if>
+      <if test="totalDesigner != null and totalDesigner != ''">
+         AND total_designer = #{totalDesigner}
+      </if>
+      <if test="totalDesignerName != null and totalDesignerName != ''">
+         AND total_designer_name = #{totalDesignerName}
+      </if>
+      <if test="projectManager != null and projectManager != ''">
+         AND project_manager = #{projectManager}
+      </if>
+      <if test="projectManagerName != null and projectManagerName != ''">
+         AND project_manager_name = #{projectManagerName}
+      </if>
+      <if test="q != null and q != ''">
+        AND (
+        project_no like CONCAT('%',#{q},'%') or
+        project_name like CONCAT('%',#{q},'%') or
+        customer_name like CONCAT('%',#{q},'%')
+        )
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0">
+        AND dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+      </if>
+    </where>
+  </sql>
+</mapper>

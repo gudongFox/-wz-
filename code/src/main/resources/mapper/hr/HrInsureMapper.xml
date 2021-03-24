@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.hr.dao.HrInsureMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.hr.entity.HrInsure">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_login" jdbcType="VARCHAR" property="userLogin" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="id_card_type" jdbcType="VARCHAR" property="idCardType" />
+    <result column="id_card_no" jdbcType="VARCHAR" property="idCardNo" />
+    <result column="social_no" jdbcType="VARCHAR" property="socialNo" />
+    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="live_address" jdbcType="VARCHAR" property="liveAddress" />
+    <result column="apply_reason" jdbcType="VARCHAR" property="applyReason" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="process_end" jdbcType="BIT" property="processEnd" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from hr_insure
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.hr.entity.HrInsure">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into hr_insure (user_login, user_name, id_card_type, 
+      id_card_no, social_no, company_name, 
+      mobile, live_address, apply_reason, 
+      is_deleted, gmt_create, process_instance_id, 
+      process_end)
+    values (#{userLogin,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{idCardType,jdbcType=VARCHAR}, 
+      #{idCardNo,jdbcType=VARCHAR}, #{socialNo,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{liveAddress,jdbcType=VARCHAR}, #{applyReason,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{processInstanceId,jdbcType=VARCHAR}, 
+      #{processEnd,jdbcType=BIT})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.hr.entity.HrInsure">
+    update hr_insure
+    set user_login = #{userLogin,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      id_card_type = #{idCardType,jdbcType=VARCHAR},
+      id_card_no = #{idCardNo,jdbcType=VARCHAR},
+      social_no = #{socialNo,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      live_address = #{liveAddress,jdbcType=VARCHAR},
+      apply_reason = #{applyReason,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      process_end = #{processEnd,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, user_login, user_name, id_card_type, id_card_no, social_no, company_name, 
+    mobile, live_address, apply_reason, is_deleted, gmt_create, process_instance_id, 
+    process_end
+    from hr_insure
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, user_login, user_name, id_card_type, id_card_no, social_no, company_name, 
+    mobile, live_address, apply_reason, is_deleted, gmt_create, process_instance_id, 
+    process_end
+    from hr_insure
+    <include refid="Base_Where_List" />
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="userLogin != null and userLogin != ''">
+         AND user_login = #{userLogin}
+      </if>
+      <if test="userName != null and userName != ''">
+         AND user_name = #{userName}
+      </if>
+      <if test="idCardType != null and idCardType != ''">
+         AND id_card_type = #{idCardType}
+      </if>
+      <if test="idCardNo != null and idCardNo != ''">
+         AND id_card_no = #{idCardNo}
+      </if>
+      <if test="socialNo != null and socialNo != ''">
+         AND social_no = #{socialNo}
+      </if>
+      <if test="companyName != null and companyName != ''">
+         AND company_name = #{companyName}
+      </if>
+      <if test="mobile != null and mobile != ''">
+         AND mobile = #{mobile}
+      </if>
+      <if test="liveAddress != null and liveAddress != ''">
+         AND live_address = #{liveAddress}
+      </if>
+      <if test="applyReason != null and applyReason != ''">
+         AND apply_reason = #{applyReason}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="processInstanceId != null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="processEnd != null">
+         AND process_end = #{processEnd}
+      </if>
+    </where>
+  </sql>
+</mapper>

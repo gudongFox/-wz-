@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.hr.dao.HrRegisterMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.hr.entity.HrRegister">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="specialty" jdbcType="VARCHAR" property="specialty" />
+    <result column="user_login" jdbcType="VARCHAR" property="userLogin" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="start_time" jdbcType="VARCHAR" property="startTime" />
+    <result column="end_time" jdbcType="VARCHAR" property="endTime" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from hr_register
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.hr.entity.HrRegister">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into hr_register (business_key, province, city, 
+      specialty, user_login, user_name, 
+      start_time, end_time, gmt_create, 
+      gmt_modified, remark, is_deleted
+      )
+    values (#{businessKey,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{specialty,jdbcType=VARCHAR}, #{userLogin,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{startTime,jdbcType=VARCHAR}, #{endTime,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.hr.entity.HrRegister">
+    update hr_register
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      specialty = #{specialty,jdbcType=VARCHAR},
+      user_login = #{userLogin,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=VARCHAR},
+      end_time = #{endTime,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, province, city, specialty, user_login, user_name, start_time, 
+    end_time, gmt_create, gmt_modified, remark, is_deleted
+    from hr_register
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, province, city, specialty, user_login, user_name, start_time, 
+    end_time, gmt_create, gmt_modified, remark, is_deleted
+    from hr_register
+    <include refid="Base_Where_List" />
+    order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="province != null and province != ''">
+         AND province = #{province}
+      </if>
+      <if test="city != null and city != ''">
+         AND city = #{city}
+      </if>
+      <if test="specialty != null and specialty != ''">
+         AND specialty = #{specialty}
+      </if>
+      <if test="userLogin != null and userLogin != ''">
+         AND user_login = #{userLogin}
+      </if>
+      <if test="userName != null and userName != ''">
+         AND user_name = #{userName}
+      </if>
+      <if test="startTime != null and startTime != ''">
+         AND start_time = #{startTime}
+      </if>
+      <if test="endTime != null and endTime != ''">
+         AND end_time = #{endTime}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="q != null and q != '' ">
+        AND (
+        user_name like CONCAT('%',#{q},'%') or
+        specialty like CONCAT('%',#{q},'%')
+        )
+      </if>
+    </where>
+  </sql>
+</mapper>

@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.oa.dao.OaStampApplyMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.oa.entity.OaStampApply">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="stamp_name" jdbcType="VARCHAR" property="stampName" />
+    <result column="stamp_date" jdbcType="VARCHAR" property="stampDate" />
+    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+    <result column="file_count" jdbcType="VARCHAR" property="fileCount" />
+    <result column="is_legal_review" jdbcType="BIT" property="legalReview" />
+    <result column="legal_man" jdbcType="VARCHAR" property="legalMan" />
+    <result column="legal_man_name" jdbcType="VARCHAR" property="legalManName" />
+    <result column="function_dept_id" jdbcType="INTEGER" property="functionDeptId" />
+    <result column="function_dept_name" jdbcType="VARCHAR" property="functionDeptName" />
+    <result column="company_level" jdbcType="VARCHAR" property="companyLevel" />
+    <result column="vice_leader" jdbcType="VARCHAR" property="viceLeader" />
+    <result column="vice_leader_name" jdbcType="VARCHAR" property="viceLeaderName" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="quality_company_man" jdbcType="VARCHAR" property="qualityCompanyMan" />
+    <result column="quality_company_man_name" jdbcType="VARCHAR" property="qualityCompanyManName" />
+    <result column="online" jdbcType="VARCHAR" property="online" />
+    <result column="finished_man" jdbcType="VARCHAR" property="finishedMan" />
+    <result column="finished_man_name" jdbcType="VARCHAR" property="finishedManName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+    <result column="contract_seal_man" jdbcType="VARCHAR" property="contractSealMan" />
+    <result column="contract_seal_man_name" jdbcType="VARCHAR" property="contractSealManName" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from oa_stamp_apply
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.oa.entity.OaStampApply">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into oa_stamp_apply (dept_id, dept_name, stamp_name, 
+      stamp_date, file_name, file_count, 
+      is_legal_review, legal_man, legal_man_name, 
+      function_dept_id, function_dept_name, company_level, 
+      vice_leader, vice_leader_name, creator, 
+      creator_name, is_deleted, remark, 
+      quality_company_man, quality_company_man_name, 
+      online, finished_man, finished_man_name, 
+      gmt_create, gmt_modified, process_instance_id, 
+      is_process_end, contract_seal_man, contract_seal_man_name
+      )
+    values (#{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, #{stampName,jdbcType=VARCHAR}, 
+      #{stampDate,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, #{fileCount,jdbcType=VARCHAR}, 
+      #{legalReview,jdbcType=BIT}, #{legalMan,jdbcType=VARCHAR}, #{legalManName,jdbcType=VARCHAR}, 
+      #{functionDeptId,jdbcType=INTEGER}, #{functionDeptName,jdbcType=VARCHAR}, #{companyLevel,jdbcType=VARCHAR}, 
+      #{viceLeader,jdbcType=VARCHAR}, #{viceLeaderName,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{creatorName,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, #{remark,jdbcType=VARCHAR}, 
+      #{qualityCompanyMan,jdbcType=VARCHAR}, #{qualityCompanyManName,jdbcType=VARCHAR}, 
+      #{online,jdbcType=VARCHAR}, #{finishedMan,jdbcType=VARCHAR}, #{finishedManName,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{processInstanceId,jdbcType=VARCHAR}, 
+      #{processEnd,jdbcType=BIT}, #{contractSealMan,jdbcType=VARCHAR}, #{contractSealManName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.oa.entity.OaStampApply">
+    update oa_stamp_apply
+    set dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      stamp_name = #{stampName,jdbcType=VARCHAR},
+      stamp_date = #{stampDate,jdbcType=VARCHAR},
+      file_name = #{fileName,jdbcType=VARCHAR},
+      file_count = #{fileCount,jdbcType=VARCHAR},
+      is_legal_review = #{legalReview,jdbcType=BIT},
+      legal_man = #{legalMan,jdbcType=VARCHAR},
+      legal_man_name = #{legalManName,jdbcType=VARCHAR},
+      function_dept_id = #{functionDeptId,jdbcType=INTEGER},
+      function_dept_name = #{functionDeptName,jdbcType=VARCHAR},
+      company_level = #{companyLevel,jdbcType=VARCHAR},
+      vice_leader = #{viceLeader,jdbcType=VARCHAR},
+      vice_leader_name = #{viceLeaderName,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      remark = #{remark,jdbcType=VARCHAR},
+      quality_company_man = #{qualityCompanyMan,jdbcType=VARCHAR},
+      quality_company_man_name = #{qualityCompanyManName,jdbcType=VARCHAR},
+      online = #{online,jdbcType=VARCHAR},
+      finished_man = #{finishedMan,jdbcType=VARCHAR},
+      finished_man_name = #{finishedManName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      is_process_end = #{processEnd,jdbcType=BIT},
+      contract_seal_man = #{contractSealMan,jdbcType=VARCHAR},
+      contract_seal_man_name = #{contractSealManName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, dept_id, dept_name, stamp_name, stamp_date, file_name, file_count, is_legal_review, 
+    legal_man, legal_man_name, function_dept_id, function_dept_name, company_level, vice_leader, 
+    vice_leader_name, creator, creator_name, is_deleted, remark, quality_company_man, 
+    quality_company_man_name, online, finished_man, finished_man_name, gmt_create, gmt_modified, 
+    process_instance_id, is_process_end, contract_seal_man, contract_seal_man_name
+    from oa_stamp_apply
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, dept_id, dept_name, stamp_name, stamp_date, file_name, file_count, is_legal_review, 
+    legal_man, legal_man_name, function_dept_id, function_dept_name, company_level, vice_leader, 
+    vice_leader_name, creator, creator_name, is_deleted, remark, quality_company_man, 
+    quality_company_man_name, online, finished_man, finished_man_name, gmt_create, gmt_modified, 
+    process_instance_id, is_process_end, contract_seal_man, contract_seal_man_name
+    from oa_stamp_apply
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="deptId != null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="stampName != null and stampName != ''">
+         AND stamp_name = #{stampName}
+      </if>
+      <if test="stampDate != null and stampDate != ''">
+         AND stamp_date = #{stampDate}
+      </if>
+      <if test="fileName != null and fileName != ''">
+         AND file_name = #{fileName}
+      </if>
+      <if test="fileCount != null and fileCount != ''">
+         AND file_count = #{fileCount}
+      </if>
+      <if test="legalReview != null">
+         AND is_legal_review = #{legalReview}
+      </if>
+      <if test="legalMan != null and legalMan != ''">
+         AND legal_man = #{legalMan}
+      </if>
+      <if test="legalManName != null and legalManName != ''">
+         AND legal_man_name = #{legalManName}
+      </if>
+      <if test="functionDeptId != null">
+         AND function_dept_id = #{functionDeptId}
+      </if>
+      <if test="functionDeptName != null and functionDeptName != ''">
+         AND function_dept_name = #{functionDeptName}
+      </if>
+      <if test="companyLevel != null and companyLevel != ''">
+         AND company_level = #{companyLevel}
+      </if>
+      <if test="viceLeader != null and viceLeader != ''">
+         AND vice_leader = #{viceLeader}
+      </if>
+      <if test="viceLeaderName != null and viceLeaderName != ''">
+         AND vice_leader_name = #{viceLeaderName}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="qualityCompanyMan != null and qualityCompanyMan != ''">
+         AND quality_company_man = #{qualityCompanyMan}
+      </if>
+      <if test="qualityCompanyManName != null and qualityCompanyManName != ''">
+         AND quality_company_man_name = #{qualityCompanyManName}
+      </if>
+      <if test="online != null and online != ''">
+         AND online = #{online}
+      </if>
+      <if test="finishedMan != null and finishedMan != ''">
+         AND finished_man = #{finishedMan}
+      </if>
+      <if test="finishedManName != null and finishedManName != ''">
+         AND finished_man_name = #{finishedManName}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="processInstanceId != null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="processEnd != null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="contractSealMan != null and contractSealMan != ''">
+         AND contract_seal_man = #{contractSealMan}
+      </if>
+      <if test="contractSealManName != null and contractSealManName != ''">
+         AND contract_seal_man_name = #{contractSealManName}
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0">
+        AND dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+      </if>
+      <if test="typeList != null and typeList.size()>0">
+        AND stamp_name in
+        <foreach collection="typeList" open="(" close=")" separator="," item="stampName" index="i">
+          #{stampName}
+        </foreach>
+      </if>
+      <if test="fileNames != null and fileNames != '' ">
+        AND (
+        file_name like CONCAT('%',#{fileNames},'%')
+        )
+      </if>
+    </where>
+  </sql>
+</mapper>

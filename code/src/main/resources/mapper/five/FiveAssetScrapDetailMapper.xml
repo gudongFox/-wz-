@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveAssetScrapDetailMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveAssetScrapDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="asset_scrap_id" jdbcType="INTEGER" property="assetScrapId" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="device_type" jdbcType="VARCHAR" property="deviceType" />
+    <result column="device_no" jdbcType="VARCHAR" property="deviceNo" />
+    <result column="device_model" jdbcType="VARCHAR" property="deviceModel" />
+    <result column="duty_person" jdbcType="VARCHAR" property="dutyPerson" />
+    <result column="duty_person_name" jdbcType="VARCHAR" property="dutyPersonName" />
+    <result column="start_time" jdbcType="VARCHAR" property="startTime" />
+    <result column="original_value" jdbcType="VARCHAR" property="originalValue" />
+    <result column="depreciable_life" jdbcType="VARCHAR" property="depreciableLife" />
+    <result column="submitted" jdbcType="VARCHAR" property="submitted" />
+    <result column="net_worth" jdbcType="VARCHAR" property="netWorth" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_uploadFile" jdbcType="BIT" property="uploadfile" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_asset_scrap_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveAssetScrapDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_asset_scrap_detail (asset_scrap_id, business_key, device_type, 
+      device_no, device_model, duty_person, 
+      duty_person_name, start_time, original_value, 
+      depreciable_life, submitted, net_worth, 
+      remark, creator, creator_name, 
+      is_uploadFile, is_deleted, gmt_create, 
+      gmt_modified)
+    values (#{assetScrapId,jdbcType=INTEGER}, #{businessKey,jdbcType=VARCHAR}, #{deviceType,jdbcType=VARCHAR}, 
+      #{deviceNo,jdbcType=VARCHAR}, #{deviceModel,jdbcType=VARCHAR}, #{dutyPerson,jdbcType=VARCHAR}, 
+      #{dutyPersonName,jdbcType=VARCHAR}, #{startTime,jdbcType=VARCHAR}, #{originalValue,jdbcType=VARCHAR}, 
+      #{depreciableLife,jdbcType=VARCHAR}, #{submitted,jdbcType=VARCHAR}, #{netWorth,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, 
+      #{uploadfile,jdbcType=BIT}, #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveAssetScrapDetail">
+    update five_asset_scrap_detail
+    set asset_scrap_id = #{assetScrapId,jdbcType=INTEGER},
+      business_key = #{businessKey,jdbcType=VARCHAR},
+      device_type = #{deviceType,jdbcType=VARCHAR},
+      device_no = #{deviceNo,jdbcType=VARCHAR},
+      device_model = #{deviceModel,jdbcType=VARCHAR},
+      duty_person = #{dutyPerson,jdbcType=VARCHAR},
+      duty_person_name = #{dutyPersonName,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=VARCHAR},
+      original_value = #{originalValue,jdbcType=VARCHAR},
+      depreciable_life = #{depreciableLife,jdbcType=VARCHAR},
+      submitted = #{submitted,jdbcType=VARCHAR},
+      net_worth = #{netWorth,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_uploadFile = #{uploadfile,jdbcType=BIT},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, asset_scrap_id, business_key, device_type, device_no, device_model, duty_person, 
+    duty_person_name, start_time, original_value, depreciable_life, submitted, net_worth, 
+    remark, creator, creator_name, is_uploadFile, is_deleted, gmt_create, gmt_modified
+    from five_asset_scrap_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, asset_scrap_id, business_key, device_type, device_no, device_model, duty_person, 
+    duty_person_name, start_time, original_value, depreciable_life, submitted, net_worth, 
+    remark, creator, creator_name, is_uploadFile, is_deleted, gmt_create, gmt_modified
+    from five_asset_scrap_detail
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="assetScrapId != null and isLikeSelect==null">
+         AND asset_scrap_id = #{assetScrapId}
+      </if>
+      <if test="businessKey != null and isLikeSelect==null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="deviceType != null and isLikeSelect==null and deviceType != ''">
+         AND device_type = #{deviceType}
+      </if>
+      <if test="deviceNo != null and isLikeSelect==null and deviceNo != ''">
+         AND device_no = #{deviceNo}
+      </if>
+      <if test="deviceModel != null and isLikeSelect==null and deviceModel != ''">
+         AND device_model = #{deviceModel}
+      </if>
+      <if test="dutyPerson != null and isLikeSelect==null and dutyPerson != ''">
+         AND duty_person = #{dutyPerson}
+      </if>
+      <if test="dutyPersonName != null and isLikeSelect==null and dutyPersonName != ''">
+         AND duty_person_name = #{dutyPersonName}
+      </if>
+      <if test="startTime != null and isLikeSelect==null and startTime != ''">
+         AND start_time = #{startTime}
+      </if>
+      <if test="originalValue != null and isLikeSelect==null and originalValue != ''">
+         AND original_value = #{originalValue}
+      </if>
+      <if test="depreciableLife != null and isLikeSelect==null and depreciableLife != ''">
+         AND depreciable_life = #{depreciableLife}
+      </if>
+      <if test="submitted != null and isLikeSelect==null and submitted != ''">
+         AND submitted = #{submitted}
+      </if>
+      <if test="netWorth != null and isLikeSelect==null and netWorth != ''">
+         AND net_worth = #{netWorth}
+      </if>
+      <if test="remark != null and isLikeSelect==null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="uploadfile != null and isLikeSelect==null">
+         AND is_uploadFile = #{uploadfile}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="businessKey != null and isLikeSelect!= null and businessKey != '' ">
+         AND business_key like  CONCAT('%',#{businessKey},'%')
+      </if>
+      <if test="deviceType != null and isLikeSelect!= null and deviceType != '' ">
+         AND device_type like  CONCAT('%',#{deviceType},'%')
+      </if>
+      <if test="deviceNo != null and isLikeSelect!= null and deviceNo != '' ">
+         AND device_no like  CONCAT('%',#{deviceNo},'%')
+      </if>
+      <if test="deviceModel != null and isLikeSelect!= null and deviceModel != '' ">
+         AND device_model like  CONCAT('%',#{deviceModel},'%')
+      </if>
+      <if test="dutyPerson != null and isLikeSelect!= null and dutyPerson != '' ">
+         AND duty_person like  CONCAT('%',#{dutyPerson},'%')
+      </if>
+      <if test="dutyPersonName != null and isLikeSelect!= null and dutyPersonName != '' ">
+         AND duty_person_name like  CONCAT('%',#{dutyPersonName},'%')
+      </if>
+      <if test="startTime != null and isLikeSelect!= null and startTime != '' ">
+         AND start_time like  CONCAT('%',#{startTime},'%')
+      </if>
+      <if test="originalValue != null and isLikeSelect!= null and originalValue != '' ">
+         AND original_value like  CONCAT('%',#{originalValue},'%')
+      </if>
+      <if test="depreciableLife != null and isLikeSelect!= null and depreciableLife != '' ">
+         AND depreciable_life like  CONCAT('%',#{depreciableLife},'%')
+      </if>
+      <if test="submitted != null and isLikeSelect!= null and submitted != '' ">
+         AND submitted like  CONCAT('%',#{submitted},'%')
+      </if>
+      <if test="netWorth != null and isLikeSelect!= null and netWorth != '' ">
+         AND net_worth like  CONCAT('%',#{netWorth},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="deptId != null and isLikeSelect!=null">
+         AND dept_id = #{deptId}
+      </if>
+    </where>
+  </sql>
+</mapper>

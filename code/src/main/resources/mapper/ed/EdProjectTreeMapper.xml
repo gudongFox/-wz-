@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.ed.dao.EdProjectTreeMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.ed.entity.EdProjectTree">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="foreign_key" jdbcType="INTEGER" property="foreignKey" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="node_name" jdbcType="VARCHAR" property="nodeName" />
+    <result column="node_url" jdbcType="VARCHAR" property="nodeUrl" />
+    <result column="refer_type" jdbcType="VARCHAR" property="referType" />
+    <result column="seq" jdbcType="INTEGER" property="seq" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="is_opened" jdbcType="BIT" property="opened" />
+    <result column="is_selected" jdbcType="BIT" property="selected" />
+    <result column="is_disabled" jdbcType="BIT" property="disabled" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ed_project_tree
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.ed.entity.EdProjectTree">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ed_project_tree (project_id, foreign_key, parent_id,
+    node_name, node_url,refer_type, seq,
+    icon, is_opened, is_selected,
+    is_disabled, is_deleted, gmt_create,
+    gmt_modified, remark)
+    values (#{projectId,jdbcType=INTEGER}, #{foreignKey,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER},
+    #{nodeName,jdbcType=VARCHAR}, #{nodeUrl,jdbcType=VARCHAR},#{referType,jdbcType=VARCHAR}, #{seq,jdbcType=INTEGER},
+    #{icon,jdbcType=VARCHAR}, #{opened,jdbcType=BIT}, #{selected,jdbcType=BIT},
+    #{disabled,jdbcType=BIT}, #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP},
+    #{gmtModified,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.ed.entity.EdProjectTree">
+    update ed_project_tree
+    set project_id = #{projectId,jdbcType=INTEGER},
+      foreign_key = #{foreignKey,jdbcType=INTEGER},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      node_name = #{nodeName,jdbcType=VARCHAR},
+      node_url = #{nodeUrl,jdbcType=VARCHAR},
+      refer_type = #{referType,jdbcType=VARCHAR},
+      seq = #{seq,jdbcType=INTEGER},
+      icon = #{icon,jdbcType=VARCHAR},
+      is_opened = #{opened,jdbcType=BIT},
+      is_selected = #{selected,jdbcType=BIT},
+      is_disabled = #{disabled,jdbcType=BIT},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+  <update id="invalidAllTreeNode" parameterType="java.lang.Integer">
+    update ed_project_tree set is_deleted=1 where  project_id = #{projectId}
+  </update>
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, project_id, foreign_key, parent_id, node_name, node_url, refer_type,seq, icon, is_opened,
+    is_selected, is_disabled, is_deleted, gmt_create, gmt_modified, remark
+    from ed_project_tree
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, project_id, foreign_key, parent_id, node_name, node_url,refer_type, seq, icon, is_opened,
+    is_selected, is_disabled, is_deleted, gmt_create, gmt_modified, remark
+    from ed_project_tree
+    <include refid="Base_Where_List" />
+    order by seq asc
+  </select>
+
+
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+        AND id = #{id}
+      </if>
+      <if test="projectId != null">
+        AND project_id = #{projectId}
+      </if>
+      <if test="foreignKey != null">
+        AND foreign_key = #{foreignKey}
+      </if>
+      <if test="parentId != null">
+        AND parent_id = #{parentId}
+      </if>
+      <if test="nodeName != null and nodeName != ''">
+        AND node_name = #{nodeName}
+      </if>
+      <if test="nodeUrl != null and nodeUrl != ''">
+        AND node_url = #{nodeUrl}
+      </if>
+      <if test="referType != null and referType != ''">
+        AND refer_type = #{referType}
+      </if>
+      <if test="seq != null">
+        AND seq = #{seq}
+      </if>
+      <if test="icon != null and icon != ''">
+        AND icon = #{icon}
+      </if>
+      <if test="opened != null">
+        AND is_opened = #{opened}
+      </if>
+      <if test="selected != null">
+        AND is_selected = #{selected}
+      </if>
+      <if test="disabled != null">
+        AND is_disabled = #{disabled}
+      </if>
+      <if test="deleted != null">
+        AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null">
+        AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+        AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="remark != null and remark != ''">
+        AND remark = #{remark}
+      </if>
+    </where>
+  </sql>
+</mapper>

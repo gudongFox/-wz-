@@ -1,0 +1,239 @@
+﻿<!DOCTYPE html>
+<html ng-app="noticeApp" ng-controller="NoticeDetailController">
+<head>
+    <meta charset="utf-8">
+    <title>通知公告</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="/h5/mui/css/mui.min.css">
+    <style>
+        .mui-table h4, .mui-table h5, .mui-table .mui-h5, .mui-table .mui-h6, .mui-table p {
+            margin-top: 0;
+        }
+
+        .mui-table h4 {
+            line-height: 21px;
+            font-weight: 500;
+        }
+
+        .mui-table .oa-icon {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+        }
+
+        .mui-table .oa-icon-star-filled {
+            color: #f14e41;
+        }
+    </style>
+    <link rel="shortcut icon" href="/m/favicon.ico"/>
+</head>
+<body>
+
+<span id="mainContent">
+    <div class="mui-content-padded">
+
+        <div class="mui-card">
+            <!--内容区-->
+            <div class="mui-card-content">
+                <div style="padding: 15px">
+                    <h4 ng-bind="data.noticeTitle"></h4>
+                    <h5 ng-bind="data.gmtCreate|date:'yyyy-MM-dd HH:mm'+' '+data.publishDeptName"></h5>
+                    <img ng-src="{{data.picUrl}}" onerror="this.src='/nochange/wuzhou_notice1.jpg'" style="width: 100%;"/>
+                </div>
+
+                <div ng-if="!showHtml" style="width: 100%" ng-bind-html="text"></div>
+
+                <div ng-if="showHtml" style="width: 100%">
+                    <div class="col-md-10" id="wmwrapper" style="width: 100%;height: 85%;margin: 10px auto;text-align: center;">
+                       <iframe  style="max-width:100%;width: 100%;min-height: 500px"  ng-src="{{hrefOWA}}"  frameborder="0" referrerpolicy="no-referrer-when-downgrade">
+                       </iframe>
+                   </div>
+                </div>
+
+                <div ng-bind="'阅读次数：'+data.pageLoad" style="color: grey;"></div>
+            </div>
+        </div>
+
+        <span  ng-include="'/h5/tpl/businessFile.html'" ng-init="fileTplTitle='附件列表'"></span>
+	</div>
+
+
+</span>
+
+<script src="/assets/js/jquery.min.js" type="text/javascript"></script>
+<script src="/assets/js/jquery.cookie.js" type="text/javascript"></script>
+<script src="/h5/mui/js/mui.min.js" type="text/javascript"></script>
+<script>
+    var enLogin = window.localStorage.getItem("enLogin");
+    if (!enLogin) {
+        window.localStorage.setItem("h5PreUrl", window.location.href);
+        window.location.replace("/h5/login.html");
+    }
+    function GetQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+    }
+    var businessKey = GetQueryString("businessKey");
+</script>
+<script src="/assets/js/angular.js" type="text/javascript"></script>
+<script src="/assets/js/angular-sanitize.min.js" type="text/javascript"></script>
+<script src="/assets/page/services.common.js" type="text/javascript"></script>
+<script  src="/assets/js/canvaswm.js"></script>
+<script>
+    var app = angular.module('noticeApp', ['ngSanitize', 'services.common']);
+
+    app.config(function($sceDelegateProvider) {
+        $sceDelegateProvider.resourceUrlWhitelist([
+            // Allow same origin resource loads.
+            'self',
+            // Allow loading from our assets domain.  Notice the difference between * and **.
+            'https://owa.wuzhou.com.cn/**']);
+    });
+
+    app.controller('NoticeDetailController', function ($scope,$sce,$rootScope, $http) {
+
+            $scope.init = function () {
+                $scope.tplConfig = {businessKey: businessKey, showBusinessFile: true};
+
+                $http({
+                    method: 'POST',
+                    url: '/oa/notice/getModelByBusinessKey.json',
+                    params: {businessKey: businessKey}
+                }).then(function (response) {
+                    if (response.data.ret) {
+                        $scope.data = response.data.data;
+                        $scope.showHtml=true;
+                        document.title = $scope.data.noticeType;
+                        $scope.text = $sce.trustAsHtml($scope.data.noticeContent);
+                        $scope.hrefOWA="https://owa.wuzhou.com.cn/op/embed.aspx?src="+encodeURIComponent("https://co.wuzhou.com.cn/common/attach/download/"+$scope.data.attachIds);
+                        $sce.trustAsResourceUrl($scope.hrefOWA);
+                        if ($scope.data.noticeType=='图片新闻'||$scope.data.attachIds==''){
+                            $scope.showHtml=false;
+                        }
+
+                        $scope.setPageLoad($scope.data.id, enLogin);
+                    } else {
+                        mui.alert(response.data.msg);
+                        window.location.href = "/h5/index.html";
+                    }
+                });
+                //HNZ 取登录人姓名 水印使用
+                $http({
+                    method: 'POST',
+                    url: '/common/user/getUser.json',
+                    params: {enLogin: enLogin}
+                }).then(function (response) {
+                    if (response.data.ret) {
+                        $scope.user = response.data.data;
+                        setTimeout(function(){
+                            __canvasWM({
+                                content:  $scope.user.cnName + ' ' + enLogin
+                            });},0);
+                    }
+                });
+               }
+
+          /*  $scope.setPageLoad = function (id, enLogin) {
+                $http({
+                    method: 'POST',
+                    url: '/oa/notice/setPageLoad.json',
+                    params: {id: id, enLogin: enLogin}
+                }).then(function (response) {
+                    if (response.data.ret) {
+                    }
+                });
+            }*/
+
+            $scope.init();
+        })
+        .controller('TaskBusinessFileController', function ($scope, $rootScope, $http, commonDirService, commonFileService) {
+
+            $scope.loadDirAndFile = function (dirId) {
+
+                $scope.dirId = dirId;
+
+                $scope.loadDir(dirId);
+
+                $scope.loadFile(dirId);
+            }
+
+            $scope.loadDir = function (dirId) {
+
+                commonDirService.listBreadcrumb(businessKey, dirId).then(function (value) {
+                    $scope.breadcrumbs = value.data.data;
+                })
+
+                commonDirService.listData(businessKey, dirId).then(function (value) {
+                    $scope.dirs = value.data.data;
+                })
+            }
+
+            $scope.loadFile = function (dirId) {
+                commonFileService.listData(businessKey, dirId).then(function (value) {
+                    $scope.files = value.data.data;
+                })
+            }
+
+            $scope.downloadFile = function (file) {
+                window.location.href = "/common/attach/download/" + file.commonAttach.id;
+            }
+
+            $("#txtImageUpload").bind("change", function () {
+                uploadFile();
+            });
+
+            function uploadFile() {
+                var e = window.event || event;
+                // 获取当前选中的文件
+                var oFile = e.target.files[0];
+                var formData = new FormData();
+                formData.append("file", oFile);
+                formData.append("dirId", $scope.dirId);
+                formData.append("enLogin", enLogin);
+                formData.append("businessKey", businessKey);
+                $.ajax({
+                    type: 'POST',
+                    url: "/common/file/receive.json",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.ret) {
+                            mui.alert('上传成功');
+                            $scope.loadDirAndFile($scope.dirId);
+                        } else {
+                            mui.alert(data.msg);
+                        }
+                    }
+                });
+            }
+
+            $scope.loadDirAndFile(0);
+
+            $scope.removeFile = function (file) {
+                mui.confirm("确定删除该文件吗？", function (result) {
+                    if (result.index) {
+                        commonFileService.remove(file.id, enLogin).then(function (value) {
+                            if (value.data.ret) {
+                                mui.toast('删除成功!');
+                                $scope.loadDirAndFile($scope.dirId);
+                            } else {
+                                mui.alert(value.data.msg);
+                            }
+                        })
+                    }
+
+                })
+            }
+
+        })
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.finance.dao.FiveFinanceTransferAccountsMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.finance.entity.FiveFinanceTransferAccounts">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="form_no" jdbcType="VARCHAR" property="formNo" />
+    <result column="account_name" jdbcType="VARCHAR" property="accountName" />
+    <result column="out_bank_name" jdbcType="VARCHAR" property="outBankName" />
+    <result column="out_bank_account" jdbcType="VARCHAR" property="outBankAccount" />
+    <result column="in_bank_name" jdbcType="VARCHAR" property="inBankName" />
+    <result column="in_bank_account" jdbcType="VARCHAR" property="inBankAccount" />
+    <result column="applicant" jdbcType="VARCHAR" property="applicant" />
+    <result column="applicant_name" jdbcType="VARCHAR" property="applicantName" />
+    <result column="applicant_time" jdbcType="VARCHAR" property="applicantTime" />
+    <result column="account_number" jdbcType="VARCHAR" property="accountNumber" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="receive" jdbcType="VARCHAR" property="receive" />
+    <result column="receive_name" jdbcType="VARCHAR" property="receiveName" />
+    <result column="receive_dept_name" jdbcType="VARCHAR" property="receiveDeptName" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="business_manager" jdbcType="VARCHAR" property="businessManager" />
+    <result column="business_manager_name" jdbcType="VARCHAR" property="businessManagerName" />
+    <result column="total_money" jdbcType="VARCHAR" property="totalMoney" />
+    <result column="total_apply_money" jdbcType="VARCHAR" property="totalApplyMoney" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_finance_transfer_accounts
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.finance.entity.FiveFinanceTransferAccounts">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_finance_transfer_accounts (business_key, form_no, account_name, 
+      out_bank_name, out_bank_account, in_bank_name, 
+      in_bank_account, applicant, applicant_name, 
+      applicant_time, account_number, dept_id, 
+      dept_name, remark, creator, 
+      creator_name, is_deleted, is_process_end, 
+      gmt_create, gmt_modified, process_instance_id, 
+      receive, receive_name, receive_dept_name, 
+      title, project_id, project_name, 
+      business_manager, business_manager_name, total_money, 
+      total_apply_money, state)
+    values (#{businessKey,jdbcType=VARCHAR}, #{formNo,jdbcType=VARCHAR}, #{accountName,jdbcType=VARCHAR}, 
+      #{outBankName,jdbcType=VARCHAR}, #{outBankAccount,jdbcType=VARCHAR}, #{inBankName,jdbcType=VARCHAR}, 
+      #{inBankAccount,jdbcType=VARCHAR}, #{applicant,jdbcType=VARCHAR}, #{applicantName,jdbcType=VARCHAR}, 
+      #{applicantTime,jdbcType=VARCHAR}, #{accountNumber,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, 
+      #{deptName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{creatorName,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, #{processEnd,jdbcType=BIT}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{processInstanceId,jdbcType=VARCHAR}, 
+      #{receive,jdbcType=VARCHAR}, #{receiveName,jdbcType=VARCHAR}, #{receiveDeptName,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{projectId,jdbcType=INTEGER}, #{projectName,jdbcType=VARCHAR}, 
+      #{businessManager,jdbcType=VARCHAR}, #{businessManagerName,jdbcType=VARCHAR}, #{totalMoney,jdbcType=VARCHAR}, 
+      #{totalApplyMoney,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.finance.entity.FiveFinanceTransferAccounts">
+    update five_finance_transfer_accounts
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      form_no = #{formNo,jdbcType=VARCHAR},
+      account_name = #{accountName,jdbcType=VARCHAR},
+      out_bank_name = #{outBankName,jdbcType=VARCHAR},
+      out_bank_account = #{outBankAccount,jdbcType=VARCHAR},
+      in_bank_name = #{inBankName,jdbcType=VARCHAR},
+      in_bank_account = #{inBankAccount,jdbcType=VARCHAR},
+      applicant = #{applicant,jdbcType=VARCHAR},
+      applicant_name = #{applicantName,jdbcType=VARCHAR},
+      applicant_time = #{applicantTime,jdbcType=VARCHAR},
+      account_number = #{accountNumber,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      is_process_end = #{processEnd,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      receive = #{receive,jdbcType=VARCHAR},
+      receive_name = #{receiveName,jdbcType=VARCHAR},
+      receive_dept_name = #{receiveDeptName,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      project_id = #{projectId,jdbcType=INTEGER},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      business_manager = #{businessManager,jdbcType=VARCHAR},
+      business_manager_name = #{businessManagerName,jdbcType=VARCHAR},
+      total_money = #{totalMoney,jdbcType=VARCHAR},
+      total_apply_money = #{totalApplyMoney,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, form_no, account_name, out_bank_name, out_bank_account, 
+    in_bank_name, in_bank_account, applicant, applicant_name, applicant_time, account_number, 
+    dept_id, dept_name, remark, creator, creator_name, is_deleted, is_process_end, gmt_create, 
+    gmt_modified, process_instance_id, receive, receive_name, receive_dept_name, title, 
+    project_id, project_name, business_manager, business_manager_name, total_money, total_apply_money, 
+    state
+    from five_finance_transfer_accounts
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, form_no, account_name, out_bank_name, out_bank_account, 
+    in_bank_name, in_bank_account, applicant, applicant_name, applicant_time, account_number, 
+    dept_id, dept_name, remark, creator, creator_name, is_deleted, is_process_end, gmt_create, 
+    gmt_modified, process_instance_id, receive, receive_name, receive_dept_name, title, 
+    project_id, project_name, business_manager, business_manager_name, total_money, total_apply_money, 
+    state
+    from five_finance_transfer_accounts
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and isLikeSelect==null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="formNo != null and isLikeSelect==null and formNo != ''">
+         AND form_no = #{formNo}
+      </if>
+      <if test="accountName != null and isLikeSelect==null and accountName != ''">
+         AND account_name = #{accountName}
+      </if>
+      <if test="outBankName != null and isLikeSelect==null and outBankName != ''">
+         AND out_bank_name = #{outBankName}
+      </if>
+      <if test="outBankAccount != null and isLikeSelect==null and outBankAccount != ''">
+         AND out_bank_account = #{outBankAccount}
+      </if>
+      <if test="inBankName != null and isLikeSelect==null and inBankName != ''">
+         AND in_bank_name = #{inBankName}
+      </if>
+      <if test="inBankAccount != null and isLikeSelect==null and inBankAccount != ''">
+         AND in_bank_account = #{inBankAccount}
+      </if>
+      <if test="applicant != null and isLikeSelect==null and applicant != ''">
+         AND applicant = #{applicant}
+      </if>
+      <if test="applicantName != null and isLikeSelect==null and applicantName != ''">
+         AND applicant_name = #{applicantName}
+      </if>
+      <if test="applicantTime != null and isLikeSelect==null and applicantTime != ''">
+         AND applicant_time = #{applicantTime}
+      </if>
+      <if test="accountNumber != null and isLikeSelect==null and accountNumber != ''">
+         AND account_number = #{accountNumber}
+      </if>
+      <if test="deptId != null and isLikeSelect==null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and isLikeSelect==null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="remark != null and isLikeSelect==null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="processEnd != null and isLikeSelect==null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="processInstanceId != null and isLikeSelect==null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="receive != null and isLikeSelect==null and receive != ''">
+         AND receive = #{receive}
+      </if>
+      <if test="receiveName != null and isLikeSelect==null and receiveName != ''">
+         AND receive_name = #{receiveName}
+      </if>
+      <if test="receiveDeptName != null and isLikeSelect==null and receiveDeptName != ''">
+         AND receive_dept_name = #{receiveDeptName}
+      </if>
+      <if test="title != null and isLikeSelect==null and title != ''">
+         AND title = #{title}
+      </if>
+      <if test="projectId != null and isLikeSelect==null">
+         AND project_id = #{projectId}
+      </if>
+      <if test="projectName != null and isLikeSelect==null and projectName != ''">
+         AND project_name = #{projectName}
+      </if>
+      <if test="businessManager != null and isLikeSelect==null and businessManager != ''">
+         AND business_manager = #{businessManager}
+      </if>
+      <if test="businessManagerName != null and isLikeSelect==null and businessManagerName != ''">
+         AND business_manager_name = #{businessManagerName}
+      </if>
+      <if test="totalMoney != null and isLikeSelect==null and totalMoney != ''">
+         AND total_money = #{totalMoney}
+      </if>
+      <if test="totalApplyMoney != null and isLikeSelect==null and totalApplyMoney != ''">
+         AND total_apply_money = #{totalApplyMoney}
+      </if>
+      <if test="state != null and isLikeSelect==null and state != ''">
+         AND state = #{state}
+      </if>
+      <if test="qBusinessKey != null and isLikeSelect==null and qBusinessKey != ''">
+        AND business_key like CONCAT(#{qBusinessKey},'%')
+      </if>
+      <if test="qBusinessKey != null and isLikeSelect==null and qBusinessKey != ''">
+        AND business_key like CONCAT(#{qBusinessKey},'%')
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="businessKey != null and isLikeSelect!= null and businessKey != '' ">
+         AND business_key like  CONCAT('%',#{businessKey},'%')
+      </if>
+      <if test="formNo != null and isLikeSelect!= null and formNo != '' ">
+         AND form_no like  CONCAT('%',#{formNo},'%')
+      </if>
+      <if test="accountName != null and isLikeSelect!= null and accountName != '' ">
+         AND account_name like  CONCAT('%',#{accountName},'%')
+      </if>
+      <if test="outBankName != null and isLikeSelect!= null and outBankName != '' ">
+         AND out_bank_name like  CONCAT('%',#{outBankName},'%')
+      </if>
+      <if test="outBankAccount != null and isLikeSelect!= null and outBankAccount != '' ">
+         AND out_bank_account like  CONCAT('%',#{outBankAccount},'%')
+      </if>
+      <if test="inBankName != null and isLikeSelect!= null and inBankName != '' ">
+         AND in_bank_name like  CONCAT('%',#{inBankName},'%')
+      </if>
+      <if test="inBankAccount != null and isLikeSelect!= null and inBankAccount != '' ">
+         AND in_bank_account like  CONCAT('%',#{inBankAccount},'%')
+      </if>
+      <if test="applicant != null and isLikeSelect!= null and applicant != '' ">
+         AND applicant like  CONCAT('%',#{applicant},'%')
+      </if>
+      <if test="applicantName != null and isLikeSelect!= null and applicantName != '' ">
+         AND applicant_name like  CONCAT('%',#{applicantName},'%')
+      </if>
+      <if test="applicantTime != null and isLikeSelect!= null and applicantTime != '' ">
+         AND applicant_time like  CONCAT('%',#{applicantTime},'%')
+      </if>
+      <if test="accountNumber != null and isLikeSelect!= null and accountNumber != '' ">
+         AND account_number like  CONCAT('%',#{accountNumber},'%')
+      </if>
+      <if test="deptName != null and isLikeSelect!= null and deptName != '' ">
+         AND dept_name like  CONCAT('%',#{deptName},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="processInstanceId != null and isLikeSelect!= null and processInstanceId != '' ">
+         AND process_instance_id like  CONCAT('%',#{processInstanceId},'%')
+      </if>
+      <if test="receive != null and isLikeSelect!= null and receive != '' ">
+         AND receive like  CONCAT('%',#{receive},'%')
+      </if>
+      <if test="receiveName != null and isLikeSelect!= null and receiveName != '' ">
+         AND receive_name like  CONCAT('%',#{receiveName},'%')
+      </if>
+      <if test="receiveDeptName != null and isLikeSelect!= null and receiveDeptName != '' ">
+         AND receive_dept_name like  CONCAT('%',#{receiveDeptName},'%')
+      </if>
+      <if test="title != null and isLikeSelect!= null and title != '' ">
+         AND title like  CONCAT('%',#{title},'%')
+      </if>
+      <if test="projectName != null and isLikeSelect!= null and projectName != '' ">
+         AND project_name like  CONCAT('%',#{projectName},'%')
+      </if>
+      <if test="businessManager != null and isLikeSelect!= null and businessManager != '' ">
+         AND business_manager like  CONCAT('%',#{businessManager},'%')
+      </if>
+      <if test="businessManagerName != null and isLikeSelect!= null and businessManagerName != '' ">
+         AND business_manager_name like  CONCAT('%',#{businessManagerName},'%')
+      </if>
+      <if test="totalMoney != null and isLikeSelect!= null and totalMoney != '' ">
+         AND total_money like  CONCAT('%',#{totalMoney},'%')
+      </if>
+      <if test="totalApplyMoney != null and isLikeSelect!= null and totalApplyMoney != '' ">
+         AND total_apply_money like  CONCAT('%',#{totalApplyMoney},'%')
+      </if>
+      <if test="state != null and isLikeSelect!= null and state != '' ">
+         AND state like  CONCAT('%',#{state},'%')
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+    </where>
+  </sql>
+</mapper>

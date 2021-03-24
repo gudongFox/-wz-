@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.finance.dao.FiveFinanceBackLetterMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.finance.entity.FiveFinanceBackLetter">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="form_no" jdbcType="VARCHAR" property="formNo" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="user" jdbcType="VARCHAR" property="user" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="relate_type" jdbcType="VARCHAR" property="relateType" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="project_no" jdbcType="VARCHAR" property="projectNo" />
+    <result column="contract_name" jdbcType="VARCHAR" property="contractName" />
+    <result column="contract_no" jdbcType="VARCHAR" property="contractNo" />
+    <result column="bid_no" jdbcType="VARCHAR" property="bidNo" />
+    <result column="combo" jdbcType="VARCHAR" property="combo" />
+    <result column="combo_name" jdbcType="VARCHAR" property="comboName" />
+    <result column="back_letter_type" jdbcType="VARCHAR" property="backLetterType" />
+    <result column="cash" jdbcType="VARCHAR" property="cash" />
+    <result column="assure_date" jdbcType="VARCHAR" property="assureDate" />
+    <result column="assure_date_end" jdbcType="VARCHAR" property="assureDateEnd" />
+    <result column="assure_month" jdbcType="VARCHAR" property="assureMonth" />
+    <result column="back_letter_no" jdbcType="VARCHAR" property="backLetterNo" />
+    <result column="back_contract_no" jdbcType="VARCHAR" property="backContractNo" />
+    <result column="assure_bank" jdbcType="VARCHAR" property="assureBank" />
+    <result column="back_letter_date" jdbcType="VARCHAR" property="backLetterDate" />
+    <result column="cancel_date" jdbcType="VARCHAR" property="cancelDate" />
+    <result column="continue_date" jdbcType="VARCHAR" property="continueDate" />
+    <result column="continue_date_end" jdbcType="VARCHAR" property="continueDateEnd" />
+    <result column="continue_month" jdbcType="VARCHAR" property="continueMonth" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_finance_back_letter
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.finance.entity.FiveFinanceBackLetter">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_finance_back_letter (business_key, form_no, remark, 
+      creator, creator_name, is_deleted, 
+      gmt_create, gmt_modified, process_instance_id, 
+      is_process_end, dept_id, dept_name, 
+      user, user_name, relate_type, 
+      project_name, project_no, contract_name, 
+      contract_no, bid_no, combo, 
+      combo_name, back_letter_type, cash, 
+      assure_date, assure_date_end, assure_month, 
+      back_letter_no, back_contract_no, assure_bank, 
+      back_letter_date, cancel_date, continue_date, 
+      continue_date_end, continue_month)
+    values (#{businessKey,jdbcType=VARCHAR}, #{formNo,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{processInstanceId,jdbcType=VARCHAR}, 
+      #{processEnd,jdbcType=BIT}, #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, 
+      #{user,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{relateType,jdbcType=VARCHAR}, 
+      #{projectName,jdbcType=VARCHAR}, #{projectNo,jdbcType=VARCHAR}, #{contractName,jdbcType=VARCHAR}, 
+      #{contractNo,jdbcType=VARCHAR}, #{bidNo,jdbcType=VARCHAR}, #{combo,jdbcType=VARCHAR}, 
+      #{comboName,jdbcType=VARCHAR}, #{backLetterType,jdbcType=VARCHAR}, #{cash,jdbcType=VARCHAR}, 
+      #{assureDate,jdbcType=VARCHAR}, #{assureDateEnd,jdbcType=VARCHAR}, #{assureMonth,jdbcType=VARCHAR}, 
+      #{backLetterNo,jdbcType=VARCHAR}, #{backContractNo,jdbcType=VARCHAR}, #{assureBank,jdbcType=VARCHAR}, 
+      #{backLetterDate,jdbcType=VARCHAR}, #{cancelDate,jdbcType=VARCHAR}, #{continueDate,jdbcType=VARCHAR}, 
+      #{continueDateEnd,jdbcType=VARCHAR}, #{continueMonth,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.finance.entity.FiveFinanceBackLetter">
+    update five_finance_back_letter
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      form_no = #{formNo,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      is_process_end = #{processEnd,jdbcType=BIT},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      user = #{user,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      relate_type = #{relateType,jdbcType=VARCHAR},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      project_no = #{projectNo,jdbcType=VARCHAR},
+      contract_name = #{contractName,jdbcType=VARCHAR},
+      contract_no = #{contractNo,jdbcType=VARCHAR},
+      bid_no = #{bidNo,jdbcType=VARCHAR},
+      combo = #{combo,jdbcType=VARCHAR},
+      combo_name = #{comboName,jdbcType=VARCHAR},
+      back_letter_type = #{backLetterType,jdbcType=VARCHAR},
+      cash = #{cash,jdbcType=VARCHAR},
+      assure_date = #{assureDate,jdbcType=VARCHAR},
+      assure_date_end = #{assureDateEnd,jdbcType=VARCHAR},
+      assure_month = #{assureMonth,jdbcType=VARCHAR},
+      back_letter_no = #{backLetterNo,jdbcType=VARCHAR},
+      back_contract_no = #{backContractNo,jdbcType=VARCHAR},
+      assure_bank = #{assureBank,jdbcType=VARCHAR},
+      back_letter_date = #{backLetterDate,jdbcType=VARCHAR},
+      cancel_date = #{cancelDate,jdbcType=VARCHAR},
+      continue_date = #{continueDate,jdbcType=VARCHAR},
+      continue_date_end = #{continueDateEnd,jdbcType=VARCHAR},
+      continue_month = #{continueMonth,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, form_no, remark, creator, creator_name, is_deleted, gmt_create, 
+    gmt_modified, process_instance_id, is_process_end, dept_id, dept_name, user, user_name, 
+    relate_type, project_name, project_no, contract_name, contract_no, bid_no, combo, 
+    combo_name, back_letter_type, cash, assure_date, assure_date_end, assure_month, back_letter_no, 
+    back_contract_no, assure_bank, back_letter_date, cancel_date, continue_date, continue_date_end, 
+    continue_month
+    from five_finance_back_letter
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, form_no, remark, creator, creator_name, is_deleted, gmt_create, 
+    gmt_modified, process_instance_id, is_process_end, dept_id, dept_name, user, user_name, 
+    relate_type, project_name, project_no, contract_name, contract_no, bid_no, combo, 
+    combo_name, back_letter_type, cash, assure_date, assure_date_end, assure_month, back_letter_no, 
+    back_contract_no, assure_bank, back_letter_date, cancel_date, continue_date, continue_date_end, 
+    continue_month
+    from five_finance_back_letter
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="formNo != null and formNo != ''">
+         AND form_no = #{formNo}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="processInstanceId != null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="processEnd != null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="deptId != null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="user != null and user != ''">
+         AND user = #{user}
+      </if>
+      <if test="userName != null and userName != ''">
+         AND user_name = #{userName}
+      </if>
+      <if test="relateType != null and relateType != ''">
+         AND relate_type = #{relateType}
+      </if>
+      <if test="projectName != null and projectName != ''">
+         AND project_name = #{projectName}
+      </if>
+      <if test="projectNo != null and projectNo != ''">
+         AND project_no = #{projectNo}
+      </if>
+      <if test="contractName != null and contractName != ''">
+         AND contract_name = #{contractName}
+      </if>
+      <if test="contractNo != null and contractNo != ''">
+         AND contract_no = #{contractNo}
+      </if>
+      <if test="bidNo != null and bidNo != ''">
+         AND bid_no = #{bidNo}
+      </if>
+      <if test="combo != null and combo != ''">
+         AND combo = #{combo}
+      </if>
+      <if test="comboName != null and comboName != ''">
+         AND combo_name = #{comboName}
+      </if>
+      <if test="backLetterType != null and backLetterType != ''">
+         AND back_letter_type = #{backLetterType}
+      </if>
+      <if test="cash != null and cash != ''">
+         AND cash = #{cash}
+      </if>
+      <if test="assureDate != null and assureDate != ''">
+         AND assure_date = #{assureDate}
+      </if>
+      <if test="assureDateEnd != null and assureDateEnd != ''">
+         AND assure_date_end = #{assureDateEnd}
+      </if>
+      <if test="assureMonth != null and assureMonth != ''">
+         AND assure_month = #{assureMonth}
+      </if>
+      <if test="backLetterNo != null and backLetterNo != ''">
+         AND back_letter_no = #{backLetterNo}
+      </if>
+      <if test="backContractNo != null and backContractNo != ''">
+         AND back_contract_no = #{backContractNo}
+      </if>
+      <if test="assureBank != null and assureBank != ''">
+         AND assure_bank = #{assureBank}
+      </if>
+      <if test="backLetterDate != null and backLetterDate != ''">
+         AND back_letter_date = #{backLetterDate}
+      </if>
+      <if test="cancelDate != null and cancelDate != ''">
+         AND cancel_date = #{cancelDate}
+      </if>
+      <if test="continueDate != null and continueDate != ''">
+         AND continue_date = #{continueDate}
+      </if>
+      <if test="continueDateEnd != null and continueDateEnd != ''">
+         AND continue_date_end = #{continueDateEnd}
+      </if>
+      <if test="continueMonth != null and continueMonth != ''">
+         AND continue_month = #{continueMonth}
+      </if>
+    </where>
+  </sql>
+</mapper>

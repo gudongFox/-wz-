@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.budget.dao.FiveBudgetFeeDetailMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.budget.entity.FiveBudgetFeeDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="fee_id" jdbcType="INTEGER" property="feeId" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="type_name" jdbcType="VARCHAR" property="typeName" />
+    <result column="design_fee" jdbcType="VARCHAR" property="designFee" />
+    <result column="project_fee" jdbcType="VARCHAR" property="projectFee" />
+    <result column="other_fee" jdbcType="VARCHAR" property="otherFee" />
+    <result column="budget_money" jdbcType="VARCHAR" property="budgetMoney" />
+    <result column="budget_proportion" jdbcType="VARCHAR" property="budgetProportion" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="seq" jdbcType="INTEGER" property="seq" />
+    <result column="last_year_money" jdbcType="VARCHAR" property="lastYearMoney" />
+    <result column="last_year_success" jdbcType="VARCHAR" property="lastYearSuccess" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_budget_fee_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.budget.entity.FiveBudgetFeeDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_budget_fee_detail (fee_id, dept_id, dept_name, 
+      parent_id, type_name, design_fee, 
+      project_fee, other_fee, budget_money, 
+      budget_proportion, remark, creator, 
+      creator_name, is_deleted, gmt_create, 
+      gmt_modified, seq, last_year_money, 
+      last_year_success)
+    values (#{feeId,jdbcType=INTEGER}, #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, 
+      #{parentId,jdbcType=INTEGER}, #{typeName,jdbcType=VARCHAR}, #{designFee,jdbcType=VARCHAR}, 
+      #{projectFee,jdbcType=VARCHAR}, #{otherFee,jdbcType=VARCHAR}, #{budgetMoney,jdbcType=VARCHAR}, 
+      #{budgetProportion,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{creatorName,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{seq,jdbcType=INTEGER}, #{lastYearMoney,jdbcType=VARCHAR}, 
+      #{lastYearSuccess,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.budget.entity.FiveBudgetFeeDetail">
+    update five_budget_fee_detail
+    set fee_id = #{feeId,jdbcType=INTEGER},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      type_name = #{typeName,jdbcType=VARCHAR},
+      design_fee = #{designFee,jdbcType=VARCHAR},
+      project_fee = #{projectFee,jdbcType=VARCHAR},
+      other_fee = #{otherFee,jdbcType=VARCHAR},
+      budget_money = #{budgetMoney,jdbcType=VARCHAR},
+      budget_proportion = #{budgetProportion,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      seq = #{seq,jdbcType=INTEGER},
+      last_year_money = #{lastYearMoney,jdbcType=VARCHAR},
+      last_year_success = #{lastYearSuccess,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, fee_id, dept_id, dept_name, parent_id, type_name, design_fee, project_fee, 
+    other_fee, budget_money, budget_proportion, remark, creator, creator_name, is_deleted, 
+    gmt_create, gmt_modified, seq, last_year_money, last_year_success
+    from five_budget_fee_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, fee_id, dept_id, dept_name, parent_id, type_name, design_fee, project_fee, 
+    other_fee, budget_money, budget_proportion, remark, creator, creator_name, is_deleted, 
+    gmt_create, gmt_modified, seq, last_year_money, last_year_success
+    from five_budget_fee_detail
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="feeId != null and isLikeSelect==null">
+         AND fee_id = #{feeId}
+      </if>
+      <if test="deptId != null and isLikeSelect==null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and isLikeSelect==null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="parentId != null and isLikeSelect==null">
+         AND parent_id = #{parentId}
+      </if>
+      <if test="typeName != null and isLikeSelect==null and typeName != ''">
+         AND type_name = #{typeName}
+      </if>
+      <if test="designFee != null and isLikeSelect==null and designFee != ''">
+         AND design_fee = #{designFee}
+      </if>
+      <if test="projectFee != null and isLikeSelect==null and projectFee != ''">
+         AND project_fee = #{projectFee}
+      </if>
+      <if test="otherFee != null and isLikeSelect==null and otherFee != ''">
+         AND other_fee = #{otherFee}
+      </if>
+      <if test="budgetMoney != null and isLikeSelect==null and budgetMoney != ''">
+         AND budget_money = #{budgetMoney}
+      </if>
+      <if test="budgetProportion != null and isLikeSelect==null and budgetProportion != ''">
+         AND budget_proportion = #{budgetProportion}
+      </if>
+      <if test="remark != null and isLikeSelect==null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="seq != null and isLikeSelect==null">
+         AND seq = #{seq}
+      </if>
+      <if test="lastYearMoney != null and isLikeSelect==null and lastYearMoney != ''">
+         AND last_year_money = #{lastYearMoney}
+      </if>
+      <if test="lastYearSuccess != null and isLikeSelect==null and lastYearSuccess != ''">
+         AND last_year_success = #{lastYearSuccess}
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="deptName != null and isLikeSelect!= null and deptName != '' ">
+         AND dept_name like  CONCAT('%',#{deptName},'%')
+      </if>
+      <if test="typeName != null and isLikeSelect!= null and typeName != '' ">
+         AND type_name like  CONCAT('%',#{typeName},'%')
+      </if>
+      <if test="designFee != null and isLikeSelect!= null and designFee != '' ">
+         AND design_fee like  CONCAT('%',#{designFee},'%')
+      </if>
+      <if test="projectFee != null and isLikeSelect!= null and projectFee != '' ">
+         AND project_fee like  CONCAT('%',#{projectFee},'%')
+      </if>
+      <if test="otherFee != null and isLikeSelect!= null and otherFee != '' ">
+         AND other_fee like  CONCAT('%',#{otherFee},'%')
+      </if>
+      <if test="budgetMoney != null and isLikeSelect!= null and budgetMoney != '' ">
+         AND budget_money like  CONCAT('%',#{budgetMoney},'%')
+      </if>
+      <if test="budgetProportion != null and isLikeSelect!= null and budgetProportion != '' ">
+         AND budget_proportion like  CONCAT('%',#{budgetProportion},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="lastYearMoney != null and isLikeSelect!= null and lastYearMoney != '' ">
+         AND last_year_money like  CONCAT('%',#{lastYearMoney},'%')
+      </if>
+      <if test="lastYearSuccess != null and isLikeSelect!= null and lastYearSuccess != '' ">
+         AND last_year_success like  CONCAT('%',#{lastYearSuccess},'%')
+      </if>
+    </where>
+  </sql>
+</mapper>

@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveAssetComputerMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveAssetComputer">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="user_login" jdbcType="VARCHAR" property="userLogin" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="computer_no" jdbcType="VARCHAR" property="computerNo" />
+    <result column="computer_name" jdbcType="VARCHAR" property="computerName" />
+    <result column="computer_brand" jdbcType="VARCHAR" property="computerBrand" />
+    <result column="security_level" jdbcType="VARCHAR" property="securityLevel" />
+    <result column="use_way" jdbcType="VARCHAR" property="useWay" />
+    <result column="room" jdbcType="VARCHAR" property="room" />
+    <result column="operating_system" jdbcType="VARCHAR" property="operatingSystem" />
+    <result column="operating_system_time" jdbcType="VARCHAR" property="operatingSystemTime" />
+    <result column="sn_no" jdbcType="VARCHAR" property="snNo" />
+    <result column="hard_disk_no" jdbcType="VARCHAR" property="hardDiskNo" />
+    <result column="mac_address" jdbcType="VARCHAR" property="macAddress" />
+    <result column="network" jdbcType="VARCHAR" property="network" />
+    <result column="ip_address" jdbcType="VARCHAR" property="ipAddress" />
+    <result column="display_type" jdbcType="VARCHAR" property="displayType" />
+    <result column="cd_type" jdbcType="VARCHAR" property="cdType" />
+    <result column="usb_status" jdbcType="VARCHAR" property="usbStatus" />
+    <result column="use_time" jdbcType="VARCHAR" property="useTime" />
+    <result column="use_status" jdbcType="VARCHAR" property="useStatus" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="use_login" jdbcType="VARCHAR" property="useLogin" />
+    <result column="use_name" jdbcType="VARCHAR" property="useName" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+    <result column="charge_man" jdbcType="VARCHAR" property="chargeMan" />
+    <result column="charge_man_name" jdbcType="VARCHAR" property="chargeManName" />
+    <result column="equipment_no" jdbcType="VARCHAR" property="equipmentNo" />
+    <result column="equipment_type" jdbcType="VARCHAR" property="equipmentType" />
+    <result column="fixed_asset_no" jdbcType="VARCHAR" property="fixedAssetNo" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_asset_computer
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveAssetComputer">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_asset_computer (business_key, dept_id, dept_name, 
+      user_login, user_name, computer_no, 
+      computer_name, computer_brand, security_level, 
+      use_way, room, operating_system, 
+      operating_system_time, sn_no, hard_disk_no, 
+      mac_address, network, ip_address, 
+      display_type, cd_type, usb_status, 
+      use_time, use_status, remark, 
+      use_login, use_name, creator, 
+      creator_name, is_deleted, gmt_create, 
+      gmt_modified, process_instance_id, is_process_end, 
+      charge_man, charge_man_name, equipment_no, 
+      equipment_type, fixed_asset_no)
+    values (#{businessKey,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, 
+      #{userLogin,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{computerNo,jdbcType=VARCHAR}, 
+      #{computerName,jdbcType=VARCHAR}, #{computerBrand,jdbcType=VARCHAR}, #{securityLevel,jdbcType=VARCHAR}, 
+      #{useWay,jdbcType=VARCHAR}, #{room,jdbcType=VARCHAR}, #{operatingSystem,jdbcType=VARCHAR}, 
+      #{operatingSystemTime,jdbcType=VARCHAR}, #{snNo,jdbcType=VARCHAR}, #{hardDiskNo,jdbcType=VARCHAR}, 
+      #{macAddress,jdbcType=VARCHAR}, #{network,jdbcType=VARCHAR}, #{ipAddress,jdbcType=VARCHAR}, 
+      #{displayType,jdbcType=VARCHAR}, #{cdType,jdbcType=VARCHAR}, #{usbStatus,jdbcType=VARCHAR}, 
+      #{useTime,jdbcType=VARCHAR}, #{useStatus,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{useLogin,jdbcType=VARCHAR}, #{useName,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{creatorName,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{processInstanceId,jdbcType=VARCHAR}, #{processEnd,jdbcType=BIT}, 
+      #{chargeMan,jdbcType=VARCHAR}, #{chargeManName,jdbcType=VARCHAR}, #{equipmentNo,jdbcType=VARCHAR}, 
+      #{equipmentType,jdbcType=VARCHAR}, #{fixedAssetNo,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveAssetComputer">
+    update five_asset_computer
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      user_login = #{userLogin,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      computer_no = #{computerNo,jdbcType=VARCHAR},
+      computer_name = #{computerName,jdbcType=VARCHAR},
+      computer_brand = #{computerBrand,jdbcType=VARCHAR},
+      security_level = #{securityLevel,jdbcType=VARCHAR},
+      use_way = #{useWay,jdbcType=VARCHAR},
+      room = #{room,jdbcType=VARCHAR},
+      operating_system = #{operatingSystem,jdbcType=VARCHAR},
+      operating_system_time = #{operatingSystemTime,jdbcType=VARCHAR},
+      sn_no = #{snNo,jdbcType=VARCHAR},
+      hard_disk_no = #{hardDiskNo,jdbcType=VARCHAR},
+      mac_address = #{macAddress,jdbcType=VARCHAR},
+      network = #{network,jdbcType=VARCHAR},
+      ip_address = #{ipAddress,jdbcType=VARCHAR},
+      display_type = #{displayType,jdbcType=VARCHAR},
+      cd_type = #{cdType,jdbcType=VARCHAR},
+      usb_status = #{usbStatus,jdbcType=VARCHAR},
+      use_time = #{useTime,jdbcType=VARCHAR},
+      use_status = #{useStatus,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      use_login = #{useLogin,jdbcType=VARCHAR},
+      use_name = #{useName,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      is_process_end = #{processEnd,jdbcType=BIT},
+      charge_man = #{chargeMan,jdbcType=VARCHAR},
+      charge_man_name = #{chargeManName,jdbcType=VARCHAR},
+      equipment_no = #{equipmentNo,jdbcType=VARCHAR},
+      equipment_type = #{equipmentType,jdbcType=VARCHAR},
+      fixed_asset_no = #{fixedAssetNo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, dept_id, dept_name, user_login, user_name, computer_no, 
+    computer_name, computer_brand, security_level, use_way, room, operating_system, operating_system_time, 
+    sn_no, hard_disk_no, mac_address, network, ip_address, display_type, cd_type, usb_status, 
+    use_time, use_status, remark, use_login, use_name, creator, creator_name, is_deleted, 
+    gmt_create, gmt_modified, process_instance_id, is_process_end, charge_man, charge_man_name, 
+    equipment_no, equipment_type, fixed_asset_no
+    from five_asset_computer
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, dept_id, dept_name, user_login, user_name, computer_no, 
+    computer_name, computer_brand, security_level, use_way, room, operating_system, operating_system_time, 
+    sn_no, hard_disk_no, mac_address, network, ip_address, display_type, cd_type, usb_status, 
+    use_time, use_status, remark, use_login, use_name, creator, creator_name, is_deleted, 
+    gmt_create, gmt_modified, process_instance_id, is_process_end, charge_man, charge_man_name, 
+    equipment_no, equipment_type, fixed_asset_no
+    from five_asset_computer
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and isLikeSelect==null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="deptId != null and isLikeSelect==null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and isLikeSelect==null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="userLogin != null and isLikeSelect==null and userLogin != ''">
+         AND user_login = #{userLogin}
+      </if>
+      <if test="userName != null and isLikeSelect==null and userName != ''">
+         AND user_name = #{userName}
+      </if>
+      <if test="computerNo != null and isLikeSelect==null and computerNo != ''">
+         AND computer_no = #{computerNo}
+      </if>
+      <if test="computerName != null and isLikeSelect==null and computerName != ''">
+         AND computer_name = #{computerName}
+      </if>
+      <if test="computerBrand != null and isLikeSelect==null and computerBrand != ''">
+         AND computer_brand = #{computerBrand}
+      </if>
+      <if test="securityLevel != null and isLikeSelect==null and securityLevel != ''">
+         AND security_level = #{securityLevel}
+      </if>
+      <if test="useWay != null and isLikeSelect==null and useWay != ''">
+         AND use_way = #{useWay}
+      </if>
+      <if test="room != null and isLikeSelect==null and room != ''">
+         AND room = #{room}
+      </if>
+      <if test="operatingSystem != null and isLikeSelect==null and operatingSystem != ''">
+         AND operating_system = #{operatingSystem}
+      </if>
+      <if test="operatingSystemTime != null and isLikeSelect==null and operatingSystemTime != ''">
+         AND operating_system_time = #{operatingSystemTime}
+      </if>
+      <if test="snNo != null and isLikeSelect==null and snNo != ''">
+         AND sn_no = #{snNo}
+      </if>
+      <if test="hardDiskNo != null and isLikeSelect==null and hardDiskNo != ''">
+         AND hard_disk_no = #{hardDiskNo}
+      </if>
+      <if test="macAddress != null and isLikeSelect==null and macAddress != ''">
+         AND mac_address = #{macAddress}
+      </if>
+      <if test="network != null and isLikeSelect==null and network != ''">
+         AND network = #{network}
+      </if>
+      <if test="ipAddress != null and isLikeSelect==null and ipAddress != ''">
+         AND ip_address = #{ipAddress}
+      </if>
+      <if test="displayType != null and isLikeSelect==null and displayType != ''">
+         AND display_type = #{displayType}
+      </if>
+      <if test="cdType != null and isLikeSelect==null and cdType != ''">
+         AND cd_type = #{cdType}
+      </if>
+      <if test="usbStatus != null and isLikeSelect==null and usbStatus != ''">
+         AND usb_status = #{usbStatus}
+      </if>
+      <if test="useTime != null and isLikeSelect==null and useTime != ''">
+         AND use_time = #{useTime}
+      </if>
+      <if test="useStatus != null and isLikeSelect==null and useStatus != ''">
+         AND use_status = #{useStatus}
+      </if>
+      <if test="remark != null and isLikeSelect==null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="useLogin != null and isLikeSelect==null and useLogin != ''">
+         AND use_login = #{useLogin}
+      </if>
+      <if test="useName != null and isLikeSelect==null and useName != ''">
+         AND use_name = #{useName}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="processInstanceId != null and isLikeSelect==null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="processEnd != null and isLikeSelect==null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="chargeMan != null and isLikeSelect==null and chargeMan != ''">
+         AND charge_man = #{chargeMan}
+      </if>
+      <if test="chargeManName != null and isLikeSelect==null and chargeManName != ''">
+         AND charge_man_name = #{chargeManName}
+      </if>
+      <if test="equipmentNo != null and isLikeSelect==null and equipmentNo != ''">
+         AND equipment_no = #{equipmentNo}
+      </if>
+      <if test="equipmentType != null and isLikeSelect==null and equipmentType != ''">
+         AND equipment_type = #{equipmentType}
+      </if>
+    <if test="formNoNull != null and isLikeSelect==null">
+        AND computer_no like  CONCAT('',#{formNoNull},'%')
+    </if>
+    <if test="chargeOrUser != null and isLikeSelect==null and chargeOrUser != ''">
+        AND (
+        use_login = #{chargeOrUser} or
+        charge_man = #{chargeOrUser}
+        )
+    </if>
+      <if test="fixedAssetNo != null and isLikeSelect==null and fixedAssetNo != ''">
+         AND fixed_asset_no = #{fixedAssetNo}
+      </if>
+        <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect==null">
+            AND (
+            dept_id in
+            <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+                #{deptId}
+            </foreach>
+            <if test="initiator != null and initiator != ''">
+                or creator = #{initiator}
+            </if>
+            )
+        </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="businessKey != null and isLikeSelect!= null and businessKey != '' ">
+         AND business_key like  CONCAT('%',#{businessKey},'%')
+      </if>
+      <if test="deptName != null and isLikeSelect!= null and deptName != '' ">
+         AND dept_name like  CONCAT('%',#{deptName},'%')
+      </if>
+      <if test="userLogin != null and isLikeSelect!= null and userLogin != '' ">
+         AND user_login like  CONCAT('%',#{userLogin},'%')
+      </if>
+      <if test="userName != null and isLikeSelect!= null and userName != '' ">
+         AND user_name like  CONCAT('%',#{userName},'%')
+      </if>
+      <if test="computerNo != null and isLikeSelect!= null and computerNo != '' ">
+         AND computer_no like  CONCAT('%',#{computerNo},'%')
+      </if>
+      <if test="computerName != null and isLikeSelect!= null and computerName != '' ">
+         AND computer_name like  CONCAT('%',#{computerName},'%')
+      </if>
+      <if test="computerBrand != null and isLikeSelect!= null and computerBrand != '' ">
+         AND computer_brand like  CONCAT('%',#{computerBrand},'%')
+      </if>
+      <if test="securityLevel != null and isLikeSelect!= null and securityLevel != '' ">
+         AND security_level like  CONCAT('%',#{securityLevel},'%')
+      </if>
+      <if test="useWay != null and isLikeSelect!= null and useWay != '' ">
+         AND use_way like  CONCAT('%',#{useWay},'%')
+      </if>
+      <if test="room != null and isLikeSelect!= null and room != '' ">
+         AND room like  CONCAT('%',#{room},'%')
+      </if>
+      <if test="operatingSystem != null and isLikeSelect!= null and operatingSystem != '' ">
+         AND operating_system like  CONCAT('%',#{operatingSystem},'%')
+      </if>
+      <if test="operatingSystemTime != null and isLikeSelect!= null and operatingSystemTime != '' ">
+         AND operating_system_time like  CONCAT('%',#{operatingSystemTime},'%')
+      </if>
+      <if test="snNo != null and isLikeSelect!= null and snNo != '' ">
+         AND sn_no like  CONCAT('%',#{snNo},'%')
+      </if>
+      <if test="hardDiskNo != null and isLikeSelect!= null and hardDiskNo != '' ">
+         AND hard_disk_no like  CONCAT('%',#{hardDiskNo},'%')
+      </if>
+      <if test="macAddress != null and isLikeSelect!= null and macAddress != '' ">
+         AND mac_address like  CONCAT('%',#{macAddress},'%')
+      </if>
+      <if test="network != null and isLikeSelect!= null and network != '' ">
+         AND network like  CONCAT('%',#{network},'%')
+      </if>
+      <if test="ipAddress != null and isLikeSelect!= null and ipAddress != '' ">
+         AND ip_address like  CONCAT('%',#{ipAddress},'%')
+      </if>
+      <if test="displayType != null and isLikeSelect!= null and displayType != '' ">
+         AND display_type like  CONCAT('%',#{displayType},'%')
+      </if>
+      <if test="cdType != null and isLikeSelect!= null and cdType != '' ">
+         AND cd_type like  CONCAT('%',#{cdType},'%')
+      </if>
+      <if test="usbStatus != null and isLikeSelect!= null and usbStatus != '' ">
+         AND usb_status like  CONCAT('%',#{usbStatus},'%')
+      </if>
+      <if test="useTime != null and isLikeSelect!= null and useTime != '' ">
+         AND use_time like  CONCAT('%',#{useTime},'%')
+      </if>
+      <if test="useStatus != null and isLikeSelect!= null and useStatus != '' ">
+         AND use_status like  CONCAT('%',#{useStatus},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="useLogin != null and isLikeSelect!= null and useLogin != '' ">
+         AND use_login like  CONCAT('%',#{useLogin},'%')
+      </if>
+      <if test="useName != null and isLikeSelect!= null and useName != '' ">
+         AND use_name like  CONCAT('%',#{useName},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="processInstanceId != null and isLikeSelect!= null and processInstanceId != '' ">
+         AND process_instance_id like  CONCAT('%',#{processInstanceId},'%')
+      </if>
+      <if test="chargeMan != null and isLikeSelect!= null and chargeMan != '' ">
+         AND charge_man like  CONCAT('%',#{chargeMan},'%')
+      </if>
+      <if test="chargeManName != null and isLikeSelect!= null and chargeManName != '' ">
+         AND charge_man_name like  CONCAT('%',#{chargeManName},'%')
+      </if>
+      <if test="equipmentNo != null and isLikeSelect!= null and equipmentNo != '' ">
+         AND equipment_no like  CONCAT('%',#{equipmentNo},'%')
+      </if>
+      <if test="equipmentType != null and isLikeSelect!= null and equipmentType != '' ">
+         AND equipment_type like  CONCAT('%',#{equipmentType},'%')
+      </if>
+      <if test="fixedAssetNo != null and isLikeSelect!= null and fixedAssetNo != '' ">
+         AND fixed_asset_no like  CONCAT('%',#{fixedAssetNo},'%')
+      </if>
+        <if test="processEnd != null and isLikeSelect!=null">
+            AND is_process_end = #{processEnd}
+        </if>
+        <if test="chargeOrUser != null and isLikeSelect!=null and chargeOrUser != ''">
+            AND (
+            use_login = #{chargeOrUser} or
+            charge_man = #{chargeOrUser}
+            )
+        </if>
+    <if test="flag != null and isLikeSelect!=null">
+        AND process_instance_id != ''
+    </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+
+        <if test="deptId != null and isLikeSelect!=null">
+            AND dept_id = #{deptId}
+        </if>
+
+        <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect!=null">
+            AND (
+            dept_id in
+            <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+                #{deptId}
+            </foreach>
+            <if test="initiator != null and initiator != ''">
+                or creator = #{initiator}
+            </if>
+            )
+        </if>
+    </where>
+  </sql>
+</mapper>

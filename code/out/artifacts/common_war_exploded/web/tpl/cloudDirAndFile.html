@@ -1,0 +1,348 @@
+<span ng-controller="CloudDirAndFileController">
+    <link rel="stylesheet" href="/assets/jquery-file-upload/css/jquery.fileupload.css" type="text/css"/>
+    <link rel="stylesheet" href="/assets/jquery-file-upload/css/jquery.fileupload-ui.css" type="text/css"/>
+
+    <div class="kt-portlet">
+        <div class="kt-portlet__head">
+            <div class="kt-portlet__head-label">
+                    <span class="kt-portlet__head-icon">
+                                                        <i class="flaticon2-document"></i>
+                                                    </span>
+                <h3 class="kt-portlet__head-title" ng-bind="fileTplTitle">
+                </h3>
+            </div>
+
+           <div class="kt-portlet__head-toolbar">
+                <div class="btn-group btn-group-sm" >
+                <button type="button" class="btn  btn-secondary" ng-click="newDir();" ng-show="tplConfig.editable"><i
+                        class="la la-plus"></i>新文件夹</button>
+
+              <button type="button" class="btn  btn-secondary" ng-click="downloadMore();"><i
+                      class="la la-download"></i>下载</button>
+
+               <button type="button" class="btn  btn-secondary" ng-click="removeMore();" ng-show="tplConfig.editable"><i
+                       class="la la-trash"></i>删除</button>
+
+                    <div class="btn-group"  ng-show="tplConfig.editable">
+                                                                        <button type="button"
+                                                                                class="btn btn-secondary dropdown-toggle"
+                                                                                data-toggle="dropdown" aria-haspopup="true"
+                                                                                aria-expanded="false">
+                                                                             上传
+                                                                        </button>
+                                                                        <div class="dropdown-menu">
+
+                                                                            <button type="button"
+                                                                                           class="btn  btn-secondary fileinput-button dropdown-item" style="width: 95%;margin: 5px;">上传文件
+                                                                                 <input id="uploadFile" type="file" name="file" multiple accept="*"/>
+                                                                             </button>
+
+                                                                              <button type="button"
+                                                                                      class="btn  btn-secondary fileinput-button dropdown-item" style="width: 95%;margin: 5px;">上传文件夹
+                                                                                 <input id="uploadDirectory" type="file" name="file" webkitdirectory/>
+                                                                             </button>
+
+                                                                        </div>
+                                                                    </div>
+            </div>
+           </div>
+        </div>
+
+        <div class="kt-section kt-section--last">
+            <div class="kt-section__content">
+                <div class="progress" style="height: 0.1rem;">
+                    <div id="uploadProgress"
+                         class="progress-bar progress-bar-striped progress-bar-animated  bg-success"
+                         style="width: 0%;opacity: 1;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="kt-portlet__body" style="font-size: 12px;padding-top: 10px;">
+            <div style="padding: 0.2rem 0rem 0.2rem 0rem;color: #48465b;font-weight: 400;font-size: 14px;"
+                 ng-show="breadcrumbs.length>1">
+                <span ng-repeat="breadcrumb in breadcrumbs" ng-click="loadData(breadcrumb.id);">
+                    <span ng-bind="breadcrumb.text" style="cursor: pointer;"></span>
+                    <span ng-bind="' > '"></span>
+                </span>
+            </div>
+            <div class="dataTables_wrapper dt-bootstrap4" style="margin-top: -8px;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table  table-bordered table-hover dataTable">
+                            <thead>
+                            <tr>
+                                <th style="width: 23px;text-align: center;">
+
+                                                    <label class="kt-checkbox kt-checkbox--bold kt-checkbox--tick kt-checkbox--success"
+                                                           style="margin-bottom: 15px;margin-left: 5px;">
+																	<input type="checkbox" id="cb_all"/>
+																	<span></span>
+                                                    </label>
+
+
+                                </th>
+                                <th>文件名</th>
+                                <th style="width: 90px;" ng-show="tplConfig.showFileType" class="hidden-sm">文件类型</th>
+                                <th style="width: 55px;">上传人</th>
+                                <th style="width: 115px;" class="hidden-sm">修改时间</th>
+                                <th style="width: 90px;">大小</th>
+                                <th style="width: 70px;" ng-show="tplConfig.editable">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr role="row" ng-repeat="dir in dirs">
+                                <td style="text-align: center;">
+
+                                       <label class="kt-checkbox kt-checkbox--bold"
+                                              style="margin-bottom: 15px;margin-left: 5px;">
+																	<input type="checkbox" class="cbDirOrFile"
+                                                                           data-id="dir_{{dir.id}}"/>
+																	<span></span>
+                                                    </label>
+
+
+                                </td>
+                                <td style="padding:0.1rem 0.1rem 0.1rem 0.5rem;cursor: pointer;word-break:break-all;"
+                                    ng-click="loadData(dir.id);">
+                                    <img ng-src="{{'/assets/img/dir.png'}}" style="width: 30px;height: 30px;" alt="">
+                                    <span ng-bind="dir.cnName"></span>
+                                </td>
+                                <td ng-show="tplConfig.showFileType" class="hidden-sm"></td>
+                                <td ng-bind="dir.creatorName"></td>
+                                <td ng-bind="dir.gmtModified|date:'yyyy-MM-dd HH:mm'" class="hidden-sm"></td>
+                                <td ng-bind="dir.sizeName"></td>
+                                <td ng-show="tplConfig.editable">
+                                        <i class="flaticon-download" style="margin-left: 5px;cursor: pointer;"
+                                           title="下载"
+                                           ng-click="downloadDir(dir.id);"/>
+                                    <i class="flaticon-edit" style="margin-left: 5px;cursor: pointer;" title="编辑"
+                                       ng-show="tplConfig.editable&&dir.creator==user.enLogin&&dir.editableTag=='creator'"
+                                       ng-click="showDir(dir.id);"/>
+                                    <i class="flaticon-delete" style="margin-left: 5px;cursor: pointer;" title="删除"
+                                       ng-click="removeDir(dir.id);"
+                                       ng-show="tplConfig.editable&&dir.creator==user.enLogin&&dir.editableTag=='creator'"/>
+                                </td>
+                            </tr>
+                            <tr role="row" ng-repeat="file in files">
+                                <td style="text-align: center;line-height: 30px;">
+
+                                       <label class="kt-checkbox kt-checkbox--bold"
+                                              style="margin-bottom: 15px;margin-left: 5px;">
+																	<input type="checkbox" class="cbDirOrFile"
+                                                                           data-id="file_{{file.id}}"/>
+																	<span></span>
+                                                    </label>
+
+                                </td>
+                                <td style="padding:0.1rem 0.1rem 0.1rem 0.5rem;word-break:break-all;line-height:30px;">
+                                     <img ng-src="{{'/assets/img/'+file.commonAttach.extensionName+'.png'}}"
+                                          onerror="this.src='/assets/img/doc.png'"
+                                          style="width: 30px;height: 30px;" alt="">
+                                    <span style="font-size: 10px;margin-right: 5px;"></span>
+                                    <span ng-bind="file.fileName"  ng-click="downloadFile(file,true);"></span>
+                                </td>
+                                <td ng-show="tplConfig.showFileType" ng-bind="file.fileType" class="hidden-sm" style="line-height: 30px;"></td>
+                                <td ng-bind="file.creatorName" style="line-height: 30px;"></td>
+                                <td class="hidden-sm" style="line-height: 30px;">
+                                    <span ng-bind="file.gmtModified|date:'yyyy-MM-dd HH:mm'"
+                                          style="{{file.commonFileProperty.signAttachId>0?'color:green;font-weight:bold;':''}}"></span>
+                                </td>
+                                <td ng-bind="file.commonAttach.sizeName"  style="line-height: 30px;"></td>
+                                <td ng-show="tplConfig.editable" style="line-height: 30px;">
+                                      <i class="flaticon-download" style="margin-left: 5px;cursor: pointer;" title="下载"
+                                         ng-click="downloadFile(file,false);"/>
+                                    <i class="flaticon-edit" style="margin-left: 5px;cursor: pointer;" title="编辑"
+                                       ng-show="tplConfig.editable"
+                                       ng-click="showFile(file.id);"/>
+                                    <i class="flaticon-delete" style="margin-left: 5px;cursor: pointer;" title="删除"
+                                       ng-click="removeFile(file.id);"
+                                       ng-show="tplConfig.editable&&file.lockedLogin==user.enLogin"/>
+                                </td  style="line-height: 30px;">
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal" id="commonFileModal">
+        <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" ng-bind="item.fileName"></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="padding-bottom: 5px;padding-top: 0px;">
+                  <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-2x nav-tabs-line-success" role="tablist"
+                      style="margin-bottom: 10px;">
+                     <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#tab_file_detail" role="tab">文件详情</a>
+                     </li>
+                      <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tab_file_history" role="tab">历史记录</a>
+                      </li>
+                  </ul>
+                  <div class="tab-content">
+                      <div class="tab-pane active" id="tab_file_detail" role="tabpanel"
+                           style="height: 400px;overflow-y: auto;padding-left: 15px;padding-right: 15px;">
+
+                                      <div class="form-group" style="margin-bottom: 0.5rem;">
+                                        <label>文件名称<span style="color: red;margin-left: 2px;">*</span></label>
+                                        <input type="text" class="form-control" ng-model="item.fileName"
+                                               placeholder="请输入名称">
+                                      </div>
+
+                                     <div class="row">
+                                      <div class="form-group col-md-6" style="margin-bottom: 0.5rem;">
+                                        <label>文件类型<span style="color: red;margin-left: 2px;">*</span></label>
+                                          <select class="form-control" ng-options="s.code as s.name for s in fileTypes"
+                                                  ng-model="item.fileType"></select>
+
+                                      </div>
+
+
+                                     <div class="form-group col-md-6" style="margin-bottom: 0.5rem;">
+                                        <label>文件排序<span style="color: red;margin-left: 2px;">*</span></label>
+                                        <input type="number" class="form-control" ng-model="item.seq"
+                                               placeholder="请输入名称">
+                                      </div>
+
+   </div>
+                                    <div class="form-group" style="margin-bottom: 0.5rem;"
+                                         ng-show="item.commonFileProperty.signAttachId">
+                                        <label ng-bind="'专家打码('+item.commonFileProperty.signUserName+')'">专家签章<span
+                                                style="color: red;margin-left: 2px;">*</span></label>
+                                          <div class="input-group">
+                                              <input type="text" class="form-control"
+                                                     ng-value="item.commonFileProperty.signTime|date:'yyyy-MM-dd HH:mm:ss'"
+                                                     disabled="disabled"/>
+                                              <div class="input-group-append"
+                                                   ng-click="downloadAttach(item.commonFileProperty.signAttachId);"><span
+                                                      class="input-group-text"><i
+                                                      class="la la-download"></i></span></div>
+											</div>
+                                      </div>
+
+                          <div class="row">
+                                     <div class="form-group col-md-6" style="margin-bottom: 0.5rem;">
+                                        <label>创建人</label>
+                                        <input type="text" class="form-control" ng-model="item.creatorName"
+                                               disabled="disabled">
+                                      </div>
+                                     <div class="form-group col-md-6" style="margin-bottom: 0.5rem;">
+                                        <label>创建时间</label>
+                                        <input type="text" class="form-control"
+                                               ng-value="item.gmtCreate|date:'yyyy-MM-dd HH:mm:ss'" disabled="disabled">
+                                      </div>
+                                </div>
+                                   <div class="form-group" style="margin-bottom: 0.5rem;">
+                                        <label>备注</label>
+                                        <input type="text" class="form-control" ng-model="item.remark"
+                                               placeholder="">
+                                      </div>
+                       </div>
+                       <div class="tab-pane" id="tab_file_history" role="tabpanel"
+                            style="height: 400px;overflow-y: auto;">
+
+                             <table class="table  table-bordered table-hover dataTable">
+                            <thead>
+                            <tr>
+                                <th style="width: 125px;">上传时间</th>
+                                <th style="width: 50px;">上传人</th>
+                                <th style="width: 70px;">文件大小</th>
+                                <th>备注</th>
+                                <th style="width: 30px;" ng-show="tplConfig.editable">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr role="row" ng-repeat="history in historyList">
+                                <td ng-bind="history.gmtCreate|date:'yyyy-MM-dd HH:mm'"
+                                    ng-click="downloadAttach(history.id);" style="color: blue;cursor: pointer;"></td>
+                                <td ng-bind="history.creator"></td>
+                                <td ng-bind="history.sizeName"></td>
+                                <td ng-bind="history.remark"></td>
+                                <td ng-show="tplConfig.editable">
+                                    <i class="flaticon-delete" style="margin-left: 5px;cursor: pointer;" title="删除"
+                                       ng-click="removeHistory(history.id);" ng-show="history.creator==user.enLogin"/>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                       </div>
+                     </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" ng-show="item.creator==user.enLogin"
+                        ng-click="saveFile(item);">保存</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+    </div>
+
+    <div class="modal" id="commonDirModal">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">文件夹详情</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="padding-bottom: 5px;padding-top: 0px;">
+                 <div class="form-group" style="margin-bottom: 0.5rem;">
+                                        <label>文件名称<span style="color: red;margin-left: 2px;">*</span></label>
+                                        <input type="text" class="form-control" ng-model="item.cnName"
+                                               placeholder="请输入名称">
+                                      </div>
+                 <div class="form-group" style="margin-bottom: 0.5rem;">
+                                        <label>文件排序<span style="color: red;margin-left: 2px;">*</span></label>
+                                        <input type="number" class="form-control" ng-model="item.seq"
+                                               placeholder="">
+                                      </div>
+                 <div class="form-group" style="margin-bottom: 0.5rem;" ng-if="item.buildId">
+                                        <label>子项名称<span style="color: red;margin-left: 2px;">*</span></label>
+                                        <input type="number" class="form-control" ng-model="item.buildId"
+                                               placeholder="">
+                  </div>
+                  <div class="form-group" style="margin-bottom: 0.5rem;" ng-if="item.buildId">
+                                        <label>专业名称<span style="color: red;margin-left: 2px;">*</span></label>
+                                        <input type="number" class="form-control" ng-model="item.majorName"
+                                               placeholder="">
+                  </div>
+                 <div class="form-group" style="margin-bottom: 0.5rem;">
+                                        <label>创建人</label>
+                                        <input type="text" class="form-control" ng-model="item.creatorName"
+                                               disabled="disabled">
+                                      </div>
+                 <div class="form-group" style="margin-bottom: 0.5rem;">
+                                        <label>创建时间</label>
+                                        <input type="text" class="form-control"
+                                               ng-value="item.gmtCreate|date:'yyyy-MM-dd HH:mm:ss'" disabled="disabled">
+                                      </div>
+                 <div class="form-group" style="margin-bottom: 0.5rem;">
+                                        <label>备注</label>
+                                        <input type="text" class="form-control" ng-model="item.remark"
+                                               placeholder="">
+                                      </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" ng-show="item.creator==user.enLogin"
+                        ng-click="saveDir(item);">保存</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+    </div>
+
+
+    <script src="/assets/jquery-file-upload/js/vendor/jquery.ui.widget.js"></script>
+    <script src="/assets/jquery-file-upload/js/jquery.iframe-transport.js"></script>
+    <script src="/assets/jquery-file-upload/js/jquery.fileupload.js"></script>
+    <script src="/assets/jquery-file-upload/js/jquery.fileupload-process.js"></script>
+    <script src="/assets/jquery-file-upload/js/jquery.fileupload-validate.js"></script>
+</span>

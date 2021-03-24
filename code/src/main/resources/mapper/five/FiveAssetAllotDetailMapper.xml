@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveAssetAllotDetailMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveAssetAllotDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="asset_allot_id" jdbcType="INTEGER" property="assetAllotId" />
+    <result column="enter_time" jdbcType="VARCHAR" property="enterTime" />
+    <result column="asset_code" jdbcType="VARCHAR" property="assetCode" />
+    <result column="asset_name" jdbcType="VARCHAR" property="assetName" />
+    <result column="model" jdbcType="VARCHAR" property="model" />
+    <result column="use_unit" jdbcType="VARCHAR" property="useUnit" />
+    <result column="use_man" jdbcType="VARCHAR" property="useMan" />
+    <result column="use_man_name" jdbcType="VARCHAR" property="useManName" />
+    <result column="transfer_unit" jdbcType="VARCHAR" property="transferUnit" />
+    <result column="reserve_man" jdbcType="VARCHAR" property="reserveMan" />
+    <result column="reserve_man_name" jdbcType="VARCHAR" property="reserveManName" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_asset_allot_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveAssetAllotDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_asset_allot_detail (asset_allot_id, enter_time, asset_code, 
+      asset_name, model, use_unit, 
+      use_man, use_man_name, transfer_unit, 
+      reserve_man, reserve_man_name, remark, 
+      creator, creator_name, is_deleted, 
+      gmt_create, gmt_modified)
+    values (#{assetAllotId,jdbcType=INTEGER}, #{enterTime,jdbcType=VARCHAR}, #{assetCode,jdbcType=VARCHAR}, 
+      #{assetName,jdbcType=VARCHAR}, #{model,jdbcType=VARCHAR}, #{useUnit,jdbcType=VARCHAR}, 
+      #{useMan,jdbcType=VARCHAR}, #{useManName,jdbcType=VARCHAR}, #{transferUnit,jdbcType=VARCHAR}, 
+      #{reserveMan,jdbcType=VARCHAR}, #{reserveManName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveAssetAllotDetail">
+    update five_asset_allot_detail
+    set asset_allot_id = #{assetAllotId,jdbcType=INTEGER},
+      enter_time = #{enterTime,jdbcType=VARCHAR},
+      asset_code = #{assetCode,jdbcType=VARCHAR},
+      asset_name = #{assetName,jdbcType=VARCHAR},
+      model = #{model,jdbcType=VARCHAR},
+      use_unit = #{useUnit,jdbcType=VARCHAR},
+      use_man = #{useMan,jdbcType=VARCHAR},
+      use_man_name = #{useManName,jdbcType=VARCHAR},
+      transfer_unit = #{transferUnit,jdbcType=VARCHAR},
+      reserve_man = #{reserveMan,jdbcType=VARCHAR},
+      reserve_man_name = #{reserveManName,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, asset_allot_id, enter_time, asset_code, asset_name, model, use_unit, use_man, 
+    use_man_name, transfer_unit, reserve_man, reserve_man_name, remark, creator, creator_name, 
+    is_deleted, gmt_create, gmt_modified
+    from five_asset_allot_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, asset_allot_id, enter_time, asset_code, asset_name, model, use_unit, use_man, 
+    use_man_name, transfer_unit, reserve_man, reserve_man_name, remark, creator, creator_name, 
+    is_deleted, gmt_create, gmt_modified
+    from five_asset_allot_detail
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="assetAllotId != null">
+         AND asset_allot_id = #{assetAllotId}
+      </if>
+      <if test="enterTime != null and enterTime != ''">
+         AND enter_time = #{enterTime}
+      </if>
+      <if test="assetCode != null and assetCode != ''">
+         AND asset_code = #{assetCode}
+      </if>
+      <if test="assetName != null and assetName != ''">
+         AND asset_name = #{assetName}
+      </if>
+      <if test="model != null and model != ''">
+         AND model = #{model}
+      </if>
+      <if test="useUnit != null and useUnit != ''">
+         AND use_unit = #{useUnit}
+      </if>
+      <if test="useMan != null and useMan != ''">
+         AND use_man = #{useMan}
+      </if>
+      <if test="useManName != null and useManName != ''">
+         AND use_man_name = #{useManName}
+      </if>
+      <if test="transferUnit != null and transferUnit != ''">
+         AND transfer_unit = #{transferUnit}
+      </if>
+      <if test="reserveMan != null and reserveMan != ''">
+         AND reserve_man = #{reserveMan}
+      </if>
+      <if test="reserveManName != null and reserveManName != ''">
+         AND reserve_man_name = #{reserveManName}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+    </where>
+  </sql>
+</mapper>

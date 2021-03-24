@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveOaSignQuoteMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveOaSignQuote">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="form_no" jdbcType="VARCHAR" property="formNo" />
+    <result column="belong_three_one" jdbcType="VARCHAR" property="belongThreeOne" />
+    <result column="item" jdbcType="VARCHAR" property="item" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="dept_charge_man" jdbcType="VARCHAR" property="deptChargeMan" />
+    <result column="dept_charge_man_name" jdbcType="VARCHAR" property="deptChargeManName" />
+    <result column="company_no" jdbcType="VARCHAR" property="companyNo" />
+    <result column="agent" jdbcType="VARCHAR" property="agent" />
+    <result column="agent_name" jdbcType="VARCHAR" property="agentName" />
+    <result column="company_check_man" jdbcType="VARCHAR" property="companyCheckMan" />
+    <result column="company_check_man_name" jdbcType="VARCHAR" property="companyCheckManName" />
+    <result column="submit_time" jdbcType="VARCHAR" property="submitTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+    <result column="flag" jdbcType="VARCHAR" property="flag" />
+    <result column="sign" jdbcType="VARCHAR" property="sign" />
+    <result column="tab" jdbcType="VARCHAR" property="tab" />
+    <result column="company_leader" jdbcType="VARCHAR" property="companyLeader" />
+    <result column="company_leader_name" jdbcType="VARCHAR" property="companyLeaderName" />
+    <result column="instruct_leader" jdbcType="VARCHAR" property="instructLeader" />
+    <result column="instruct_leader_name" jdbcType="VARCHAR" property="instructLeaderName" />
+    <result column="instruct_dept_id" jdbcType="VARCHAR" property="instructDeptId" />
+    <result column="instruct_dept_name" jdbcType="VARCHAR" property="instructDeptName" />
+    <result column="meeting_type" jdbcType="VARCHAR" property="meetingType" />
+    <result column="belong_type" jdbcType="VARCHAR" property="belongType" />
+    <result column="belong_content" jdbcType="VARCHAR" property="belongContent" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_oa_sign_quote
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveOaSignQuote">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_oa_sign_quote (business_key, form_no, belong_three_one, 
+      item, dept_id, dept_name, 
+      dept_charge_man, dept_charge_man_name, company_no, 
+      agent, agent_name, company_check_man, 
+      company_check_man_name, submit_time, remark, 
+      creator, creator_name, is_deleted, 
+      gmt_create, gmt_modified, process_instance_id, 
+      is_process_end, flag, sign, 
+      tab, company_leader, company_leader_name, 
+      instruct_leader, instruct_leader_name, instruct_dept_id, 
+      instruct_dept_name, meeting_type, belong_type, 
+      belong_content)
+    values (#{businessKey,jdbcType=VARCHAR}, #{formNo,jdbcType=VARCHAR}, #{belongThreeOne,jdbcType=VARCHAR}, 
+      #{item,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, 
+      #{deptChargeMan,jdbcType=VARCHAR}, #{deptChargeManName,jdbcType=VARCHAR}, #{companyNo,jdbcType=VARCHAR}, 
+      #{agent,jdbcType=VARCHAR}, #{agentName,jdbcType=VARCHAR}, #{companyCheckMan,jdbcType=VARCHAR}, 
+      #{companyCheckManName,jdbcType=VARCHAR}, #{submitTime,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{processInstanceId,jdbcType=VARCHAR}, 
+      #{processEnd,jdbcType=BIT}, #{flag,jdbcType=VARCHAR}, #{sign,jdbcType=VARCHAR}, 
+      #{tab,jdbcType=VARCHAR}, #{companyLeader,jdbcType=VARCHAR}, #{companyLeaderName,jdbcType=VARCHAR}, 
+      #{instructLeader,jdbcType=VARCHAR}, #{instructLeaderName,jdbcType=VARCHAR}, #{instructDeptId,jdbcType=VARCHAR}, 
+      #{instructDeptName,jdbcType=VARCHAR}, #{meetingType,jdbcType=VARCHAR}, #{belongType,jdbcType=VARCHAR}, 
+      #{belongContent,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveOaSignQuote">
+    update five_oa_sign_quote
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      form_no = #{formNo,jdbcType=VARCHAR},
+      belong_three_one = #{belongThreeOne,jdbcType=VARCHAR},
+      item = #{item,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      dept_charge_man = #{deptChargeMan,jdbcType=VARCHAR},
+      dept_charge_man_name = #{deptChargeManName,jdbcType=VARCHAR},
+      company_no = #{companyNo,jdbcType=VARCHAR},
+      agent = #{agent,jdbcType=VARCHAR},
+      agent_name = #{agentName,jdbcType=VARCHAR},
+      company_check_man = #{companyCheckMan,jdbcType=VARCHAR},
+      company_check_man_name = #{companyCheckManName,jdbcType=VARCHAR},
+      submit_time = #{submitTime,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      is_process_end = #{processEnd,jdbcType=BIT},
+      flag = #{flag,jdbcType=VARCHAR},
+      sign = #{sign,jdbcType=VARCHAR},
+      tab = #{tab,jdbcType=VARCHAR},
+      company_leader = #{companyLeader,jdbcType=VARCHAR},
+      company_leader_name = #{companyLeaderName,jdbcType=VARCHAR},
+      instruct_leader = #{instructLeader,jdbcType=VARCHAR},
+      instruct_leader_name = #{instructLeaderName,jdbcType=VARCHAR},
+      instruct_dept_id = #{instructDeptId,jdbcType=VARCHAR},
+      instruct_dept_name = #{instructDeptName,jdbcType=VARCHAR},
+      meeting_type = #{meetingType,jdbcType=VARCHAR},
+      belong_type = #{belongType,jdbcType=VARCHAR},
+      belong_content = #{belongContent,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, form_no, belong_three_one, item, dept_id, dept_name, dept_charge_man, 
+    dept_charge_man_name, company_no, agent, agent_name, company_check_man, company_check_man_name, 
+    submit_time, remark, creator, creator_name, is_deleted, gmt_create, gmt_modified, 
+    process_instance_id, is_process_end, flag, sign, tab, company_leader, company_leader_name, 
+    instruct_leader, instruct_leader_name, instruct_dept_id, instruct_dept_name, meeting_type, 
+    belong_type, belong_content
+    from five_oa_sign_quote
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, form_no, belong_three_one, item, dept_id, dept_name, dept_charge_man, 
+    dept_charge_man_name, company_no, agent, agent_name, company_check_man, company_check_man_name, 
+    submit_time, remark, creator, creator_name, is_deleted, gmt_create, gmt_modified, 
+    process_instance_id, is_process_end, flag, sign, tab, company_leader, company_leader_name, 
+    instruct_leader, instruct_leader_name, instruct_dept_id, instruct_dept_name, meeting_type, 
+    belong_type, belong_content
+    from five_oa_sign_quote
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and isLikeSelect==null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="formNo != null and isLikeSelect==null and formNo != ''">
+         AND form_no = #{formNo}
+      </if>
+      <if test="belongThreeOne != null and isLikeSelect==null and belongThreeOne != ''">
+         AND belong_three_one = #{belongThreeOne}
+      </if>
+      <if test="item != null and isLikeSelect==null and item != ''">
+         AND item = #{item}
+      </if>
+      <if test="deptId != null and isLikeSelect==null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and isLikeSelect==null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="deptChargeMan != null and isLikeSelect==null and deptChargeMan != ''">
+         AND dept_charge_man = #{deptChargeMan}
+      </if>
+      <if test="deptChargeManName != null and isLikeSelect==null and deptChargeManName != ''">
+         AND dept_charge_man_name = #{deptChargeManName}
+      </if>
+      <if test="companyNo != null and isLikeSelect==null and companyNo != ''">
+         AND company_no = #{companyNo}
+      </if>
+      <if test="agent != null and isLikeSelect==null and agent != ''">
+         AND agent = #{agent}
+      </if>
+      <if test="agentName != null and isLikeSelect==null and agentName != ''">
+         AND agent_name = #{agentName}
+      </if>
+      <if test="companyCheckMan != null and isLikeSelect==null and companyCheckMan != ''">
+         AND company_check_man = #{companyCheckMan}
+      </if>
+      <if test="companyCheckManName != null and isLikeSelect==null and companyCheckManName != ''">
+         AND company_check_man_name = #{companyCheckManName}
+      </if>
+      <if test="submitTime != null and isLikeSelect==null and submitTime != ''">
+         AND submit_time = #{submitTime}
+      </if>
+      <if test="remark != null and isLikeSelect==null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="processInstanceId != null and isLikeSelect==null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="processEnd != null and isLikeSelect==null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="flag != null and isLikeSelect==null and flag != ''">
+         AND flag = #{flag}
+      </if>
+      <if test="sign != null and isLikeSelect==null and sign != ''">
+         AND sign = #{sign}
+      </if>
+      <if test="tab != null and isLikeSelect==null and tab != ''">
+         AND tab = #{tab}
+      </if>
+      <if test="companyLeader != null and isLikeSelect==null and companyLeader != ''">
+         AND company_leader = #{companyLeader}
+      </if>
+      <if test="companyLeaderName != null and isLikeSelect==null and companyLeaderName != ''">
+         AND company_leader_name = #{companyLeaderName}
+      </if>
+      <if test="instructLeader != null and isLikeSelect==null and instructLeader != ''">
+         AND instruct_leader = #{instructLeader}
+      </if>
+      <if test="instructLeaderName != null and isLikeSelect==null and instructLeaderName != ''">
+         AND instruct_leader_name = #{instructLeaderName}
+      </if>
+      <if test="instructDeptId != null and isLikeSelect==null and instructDeptId != ''">
+         AND instruct_dept_id = #{instructDeptId}
+      </if>
+      <if test="instructDeptName != null and isLikeSelect==null and instructDeptName != ''">
+         AND instruct_dept_name = #{instructDeptName}
+      </if>
+      <if test="meetingType != null and isLikeSelect==null and meetingType != ''">
+         AND meeting_type = #{meetingType}
+      </if>
+      <if test="belongType != null and isLikeSelect==null and belongType != ''">
+         AND belong_type = #{belongType}
+      </if>
+      <if test="belongContent != null and isLikeSelect==null and belongContent != ''">
+         AND belong_content = #{belongContent}
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect==null">
+        AND (
+        dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+        <if test="initiator != null and initiator != ''">
+        or creator = #{initiator}
+        </if>
+        )
+      </if>
+      <if test="keyWord != null  and keyWord!= '' and isLikeSelect==null">
+        AND ((item like CONCAT('%',#{keyWord},'%'))
+        or  (company_leader_name like CONCAT('%',#{keyWord},'%'))
+        or  (instruct_leader_name like CONCAT('%',#{keyWord},'%'))
+        or  (company_no like CONCAT('%',#{keyWord},'%'))
+        or  (creator_name like CONCAT('%',#{keyWord},'%')))
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="businessKey != null and isLikeSelect!= null and businessKey != '' ">
+         AND business_key like  CONCAT('%',#{businessKey},'%')
+      </if>
+      <if test="formNo != null and isLikeSelect!= null and formNo != '' ">
+         AND form_no like  CONCAT('%',#{formNo},'%')
+      </if>
+      <if test="belongThreeOne != null and isLikeSelect!= null and belongThreeOne != '' ">
+         AND belong_three_one like  CONCAT('%',#{belongThreeOne},'%')
+      </if>
+      <if test="item != null and isLikeSelect!= null and item != '' ">
+         AND item like  CONCAT('%',#{item},'%')
+      </if>
+      <if test="deptName != null and isLikeSelect!= null and deptName != '' ">
+         AND dept_name like  CONCAT('%',#{deptName},'%')
+      </if>
+      <if test="deptChargeMan != null and isLikeSelect!= null and deptChargeMan != '' ">
+         AND dept_charge_man like  CONCAT('%',#{deptChargeMan},'%')
+      </if>
+      <if test="deptChargeManName != null and isLikeSelect!= null and deptChargeManName != '' ">
+         AND dept_charge_man_name like  CONCAT('%',#{deptChargeManName},'%')
+      </if>
+      <if test="companyNo != null and isLikeSelect!= null and companyNo != '' ">
+         AND company_no like  CONCAT('%',#{companyNo},'%')
+      </if>
+      <if test="agent != null and isLikeSelect!= null and agent != '' ">
+         AND agent like  CONCAT('%',#{agent},'%')
+      </if>
+      <if test="agentName != null and isLikeSelect!= null and agentName != '' ">
+         AND agent_name like  CONCAT('%',#{agentName},'%')
+      </if>
+      <if test="companyCheckMan != null and isLikeSelect!= null and companyCheckMan != '' ">
+         AND company_check_man like  CONCAT('%',#{companyCheckMan},'%')
+      </if>
+      <if test="companyCheckManName != null and isLikeSelect!= null and companyCheckManName != '' ">
+         AND company_check_man_name like  CONCAT('%',#{companyCheckManName},'%')
+      </if>
+      <if test="submitTime != null and isLikeSelect!= null and submitTime != '' ">
+         AND submit_time like  CONCAT('%',#{submitTime},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="processInstanceId != null and isLikeSelect!= null and processInstanceId != '' ">
+         AND process_instance_id like  CONCAT('%',#{processInstanceId},'%')
+      </if>
+      <if test="flag != null and isLikeSelect!= null and flag != '' ">
+         AND flag like  CONCAT('%',#{flag},'%')
+      </if>
+      <if test="sign != null and isLikeSelect!= null and sign != '' ">
+         AND sign like  CONCAT('%',#{sign},'%')
+      </if>
+      <if test="tab != null and isLikeSelect!= null and tab != '' ">
+         AND tab like  CONCAT('%',#{tab},'%')
+      </if>
+      <if test="companyLeader != null and isLikeSelect!= null and companyLeader != '' ">
+         AND company_leader like  CONCAT('%',#{companyLeader},'%')
+      </if>
+      <if test="companyLeaderName != null and isLikeSelect!= null and companyLeaderName != '' ">
+         AND company_leader_name like  CONCAT('%',#{companyLeaderName},'%')
+      </if>
+      <if test="instructLeader != null and isLikeSelect!= null and instructLeader != '' ">
+         AND instruct_leader like  CONCAT('%',#{instructLeader},'%')
+      </if>
+      <if test="instructLeaderName != null and isLikeSelect!= null and instructLeaderName != '' ">
+         AND instruct_leader_name like  CONCAT('%',#{instructLeaderName},'%')
+      </if>
+      <if test="instructDeptId != null and isLikeSelect!= null and instructDeptId != '' ">
+         AND instruct_dept_id like  CONCAT('%',#{instructDeptId},'%')
+      </if>
+      <if test="instructDeptName != null and isLikeSelect!= null and instructDeptName != '' ">
+         AND instruct_dept_name like  CONCAT('%',#{instructDeptName},'%')
+      </if>
+      <if test="meetingType != null and isLikeSelect!= null and meetingType != '' ">
+         AND meeting_type like  CONCAT('%',#{meetingType},'%')
+      </if>
+      <if test="belongType != null and isLikeSelect!= null and belongType != '' ">
+         AND belong_type like  CONCAT('%',#{belongType},'%')
+      </if>
+      <if test="belongContent != null and isLikeSelect!= null and belongContent != '' ">
+         AND belong_content like  CONCAT('%',#{belongContent},'%')
+      </if>
+      <if test="processEnd != null and isLikeSelect!=null">
+        AND is_process_end = #{processEnd}
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect!=null">
+        AND gmt_create = #{gmtCreate}
+      </if>
+
+      <if test="startTime1 != null and startTime1 !='' and isLikeSelect!=null">
+        AND gmt_create  &gt;= CONCAT('','${startTime1}',' 00:00:00')
+      </if>
+      <if test="endTime1 != null and endTime1 !='' and isLikeSelect!=null">
+        AND gmt_create  &lt;= CONCAT('','${endTime1}',' 23:59:59')
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect!=null">
+        AND (
+        dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+        <if test="initiator != null and initiator != ''">or creator = #{initiator}
+        </if>
+        )
+      </if>
+      <if test="keyWord != null  and keyWord!= '' and isLikeSelect!=null">
+        AND ((item like CONCAT('%',#{keyWord},'%'))
+        or  (company_leader_name like CONCAT('%',#{keyWord},'%'))
+        or  (instruct_leader_name like CONCAT('%',#{keyWord},'%'))
+        or  (company_no like CONCAT('%',#{keyWord},'%'))
+        or  (creator_name like CONCAT('%',#{keyWord},'%')))
+      </if>
+    </where>
+  </sql>
+</mapper>

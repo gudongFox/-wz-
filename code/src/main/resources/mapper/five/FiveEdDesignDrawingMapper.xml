@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveEdDesignDrawingMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveEdDesignDrawing">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="project_no" jdbcType="VARCHAR" property="projectNo" />
+    <result column="stage_name" jdbcType="VARCHAR" property="stageName" />
+    <result column="step_id" jdbcType="INTEGER" property="stepId" />
+    <result column="step_name" jdbcType="VARCHAR" property="stepName" />
+    <result column="major_name" jdbcType="VARCHAR" property="majorName" />
+    <result column="form_no" jdbcType="VARCHAR" property="formNo" />
+    <result column="contract_no" jdbcType="VARCHAR" property="contractNo" />
+    <result column="check_time" jdbcType="VARCHAR" property="checkTime" />
+    <result column="apply_man" jdbcType="VARCHAR" property="applyMan" />
+    <result column="apply_man_name" jdbcType="VARCHAR" property="applyManName" />
+    <result column="apply_phone" jdbcType="VARCHAR" property="applyPhone" />
+    <result column="hand_man" jdbcType="VARCHAR" property="handMan" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_ed_design_drawing
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveEdDesignDrawing">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_ed_design_drawing (business_key, project_id, project_name, 
+      project_no, stage_name, step_id, 
+      step_name, major_name, form_no, 
+      contract_no, check_time, apply_man, 
+      apply_man_name, apply_phone, hand_man, 
+      dept_id, dept_name, remark, 
+      is_deleted, creator, creator_name, 
+      gmt_create, gmt_modified)
+    values (#{businessKey,jdbcType=VARCHAR}, #{projectId,jdbcType=INTEGER}, #{projectName,jdbcType=VARCHAR}, 
+      #{projectNo,jdbcType=VARCHAR}, #{stageName,jdbcType=VARCHAR}, #{stepId,jdbcType=INTEGER}, 
+      #{stepName,jdbcType=VARCHAR}, #{majorName,jdbcType=VARCHAR}, #{formNo,jdbcType=VARCHAR}, 
+      #{contractNo,jdbcType=VARCHAR}, #{checkTime,jdbcType=VARCHAR}, #{applyMan,jdbcType=VARCHAR}, 
+      #{applyManName,jdbcType=VARCHAR}, #{applyPhone,jdbcType=VARCHAR}, #{handMan,jdbcType=VARCHAR}, 
+      #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=BIT}, #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveEdDesignDrawing">
+    update five_ed_design_drawing
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      project_id = #{projectId,jdbcType=INTEGER},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      project_no = #{projectNo,jdbcType=VARCHAR},
+      stage_name = #{stageName,jdbcType=VARCHAR},
+      step_id = #{stepId,jdbcType=INTEGER},
+      step_name = #{stepName,jdbcType=VARCHAR},
+      major_name = #{majorName,jdbcType=VARCHAR},
+      form_no = #{formNo,jdbcType=VARCHAR},
+      contract_no = #{contractNo,jdbcType=VARCHAR},
+      check_time = #{checkTime,jdbcType=VARCHAR},
+      apply_man = #{applyMan,jdbcType=VARCHAR},
+      apply_man_name = #{applyManName,jdbcType=VARCHAR},
+      apply_phone = #{applyPhone,jdbcType=VARCHAR},
+      hand_man = #{handMan,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, project_id, project_name, project_no, stage_name, step_id, 
+    step_name, major_name, form_no, contract_no, check_time, apply_man, apply_man_name, 
+    apply_phone, hand_man, dept_id, dept_name, remark, is_deleted, creator, creator_name, 
+    gmt_create, gmt_modified
+    from five_ed_design_drawing
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, project_id, project_name, project_no, stage_name, step_id, 
+    step_name, major_name, form_no, contract_no, check_time, apply_man, apply_man_name, 
+    apply_phone, hand_man, dept_id, dept_name, remark, is_deleted, creator, creator_name, 
+    gmt_create, gmt_modified
+    from five_ed_design_drawing
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and isLikeSelect==null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="projectId != null and isLikeSelect==null">
+         AND project_id = #{projectId}
+      </if>
+      <if test="projectName != null and isLikeSelect==null and projectName != ''">
+         AND project_name = #{projectName}
+      </if>
+      <if test="projectNo != null and isLikeSelect==null and projectNo != ''">
+         AND project_no = #{projectNo}
+      </if>
+      <if test="stageName != null and isLikeSelect==null and stageName != ''">
+         AND stage_name = #{stageName}
+      </if>
+      <if test="stepId != null and isLikeSelect==null">
+         AND step_id = #{stepId}
+      </if>
+      <if test="stepName != null and isLikeSelect==null and stepName != ''">
+         AND step_name = #{stepName}
+      </if>
+      <if test="majorName != null and isLikeSelect==null and majorName != ''">
+         AND major_name = #{majorName}
+      </if>
+      <if test="formNo != null and isLikeSelect==null and formNo != ''">
+         AND form_no = #{formNo}
+      </if>
+      <if test="contractNo != null and isLikeSelect==null and contractNo != ''">
+         AND contract_no = #{contractNo}
+      </if>
+      <if test="checkTime != null and isLikeSelect==null and checkTime != ''">
+         AND check_time = #{checkTime}
+      </if>
+      <if test="applyMan != null and isLikeSelect==null and applyMan != ''">
+         AND apply_man = #{applyMan}
+      </if>
+      <if test="applyManName != null and isLikeSelect==null and applyManName != ''">
+         AND apply_man_name = #{applyManName}
+      </if>
+      <if test="applyPhone != null and isLikeSelect==null and applyPhone != ''">
+         AND apply_phone = #{applyPhone}
+      </if>
+      <if test="handMan != null and isLikeSelect==null and handMan != ''">
+         AND hand_man = #{handMan}
+      </if>
+      <if test="deptId != null and isLikeSelect==null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and isLikeSelect==null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="remark != null and isLikeSelect==null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="businessKey != null and isLikeSelect!= null and businessKey != '' ">
+         AND business_key like  CONCAT('%',#{businessKey},'%')
+      </if>
+      <if test="projectName != null and isLikeSelect!= null and projectName != '' ">
+         AND project_name like  CONCAT('%',#{projectName},'%')
+      </if>
+      <if test="projectNo != null and isLikeSelect!= null and projectNo != '' ">
+         AND project_no like  CONCAT('%',#{projectNo},'%')
+      </if>
+      <if test="stageName != null and isLikeSelect!= null and stageName != '' ">
+         AND stage_name like  CONCAT('%',#{stageName},'%')
+      </if>
+      <if test="stepName != null and isLikeSelect!= null and stepName != '' ">
+         AND step_name like  CONCAT('%',#{stepName},'%')
+      </if>
+      <if test="majorName != null and isLikeSelect!= null and majorName != '' ">
+         AND major_name like  CONCAT('%',#{majorName},'%')
+      </if>
+      <if test="formNo != null and isLikeSelect!= null and formNo != '' ">
+         AND form_no like  CONCAT('%',#{formNo},'%')
+      </if>
+      <if test="contractNo != null and isLikeSelect!= null and contractNo != '' ">
+         AND contract_no like  CONCAT('%',#{contractNo},'%')
+      </if>
+      <if test="checkTime != null and isLikeSelect!= null and checkTime != '' ">
+         AND check_time like  CONCAT('%',#{checkTime},'%')
+      </if>
+      <if test="applyMan != null and isLikeSelect!= null and applyMan != '' ">
+         AND apply_man like  CONCAT('%',#{applyMan},'%')
+      </if>
+      <if test="applyManName != null and isLikeSelect!= null and applyManName != '' ">
+         AND apply_man_name like  CONCAT('%',#{applyManName},'%')
+      </if>
+      <if test="applyPhone != null and isLikeSelect!= null and applyPhone != '' ">
+         AND apply_phone like  CONCAT('%',#{applyPhone},'%')
+      </if>
+      <if test="handMan != null and isLikeSelect!= null and handMan != '' ">
+         AND hand_man like  CONCAT('%',#{handMan},'%')
+      </if>
+      <if test="deptName != null and isLikeSelect!= null and deptName != '' ">
+         AND dept_name like  CONCAT('%',#{deptName},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="deptId != null and isLikeSelect!=null">
+         AND dept_id = #{deptId}
+      </if>
+    </where>
+  </sql>
+</mapper>

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveOaMeetingRoomApplyMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveOaMeetingRoomApply">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="meeting_room_id" jdbcType="INTEGER" property="meetingRoomId" />
+    <result column="apply_reason" jdbcType="VARCHAR" property="applyReason" />
+    <result column="begin_time" jdbcType="VARCHAR" property="beginTime" />
+    <result column="end_time" jdbcType="VARCHAR" property="endTime" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="apply_complete" jdbcType="BIT" property="applyComplete" />
+    <result column="host_man" jdbcType="VARCHAR" property="hostMan" />
+    <result column="host_man_name" jdbcType="VARCHAR" property="hostManName" />
+    <result column="charge_leader" jdbcType="VARCHAR" property="chargeLeader" />
+    <result column="charge_leader_name" jdbcType="VARCHAR" property="chargeLeaderName" />
+    <result column="attend_user" jdbcType="VARCHAR" property="attendUser" />
+    <result column="attend_user_name" jdbcType="VARCHAR" property="attendUserName" />
+    <result column="meeting_room_info" jdbcType="LONGVARCHAR" property="meetingRoomInfo" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_oa_meeting_room_apply
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveOaMeetingRoomApply">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_oa_meeting_room_apply (business_key, meeting_room_id, apply_reason, 
+      begin_time, end_time, dept_name, 
+      dept_id, gmt_create, gmt_modified, 
+      is_deleted, creator, creator_name, 
+      process_instance_id, is_process_end, remark, 
+      apply_complete, host_man, host_man_name, 
+      charge_leader, charge_leader_name, attend_user, 
+      attend_user_name, meeting_room_info)
+    values (#{businessKey,jdbcType=VARCHAR}, #{meetingRoomId,jdbcType=INTEGER}, #{applyReason,jdbcType=VARCHAR}, 
+      #{beginTime,jdbcType=VARCHAR}, #{endTime,jdbcType=VARCHAR}, #{deptName,jdbcType=VARCHAR}, 
+      #{deptId,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{deleted,jdbcType=BIT}, #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, 
+      #{processInstanceId,jdbcType=VARCHAR}, #{processEnd,jdbcType=BIT}, #{remark,jdbcType=VARCHAR}, 
+      #{applyComplete,jdbcType=BIT}, #{hostMan,jdbcType=VARCHAR}, #{hostManName,jdbcType=VARCHAR}, 
+      #{chargeLeader,jdbcType=VARCHAR}, #{chargeLeaderName,jdbcType=VARCHAR}, #{attendUser,jdbcType=VARCHAR}, 
+      #{attendUserName,jdbcType=VARCHAR}, #{meetingRoomInfo,jdbcType=LONGVARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveOaMeetingRoomApply">
+    update five_oa_meeting_room_apply
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      meeting_room_id = #{meetingRoomId,jdbcType=INTEGER},
+      apply_reason = #{applyReason,jdbcType=VARCHAR},
+      begin_time = #{beginTime,jdbcType=VARCHAR},
+      end_time = #{endTime,jdbcType=VARCHAR},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      is_deleted = #{deleted,jdbcType=BIT},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      is_process_end = #{processEnd,jdbcType=BIT},
+      remark = #{remark,jdbcType=VARCHAR},
+      apply_complete = #{applyComplete,jdbcType=BIT},
+      host_man = #{hostMan,jdbcType=VARCHAR},
+      host_man_name = #{hostManName,jdbcType=VARCHAR},
+      charge_leader = #{chargeLeader,jdbcType=VARCHAR},
+      charge_leader_name = #{chargeLeaderName,jdbcType=VARCHAR},
+      attend_user = #{attendUser,jdbcType=VARCHAR},
+      attend_user_name = #{attendUserName,jdbcType=VARCHAR},
+      meeting_room_info = #{meetingRoomInfo,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, meeting_room_id, apply_reason, begin_time, end_time, dept_name, 
+    dept_id, gmt_create, gmt_modified, is_deleted, creator, creator_name, process_instance_id, 
+    is_process_end, remark, apply_complete, host_man, host_man_name, charge_leader, charge_leader_name, 
+    attend_user, attend_user_name, meeting_room_info
+    from five_oa_meeting_room_apply
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, meeting_room_id, apply_reason, begin_time, end_time, dept_name, 
+    dept_id, gmt_create, gmt_modified, is_deleted, creator, creator_name, process_instance_id, 
+    is_process_end, remark, apply_complete, host_man, host_man_name, charge_leader, charge_leader_name, 
+    attend_user, attend_user_name, meeting_room_info
+    from five_oa_meeting_room_apply
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="meetingRoomId != null">
+         AND meeting_room_id = #{meetingRoomId}
+      </if>
+      <if test="applyReason != null and applyReason != ''">
+         AND apply_reason = #{applyReason}
+      </if>
+      <if test="beginTime != null and beginTime != ''">
+         AND begin_time = #{beginTime}
+      </if>
+      <if test="endTime != null and endTime != ''">
+         AND end_time = #{endTime}
+      </if>
+      <if test="deptName != null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="deptId != null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="processInstanceId != null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="processEnd != null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="applyComplete != null">
+         AND apply_complete = #{applyComplete}
+      </if>
+      <if test="hostMan != null and hostMan != ''">
+         AND host_man = #{hostMan}
+      </if>
+      <if test="hostManName != null and hostManName != ''">
+         AND host_man_name = #{hostManName}
+      </if>
+      <if test="chargeLeader != null and chargeLeader != ''">
+         AND charge_leader = #{chargeLeader}
+      </if>
+      <if test="chargeLeaderName != null and chargeLeaderName != ''">
+         AND charge_leader_name = #{chargeLeaderName}
+      </if>
+      <if test="attendUser != null and attendUser != ''">
+         AND attend_user = #{attendUser}
+      </if>
+      <if test="attendUserName != null and attendUserName != ''">
+         AND attend_user_name = #{attendUserName}
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0">
+        AND dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+      </if>
+    </where>
+  </sql>
+</mapper>

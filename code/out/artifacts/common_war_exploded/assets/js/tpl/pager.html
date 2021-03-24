@@ -1,0 +1,31 @@
+﻿<div class="row">
+    <div class="col-md-4 col-sm-12">
+        <div style="padding-top: 15px;">
+            当前 <span ng-bind="(pageInfo.total>0)?pageInfo.startRow:0"></span>
+            - <span ng-bind="pageInfo.endRow"></span> 总计 <span ng-bind="pageInfo.total"></span> 记录
+        </div>
+    </div>
+    <div class="col-md-8 col-sm-12">
+        <div style="float: right;">
+            <ul class="pagination" style="visibility: visible;">
+                <li class="first disabled" ng-if="pageInfo.navigateFirstPage==1"><a title="首页"><i class="fa fa-angle-double-left"></i></a></li>
+                <li class="first" ng-if="pageInfo.navigateFirstPage!=1"  ng-click="pageInfo.pageNum=1;loadPagedData();"><a title="首页"><i class="fa fa-angle-double-left"></i></a></li>
+
+                <li class="first disabled" ng-if="pageInfo.pageNum==1" ><a title="上一页"><i class="fa fa-angle-left"></i></a></li>
+                <li class="first" ng-if="pageInfo.pageNum!=1"  ng-click="pageInfo.pageNum=pageInfo.pageNum-1;loadPagedData();"><a title="上一页"><i class="fa fa-angle-left"></i></a></li>
+
+                <li ng-repeat="_pageNum in pageInfo.navigatepageNums"
+                    class="{{pageInfo.pageNum==_pageNum?'active':''}}"
+                    ng-click="pageInfo.pageNum=_pageNum;loadPagedData();">
+                    <a ng-bind="_pageNum"></a>
+                </li>
+
+                <li class="next disabled" ng-if="pageInfo.pageNum==pageInfo.pages" ><a title="下一页"><i class="fa fa-angle-right"></i></a></li>
+                <li class="next" ng-if="pageInfo.pageNum<pageInfo.pages"  ng-click="pageInfo.pageNum=pageInfo.pageNum+1;loadPagedData();"><a title="下一页"><i class="fa fa-angle-right"></i></a></li>
+
+                <li class="next" ng-if="pageInfo.navigateLastPage!=pageInfo.pages"  ng-click="pageInfo.pageNum=pageInfo.pages;loadPagedData();"><a title="尾页"><i class="fa fa-angle-double-right"></i></a></li>
+                <li class="next disabled"  ng-if="pageInfo.navigateLastPage==pageInfo.pages"><a  title="尾页"><i class="fa fa-angle-double-right"></i></a></li>
+            </ul>
+        </div>
+    </div>
+</div>

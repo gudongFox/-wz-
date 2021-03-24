@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveOaProjectFundPlanDetailMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveOaProjectfundplanDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="projectfundplan_id" jdbcType="VARCHAR" property="projectfundplanId" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="contract_no" jdbcType="VARCHAR" property="contractNo" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="contract_price" jdbcType="VARCHAR" property="contractPrice" />
+    <result column="accumulative_price" jdbcType="VARCHAR" property="accumulativePrice" />
+    <result column="receivable_price" jdbcType="VARCHAR" property="receivablePrice" />
+    <result column="final_price" jdbcType="VARCHAR" property="finalPrice" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="purchase_platform" jdbcType="VARCHAR" property="purchasePlatform" />
+    <result column="purchase_type" jdbcType="VARCHAR" property="purchaseType" />
+    <result column="seq" jdbcType="INTEGER" property="seq" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_oa_projectfundplan_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveOaProjectfundplanDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_oa_projectfundplan_detail (projectfundplan_id, type, contract_no, 
+      dept_name, project_name, contract_price, 
+      accumulative_price, receivable_price, final_price, 
+      remark, creator, creator_name, 
+      is_deleted, gmt_create, gmt_modified, 
+      purchase_platform, purchase_type, seq
+      )
+    values (#{projectfundplanId,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{contractNo,jdbcType=VARCHAR}, 
+      #{deptName,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR}, #{contractPrice,jdbcType=VARCHAR}, 
+      #{accumulativePrice,jdbcType=VARCHAR}, #{receivablePrice,jdbcType=VARCHAR}, #{finalPrice,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{purchasePlatform,jdbcType=VARCHAR}, #{purchaseType,jdbcType=VARCHAR}, #{seq,jdbcType=INTEGER}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveOaProjectfundplanDetail">
+    update five_oa_projectfundplan_detail
+    set projectfundplan_id = #{projectfundplanId,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      contract_no = #{contractNo,jdbcType=VARCHAR},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      contract_price = #{contractPrice,jdbcType=VARCHAR},
+      accumulative_price = #{accumulativePrice,jdbcType=VARCHAR},
+      receivable_price = #{receivablePrice,jdbcType=VARCHAR},
+      final_price = #{finalPrice,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      purchase_platform = #{purchasePlatform,jdbcType=VARCHAR},
+      purchase_type = #{purchaseType,jdbcType=VARCHAR},
+      seq = #{seq,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, projectfundplan_id, type, contract_no, dept_name, project_name, contract_price, 
+    accumulative_price, receivable_price, final_price, remark, creator, creator_name, 
+    is_deleted, gmt_create, gmt_modified, purchase_platform, purchase_type, seq
+    from five_oa_projectfundplan_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, projectfundplan_id, type, contract_no, dept_name, project_name, contract_price, 
+    accumulative_price, receivable_price, final_price, remark, creator, creator_name, 
+    is_deleted, gmt_create, gmt_modified, purchase_platform, purchase_type, seq
+    from five_oa_projectfundplan_detail
+    <include refid="Base_Where_List" />
+     order by seq asc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="projectfundplanId != null and projectfundplanId != ''">
+         AND projectfundplan_id = #{projectfundplanId}
+      </if>
+      <if test="type != null and type != ''">
+         AND type = #{type}
+      </if>
+      <if test="contractNo != null and contractNo != ''">
+         AND contract_no = #{contractNo}
+      </if>
+      <if test="deptName != null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="projectName != null and projectName != ''">
+         AND project_name = #{projectName}
+      </if>
+      <if test="contractPrice != null and contractPrice != ''">
+         AND contract_price = #{contractPrice}
+      </if>
+      <if test="accumulativePrice != null and accumulativePrice != ''">
+         AND accumulative_price = #{accumulativePrice}
+      </if>
+      <if test="receivablePrice != null and receivablePrice != ''">
+         AND receivable_price = #{receivablePrice}
+      </if>
+      <if test="finalPrice != null and finalPrice != ''">
+         AND final_price = #{finalPrice}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="purchasePlatform != null and purchasePlatform != ''">
+         AND purchase_platform = #{purchasePlatform}
+      </if>
+      <if test="purchaseType != null and purchaseType != ''">
+         AND purchase_type = #{purchaseType}
+      </if>
+      <if test="seq != null">
+         AND seq = #{seq}
+      </if>
+    </where>
+  </sql>
+</mapper>

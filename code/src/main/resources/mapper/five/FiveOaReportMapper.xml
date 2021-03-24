@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveOaReportMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveOaReport">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="charge_man" jdbcType="VARCHAR" property="chargeMan" />
+    <result column="charge_man_name" jdbcType="VARCHAR" property="chargeManName" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_Name" jdbcType="VARCHAR" property="deptName" />
+    <result column="report_time" jdbcType="VARCHAR" property="reportTime" />
+    <result column="office_no" jdbcType="VARCHAR" property="officeNo" />
+    <result column="report_content" jdbcType="VARCHAR" property="reportContent" />
+    <result column="company_leader" jdbcType="VARCHAR" property="companyLeader" />
+    <result column="company_leader_name" jdbcType="VARCHAR" property="companyLeaderName" />
+    <result column="company_office_man" jdbcType="VARCHAR" property="companyOfficeMan" />
+    <result column="company_office_man_name" jdbcType="VARCHAR" property="companyOfficeManName" />
+    <result column="vice_leader" jdbcType="VARCHAR" property="viceLeader" />
+    <result column="vice_leader_name" jdbcType="VARCHAR" property="viceLeaderName" />
+    <result column="flag" jdbcType="VARCHAR" property="flag" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_oa_report
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveOaReport">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_oa_report (business_key, charge_man, charge_man_name, 
+      dept_id, dept_Name, report_time, 
+      office_no, report_content, company_leader, 
+      company_leader_name, company_office_man, company_office_man_name, 
+      vice_leader, vice_leader_name, flag, 
+      creator, creator_name, gmt_create, 
+      gmt_modified, is_deleted, is_process_end, 
+      process_instance_id, remark)
+    values (#{businessKey,jdbcType=VARCHAR}, #{chargeMan,jdbcType=VARCHAR}, #{chargeManName,jdbcType=VARCHAR}, 
+      #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, #{reportTime,jdbcType=VARCHAR}, 
+      #{officeNo,jdbcType=VARCHAR}, #{reportContent,jdbcType=VARCHAR}, #{companyLeader,jdbcType=VARCHAR}, 
+      #{companyLeaderName,jdbcType=VARCHAR}, #{companyOfficeMan,jdbcType=VARCHAR}, #{companyOfficeManName,jdbcType=VARCHAR}, 
+      #{viceLeader,jdbcType=VARCHAR}, #{viceLeaderName,jdbcType=VARCHAR}, #{flag,jdbcType=VARCHAR}, 
+      #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}, #{processEnd,jdbcType=BIT}, 
+      #{processInstanceId,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveOaReport">
+    update five_oa_report
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      charge_man = #{chargeMan,jdbcType=VARCHAR},
+      charge_man_name = #{chargeManName,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_Name = #{deptName,jdbcType=VARCHAR},
+      report_time = #{reportTime,jdbcType=VARCHAR},
+      office_no = #{officeNo,jdbcType=VARCHAR},
+      report_content = #{reportContent,jdbcType=VARCHAR},
+      company_leader = #{companyLeader,jdbcType=VARCHAR},
+      company_leader_name = #{companyLeaderName,jdbcType=VARCHAR},
+      company_office_man = #{companyOfficeMan,jdbcType=VARCHAR},
+      company_office_man_name = #{companyOfficeManName,jdbcType=VARCHAR},
+      vice_leader = #{viceLeader,jdbcType=VARCHAR},
+      vice_leader_name = #{viceLeaderName,jdbcType=VARCHAR},
+      flag = #{flag,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      is_deleted = #{deleted,jdbcType=BIT},
+      is_process_end = #{processEnd,jdbcType=BIT},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, charge_man, charge_man_name, dept_id, dept_Name, report_time, 
+    office_no, report_content, company_leader, company_leader_name, company_office_man, 
+    company_office_man_name, vice_leader, vice_leader_name, flag, creator, creator_name, 
+    gmt_create, gmt_modified, is_deleted, is_process_end, process_instance_id, remark
+    from five_oa_report
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, charge_man, charge_man_name, dept_id, dept_Name, report_time, 
+    office_no, report_content, company_leader, company_leader_name, company_office_man, 
+    company_office_man_name, vice_leader, vice_leader_name, flag, creator, creator_name, 
+    gmt_create, gmt_modified, is_deleted, is_process_end, process_instance_id, remark
+    from five_oa_report
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and isLikeSelect==null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="chargeMan != null and isLikeSelect==null and chargeMan != ''">
+         AND charge_man = #{chargeMan}
+      </if>
+      <if test="chargeManName != null and isLikeSelect==null and chargeManName != ''">
+         AND charge_man_name = #{chargeManName}
+      </if>
+      <if test="deptId != null and isLikeSelect==null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and isLikeSelect==null and deptName != ''">
+         AND dept_Name = #{deptName}
+      </if>
+      <if test="reportTime != null and isLikeSelect==null and reportTime != ''">
+         AND report_time = #{reportTime}
+      </if>
+      <if test="officeNo != null and isLikeSelect==null and officeNo != ''">
+         AND office_no = #{officeNo}
+      </if>
+      <if test="reportContent != null and isLikeSelect==null and reportContent != ''">
+         AND report_content = #{reportContent}
+      </if>
+      <if test="companyLeader != null and isLikeSelect==null and companyLeader != ''">
+         AND company_leader = #{companyLeader}
+      </if>
+      <if test="companyLeaderName != null and isLikeSelect==null and companyLeaderName != ''">
+         AND company_leader_name = #{companyLeaderName}
+      </if>
+      <if test="companyOfficeMan != null and isLikeSelect==null and companyOfficeMan != ''">
+         AND company_office_man = #{companyOfficeMan}
+      </if>
+      <if test="companyOfficeManName != null and isLikeSelect==null and companyOfficeManName != ''">
+         AND company_office_man_name = #{companyOfficeManName}
+      </if>
+      <if test="viceLeader != null and isLikeSelect==null and viceLeader != ''">
+         AND vice_leader = #{viceLeader}
+      </if>
+      <if test="viceLeaderName != null and isLikeSelect==null and viceLeaderName != ''">
+         AND vice_leader_name = #{viceLeaderName}
+      </if>
+      <if test="flag != null and isLikeSelect==null and flag != ''">
+         AND flag = #{flag}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="processEnd != null and isLikeSelect==null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="processInstanceId != null and isLikeSelect==null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="remark != null and isLikeSelect==null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="qName != null and qName != '' and isLikeSelect==null">
+        AND (
+        office_no like CONCAT('%',#{qName},'%')or
+        report_content like CONCAT('%',#{qName},'%')
+        )
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect==null">
+        AND (
+        dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+        <if test="initiator != null and initiator != ''">or creator = #{initiator}
+        </if>
+        )
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="businessKey != null and isLikeSelect!= null and businessKey != '' ">
+         AND business_key like  CONCAT('%',#{businessKey},'%')
+      </if>
+      <if test="chargeMan != null and isLikeSelect!= null and chargeMan != '' ">
+         AND charge_man like  CONCAT('%',#{chargeMan},'%')
+      </if>
+      <if test="chargeManName != null and isLikeSelect!= null and chargeManName != '' ">
+         AND charge_man_name like  CONCAT('%',#{chargeManName},'%')
+      </if>
+      <if test="deptName != null and isLikeSelect!= null and deptName != '' ">
+         AND dept_Name like  CONCAT('%',#{deptName},'%')
+      </if>
+      <if test="reportTime != null and isLikeSelect!= null and reportTime != '' ">
+         AND report_time like  CONCAT('%',#{reportTime},'%')
+      </if>
+      <if test="officeNo != null and isLikeSelect!= null and officeNo != '' ">
+         AND office_no like  CONCAT('%',#{officeNo},'%')
+      </if>
+      <if test="reportContent != null and isLikeSelect!= null and reportContent != '' ">
+         AND report_content like  CONCAT('%',#{reportContent},'%')
+      </if>
+      <if test="companyLeader != null and isLikeSelect!= null and companyLeader != '' ">
+         AND company_leader like  CONCAT('%',#{companyLeader},'%')
+      </if>
+      <if test="companyLeaderName != null and isLikeSelect!= null and companyLeaderName != '' ">
+         AND company_leader_name like  CONCAT('%',#{companyLeaderName},'%')
+      </if>
+      <if test="companyOfficeMan != null and isLikeSelect!= null and companyOfficeMan != '' ">
+         AND company_office_man like  CONCAT('%',#{companyOfficeMan},'%')
+      </if>
+      <if test="companyOfficeManName != null and isLikeSelect!= null and companyOfficeManName != '' ">
+         AND company_office_man_name like  CONCAT('%',#{companyOfficeManName},'%')
+      </if>
+      <if test="viceLeader != null and isLikeSelect!= null and viceLeader != '' ">
+         AND vice_leader like  CONCAT('%',#{viceLeader},'%')
+      </if>
+      <if test="viceLeaderName != null and isLikeSelect!= null and viceLeaderName != '' ">
+         AND vice_leader_name like  CONCAT('%',#{viceLeaderName},'%')
+      </if>
+      <if test="flag != null and isLikeSelect!= null and flag != '' ">
+         AND flag like  CONCAT('%',#{flag},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="processInstanceId != null and isLikeSelect!= null and processInstanceId != '' ">
+         AND process_instance_id like  CONCAT('%',#{processInstanceId},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect!=null">
+        AND gmt_create = #{gmtCreate}
+      </if>
+
+      <if test="startTime1 != null and startTime1 !='' and isLikeSelect!=null">
+        AND gmt_create  &gt;= CONCAT('','${startTime1}',' 00:00:00')
+      </if>
+      <if test="endTime1 != null and endTime1 !='' and isLikeSelect!=null">
+        AND gmt_create  &lt;= CONCAT('','${endTime1}',' 23:59:59')
+      </if>
+      <if test="qName != null and qName != '' and isLikeSelect!=null">
+        AND (
+        office_no like CONCAT('%',#{qName},'%')or
+        report_content like CONCAT('%',#{qName},'%')
+        )
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect!=null">
+        AND (
+        dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+        <if test="initiator != null and initiator != ''">
+        or creator = #{initiator}
+        </if>
+        )
+      </if>
+    </where>
+  </sql>
+</mapper>

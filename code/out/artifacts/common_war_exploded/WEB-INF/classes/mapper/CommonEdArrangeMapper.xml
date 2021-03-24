@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.common.dao.CommonEdArrangeMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.common.entity.CommonEdArrange">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="build_id" jdbcType="INTEGER" property="buildId" />
+    <result column="build_name" jdbcType="VARCHAR" property="buildName" />
+    <result column="major_name" jdbcType="VARCHAR" property="majorName" />
+    <result column="all_user" jdbcType="VARCHAR" property="allUser" />
+    <result column="seq" jdbcType="INTEGER" property="seq" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from common_ed_arrange
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.common.entity.CommonEdArrange">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into common_ed_arrange (business_key, build_id, build_name, 
+      major_name, all_user, seq, 
+      is_deleted, gmt_create, gmt_modified
+      )
+    values (#{businessKey,jdbcType=VARCHAR}, #{buildId,jdbcType=INTEGER}, #{buildName,jdbcType=VARCHAR}, 
+      #{majorName,jdbcType=VARCHAR}, #{allUser,jdbcType=VARCHAR}, #{seq,jdbcType=INTEGER}, 
+      #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.common.entity.CommonEdArrange">
+    update common_ed_arrange
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      build_id = #{buildId,jdbcType=INTEGER},
+      build_name = #{buildName,jdbcType=VARCHAR},
+      major_name = #{majorName,jdbcType=VARCHAR},
+      all_user = #{allUser,jdbcType=VARCHAR},
+      seq = #{seq,jdbcType=INTEGER},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, build_id, build_name, major_name, all_user, seq, is_deleted, 
+    gmt_create, gmt_modified
+    from common_ed_arrange
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, build_id, build_name, major_name, all_user, seq, is_deleted, 
+    gmt_create, gmt_modified
+    from common_ed_arrange
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="buildId != null">
+         AND build_id = #{buildId}
+      </if>
+      <if test="buildName != null and buildName != ''">
+         AND build_name = #{buildName}
+      </if>
+      <if test="majorName != null and majorName != ''">
+         AND major_name = #{majorName}
+      </if>
+      <if test="allUser != null and allUser != ''">
+         AND all_user = #{allUser}
+      </if>
+      <if test="seq != null">
+         AND seq = #{seq}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+    </where>
+  </sql>
+</mapper>

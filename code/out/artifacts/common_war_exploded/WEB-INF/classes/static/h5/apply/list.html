@@ -1,0 +1,22 @@
+﻿<div class="mui-card" ng-repeat="item in vm.data.list">
+    <div class="mui-card-header">
+        <a class="mui-navigate-right" data-title-type="native"
+           ng-bind="$index+1+'.'+  item.propertyList[0].head+' '+item.propertyList[0].text"
+           ng-href="{{'/h5/taskDetail.html?businessKey='+item.businessKey}}">
+        </a>
+    </div>
+    <div class="mui-card-content">
+        <form class="mui-input-group">
+            <div class="mui-input-row" ng-repeat="property in item.propertyList track by $index" ng-show="$index>0">
+                <label ng-bind="property.head"></label>
+                <input ng-value="property.text" type="text" placeholder="" readonly="readonly">
+            </div>
+        </form>
+    </div>
+</div>
+
+<img src="/assets/img/new.png" title="创建" style="height: 30px;position: fixed;bottom: 100px;right: 15px;" ng-show="vm.newAable"
+     ng-click="vm.newData();"/>
+
+
+

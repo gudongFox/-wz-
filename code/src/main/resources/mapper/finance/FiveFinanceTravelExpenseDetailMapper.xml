@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.finance.dao.FiveFinanceTravelExpenseDetailMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.finance.entity.FiveFinanceTravelExpenseDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="travel_expense_id" jdbcType="INTEGER" property="travelExpenseId" />
+    <result column="project_type" jdbcType="VARCHAR" property="projectType" />
+    <result column="apply_refund_project" jdbcType="VARCHAR" property="applyRefundProject" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="applicant" jdbcType="VARCHAR" property="applicant" />
+    <result column="applicant_name" jdbcType="VARCHAR" property="applicantName" />
+    <result column="travel_expense_days" jdbcType="VARCHAR" property="travelExpenseDays" />
+    <result column="on_road_time" jdbcType="VARCHAR" property="onRoadTime" />
+    <result column="apply_standard" jdbcType="VARCHAR" property="applyStandard" />
+    <result column="apply_money" jdbcType="VARCHAR" property="applyMoney" />
+    <result column="on_road_subsidy" jdbcType="VARCHAR" property="onRoadSubsidy" />
+    <result column="count" jdbcType="VARCHAR" property="count" />
+    <result column="financial_confirmation" jdbcType="VARCHAR" property="financialConfirmation" />
+    <result column="account_subject" jdbcType="VARCHAR" property="accountSubject" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="budget_type" jdbcType="VARCHAR" property="budgetType" />
+    <result column="budget_id" jdbcType="INTEGER" property="budgetId" />
+    <result column="budget_no" jdbcType="VARCHAR" property="budgetNo" />
+    <result column="budget_balance" jdbcType="VARCHAR" property="budgetBalance" />
+    <result column="accommodation_allowance" jdbcType="BIT" property="accommodationAllowance" />
+    <result column="travel_allowance" jdbcType="BIT" property="travelAllowance" />
+    <result column="dinner_allowance" jdbcType="BIT" property="dinnerAllowance" />
+    <result column="site_allowance" jdbcType="BIT" property="siteAllowance" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_finance_travel_expense_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.finance.entity.FiveFinanceTravelExpenseDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_finance_travel_expense_detail (travel_expense_id, project_type, apply_refund_project, 
+      dept_id, dept_name, applicant, 
+      applicant_name, travel_expense_days, on_road_time, 
+      apply_standard, apply_money, on_road_subsidy, 
+      count, financial_confirmation, account_subject, 
+      remark, creator, creator_name, 
+      is_deleted, gmt_create, gmt_modified, 
+      budget_type, budget_id, budget_no, 
+      budget_balance, accommodation_allowance, travel_allowance, 
+      dinner_allowance, site_allowance)
+    values (#{travelExpenseId,jdbcType=INTEGER}, #{projectType,jdbcType=VARCHAR}, #{applyRefundProject,jdbcType=VARCHAR}, 
+      #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, #{applicant,jdbcType=VARCHAR}, 
+      #{applicantName,jdbcType=VARCHAR}, #{travelExpenseDays,jdbcType=VARCHAR}, #{onRoadTime,jdbcType=VARCHAR}, 
+      #{applyStandard,jdbcType=VARCHAR}, #{applyMoney,jdbcType=VARCHAR}, #{onRoadSubsidy,jdbcType=VARCHAR}, 
+      #{count,jdbcType=VARCHAR}, #{financialConfirmation,jdbcType=VARCHAR}, #{accountSubject,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{budgetType,jdbcType=VARCHAR}, #{budgetId,jdbcType=INTEGER}, #{budgetNo,jdbcType=VARCHAR}, 
+      #{budgetBalance,jdbcType=VARCHAR}, #{accommodationAllowance,jdbcType=BIT}, #{travelAllowance,jdbcType=BIT}, 
+      #{dinnerAllowance,jdbcType=BIT}, #{siteAllowance,jdbcType=BIT})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.finance.entity.FiveFinanceTravelExpenseDetail">
+    update five_finance_travel_expense_detail
+    set travel_expense_id = #{travelExpenseId,jdbcType=INTEGER},
+      project_type = #{projectType,jdbcType=VARCHAR},
+      apply_refund_project = #{applyRefundProject,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      applicant = #{applicant,jdbcType=VARCHAR},
+      applicant_name = #{applicantName,jdbcType=VARCHAR},
+      travel_expense_days = #{travelExpenseDays,jdbcType=VARCHAR},
+      on_road_time = #{onRoadTime,jdbcType=VARCHAR},
+      apply_standard = #{applyStandard,jdbcType=VARCHAR},
+      apply_money = #{applyMoney,jdbcType=VARCHAR},
+      on_road_subsidy = #{onRoadSubsidy,jdbcType=VARCHAR},
+      count = #{count,jdbcType=VARCHAR},
+      financial_confirmation = #{financialConfirmation,jdbcType=VARCHAR},
+      account_subject = #{accountSubject,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      budget_type = #{budgetType,jdbcType=VARCHAR},
+      budget_id = #{budgetId,jdbcType=INTEGER},
+      budget_no = #{budgetNo,jdbcType=VARCHAR},
+      budget_balance = #{budgetBalance,jdbcType=VARCHAR},
+      accommodation_allowance = #{accommodationAllowance,jdbcType=BIT},
+      travel_allowance = #{travelAllowance,jdbcType=BIT},
+      dinner_allowance = #{dinnerAllowance,jdbcType=BIT},
+      site_allowance = #{siteAllowance,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, travel_expense_id, project_type, apply_refund_project, dept_id, dept_name, 
+    applicant, applicant_name, travel_expense_days, on_road_time, apply_standard, apply_money, 
+    on_road_subsidy, count, financial_confirmation, account_subject, remark, creator, 
+    creator_name, is_deleted, gmt_create, gmt_modified, budget_type, budget_id, budget_no, 
+    budget_balance, accommodation_allowance, travel_allowance, dinner_allowance, site_allowance
+    from five_finance_travel_expense_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, travel_expense_id, project_type, apply_refund_project, dept_id, dept_name, 
+    applicant, applicant_name, travel_expense_days, on_road_time, apply_standard, apply_money, 
+    on_road_subsidy, count, financial_confirmation, account_subject, remark, creator, 
+    creator_name, is_deleted, gmt_create, gmt_modified, budget_type, budget_id, budget_no, 
+    budget_balance, accommodation_allowance, travel_allowance, dinner_allowance, site_allowance
+    from five_finance_travel_expense_detail
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="travelExpenseId != null and isLikeSelect==null">
+         AND travel_expense_id = #{travelExpenseId}
+      </if>
+      <if test="projectType != null and isLikeSelect==null and projectType != ''">
+         AND project_type = #{projectType}
+      </if>
+      <if test="applyRefundProject != null and isLikeSelect==null and applyRefundProject != ''">
+         AND apply_refund_project = #{applyRefundProject}
+      </if>
+      <if test="deptId != null and isLikeSelect==null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and isLikeSelect==null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="applicant != null and isLikeSelect==null and applicant != ''">
+         AND applicant = #{applicant}
+      </if>
+      <if test="applicantName != null and isLikeSelect==null and applicantName != ''">
+         AND applicant_name = #{applicantName}
+      </if>
+      <if test="travelExpenseDays != null and isLikeSelect==null and travelExpenseDays != ''">
+         AND travel_expense_days = #{travelExpenseDays}
+      </if>
+      <if test="onRoadTime != null and isLikeSelect==null and onRoadTime != ''">
+         AND on_road_time = #{onRoadTime}
+      </if>
+      <if test="applyStandard != null and isLikeSelect==null and applyStandard != ''">
+         AND apply_standard = #{applyStandard}
+      </if>
+      <if test="applyMoney != null and isLikeSelect==null and applyMoney != ''">
+         AND apply_money = #{applyMoney}
+      </if>
+      <if test="onRoadSubsidy != null and isLikeSelect==null and onRoadSubsidy != ''">
+         AND on_road_subsidy = #{onRoadSubsidy}
+      </if>
+      <if test="count != null and isLikeSelect==null and count != ''">
+         AND count = #{count}
+      </if>
+      <if test="financialConfirmation != null and isLikeSelect==null and financialConfirmation != ''">
+         AND financial_confirmation = #{financialConfirmation}
+      </if>
+      <if test="accountSubject != null and isLikeSelect==null and accountSubject != ''">
+         AND account_subject = #{accountSubject}
+      </if>
+      <if test="remark != null and isLikeSelect==null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="budgetType != null and isLikeSelect==null and budgetType != ''">
+         AND budget_type = #{budgetType}
+      </if>
+      <if test="budgetId != null and isLikeSelect==null">
+         AND budget_id = #{budgetId}
+      </if>
+      <if test="budgetNo != null and isLikeSelect==null and budgetNo != ''">
+         AND budget_no = #{budgetNo}
+      </if>
+      <if test="budgetBalance != null and isLikeSelect==null and budgetBalance != ''">
+         AND budget_balance = #{budgetBalance}
+      </if>
+      <if test="accommodationAllowance != null and isLikeSelect==null">
+         AND accommodation_allowance = #{accommodationAllowance}
+      </if>
+      <if test="travelAllowance != null and isLikeSelect==null">
+         AND travel_allowance = #{travelAllowance}
+      </if>
+      <if test="dinnerAllowance != null and isLikeSelect==null">
+         AND dinner_allowance = #{dinnerAllowance}
+      </if>
+      <if test="siteAllowance != null and isLikeSelect==null">
+         AND site_allowance = #{siteAllowance}
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="projectType != null and isLikeSelect!= null and projectType != '' ">
+         AND project_type like  CONCAT('%',#{projectType},'%')
+      </if>
+      <if test="applyRefundProject != null and isLikeSelect!= null and applyRefundProject != '' ">
+         AND apply_refund_project like  CONCAT('%',#{applyRefundProject},'%')
+      </if>
+      <if test="deptName != null and isLikeSelect!= null and deptName != '' ">
+         AND dept_name like  CONCAT('%',#{deptName},'%')
+      </if>
+      <if test="applicant != null and isLikeSelect!= null and applicant != '' ">
+         AND applicant like  CONCAT('%',#{applicant},'%')
+      </if>
+      <if test="applicantName != null and isLikeSelect!= null and applicantName != '' ">
+         AND applicant_name like  CONCAT('%',#{applicantName},'%')
+      </if>
+      <if test="travelExpenseDays != null and isLikeSelect!= null and travelExpenseDays != '' ">
+         AND travel_expense_days like  CONCAT('%',#{travelExpenseDays},'%')
+      </if>
+      <if test="onRoadTime != null and isLikeSelect!= null and onRoadTime != '' ">
+         AND on_road_time like  CONCAT('%',#{onRoadTime},'%')
+      </if>
+      <if test="applyStandard != null and isLikeSelect!= null and applyStandard != '' ">
+         AND apply_standard like  CONCAT('%',#{applyStandard},'%')
+      </if>
+      <if test="applyMoney != null and isLikeSelect!= null and applyMoney != '' ">
+         AND apply_money like  CONCAT('%',#{applyMoney},'%')
+      </if>
+      <if test="onRoadSubsidy != null and isLikeSelect!= null and onRoadSubsidy != '' ">
+         AND on_road_subsidy like  CONCAT('%',#{onRoadSubsidy},'%')
+      </if>
+      <if test="count != null and isLikeSelect!= null and count != '' ">
+         AND count like  CONCAT('%',#{count},'%')
+      </if>
+      <if test="financialConfirmation != null and isLikeSelect!= null and financialConfirmation != '' ">
+         AND financial_confirmation like  CONCAT('%',#{financialConfirmation},'%')
+      </if>
+      <if test="accountSubject != null and isLikeSelect!= null and accountSubject != '' ">
+         AND account_subject like  CONCAT('%',#{accountSubject},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="budgetType != null and isLikeSelect!= null and budgetType != '' ">
+         AND budget_type like  CONCAT('%',#{budgetType},'%')
+      </if>
+      <if test="budgetNo != null and isLikeSelect!= null and budgetNo != '' ">
+         AND budget_no like  CONCAT('%',#{budgetNo},'%')
+      </if>
+      <if test="budgetBalance != null and isLikeSelect!= null and budgetBalance != '' ">
+         AND budget_balance like  CONCAT('%',#{budgetBalance},'%')
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="deptId != null and isLikeSelect!=null">
+         AND dept_id = #{deptId}
+      </if>
+    </where>
+  </sql>
+</mapper>

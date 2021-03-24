@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.common.dao.CommonEdMarkMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.common.entity.CommonEdMark">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    <result column="common_file_id" jdbcType="INTEGER" property="commonFileId" />
+    <result column="common_file_name" jdbcType="VARCHAR" property="commonFileName" />
+    <result column="draw_no" jdbcType="VARCHAR" property="drawNo" />
+    <result column="draw_name" jdbcType="VARCHAR" property="drawName" />
+    <result column="question_level" jdbcType="VARCHAR" property="questionLevel" />
+    <result column="question_content" jdbcType="VARCHAR" property="questionContent" />
+    <result column="cloud_location" jdbcType="VARCHAR" property="cloudLocation" />
+    <result column="question_color" jdbcType="VARCHAR" property="questionColor" />
+    <result column="question_answer" jdbcType="VARCHAR" property="questionAnswer" />
+    <result column="answer" jdbcType="VARCHAR" property="answer" />
+    <result column="answer_name" jdbcType="VARCHAR" property="answerName" />
+    <result column="answer_time" jdbcType="TIMESTAMP" property="answerTime" />
+    <result column="source_file_id" jdbcType="INTEGER" property="sourceFileId" />
+    <result column="pic_attach_id" jdbcType="INTEGER" property="picAttachId" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from common_ed_mark
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.common.entity.CommonEdMark">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into common_ed_mark (business_key, role_name, common_file_id,
+      common_file_name, draw_no, draw_name, 
+      question_level, question_content, cloud_location, 
+      question_color, question_answer, answer, 
+      answer_name, answer_time, source_file_id, pic_attach_id,
+      is_deleted, creator, creator_name, 
+      gmt_create, gmt_modified)
+    values (#{businessKey,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR}, #{commonFileId,jdbcType=INTEGER}, 
+      #{commonFileName,jdbcType=VARCHAR}, #{drawNo,jdbcType=VARCHAR}, #{drawName,jdbcType=VARCHAR}, 
+      #{questionLevel,jdbcType=VARCHAR}, #{questionContent,jdbcType=VARCHAR}, #{cloudLocation,jdbcType=VARCHAR}, 
+      #{questionColor,jdbcType=VARCHAR}, #{questionAnswer,jdbcType=VARCHAR}, #{answer,jdbcType=VARCHAR}, 
+      #{answerName,jdbcType=VARCHAR}, #{answerTime,jdbcType=TIMESTAMP}, #{sourceFileId,jdbcType=INTEGER},#{picAttachId,jdbcType=INTEGER},
+      #{deleted,jdbcType=BIT}, #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.common.entity.CommonEdMark">
+    update common_ed_mark
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      role_name = #{roleName,jdbcType=VARCHAR},
+      common_file_id = #{commonFileId,jdbcType=INTEGER},
+      common_file_name = #{commonFileName,jdbcType=VARCHAR},
+      draw_no = #{drawNo,jdbcType=VARCHAR},
+      draw_name = #{drawName,jdbcType=VARCHAR},
+      question_level = #{questionLevel,jdbcType=VARCHAR},
+      question_content = #{questionContent,jdbcType=VARCHAR},
+      cloud_location = #{cloudLocation,jdbcType=VARCHAR},
+      question_color = #{questionColor,jdbcType=VARCHAR},
+      question_answer = #{questionAnswer,jdbcType=VARCHAR},
+      answer = #{answer,jdbcType=VARCHAR},
+      answer_name = #{answerName,jdbcType=VARCHAR},
+      answer_time = #{answerTime,jdbcType=TIMESTAMP},
+      source_file_id = #{sourceFileId,jdbcType=INTEGER},
+      pic_attach_id = #{picAttachId,jdbcType=INTEGER},
+      is_deleted = #{deleted,jdbcType=BIT},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, role_name, common_file_id, common_file_name, draw_no, draw_name, 
+    question_level, question_content, cloud_location, question_color, question_answer, 
+    answer, answer_name, answer_time, source_file_id,pic_attach_id, is_deleted, creator, creator_name,
+    gmt_create, gmt_modified
+    from common_ed_mark
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+
+  <select id="selectPre"  resultMap="BaseResultMap">
+    select *
+    from common_ed_mark
+    where  creator = #{creator,jdbcType=VARCHAR} and  business_key = #{businessKey,jdbcType=VARCHAR}
+    order by id desc limit 1
+  </select>
+
+
+  <select id="listLevelReport" parameterType="java.util.Map" resultType="java.util.Map">
+    select role_name as roleName, question_level as lvName,count(*) as total from common_ed_mark
+    where is_deleted=0 and length(role_name)>0 and length(question_level)>0
+    <if test="businessKeyList != null and businessKeyList.size()>0">
+      AND business_Key in
+      <foreach collection="businessKeyList" open="(" close=")" separator="," item="businessKey" index="i">
+        #{businessKey}
+      </foreach>
+    </if>
+    group by role_name,question_level
+  </select>
+
+
+
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, role_name, common_file_id, common_file_name, draw_no, draw_name, 
+    question_level, question_content, cloud_location, question_color, question_answer, 
+    answer, answer_name, answer_time, source_file_id,pic_attach_id, is_deleted, creator, creator_name,
+    gmt_create, gmt_modified
+    from common_ed_mark
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+
+
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="roleName != null and roleName != ''">
+         AND role_name = #{roleName}
+      </if>
+      <if test="commonFileId != null">
+         AND common_file_id = #{commonFileId}
+      </if>
+      <if test="commonFileName != null and commonFileName != ''">
+         AND common_file_name = #{commonFileName}
+      </if>
+      <if test="drawNo != null and drawNo != ''">
+         AND draw_no = #{drawNo}
+      </if>
+      <if test="drawName != null and drawName != ''">
+         AND draw_name = #{drawName}
+      </if>
+      <if test="questionLevel != null and questionLevel != ''">
+         AND question_level = #{questionLevel}
+      </if>
+      <if test="questionContent != null and questionContent != ''">
+         AND question_content = #{questionContent}
+      </if>
+      <if test="cloudLocation != null and cloudLocation != ''">
+         AND cloud_location = #{cloudLocation}
+      </if>
+      <if test="questionColor != null and questionColor != ''">
+         AND question_color = #{questionColor}
+      </if>
+      <if test="questionAnswer != null and questionAnswer != ''">
+         AND question_answer = #{questionAnswer}
+      </if>
+      <if test="answer != null and answer != ''">
+         AND answer = #{answer}
+      </if>
+      <if test="answerName != null and answerName != ''">
+         AND answer_name = #{answerName}
+      </if>
+      <if test="answerTime != null">
+         AND answer_time = #{answerTime}
+      </if>
+      <if test="sourceFileId != null">
+         AND source_file_id = #{sourceFileId}
+      </if>
+      <if test="picAttachId != null">
+        AND pic_attach_id = #{picAttachId}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="onlyCloud != null and onlyCloud">
+        AND length(cloud_location) >0
+      </if>
+      <if test="onlyAnswered != null and onlyAnswered">
+        AND length(question_answer) >0
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="businessKeyList != null and businessKeyList.size()>0">
+        AND business_Key in
+        <foreach collection="businessKeyList" open="(" close=")" separator="," item="businessKey" index="i">
+          #{businessKey}
+        </foreach>
+      </if>
+    </where>
+  </sql>
+</mapper>

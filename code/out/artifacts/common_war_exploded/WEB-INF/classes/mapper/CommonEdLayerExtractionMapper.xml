@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.common.dao.CommonEdLayerExtractionMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.common.entity.CommonEdLayerExtraction">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="tenet_id" jdbcType="VARCHAR" property="tenetId" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="extract_name" jdbcType="VARCHAR" property="extractName" />
+    <result column="extract_layer" jdbcType="VARCHAR" property="extractLayer" />
+    <result column="extract_desc" jdbcType="VARCHAR" property="extractDesc" />
+    <result column="source_major" jdbcType="VARCHAR" property="sourceMajor" />
+    <result column="dest_major" jdbcType="VARCHAR" property="destMajor" />
+    <result column="seq" jdbcType="INTEGER" property="seq" />
+    <result column="is_standard" jdbcType="BIT" property="standard" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from common_ed_layer_extraction
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.common.entity.CommonEdLayerExtraction">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into common_ed_layer_extraction (tenet_id, dept_id, dept_name, 
+      extract_name, extract_layer, extract_desc, 
+      source_major, dest_major, seq, 
+      is_standard, is_deleted, creator, 
+      creator_name, gmt_create, gmt_modified, 
+      remark)
+    values (#{tenetId,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, 
+      #{extractName,jdbcType=VARCHAR}, #{extractLayer,jdbcType=VARCHAR}, #{extractDesc,jdbcType=VARCHAR}, 
+      #{sourceMajor,jdbcType=VARCHAR}, #{destMajor,jdbcType=VARCHAR}, #{seq,jdbcType=INTEGER}, 
+      #{standard,jdbcType=BIT}, #{deleted,jdbcType=BIT}, #{creator,jdbcType=VARCHAR}, 
+      #{creatorName,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.common.entity.CommonEdLayerExtraction">
+    update common_ed_layer_extraction
+    set tenet_id = #{tenetId,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      extract_name = #{extractName,jdbcType=VARCHAR},
+      extract_layer = #{extractLayer,jdbcType=VARCHAR},
+      extract_desc = #{extractDesc,jdbcType=VARCHAR},
+      source_major = #{sourceMajor,jdbcType=VARCHAR},
+      dest_major = #{destMajor,jdbcType=VARCHAR},
+      seq = #{seq,jdbcType=INTEGER},
+      is_standard = #{standard,jdbcType=BIT},
+      is_deleted = #{deleted,jdbcType=BIT},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, tenet_id, dept_id, dept_name, extract_name, extract_layer, extract_desc, 
+    source_major, dest_major, seq, is_standard, is_deleted, creator, creator_name, gmt_create, 
+    gmt_modified, remark
+    from common_ed_layer_extraction
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, tenet_id, dept_id, dept_name, extract_name, extract_layer, extract_desc, 
+    source_major, dest_major, seq, is_standard, is_deleted, creator, creator_name, gmt_create, 
+    gmt_modified, remark
+    from common_ed_layer_extraction
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="tenetId != null and tenetId != ''">
+         AND tenet_id = #{tenetId}
+      </if>
+      <if test="deptId != null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="extractName != null and extractName != ''">
+         AND extract_name = #{extractName}
+      </if>
+      <if test="extractLayer != null and extractLayer != ''">
+         AND extract_layer = #{extractLayer}
+      </if>
+      <if test="extractDesc != null and extractDesc != ''">
+         AND extract_desc = #{extractDesc}
+      </if>
+      <if test="sourceMajor != null and sourceMajor != ''">
+         AND source_major = #{sourceMajor}
+      </if>
+      <if test="destMajor != null and destMajor != ''">
+         AND dest_major = #{destMajor}
+      </if>
+      <if test="seq != null">
+         AND seq = #{seq}
+      </if>
+      <if test="standard != null">
+         AND is_standard = #{standard}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="q != null and q != '' ">
+        AND (
+        extract_name like CONCAT('%',#{q},'%') or
+        extract_desc like CONCAT('%',#{q},'%')
+        )
+      </if>
+    </where>
+  </sql>
+</mapper>

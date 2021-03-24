@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveOaBidApplyMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveOaBidApply">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="record_no" jdbcType="VARCHAR" property="recordNo" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_Name" jdbcType="VARCHAR" property="deptName" />
+    <result column="bid_man" jdbcType="VARCHAR" property="bidMan" />
+    <result column="bid_man_name" jdbcType="VARCHAR" property="bidManName" />
+    <result column="bid_time" jdbcType="VARCHAR" property="bidTime" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="project_type" jdbcType="VARCHAR" property="projectType" />
+    <result column="project_industry" jdbcType="VARCHAR" property="projectIndustry" />
+    <result column="bidder" jdbcType="VARCHAR" property="bidder" />
+    <result column="information_source" jdbcType="VARCHAR" property="informationSource" />
+    <result column="bidder_link_man" jdbcType="VARCHAR" property="bidderLinkMan" />
+    <result column="bidder_link_tel" jdbcType="VARCHAR" property="bidderLinkTel" />
+    <result column="contract_money" jdbcType="VARCHAR" property="contractMoney" />
+    <result column="project_address" jdbcType="VARCHAR" property="projectAddress" />
+    <result column="project_scale" jdbcType="VARCHAR" property="projectScale" />
+    <result column="money_source" jdbcType="VARCHAR" property="moneySource" />
+    <result column="money_source_other" jdbcType="VARCHAR" property="moneySourceOther" />
+    <result column="qualification" jdbcType="VARCHAR" property="qualification" />
+    <result column="qualification_other" jdbcType="VARCHAR" property="qualificationOther" />
+    <result column="bid_type" jdbcType="VARCHAR" property="bidType" />
+    <result column="bid_type_other" jdbcType="VARCHAR" property="bidTypeOther" />
+    <result column="bid_scope" jdbcType="VARCHAR" property="bidScope" />
+    <result column="contract_type" jdbcType="VARCHAR" property="contractType" />
+    <result column="contract_type_other" jdbcType="VARCHAR" property="contractTypeOther" />
+    <result column="project_time" jdbcType="VARCHAR" property="projectTime" />
+    <result column="schedule_target" jdbcType="VARCHAR" property="scheduleTarget" />
+    <result column="deposit_money" jdbcType="VARCHAR" property="depositMoney" />
+    <result column="deposit_time" jdbcType="VARCHAR" property="depositTime" />
+    <result column="file_data_cost" jdbcType="VARCHAR" property="fileDataCost" />
+    <result column="technology_feasibility" jdbcType="VARCHAR" property="technologyFeasibility" />
+    <result column="technology_feasibility_other" jdbcType="VARCHAR" property="technologyFeasibilityOther" />
+    <result column="product_feasibility" jdbcType="VARCHAR" property="productFeasibility" />
+    <result column="product_feasibility_other" jdbcType="VARCHAR" property="productFeasibilityOther" />
+    <result column="is_win" jdbcType="BIT" property="win" />
+    <result column="fail_reason" jdbcType="VARCHAR" property="failReason" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="record_id" jdbcType="INTEGER" property="recordId" />
+    <result column="charge_man" jdbcType="VARCHAR" property="chargeMan" />
+    <result column="charge_man_name" jdbcType="VARCHAR" property="chargeManName" />
+    <result column="bid_rank" jdbcType="VARCHAR" property="bidRank" />
+    <result column="review_user" jdbcType="VARCHAR" property="reviewUser" />
+    <result column="review_user_name" jdbcType="VARCHAR" property="reviewUserName" />
+    <result column="project_no" jdbcType="VARCHAR" property="projectNo" />
+    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+    <result column="customer_code" jdbcType="VARCHAR" property="customerCode" />
+    <result column="payment_rule" jdbcType="LONGVARCHAR" property="paymentRule" />
+    <result column="cooperation_experience" jdbcType="LONGVARCHAR" property="cooperationExperience" />
+    <result column="opponent" jdbcType="LONGVARCHAR" property="opponent" />
+    <result column="other_feasibility" jdbcType="LONGVARCHAR" property="otherFeasibility" />
+    <result column="contract_risk" jdbcType="LONGVARCHAR" property="contractRisk" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_oa_bid_apply
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveOaBidApply">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_oa_bid_apply (business_key, record_no, dept_id, 
+      dept_Name, bid_man, bid_man_name, 
+      bid_time, project_name, project_type, 
+      project_industry, bidder, information_source, 
+      bidder_link_man, bidder_link_tel, contract_money, 
+      project_address, project_scale, money_source, 
+      money_source_other, qualification, qualification_other, 
+      bid_type, bid_type_other, bid_scope, 
+      contract_type, contract_type_other, project_time, 
+      schedule_target, deposit_money, deposit_time, 
+      file_data_cost, technology_feasibility, technology_feasibility_other, 
+      product_feasibility, product_feasibility_other, 
+      is_win, fail_reason, creator, 
+      creator_name, gmt_create, gmt_modified, 
+      is_deleted, is_process_end, process_instance_id, 
+      record_id, charge_man, charge_man_name, 
+      bid_rank, review_user, review_user_name, 
+      project_no, customer_name, customer_code, 
+      payment_rule, cooperation_experience, 
+      opponent, other_feasibility, contract_risk
+      )
+    values (#{businessKey,jdbcType=VARCHAR}, #{recordNo,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, 
+      #{deptName,jdbcType=VARCHAR}, #{bidMan,jdbcType=VARCHAR}, #{bidManName,jdbcType=VARCHAR}, 
+      #{bidTime,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR}, #{projectType,jdbcType=VARCHAR}, 
+      #{projectIndustry,jdbcType=VARCHAR}, #{bidder,jdbcType=VARCHAR}, #{informationSource,jdbcType=VARCHAR}, 
+      #{bidderLinkMan,jdbcType=VARCHAR}, #{bidderLinkTel,jdbcType=VARCHAR}, #{contractMoney,jdbcType=VARCHAR}, 
+      #{projectAddress,jdbcType=VARCHAR}, #{projectScale,jdbcType=VARCHAR}, #{moneySource,jdbcType=VARCHAR}, 
+      #{moneySourceOther,jdbcType=VARCHAR}, #{qualification,jdbcType=VARCHAR}, #{qualificationOther,jdbcType=VARCHAR}, 
+      #{bidType,jdbcType=VARCHAR}, #{bidTypeOther,jdbcType=VARCHAR}, #{bidScope,jdbcType=VARCHAR}, 
+      #{contractType,jdbcType=VARCHAR}, #{contractTypeOther,jdbcType=VARCHAR}, #{projectTime,jdbcType=VARCHAR}, 
+      #{scheduleTarget,jdbcType=VARCHAR}, #{depositMoney,jdbcType=VARCHAR}, #{depositTime,jdbcType=VARCHAR}, 
+      #{fileDataCost,jdbcType=VARCHAR}, #{technologyFeasibility,jdbcType=VARCHAR}, #{technologyFeasibilityOther,jdbcType=VARCHAR}, 
+      #{productFeasibility,jdbcType=VARCHAR}, #{productFeasibilityOther,jdbcType=VARCHAR}, 
+      #{win,jdbcType=BIT}, #{failReason,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{creatorName,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{deleted,jdbcType=BIT}, #{processEnd,jdbcType=BIT}, #{processInstanceId,jdbcType=VARCHAR}, 
+      #{recordId,jdbcType=INTEGER}, #{chargeMan,jdbcType=VARCHAR}, #{chargeManName,jdbcType=VARCHAR}, 
+      #{bidRank,jdbcType=VARCHAR}, #{reviewUser,jdbcType=VARCHAR}, #{reviewUserName,jdbcType=VARCHAR}, 
+      #{projectNo,jdbcType=VARCHAR}, #{customerName,jdbcType=VARCHAR}, #{customerCode,jdbcType=VARCHAR}, 
+      #{paymentRule,jdbcType=LONGVARCHAR}, #{cooperationExperience,jdbcType=LONGVARCHAR}, 
+      #{opponent,jdbcType=LONGVARCHAR}, #{otherFeasibility,jdbcType=LONGVARCHAR}, #{contractRisk,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveOaBidApply">
+    update five_oa_bid_apply
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      record_no = #{recordNo,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_Name = #{deptName,jdbcType=VARCHAR},
+      bid_man = #{bidMan,jdbcType=VARCHAR},
+      bid_man_name = #{bidManName,jdbcType=VARCHAR},
+      bid_time = #{bidTime,jdbcType=VARCHAR},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      project_type = #{projectType,jdbcType=VARCHAR},
+      project_industry = #{projectIndustry,jdbcType=VARCHAR},
+      bidder = #{bidder,jdbcType=VARCHAR},
+      information_source = #{informationSource,jdbcType=VARCHAR},
+      bidder_link_man = #{bidderLinkMan,jdbcType=VARCHAR},
+      bidder_link_tel = #{bidderLinkTel,jdbcType=VARCHAR},
+      contract_money = #{contractMoney,jdbcType=VARCHAR},
+      project_address = #{projectAddress,jdbcType=VARCHAR},
+      project_scale = #{projectScale,jdbcType=VARCHAR},
+      money_source = #{moneySource,jdbcType=VARCHAR},
+      money_source_other = #{moneySourceOther,jdbcType=VARCHAR},
+      qualification = #{qualification,jdbcType=VARCHAR},
+      qualification_other = #{qualificationOther,jdbcType=VARCHAR},
+      bid_type = #{bidType,jdbcType=VARCHAR},
+      bid_type_other = #{bidTypeOther,jdbcType=VARCHAR},
+      bid_scope = #{bidScope,jdbcType=VARCHAR},
+      contract_type = #{contractType,jdbcType=VARCHAR},
+      contract_type_other = #{contractTypeOther,jdbcType=VARCHAR},
+      project_time = #{projectTime,jdbcType=VARCHAR},
+      schedule_target = #{scheduleTarget,jdbcType=VARCHAR},
+      deposit_money = #{depositMoney,jdbcType=VARCHAR},
+      deposit_time = #{depositTime,jdbcType=VARCHAR},
+      file_data_cost = #{fileDataCost,jdbcType=VARCHAR},
+      technology_feasibility = #{technologyFeasibility,jdbcType=VARCHAR},
+      technology_feasibility_other = #{technologyFeasibilityOther,jdbcType=VARCHAR},
+      product_feasibility = #{productFeasibility,jdbcType=VARCHAR},
+      product_feasibility_other = #{productFeasibilityOther,jdbcType=VARCHAR},
+      is_win = #{win,jdbcType=BIT},
+      fail_reason = #{failReason,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      is_deleted = #{deleted,jdbcType=BIT},
+      is_process_end = #{processEnd,jdbcType=BIT},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      record_id = #{recordId,jdbcType=INTEGER},
+      charge_man = #{chargeMan,jdbcType=VARCHAR},
+      charge_man_name = #{chargeManName,jdbcType=VARCHAR},
+      bid_rank = #{bidRank,jdbcType=VARCHAR},
+      review_user = #{reviewUser,jdbcType=VARCHAR},
+      review_user_name = #{reviewUserName,jdbcType=VARCHAR},
+      project_no = #{projectNo,jdbcType=VARCHAR},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      customer_code = #{customerCode,jdbcType=VARCHAR},
+      payment_rule = #{paymentRule,jdbcType=LONGVARCHAR},
+      cooperation_experience = #{cooperationExperience,jdbcType=LONGVARCHAR},
+      opponent = #{opponent,jdbcType=LONGVARCHAR},
+      other_feasibility = #{otherFeasibility,jdbcType=LONGVARCHAR},
+      contract_risk = #{contractRisk,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, record_no, dept_id, dept_Name, bid_man, bid_man_name, bid_time, 
+    project_name, project_type, project_industry, bidder, information_source, bidder_link_man, 
+    bidder_link_tel, contract_money, project_address, project_scale, money_source, money_source_other, 
+    qualification, qualification_other, bid_type, bid_type_other, bid_scope, contract_type, 
+    contract_type_other, project_time, schedule_target, deposit_money, deposit_time, 
+    file_data_cost, technology_feasibility, technology_feasibility_other, product_feasibility, 
+    product_feasibility_other, is_win, fail_reason, creator, creator_name, gmt_create, 
+    gmt_modified, is_deleted, is_process_end, process_instance_id, record_id, charge_man, 
+    charge_man_name, bid_rank, review_user, review_user_name, project_no, customer_name, 
+    customer_code, payment_rule, cooperation_experience, opponent, other_feasibility, 
+    contract_risk
+    from five_oa_bid_apply
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, record_no, dept_id, dept_Name, bid_man, bid_man_name, bid_time, 
+    project_name, project_type, project_industry, bidder, information_source, bidder_link_man, 
+    bidder_link_tel, contract_money, project_address, project_scale, money_source, money_source_other, 
+    qualification, qualification_other, bid_type, bid_type_other, bid_scope, contract_type, 
+    contract_type_other, project_time, schedule_target, deposit_money, deposit_time, 
+    file_data_cost, technology_feasibility, technology_feasibility_other, product_feasibility, 
+    product_feasibility_other, is_win, fail_reason, creator, creator_name, gmt_create, 
+    gmt_modified, is_deleted, is_process_end, process_instance_id, record_id, charge_man, 
+    charge_man_name, bid_rank, review_user, review_user_name, project_no, customer_name, 
+    customer_code, payment_rule, cooperation_experience, opponent, other_feasibility, 
+    contract_risk
+    from five_oa_bid_apply
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="recordNo != null and recordNo != ''">
+         AND record_no = #{recordNo}
+      </if>
+      <if test="deptId != null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and deptName != ''">
+         AND dept_Name = #{deptName}
+      </if>
+      <if test="bidMan != null and bidMan != ''">
+         AND bid_man = #{bidMan}
+      </if>
+      <if test="bidManName != null and bidManName != ''">
+         AND bid_man_name = #{bidManName}
+      </if>
+      <if test="bidTime != null and bidTime != ''">
+         AND bid_time = #{bidTime}
+      </if>
+      <if test="projectName != null and projectName != ''">
+         AND project_name = #{projectName}
+      </if>
+      <if test="projectType != null and projectType != ''">
+         AND project_type = #{projectType}
+      </if>
+      <if test="projectIndustry != null and projectIndustry != ''">
+         AND project_industry = #{projectIndustry}
+      </if>
+      <if test="bidder != null and bidder != ''">
+         AND bidder = #{bidder}
+      </if>
+      <if test="informationSource != null and informationSource != ''">
+         AND information_source = #{informationSource}
+      </if>
+      <if test="bidderLinkMan != null and bidderLinkMan != ''">
+         AND bidder_link_man = #{bidderLinkMan}
+      </if>
+      <if test="bidderLinkTel != null and bidderLinkTel != ''">
+         AND bidder_link_tel = #{bidderLinkTel}
+      </if>
+      <if test="contractMoney != null and contractMoney != ''">
+         AND contract_money = #{contractMoney}
+      </if>
+      <if test="projectAddress != null and projectAddress != ''">
+         AND project_address = #{projectAddress}
+      </if>
+      <if test="projectScale != null and projectScale != ''">
+         AND project_scale = #{projectScale}
+      </if>
+      <if test="moneySource != null and moneySource != ''">
+         AND money_source = #{moneySource}
+      </if>
+      <if test="moneySourceOther != null and moneySourceOther != ''">
+         AND money_source_other = #{moneySourceOther}
+      </if>
+      <if test="qualification != null and qualification != ''">
+         AND qualification = #{qualification}
+      </if>
+      <if test="qualificationOther != null and qualificationOther != ''">
+         AND qualification_other = #{qualificationOther}
+      </if>
+      <if test="bidType != null and bidType != ''">
+         AND bid_type = #{bidType}
+      </if>
+      <if test="bidTypeOther != null and bidTypeOther != ''">
+         AND bid_type_other = #{bidTypeOther}
+      </if>
+      <if test="bidScope != null and bidScope != ''">
+         AND bid_scope = #{bidScope}
+      </if>
+      <if test="contractType != null and contractType != ''">
+         AND contract_type = #{contractType}
+      </if>
+      <if test="contractTypeOther != null and contractTypeOther != ''">
+         AND contract_type_other = #{contractTypeOther}
+      </if>
+      <if test="projectTime != null and projectTime != ''">
+         AND project_time = #{projectTime}
+      </if>
+      <if test="scheduleTarget != null and scheduleTarget != ''">
+         AND schedule_target = #{scheduleTarget}
+      </if>
+      <if test="depositMoney != null and depositMoney != ''">
+         AND deposit_money = #{depositMoney}
+      </if>
+      <if test="depositTime != null and depositTime != ''">
+         AND deposit_time = #{depositTime}
+      </if>
+      <if test="fileDataCost != null and fileDataCost != ''">
+         AND file_data_cost = #{fileDataCost}
+      </if>
+      <if test="technologyFeasibility != null and technologyFeasibility != ''">
+         AND technology_feasibility = #{technologyFeasibility}
+      </if>
+      <if test="technologyFeasibilityOther != null and technologyFeasibilityOther != ''">
+         AND technology_feasibility_other = #{technologyFeasibilityOther}
+      </if>
+      <if test="productFeasibility != null and productFeasibility != ''">
+         AND product_feasibility = #{productFeasibility}
+      </if>
+      <if test="productFeasibilityOther != null and productFeasibilityOther != ''">
+         AND product_feasibility_other = #{productFeasibilityOther}
+      </if>
+      <if test="win != null">
+         AND is_win = #{win}
+      </if>
+      <if test="failReason != null and failReason != ''">
+         AND fail_reason = #{failReason}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="processEnd != null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="processInstanceId != null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="recordId != null">
+         AND record_id = #{recordId}
+      </if>
+      <if test="chargeMan != null and chargeMan != ''">
+         AND charge_man = #{chargeMan}
+      </if>
+      <if test="chargeManName != null and chargeManName != ''">
+         AND charge_man_name = #{chargeManName}
+      </if>
+      <if test="bidRank != null and bidRank != ''">
+         AND bid_rank = #{bidRank}
+      </if>
+      <if test="reviewUser != null and reviewUser != ''">
+         AND review_user = #{reviewUser}
+      </if>
+      <if test="reviewUserName != null and reviewUserName != ''">
+         AND review_user_name = #{reviewUserName}
+      </if>
+      <if test="projectNo != null and projectNo != ''">
+         AND project_no = #{projectNo}
+      </if>
+      <if test="customerName != null and customerName != ''">
+         AND customer_name = #{customerName}
+      </if>
+      <if test="customerCode != null and customerCode != ''">
+         AND customer_code = #{customerCode}
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0">
+        AND dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+      </if>
+    </where>
+  </sql>
+</mapper>

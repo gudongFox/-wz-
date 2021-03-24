@@ -1,0 +1,275 @@
+﻿<span id="contentForm">
+    <div >
+        <div id="segmentedControl" class="mui-segmented-control">
+            <a class="mui-control-item mui-active">基础信息</a>
+            <a class="mui-control-item">流程信息</a>
+            <a class="mui-control-item">流程图</a>
+        </div>
+    </div>
+    <!--合同评审-->
+    <div >
+        <div class="mui-control-content mui-active">
+
+            <div class="mui-card">
+                <div class="mui-card-header">
+                    <span ng-bind="'1.基础信息'"></span>
+                </div>
+            <!--内容区-->
+                <div class="mui-card-content">
+                    <form class="mui-input-group" id="detail_form">
+                        <div class="mui-input-row">
+                            <label style="color: black">客户名称</label>
+                            <input type="text" ng-model="vm.item.customerName" name="customerName" required="true" ng-disabled="!processInstance.firstTask"/>
+                        </div>
+                         <div class="mui-input-row">
+                                <label style="color: black">客户编号</label>
+                                <input type="text" ng-model="vm.item.customerCode" name="customerCode" ng-disabled="!processInstance.firstTask"/>
+                         </div>
+                        <div class="mui-input-row">
+                                <label style="color: black">是否为补充合同</label>
+                                 <select ng-options="s.codeValue as s.name for s in sysCodes | filter:{codeCatalog:'是否'}:true"  ng-disabled="!processInstance.firstTask"
+                                         ng-model="vm.item.main"></select>
+                         </div>
+                         <div class="mui-input-row" ng-if="vm.item.main">
+                                <label style="color: black">主合同名称</label>
+                                <input type="text" ng-model="vm.item.mainContractLibraryName" name="mainContractLibraryName" ng-disabled="!processInstance.firstTask"/>
+                         </div>
+                         <div class="mui-input-row"  ng-if="vm.item.main">
+                                <label style="color: black">主合同号</label>
+                                <input type="text" ng-model="vm.item.mainContractLibraryNo" name="mainContractLibraryNo" ng-disabled="!processInstance.firstTask"/>
+                         </div>
+                        <div class="mui-input-row" ng-if="!vm.item.main">
+                                <label style="color: black">备案项目名称</label>
+                                <input type="text" ng-model="vm.item.projectName" name="projectName" ng-disabled="!processInstance.firstTask"/>
+                         </div>
+                         <div class="mui-input-row" ng-if="!vm.item.main">
+                                <label style="color: black">项目号</label>
+                                <input type="text" ng-model="vm.item.projectNo" name="projectNo" ng-disabled="!processInstance.firstTask"/>
+                         </div>
+                         <div class="mui-input-row" >
+                                <label style="color: black">合同名称</label>
+                                <input type="text" ng-model="vm.item.contractName" name="contractName" ng-disabled="!processInstance.firstTask"/>
+                         </div>
+                         <div class="mui-input-row">
+                                <label style="color: black">合同号</label>
+                                <input type="text" ng-model="vm.item.contractNo" name="contractNo" required
+                                       ng-disabled="!processInstance.firstTask"/>
+                         </div>
+                         <div class="mui-input-row">
+                                <label style="color: black">合同类型</label>
+                                 <select ng-options="s.name as s.name for s in sysCodes | filter:{codeCatalog:'合同类型'}:true" ng-model="vm.item.contractType"
+                                         ng-disabled="!processInstance.firstTask"></select>
+                         </div>
+                         <div class="mui-input-row">
+                                <label style="color: black">预计签约日期</label>
+                                <input type="text" ng-model="vm.item.planSignTime" name="planSignTime" ng-disabled="!processInstance.firstTask"/>
+                         </div>
+                        <div class="mui-input-row">
+                                <label style="color: black">承接部门</label>
+                                <input type="text" ng-model="vm.item.deptName" name="deptName" ng-focus="vm.showDeptModal('deptId','',false,vm.item.deptId);"
+                                       ng-disabled="!processInstance.firstTask"/>
+                         </div>
+                         <div class="mui-input-row">
+                                <label style="color: black">投资额（万元）</label>
+                                <input type="text" ng-model="vm.item.investMoney" name="investMoney" ng-disabled="!processInstance.firstTask"/>
+                         </div>
+                         <div class="mui-input-row">
+                                <label style="color: black">投资来源</label>
+                                <select ng-options="s.name as s.name for s in sysCodes | filter:{codeCatalog:'投资来源'}:true"
+                                        ng-model="vm.item.investSource"
+                                        ng-disabled="!processInstance.firstTask"></select>
+                         </div>
+                        <div class="mui-input-row">
+                                <label style="color: black">项目性质</label>
+                                <select ng-options="s.name as s.name for s in sysCodes | filter:{codeCatalog:'五洲项目类型'}:true"
+                                           ng-model="vm.item.projectNature"
+                                           ng-disabled="!(processInstance.firstTask)"></select>
+                         </div>
+                        <div class="mui-input-row">
+                                <label style="color: black">建设规模</label>
+                                <input type="text" ng-model="vm.item.constructionScale" name="constructionScale"  ng-disabled="!processInstance.firstTask"/>
+                         </div>
+                        <div class="mui-input-row">
+                                <label style="color: black">建设地址</label>
+                                <input type="text" ng-model="vm.item.constructionArea" name="constructionArea"   ng-disabled="!processInstance.firstTask"/>
+                         </div>
+                         <div class="mui-input-row">
+                                <label style="color: black">是否开具保函</label>
+                                  <select ng-options="s.codeValue as s.name for s in sysCodes | filter:{codeCatalog:'是否开具保函'}:true"  ng-disabled="!processInstance.firstTask"
+                                          ng-model="vm.item.backletter"></select>
+                         </div>
+                        <div class="mui-input-row" ng-if="vm.item.backletter">
+                                <label style="color: black">保函金额(万元)</label>
+                                <input type="text" ng-model="vm.item.backletterMoney" name="backletterMoney"   ng-disabled="!processInstance.firstTask"/>
+                         </div>
+                        <div class="mui-input-row">
+                                <label style="color: black">备注</label>
+                                <input type="text" ng-model="vm.item.remark" name="remark"   ng-disabled="!processInstance.firstTask"/>
+                         </div>
+                        <div class="mui-input-row">
+                                <label style="color: black">创建人</label>
+                                <input type="text" ng-model="vm.item.creatorName" disabled/>
+                        </div>
+                        <div class="mui-input-row">
+                                <label style="color: black">创建时间</label>
+                                <input type="text" value="{{vm.item.gmtCreate|date:'yyyy-MM-dd HH:mm'}}" disabled/>
+                        </div>
+                </form>
+                </div>
+            <!--页脚，放置补充信息或支持的操作-->
+            </div>
+            <div class="mui-card">
+                <div class="mui-card-header">
+                    <span ng-bind="'2.评审信息'"></span>
+                </div>
+                <!--内容区-->
+                <div class="mui-card-content">
+                    <form class="mui-input-group" id="detail_form2">
+                        <div class="mui-input-row">
+                            <label style="color: black">评审级别</label>
+                            <select ng-options="s.codeValue as s.name for s in sysCodes | filter:{codeCatalog:'评审级别'}:true"
+                                    ng-model="vm.item.reviewLevel"  ng-disabled="!processInstance.firstTask"></select>
+                        </div>
+                         <div class="mui-input-row" ng-if="vm.item.reviewLevel=='公司级'">
+                                <label style="color: black">公司级评审人员</label>
+                                <input type="text" ng-model="vm.item.reviewUserName" name="reviewUserName" ng-focus="vm.showUserModal('reviewUser','',true,vm.item.reviewUser);"
+                                       ng-disabled="processInstance.myRunningTaskName.indexOf('经营发展部人员（合同）')<0"/>
+                         </div>
+                        <div class="mui-input-row" ng-if="vm.item.reviewLevel=='院级'">
+                                <label style="color: black" >院级评审人员</label>
+                                <input type="text" ng-model="vm.item.deptReviewUserName" name="deptReviewUserName" ng-focus="vm.showUserModal('deptReviewUser','dept_'+vm.item.deptId+'',true,vm.item.totalDesigner);" ng-disabled="!processInstance.firstTask"/>
+                         </div>
+                         <div class="mui-input-row">
+                                <label style="color: black">总设计师</label>
+                                <input type="text" ng-model="vm.item.totalDesignerName" name="totalDesignerName" ng-focus="vm.showUserModal('totalDesigner','',false,vm.item.totalDesigner);" ng-disabled="!processInstance.firstTask"/>
+                         </div>
+                         <div class="mui-input-row">
+                                <label style="color: black">项目经理</label>
+                                <input type="text" ng-model="vm.item.projectManagerName" name="projectManagerName" ng-focus="vm.showUserModal('projectManager','',false,vm.item.projectManager);" ng-disabled="!processInstance.firstTask"/>
+                         </div>
+                        <div class="mui-input-row">
+                                <label style="color: black">合同分管副总</label>
+                                <input type="text" ng-model="vm.item.businessChargeLeaderName" name="businessChargeLeaderName" ng-focus="vm.showUserModal('businessChargeLeader','candidateUser_3996,2192,0166,2873',false,vm.item.businessChargeLeader);" ng-disabled="!processInstance.firstTask"/>
+                         </div>
+                         <div class="mui-input-row">
+                                <label style="color: black">外贸标记</label>
+                                 <select ng-options="s.name as s.name for s in sysCodes | filter:{codeCatalog:'外贸标记'}:true" ng-model="vm.item.foreignTradeMark" name="foreignTradeMark"
+                                         ng-disabled="!(processInstance.firstTask||processInstance.myRunningTaskName.indexOf('经营发展部')>=0)"></select>
+                         </div>
+                         <div class="mui-input-row">
+                                <label style="color: black">民用标记</label>
+                                  <select ng-options="s.name as s.name for s in sysCodes | filter:{codeCatalog:'民用标记'}:true"
+                                          ng-model="vm.item.civilMark"
+                                          ng-disabled="!(processInstance.firstTask||processInstance.myRunningTaskName.indexOf('经营发展部')>=0)"></select>
+                         </div>
+                         <div class="mui-input-row">
+                                <label style="color: black">军品标记</label>
+                                <select ng-options="s.name as s.name for s in sysCodes | filter:{codeCatalog:'军品标记'}:true" ng-model="vm.item.militaryMark"
+                                        ng-disabled="!(processInstance.firstTask)"></select>
+                         </div>
+                        <div class="mui-input-row">
+                                <label style="color: black">是否含合同附件</label>
+                                <select ng-options="s.codeValue as s.name for s in sysCodes | filter:{codeCatalog:'是否'}:true"
+                                        ng-model="vm.item.attach"  ng-disabled="!processInstance.firstTask"></select>
+                         </div>
+                         <div class="mui-input-row">
+                                <label style="color: black">项目专业分类 一级</label>
+                              <select id="select" ng-options="s.name as s.name for s in sysCodes| filter:{codeCatalog:'项目专业分类一级'}:true" ng-model="vm.item.projectMajorTypeFirst"
+                                            ng-disabled="!processInstance.firstTask">
+                             </select>
+                         </div>
+                         <div class="mui-input-row">
+                                <label style="color: black">项目专业分类 二级</label>
+                                <input type="text" ng-model="vm.item.projectMajorTypeSecond" name="projectMajorTypeSecond"
+                                       ng-disabled="!(processInstance.firstTask||processInstance.myRunningTaskName.indexOf('经营发展部')>=0)"/>
+                         </div>
+                        <div class="mui-input-row">
+                                <label style="color: black">项目专业分类 三级</label>
+                                <input type="text" ng-model="vm.item.projectMajorTypeThird" name="projectMajorTypeThird"
+                                       ng-disabled="!(processInstance.firstTask||processInstance.myRunningTaskName.indexOf('经营发展部')>=0)"/>
+                         </div>
+                </form>
+                </div>
+                <!--页脚，放置补充信息或支持的操作-->
+            </div>
+            <div class="mui-card">
+                <div class="mui-card-header">
+                    <span ng-bind="'3.财务相关'"></span>
+                </div>
+                  <!--内容区-->
+                <div class="mui-card-content">
+                    <form class="mui-input-group" id="detail_form3">
+                        <div class="mui-input-row">
+                            <label style="color: black">签约日期</label>
+                            <input type="text" ng-model="vm.item.technologyFeasibility" name="technologyFeasibility" required="true" ng-disabled="processInstance.myRunningTaskName.indexOf('印花税')<0"/>
+                        </div>
+                         <div class="mui-input-row">
+                                <label style="color: black">合同盖章扫描附件</label>
+                                <input type="text" ng-model="vm.item.technologyFeasibilityOther" name="technologyFeasibilityOther" required ng-disabled="processInstance.myRunningTaskName.indexOf('印花税')<0" />
+                         </div>
+                          <div ng-if="processInstance.myRunningTaskName.indexOf('印花税')>=0">
+                            <span style="color: red">请在网页端上传附件</span>
+                        </div>
+                        <div class="mui-input-row">
+                                <label style="color: black">到账金额(合同额)</label>
+                                <input type="text" ng-model="vm.item.contractMoney" name="contractMoney" ng-disabled="processInstance.myRunningTaskName.indexOf('印花税')<0"/>
+                         </div>
+
+                         <div class="mui-input-row">
+                                <label style="color: black">税目</label>
+                                 <select ng-options="s.name as s.name for s in sysCodes | filter:{codeCatalog:'合同印花税税目'}:true"
+                                         ng-model="vm.item.taxType"  ng-change="vm.save()"
+                                         ng-disabled="processInstance.myRunningTaskName.indexOf('印花税')<0"></select>
+                         </div>
+                         <div class="mui-input-row">
+                                <label style="color: black">税率</label>
+                                <input type="text" ng-model="vm.item.taxNum" name="taxNum" ng-disabled="vm.item.taxType!='其他'||processInstance.myRunningTaskName.indexOf('印花税')<0"/>
+                         </div>
+                        <div class="mui-input-row">
+                                <label style="color: black">印花税额</label>
+                                <input type="text" ng-model="vm.item.stampTaxMoney" name="stampTaxMoney" disabled/>
+                         </div>
+                </form>
+                </div>
+                  <!--页脚，放置补充信息或支持的操作-->
+            </div>
+             <div class="mui-card">
+                <div class="mui-card-header">
+                    <span ng-bind="'4.评审记录'"> </span><span style="font-size: 5px;text-align: left; color: grey">请在网页端完成修改</span>
+                </div>
+                 <!--内容区-->
+                <div class="mui-card-content">
+                    <ul class="mui-table-view mui-table-view-chevron">
+                       <li class="mui-table-view-cell mui-collapse" ng-repeat="detail in vm.contractReviewDetails">
+                            <span style="line-height: 30px;margin-left: 5px;font-weight: bold;" ng-bind="detail.reviewContent"></span>
+                            <span style="line-height: 30px;margin-right: 5px;font-weight: bold; text-align: right ;color: green" ng-bind="detail.reviewResult"></span>
+                       </li>
+                     </ul>
+                </div>
+                 <!--页脚，放置补充信息或支持的操作-->
+            </div>
+            <span ng-include="'/h5/tpl/businessFile.html'" ng-init="fileTplTitle='5.业务附件'"></span>
+
+            <div style="height: 40px;">&nbsp;</div>
+        </div>
+         <div class="mui-control-content">
+             <span ng-include="'/h5/tpl/taskHistory.html'"></span>
+        </div>
+        <div class="mui-control-content" style="overflow-x: auto;">
+             <span ng-include="'/h5/tpl/taskPicture.html'"></span>
+        </div>
+        <div style="height: 50px;">&nbsp;</div>
+    </div>
+
+</span>
+
+<span ng-include="'/h5/tpl/taskAction.html'"></span>
+
+<span ng-include="'/h5/tpl/selectUser.html'"></span>
+
+
+
+
+
+
+

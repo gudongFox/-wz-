@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveEdServiceDiscussMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveEdServiceDiscuss">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="project_no" jdbcType="VARCHAR" property="projectNo" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="step_id" jdbcType="INTEGER" property="stepId" />
+    <result column="step_name" jdbcType="VARCHAR" property="stepName" />
+    <result column="stage_name" jdbcType="VARCHAR" property="stageName" />
+    <result column="contract_no" jdbcType="VARCHAR" property="contractNo" />
+    <result column="form_no" jdbcType="VARCHAR" property="formNo" />
+    <result column="build_name" jdbcType="VARCHAR" property="buildName" />
+    <result column="major_name" jdbcType="VARCHAR" property="majorName" />
+    <result column="draw_no" jdbcType="VARCHAR" property="drawNo" />
+    <result column="change_no" jdbcType="VARCHAR" property="changeNo" />
+    <result column="change_reason" jdbcType="VARCHAR" property="changeReason" />
+    <result column="change_reason_detail" jdbcType="VARCHAR" property="changeReasonDetail" />
+    <result column="need_change_other" jdbcType="BIT" property="needChangeOther" />
+    <result column="need_change_major" jdbcType="VARCHAR" property="needChangeMajor" />
+    <result column="change_content" jdbcType="VARCHAR" property="changeContent" />
+    <result column="discuss_content" jdbcType="VARCHAR" property="discussContent" />
+    <result column="attach_no" jdbcType="VARCHAR" property="attachNo" />
+    <result column="attach_count" jdbcType="INTEGER" property="attachCount" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_ed_service_discuss
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveEdServiceDiscuss">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_ed_service_discuss (business_key, project_id, project_no, 
+      project_name, step_id, step_name, 
+      stage_name, contract_no, form_no, 
+      build_name, major_name, draw_no, 
+      change_no, change_reason, change_reason_detail, 
+      need_change_other, need_change_major, change_content, 
+      discuss_content, attach_no, attach_count, 
+      is_deleted, creator, creator_name, 
+      gmt_create, gmt_modified, remark, 
+      process_instance_id, is_process_end)
+    values (#{businessKey,jdbcType=VARCHAR}, #{projectId,jdbcType=INTEGER}, #{projectNo,jdbcType=VARCHAR}, 
+      #{projectName,jdbcType=VARCHAR}, #{stepId,jdbcType=INTEGER}, #{stepName,jdbcType=VARCHAR}, 
+      #{stageName,jdbcType=VARCHAR}, #{contractNo,jdbcType=VARCHAR}, #{formNo,jdbcType=VARCHAR}, 
+      #{buildName,jdbcType=VARCHAR}, #{majorName,jdbcType=VARCHAR}, #{drawNo,jdbcType=VARCHAR}, 
+      #{changeNo,jdbcType=VARCHAR}, #{changeReason,jdbcType=VARCHAR}, #{changeReasonDetail,jdbcType=VARCHAR}, 
+      #{needChangeOther,jdbcType=BIT}, #{needChangeMajor,jdbcType=VARCHAR}, #{changeContent,jdbcType=VARCHAR}, 
+      #{discussContent,jdbcType=VARCHAR}, #{attachNo,jdbcType=VARCHAR}, #{attachCount,jdbcType=INTEGER}, 
+      #{deleted,jdbcType=BIT}, #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, 
+      #{processInstanceId,jdbcType=VARCHAR}, #{processEnd,jdbcType=BIT})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveEdServiceDiscuss">
+    update five_ed_service_discuss
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      project_id = #{projectId,jdbcType=INTEGER},
+      project_no = #{projectNo,jdbcType=VARCHAR},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      step_id = #{stepId,jdbcType=INTEGER},
+      step_name = #{stepName,jdbcType=VARCHAR},
+      stage_name = #{stageName,jdbcType=VARCHAR},
+      contract_no = #{contractNo,jdbcType=VARCHAR},
+      form_no = #{formNo,jdbcType=VARCHAR},
+      build_name = #{buildName,jdbcType=VARCHAR},
+      major_name = #{majorName,jdbcType=VARCHAR},
+      draw_no = #{drawNo,jdbcType=VARCHAR},
+      change_no = #{changeNo,jdbcType=VARCHAR},
+      change_reason = #{changeReason,jdbcType=VARCHAR},
+      change_reason_detail = #{changeReasonDetail,jdbcType=VARCHAR},
+      need_change_other = #{needChangeOther,jdbcType=BIT},
+      need_change_major = #{needChangeMajor,jdbcType=VARCHAR},
+      change_content = #{changeContent,jdbcType=VARCHAR},
+      discuss_content = #{discussContent,jdbcType=VARCHAR},
+      attach_no = #{attachNo,jdbcType=VARCHAR},
+      attach_count = #{attachCount,jdbcType=INTEGER},
+      is_deleted = #{deleted,jdbcType=BIT},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      is_process_end = #{processEnd,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, project_id, project_no, project_name, step_id, step_name, 
+    stage_name, contract_no, form_no, build_name, major_name, draw_no, change_no, change_reason, 
+    change_reason_detail, need_change_other, need_change_major, change_content, discuss_content, 
+    attach_no, attach_count, is_deleted, creator, creator_name, gmt_create, gmt_modified, 
+    remark, process_instance_id, is_process_end
+    from five_ed_service_discuss
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, project_id, project_no, project_name, step_id, step_name, 
+    stage_name, contract_no, form_no, build_name, major_name, draw_no, change_no, change_reason, 
+    change_reason_detail, need_change_other, need_change_major, change_content, discuss_content, 
+    attach_no, attach_count, is_deleted, creator, creator_name, gmt_create, gmt_modified, 
+    remark, process_instance_id, is_process_end
+    from five_ed_service_discuss
+    <include refid="Base_Where_List" />
+    order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="projectId != null">
+         AND project_id = #{projectId}
+      </if>
+      <if test="projectNo != null and projectNo != ''">
+         AND project_no = #{projectNo}
+      </if>
+      <if test="projectName != null and projectName != ''">
+         AND project_name = #{projectName}
+      </if>
+      <if test="stepId != null">
+         AND step_id = #{stepId}
+      </if>
+      <if test="stepName != null and stepName != ''">
+         AND step_name = #{stepName}
+      </if>
+      <if test="stageName != null and stageName != ''">
+         AND stage_name = #{stageName}
+      </if>
+      <if test="contractNo != null and contractNo != ''">
+         AND contract_no = #{contractNo}
+      </if>
+      <if test="formNo != null and formNo != ''">
+         AND form_no = #{formNo}
+      </if>
+      <if test="buildName != null and buildName != ''">
+         AND build_name = #{buildName}
+      </if>
+      <if test="majorName != null and majorName != ''">
+         AND major_name = #{majorName}
+      </if>
+      <if test="drawNo != null and drawNo != ''">
+         AND draw_no = #{drawNo}
+      </if>
+      <if test="changeNo != null and changeNo != ''">
+         AND change_no = #{changeNo}
+      </if>
+      <if test="changeReason != null and changeReason != ''">
+         AND change_reason = #{changeReason}
+      </if>
+      <if test="changeReasonDetail != null and changeReasonDetail != ''">
+         AND change_reason_detail = #{changeReasonDetail}
+      </if>
+      <if test="needChangeOther != null">
+         AND need_change_other = #{needChangeOther}
+      </if>
+      <if test="needChangeMajor != null and needChangeMajor != ''">
+         AND need_change_major = #{needChangeMajor}
+      </if>
+      <if test="changeContent != null and changeContent != ''">
+         AND change_content = #{changeContent}
+      </if>
+      <if test="discussContent != null and discussContent != ''">
+         AND discuss_content = #{discussContent}
+      </if>
+      <if test="attachNo != null and attachNo != ''">
+         AND attach_no = #{attachNo}
+      </if>
+      <if test="attachCount != null">
+         AND attach_count = #{attachCount}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="processInstanceId != null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="processEnd != null">
+         AND is_process_end = #{processEnd}
+      </if>
+    </where>
+  </sql>
+</mapper>

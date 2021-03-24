@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.hr.dao.HrInventMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.hr.entity.HrInvent">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="user_login" jdbcType="VARCHAR" property="userLogin" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="cooperator" jdbcType="VARCHAR" property="cooperator" />
+    <result column="apply_name_sort" jdbcType="VARCHAR" property="applyNameSort" />
+    <result column="major_name" jdbcType="VARCHAR" property="majorName" />
+    <result column="invent_name" jdbcType="VARCHAR" property="inventName" />
+    <result column="first_invent_man" jdbcType="VARCHAR" property="firstInventMan" />
+    <result column="first_invent_man_name" jdbcType="VARCHAR" property="firstInventManName" />
+    <result column="id_number" jdbcType="VARCHAR" property="idNumber" />
+    <result column="other_invent_men" jdbcType="VARCHAR" property="otherInventMen" />
+    <result column="apply_time" jdbcType="VARCHAR" property="applyTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="process_end" jdbcType="BIT" property="processEnd" />
+    <result column="security_dec" jdbcType="LONGVARCHAR" property="securityDec" />
+    <result column="technology_and_innovate" jdbcType="LONGVARCHAR" property="technologyAndInnovate" />
+    <result column="retrueval_dec" jdbcType="LONGVARCHAR" property="retruevalDec" />
+    <result column="technology_market" jdbcType="LONGVARCHAR" property="technologyMarket" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from hr_invent
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.hr.entity.HrInvent">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into hr_invent (business_key, user_login, user_name, 
+      dept_id, dept_name, cooperator, 
+      apply_name_sort, major_name, invent_name, 
+      first_invent_man, first_invent_man_name, id_number, 
+      other_invent_men, apply_time, remark, 
+      creator, creator_name, is_deleted, 
+      gmt_create, gmt_modified, process_instance_id, 
+      process_end, security_dec, technology_and_innovate, 
+      retrueval_dec, technology_market)
+    values (#{businessKey,jdbcType=VARCHAR}, #{userLogin,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, #{cooperator,jdbcType=VARCHAR}, 
+      #{applyNameSort,jdbcType=VARCHAR}, #{majorName,jdbcType=VARCHAR}, #{inventName,jdbcType=VARCHAR}, 
+      #{firstInventMan,jdbcType=VARCHAR}, #{firstInventManName,jdbcType=VARCHAR}, #{idNumber,jdbcType=VARCHAR}, 
+      #{otherInventMen,jdbcType=VARCHAR}, #{applyTime,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{processInstanceId,jdbcType=VARCHAR}, 
+      #{processEnd,jdbcType=BIT}, #{securityDec,jdbcType=LONGVARCHAR}, #{technologyAndInnovate,jdbcType=LONGVARCHAR}, 
+      #{retruevalDec,jdbcType=LONGVARCHAR}, #{technologyMarket,jdbcType=LONGVARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.hr.entity.HrInvent">
+    update hr_invent
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      user_login = #{userLogin,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      cooperator = #{cooperator,jdbcType=VARCHAR},
+      apply_name_sort = #{applyNameSort,jdbcType=VARCHAR},
+      major_name = #{majorName,jdbcType=VARCHAR},
+      invent_name = #{inventName,jdbcType=VARCHAR},
+      first_invent_man = #{firstInventMan,jdbcType=VARCHAR},
+      first_invent_man_name = #{firstInventManName,jdbcType=VARCHAR},
+      id_number = #{idNumber,jdbcType=VARCHAR},
+      other_invent_men = #{otherInventMen,jdbcType=VARCHAR},
+      apply_time = #{applyTime,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      process_end = #{processEnd,jdbcType=BIT},
+      security_dec = #{securityDec,jdbcType=LONGVARCHAR},
+      technology_and_innovate = #{technologyAndInnovate,jdbcType=LONGVARCHAR},
+      retrueval_dec = #{retruevalDec,jdbcType=LONGVARCHAR},
+      technology_market = #{technologyMarket,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, user_login, user_name, dept_id, dept_name, cooperator, apply_name_sort, 
+    major_name, invent_name, first_invent_man, first_invent_man_name, id_number, other_invent_men, 
+    apply_time, remark, creator, creator_name, is_deleted, gmt_create, gmt_modified, 
+    process_instance_id, process_end, security_dec, technology_and_innovate, retrueval_dec, 
+    technology_market
+    from hr_invent
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, user_login, user_name, dept_id, dept_name, cooperator, apply_name_sort, 
+    major_name, invent_name, first_invent_man, first_invent_man_name, id_number, other_invent_men, 
+    apply_time, remark, creator, creator_name, is_deleted, gmt_create, gmt_modified, 
+    process_instance_id, process_end, security_dec, technology_and_innovate, retrueval_dec, 
+    technology_market
+    from hr_invent
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="userLogin != null and userLogin != ''">
+         AND user_login = #{userLogin}
+      </if>
+      <if test="userName != null and userName != ''">
+         AND user_name = #{userName}
+      </if>
+      <if test="deptId != null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="cooperator != null and cooperator != ''">
+         AND cooperator = #{cooperator}
+      </if>
+      <if test="applyNameSort != null and applyNameSort != ''">
+         AND apply_name_sort = #{applyNameSort}
+      </if>
+      <if test="majorName != null and majorName != ''">
+         AND major_name = #{majorName}
+      </if>
+      <if test="inventName != null and inventName != ''">
+         AND invent_name = #{inventName}
+      </if>
+      <if test="firstInventMan != null and firstInventMan != ''">
+         AND first_invent_man = #{firstInventMan}
+      </if>
+      <if test="firstInventManName != null and firstInventManName != ''">
+         AND first_invent_man_name = #{firstInventManName}
+      </if>
+      <if test="idNumber != null and idNumber != ''">
+         AND id_number = #{idNumber}
+      </if>
+      <if test="otherInventMen != null and otherInventMen != ''">
+         AND other_invent_men = #{otherInventMen}
+      </if>
+      <if test="applyTime != null and applyTime != ''">
+         AND apply_time = #{applyTime}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="processInstanceId != null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="processEnd != null">
+         AND process_end = #{processEnd}
+      </if>
+    </where>
+  </sql>
+</mapper>

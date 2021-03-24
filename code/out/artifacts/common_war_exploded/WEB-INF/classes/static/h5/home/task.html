@@ -1,0 +1,110 @@
+﻿<style>
+    .mui-table h4, .mui-table h5, .mui-table .mui-h5, .mui-table .mui-h6, .mui-table p {
+        margin-top: 0;
+    }
+
+    .mui-table h4 {
+        line-height: 21px;
+        font-weight: 500;
+    }
+
+    .mui-table .oa-icon {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+    }
+
+    .mui-table .oa-icon-star-filled {
+        color: #f14e41;
+    }
+</style>
+<div style="padding: 10px 10px 0px 10px;">
+    <div id="segmentedControl" class="mui-segmented-control">
+        <a class="mui-control-item mui-active">待办任务</a>
+        <a class="mui-control-item">我发起的</a>
+        <a class="mui-control-item">我审批的</a>
+    </div>
+</div>
+<div style="padding:10px;">
+    <div class="mui-input-row mui-search">
+        <input type="search"  ng-model="qq" class="mui-input-clear" placeholder="流程名称" style="border-radius:0px;margin-bottom: 10px;" ng-keydown="taskSearch();" >
+    </div>
+    <div class="mui-control-content mui-active">
+        <ul class="mui-table-view mui-table-view-striped mui-table-view-condensed">
+            <li class="mui-table-view-cell" ng-repeat="task in tasks" ng-click="showTask(task.businessKey);">
+                <div class="mui-table">
+                    <div class="mui-table-cell mui-col-xs-10">
+                        <h4 class="mui-ellipsis" ng-bind="task.name+'-'+task.processDefinitionName" ng-style="{'color':'{{task.firstNewTask?'grey':'blue'}}'}"></h4>
+                        <h5 ng-bind="'发起人:'+task.initiatorName+' '+(task.initiatorTime|date:'yyyy-MM-dd HH:mm')"></h5>
+                        <p class="mui-h6 mui-ellipsis" ng-bind="task.description"></p>
+                    </div>
+                    <div class="mui-table-cell mui-col-xs-2 mui-text-right">
+                        <span class="mui-h5" ng-bind="task.durationRead"></span>
+                    </div>
+                </div>
+            </li>
+
+            <li class="mui-table-view-cell" ng-show="taskTotal>tasks.length" ng-click="loadMoreTask();">
+                <div class="mui-table">
+                    <div class="mui-table-cell mui-col-xs-10">
+                        <span ng-bind="'查看更多（'+tasks.length+'/'+taskTotal+'）'"></span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="mui-control-content">
+        <ul class="mui-table-view mui-table-view-striped mui-table-view-condensed">
+            <li class="mui-table-view-cell" ng-repeat="item in initiatorList" ng-click="showTask(item.instance.businessKey);">
+                <div class="mui-table">
+                    <div class="mui-table-cell mui-col-xs-10">
+                        <h4 class="mui-ellipsis" ng-bind="item.instance.processDefinitionName"></h4>
+                        <h5 ng-bind="'开始时间：'+(item.instance.startTime|date:'yyyy-MM-dd HH:mm')"></h5>
+                        <h5 ng-bind="'完成时间：'+(item.instance.endTime|date:'yyyy-MM-dd HH:mm')" ng-if="item.instance.endTime"></h5>
+                        <p class="mui-h6 mui-ellipsis" ng-bind="'当前状态：'+item.currentTaskName"></p>
+                    </div>
+                    <div class="mui-table-cell mui-col-xs-2 mui-text-right">
+                        <span class="mui-h5" ng-show="item.finished" style="color: green;">已完成</span>
+                        <span class="mui-h5" ng-show="item.myRunningTaskName" style="color: #007aff;">待处理</span>
+                    </div>
+                </div>
+            </li>
+
+            <li class="mui-table-view-cell" ng-show="initiatorTotal>initiatorList.length" ng-click="loadMoreInitiator();">
+                <div class="mui-table">
+                    <div class="mui-table-cell mui-col-xs-10">
+                        <span ng-bind="'查看更多（'+initiatorList.length+'/'+initiatorTotal+'）'"></span>
+                    </div>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+    <div  class="mui-control-content">
+        <ul class="mui-table-view mui-table-view-striped mui-table-view-condensed">
+            <li class="mui-table-view-cell" ng-repeat="item in involvedList" ng-click="showTask(item.instance.businessKey);">
+                <div class="mui-table">
+                    <div class="mui-table-cell mui-col-xs-10">
+                        <h4 class="mui-ellipsis" ng-bind="item.instance.processDefinitionName"></h4>
+                        <h5 ng-bind="'运行时间：'+(item.instance.startTime|date:'yyyy-MM-dd HH:mm')+' '+(item.instance.endTime|date:'yyyy-MM-dd HH:mm')"></h5>
+                        <p class="mui-h6 mui-ellipsis" ng-bind="'当前状态：'+item.currentTaskName"></p>
+                    </div>
+                    <div class="mui-table-cell mui-col-xs-2 mui-text-right">
+                        <span class="mui-h5" ng-show="item.finished" style="color: green;">已完成</span>
+                        <span class="mui-h5" ng-show="item.myRunningTaskName" style="color: #007aff;">待处理</span>
+                    </div>
+                </div>
+            </li>
+            <li class="mui-table-view-cell" ng-show="involvedCount>involvedList.length" ng-click="loadMoreInvolved();">
+                <div class="mui-table">
+                    <div class="mui-table-cell mui-col-xs-10">
+                        <span ng-bind="'查看更多（'+involvedList.length+'/'+involvedCount+'）'"></span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+
+    <div style="height: 50px;">&nbsp;</div>
+</div>

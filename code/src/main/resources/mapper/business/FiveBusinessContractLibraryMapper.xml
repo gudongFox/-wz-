@@ -1,0 +1,1181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.business.dao.FiveBusinessContractLibraryMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.business.entity.FiveBusinessContractLibrary">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="contract_pre_id" jdbcType="INTEGER" property="contractPreId" />
+    <result column="contract_review_id" jdbcType="INTEGER" property="contractReviewId" />
+    <result column="contract_id" jdbcType="INTEGER" property="contractId" />
+    <result column="customer_id" jdbcType="INTEGER" property="customerId" />
+    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+    <result column="customer_code" jdbcType="VARCHAR" property="customerCode" />
+    <result column="link_man" jdbcType="VARCHAR" property="linkMan" />
+    <result column="link_tel" jdbcType="VARCHAR" property="linkTel" />
+    <result column="customer_address" jdbcType="VARCHAR" property="customerAddress" />
+    <result column="link_title" jdbcType="VARCHAR" property="linkTitle" />
+    <result column="link_fax" jdbcType="VARCHAR" property="linkFax" />
+    <result column="link_mail" jdbcType="VARCHAR" property="linkMail" />
+    <result column="deposit_bank" jdbcType="VARCHAR" property="depositBank" />
+    <result column="bank_account" jdbcType="VARCHAR" property="bankAccount" />
+    <result column="tax_type" jdbcType="VARCHAR" property="taxType" />
+    <result column="tax_no" jdbcType="VARCHAR" property="taxNo" />
+    <result column="project_type" jdbcType="VARCHAR" property="projectType" />
+    <result column="project_no" jdbcType="VARCHAR" property="projectNo" />
+    <result column="record_project_name" jdbcType="VARCHAR" property="recordProjectName" />
+    <result column="project_address" jdbcType="VARCHAR" property="projectAddress" />
+    <result column="business_manager" jdbcType="VARCHAR" property="businessManager" />
+    <result column="business_manager_name" jdbcType="VARCHAR" property="businessManagerName" />
+    <result column="total_designer" jdbcType="VARCHAR" property="totalDesigner" />
+    <result column="total_designer_name" jdbcType="VARCHAR" property="totalDesignerName" />
+    <result column="part_time_job" jdbcType="VARCHAR" property="partTimeJob" />
+    <result column="other_designer" jdbcType="VARCHAR" property="otherDesigner" />
+    <result column="other_designer_name" jdbcType="VARCHAR" property="otherDesignerName" />
+    <result column="charge_men" jdbcType="VARCHAR" property="chargeMen" />
+    <result column="charge_men_name" jdbcType="VARCHAR" property="chargeMenName" />
+    <result column="exe_charge_men" jdbcType="VARCHAR" property="exeChargeMen" />
+    <result column="exe_charge_men_name" jdbcType="VARCHAR" property="exeChargeMenName" />
+    <result column="signer" jdbcType="VARCHAR" property="signer" />
+    <result column="signer_name" jdbcType="VARCHAR" property="signerName" />
+    <result column="sign_date" jdbcType="VARCHAR" property="signDate" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="dept_ids" jdbcType="VARCHAR" property="deptIds" />
+    <result column="dept_names" jdbcType="VARCHAR" property="deptNames" />
+    <result column="stage_names" jdbcType="VARCHAR" property="stageNames" />
+    <result column="project_code" jdbcType="VARCHAR" property="projectCode" />
+    <result column="sec_type" jdbcType="VARCHAR" property="secType" />
+    <result column="plan_begin_time" jdbcType="VARCHAR" property="planBeginTime" />
+    <result column="plan_end_time" jdbcType="VARCHAR" property="planEndTime" />
+    <result column="review_type" jdbcType="VARCHAR" property="reviewType" />
+    <result column="is_bid" jdbcType="BIT" property="bid" />
+    <result column="review_level" jdbcType="VARCHAR" property="reviewLevel" />
+    <result column="review_time" jdbcType="VARCHAR" property="reviewTime" />
+    <result column="contract_no" jdbcType="VARCHAR" property="contractNo" />
+    <result column="contract_money" jdbcType="VARCHAR" property="contractMoney" />
+    <result column="construction_scale" jdbcType="VARCHAR" property="constructionScale" />
+    <result column="contract_type" jdbcType="VARCHAR" property="contractType" />
+    <result column="customer_type" jdbcType="VARCHAR" property="customerType" />
+    <result column="contract_scope" jdbcType="VARCHAR" property="contractScope" />
+    <result column="invest_money" jdbcType="VARCHAR" property="investMoney" />
+    <result column="project_province" jdbcType="VARCHAR" property="projectProvince" />
+    <result column="project_city" jdbcType="VARCHAR" property="projectCity" />
+    <result column="construction_area" jdbcType="VARCHAR" property="constructionArea" />
+    <result column="floor_area" jdbcType="VARCHAR" property="floorArea" />
+    <result column="road_length" jdbcType="VARCHAR" property="roadLength" />
+    <result column="construction_time" jdbcType="VARCHAR" property="constructionTime" />
+    <result column="is_associated" jdbcType="BIT" property="associated" />
+    <result column="accept_mode" jdbcType="VARCHAR" property="acceptMode" />
+    <result column="other_scale" jdbcType="VARCHAR" property="otherScale" />
+    <result column="report_amount" jdbcType="VARCHAR" property="reportAmount" />
+    <result column="is_bid_notice" jdbcType="BIT" property="bidNotice" />
+    <result column="is_bid_back" jdbcType="BIT" property="bidBack" />
+    <result column="is_group" jdbcType="BIT" property="group" />
+    <result column="is_signed" jdbcType="BIT" property="signed" />
+    <result column="is_company" jdbcType="BIT" property="company" />
+    <result column="stamp_time" jdbcType="VARCHAR" property="stampTime" />
+    <result column="back_time" jdbcType="VARCHAR" property="backTime" />
+    <result column="original_count" jdbcType="INTEGER" property="originalCount" />
+    <result column="copy_count" jdbcType="INTEGER" property="copyCount" />
+    <result column="stamp_count" jdbcType="INTEGER" property="stampCount" />
+    <result column="short_desc" jdbcType="VARCHAR" property="shortDesc" />
+    <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
+    <result column="is_attach" jdbcType="BIT" property="attach" />
+    <result column="is_ed" jdbcType="BIT" property="ed" />
+    <result column="seq" jdbcType="INTEGER" property="seq" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="in_or_out" jdbcType="VARCHAR" property="inOrOut" />
+    <result column="project_major_type_first" jdbcType="VARCHAR" property="projectMajorTypeFirst" />
+    <result column="project_major_type_second" jdbcType="VARCHAR" property="projectMajorTypeSecond" />
+    <result column="project_major_type_third" jdbcType="VARCHAR" property="projectMajorTypeThird" />
+    <result column="project_nature" jdbcType="VARCHAR" property="projectNature" />
+    <result column="industry_type" jdbcType="VARCHAR" property="industryType" />
+    <result column="civil_mark" jdbcType="VARCHAR" property="civilMark" />
+    <result column="military_mark" jdbcType="VARCHAR" property="militaryMark" />
+    <result column="foreign_trade_mark" jdbcType="VARCHAR" property="foreignTradeMark" />
+    <result column="sign_time" jdbcType="VARCHAR" property="signTime" />
+    <result column="invest_source" jdbcType="VARCHAR" property="investSource" />
+    <result column="main_description" jdbcType="VARCHAR" property="mainDescription" />
+    <result column="is_legal_person" jdbcType="BIT" property="legalPerson" />
+    <result column="is_business_legal_person" jdbcType="BIT" property="businessLegalPerson" />
+    <result column="is_common_seal" jdbcType="BIT" property="commonSeal" />
+    <result column="is_ele_legal_person" jdbcType="BIT" property="eleLegalPerson" />
+    <result column="is_ele_business_legal_person" jdbcType="BIT" property="eleBusinessLegalPerson" />
+    <result column="subpackage_ids" jdbcType="VARCHAR" property="subpackageIds" />
+    <result column="is_backletter" jdbcType="BIT" property="backletter" />
+    <result column="backletter_money" jdbcType="VARCHAR" property="backletterMoney" />
+    <result column="is_main" jdbcType="BIT" property="main" />
+    <result column="subpackage_id" jdbcType="INTEGER" property="subpackageId" />
+    <result column="contract_income_money" jdbcType="VARCHAR" property="contractIncomeMoney" />
+    <result column="income_ids" jdbcType="VARCHAR" property="incomeIds" />
+    <result column="main_review_ids" jdbcType="VARCHAR" property="mainReviewIds" />
+    <result column="review_user" jdbcType="VARCHAR" property="reviewUser" />
+    <result column="review_user_name" jdbcType="VARCHAR" property="reviewUserName" />
+    <result column="contract_name" jdbcType="VARCHAR" property="contractName" />
+    <result column="main_contract_library_id" jdbcType="INTEGER" property="mainContractLibraryId" />
+    <result column="main_contract_library_name" jdbcType="VARCHAR" property="mainContractLibraryName" />
+    <result column="main_contract_library_no" jdbcType="VARCHAR" property="mainContractLibraryNo" />
+    <result column="project_manager" jdbcType="VARCHAR" property="projectManager" />
+    <result column="project_manager_name" jdbcType="VARCHAR" property="projectManagerName" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="business_charge_leader" jdbcType="VARCHAR" property="businessChargeLeader" />
+    <result column="business_charge_leader_name" jdbcType="VARCHAR" property="businessChargeLeaderName" />
+    <result column="invoice_ids" jdbcType="VARCHAR" property="invoiceIds" />
+    <result column="contract_invoice_money" jdbcType="VARCHAR" property="contractInvoiceMoney" />
+    <result column="pre_contract_money" jdbcType="VARCHAR" property="preContractMoney" />
+    <result column="should_contract_money" jdbcType="VARCHAR" property="shouldContractMoney" />
+    <result column="project_budget_ids" jdbcType="VARCHAR" property="projectBudgetIds" />
+    <result column="is_open" jdbcType="BIT" property="open" />
+    <result column="stamp_tax_id" jdbcType="INTEGER" property="stampTaxId" />
+    <result column="is_open_stamp" jdbcType="BIT" property="openStamp" />
+    <result column="insert_type" jdbcType="INTEGER" property="insertType" />
+    <result column="cooperation_contract_id" jdbcType="INTEGER" property="cooperationContractId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_business_contract_library
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.business.entity.FiveBusinessContractLibrary">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_business_contract_library (business_key, contract_pre_id, contract_review_id, 
+      contract_id, customer_id, customer_name, 
+      customer_code, link_man, link_tel, 
+      customer_address, link_title, link_fax, 
+      link_mail, deposit_bank, bank_account, 
+      tax_type, tax_no, project_type, 
+      project_no, record_project_name, project_address, 
+      business_manager, business_manager_name, total_designer, 
+      total_designer_name, part_time_job, other_designer, 
+      other_designer_name, charge_men, charge_men_name, 
+      exe_charge_men, exe_charge_men_name, signer, 
+      signer_name, sign_date, dept_id, 
+      dept_name, dept_ids, dept_names, 
+      stage_names, project_code, sec_type, 
+      plan_begin_time, plan_end_time, review_type, 
+      is_bid, review_level, review_time, 
+      contract_no, contract_money, construction_scale, 
+      contract_type, customer_type, contract_scope, 
+      invest_money, project_province, project_city, 
+      construction_area, floor_area, road_length, 
+      construction_time, is_associated, accept_mode, 
+      other_scale, report_amount, is_bid_notice, 
+      is_bid_back, is_group, is_signed, is_company, 
+      stamp_time, back_time, original_count, 
+      copy_count, stamp_count, short_desc, 
+      img_url, is_attach, is_ed, seq, 
+      is_deleted, gmt_create, gmt_modified, 
+      creator, creator_name, remark, 
+      in_or_out, project_major_type_first, project_major_type_second, 
+      project_major_type_third, project_nature, industry_type, 
+      civil_mark, military_mark, foreign_trade_mark, 
+      sign_time, invest_source, main_description, 
+      is_legal_person, is_business_legal_person, is_common_seal, 
+      is_ele_legal_person, is_ele_business_legal_person, subpackage_ids, 
+      is_backletter, backletter_money, is_main, 
+      subpackage_id, contract_income_money, income_ids, 
+      main_review_ids, review_user, review_user_name, 
+      contract_name, main_contract_library_id, main_contract_library_name, 
+      main_contract_library_no, project_manager, 
+      project_manager_name, project_name, business_charge_leader, 
+      business_charge_leader_name, invoice_ids, contract_invoice_money, 
+      pre_contract_money, should_contract_money, 
+      project_budget_ids, is_open, stamp_tax_id, 
+      is_open_stamp, insert_type, cooperation_contract_id
+      )
+    values (#{businessKey,jdbcType=VARCHAR}, #{contractPreId,jdbcType=INTEGER}, #{contractReviewId,jdbcType=INTEGER}, 
+      #{contractId,jdbcType=INTEGER}, #{customerId,jdbcType=INTEGER}, #{customerName,jdbcType=VARCHAR}, 
+      #{customerCode,jdbcType=VARCHAR}, #{linkMan,jdbcType=VARCHAR}, #{linkTel,jdbcType=VARCHAR}, 
+      #{customerAddress,jdbcType=VARCHAR}, #{linkTitle,jdbcType=VARCHAR}, #{linkFax,jdbcType=VARCHAR}, 
+      #{linkMail,jdbcType=VARCHAR}, #{depositBank,jdbcType=VARCHAR}, #{bankAccount,jdbcType=VARCHAR}, 
+      #{taxType,jdbcType=VARCHAR}, #{taxNo,jdbcType=VARCHAR}, #{projectType,jdbcType=VARCHAR}, 
+      #{projectNo,jdbcType=VARCHAR}, #{recordProjectName,jdbcType=VARCHAR}, #{projectAddress,jdbcType=VARCHAR}, 
+      #{businessManager,jdbcType=VARCHAR}, #{businessManagerName,jdbcType=VARCHAR}, #{totalDesigner,jdbcType=VARCHAR}, 
+      #{totalDesignerName,jdbcType=VARCHAR}, #{partTimeJob,jdbcType=VARCHAR}, #{otherDesigner,jdbcType=VARCHAR}, 
+      #{otherDesignerName,jdbcType=VARCHAR}, #{chargeMen,jdbcType=VARCHAR}, #{chargeMenName,jdbcType=VARCHAR}, 
+      #{exeChargeMen,jdbcType=VARCHAR}, #{exeChargeMenName,jdbcType=VARCHAR}, #{signer,jdbcType=VARCHAR}, 
+      #{signerName,jdbcType=VARCHAR}, #{signDate,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, 
+      #{deptName,jdbcType=VARCHAR}, #{deptIds,jdbcType=VARCHAR}, #{deptNames,jdbcType=VARCHAR}, 
+      #{stageNames,jdbcType=VARCHAR}, #{projectCode,jdbcType=VARCHAR}, #{secType,jdbcType=VARCHAR}, 
+      #{planBeginTime,jdbcType=VARCHAR}, #{planEndTime,jdbcType=VARCHAR}, #{reviewType,jdbcType=VARCHAR}, 
+      #{bid,jdbcType=BIT}, #{reviewLevel,jdbcType=VARCHAR}, #{reviewTime,jdbcType=VARCHAR}, 
+      #{contractNo,jdbcType=VARCHAR}, #{contractMoney,jdbcType=VARCHAR}, #{constructionScale,jdbcType=VARCHAR}, 
+      #{contractType,jdbcType=VARCHAR}, #{customerType,jdbcType=VARCHAR}, #{contractScope,jdbcType=VARCHAR}, 
+      #{investMoney,jdbcType=VARCHAR}, #{projectProvince,jdbcType=VARCHAR}, #{projectCity,jdbcType=VARCHAR}, 
+      #{constructionArea,jdbcType=VARCHAR}, #{floorArea,jdbcType=VARCHAR}, #{roadLength,jdbcType=VARCHAR}, 
+      #{constructionTime,jdbcType=VARCHAR}, #{associated,jdbcType=BIT}, #{acceptMode,jdbcType=VARCHAR}, 
+      #{otherScale,jdbcType=VARCHAR}, #{reportAmount,jdbcType=VARCHAR}, #{bidNotice,jdbcType=BIT}, 
+      #{bidBack,jdbcType=BIT}, #{group,jdbcType=BIT}, #{signed,jdbcType=BIT}, #{company,jdbcType=BIT}, 
+      #{stampTime,jdbcType=VARCHAR}, #{backTime,jdbcType=VARCHAR}, #{originalCount,jdbcType=INTEGER}, 
+      #{copyCount,jdbcType=INTEGER}, #{stampCount,jdbcType=INTEGER}, #{shortDesc,jdbcType=VARCHAR}, 
+      #{imgUrl,jdbcType=VARCHAR}, #{attach,jdbcType=BIT}, #{ed,jdbcType=BIT}, #{seq,jdbcType=INTEGER}, 
+      #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{inOrOut,jdbcType=VARCHAR}, #{projectMajorTypeFirst,jdbcType=VARCHAR}, #{projectMajorTypeSecond,jdbcType=VARCHAR}, 
+      #{projectMajorTypeThird,jdbcType=VARCHAR}, #{projectNature,jdbcType=VARCHAR}, #{industryType,jdbcType=VARCHAR}, 
+      #{civilMark,jdbcType=VARCHAR}, #{militaryMark,jdbcType=VARCHAR}, #{foreignTradeMark,jdbcType=VARCHAR}, 
+      #{signTime,jdbcType=VARCHAR}, #{investSource,jdbcType=VARCHAR}, #{mainDescription,jdbcType=VARCHAR}, 
+      #{legalPerson,jdbcType=BIT}, #{businessLegalPerson,jdbcType=BIT}, #{commonSeal,jdbcType=BIT}, 
+      #{eleLegalPerson,jdbcType=BIT}, #{eleBusinessLegalPerson,jdbcType=BIT}, #{subpackageIds,jdbcType=VARCHAR}, 
+      #{backletter,jdbcType=BIT}, #{backletterMoney,jdbcType=VARCHAR}, #{main,jdbcType=BIT}, 
+      #{subpackageId,jdbcType=INTEGER}, #{contractIncomeMoney,jdbcType=VARCHAR}, #{incomeIds,jdbcType=VARCHAR}, 
+      #{mainReviewIds,jdbcType=VARCHAR}, #{reviewUser,jdbcType=VARCHAR}, #{reviewUserName,jdbcType=VARCHAR}, 
+      #{contractName,jdbcType=VARCHAR}, #{mainContractLibraryId,jdbcType=INTEGER}, #{mainContractLibraryName,jdbcType=VARCHAR}, 
+      #{mainContractLibraryNo,jdbcType=VARCHAR}, #{projectManager,jdbcType=VARCHAR}, 
+      #{projectManagerName,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR}, #{businessChargeLeader,jdbcType=VARCHAR}, 
+      #{businessChargeLeaderName,jdbcType=VARCHAR}, #{invoiceIds,jdbcType=VARCHAR}, #{contractInvoiceMoney,jdbcType=VARCHAR}, 
+      #{preContractMoney,jdbcType=VARCHAR}, #{shouldContractMoney,jdbcType=VARCHAR}, 
+      #{projectBudgetIds,jdbcType=VARCHAR}, #{open,jdbcType=BIT}, #{stampTaxId,jdbcType=INTEGER}, 
+      #{openStamp,jdbcType=BIT}, #{insertType,jdbcType=INTEGER}, #{cooperationContractId,jdbcType=INTEGER}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.business.entity.FiveBusinessContractLibrary">
+    update five_business_contract_library
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      contract_pre_id = #{contractPreId,jdbcType=INTEGER},
+      contract_review_id = #{contractReviewId,jdbcType=INTEGER},
+      contract_id = #{contractId,jdbcType=INTEGER},
+      customer_id = #{customerId,jdbcType=INTEGER},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      customer_code = #{customerCode,jdbcType=VARCHAR},
+      link_man = #{linkMan,jdbcType=VARCHAR},
+      link_tel = #{linkTel,jdbcType=VARCHAR},
+      customer_address = #{customerAddress,jdbcType=VARCHAR},
+      link_title = #{linkTitle,jdbcType=VARCHAR},
+      link_fax = #{linkFax,jdbcType=VARCHAR},
+      link_mail = #{linkMail,jdbcType=VARCHAR},
+      deposit_bank = #{depositBank,jdbcType=VARCHAR},
+      bank_account = #{bankAccount,jdbcType=VARCHAR},
+      tax_type = #{taxType,jdbcType=VARCHAR},
+      tax_no = #{taxNo,jdbcType=VARCHAR},
+      project_type = #{projectType,jdbcType=VARCHAR},
+      project_no = #{projectNo,jdbcType=VARCHAR},
+      record_project_name = #{recordProjectName,jdbcType=VARCHAR},
+      project_address = #{projectAddress,jdbcType=VARCHAR},
+      business_manager = #{businessManager,jdbcType=VARCHAR},
+      business_manager_name = #{businessManagerName,jdbcType=VARCHAR},
+      total_designer = #{totalDesigner,jdbcType=VARCHAR},
+      total_designer_name = #{totalDesignerName,jdbcType=VARCHAR},
+      part_time_job = #{partTimeJob,jdbcType=VARCHAR},
+      other_designer = #{otherDesigner,jdbcType=VARCHAR},
+      other_designer_name = #{otherDesignerName,jdbcType=VARCHAR},
+      charge_men = #{chargeMen,jdbcType=VARCHAR},
+      charge_men_name = #{chargeMenName,jdbcType=VARCHAR},
+      exe_charge_men = #{exeChargeMen,jdbcType=VARCHAR},
+      exe_charge_men_name = #{exeChargeMenName,jdbcType=VARCHAR},
+      signer = #{signer,jdbcType=VARCHAR},
+      signer_name = #{signerName,jdbcType=VARCHAR},
+      sign_date = #{signDate,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      dept_ids = #{deptIds,jdbcType=VARCHAR},
+      dept_names = #{deptNames,jdbcType=VARCHAR},
+      stage_names = #{stageNames,jdbcType=VARCHAR},
+      project_code = #{projectCode,jdbcType=VARCHAR},
+      sec_type = #{secType,jdbcType=VARCHAR},
+      plan_begin_time = #{planBeginTime,jdbcType=VARCHAR},
+      plan_end_time = #{planEndTime,jdbcType=VARCHAR},
+      review_type = #{reviewType,jdbcType=VARCHAR},
+      is_bid = #{bid,jdbcType=BIT},
+      review_level = #{reviewLevel,jdbcType=VARCHAR},
+      review_time = #{reviewTime,jdbcType=VARCHAR},
+      contract_no = #{contractNo,jdbcType=VARCHAR},
+      contract_money = #{contractMoney,jdbcType=VARCHAR},
+      construction_scale = #{constructionScale,jdbcType=VARCHAR},
+      contract_type = #{contractType,jdbcType=VARCHAR},
+      customer_type = #{customerType,jdbcType=VARCHAR},
+      contract_scope = #{contractScope,jdbcType=VARCHAR},
+      invest_money = #{investMoney,jdbcType=VARCHAR},
+      project_province = #{projectProvince,jdbcType=VARCHAR},
+      project_city = #{projectCity,jdbcType=VARCHAR},
+      construction_area = #{constructionArea,jdbcType=VARCHAR},
+      floor_area = #{floorArea,jdbcType=VARCHAR},
+      road_length = #{roadLength,jdbcType=VARCHAR},
+      construction_time = #{constructionTime,jdbcType=VARCHAR},
+      is_associated = #{associated,jdbcType=BIT},
+      accept_mode = #{acceptMode,jdbcType=VARCHAR},
+      other_scale = #{otherScale,jdbcType=VARCHAR},
+      report_amount = #{reportAmount,jdbcType=VARCHAR},
+      is_bid_notice = #{bidNotice,jdbcType=BIT},
+      is_bid_back = #{bidBack,jdbcType=BIT},
+      is_group = #{group,jdbcType=BIT},
+      is_signed = #{signed,jdbcType=BIT},
+      is_company = #{company,jdbcType=BIT},
+      stamp_time = #{stampTime,jdbcType=VARCHAR},
+      back_time = #{backTime,jdbcType=VARCHAR},
+      original_count = #{originalCount,jdbcType=INTEGER},
+      copy_count = #{copyCount,jdbcType=INTEGER},
+      stamp_count = #{stampCount,jdbcType=INTEGER},
+      short_desc = #{shortDesc,jdbcType=VARCHAR},
+      img_url = #{imgUrl,jdbcType=VARCHAR},
+      is_attach = #{attach,jdbcType=BIT},
+      is_ed = #{ed,jdbcType=BIT},
+      seq = #{seq,jdbcType=INTEGER},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      in_or_out = #{inOrOut,jdbcType=VARCHAR},
+      project_major_type_first = #{projectMajorTypeFirst,jdbcType=VARCHAR},
+      project_major_type_second = #{projectMajorTypeSecond,jdbcType=VARCHAR},
+      project_major_type_third = #{projectMajorTypeThird,jdbcType=VARCHAR},
+      project_nature = #{projectNature,jdbcType=VARCHAR},
+      industry_type = #{industryType,jdbcType=VARCHAR},
+      civil_mark = #{civilMark,jdbcType=VARCHAR},
+      military_mark = #{militaryMark,jdbcType=VARCHAR},
+      foreign_trade_mark = #{foreignTradeMark,jdbcType=VARCHAR},
+      sign_time = #{signTime,jdbcType=VARCHAR},
+      invest_source = #{investSource,jdbcType=VARCHAR},
+      main_description = #{mainDescription,jdbcType=VARCHAR},
+      is_legal_person = #{legalPerson,jdbcType=BIT},
+      is_business_legal_person = #{businessLegalPerson,jdbcType=BIT},
+      is_common_seal = #{commonSeal,jdbcType=BIT},
+      is_ele_legal_person = #{eleLegalPerson,jdbcType=BIT},
+      is_ele_business_legal_person = #{eleBusinessLegalPerson,jdbcType=BIT},
+      subpackage_ids = #{subpackageIds,jdbcType=VARCHAR},
+      is_backletter = #{backletter,jdbcType=BIT},
+      backletter_money = #{backletterMoney,jdbcType=VARCHAR},
+      is_main = #{main,jdbcType=BIT},
+      subpackage_id = #{subpackageId,jdbcType=INTEGER},
+      contract_income_money = #{contractIncomeMoney,jdbcType=VARCHAR},
+      income_ids = #{incomeIds,jdbcType=VARCHAR},
+      main_review_ids = #{mainReviewIds,jdbcType=VARCHAR},
+      review_user = #{reviewUser,jdbcType=VARCHAR},
+      review_user_name = #{reviewUserName,jdbcType=VARCHAR},
+      contract_name = #{contractName,jdbcType=VARCHAR},
+      main_contract_library_id = #{mainContractLibraryId,jdbcType=INTEGER},
+      main_contract_library_name = #{mainContractLibraryName,jdbcType=VARCHAR},
+      main_contract_library_no = #{mainContractLibraryNo,jdbcType=VARCHAR},
+      project_manager = #{projectManager,jdbcType=VARCHAR},
+      project_manager_name = #{projectManagerName,jdbcType=VARCHAR},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      business_charge_leader = #{businessChargeLeader,jdbcType=VARCHAR},
+      business_charge_leader_name = #{businessChargeLeaderName,jdbcType=VARCHAR},
+      invoice_ids = #{invoiceIds,jdbcType=VARCHAR},
+      contract_invoice_money = #{contractInvoiceMoney,jdbcType=VARCHAR},
+      pre_contract_money = #{preContractMoney,jdbcType=VARCHAR},
+      should_contract_money = #{shouldContractMoney,jdbcType=VARCHAR},
+      project_budget_ids = #{projectBudgetIds,jdbcType=VARCHAR},
+      is_open = #{open,jdbcType=BIT},
+      stamp_tax_id = #{stampTaxId,jdbcType=INTEGER},
+      is_open_stamp = #{openStamp,jdbcType=BIT},
+      insert_type = #{insertType,jdbcType=INTEGER},
+      cooperation_contract_id = #{cooperationContractId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, contract_pre_id, contract_review_id, contract_id, customer_id, 
+    customer_name, customer_code, link_man, link_tel, customer_address, link_title, link_fax, 
+    link_mail, deposit_bank, bank_account, tax_type, tax_no, project_type, project_no, 
+    record_project_name, project_address, business_manager, business_manager_name, total_designer, 
+    total_designer_name, part_time_job, other_designer, other_designer_name, charge_men, 
+    charge_men_name, exe_charge_men, exe_charge_men_name, signer, signer_name, sign_date, 
+    dept_id, dept_name, dept_ids, dept_names, stage_names, project_code, sec_type, plan_begin_time, 
+    plan_end_time, review_type, is_bid, review_level, review_time, contract_no, contract_money, 
+    construction_scale, contract_type, customer_type, contract_scope, invest_money, project_province, 
+    project_city, construction_area, floor_area, road_length, construction_time, is_associated, 
+    accept_mode, other_scale, report_amount, is_bid_notice, is_bid_back, is_group, is_signed, 
+    is_company, stamp_time, back_time, original_count, copy_count, stamp_count, short_desc, 
+    img_url, is_attach, is_ed, seq, is_deleted, gmt_create, gmt_modified, creator, creator_name, 
+    remark, in_or_out, project_major_type_first, project_major_type_second, project_major_type_third, 
+    project_nature, industry_type, civil_mark, military_mark, foreign_trade_mark, sign_time, 
+    invest_source, main_description, is_legal_person, is_business_legal_person, is_common_seal, 
+    is_ele_legal_person, is_ele_business_legal_person, subpackage_ids, is_backletter, 
+    backletter_money, is_main, subpackage_id, contract_income_money, income_ids, main_review_ids, 
+    review_user, review_user_name, contract_name, main_contract_library_id, main_contract_library_name, 
+    main_contract_library_no, project_manager, project_manager_name, project_name, business_charge_leader, 
+    business_charge_leader_name, invoice_ids, contract_invoice_money, pre_contract_money, 
+    should_contract_money, project_budget_ids, is_open, stamp_tax_id, is_open_stamp, 
+    insert_type, cooperation_contract_id
+    from five_business_contract_library
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, contract_pre_id, contract_review_id, contract_id, customer_id, 
+    customer_name, customer_code, link_man, link_tel, customer_address, link_title, link_fax, 
+    link_mail, deposit_bank, bank_account, tax_type, tax_no, project_type, project_no, 
+    record_project_name, project_address, business_manager, business_manager_name, total_designer, 
+    total_designer_name, part_time_job, other_designer, other_designer_name, charge_men, 
+    charge_men_name, exe_charge_men, exe_charge_men_name, signer, signer_name, sign_date, 
+    dept_id, dept_name, dept_ids, dept_names, stage_names, project_code, sec_type, plan_begin_time, 
+    plan_end_time, review_type, is_bid, review_level, review_time, contract_no, contract_money, 
+    construction_scale, contract_type, customer_type, contract_scope, invest_money, project_province, 
+    project_city, construction_area, floor_area, road_length, construction_time, is_associated, 
+    accept_mode, other_scale, report_amount, is_bid_notice, is_bid_back, is_group, is_signed, 
+    is_company, stamp_time, back_time, original_count, copy_count, stamp_count, short_desc, 
+    img_url, is_attach, is_ed, seq, is_deleted, gmt_create, gmt_modified, creator, creator_name, 
+    remark, in_or_out, project_major_type_first, project_major_type_second, project_major_type_third, 
+    project_nature, industry_type, civil_mark, military_mark, foreign_trade_mark, sign_time, 
+    invest_source, main_description, is_legal_person, is_business_legal_person, is_common_seal, 
+    is_ele_legal_person, is_ele_business_legal_person, subpackage_ids, is_backletter, 
+    backletter_money, is_main, subpackage_id, contract_income_money, income_ids, main_review_ids, 
+    review_user, review_user_name, contract_name, main_contract_library_id, main_contract_library_name, 
+    main_contract_library_no, project_manager, project_manager_name, project_name, business_charge_leader, 
+    business_charge_leader_name, invoice_ids, contract_invoice_money, pre_contract_money, 
+    should_contract_money, project_budget_ids, is_open, stamp_tax_id, is_open_stamp, 
+    insert_type, cooperation_contract_id
+    from five_business_contract_library
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by sign_time desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and isLikeSelect==null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="contractPreId != null and isLikeSelect==null">
+         AND contract_pre_id = #{contractPreId}
+      </if>
+      <if test="contractReviewId != null and isLikeSelect==null">
+         AND contract_review_id = #{contractReviewId}
+      </if>
+      <if test="contractId != null and isLikeSelect==null">
+         AND contract_id = #{contractId}
+      </if>
+      <if test="customerId != null and isLikeSelect==null">
+         AND customer_id = #{customerId}
+      </if>
+      <if test="customerName != null and isLikeSelect==null and customerName != ''">
+         AND customer_name = #{customerName}
+      </if>
+      <if test="customerCode != null and isLikeSelect==null and customerCode != ''">
+         AND customer_code = #{customerCode}
+      </if>
+      <if test="linkMan != null and isLikeSelect==null and linkMan != ''">
+         AND link_man = #{linkMan}
+      </if>
+      <if test="linkTel != null and isLikeSelect==null and linkTel != ''">
+         AND link_tel = #{linkTel}
+      </if>
+      <if test="customerAddress != null and isLikeSelect==null and customerAddress != ''">
+         AND customer_address = #{customerAddress}
+      </if>
+      <if test="linkTitle != null and isLikeSelect==null and linkTitle != ''">
+         AND link_title = #{linkTitle}
+      </if>
+      <if test="linkFax != null and isLikeSelect==null and linkFax != ''">
+         AND link_fax = #{linkFax}
+      </if>
+      <if test="linkMail != null and isLikeSelect==null and linkMail != ''">
+         AND link_mail = #{linkMail}
+      </if>
+      <if test="depositBank != null and isLikeSelect==null and depositBank != ''">
+         AND deposit_bank = #{depositBank}
+      </if>
+      <if test="bankAccount != null and isLikeSelect==null and bankAccount != ''">
+         AND bank_account = #{bankAccount}
+      </if>
+      <if test="taxType != null and isLikeSelect==null and taxType != ''">
+         AND tax_type = #{taxType}
+      </if>
+      <if test="taxNo != null and isLikeSelect==null and taxNo != ''">
+         AND tax_no = #{taxNo}
+      </if>
+      <if test="projectType != null and isLikeSelect==null and projectType != ''">
+         AND project_type = #{projectType}
+      </if>
+      <if test="projectNo != null and isLikeSelect==null and projectNo != ''">
+         AND project_no = #{projectNo}
+      </if>
+      <if test="recordProjectName != null and isLikeSelect==null and recordProjectName != ''">
+         AND record_project_name = #{recordProjectName}
+      </if>
+      <if test="projectAddress != null and isLikeSelect==null and projectAddress != ''">
+         AND project_address = #{projectAddress}
+      </if>
+      <if test="businessManager != null and isLikeSelect==null and businessManager != ''">
+         AND business_manager = #{businessManager}
+      </if>
+      <if test="businessManagerName != null and isLikeSelect==null and businessManagerName != ''">
+         AND business_manager_name = #{businessManagerName}
+      </if>
+      <if test="totalDesigner != null and isLikeSelect==null and totalDesigner != ''">
+         AND total_designer = #{totalDesigner}
+      </if>
+      <if test="totalDesignerName != null and isLikeSelect==null and totalDesignerName != ''">
+         AND total_designer_name = #{totalDesignerName}
+      </if>
+      <if test="partTimeJob != null and isLikeSelect==null and partTimeJob != ''">
+         AND part_time_job = #{partTimeJob}
+      </if>
+      <if test="otherDesigner != null and isLikeSelect==null and otherDesigner != ''">
+         AND other_designer = #{otherDesigner}
+      </if>
+      <if test="otherDesignerName != null and isLikeSelect==null and otherDesignerName != ''">
+         AND other_designer_name = #{otherDesignerName}
+      </if>
+      <if test="chargeMen != null and isLikeSelect==null and chargeMen != ''">
+         AND charge_men = #{chargeMen}
+      </if>
+      <if test="chargeMenName != null and isLikeSelect==null and chargeMenName != ''">
+         AND charge_men_name = #{chargeMenName}
+      </if>
+      <if test="exeChargeMen != null and isLikeSelect==null and exeChargeMen != ''">
+         AND exe_charge_men = #{exeChargeMen}
+      </if>
+      <if test="exeChargeMenName != null and isLikeSelect==null and exeChargeMenName != ''">
+         AND exe_charge_men_name = #{exeChargeMenName}
+      </if>
+      <if test="signer != null and isLikeSelect==null and signer != ''">
+         AND signer = #{signer}
+      </if>
+      <if test="signerName != null and isLikeSelect==null and signerName != ''">
+         AND signer_name = #{signerName}
+      </if>
+      <if test="signDate != null and isLikeSelect==null and signDate != ''">
+         AND sign_date = #{signDate}
+      </if>
+      <if test="deptId != null and isLikeSelect==null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and isLikeSelect==null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="deptIds != null and isLikeSelect==null and deptIds != ''">
+         AND dept_ids = #{deptIds}
+      </if>
+      <if test="deptNames != null and isLikeSelect==null and deptNames != ''">
+         AND dept_names = #{deptNames}
+      </if>
+      <if test="stageNames != null and isLikeSelect==null and stageNames != ''">
+         AND stage_names = #{stageNames}
+      </if>
+      <if test="projectCode != null and isLikeSelect==null and projectCode != ''">
+         AND project_code = #{projectCode}
+      </if>
+      <if test="secType != null and isLikeSelect==null and secType != ''">
+         AND sec_type = #{secType}
+      </if>
+      <if test="planBeginTime != null and isLikeSelect==null and planBeginTime != ''">
+         AND plan_begin_time = #{planBeginTime}
+      </if>
+      <if test="planEndTime != null and isLikeSelect==null and planEndTime != ''">
+         AND plan_end_time = #{planEndTime}
+      </if>
+      <if test="reviewType != null and isLikeSelect==null and reviewType != ''">
+         AND review_type = #{reviewType}
+      </if>
+      <if test="bid != null and isLikeSelect==null">
+         AND is_bid = #{bid}
+      </if>
+      <if test="reviewLevel != null and isLikeSelect==null and reviewLevel != ''">
+         AND review_level = #{reviewLevel}
+      </if>
+      <if test="reviewTime != null and isLikeSelect==null and reviewTime != ''">
+         AND review_time = #{reviewTime}
+      </if>
+      <if test="contractNo != null and isLikeSelect==null and contractNo != ''">
+         AND contract_no = #{contractNo}
+      </if>
+      <if test="contractMoney != null and isLikeSelect==null and contractMoney != ''">
+         AND contract_money = #{contractMoney}
+      </if>
+      <if test="constructionScale != null and isLikeSelect==null and constructionScale != ''">
+         AND construction_scale = #{constructionScale}
+      </if>
+      <if test="contractType != null and isLikeSelect==null and contractType != ''">
+         AND contract_type = #{contractType}
+      </if>
+      <if test="customerType != null and isLikeSelect==null and customerType != ''">
+         AND customer_type = #{customerType}
+      </if>
+      <if test="contractScope != null and isLikeSelect==null and contractScope != ''">
+         AND contract_scope = #{contractScope}
+      </if>
+      <if test="investMoney != null and isLikeSelect==null and investMoney != ''">
+         AND invest_money = #{investMoney}
+      </if>
+      <if test="projectProvince != null and isLikeSelect==null and projectProvince != ''">
+         AND project_province = #{projectProvince}
+      </if>
+      <if test="projectCity != null and isLikeSelect==null and projectCity != ''">
+         AND project_city = #{projectCity}
+      </if>
+      <if test="constructionArea != null and isLikeSelect==null and constructionArea != ''">
+         AND construction_area = #{constructionArea}
+      </if>
+      <if test="floorArea != null and isLikeSelect==null and floorArea != ''">
+         AND floor_area = #{floorArea}
+      </if>
+      <if test="roadLength != null and isLikeSelect==null and roadLength != ''">
+         AND road_length = #{roadLength}
+      </if>
+      <if test="constructionTime != null and isLikeSelect==null and constructionTime != ''">
+         AND construction_time = #{constructionTime}
+      </if>
+      <if test="associated != null and isLikeSelect==null">
+         AND is_associated = #{associated}
+      </if>
+      <if test="acceptMode != null and isLikeSelect==null and acceptMode != ''">
+         AND accept_mode = #{acceptMode}
+      </if>
+      <if test="otherScale != null and isLikeSelect==null and otherScale != ''">
+         AND other_scale = #{otherScale}
+      </if>
+      <if test="reportAmount != null and isLikeSelect==null and reportAmount != ''">
+         AND report_amount = #{reportAmount}
+      </if>
+      <if test="bidNotice != null and isLikeSelect==null">
+         AND is_bid_notice = #{bidNotice}
+      </if>
+      <if test="bidBack != null and isLikeSelect==null">
+         AND is_bid_back = #{bidBack}
+      </if>
+      <if test="group != null and isLikeSelect==null">
+         AND is_group = #{group}
+      </if>
+      <if test="signed != null and isLikeSelect==null">
+         AND is_signed = #{signed}
+      </if>
+      <if test="company != null and isLikeSelect==null">
+         AND is_company = #{company}
+      </if>
+      <if test="stampTime != null and isLikeSelect==null and stampTime != ''">
+         AND stamp_time = #{stampTime}
+      </if>
+      <if test="backTime != null and isLikeSelect==null and backTime != ''">
+         AND back_time = #{backTime}
+      </if>
+      <if test="originalCount != null and isLikeSelect==null">
+         AND original_count = #{originalCount}
+      </if>
+      <if test="copyCount != null and isLikeSelect==null">
+         AND copy_count = #{copyCount}
+      </if>
+      <if test="stampCount != null and isLikeSelect==null">
+         AND stamp_count = #{stampCount}
+      </if>
+      <if test="shortDesc != null and isLikeSelect==null and shortDesc != ''">
+         AND short_desc = #{shortDesc}
+      </if>
+      <if test="imgUrl != null and isLikeSelect==null and imgUrl != ''">
+         AND img_url = #{imgUrl}
+      </if>
+      <if test="attach != null and isLikeSelect==null">
+         AND is_attach = #{attach}
+      </if>
+      <if test="ed != null and isLikeSelect==null">
+         AND is_ed = #{ed}
+      </if>
+      <if test="seq != null and isLikeSelect==null">
+         AND seq = #{seq}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="remark != null and isLikeSelect==null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="inOrOut != null and isLikeSelect==null and inOrOut != ''">
+         AND in_or_out = #{inOrOut}
+      </if>
+      <if test="projectMajorTypeFirst != null and isLikeSelect==null and projectMajorTypeFirst != ''">
+         AND project_major_type_first = #{projectMajorTypeFirst}
+      </if>
+      <if test="projectMajorTypeSecond != null and isLikeSelect==null and projectMajorTypeSecond != ''">
+         AND project_major_type_second = #{projectMajorTypeSecond}
+      </if>
+      <if test="projectMajorTypeThird != null and isLikeSelect==null and projectMajorTypeThird != ''">
+         AND project_major_type_third = #{projectMajorTypeThird}
+      </if>
+      <if test="projectNature != null and isLikeSelect==null and projectNature != ''">
+         AND project_nature = #{projectNature}
+      </if>
+      <if test="industryType != null and isLikeSelect==null and industryType != ''">
+         AND industry_type = #{industryType}
+      </if>
+      <if test="civilMark != null and isLikeSelect==null and civilMark != ''">
+         AND civil_mark = #{civilMark}
+      </if>
+      <if test="militaryMark != null and isLikeSelect==null and militaryMark != ''">
+         AND military_mark = #{militaryMark}
+      </if>
+      <if test="foreignTradeMark != null and isLikeSelect==null and foreignTradeMark != ''">
+         AND foreign_trade_mark = #{foreignTradeMark}
+      </if>
+      <if test="signTime != null and isLikeSelect==null and signTime != ''">
+         AND sign_time = #{signTime}
+      </if>
+      <if test="investSource != null and isLikeSelect==null and investSource != ''">
+         AND invest_source = #{investSource}
+      </if>
+      <if test="mainDescription != null and isLikeSelect==null and mainDescription != ''">
+         AND main_description = #{mainDescription}
+      </if>
+      <if test="legalPerson != null and isLikeSelect==null">
+         AND is_legal_person = #{legalPerson}
+      </if>
+      <if test="businessLegalPerson != null and isLikeSelect==null">
+         AND is_business_legal_person = #{businessLegalPerson}
+      </if>
+      <if test="commonSeal != null and isLikeSelect==null">
+         AND is_common_seal = #{commonSeal}
+      </if>
+      <if test="eleLegalPerson != null and isLikeSelect==null">
+         AND is_ele_legal_person = #{eleLegalPerson}
+      </if>
+      <if test="eleBusinessLegalPerson != null and isLikeSelect==null">
+         AND is_ele_business_legal_person = #{eleBusinessLegalPerson}
+      </if>
+      <if test="subpackageIds != null and isLikeSelect==null and subpackageIds != ''">
+         AND subpackage_ids = #{subpackageIds}
+      </if>
+      <if test="backletter != null and isLikeSelect==null">
+         AND is_backletter = #{backletter}
+      </if>
+      <if test="backletterMoney != null and isLikeSelect==null and backletterMoney != ''">
+         AND backletter_money = #{backletterMoney}
+      </if>
+      <if test="main != null and isLikeSelect==null">
+         AND is_main = #{main}
+      </if>
+      <if test="subpackageId != null and isLikeSelect==null">
+         AND subpackage_id = #{subpackageId}
+      </if>
+      <if test="contractIncomeMoney != null and isLikeSelect==null and contractIncomeMoney != ''">
+         AND contract_income_money = #{contractIncomeMoney}
+      </if>
+      <if test="incomeIds != null and isLikeSelect==null and incomeIds != ''">
+         AND income_ids = #{incomeIds}
+      </if>
+      <if test="mainReviewIds != null and isLikeSelect==null and mainReviewIds != ''">
+         AND main_review_ids = #{mainReviewIds}
+      </if>
+      <if test="reviewUser != null and isLikeSelect==null and reviewUser != ''">
+         AND review_user = #{reviewUser}
+      </if>
+      <if test="reviewUserName != null and isLikeSelect==null and reviewUserName != ''">
+         AND review_user_name = #{reviewUserName}
+      </if>
+      <if test="contractName != null and isLikeSelect==null and contractName != ''">
+         AND contract_name = #{contractName}
+      </if>
+      <if test="mainContractLibraryId != null and isLikeSelect==null">
+         AND main_contract_library_id = #{mainContractLibraryId}
+      </if>
+      <if test="mainContractLibraryName != null and isLikeSelect==null and mainContractLibraryName != ''">
+         AND main_contract_library_name = #{mainContractLibraryName}
+      </if>
+      <if test="mainContractLibraryNo != null and isLikeSelect==null and mainContractLibraryNo != ''">
+         AND main_contract_library_no = #{mainContractLibraryNo}
+      </if>
+      <if test="projectManager != null and isLikeSelect==null and projectManager != ''">
+         AND project_manager = #{projectManager}
+      </if>
+      <if test="projectManagerName != null and isLikeSelect==null and projectManagerName != ''">
+         AND project_manager_name = #{projectManagerName}
+      </if>
+      <if test="projectName != null and isLikeSelect==null and projectName != ''">
+         AND project_name = #{projectName}
+      </if>
+      <if test="businessChargeLeader != null and isLikeSelect==null and businessChargeLeader != ''">
+         AND business_charge_leader = #{businessChargeLeader}
+      </if>
+      <if test="businessChargeLeaderName != null and isLikeSelect==null and businessChargeLeaderName != ''">
+         AND business_charge_leader_name = #{businessChargeLeaderName}
+      </if>
+      <if test="invoiceIds != null and isLikeSelect==null and invoiceIds != ''">
+         AND invoice_ids = #{invoiceIds}
+      </if>
+      <if test="contractInvoiceMoney != null and isLikeSelect==null and contractInvoiceMoney != ''">
+         AND contract_invoice_money = #{contractInvoiceMoney}
+      </if>
+      <if test="preContractMoney != null and isLikeSelect==null and preContractMoney != ''">
+         AND pre_contract_money = #{preContractMoney}
+      </if>
+      <if test="shouldContractMoney != null and isLikeSelect==null and shouldContractMoney != ''">
+         AND should_contract_money = #{shouldContractMoney}
+      </if>
+      <if test="projectBudgetIds != null and isLikeSelect==null and projectBudgetIds != ''">
+         AND project_budget_ids = #{projectBudgetIds}
+      </if>
+      <if test="open != null and isLikeSelect==null">
+         AND is_open = #{open}
+      </if>
+      <if test="stampTaxId != null and isLikeSelect==null">
+         AND stamp_tax_id = #{stampTaxId}
+      </if>
+      <if test="openStamp != null and isLikeSelect==null">
+         AND is_open_stamp = #{openStamp}
+      </if>
+      <if test="insertType != null and isLikeSelect==null">
+         AND insert_type = #{insertType}
+      </if>
+      <if test="cooperationContractId != null and isLikeSelect==null">
+         AND cooperation_contract_id = #{cooperationContractId}
+      </if>
+      <if test="q != null and q != '' and isLikeSelect==null">
+        AND (
+        project_no like CONCAT('%',#{q},'%') or
+        project_name like CONCAT('%',#{q},'%') or
+        contract_no like CONCAT('%',#{q},'%')
+        )
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect==null">
+        AND dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+      </if>
+      <if test="mainContractNoHead != null and mainContractNoHead != ''and isLikeSelect==null">
+        AND contract_no like  CONCAT('%',#{mainContractNoHead},'%')
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="businessKey != null and isLikeSelect!= null and businessKey != '' ">
+         AND business_key like  CONCAT('%',#{businessKey},'%')
+      </if>
+      <if test="customerName != null and isLikeSelect!= null and customerName != '' ">
+         AND customer_name like  CONCAT('%',#{customerName},'%')
+      </if>
+      <if test="customerCode != null and isLikeSelect!= null and customerCode != '' ">
+         AND customer_code like  CONCAT('%',#{customerCode},'%')
+      </if>
+      <if test="linkMan != null and isLikeSelect!= null and linkMan != '' ">
+         AND link_man like  CONCAT('%',#{linkMan},'%')
+      </if>
+      <if test="linkTel != null and isLikeSelect!= null and linkTel != '' ">
+         AND link_tel like  CONCAT('%',#{linkTel},'%')
+      </if>
+      <if test="customerAddress != null and isLikeSelect!= null and customerAddress != '' ">
+         AND customer_address like  CONCAT('%',#{customerAddress},'%')
+      </if>
+      <if test="linkTitle != null and isLikeSelect!= null and linkTitle != '' ">
+         AND link_title like  CONCAT('%',#{linkTitle},'%')
+      </if>
+      <if test="linkFax != null and isLikeSelect!= null and linkFax != '' ">
+         AND link_fax like  CONCAT('%',#{linkFax},'%')
+      </if>
+      <if test="linkMail != null and isLikeSelect!= null and linkMail != '' ">
+         AND link_mail like  CONCAT('%',#{linkMail},'%')
+      </if>
+      <if test="depositBank != null and isLikeSelect!= null and depositBank != '' ">
+         AND deposit_bank like  CONCAT('%',#{depositBank},'%')
+      </if>
+      <if test="bankAccount != null and isLikeSelect!= null and bankAccount != '' ">
+         AND bank_account like  CONCAT('%',#{bankAccount},'%')
+      </if>
+      <if test="taxType != null and isLikeSelect!= null and taxType != '' ">
+         AND tax_type like  CONCAT('%',#{taxType},'%')
+      </if>
+      <if test="taxNo != null and isLikeSelect!= null and taxNo != '' ">
+         AND tax_no like  CONCAT('%',#{taxNo},'%')
+      </if>
+      <if test="projectType != null and isLikeSelect!= null and projectType != '' ">
+         AND project_type like  CONCAT('%',#{projectType},'%')
+      </if>
+      <if test="projectNo != null and isLikeSelect!= null and projectNo != '' ">
+         AND project_no like  CONCAT('%',#{projectNo},'%')
+      </if>
+      <if test="recordProjectName != null and isLikeSelect!= null and recordProjectName != '' ">
+         AND record_project_name like  CONCAT('%',#{recordProjectName},'%')
+      </if>
+      <if test="projectAddress != null and isLikeSelect!= null and projectAddress != '' ">
+         AND project_address like  CONCAT('%',#{projectAddress},'%')
+      </if>
+      <if test="businessManager != null and isLikeSelect!= null and businessManager != '' ">
+         AND business_manager like  CONCAT('%',#{businessManager},'%')
+      </if>
+      <if test="businessManagerName != null and isLikeSelect!= null and businessManagerName != '' ">
+         AND business_manager_name like  CONCAT('%',#{businessManagerName},'%')
+      </if>
+      <if test="totalDesigner != null and isLikeSelect!= null and totalDesigner != '' ">
+         AND total_designer like  CONCAT('%',#{totalDesigner},'%')
+      </if>
+      <if test="totalDesignerName != null and isLikeSelect!= null and totalDesignerName != '' ">
+         AND total_designer_name like  CONCAT('%',#{totalDesignerName},'%')
+      </if>
+      <if test="partTimeJob != null and isLikeSelect!= null and partTimeJob != '' ">
+         AND part_time_job like  CONCAT('%',#{partTimeJob},'%')
+      </if>
+      <if test="otherDesigner != null and isLikeSelect!= null and otherDesigner != '' ">
+         AND other_designer like  CONCAT('%',#{otherDesigner},'%')
+      </if>
+      <if test="otherDesignerName != null and isLikeSelect!= null and otherDesignerName != '' ">
+         AND other_designer_name like  CONCAT('%',#{otherDesignerName},'%')
+      </if>
+      <if test="chargeMen != null and isLikeSelect!= null and chargeMen != '' ">
+         AND charge_men like  CONCAT('%',#{chargeMen},'%')
+      </if>
+      <if test="chargeMenName != null and isLikeSelect!= null and chargeMenName != '' ">
+         AND charge_men_name like  CONCAT('%',#{chargeMenName},'%')
+      </if>
+      <if test="exeChargeMen != null and isLikeSelect!= null and exeChargeMen != '' ">
+         AND exe_charge_men like  CONCAT('%',#{exeChargeMen},'%')
+      </if>
+      <if test="exeChargeMenName != null and isLikeSelect!= null and exeChargeMenName != '' ">
+         AND exe_charge_men_name like  CONCAT('%',#{exeChargeMenName},'%')
+      </if>
+      <if test="signer != null and isLikeSelect!= null and signer != '' ">
+         AND signer like  CONCAT('%',#{signer},'%')
+      </if>
+      <if test="signerName != null and isLikeSelect!= null and signerName != '' ">
+         AND signer_name like  CONCAT('%',#{signerName},'%')
+      </if>
+      <if test="signDate != null and isLikeSelect!= null and signDate != '' ">
+         AND sign_date like  CONCAT('%',#{signDate},'%')
+      </if>
+      <if test="deptName != null and isLikeSelect!= null and deptName != '' ">
+         AND dept_name like  CONCAT('%',#{deptName},'%')
+      </if>
+      <if test="deptIds != null and isLikeSelect!= null and deptIds != '' ">
+         AND dept_ids like  CONCAT('%',#{deptIds},'%')
+      </if>
+      <if test="deptNames != null and isLikeSelect!= null and deptNames != '' ">
+         AND dept_names like  CONCAT('%',#{deptNames},'%')
+      </if>
+      <if test="stageNames != null and isLikeSelect!= null and stageNames != '' ">
+         AND stage_names like  CONCAT('%',#{stageNames},'%')
+      </if>
+      <if test="projectCode != null and isLikeSelect!= null and projectCode != '' ">
+         AND project_code like  CONCAT('%',#{projectCode},'%')
+      </if>
+      <if test="secType != null and isLikeSelect!= null and secType != '' ">
+         AND sec_type like  CONCAT('%',#{secType},'%')
+      </if>
+      <if test="planBeginTime != null and isLikeSelect!= null and planBeginTime != '' ">
+         AND plan_begin_time like  CONCAT('%',#{planBeginTime},'%')
+      </if>
+      <if test="planEndTime != null and isLikeSelect!= null and planEndTime != '' ">
+         AND plan_end_time like  CONCAT('%',#{planEndTime},'%')
+      </if>
+      <if test="reviewType != null and isLikeSelect!= null and reviewType != '' ">
+         AND review_type like  CONCAT('%',#{reviewType},'%')
+      </if>
+      <if test="reviewLevel != null and isLikeSelect!= null and reviewLevel != '' ">
+         AND review_level like  CONCAT('%',#{reviewLevel},'%')
+      </if>
+      <if test="reviewTime != null and isLikeSelect!= null and reviewTime != '' ">
+         AND review_time like  CONCAT('%',#{reviewTime},'%')
+      </if>
+      <if test="contractNo != null and isLikeSelect!= null and contractNo != '' ">
+         AND contract_no like  CONCAT('%',#{contractNo},'%')
+      </if>
+      <if test="contractMoney != null and isLikeSelect!= null and contractMoney != '' ">
+         AND contract_money like  CONCAT('%',#{contractMoney},'%')
+      </if>
+      <if test="constructionScale != null and isLikeSelect!= null and constructionScale != '' ">
+         AND construction_scale like  CONCAT('%',#{constructionScale},'%')
+      </if>
+      <if test="contractType != null and isLikeSelect!= null and contractType != '' ">
+         AND contract_type like  CONCAT('%',#{contractType},'%')
+      </if>
+      <if test="customerType != null and isLikeSelect!= null and customerType != '' ">
+         AND customer_type like  CONCAT('%',#{customerType},'%')
+      </if>
+      <if test="contractScope != null and isLikeSelect!= null and contractScope != '' ">
+         AND contract_scope like  CONCAT('%',#{contractScope},'%')
+      </if>
+      <if test="investMoney != null and isLikeSelect!= null and investMoney != '' ">
+         AND invest_money like  CONCAT('%',#{investMoney},'%')
+      </if>
+      <if test="projectProvince != null and isLikeSelect!= null and projectProvince != '' ">
+         AND project_province like  CONCAT('%',#{projectProvince},'%')
+      </if>
+      <if test="projectCity != null and isLikeSelect!= null and projectCity != '' ">
+         AND project_city like  CONCAT('%',#{projectCity},'%')
+      </if>
+      <if test="constructionArea != null and isLikeSelect!= null and constructionArea != '' ">
+         AND construction_area like  CONCAT('%',#{constructionArea},'%')
+      </if>
+      <if test="floorArea != null and isLikeSelect!= null and floorArea != '' ">
+         AND floor_area like  CONCAT('%',#{floorArea},'%')
+      </if>
+      <if test="roadLength != null and isLikeSelect!= null and roadLength != '' ">
+         AND road_length like  CONCAT('%',#{roadLength},'%')
+      </if>
+      <if test="constructionTime != null and isLikeSelect!= null and constructionTime != '' ">
+         AND construction_time like  CONCAT('%',#{constructionTime},'%')
+      </if>
+      <if test="acceptMode != null and isLikeSelect!= null and acceptMode != '' ">
+         AND accept_mode like  CONCAT('%',#{acceptMode},'%')
+      </if>
+      <if test="otherScale != null and isLikeSelect!= null and otherScale != '' ">
+         AND other_scale like  CONCAT('%',#{otherScale},'%')
+      </if>
+      <if test="reportAmount != null and isLikeSelect!= null and reportAmount != '' ">
+         AND report_amount like  CONCAT('%',#{reportAmount},'%')
+      </if>
+      <if test="stampTime != null and isLikeSelect!= null and stampTime != '' ">
+         AND stamp_time like  CONCAT('%',#{stampTime},'%')
+      </if>
+      <if test="backTime != null and isLikeSelect!= null and backTime != '' ">
+         AND back_time like  CONCAT('%',#{backTime},'%')
+      </if>
+      <if test="shortDesc != null and isLikeSelect!= null and shortDesc != '' ">
+         AND short_desc like  CONCAT('%',#{shortDesc},'%')
+      </if>
+      <if test="imgUrl != null and isLikeSelect!= null and imgUrl != '' ">
+         AND img_url like  CONCAT('%',#{imgUrl},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="inOrOut != null and isLikeSelect!= null and inOrOut != '' ">
+         AND in_or_out like  CONCAT('%',#{inOrOut},'%')
+      </if>
+      <if test="projectMajorTypeFirst != null and isLikeSelect!= null and projectMajorTypeFirst != '' ">
+         AND project_major_type_first like  CONCAT('%',#{projectMajorTypeFirst},'%')
+      </if>
+      <if test="projectMajorTypeSecond != null and isLikeSelect!= null and projectMajorTypeSecond != '' ">
+         AND project_major_type_second like  CONCAT('%',#{projectMajorTypeSecond},'%')
+      </if>
+      <if test="projectMajorTypeThird != null and isLikeSelect!= null and projectMajorTypeThird != '' ">
+         AND project_major_type_third like  CONCAT('%',#{projectMajorTypeThird},'%')
+      </if>
+      <if test="projectNature != null and isLikeSelect!= null and projectNature != '' ">
+         AND project_nature like  CONCAT('%',#{projectNature},'%')
+      </if>
+      <if test="industryType != null and isLikeSelect!= null and industryType != '' ">
+         AND industry_type like  CONCAT('%',#{industryType},'%')
+      </if>
+      <if test="civilMark != null and isLikeSelect!= null and civilMark != '' ">
+         AND civil_mark like  CONCAT('%',#{civilMark},'%')
+      </if>
+      <if test="militaryMark != null and isLikeSelect!= null and militaryMark != '' ">
+         AND military_mark like  CONCAT('%',#{militaryMark},'%')
+      </if>
+      <if test="foreignTradeMark != null and isLikeSelect!= null and foreignTradeMark != '' ">
+         AND foreign_trade_mark like  CONCAT('%',#{foreignTradeMark},'%')
+      </if>
+      <if test="signTime != null and isLikeSelect!= null and signTime != '' ">
+         AND sign_time like  CONCAT('%',#{signTime},'%')
+      </if>
+      <if test="investSource != null and isLikeSelect!= null and investSource != '' ">
+         AND invest_source like  CONCAT('%',#{investSource},'%')
+      </if>
+      <if test="mainDescription != null and isLikeSelect!= null and mainDescription != '' ">
+         AND main_description like  CONCAT('%',#{mainDescription},'%')
+      </if>
+      <if test="subpackageIds != null and isLikeSelect!= null and subpackageIds != '' ">
+         AND subpackage_ids like  CONCAT('%',#{subpackageIds},'%')
+      </if>
+      <if test="backletterMoney != null and isLikeSelect!= null and backletterMoney != '' ">
+         AND backletter_money like  CONCAT('%',#{backletterMoney},'%')
+      </if>
+      <if test="contractIncomeMoney != null and isLikeSelect!= null and contractIncomeMoney != '' ">
+         AND contract_income_money like  CONCAT('%',#{contractIncomeMoney},'%')
+      </if>
+      <if test="incomeIds != null and isLikeSelect!= null and incomeIds != '' ">
+         AND income_ids like  CONCAT('%',#{incomeIds},'%')
+      </if>
+      <if test="mainReviewIds != null and isLikeSelect!= null and mainReviewIds != '' ">
+         AND main_review_ids like  CONCAT('%',#{mainReviewIds},'%')
+      </if>
+      <if test="reviewUser != null and isLikeSelect!= null and reviewUser != '' ">
+         AND review_user like  CONCAT('%',#{reviewUser},'%')
+      </if>
+      <if test="reviewUserName != null and isLikeSelect!= null and reviewUserName != '' ">
+         AND review_user_name like  CONCAT('%',#{reviewUserName},'%')
+      </if>
+      <if test="contractName != null and isLikeSelect!= null and contractName != '' ">
+         AND contract_name like  CONCAT('%',#{contractName},'%')
+      </if>
+      <if test="mainContractLibraryName != null and isLikeSelect!= null and mainContractLibraryName != '' ">
+         AND main_contract_library_name like  CONCAT('%',#{mainContractLibraryName},'%')
+      </if>
+      <if test="mainContractLibraryNo != null and isLikeSelect!= null and mainContractLibraryNo != '' ">
+         AND main_contract_library_no like  CONCAT('%',#{mainContractLibraryNo},'%')
+      </if>
+      <if test="projectManager != null and isLikeSelect!= null and projectManager != '' ">
+         AND project_manager like  CONCAT('%',#{projectManager},'%')
+      </if>
+      <if test="projectManagerName != null and isLikeSelect!= null and projectManagerName != '' ">
+         AND project_manager_name like  CONCAT('%',#{projectManagerName},'%')
+      </if>
+      <if test="projectName != null and isLikeSelect!= null and projectName != '' ">
+         AND project_name like  CONCAT('%',#{projectName},'%')
+      </if>
+      <if test="businessChargeLeader != null and isLikeSelect!= null and businessChargeLeader != '' ">
+         AND business_charge_leader like  CONCAT('%',#{businessChargeLeader},'%')
+      </if>
+      <if test="businessChargeLeaderName != null and isLikeSelect!= null and businessChargeLeaderName != '' ">
+         AND business_charge_leader_name like  CONCAT('%',#{businessChargeLeaderName},'%')
+      </if>
+      <if test="invoiceIds != null and isLikeSelect!= null and invoiceIds != '' ">
+         AND invoice_ids like  CONCAT('%',#{invoiceIds},'%')
+      </if>
+      <if test="contractInvoiceMoney != null and isLikeSelect!= null and contractInvoiceMoney != '' ">
+         AND contract_invoice_money like  CONCAT('%',#{contractInvoiceMoney},'%')
+      </if>
+      <if test="preContractMoney != null and isLikeSelect!= null and preContractMoney != '' ">
+         AND pre_contract_money like  CONCAT('%',#{preContractMoney},'%')
+      </if>
+      <if test="shouldContractMoney != null and isLikeSelect!= null and shouldContractMoney != '' ">
+         AND should_contract_money like  CONCAT('%',#{shouldContractMoney},'%')
+      </if>
+      <if test="projectBudgetIds != null and isLikeSelect!= null and projectBudgetIds != '' ">
+         AND project_budget_ids like  CONCAT('%',#{projectBudgetIds},'%')
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="deptId != null and isLikeSelect!=null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="open != null and isLikeSelect!=null">
+        AND is_open = #{open}
+      </if>
+      <if test="stampTaxId != null and isLikeSelect!=null">
+        AND stamp_tax_id = #{stampTaxId}
+      </if>
+      <if test="openStamp != null and isLikeSelect!=null">
+        AND is_open_stamp = #{openStamp}
+      </if>
+      <if test="insertType != null and isLikeSelect!=null">
+        AND insert_type = #{insertType}
+      </if>
+      <if test="cooperationContractId != null and isLikeSelect!=null">
+        AND cooperation_contract_id = #{cooperationContractId}
+      </if>
+      <if test="q != null and q != '' and isLikeSelect!=null">
+        AND (
+        project_no like CONCAT('%',#{q},'%') or
+        project_name like CONCAT('%',#{q},'%') or
+        contract_no like CONCAT('%',#{q},'%')
+        )
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect!=null">
+        AND dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+      </if>
+      <if test="mainContractNoHead != null and mainContractNoHead != ''and isLikeSelect!=null">
+        AND contract_no like  CONCAT('%',#{mainContractNoHead},'%')
+      </if>
+    </where>
+  </sql>
+</mapper>

@@ -1,0 +1,81 @@
+<form class="form-horizontal form-validate" role="form">
+    <div class="form-body">
+        <div class="row">
+            <div ng-repeat="item in group.items" ng-if="!item.commonFormDetail.detailHidden" ng-class="{true:'col-md-6',false:'col-md-12'}[item.commonFormDetail.inputSize==6]">
+                <div class="form-group">
+                    <label ng-class="{true:'control-label col-md-4',false:'control-label col-md-2'}[item.commonFormDetail.inputSize==6]"> <span ng-bind="item.commonFormDetail.inputText"></span>
+                        <span style="color: red;" ng-if="item.commonFormDetail.required">*</span></label>
+                    <div ng-class="{true:'col-md-8',false:'col-md-10'}[item.commonFormDetail.inputSize==6]">
+
+                        <input ng-if="item.commonFormDetail.inputType=='text'" type="text" class="form-control" name="{{item.commonFormDetail.inputText}}" ng-required="item.commonFormDetail.required"
+                               ng-model="item.inputValue" placeholder="{{item.commonFormDetail.inputTip}}"
+                               ng-disabled="item.commonFormDetail.disabled"/>
+
+                        <input ng-if="item.commonFormDetail.inputType=='number'" type="number" class="form-control"
+                               ng-model="item.inputValue" placeholder="{{item.commonFormDetail.inputTip}}"
+                               ng-disabled="item.commonFormDetail.disabled"/>
+
+
+                        <textarea ng-if="item.commonFormDetail.inputType=='textarea'" class="form-control"
+                                  placeholder="{{item.commonFormDetail.inputTip}}"
+                                  ng-model="item.inputValue" rows="{{item.inputConfigDto.rows}}"
+                                  ng-disabled="item.commonFormDetail.disabled"/>
+
+                        <select ng-if="item.commonFormDetail.inputType=='select'&&!item.commonFormDetail.multiple"
+                                ng-options="s.codeValue as s.name for s in item.dataSource"
+                                class="form-control required" placeholder="{{item.commonFormDetail.inputTip}}" name="{{item.commonFormDetail.inputText}}"
+                                ng-model="item.inputValue"
+                                ng-disabled="item.commonFormDetail.disabled"/>
+
+
+
+                        <select ng-if="item.commonFormDetail.inputType=='select'&&item.commonFormDetail.multiple"
+                                ng-options="s.codeValue as s.name for s in item.dataSource"
+                                class="bs-select form-control" placeholder="{{item.commonFormDetail.inputTip}}"
+                                ng-model="item.inputValue"
+                                ng-disabled="item.commonFormDetail.disabled" multiple/>
+
+
+                        <div class="input-group" ng-if="item.commonFormDetail.inputType=='tree'" ng-click="showFormTree(item,group);">
+                            <input type="text" class="form-control" placeholder="{{item.commonFormDetail.inputTip}}" ng-model="item.inputValue" disabled="disabled" />
+                            <span class="input-group-addon">
+                                <i ng-class="{true:'fa fa-cog font-blue',false:'fa fa-cog'}[!item.commonFormDetail.disabled]" ></i>
+							</span>
+                        </div>
+
+
+
+                        <div class="input-group date date-picker" ng-if="item.commonFormDetail.inputType=='date'">
+                            <input type="text" class="form-control" ng-model="item.inputValue"
+                                   ng-disabled="item.commonFormDetail.disabled">
+                            <span class="input-group-btn">
+                                        <button class="btn default" type="button"
+                                                ng-disabled="item.commonFormDetail.disabled"><i
+                                                class="fa fa-calendar"></i></button>
+                                    </span>
+                        </div>
+
+                        <div class="input-group" ng-if="item.commonFormDetail.inputType=='user'" ng-click="showFormSelectUser(item,group);">
+                            <input type="text" class="form-control" placeholder="{{item.commonFormDetail.inputTip}}" ng-model="item.inputValue" disabled="disabled" />
+                            <span class="input-group-addon">
+                                <i ng-class="{true:'fa fa-user font-blue',false:'fa fa-user '}[!item.commonFormDetail.disabled]" ></i>
+							</span>
+                        </div>
+
+                        <div class="input-group" ng-if="item.commonFormDetail.inputType=='dept'" ng-click="showFormSelectDept(item,group);">
+                            <input type="text" class="form-control" placeholder="{{item.commonFormDetail.inputTip}}" ng-model="item.inputValue" disabled="disabled" />
+                            <span class="input-group-addon">
+                                <i ng-class="{true:'fa fa-user font-blue',false:'fa fa-user '}[!item.commonFormDetail.disabled]" ></i>
+							</span>
+                        </div>
+
+
+
+                        <div class="help-block" ng-if="item.commonFormDetail.inputTip" ng-bind="item.commonFormDetail.inputTip"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+

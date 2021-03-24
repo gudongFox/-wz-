@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveOaComputerNetworkDetailMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveOaComputerNetworkDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="computer_network_id" jdbcType="INTEGER" property="computerNetworkId" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="user_login" jdbcType="VARCHAR" property="userLogin" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="room" jdbcType="VARCHAR" property="room" />
+    <result column="computer_type" jdbcType="VARCHAR" property="computerType" />
+    <result column="computer_mac_address" jdbcType="VARCHAR" property="computerMacAddress" />
+    <result column="network_type" jdbcType="VARCHAR" property="networkType" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_oa_computer_network_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveOaComputerNetworkDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_oa_computer_network_detail (computer_network_id, dept_id, dept_name, 
+      is_deleted, user_login, user_name, 
+      phone, room, computer_type, 
+      computer_mac_address, network_type, creator, 
+      creator_name, gmt_create, gmt_modified
+      )
+    values (#{computerNetworkId,jdbcType=INTEGER}, #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=BIT}, #{userLogin,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{room,jdbcType=VARCHAR}, #{computerType,jdbcType=VARCHAR}, 
+      #{computerMacAddress,jdbcType=VARCHAR}, #{networkType,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{creatorName,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveOaComputerNetworkDetail">
+    update five_oa_computer_network_detail
+    set computer_network_id = #{computerNetworkId,jdbcType=INTEGER},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      user_login = #{userLogin,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      room = #{room,jdbcType=VARCHAR},
+      computer_type = #{computerType,jdbcType=VARCHAR},
+      computer_mac_address = #{computerMacAddress,jdbcType=VARCHAR},
+      network_type = #{networkType,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, computer_network_id, dept_id, dept_name, is_deleted, user_login, user_name, 
+    phone, room, computer_type, computer_mac_address, network_type, creator, creator_name, 
+    gmt_create, gmt_modified
+    from five_oa_computer_network_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, computer_network_id, dept_id, dept_name, is_deleted, user_login, user_name, 
+    phone, room, computer_type, computer_mac_address, network_type, creator, creator_name, 
+    gmt_create, gmt_modified
+    from five_oa_computer_network_detail
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="computerNetworkId != null">
+         AND computer_network_id = #{computerNetworkId}
+      </if>
+      <if test="deptId != null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="userLogin != null and userLogin != ''">
+         AND user_login = #{userLogin}
+      </if>
+      <if test="userName != null and userName != ''">
+         AND user_name = #{userName}
+      </if>
+      <if test="phone != null and phone != ''">
+         AND phone = #{phone}
+      </if>
+      <if test="room != null and room != ''">
+         AND room = #{room}
+      </if>
+      <if test="computerType != null and computerType != ''">
+         AND computer_type = #{computerType}
+      </if>
+      <if test="computerMacAddress != null and computerMacAddress != ''">
+         AND computer_mac_address = #{computerMacAddress}
+      </if>
+      <if test="networkType != null and networkType != ''">
+         AND network_type = #{networkType}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+
+    </where>
+  </sql>
+</mapper>

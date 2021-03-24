@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.hr.dao.HrLeaveMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.hr.entity.HrLeave">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_login" jdbcType="VARCHAR" property="userLogin" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="join_company_time" jdbcType="VARCHAR" property="joinCompanyTime" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="user_type" jdbcType="VARCHAR" property="userType" />
+    <result column="leave_reason" jdbcType="VARCHAR" property="leaveReason" />
+    <result column="apply_leave_time" jdbcType="VARCHAR" property="applyLeaveTime" />
+    <result column="approve_leave_time" jdbcType="VARCHAR" property="approveLeaveTime" />
+    <result column="dept_result" jdbcType="VARCHAR" property="deptResult" />
+    <result column="finance_result" jdbcType="VARCHAR" property="financeResult" />
+    <result column="office_result" jdbcType="VARCHAR" property="officeResult" />
+    <result column="hr_remark" jdbcType="VARCHAR" property="hrRemark" />
+    <result column="hr_dest" jdbcType="VARCHAR" property="hrDest" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from hr_leave
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.hr.entity.HrLeave">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into hr_leave (user_login, user_name, company_name, 
+      dept_name, join_company_time, mobile, 
+      user_type, leave_reason, apply_leave_time, 
+      approve_leave_time, dept_result, finance_result, 
+      office_result, hr_remark, hr_dest, 
+      gmt_create, gmt_modified, process_instance_id, 
+      is_process_end, creator, creator_name, 
+      is_deleted)
+    values (#{userLogin,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, 
+      #{deptName,jdbcType=VARCHAR}, #{joinCompanyTime,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{userType,jdbcType=VARCHAR}, #{leaveReason,jdbcType=VARCHAR}, #{applyLeaveTime,jdbcType=VARCHAR}, 
+      #{approveLeaveTime,jdbcType=VARCHAR}, #{deptResult,jdbcType=VARCHAR}, #{financeResult,jdbcType=VARCHAR}, 
+      #{officeResult,jdbcType=VARCHAR}, #{hrRemark,jdbcType=VARCHAR}, #{hrDest,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{processInstanceId,jdbcType=VARCHAR}, 
+      #{processEnd,jdbcType=BIT}, #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=BIT})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.hr.entity.HrLeave">
+    update hr_leave
+    set user_login = #{userLogin,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      join_company_time = #{joinCompanyTime,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      user_type = #{userType,jdbcType=VARCHAR},
+      leave_reason = #{leaveReason,jdbcType=VARCHAR},
+      apply_leave_time = #{applyLeaveTime,jdbcType=VARCHAR},
+      approve_leave_time = #{approveLeaveTime,jdbcType=VARCHAR},
+      dept_result = #{deptResult,jdbcType=VARCHAR},
+      finance_result = #{financeResult,jdbcType=VARCHAR},
+      office_result = #{officeResult,jdbcType=VARCHAR},
+      hr_remark = #{hrRemark,jdbcType=VARCHAR},
+      hr_dest = #{hrDest,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      is_process_end = #{processEnd,jdbcType=BIT},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, user_login, user_name, company_name, dept_name, join_company_time, mobile, 
+    user_type, leave_reason, apply_leave_time, approve_leave_time, dept_result, finance_result, 
+    office_result, hr_remark, hr_dest, gmt_create, gmt_modified, process_instance_id, 
+    is_process_end, creator, creator_name, is_deleted
+    from hr_leave
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, user_login, user_name, company_name, dept_name, join_company_time, mobile, 
+    user_type, leave_reason, apply_leave_time, approve_leave_time, dept_result, finance_result, 
+    office_result, hr_remark, hr_dest, gmt_create, gmt_modified, process_instance_id, 
+    is_process_end, creator, creator_name, is_deleted
+    from hr_leave
+    <include refid="Base_Where_List" />
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="userLogin != null and userLogin != ''">
+         AND user_login = #{userLogin}
+      </if>
+      <if test="userName != null and userName != ''">
+         AND user_name = #{userName}
+      </if>
+      <if test="companyName != null and companyName != ''">
+         AND company_name = #{companyName}
+      </if>
+      <if test="deptName != null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="joinCompanyTime != null and joinCompanyTime != ''">
+         AND join_company_time = #{joinCompanyTime}
+      </if>
+      <if test="mobile != null and mobile != ''">
+         AND mobile = #{mobile}
+      </if>
+      <if test="userType != null and userType != ''">
+         AND user_type = #{userType}
+      </if>
+      <if test="leaveReason != null and leaveReason != ''">
+         AND leave_reason = #{leaveReason}
+      </if>
+      <if test="applyLeaveTime != null and applyLeaveTime != ''">
+         AND apply_leave_time = #{applyLeaveTime}
+      </if>
+      <if test="approveLeaveTime != null and approveLeaveTime != ''">
+         AND approve_leave_time = #{approveLeaveTime}
+      </if>
+      <if test="deptResult != null and deptResult != ''">
+         AND dept_result = #{deptResult}
+      </if>
+      <if test="financeResult != null and financeResult != ''">
+         AND finance_result = #{financeResult}
+      </if>
+      <if test="officeResult != null and officeResult != ''">
+         AND office_result = #{officeResult}
+      </if>
+      <if test="hrRemark != null and hrRemark != ''">
+         AND hr_remark = #{hrRemark}
+      </if>
+      <if test="hrDest != null and hrDest != ''">
+         AND hr_dest = #{hrDest}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="processInstanceId != null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="processEnd != null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+    </where>
+  </sql>
+</mapper>

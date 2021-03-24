@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveOaDecisionMakingMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveOaDecisionMaking">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="business_id" jdbcType="VARCHAR" property="businessId" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="meeting_type" jdbcType="VARCHAR" property="meetingType" />
+    <result column="item" jdbcType="VARCHAR" property="item" />
+    <result column="meeting_time" jdbcType="VARCHAR" property="meetingTime" />
+    <result column="company_leader" jdbcType="VARCHAR" property="companyLeader" />
+    <result column="company_leader_name" jdbcType="VARCHAR" property="companyLeaderName" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+    <result column="meeting_time_plan" jdbcType="VARCHAR" property="meetingTimePlan" />
+    <result column="meeting_result" jdbcType="VARCHAR" property="meetingResult" />
+    <result column="compere" jdbcType="VARCHAR" property="compere" />
+    <result column="compere_name" jdbcType="VARCHAR" property="compereName" />
+    <result column="attender" jdbcType="VARCHAR" property="attender" />
+    <result column="attender_name" jdbcType="VARCHAR" property="attenderName" />
+    <result column="record_man" jdbcType="VARCHAR" property="recordMan" />
+    <result column="record_man_name" jdbcType="VARCHAR" property="recordManName" />
+    <result column="year" jdbcType="VARCHAR" property="year" />
+    <result column="stages" jdbcType="VARCHAR" property="stages" />
+    <result column="absent_leader" jdbcType="VARCHAR" property="absentLeader" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_oa_decision_making
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveOaDecisionMaking">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_oa_decision_making (business_key, business_id, dept_id, 
+      dept_name, meeting_type, item, 
+      meeting_time, company_leader, company_leader_name, 
+      remark, creator, creator_name, 
+      is_deleted, gmt_create, gmt_modified, 
+      process_instance_id, is_process_end, meeting_time_plan, 
+      meeting_result, compere, compere_name, 
+      attender, attender_name, record_man, 
+      record_man_name, year, stages, 
+      absent_leader)
+    values (#{businessKey,jdbcType=VARCHAR}, #{businessId,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, 
+      #{deptName,jdbcType=VARCHAR}, #{meetingType,jdbcType=VARCHAR}, #{item,jdbcType=VARCHAR}, 
+      #{meetingTime,jdbcType=VARCHAR}, #{companyLeader,jdbcType=VARCHAR}, #{companyLeaderName,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{processInstanceId,jdbcType=VARCHAR}, #{processEnd,jdbcType=BIT}, #{meetingTimePlan,jdbcType=VARCHAR}, 
+      #{meetingResult,jdbcType=VARCHAR}, #{compere,jdbcType=VARCHAR}, #{compereName,jdbcType=VARCHAR}, 
+      #{attender,jdbcType=VARCHAR}, #{attenderName,jdbcType=VARCHAR}, #{recordMan,jdbcType=VARCHAR}, 
+      #{recordManName,jdbcType=VARCHAR}, #{year,jdbcType=VARCHAR}, #{stages,jdbcType=VARCHAR}, 
+      #{absentLeader,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveOaDecisionMaking">
+    update five_oa_decision_making
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      business_id = #{businessId,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      meeting_type = #{meetingType,jdbcType=VARCHAR},
+      item = #{item,jdbcType=VARCHAR},
+      meeting_time = #{meetingTime,jdbcType=VARCHAR},
+      company_leader = #{companyLeader,jdbcType=VARCHAR},
+      company_leader_name = #{companyLeaderName,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      is_process_end = #{processEnd,jdbcType=BIT},
+      meeting_time_plan = #{meetingTimePlan,jdbcType=VARCHAR},
+      meeting_result = #{meetingResult,jdbcType=VARCHAR},
+      compere = #{compere,jdbcType=VARCHAR},
+      compere_name = #{compereName,jdbcType=VARCHAR},
+      attender = #{attender,jdbcType=VARCHAR},
+      attender_name = #{attenderName,jdbcType=VARCHAR},
+      record_man = #{recordMan,jdbcType=VARCHAR},
+      record_man_name = #{recordManName,jdbcType=VARCHAR},
+      year = #{year,jdbcType=VARCHAR},
+      stages = #{stages,jdbcType=VARCHAR},
+      absent_leader = #{absentLeader,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, business_id, dept_id, dept_name, meeting_type, item, meeting_time, 
+    company_leader, company_leader_name, remark, creator, creator_name, is_deleted, gmt_create, 
+    gmt_modified, process_instance_id, is_process_end, meeting_time_plan, meeting_result, 
+    compere, compere_name, attender, attender_name, record_man, record_man_name, year, 
+    stages, absent_leader
+    from five_oa_decision_making
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, business_id, dept_id, dept_name, meeting_type, item, meeting_time, 
+    company_leader, company_leader_name, remark, creator, creator_name, is_deleted, gmt_create, 
+    gmt_modified, process_instance_id, is_process_end, meeting_time_plan, meeting_result, 
+    compere, compere_name, attender, attender_name, record_man, record_man_name, year, 
+    stages, absent_leader
+    from five_oa_decision_making
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and isLikeSelect==null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="businessId != null and isLikeSelect==null and businessId != ''">
+         AND business_id = #{businessId}
+      </if>
+      <if test="deptId != null and isLikeSelect==null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and isLikeSelect==null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="meetingType != null and isLikeSelect==null and meetingType != ''">
+         AND meeting_type = #{meetingType}
+      </if>
+      <if test="item != null and isLikeSelect==null and item != ''">
+         AND item = #{item}
+      </if>
+      <if test="meetingTime != null and isLikeSelect==null and meetingTime != ''">
+         AND meeting_time = #{meetingTime}
+      </if>
+      <if test="companyLeader != null and isLikeSelect==null and companyLeader != ''">
+         AND company_leader = #{companyLeader}
+      </if>
+      <if test="companyLeaderName != null and isLikeSelect==null and companyLeaderName != ''">
+         AND company_leader_name = #{companyLeaderName}
+      </if>
+      <if test="remark != null and isLikeSelect==null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="processInstanceId != null and isLikeSelect==null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="processEnd != null and isLikeSelect==null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="meetingTimePlan != null and isLikeSelect==null and meetingTimePlan != ''">
+         AND meeting_time_plan = #{meetingTimePlan}
+      </if>
+      <if test="meetingResult != null and isLikeSelect==null and meetingResult != ''">
+         AND meeting_result = #{meetingResult}
+      </if>
+      <if test="compere != null and isLikeSelect==null and compere != ''">
+         AND compere = #{compere}
+      </if>
+      <if test="compereName != null and isLikeSelect==null and compereName != ''">
+         AND compere_name = #{compereName}
+      </if>
+      <if test="attender != null and isLikeSelect==null and attender != ''">
+         AND attender = #{attender}
+      </if>
+      <if test="attenderName != null and isLikeSelect==null and attenderName != ''">
+         AND attender_name = #{attenderName}
+      </if>
+      <if test="recordMan != null and isLikeSelect==null and recordMan != ''">
+         AND record_man = #{recordMan}
+      </if>
+      <if test="recordManName != null and isLikeSelect==null and recordManName != ''">
+         AND record_man_name = #{recordManName}
+      </if>
+      <if test="year != null and isLikeSelect==null and year != ''">
+         AND year = #{year}
+      </if>
+      <if test="stages != null and isLikeSelect==null and stages != ''">
+         AND stages = #{stages}
+      </if>
+      <if test="absentLeader != null and isLikeSelect==null and absentLeader != ''">
+         AND absent_leader = #{absentLeader}
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect==null">
+        AND (
+        dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+        <if test="initiator != null and initiator != ''">
+          or creator = #{initiator}
+        </if>
+        )
+      </if>
+      <if test="keyWord != null  and keyWord!= '' and isLikeSelect==null">
+        AND ((item like CONCAT('%',#{keyWord},'%'))
+        or  (company_leader_name like CONCAT('%',#{keyWord},'%'))
+        or  (instruct_leader_name like CONCAT('%',#{keyWord},'%'))
+        or  (company_no like CONCAT('%',#{keyWord},'%'))
+        or  (creator_name like CONCAT('%',#{keyWord},'%')))
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="businessKey != null and isLikeSelect!= null and businessKey != '' ">
+         AND business_key like  CONCAT('%',#{businessKey},'%')
+      </if>
+      <if test="businessId != null and isLikeSelect!= null and businessId != '' ">
+         AND business_id like  CONCAT('%',#{businessId},'%')
+      </if>
+      <if test="deptName != null and isLikeSelect!= null and deptName != '' ">
+         AND dept_name like  CONCAT('%',#{deptName},'%')
+      </if>
+      <if test="meetingType != null and isLikeSelect!= null and meetingType != '' ">
+         AND meeting_type like  CONCAT('%',#{meetingType},'%')
+      </if>
+      <if test="item != null and isLikeSelect!= null and item != '' ">
+         AND item like  CONCAT('%',#{item},'%')
+      </if>
+      <if test="meetingTime != null and isLikeSelect!= null and meetingTime != '' ">
+         AND meeting_time like  CONCAT('%',#{meetingTime},'%')
+      </if>
+      <if test="companyLeader != null and isLikeSelect!= null and companyLeader != '' ">
+         AND company_leader like  CONCAT('%',#{companyLeader},'%')
+      </if>
+      <if test="companyLeaderName != null and isLikeSelect!= null and companyLeaderName != '' ">
+         AND company_leader_name like  CONCAT('%',#{companyLeaderName},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="processInstanceId != null and isLikeSelect!= null and processInstanceId != '' ">
+         AND process_instance_id like  CONCAT('%',#{processInstanceId},'%')
+      </if>
+      <if test="meetingTimePlan != null and isLikeSelect!= null and meetingTimePlan != '' ">
+         AND meeting_time_plan like  CONCAT('%',#{meetingTimePlan},'%')
+      </if>
+      <if test="meetingResult != null and isLikeSelect!= null and meetingResult != '' ">
+         AND meeting_result like  CONCAT('%',#{meetingResult},'%')
+      </if>
+      <if test="compere != null and isLikeSelect!= null and compere != '' ">
+         AND compere like  CONCAT('%',#{compere},'%')
+      </if>
+      <if test="compereName != null and isLikeSelect!= null and compereName != '' ">
+         AND compere_name like  CONCAT('%',#{compereName},'%')
+      </if>
+      <if test="attender != null and isLikeSelect!= null and attender != '' ">
+         AND attender like  CONCAT('%',#{attender},'%')
+      </if>
+      <if test="attenderName != null and isLikeSelect!= null and attenderName != '' ">
+         AND attender_name like  CONCAT('%',#{attenderName},'%')
+      </if>
+      <if test="recordMan != null and isLikeSelect!= null and recordMan != '' ">
+         AND record_man like  CONCAT('%',#{recordMan},'%')
+      </if>
+      <if test="recordManName != null and isLikeSelect!= null and recordManName != '' ">
+         AND record_man_name like  CONCAT('%',#{recordManName},'%')
+      </if>
+      <if test="year != null and isLikeSelect!= null and year != '' ">
+         AND year like  CONCAT('%',#{year},'%')
+      </if>
+      <if test="stages != null and isLikeSelect!= null and stages != '' ">
+         AND stages like  CONCAT('%',#{stages},'%')
+      </if>
+      <if test="absentLeader != null and isLikeSelect!= null and absentLeader != '' ">
+         AND absent_leader like  CONCAT('%',#{absentLeader},'%')
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="deptId != null and isLikeSelect!=null">
+        AND dept_id = #{deptId}
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect!=null">
+        AND (
+        dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+        <if test="initiator != null and initiator != ''">
+          or creator = #{initiator}
+        </if>
+        )
+      </if>
+      <if test="keyWord != null  and keyWord!= '' and isLikeSelect!=null">
+        AND ((item like CONCAT('%',#{keyWord},'%'))
+        or  (company_leader_name like CONCAT('%',#{keyWord},'%'))
+        or  (instruct_leader_name like CONCAT('%',#{keyWord},'%'))
+        or  (company_no like CONCAT('%',#{keyWord},'%'))
+        or  (creator_name like CONCAT('%',#{keyWord},'%')))
+      </if>
+    </where>
+  </sql>
+</mapper>

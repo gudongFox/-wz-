@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveOaComputerPurchaseDetailMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveOaComputerPurchaseDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="computer_purchase_id" jdbcType="INTEGER" property="computerPurchaseId" />
+    <result column="dept_id" jdbcType="VARCHAR" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="person" jdbcType="VARCHAR" property="person" />
+    <result column="person_name" jdbcType="VARCHAR" property="personName" />
+    <result column="person_no" jdbcType="VARCHAR" property="personNo" />
+    <result column="secret_level" jdbcType="VARCHAR" property="secretLevel" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="room_no" jdbcType="VARCHAR" property="roomNo" />
+    <result column="device_type" jdbcType="VARCHAR" property="deviceType" />
+    <result column="net_type" jdbcType="VARCHAR" property="netType" />
+    <result column="command" jdbcType="VARCHAR" property="command" />
+    <result column="key_no" jdbcType="VARCHAR" property="keyNo" />
+    <result column="physics_address" jdbcType="VARCHAR" property="physicsAddress" />
+    <result column="ip_address" jdbcType="VARCHAR" property="ipAddress" />
+    <result column="disk_no" jdbcType="VARCHAR" property="diskNo" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_oa_computer_purchase_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveOaComputerPurchaseDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_oa_computer_purchase_detail (computer_purchase_id, dept_id, dept_name, 
+      person, person_name, person_no, 
+      secret_level, phone, room_no, 
+      device_type, net_type, command, 
+      key_no, physics_address, ip_address, 
+      disk_no, remark, creator, 
+      creator_name, is_deleted, gmt_create, 
+      gmt_modified)
+    values (#{computerPurchaseId,jdbcType=INTEGER}, #{deptId,jdbcType=VARCHAR}, #{deptName,jdbcType=VARCHAR}, 
+      #{person,jdbcType=VARCHAR}, #{personName,jdbcType=VARCHAR}, #{personNo,jdbcType=VARCHAR}, 
+      #{secretLevel,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{roomNo,jdbcType=VARCHAR}, 
+      #{deviceType,jdbcType=VARCHAR}, #{netType,jdbcType=VARCHAR}, #{command,jdbcType=VARCHAR}, 
+      #{keyNo,jdbcType=VARCHAR}, #{physicsAddress,jdbcType=VARCHAR}, #{ipAddress,jdbcType=VARCHAR}, 
+      #{diskNo,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{creatorName,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveOaComputerPurchaseDetail">
+    update five_oa_computer_purchase_detail
+    set computer_purchase_id = #{computerPurchaseId,jdbcType=INTEGER},
+      dept_id = #{deptId,jdbcType=VARCHAR},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      person = #{person,jdbcType=VARCHAR},
+      person_name = #{personName,jdbcType=VARCHAR},
+      person_no = #{personNo,jdbcType=VARCHAR},
+      secret_level = #{secretLevel,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      room_no = #{roomNo,jdbcType=VARCHAR},
+      device_type = #{deviceType,jdbcType=VARCHAR},
+      net_type = #{netType,jdbcType=VARCHAR},
+      command = #{command,jdbcType=VARCHAR},
+      key_no = #{keyNo,jdbcType=VARCHAR},
+      physics_address = #{physicsAddress,jdbcType=VARCHAR},
+      ip_address = #{ipAddress,jdbcType=VARCHAR},
+      disk_no = #{diskNo,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, computer_purchase_id, dept_id, dept_name, person, person_name, person_no, 
+    secret_level, phone, room_no, device_type, net_type, command, key_no, physics_address, 
+    ip_address, disk_no, remark, creator, creator_name, is_deleted, gmt_create, gmt_modified
+    from five_oa_computer_purchase_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, computer_purchase_id, dept_id, dept_name, person, person_name, person_no, 
+    secret_level, phone, room_no, device_type, net_type, command, key_no, physics_address, 
+    ip_address, disk_no, remark, creator, creator_name, is_deleted, gmt_create, gmt_modified
+    from five_oa_computer_purchase_detail
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="computerPurchaseId != null">
+         AND computer_purchase_id = #{computerPurchaseId}
+      </if>
+      <if test="deptId != null and deptId != ''">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="person != null and person != ''">
+         AND person = #{person}
+      </if>
+      <if test="personName != null and personName != ''">
+         AND person_name = #{personName}
+      </if>
+      <if test="personNo != null and personNo != ''">
+         AND person_no = #{personNo}
+      </if>
+      <if test="secretLevel != null and secretLevel != ''">
+         AND secret_level = #{secretLevel}
+      </if>
+      <if test="phone != null and phone != ''">
+         AND phone = #{phone}
+      </if>
+      <if test="roomNo != null and roomNo != ''">
+         AND room_no = #{roomNo}
+      </if>
+      <if test="deviceType != null and deviceType != ''">
+         AND device_type = #{deviceType}
+      </if>
+      <if test="netType != null and netType != ''">
+         AND net_type = #{netType}
+      </if>
+      <if test="command != null and command != ''">
+         AND command = #{command}
+      </if>
+      <if test="keyNo != null and keyNo != ''">
+         AND key_no = #{keyNo}
+      </if>
+      <if test="physicsAddress != null and physicsAddress != ''">
+         AND physics_address = #{physicsAddress}
+      </if>
+      <if test="ipAddress != null and ipAddress != ''">
+         AND ip_address = #{ipAddress}
+      </if>
+      <if test="diskNo != null and diskNo != ''">
+         AND disk_no = #{diskNo}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0">
+        AND dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+      </if>
+    </where>
+  </sql>
+</mapper>

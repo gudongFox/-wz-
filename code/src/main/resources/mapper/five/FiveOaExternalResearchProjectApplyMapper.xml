@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveOaExternalResearchProjectApplyMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveOaExternalResearchProjectApply">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="form_no" jdbcType="VARCHAR" property="formNo" />
+    <result column="project_no" jdbcType="VARCHAR" property="projectNo" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="achivement" jdbcType="VARCHAR" property="achivement" />
+    <result column="commencement_date" jdbcType="VARCHAR" property="commencementDate" />
+    <result column="completion_date" jdbcType="VARCHAR" property="completionDate" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="task_charger" jdbcType="VARCHAR" property="taskCharger" />
+    <result column="task_charger_name" jdbcType="VARCHAR" property="taskChargerName" />
+    <result column="main_participant" jdbcType="VARCHAR" property="mainParticipant" />
+    <result column="main_participant_name" jdbcType="VARCHAR" property="mainParticipantName" />
+    <result column="outside_payment" jdbcType="VARCHAR" property="outsidePayment" />
+    <result column="year_except_payment" jdbcType="VARCHAR" property="yearExceptPayment" />
+    <result column="year_repayment" jdbcType="VARCHAR" property="yearRepayment" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="is_secret" jdbcType="BIT" property="secret" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_oa_external_research_project_apply
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveOaExternalResearchProjectApply">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_oa_external_research_project_apply (business_key, form_no, project_no, 
+      project_name, achivement, commencement_date, 
+      completion_date, dept_id, dept_name, 
+      task_charger, task_charger_name, main_participant, 
+      main_participant_name, outside_payment, year_except_payment, 
+      year_repayment, remark, is_deleted, 
+      creator, creator_name, is_process_end, 
+      gmt_create, gmt_modified, process_instance_id, 
+      is_secret)
+    values (#{businessKey,jdbcType=VARCHAR}, #{formNo,jdbcType=VARCHAR}, #{projectNo,jdbcType=VARCHAR}, 
+      #{projectName,jdbcType=VARCHAR}, #{achivement,jdbcType=VARCHAR}, #{commencementDate,jdbcType=VARCHAR}, 
+      #{completionDate,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, 
+      #{taskCharger,jdbcType=VARCHAR}, #{taskChargerName,jdbcType=VARCHAR}, #{mainParticipant,jdbcType=VARCHAR}, 
+      #{mainParticipantName,jdbcType=VARCHAR}, #{outsidePayment,jdbcType=VARCHAR}, #{yearExceptPayment,jdbcType=VARCHAR}, 
+      #{yearRepayment,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, 
+      #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, #{processEnd,jdbcType=BIT}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{processInstanceId,jdbcType=VARCHAR}, 
+      #{secret,jdbcType=BIT})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveOaExternalResearchProjectApply">
+    update five_oa_external_research_project_apply
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      form_no = #{formNo,jdbcType=VARCHAR},
+      project_no = #{projectNo,jdbcType=VARCHAR},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      achivement = #{achivement,jdbcType=VARCHAR},
+      commencement_date = #{commencementDate,jdbcType=VARCHAR},
+      completion_date = #{completionDate,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      task_charger = #{taskCharger,jdbcType=VARCHAR},
+      task_charger_name = #{taskChargerName,jdbcType=VARCHAR},
+      main_participant = #{mainParticipant,jdbcType=VARCHAR},
+      main_participant_name = #{mainParticipantName,jdbcType=VARCHAR},
+      outside_payment = #{outsidePayment,jdbcType=VARCHAR},
+      year_except_payment = #{yearExceptPayment,jdbcType=VARCHAR},
+      year_repayment = #{yearRepayment,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_process_end = #{processEnd,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      is_secret = #{secret,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, form_no, project_no, project_name, achivement, commencement_date, 
+    completion_date, dept_id, dept_name, task_charger, task_charger_name, main_participant, 
+    main_participant_name, outside_payment, year_except_payment, year_repayment, remark, 
+    is_deleted, creator, creator_name, is_process_end, gmt_create, gmt_modified, process_instance_id, 
+    is_secret
+    from five_oa_external_research_project_apply
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, form_no, project_no, project_name, achivement, commencement_date, 
+    completion_date, dept_id, dept_name, task_charger, task_charger_name, main_participant, 
+    main_participant_name, outside_payment, year_except_payment, year_repayment, remark, 
+    is_deleted, creator, creator_name, is_process_end, gmt_create, gmt_modified, process_instance_id, 
+    is_secret
+    from five_oa_external_research_project_apply
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and isLikeSelect==null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="formNo != null and isLikeSelect==null and formNo != ''">
+         AND form_no = #{formNo}
+      </if>
+      <if test="projectNo != null and isLikeSelect==null and projectNo != ''">
+         AND project_no = #{projectNo}
+      </if>
+      <if test="projectName != null and isLikeSelect==null and projectName != ''">
+         AND project_name = #{projectName}
+      </if>
+      <if test="achivement != null and isLikeSelect==null and achivement != ''">
+         AND achivement = #{achivement}
+      </if>
+      <if test="commencementDate != null and isLikeSelect==null and commencementDate != ''">
+         AND commencement_date = #{commencementDate}
+      </if>
+      <if test="completionDate != null and isLikeSelect==null and completionDate != ''">
+         AND completion_date = #{completionDate}
+      </if>
+      <if test="deptId != null and isLikeSelect==null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect==null">
+        AND (
+        dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+        <if test="initiator != null and initiator != ''">
+          or creator = #{initiator}
+        </if>
+        )
+      </if>
+      <if test="deptName != null and isLikeSelect==null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="taskCharger != null and isLikeSelect==null and taskCharger != ''">
+         AND task_charger = #{taskCharger}
+      </if>
+      <if test="taskChargerName != null and isLikeSelect==null and taskChargerName != ''">
+         AND task_charger_name = #{taskChargerName}
+      </if>
+      <if test="mainParticipant != null and isLikeSelect==null and mainParticipant != ''">
+         AND main_participant = #{mainParticipant}
+      </if>
+      <if test="mainParticipantName != null and isLikeSelect==null and mainParticipantName != ''">
+         AND main_participant_name = #{mainParticipantName}
+      </if>
+      <if test="outsidePayment != null and isLikeSelect==null and outsidePayment != ''">
+         AND outside_payment = #{outsidePayment}
+      </if>
+      <if test="yearExceptPayment != null and isLikeSelect==null and yearExceptPayment != ''">
+         AND year_except_payment = #{yearExceptPayment}
+      </if>
+      <if test="yearRepayment != null and isLikeSelect==null and yearRepayment != ''">
+         AND year_repayment = #{yearRepayment}
+      </if>
+      <if test="remark != null and isLikeSelect==null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="processEnd != null and isLikeSelect==null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="processInstanceId != null and isLikeSelect==null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="secret != null and isLikeSelect==null">
+         AND is_secret = #{secret}
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="businessKey != null and isLikeSelect!= null and businessKey != '' ">
+         AND business_key like  CONCAT('%',#{businessKey},'%')
+      </if>
+      <if test="formNo != null and isLikeSelect!= null and formNo != '' ">
+         AND form_no like  CONCAT('%',#{formNo},'%')
+      </if>
+      <if test="projectNo != null and isLikeSelect!= null and projectNo != '' ">
+         AND project_no like  CONCAT('%',#{projectNo},'%')
+      </if>
+      <if test="projectName != null and isLikeSelect!= null and projectName != '' ">
+         AND project_name like  CONCAT('%',#{projectName},'%')
+      </if>
+      <if test="achivement != null and isLikeSelect!= null and achivement != '' ">
+         AND achivement like  CONCAT('%',#{achivement},'%')
+      </if>
+      <if test="commencementDate != null and isLikeSelect!= null and commencementDate != '' ">
+         AND commencement_date like  CONCAT('%',#{commencementDate},'%')
+      </if>
+      <if test="completionDate != null and isLikeSelect!= null and completionDate != '' ">
+         AND completion_date like  CONCAT('%',#{completionDate},'%')
+      </if>
+      <if test="deptName != null and isLikeSelect!= null and deptName != '' ">
+         AND dept_name like  CONCAT('%',#{deptName},'%')
+      </if>
+      <if test="taskCharger != null and isLikeSelect!= null and taskCharger != '' ">
+         AND task_charger like  CONCAT('%',#{taskCharger},'%')
+      </if>
+      <if test="taskChargerName != null and isLikeSelect!= null and taskChargerName != '' ">
+         AND task_charger_name like  CONCAT('%',#{taskChargerName},'%')
+      </if>
+      <if test="mainParticipant != null and isLikeSelect!= null and mainParticipant != '' ">
+         AND main_participant like  CONCAT('%',#{mainParticipant},'%')
+      </if>
+      <if test="mainParticipantName != null and isLikeSelect!= null and mainParticipantName != '' ">
+         AND main_participant_name like  CONCAT('%',#{mainParticipantName},'%')
+      </if>
+      <if test="outsidePayment != null and isLikeSelect!= null and outsidePayment != '' ">
+         AND outside_payment like  CONCAT('%',#{outsidePayment},'%')
+      </if>
+      <if test="yearExceptPayment != null and isLikeSelect!= null and yearExceptPayment != '' ">
+         AND year_except_payment like  CONCAT('%',#{yearExceptPayment},'%')
+      </if>
+      <if test="yearRepayment != null and isLikeSelect!= null and yearRepayment != '' ">
+         AND year_repayment like  CONCAT('%',#{yearRepayment},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="processInstanceId != null and isLikeSelect!= null and processInstanceId != '' ">
+         AND process_instance_id like  CONCAT('%',#{processInstanceId},'%')
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="deptId != null and isLikeSelect!=null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect!=null">
+        AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="startTime != null and startTime !='' and isLikeSelect!=null">
+        AND gmt_create  &gt;= CONCAT('','${startTime}',' 00:00:00')
+      </if>
+      <if test="endTime != null and endTime !='' and isLikeSelect!=null">
+        AND gmt_create  &lt;= CONCAT('','${endTime}',' 23:59:59')
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect!=null">
+        AND (
+        dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+        <if test="initiator != null and initiator != ''">
+          or creator = #{initiator}
+        </if>
+        )
+      </if>
+    </where>
+  </sql>
+</mapper>

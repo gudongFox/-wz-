@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.business.dao.BusinessIncomeMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.business.entity.BusinessIncome">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="contract_library_id" jdbcType="INTEGER" property="contractLibraryId" />
+    <result column="income_confirm_id" jdbcType="INTEGER" property="incomeConfirmId" />
+    <result column="invoice_id" jdbcType="INTEGER" property="invoiceId" />
+    <result column="invoice_no" jdbcType="VARCHAR" property="invoiceNo" />
+    <result column="legal_dept" jdbcType="VARCHAR" property="legalDept" />
+    <result column="contract_name" jdbcType="VARCHAR" property="contractName" />
+    <result column="contract_no" jdbcType="VARCHAR" property="contractNo" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="project_no" jdbcType="VARCHAR" property="projectNo" />
+    <result column="record_project_name" jdbcType="VARCHAR" property="recordProjectName" />
+    <result column="contract_money" jdbcType="VARCHAR" property="contractMoney" />
+    <result column="contract_income_money" jdbcType="VARCHAR" property="contractIncomeMoney" />
+    <result column="manage_percent" jdbcType="VARCHAR" property="managePercent" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="income_money" jdbcType="VARCHAR" property="incomeMoney" />
+    <result column="income_money_max" jdbcType="VARCHAR" property="incomeMoneyMax" />
+    <result column="verify_time" jdbcType="VARCHAR" property="verifyTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+    <result column="invoice_replenish_id" jdbcType="INTEGER" property="invoiceReplenishId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from business_income
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.business.entity.BusinessIncome">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into business_income (business_key, contract_library_id, income_confirm_id, 
+      invoice_id, invoice_no, legal_dept, 
+      contract_name, contract_no, project_name, 
+      project_no, record_project_name, contract_money, 
+      contract_income_money, manage_percent, dept_id, 
+      dept_name, income_money, income_money_max, 
+      verify_time, remark, creator, 
+      creator_name, gmt_create, gmt_modified, 
+      is_deleted, process_instance_id, is_process_end, 
+      invoice_replenish_id)
+    values (#{businessKey,jdbcType=VARCHAR}, #{contractLibraryId,jdbcType=INTEGER}, #{incomeConfirmId,jdbcType=INTEGER}, 
+      #{invoiceId,jdbcType=INTEGER}, #{invoiceNo,jdbcType=VARCHAR}, #{legalDept,jdbcType=VARCHAR}, 
+      #{contractName,jdbcType=VARCHAR}, #{contractNo,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR}, 
+      #{projectNo,jdbcType=VARCHAR}, #{recordProjectName,jdbcType=VARCHAR}, #{contractMoney,jdbcType=VARCHAR}, 
+      #{contractIncomeMoney,jdbcType=VARCHAR}, #{managePercent,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, 
+      #{deptName,jdbcType=VARCHAR}, #{incomeMoney,jdbcType=VARCHAR}, #{incomeMoneyMax,jdbcType=VARCHAR}, 
+      #{verifyTime,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{creatorName,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{deleted,jdbcType=BIT}, #{processInstanceId,jdbcType=VARCHAR}, #{processEnd,jdbcType=BIT}, 
+      #{invoiceReplenishId,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.business.entity.BusinessIncome">
+    update business_income
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      contract_library_id = #{contractLibraryId,jdbcType=INTEGER},
+      income_confirm_id = #{incomeConfirmId,jdbcType=INTEGER},
+      invoice_id = #{invoiceId,jdbcType=INTEGER},
+      invoice_no = #{invoiceNo,jdbcType=VARCHAR},
+      legal_dept = #{legalDept,jdbcType=VARCHAR},
+      contract_name = #{contractName,jdbcType=VARCHAR},
+      contract_no = #{contractNo,jdbcType=VARCHAR},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      project_no = #{projectNo,jdbcType=VARCHAR},
+      record_project_name = #{recordProjectName,jdbcType=VARCHAR},
+      contract_money = #{contractMoney,jdbcType=VARCHAR},
+      contract_income_money = #{contractIncomeMoney,jdbcType=VARCHAR},
+      manage_percent = #{managePercent,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      income_money = #{incomeMoney,jdbcType=VARCHAR},
+      income_money_max = #{incomeMoneyMax,jdbcType=VARCHAR},
+      verify_time = #{verifyTime,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      is_deleted = #{deleted,jdbcType=BIT},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      is_process_end = #{processEnd,jdbcType=BIT},
+      invoice_replenish_id = #{invoiceReplenishId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, contract_library_id, income_confirm_id, invoice_id, invoice_no, 
+    legal_dept, contract_name, contract_no, project_name, project_no, record_project_name, 
+    contract_money, contract_income_money, manage_percent, dept_id, dept_name, income_money, 
+    income_money_max, verify_time, remark, creator, creator_name, gmt_create, gmt_modified, 
+    is_deleted, process_instance_id, is_process_end, invoice_replenish_id
+    from business_income
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, contract_library_id, income_confirm_id, invoice_id, invoice_no, 
+    legal_dept, contract_name, contract_no, project_name, project_no, record_project_name, 
+    contract_money, contract_income_money, manage_percent, dept_id, dept_name, income_money, 
+    income_money_max, verify_time, remark, creator, creator_name, gmt_create, gmt_modified, 
+    is_deleted, process_instance_id, is_process_end, invoice_replenish_id
+    from business_income
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and isLikeSelect==null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="contractLibraryId != null and isLikeSelect==null">
+         AND contract_library_id = #{contractLibraryId}
+      </if>
+      <if test="incomeConfirmId != null and isLikeSelect==null">
+         AND income_confirm_id = #{incomeConfirmId}
+      </if>
+      <if test="invoiceId != null and isLikeSelect==null">
+         AND invoice_id = #{invoiceId}
+      </if>
+      <if test="invoiceNo != null and isLikeSelect==null and invoiceNo != ''">
+         AND invoice_no = #{invoiceNo}
+      </if>
+      <if test="legalDept != null and isLikeSelect==null and legalDept != ''">
+         AND legal_dept = #{legalDept}
+      </if>
+      <if test="contractName != null and isLikeSelect==null and contractName != ''">
+         AND contract_name = #{contractName}
+      </if>
+      <if test="contractNo != null and isLikeSelect==null and contractNo != ''">
+         AND contract_no = #{contractNo}
+      </if>
+      <if test="projectName != null and isLikeSelect==null and projectName != ''">
+         AND project_name = #{projectName}
+      </if>
+      <if test="projectNo != null and isLikeSelect==null and projectNo != ''">
+         AND project_no = #{projectNo}
+      </if>
+      <if test="recordProjectName != null and isLikeSelect==null and recordProjectName != ''">
+         AND record_project_name = #{recordProjectName}
+      </if>
+      <if test="contractMoney != null and isLikeSelect==null and contractMoney != ''">
+         AND contract_money = #{contractMoney}
+      </if>
+      <if test="contractIncomeMoney != null and isLikeSelect==null and contractIncomeMoney != ''">
+         AND contract_income_money = #{contractIncomeMoney}
+      </if>
+      <if test="managePercent != null and isLikeSelect==null and managePercent != ''">
+         AND manage_percent = #{managePercent}
+      </if>
+      <if test="deptId != null and isLikeSelect==null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and isLikeSelect==null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="incomeMoney != null and isLikeSelect==null and incomeMoney != ''">
+         AND income_money = #{incomeMoney}
+      </if>
+      <if test="incomeMoneyMax != null and isLikeSelect==null and incomeMoneyMax != ''">
+         AND income_money_max = #{incomeMoneyMax}
+      </if>
+      <if test="verifyTime != null and isLikeSelect==null and verifyTime != ''">
+         AND verify_time = #{verifyTime}
+      </if>
+      <if test="remark != null and isLikeSelect==null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="processInstanceId != null and isLikeSelect==null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="processEnd != null and isLikeSelect==null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="invoiceReplenishId != null and isLikeSelect==null">
+         AND invoice_replenish_id = #{invoiceReplenishId}
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect==null">
+        AND dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="businessKey != null and isLikeSelect!= null and businessKey != '' ">
+         AND business_key like  CONCAT('%',#{businessKey},'%')
+      </if>
+      <if test="invoiceNo != null and isLikeSelect!= null and invoiceNo != '' ">
+         AND invoice_no like  CONCAT('%',#{invoiceNo},'%')
+      </if>
+      <if test="legalDept != null and isLikeSelect!= null and legalDept != '' ">
+         AND legal_dept like  CONCAT('%',#{legalDept},'%')
+      </if>
+      <if test="contractName != null and isLikeSelect!= null and contractName != '' ">
+         AND contract_name like  CONCAT('%',#{contractName},'%')
+      </if>
+      <if test="contractNo != null and isLikeSelect!= null and contractNo != '' ">
+         AND contract_no like  CONCAT('%',#{contractNo},'%')
+      </if>
+      <if test="projectName != null and isLikeSelect!= null and projectName != '' ">
+         AND project_name like  CONCAT('%',#{projectName},'%')
+      </if>
+      <if test="projectNo != null and isLikeSelect!= null and projectNo != '' ">
+         AND project_no like  CONCAT('%',#{projectNo},'%')
+      </if>
+      <if test="recordProjectName != null and isLikeSelect!= null and recordProjectName != '' ">
+         AND record_project_name like  CONCAT('%',#{recordProjectName},'%')
+      </if>
+      <if test="contractMoney != null and isLikeSelect!= null and contractMoney != '' ">
+         AND contract_money like  CONCAT('%',#{contractMoney},'%')
+      </if>
+      <if test="contractIncomeMoney != null and isLikeSelect!= null and contractIncomeMoney != '' ">
+         AND contract_income_money like  CONCAT('%',#{contractIncomeMoney},'%')
+      </if>
+      <if test="managePercent != null and isLikeSelect!= null and managePercent != '' ">
+         AND manage_percent like  CONCAT('%',#{managePercent},'%')
+      </if>
+      <if test="deptName != null and isLikeSelect!= null and deptName != '' ">
+         AND dept_name like  CONCAT('%',#{deptName},'%')
+      </if>
+      <if test="incomeMoney != null and isLikeSelect!= null and incomeMoney != '' ">
+         AND income_money like  CONCAT('%',#{incomeMoney},'%')
+      </if>
+      <if test="incomeMoneyMax != null and isLikeSelect!= null and incomeMoneyMax != '' ">
+         AND income_money_max like  CONCAT('%',#{incomeMoneyMax},'%')
+      </if>
+      <if test="verifyTime != null and isLikeSelect!= null and verifyTime != '' ">
+         AND verify_time like  CONCAT('%',#{verifyTime},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="processInstanceId != null and isLikeSelect!= null and processInstanceId != '' ">
+         AND process_instance_id like  CONCAT('%',#{processInstanceId},'%')
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="deptId != null and isLikeSelect!=null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect!=null">
+        AND dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+      </if>
+    </where>
+  </sql>
+</mapper>

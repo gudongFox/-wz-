@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveEdTaskMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveEdTask">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="step_id" jdbcType="INTEGER" property="stepId" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="project_no" jdbcType="VARCHAR" property="projectNo" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="stage_name" jdbcType="VARCHAR" property="stageName" />
+    <result column="step_name" jdbcType="VARCHAR" property="stepName" />
+    <result column="contract_no" jdbcType="VARCHAR" property="contractNo" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="major_name" jdbcType="VARCHAR" property="majorName" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="dept_charge_men" jdbcType="VARCHAR" property="deptChargeMen" />
+    <result column="dept_charge_men_name" jdbcType="VARCHAR" property="deptChargeMenName" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_ed_task
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveEdTask">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_ed_task (business_key, step_id, project_id, 
+      project_no, project_name, stage_name, 
+      step_name, contract_no, dept_id, 
+      dept_name, major_name, creator, 
+      creator_name, is_deleted, gmt_create, 
+      gmt_modified, process_instance_id, is_process_end, 
+      remark, dept_charge_men, dept_charge_men_name
+      )
+    values (#{businessKey,jdbcType=VARCHAR}, #{stepId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, 
+      #{projectNo,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR}, #{stageName,jdbcType=VARCHAR}, 
+      #{stepName,jdbcType=VARCHAR}, #{contractNo,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, 
+      #{deptName,jdbcType=VARCHAR}, #{majorName,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{creatorName,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{processInstanceId,jdbcType=VARCHAR}, #{processEnd,jdbcType=BIT}, 
+      #{remark,jdbcType=VARCHAR}, #{deptChargeMen,jdbcType=VARCHAR}, #{deptChargeMenName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveEdTask">
+    update five_ed_task
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      step_id = #{stepId,jdbcType=INTEGER},
+      project_id = #{projectId,jdbcType=INTEGER},
+      project_no = #{projectNo,jdbcType=VARCHAR},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      stage_name = #{stageName,jdbcType=VARCHAR},
+      step_name = #{stepName,jdbcType=VARCHAR},
+      contract_no = #{contractNo,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      major_name = #{majorName,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      is_process_end = #{processEnd,jdbcType=BIT},
+      remark = #{remark,jdbcType=VARCHAR},
+      dept_charge_men = #{deptChargeMen,jdbcType=VARCHAR},
+      dept_charge_men_name = #{deptChargeMenName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, step_id, project_id, project_no, project_name, stage_name, 
+    step_name, contract_no, dept_id, dept_name, major_name, creator, creator_name, is_deleted, 
+    gmt_create, gmt_modified, process_instance_id, is_process_end, remark, dept_charge_men, 
+    dept_charge_men_name
+    from five_ed_task
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, step_id, project_id, project_no, project_name, stage_name, 
+    step_name, contract_no, dept_id, dept_name, major_name, creator, creator_name, is_deleted, 
+    gmt_create, gmt_modified, process_instance_id, is_process_end, remark, dept_charge_men, 
+    dept_charge_men_name
+    from five_ed_task
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="stepId != null">
+         AND step_id = #{stepId}
+      </if>
+      <if test="projectId != null">
+         AND project_id = #{projectId}
+      </if>
+      <if test="projectNo != null and projectNo != ''">
+         AND project_no = #{projectNo}
+      </if>
+      <if test="projectName != null and projectName != ''">
+         AND project_name = #{projectName}
+      </if>
+      <if test="stageName != null and stageName != ''">
+         AND stage_name = #{stageName}
+      </if>
+      <if test="stepName != null and stepName != ''">
+         AND step_name = #{stepName}
+      </if>
+      <if test="contractNo != null and contractNo != ''">
+         AND contract_no = #{contractNo}
+      </if>
+      <if test="deptId != null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="majorName != null and majorName != ''">
+         AND major_name = #{majorName}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="processInstanceId != null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="processEnd != null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="deptChargeMen != null and deptChargeMen != ''">
+         AND dept_charge_men = #{deptChargeMen}
+      </if>
+      <if test="deptChargeMenName != null and deptChargeMenName != ''">
+         AND dept_charge_men_name = #{deptChargeMenName}
+      </if>
+    </where>
+  </sql>
+
+</mapper>

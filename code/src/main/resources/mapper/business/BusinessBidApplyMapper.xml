@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.business.dao.BusinessBidApplyMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.business.entity.BusinessBidApply">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="record_id" jdbcType="INTEGER" property="recordId" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="is_online" jdbcType="BIT" property="online" />
+    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+    <result column="agent_name" jdbcType="VARCHAR" property="agentName" />
+    <result column="project_scale" jdbcType="VARCHAR" property="projectScale" />
+    <result column="project_type" jdbcType="VARCHAR" property="projectType" />
+    <result column="business_type" jdbcType="VARCHAR" property="businessType" />
+    <result column="attend_type" jdbcType="VARCHAR" property="attendType" />
+    <result column="open_time" jdbcType="VARCHAR" property="openTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from business_bid_apply
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.business.entity.BusinessBidApply">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into business_bid_apply (record_id, dept_id, dept_name, 
+      project_name, is_online, customer_name, 
+      agent_name, project_scale, project_type, 
+      business_type, attend_type, open_time, 
+      remark, creator, creator_name, 
+      gmt_create, gmt_modified, is_deleted, 
+      process_instance_id, is_process_end)
+    values (#{recordId,jdbcType=INTEGER}, #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, 
+      #{projectName,jdbcType=VARCHAR}, #{online,jdbcType=BIT}, #{customerName,jdbcType=VARCHAR}, 
+      #{agentName,jdbcType=VARCHAR}, #{projectScale,jdbcType=VARCHAR}, #{projectType,jdbcType=VARCHAR}, 
+      #{businessType,jdbcType=VARCHAR}, #{attendType,jdbcType=VARCHAR}, #{openTime,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}, 
+      #{processInstanceId,jdbcType=VARCHAR}, #{processEnd,jdbcType=BIT})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.business.entity.BusinessBidApply">
+    update business_bid_apply
+    set record_id = #{recordId,jdbcType=INTEGER},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      is_online = #{online,jdbcType=BIT},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      agent_name = #{agentName,jdbcType=VARCHAR},
+      project_scale = #{projectScale,jdbcType=VARCHAR},
+      project_type = #{projectType,jdbcType=VARCHAR},
+      business_type = #{businessType,jdbcType=VARCHAR},
+      attend_type = #{attendType,jdbcType=VARCHAR},
+      open_time = #{openTime,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      is_deleted = #{deleted,jdbcType=BIT},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      is_process_end = #{processEnd,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, record_id, dept_id, dept_name, project_name, is_online, customer_name, 
+    agent_name, project_scale, project_type, business_type, attend_type, open_time, remark, 
+    creator, creator_name, gmt_create, gmt_modified, is_deleted, process_instance_id, 
+    is_process_end
+    from business_bid_apply
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, record_id, dept_id, dept_name, project_name, is_online, customer_name, 
+    agent_name, project_scale, project_type, business_type, attend_type, open_time, remark, 
+    creator, creator_name, gmt_create, gmt_modified, is_deleted, process_instance_id, 
+    is_process_end
+    from business_bid_apply
+    <include refid="Base_Where_List" />
+    order by id desc
+  </select>
+  <select id="listAgent"  parameterType="java.lang.String" resultType="java.lang.String" >
+  select distinct agent_name
+  from business_bid_apply
+  where is_deleted=0 and agent_name is not null
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="recordId != null">
+         AND record_id = #{recordId}
+      </if>
+      <if test="deptId != null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="projectName != null and projectName != ''">
+         AND project_name = #{projectName}
+      </if>
+      <if test="online != null">
+         AND is_online = #{online}
+      </if>
+      <if test="customerName != null and customerName != ''">
+         AND customer_name = #{customerName}
+      </if>
+      <if test="agentName != null and agentName != ''">
+         AND agent_name = #{agentName}
+      </if>
+      <if test="projectScale != null and projectScale != ''">
+         AND project_scale = #{projectScale}
+      </if>
+      <if test="projectType != null and projectType != ''">
+         AND project_type = #{projectType}
+      </if>
+      <if test="businessType != null and businessType != ''">
+         AND business_type = #{businessType}
+      </if>
+      <if test="attendType != null and attendType != ''">
+         AND attend_type = #{attendType}
+      </if>
+      <if test="openTime != null and openTime != ''">
+         AND open_time = #{openTime}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="processInstanceId != null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="processEnd != null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="q != null and q != '' ">
+        AND (
+        project_name like CONCAT('%',#{q},'%') or
+        creator_name like CONCAT('%',#{q},'%')
+        )
+      </if>
+    </where>
+  </sql>
+</mapper>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveOaWordSizeMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveOaWordSize">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="word" jdbcType="VARCHAR" property="word" />
+    <result column="year" jdbcType="VARCHAR" property="year" />
+    <result column="mark" jdbcType="INTEGER" property="mark" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="abandon_mark" jdbcType="VARCHAR" property="abandonMark" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_oa_word_size
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveOaWordSize">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_oa_word_size (word, year, mark, 
+      type, remark, abandon_mark, 
+      gmt_modified, dept_id, dept_name
+      )
+    values (#{word,jdbcType=VARCHAR}, #{year,jdbcType=VARCHAR}, #{mark,jdbcType=INTEGER}, 
+      #{type,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{abandonMark,jdbcType=VARCHAR}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveOaWordSize">
+    update five_oa_word_size
+    set word = #{word,jdbcType=VARCHAR},
+      year = #{year,jdbcType=VARCHAR},
+      mark = #{mark,jdbcType=INTEGER},
+      type = #{type,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      abandon_mark = #{abandonMark,jdbcType=VARCHAR},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, word, year, mark, type, remark, abandon_mark, gmt_modified, dept_id, dept_name
+    from five_oa_word_size
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, word, year, mark, type, remark, abandon_mark, gmt_modified, dept_id, dept_name
+    from five_oa_word_size
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="word != null and word != ''">
+         AND word = #{word}
+      </if>
+      <if test="year != null and year != ''">
+         AND year = #{year}
+      </if>
+      <if test="mark != null">
+         AND mark = #{mark}
+      </if>
+      <if test="type != null and type != ''">
+         AND type = #{type}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="abandonMark != null and abandonMark != ''">
+         AND abandon_mark = #{abandonMark}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="deptId != null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+    </where>
+  </sql>
+</mapper>

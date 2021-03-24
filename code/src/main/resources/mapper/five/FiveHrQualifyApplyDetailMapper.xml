@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveHrQualifyApplyDetailMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveHrQualifyApplyDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="qualify_apply_id" jdbcType="INTEGER" property="qualifyApplyId" />
+    <result column="user_login" jdbcType="VARCHAR" property="userLogin" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="major_name" jdbcType="VARCHAR" property="majorName" />
+    <result column="check_year" jdbcType="VARCHAR" property="checkYear" />
+    <result column="is_project_charge" jdbcType="BIT" property="projectCharge" />
+    <result column="is_major_charge" jdbcType="BIT" property="majorCharge" />
+    <result column="is_design" jdbcType="BIT" property="design" />
+    <result column="is_proofread" jdbcType="BIT" property="proofread" />
+    <result column="is_audit" jdbcType="BIT" property="audit" />
+    <result column="is_approve" jdbcType="BIT" property="approve" />
+    <result column="project_type" jdbcType="VARCHAR" property="projectType" />
+    <result column="is_chief_designer" jdbcType="BIT" property="chiefDesigner" />
+    <result column="is_pro_chief" jdbcType="BIT" property="proChief" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_explore_engineer" jdbcType="BIT" property="exploreEngineer" />
+    <result column="is_explore_audit" jdbcType="BIT" property="exploreAudit" />
+    <result column="is_explore_principal" jdbcType="BIT" property="explorePrincipal" />
+    <result column="is_consult_design" jdbcType="BIT" property="consultDesign" />
+    <result column="is_consult_audit" jdbcType="BIT" property="consultAudit" />
+    <result column="is_consult_proofread" jdbcType="BIT" property="consultProofread" />
+    <result column="is_contract_design" jdbcType="BIT" property="contractDesign" />
+    <result column="is_contract_audit" jdbcType="BIT" property="contractAudit" />
+    <result column="is_contract_proofread" jdbcType="BIT" property="contractProofread" />
+    <result column="is_supervisor_design" jdbcType="BIT" property="supervisorDesign" />
+    <result column="is_supervisor_audit" jdbcType="BIT" property="supervisorAudit" />
+    <result column="is_supervisor_proofread" jdbcType="BIT" property="supervisorProofread" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_hr_qualify_apply_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveHrQualifyApplyDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_hr_qualify_apply_detail (qualify_apply_id, user_login, user_name, 
+      dept_id, dept_name, major_name, 
+      check_year, is_project_charge, is_major_charge, 
+      is_design, is_proofread, is_audit, 
+      is_approve, project_type, is_chief_designer, 
+      is_pro_chief, is_deleted, gmt_create, 
+      gmt_modified, remark, is_explore_engineer, 
+      is_explore_audit, is_explore_principal, is_consult_design, 
+      is_consult_audit, is_consult_proofread, is_contract_design, 
+      is_contract_audit, is_contract_proofread, is_supervisor_design, 
+      is_supervisor_audit, is_supervisor_proofread)
+    values (#{qualifyApplyId,jdbcType=INTEGER}, #{userLogin,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, #{majorName,jdbcType=VARCHAR}, 
+      #{checkYear,jdbcType=VARCHAR}, #{projectCharge,jdbcType=BIT}, #{majorCharge,jdbcType=BIT}, 
+      #{design,jdbcType=BIT}, #{proofread,jdbcType=BIT}, #{audit,jdbcType=BIT}, 
+      #{approve,jdbcType=BIT}, #{projectType,jdbcType=VARCHAR}, #{chiefDesigner,jdbcType=BIT}, 
+      #{proChief,jdbcType=BIT}, #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{exploreEngineer,jdbcType=BIT}, 
+      #{exploreAudit,jdbcType=BIT}, #{explorePrincipal,jdbcType=BIT}, #{consultDesign,jdbcType=BIT}, 
+      #{consultAudit,jdbcType=BIT}, #{consultProofread,jdbcType=BIT}, #{contractDesign,jdbcType=BIT}, 
+      #{contractAudit,jdbcType=BIT}, #{contractProofread,jdbcType=BIT}, #{supervisorDesign,jdbcType=BIT}, 
+      #{supervisorAudit,jdbcType=BIT}, #{supervisorProofread,jdbcType=BIT})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveHrQualifyApplyDetail">
+    update five_hr_qualify_apply_detail
+    set qualify_apply_id = #{qualifyApplyId,jdbcType=INTEGER},
+      user_login = #{userLogin,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      major_name = #{majorName,jdbcType=VARCHAR},
+      check_year = #{checkYear,jdbcType=VARCHAR},
+      is_project_charge = #{projectCharge,jdbcType=BIT},
+      is_major_charge = #{majorCharge,jdbcType=BIT},
+      is_design = #{design,jdbcType=BIT},
+      is_proofread = #{proofread,jdbcType=BIT},
+      is_audit = #{audit,jdbcType=BIT},
+      is_approve = #{approve,jdbcType=BIT},
+      project_type = #{projectType,jdbcType=VARCHAR},
+      is_chief_designer = #{chiefDesigner,jdbcType=BIT},
+      is_pro_chief = #{proChief,jdbcType=BIT},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_explore_engineer = #{exploreEngineer,jdbcType=BIT},
+      is_explore_audit = #{exploreAudit,jdbcType=BIT},
+      is_explore_principal = #{explorePrincipal,jdbcType=BIT},
+      is_consult_design = #{consultDesign,jdbcType=BIT},
+      is_consult_audit = #{consultAudit,jdbcType=BIT},
+      is_consult_proofread = #{consultProofread,jdbcType=BIT},
+      is_contract_design = #{contractDesign,jdbcType=BIT},
+      is_contract_audit = #{contractAudit,jdbcType=BIT},
+      is_contract_proofread = #{contractProofread,jdbcType=BIT},
+      is_supervisor_design = #{supervisorDesign,jdbcType=BIT},
+      is_supervisor_audit = #{supervisorAudit,jdbcType=BIT},
+      is_supervisor_proofread = #{supervisorProofread,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, qualify_apply_id, user_login, user_name, dept_id, dept_name, major_name, 
+    check_year, is_project_charge, is_major_charge, is_design, is_proofread, is_audit, 
+    is_approve, project_type, is_chief_designer, is_pro_chief, is_deleted, gmt_create, 
+    gmt_modified, remark, is_explore_engineer, is_explore_audit, is_explore_principal, 
+    is_consult_design, is_consult_audit, is_consult_proofread, is_contract_design, is_contract_audit, 
+    is_contract_proofread, is_supervisor_design, is_supervisor_audit, is_supervisor_proofread
+    from five_hr_qualify_apply_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, qualify_apply_id, user_login, user_name, dept_id, dept_name, major_name, 
+    check_year, is_project_charge, is_major_charge, is_design, is_proofread, is_audit, 
+    is_approve, project_type, is_chief_designer, is_pro_chief, is_deleted, gmt_create, 
+    gmt_modified, remark, is_explore_engineer, is_explore_audit, is_explore_principal, 
+    is_consult_design, is_consult_audit, is_consult_proofread, is_contract_design, is_contract_audit, 
+    is_contract_proofread, is_supervisor_design, is_supervisor_audit, is_supervisor_proofread
+    from five_hr_qualify_apply_detail
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="qualifyApplyId != null">
+         AND qualify_apply_id = #{qualifyApplyId}
+      </if>
+      <if test="userLogin != null and userLogin != ''">
+         AND user_login = #{userLogin}
+      </if>
+      <if test="userName != null and userName != ''">
+         AND user_name = #{userName}
+      </if>
+      <if test="deptId != null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="majorName != null and majorName != ''">
+         AND major_name = #{majorName}
+      </if>
+      <if test="checkYear != null and checkYear != ''">
+         AND check_year = #{checkYear}
+      </if>
+      <if test="projectCharge != null">
+         AND is_project_charge = #{projectCharge}
+      </if>
+      <if test="majorCharge != null">
+         AND is_major_charge = #{majorCharge}
+      </if>
+      <if test="design != null">
+         AND is_design = #{design}
+      </if>
+      <if test="proofread != null">
+         AND is_proofread = #{proofread}
+      </if>
+      <if test="audit != null">
+         AND is_audit = #{audit}
+      </if>
+      <if test="approve != null">
+         AND is_approve = #{approve}
+      </if>
+      <if test="projectType != null and projectType != ''">
+         AND project_type = #{projectType}
+      </if>
+      <if test="chiefDesigner != null">
+         AND is_chief_designer = #{chiefDesigner}
+      </if>
+      <if test="proChief != null">
+         AND is_pro_chief = #{proChief}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="exploreEngineer != null">
+         AND is_explore_engineer = #{exploreEngineer}
+      </if>
+      <if test="exploreAudit != null">
+         AND is_explore_audit = #{exploreAudit}
+      </if>
+      <if test="explorePrincipal != null">
+         AND is_explore_principal = #{explorePrincipal}
+      </if>
+      <if test="consultDesign != null">
+         AND is_consult_design = #{consultDesign}
+      </if>
+      <if test="consultAudit != null">
+         AND is_consult_audit = #{consultAudit}
+      </if>
+      <if test="consultProofread != null">
+         AND is_consult_proofread = #{consultProofread}
+      </if>
+      <if test="contractDesign != null">
+         AND is_contract_design = #{contractDesign}
+      </if>
+      <if test="contractAudit != null">
+         AND is_contract_audit = #{contractAudit}
+      </if>
+      <if test="contractProofread != null">
+         AND is_contract_proofread = #{contractProofread}
+      </if>
+      <if test="supervisorDesign != null">
+         AND is_supervisor_design = #{supervisorDesign}
+      </if>
+      <if test="supervisorAudit != null">
+         AND is_supervisor_audit = #{supervisorAudit}
+      </if>
+      <if test="supervisorProofread != null">
+         AND is_supervisor_proofread = #{supervisorProofread}
+      </if>
+    </where>
+  </sql>
+</mapper>

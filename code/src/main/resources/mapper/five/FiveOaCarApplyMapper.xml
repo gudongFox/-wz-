@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveOaCarApplyMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveOaCarApply">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="car_id" jdbcType="INTEGER" property="carId" />
+    <result column="car_name" jdbcType="VARCHAR" property="carName" />
+    <result column="apply_reason" jdbcType="VARCHAR" property="applyReason" />
+    <result column="begin_time" jdbcType="VARCHAR" property="beginTime" />
+    <result column="end_time" jdbcType="VARCHAR" property="endTime" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+    <result column="apply_type" jdbcType="VARCHAR" property="applyType" />
+    <result column="destination" jdbcType="VARCHAR" property="destination" />
+    <result column="mileage" jdbcType="VARCHAR" property="mileage" />
+    <result column="user_num" jdbcType="VARCHAR" property="userNum" />
+    <result column="driver" jdbcType="VARCHAR" property="driver" />
+    <result column="driver_name" jdbcType="VARCHAR" property="driverName" />
+    <result column="passenger" jdbcType="VARCHAR" property="passenger" />
+    <result column="soil_pay" jdbcType="VARCHAR" property="soilPay" />
+    <result column="pass_pay" jdbcType="VARCHAR" property="passPay" />
+    <result column="part_pay" jdbcType="VARCHAR" property="partPay" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="is_self_drive" jdbcType="BIT" property="selfDrive" />
+    <result column="car_info" jdbcType="LONGVARCHAR" property="carInfo" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_oa_car_apply
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveOaCarApply">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_oa_car_apply (business_key, car_id, car_name, 
+      apply_reason, begin_time, end_time, 
+      dept_name, dept_id, gmt_create, 
+      gmt_modified, is_deleted, creator, 
+      creator_name, remark, process_instance_id, 
+      is_process_end, apply_type, destination, 
+      mileage, user_num, driver, 
+      driver_name, passenger, soil_pay, 
+      pass_pay, part_pay, type, 
+      is_self_drive, car_info)
+    values (#{businessKey,jdbcType=VARCHAR}, #{carId,jdbcType=INTEGER}, #{carName,jdbcType=VARCHAR}, 
+      #{applyReason,jdbcType=VARCHAR}, #{beginTime,jdbcType=VARCHAR}, #{endTime,jdbcType=VARCHAR}, 
+      #{deptName,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}, #{creator,jdbcType=VARCHAR}, 
+      #{creatorName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{processInstanceId,jdbcType=VARCHAR}, 
+      #{processEnd,jdbcType=BIT}, #{applyType,jdbcType=VARCHAR}, #{destination,jdbcType=VARCHAR}, 
+      #{mileage,jdbcType=VARCHAR}, #{userNum,jdbcType=VARCHAR}, #{driver,jdbcType=VARCHAR}, 
+      #{driverName,jdbcType=VARCHAR}, #{passenger,jdbcType=VARCHAR}, #{soilPay,jdbcType=VARCHAR}, 
+      #{passPay,jdbcType=VARCHAR}, #{partPay,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{selfDrive,jdbcType=BIT}, #{carInfo,jdbcType=LONGVARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveOaCarApply">
+    update five_oa_car_apply
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      car_id = #{carId,jdbcType=INTEGER},
+      car_name = #{carName,jdbcType=VARCHAR},
+      apply_reason = #{applyReason,jdbcType=VARCHAR},
+      begin_time = #{beginTime,jdbcType=VARCHAR},
+      end_time = #{endTime,jdbcType=VARCHAR},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      is_deleted = #{deleted,jdbcType=BIT},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      is_process_end = #{processEnd,jdbcType=BIT},
+      apply_type = #{applyType,jdbcType=VARCHAR},
+      destination = #{destination,jdbcType=VARCHAR},
+      mileage = #{mileage,jdbcType=VARCHAR},
+      user_num = #{userNum,jdbcType=VARCHAR},
+      driver = #{driver,jdbcType=VARCHAR},
+      driver_name = #{driverName,jdbcType=VARCHAR},
+      passenger = #{passenger,jdbcType=VARCHAR},
+      soil_pay = #{soilPay,jdbcType=VARCHAR},
+      pass_pay = #{passPay,jdbcType=VARCHAR},
+      part_pay = #{partPay,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      is_self_drive = #{selfDrive,jdbcType=BIT},
+      car_info = #{carInfo,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, car_id, car_name, apply_reason, begin_time, end_time, dept_name, 
+    dept_id, gmt_create, gmt_modified, is_deleted, creator, creator_name, remark, process_instance_id, 
+    is_process_end, apply_type, destination, mileage, user_num, driver, driver_name, 
+    passenger, soil_pay, pass_pay, part_pay, type, is_self_drive, car_info
+    from five_oa_car_apply
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, car_id, car_name, apply_reason, begin_time, end_time, dept_name, 
+    dept_id, gmt_create, gmt_modified, is_deleted, creator, creator_name, remark, process_instance_id, 
+    is_process_end, apply_type, destination, mileage, user_num, driver, driver_name, 
+    passenger, soil_pay, pass_pay, part_pay, type, is_self_drive, car_info
+    from five_oa_car_apply
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="carId != null">
+         AND car_id = #{carId}
+      </if>
+      <if test="carName != null and carName != ''">
+         AND car_name = #{carName}
+      </if>
+      <if test="applyReason != null and applyReason != ''">
+         AND apply_reason = #{applyReason}
+      </if>
+      <if test="beginTime != null and beginTime != ''">
+         AND begin_time = #{beginTime}
+      </if>
+      <if test="endTime != null and endTime != ''">
+         AND end_time = #{endTime}
+      </if>
+      <if test="deptName != null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="deptId != null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="processInstanceId != null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="processEnd != null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="applyType != null and applyType != ''">
+         AND apply_type = #{applyType}
+      </if>
+      <if test="destination != null and destination != ''">
+         AND destination = #{destination}
+      </if>
+      <if test="mileage != null and mileage != ''">
+         AND mileage = #{mileage}
+      </if>
+      <if test="userNum != null and userNum != ''">
+         AND user_num = #{userNum}
+      </if>
+      <if test="driver != null and driver != ''">
+         AND driver = #{driver}
+      </if>
+      <if test="driverName != null and driverName != ''">
+         AND driver_name = #{driverName}
+      </if>
+      <if test="passenger != null and passenger != ''">
+         AND passenger = #{passenger}
+      </if>
+      <if test="soilPay != null and soilPay != ''">
+         AND soil_pay = #{soilPay}
+      </if>
+      <if test="passPay != null and passPay != ''">
+         AND pass_pay = #{passPay}
+      </if>
+      <if test="partPay != null and partPay != ''">
+         AND part_pay = #{partPay}
+      </if>
+      <if test="type != null and type != ''">
+         AND type = #{type}
+      </if>
+      <if test="selfDrive != null">
+         AND is_self_drive = #{selfDrive}
+      </if>
+      <if test="qNameType != null and qNameType != ''">
+        AND (
+        type like CONCAT('%',#{qNameType},'%')
+        )
+      </if>
+      <if test="selectYear != null and selectYear != ''">
+        AND (
+        YEAR (gmt_create)=#{selectYear}
+        )
+      </if>
+      <if test="selectMonth != null and selectMonth != ''">
+        AND (
+        MONTH (gmt_create)=#{selectMonth}
+        )
+      </if>
+    </where>
+  </sql>
+</mapper>

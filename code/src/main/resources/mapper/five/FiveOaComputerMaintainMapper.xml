@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveOaComputerMaintainMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveOaComputerMaintain">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="form_no" jdbcType="VARCHAR" property="formNo" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="device_room" jdbcType="VARCHAR" property="deviceRoom" />
+    <result column="device_no" jdbcType="VARCHAR" property="deviceNo" />
+    <result column="device_name" jdbcType="VARCHAR" property="deviceName" />
+    <result column="device_level" jdbcType="VARCHAR" property="deviceLevel" />
+    <result column="device_type" jdbcType="VARCHAR" property="deviceType" />
+    <result column="charge_man" jdbcType="VARCHAR" property="chargeMan" />
+    <result column="charge_name" jdbcType="VARCHAR" property="chargeName" />
+    <result column="charge_no" jdbcType="VARCHAR" property="chargeNo" />
+    <result column="charge_tel" jdbcType="VARCHAR" property="chargeTel" />
+    <result column="repair_time" jdbcType="VARCHAR" property="repairTime" />
+    <result column="charge_comment" jdbcType="VARCHAR" property="chargeComment" />
+    <result column="computer_comment" jdbcType="VARCHAR" property="computerComment" />
+    <result column="receive_man" jdbcType="VARCHAR" property="receiveMan" />
+    <result column="receive_man_name" jdbcType="VARCHAR" property="receiveManName" />
+    <result column="receive_time" jdbcType="VARCHAR" property="receiveTime" />
+    <result column="maintain_man" jdbcType="VARCHAR" property="maintainMan" />
+    <result column="maintain_man_name" jdbcType="VARCHAR" property="maintainManName" />
+    <result column="maintain_time" jdbcType="VARCHAR" property="maintainTime" />
+    <result column="maintain_advice" jdbcType="VARCHAR" property="maintainAdvice" />
+    <result column="failure_cause" jdbcType="VARCHAR" property="failureCause" />
+    <result column="dept_security_man" jdbcType="VARCHAR" property="deptSecurityMan" />
+    <result column="dept_security_man_name" jdbcType="VARCHAR" property="deptSecurityManName" />
+    <result column="other_content" jdbcType="VARCHAR" property="otherContent" />
+    <result column="error_description" jdbcType="VARCHAR" property="errorDescription" />
+    <result column="comment" jdbcType="VARCHAR" property="comment" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_oa_computer_maintain
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveOaComputerMaintain">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_oa_computer_maintain (business_key, form_no, dept_id, 
+      dept_name, device_room, device_no, 
+      device_name, device_level, device_type, 
+      charge_man, charge_name, charge_no, 
+      charge_tel, repair_time, charge_comment, 
+      computer_comment, receive_man, receive_man_name, 
+      receive_time, maintain_man, maintain_man_name, 
+      maintain_time, maintain_advice, failure_cause, 
+      dept_security_man, dept_security_man_name, other_content, 
+      error_description, comment, remark, 
+      creator, creator_name, is_deleted, 
+      gmt_create, gmt_modified, process_instance_id, 
+      is_process_end)
+    values (#{businessKey,jdbcType=VARCHAR}, #{formNo,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, 
+      #{deptName,jdbcType=VARCHAR}, #{deviceRoom,jdbcType=VARCHAR}, #{deviceNo,jdbcType=VARCHAR}, 
+      #{deviceName,jdbcType=VARCHAR}, #{deviceLevel,jdbcType=VARCHAR}, #{deviceType,jdbcType=VARCHAR}, 
+      #{chargeMan,jdbcType=VARCHAR}, #{chargeName,jdbcType=VARCHAR}, #{chargeNo,jdbcType=VARCHAR}, 
+      #{chargeTel,jdbcType=VARCHAR}, #{repairTime,jdbcType=VARCHAR}, #{chargeComment,jdbcType=VARCHAR}, 
+      #{computerComment,jdbcType=VARCHAR}, #{receiveMan,jdbcType=VARCHAR}, #{receiveManName,jdbcType=VARCHAR}, 
+      #{receiveTime,jdbcType=VARCHAR}, #{maintainMan,jdbcType=VARCHAR}, #{maintainManName,jdbcType=VARCHAR}, 
+      #{maintainTime,jdbcType=VARCHAR}, #{maintainAdvice,jdbcType=VARCHAR}, #{failureCause,jdbcType=VARCHAR}, 
+      #{deptSecurityMan,jdbcType=VARCHAR}, #{deptSecurityManName,jdbcType=VARCHAR}, #{otherContent,jdbcType=VARCHAR}, 
+      #{errorDescription,jdbcType=VARCHAR}, #{comment,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{processInstanceId,jdbcType=VARCHAR}, 
+      #{processEnd,jdbcType=BIT})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveOaComputerMaintain">
+    update five_oa_computer_maintain
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      form_no = #{formNo,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      device_room = #{deviceRoom,jdbcType=VARCHAR},
+      device_no = #{deviceNo,jdbcType=VARCHAR},
+      device_name = #{deviceName,jdbcType=VARCHAR},
+      device_level = #{deviceLevel,jdbcType=VARCHAR},
+      device_type = #{deviceType,jdbcType=VARCHAR},
+      charge_man = #{chargeMan,jdbcType=VARCHAR},
+      charge_name = #{chargeName,jdbcType=VARCHAR},
+      charge_no = #{chargeNo,jdbcType=VARCHAR},
+      charge_tel = #{chargeTel,jdbcType=VARCHAR},
+      repair_time = #{repairTime,jdbcType=VARCHAR},
+      charge_comment = #{chargeComment,jdbcType=VARCHAR},
+      computer_comment = #{computerComment,jdbcType=VARCHAR},
+      receive_man = #{receiveMan,jdbcType=VARCHAR},
+      receive_man_name = #{receiveManName,jdbcType=VARCHAR},
+      receive_time = #{receiveTime,jdbcType=VARCHAR},
+      maintain_man = #{maintainMan,jdbcType=VARCHAR},
+      maintain_man_name = #{maintainManName,jdbcType=VARCHAR},
+      maintain_time = #{maintainTime,jdbcType=VARCHAR},
+      maintain_advice = #{maintainAdvice,jdbcType=VARCHAR},
+      failure_cause = #{failureCause,jdbcType=VARCHAR},
+      dept_security_man = #{deptSecurityMan,jdbcType=VARCHAR},
+      dept_security_man_name = #{deptSecurityManName,jdbcType=VARCHAR},
+      other_content = #{otherContent,jdbcType=VARCHAR},
+      error_description = #{errorDescription,jdbcType=VARCHAR},
+      comment = #{comment,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      is_process_end = #{processEnd,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, form_no, dept_id, dept_name, device_room, device_no, device_name, 
+    device_level, device_type, charge_man, charge_name, charge_no, charge_tel, repair_time, 
+    charge_comment, computer_comment, receive_man, receive_man_name, receive_time, maintain_man, 
+    maintain_man_name, maintain_time, maintain_advice, failure_cause, dept_security_man, 
+    dept_security_man_name, other_content, error_description, comment, remark, creator, 
+    creator_name, is_deleted, gmt_create, gmt_modified, process_instance_id, is_process_end
+    from five_oa_computer_maintain
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, form_no, dept_id, dept_name, device_room, device_no, device_name, 
+    device_level, device_type, charge_man, charge_name, charge_no, charge_tel, repair_time, 
+    charge_comment, computer_comment, receive_man, receive_man_name, receive_time, maintain_man, 
+    maintain_man_name, maintain_time, maintain_advice, failure_cause, dept_security_man, 
+    dept_security_man_name, other_content, error_description, comment, remark, creator, 
+    creator_name, is_deleted, gmt_create, gmt_modified, process_instance_id, is_process_end
+    from five_oa_computer_maintain
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and isLikeSelect==null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="formNo != null and isLikeSelect==null and formNo != ''">
+         AND form_no = #{formNo}
+      </if>
+      <if test="deptId != null and isLikeSelect==null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and isLikeSelect==null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="deviceRoom != null and isLikeSelect==null and deviceRoom != ''">
+         AND device_room = #{deviceRoom}
+      </if>
+      <if test="deviceNo != null and isLikeSelect==null and deviceNo != ''">
+         AND device_no = #{deviceNo}
+      </if>
+      <if test="deviceName != null and isLikeSelect==null and deviceName != ''">
+         AND device_name = #{deviceName}
+      </if>
+      <if test="deviceLevel != null and isLikeSelect==null and deviceLevel != ''">
+         AND device_level = #{deviceLevel}
+      </if>
+      <if test="deviceType != null and isLikeSelect==null and deviceType != ''">
+         AND device_type = #{deviceType}
+      </if>
+      <if test="chargeMan != null and isLikeSelect==null and chargeMan != ''">
+         AND charge_man = #{chargeMan}
+      </if>
+      <if test="chargeName != null and isLikeSelect==null and chargeName != ''">
+         AND charge_name = #{chargeName}
+      </if>
+      <if test="chargeNo != null and isLikeSelect==null and chargeNo != ''">
+         AND charge_no = #{chargeNo}
+      </if>
+      <if test="chargeTel != null and isLikeSelect==null and chargeTel != ''">
+         AND charge_tel = #{chargeTel}
+      </if>
+      <if test="repairTime != null and isLikeSelect==null and repairTime != ''">
+         AND repair_time = #{repairTime}
+      </if>
+      <if test="chargeComment != null and isLikeSelect==null and chargeComment != ''">
+         AND charge_comment = #{chargeComment}
+      </if>
+      <if test="computerComment != null and isLikeSelect==null and computerComment != ''">
+         AND computer_comment = #{computerComment}
+      </if>
+      <if test="receiveMan != null and isLikeSelect==null and receiveMan != ''">
+         AND receive_man = #{receiveMan}
+      </if>
+      <if test="receiveManName != null and isLikeSelect==null and receiveManName != ''">
+         AND receive_man_name = #{receiveManName}
+      </if>
+      <if test="receiveTime != null and isLikeSelect==null and receiveTime != ''">
+         AND receive_time = #{receiveTime}
+      </if>
+      <if test="maintainMan != null and isLikeSelect==null and maintainMan != ''">
+         AND maintain_man = #{maintainMan}
+      </if>
+      <if test="maintainManName != null and isLikeSelect==null and maintainManName != ''">
+         AND maintain_man_name = #{maintainManName}
+      </if>
+      <if test="maintainTime != null and isLikeSelect==null and maintainTime != ''">
+         AND maintain_time = #{maintainTime}
+      </if>
+      <if test="maintainAdvice != null and isLikeSelect==null and maintainAdvice != ''">
+         AND maintain_advice = #{maintainAdvice}
+      </if>
+      <if test="failureCause != null and isLikeSelect==null and failureCause != ''">
+         AND failure_cause = #{failureCause}
+      </if>
+      <if test="deptSecurityMan != null and isLikeSelect==null and deptSecurityMan != ''">
+         AND dept_security_man = #{deptSecurityMan}
+      </if>
+      <if test="deptSecurityManName != null and isLikeSelect==null and deptSecurityManName != ''">
+         AND dept_security_man_name = #{deptSecurityManName}
+      </if>
+      <if test="otherContent != null and isLikeSelect==null and otherContent != ''">
+         AND other_content = #{otherContent}
+      </if>
+      <if test="errorDescription != null and isLikeSelect==null and errorDescription != ''">
+         AND error_description = #{errorDescription}
+      </if>
+      <if test="comment != null and isLikeSelect==null and comment != ''">
+         AND comment = #{comment}
+      </if>
+      <if test="remark != null and isLikeSelect==null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="processInstanceId != null and isLikeSelect==null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="processEnd != null and isLikeSelect==null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect==null">
+        AND (
+        dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+        <if test="initiator != null and initiator != ''">
+          or creator = #{initiator}
+        </if>
+        )
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="businessKey != null and isLikeSelect!= null and businessKey != '' ">
+         AND business_key like  CONCAT('%',#{businessKey},'%')
+      </if>
+      <if test="formNo != null and isLikeSelect!= null and formNo != '' ">
+         AND form_no like  CONCAT('%',#{formNo},'%')
+      </if>
+      <if test="deptName != null and isLikeSelect!= null and deptName != '' ">
+         AND dept_name like  CONCAT('%',#{deptName},'%')
+      </if>
+      <if test="deviceRoom != null and isLikeSelect!= null and deviceRoom != '' ">
+         AND device_room like  CONCAT('%',#{deviceRoom},'%')
+      </if>
+      <if test="deviceNo != null and isLikeSelect!= null and deviceNo != '' ">
+         AND device_no like  CONCAT('%',#{deviceNo},'%')
+      </if>
+      <if test="deviceName != null and isLikeSelect!= null and deviceName != '' ">
+         AND device_name like  CONCAT('%',#{deviceName},'%')
+      </if>
+      <if test="deviceLevel != null and isLikeSelect!= null and deviceLevel != '' ">
+         AND device_level like  CONCAT('%',#{deviceLevel},'%')
+      </if>
+      <if test="deviceType != null and isLikeSelect!= null and deviceType != '' ">
+         AND device_type like  CONCAT('%',#{deviceType},'%')
+      </if>
+      <if test="chargeMan != null and isLikeSelect!= null and chargeMan != '' ">
+         AND charge_man like  CONCAT('%',#{chargeMan},'%')
+      </if>
+      <if test="chargeName != null and isLikeSelect!= null and chargeName != '' ">
+         AND charge_name like  CONCAT('%',#{chargeName},'%')
+      </if>
+      <if test="chargeNo != null and isLikeSelect!= null and chargeNo != '' ">
+         AND charge_no like  CONCAT('%',#{chargeNo},'%')
+      </if>
+      <if test="chargeTel != null and isLikeSelect!= null and chargeTel != '' ">
+         AND charge_tel like  CONCAT('%',#{chargeTel},'%')
+      </if>
+      <if test="repairTime != null and isLikeSelect!= null and repairTime != '' ">
+         AND repair_time like  CONCAT('%',#{repairTime},'%')
+      </if>
+      <if test="chargeComment != null and isLikeSelect!= null and chargeComment != '' ">
+         AND charge_comment like  CONCAT('%',#{chargeComment},'%')
+      </if>
+      <if test="computerComment != null and isLikeSelect!= null and computerComment != '' ">
+         AND computer_comment like  CONCAT('%',#{computerComment},'%')
+      </if>
+      <if test="receiveMan != null and isLikeSelect!= null and receiveMan != '' ">
+         AND receive_man like  CONCAT('%',#{receiveMan},'%')
+      </if>
+      <if test="receiveManName != null and isLikeSelect!= null and receiveManName != '' ">
+         AND receive_man_name like  CONCAT('%',#{receiveManName},'%')
+      </if>
+      <if test="receiveTime != null and isLikeSelect!= null and receiveTime != '' ">
+         AND receive_time like  CONCAT('%',#{receiveTime},'%')
+      </if>
+      <if test="maintainMan != null and isLikeSelect!= null and maintainMan != '' ">
+         AND maintain_man like  CONCAT('%',#{maintainMan},'%')
+      </if>
+      <if test="maintainManName != null and isLikeSelect!= null and maintainManName != '' ">
+         AND maintain_man_name like  CONCAT('%',#{maintainManName},'%')
+      </if>
+      <if test="maintainTime != null and isLikeSelect!= null and maintainTime != '' ">
+         AND maintain_time like  CONCAT('%',#{maintainTime},'%')
+      </if>
+      <if test="maintainAdvice != null and isLikeSelect!= null and maintainAdvice != '' ">
+         AND maintain_advice like  CONCAT('%',#{maintainAdvice},'%')
+      </if>
+      <if test="failureCause != null and isLikeSelect!= null and failureCause != '' ">
+         AND failure_cause like  CONCAT('%',#{failureCause},'%')
+      </if>
+      <if test="deptSecurityMan != null and isLikeSelect!= null and deptSecurityMan != '' ">
+         AND dept_security_man like  CONCAT('%',#{deptSecurityMan},'%')
+      </if>
+      <if test="deptSecurityManName != null and isLikeSelect!= null and deptSecurityManName != '' ">
+         AND dept_security_man_name like  CONCAT('%',#{deptSecurityManName},'%')
+      </if>
+      <if test="otherContent != null and isLikeSelect!= null and otherContent != '' ">
+         AND other_content like  CONCAT('%',#{otherContent},'%')
+      </if>
+      <if test="errorDescription != null and isLikeSelect!= null and errorDescription != '' ">
+         AND error_description like  CONCAT('%',#{errorDescription},'%')
+      </if>
+      <if test="comment != null and isLikeSelect!= null and comment != '' ">
+         AND comment like  CONCAT('%',#{comment},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="processInstanceId != null and isLikeSelect!= null and processInstanceId != '' ">
+         AND process_instance_id like  CONCAT('%',#{processInstanceId},'%')
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="deptId != null and isLikeSelect!=null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect!=null">
+        AND (
+        dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+        <if test="initiator != null and initiator != ''">
+          or creator = #{initiator}
+        </if>
+        )
+      </if>
+    </where>
+  </sql>
+</mapper>

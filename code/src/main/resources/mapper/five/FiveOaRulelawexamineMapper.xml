@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveOaRulelawexamineMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveOaRulelawexamine">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="form_no" jdbcType="VARCHAR" property="formNo" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="send_man" jdbcType="VARCHAR" property="sendMan" />
+    <result column="send_man_name" jdbcType="VARCHAR" property="sendManName" />
+    <result column="send_time" jdbcType="VARCHAR" property="sendTime" />
+    <result column="rule_name" jdbcType="VARCHAR" property="ruleName" />
+    <result column="rule_description" jdbcType="VARCHAR" property="ruleDescription" />
+    <result column="law_name" jdbcType="VARCHAR" property="lawName" />
+    <result column="law_examine" jdbcType="VARCHAR" property="lawExamine" />
+    <result column="examine_man" jdbcType="VARCHAR" property="examineMan" />
+    <result column="examine_man_name" jdbcType="VARCHAR" property="examineManName" />
+    <result column="change_reason" jdbcType="VARCHAR" property="changeReason" />
+    <result column="send_dept_leader_comment" jdbcType="VARCHAR" property="sendDeptLeaderComment" />
+    <result column="counselor_comment" jdbcType="VARCHAR" property="counselorComment" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_oa_rulelawexamine
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveOaRulelawexamine">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_oa_rulelawexamine (business_key, form_no, dept_id, 
+      dept_name, send_man, send_man_name, 
+      send_time, rule_name, rule_description, 
+      law_name, law_examine, examine_man, 
+      examine_man_name, change_reason, send_dept_leader_comment, 
+      counselor_comment, remark, creator, 
+      creator_name, is_deleted, gmt_create, 
+      gmt_modified, process_instance_id, is_process_end
+      )
+    values (#{businessKey,jdbcType=VARCHAR}, #{formNo,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, 
+      #{deptName,jdbcType=VARCHAR}, #{sendMan,jdbcType=VARCHAR}, #{sendManName,jdbcType=VARCHAR}, 
+      #{sendTime,jdbcType=VARCHAR}, #{ruleName,jdbcType=VARCHAR}, #{ruleDescription,jdbcType=VARCHAR}, 
+      #{lawName,jdbcType=VARCHAR}, #{lawExamine,jdbcType=VARCHAR}, #{examineMan,jdbcType=VARCHAR}, 
+      #{examineManName,jdbcType=VARCHAR}, #{changeReason,jdbcType=VARCHAR}, #{sendDeptLeaderComment,jdbcType=VARCHAR}, 
+      #{counselorComment,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{creatorName,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{processInstanceId,jdbcType=VARCHAR}, #{processEnd,jdbcType=BIT}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveOaRulelawexamine">
+    update five_oa_rulelawexamine
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      form_no = #{formNo,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      send_man = #{sendMan,jdbcType=VARCHAR},
+      send_man_name = #{sendManName,jdbcType=VARCHAR},
+      send_time = #{sendTime,jdbcType=VARCHAR},
+      rule_name = #{ruleName,jdbcType=VARCHAR},
+      rule_description = #{ruleDescription,jdbcType=VARCHAR},
+      law_name = #{lawName,jdbcType=VARCHAR},
+      law_examine = #{lawExamine,jdbcType=VARCHAR},
+      examine_man = #{examineMan,jdbcType=VARCHAR},
+      examine_man_name = #{examineManName,jdbcType=VARCHAR},
+      change_reason = #{changeReason,jdbcType=VARCHAR},
+      send_dept_leader_comment = #{sendDeptLeaderComment,jdbcType=VARCHAR},
+      counselor_comment = #{counselorComment,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      is_process_end = #{processEnd,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, form_no, dept_id, dept_name, send_man, send_man_name, send_time, 
+    rule_name, rule_description, law_name, law_examine, examine_man, examine_man_name, 
+    change_reason, send_dept_leader_comment, counselor_comment, remark, creator, creator_name, 
+    is_deleted, gmt_create, gmt_modified, process_instance_id, is_process_end
+    from five_oa_rulelawexamine
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, form_no, dept_id, dept_name, send_man, send_man_name, send_time, 
+    rule_name, rule_description, law_name, law_examine, examine_man, examine_man_name, 
+    change_reason, send_dept_leader_comment, counselor_comment, remark, creator, creator_name, 
+    is_deleted, gmt_create, gmt_modified, process_instance_id, is_process_end
+    from five_oa_rulelawexamine
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="formNo != null and formNo != ''">
+         AND form_no = #{formNo}
+      </if>
+      <if test="deptId != null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="sendMan != null and sendMan != ''">
+         AND send_man = #{sendMan}
+      </if>
+      <if test="sendManName != null and sendManName != ''">
+         AND send_man_name = #{sendManName}
+      </if>
+      <if test="sendTime != null and sendTime != ''">
+         AND send_time = #{sendTime}
+      </if>
+      <if test="ruleName != null and ruleName != ''">
+         AND rule_name = #{ruleName}
+      </if>
+      <if test="ruleDescription != null and ruleDescription != ''">
+         AND rule_description = #{ruleDescription}
+      </if>
+      <if test="lawName != null and lawName != ''">
+         AND law_name = #{lawName}
+      </if>
+      <if test="lawExamine != null and lawExamine != ''">
+         AND law_examine = #{lawExamine}
+      </if>
+      <if test="examineMan != null and examineMan != ''">
+         AND examine_man = #{examineMan}
+      </if>
+      <if test="examineManName != null and examineManName != ''">
+         AND examine_man_name = #{examineManName}
+      </if>
+      <if test="changeReason != null and changeReason != ''">
+         AND change_reason = #{changeReason}
+      </if>
+      <if test="sendDeptLeaderComment != null and sendDeptLeaderComment != ''">
+         AND send_dept_leader_comment = #{sendDeptLeaderComment}
+      </if>
+      <if test="counselorComment != null and counselorComment != ''">
+         AND counselor_comment = #{counselorComment}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="processInstanceId != null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="processEnd != null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0">
+        AND dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+      </if>
+    </where>
+  </sql>
+</mapper>

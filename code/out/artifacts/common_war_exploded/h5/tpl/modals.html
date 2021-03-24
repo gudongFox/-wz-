@@ -1,0 +1,61 @@
+﻿<div id="contentFormUser" class="mui-content-padded" style="display: none;">
+    <div class="mui-input-row mui-search">
+        <input type="search" class="mui-input-clear" placeholder="" ng-model="vm.config.q" id="contentFormUser_q">
+    </div>
+    <ul class="mui-table-view mui-table-view-chevron">
+        <li class="mui-table-view-cell">
+            <a class="mui-icon mui-icon-left-nav mui-pull-left" ng-click="vm.backMain();"
+               style="font-size: 20px;">返回</a>
+
+            <a class="mui-pull-right" ng-if="vm.config.multiple" ng-click="vm.saveSelectUsers();"
+               style="font-size: 20px;color: blue;">确认</a>
+        </li>
+        <span ng-show="vm.config.multiple">
+            <li class="mui-table-view-cell mui-media" ng-repeat="user in vm.users"
+                ng-click="user.selected=!user.selected">
+                <img class="mui-media-object mui-pull-left"
+                     ng-src="{{user.selected?'/assets/img/tab_person_on.png':'/assets/img/tab_person.png'}}"
+                     style="width: 30px;height: 30px;line-height: 30px;"/>
+                <div class="mui-media-body" style="line-height: 30px;" ng-bind="user.cnName"></div>
+            </li>
+        </span>
+        <li class="mui-table-view-cell mui-media" ng-repeat="user in vm.users" ng-if="!vm.config.multiple"
+            ng-click="vm.saveSelectUser(user);">
+            <img class="mui-media-object mui-pull-left"
+                 ng-src="{{user.selected?'/assets/img/tab_person_on.png':'/assets/img/tab_person.png'}}"
+                 style="width: 30px;height: 30px;line-height: 30px;"/>
+            <div class="mui-media-body" style="line-height: 30px;" ng-bind="user.cnName"></div>
+        </li>
+    </ul>
+</div>
+
+<div id="contentFormSelectDept" class="mui-content-padded" style="display: none;">
+    <ul class="mui-table-view mui-table-view-chevron">
+        <li class="mui-table-view-cell">
+            <a class="mui-icon mui-icon-left-nav mui-pull-left" id="contentFormSelectDept_back"
+               style="font-size: 20px;">返回</a>
+
+            <a class="mui-icon mui-icon-checkmarkempty mui-pull-right" id="contentFormSelectDept_ok"
+               style="font-size: 18px;">确认</a>
+        </li>
+        <li class="mui-table-view-cell">
+            <div id="jsTreeDept_tree"></div>
+        </li>
+    </ul>
+</div>
+
+<div id="contentFormDept" class="mui-content-padded" style="display: none;">
+    <ul class="mui-table-view mui-table-view-chevron">
+        <li class="mui-table-view-cell">
+            <a class="mui-icon mui-icon-left-nav mui-pull-left" ng-click="vm.backMain();"
+               style="font-size: 20px;">返回</a>
+
+            <a class="mui-icon mui-icon-checkmarkempty mui-pull-right" ng-click="vm.saveSelectDept();"
+               style="font-size: 18px;">确认</a>
+        </li>
+
+        <li class="mui-table-view-cell">
+            <div id="deptTree"></div>
+        </li>
+    </ul>
+</div>

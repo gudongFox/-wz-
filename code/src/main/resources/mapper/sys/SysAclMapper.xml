@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.sys.dao.SysAclMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.sys.entity.SysAcl">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="acl_module_id" jdbcType="INTEGER" property="aclModuleId" />
+    <result column="ui_sref" jdbcType="VARCHAR" property="uiSref" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="seq" jdbcType="INTEGER" property="seq" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="opts" jdbcType="VARCHAR" property="opts" />
+  </resultMap>
+
+  <resultMap id="ExtendResultMap" extends="BaseResultMap" type="com.cmcu.mcc.sys.dto.SysAclDto">
+    <result column="acl_module_name" jdbcType="VARCHAR" property="aclModuleName"/>
+  </resultMap>
+
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+        AND a.id = #{id,jdbcType=INTEGER}
+      </if>
+      <if test="uiSref != null">
+        AND a.ui_sref = #{uiSref,jdbcType=VARCHAR}
+      </if>
+
+      <if test="deleted != null">
+        AND a.is_deleted = #{deleted,jdbcType=BIT}
+      </if>
+      <if test="aclModuleId != null">
+        AND a.acl_module_id = #{aclModuleId,jdbcType=INTEGER}
+      </if>
+      <if test="aclIds != null">
+        AND a.id in
+        <foreach collection="aclIds" open="(" close=")" separator="," item="id" index="i">
+          #{id}
+        </foreach>
+      </if>
+      <if test="aclModuleIds != null">
+        AND a.acl_module_id in
+        <foreach collection="aclModuleIds" open="(" close=")" separator="," item="aclModuleId" index="i">
+          #{aclModuleId}
+        </foreach>
+      </if>
+      <if test="type != null">
+        AND a.type = #{type,jdbcType=INTEGER}
+      </if>
+      <if test="q != null and q != '' ">
+        AND (
+        a.name like CONCAT('%',#{q},'%') or
+        a.code like CONCAT('%',#{q},'%') or
+        a.url like CONCAT('%',#{q},'%') or
+        a.ui_sref like CONCAT('%',#{q},'%')
+        )
+      </if>
+    </where>
+  </sql>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_acl
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.sys.entity.SysAcl">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sys_acl (code, name, acl_module_id, 
+      ui_sref, url, type, icon,
+      is_deleted, seq, remark,opts)
+    values (#{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{aclModuleId,jdbcType=INTEGER}, 
+      #{uiSref,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{icon,jdbcType=VARCHAR},
+      #{deleted,jdbcType=BIT}, #{seq,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{opts,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.sys.entity.SysAcl">
+    update sys_acl
+    set code = #{code,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      acl_module_id = #{aclModuleId,jdbcType=INTEGER},
+      ui_sref = #{uiSref,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      icon = #{icon,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      seq = #{seq,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      opts = #{opts,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select *
+    from sys_acl
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="ExtendResultMap">
+    SELECT  a.*,b.name as acl_module_name FROM sys_acl a
+    left join sys_acl_module b on a.acl_module_id=b.id
+    <include refid="Base_Where_List"></include>
+    order by a.acl_module_id asc,seq asc
+  </select>
+
+
+
+  <select id="listMenuByRoleIdList" parameterType="java.util.Arrays" resultMap="BaseResultMap">
+    select * from sys_acl where id in (
+    select b.id from sys_role_acl a
+    left join sys_acl b on a.acl_id=b.id
+    where b.is_deleted=0 and b.type=1
+    <if test="roleIdList != null">
+      AND a.role_id in
+      <foreach collection="roleIdList" open="(" close=")" separator="," item="roleId" index="i">
+        #{roleId}
+      </foreach>
+    </if>
+    ) order by seq asc
+  </select>
+
+
+</mapper>

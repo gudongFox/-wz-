@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.oa.dao.OaArchiveMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.oa.entity.OaArchive">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="step_name" jdbcType="VARCHAR" property="stepName" />
+    <result column="step_id" jdbcType="INTEGER" property="stepId" />
+    <result column="contract_no" jdbcType="VARCHAR" property="contractNo" />
+    <result column="stage_name" jdbcType="VARCHAR" property="stageName" />
+    <result column="design_time" jdbcType="VARCHAR" property="designTime" />
+    <result column="project_scale" jdbcType="VARCHAR" property="projectScale" />
+    <result column="project_type" jdbcType="VARCHAR" property="projectType" />
+    <result column="project_desc" jdbcType="VARCHAR" property="projectDesc" />
+    <result column="construction_org" jdbcType="VARCHAR" property="constructionOrg" />
+    <result column="archive_time" jdbcType="VARCHAR" property="archiveTime" />
+    <result column="seq" jdbcType="INTEGER" property="seq" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_dept_own" jdbcType="BIT" property="deptOwn" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from oa_archive
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.oa.entity.OaArchive">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into oa_archive (dept_id, project_id, dept_name, 
+      project_name, step_name, step_id, 
+      contract_no, stage_name, design_time, 
+      project_scale, project_type, project_desc, 
+      construction_org, archive_time, seq, 
+      is_deleted, gmt_create, gmt_modified, 
+      creator, creator_name, remark, 
+      is_dept_own, process_instance_id, is_process_end
+      )
+    values (#{deptId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, 
+      #{projectName,jdbcType=VARCHAR}, #{stepName,jdbcType=VARCHAR}, #{stepId,jdbcType=INTEGER}, 
+      #{contractNo,jdbcType=VARCHAR}, #{stageName,jdbcType=VARCHAR}, #{designTime,jdbcType=VARCHAR}, 
+      #{projectScale,jdbcType=VARCHAR}, #{projectType,jdbcType=VARCHAR}, #{projectDesc,jdbcType=VARCHAR}, 
+      #{constructionOrg,jdbcType=VARCHAR}, #{archiveTime,jdbcType=VARCHAR}, #{seq,jdbcType=INTEGER}, 
+      #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{deptOwn,jdbcType=BIT}, #{processInstanceId,jdbcType=VARCHAR}, #{processEnd,jdbcType=BIT}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.oa.entity.OaArchive">
+    update oa_archive
+    set dept_id = #{deptId,jdbcType=INTEGER},
+      project_id = #{projectId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      step_name = #{stepName,jdbcType=VARCHAR},
+      step_id = #{stepId,jdbcType=INTEGER},
+      contract_no = #{contractNo,jdbcType=VARCHAR},
+      stage_name = #{stageName,jdbcType=VARCHAR},
+      design_time = #{designTime,jdbcType=VARCHAR},
+      project_scale = #{projectScale,jdbcType=VARCHAR},
+      project_type = #{projectType,jdbcType=VARCHAR},
+      project_desc = #{projectDesc,jdbcType=VARCHAR},
+      construction_org = #{constructionOrg,jdbcType=VARCHAR},
+      archive_time = #{archiveTime,jdbcType=VARCHAR},
+      seq = #{seq,jdbcType=INTEGER},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_dept_own = #{deptOwn,jdbcType=BIT},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      is_process_end = #{processEnd,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, dept_id, project_id, dept_name, project_name, step_name, step_id, contract_no, 
+    stage_name, design_time, project_scale, project_type, project_desc, construction_org, 
+    archive_time, seq, is_deleted, gmt_create, gmt_modified, creator, creator_name, remark, 
+    is_dept_own, process_instance_id, is_process_end
+    from oa_archive
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, dept_id, project_id, dept_name, project_name, step_name, step_id, contract_no, 
+    stage_name, design_time, project_scale, project_type, project_desc, construction_org, 
+    archive_time, seq, is_deleted, gmt_create, gmt_modified, creator, creator_name, remark, 
+    is_dept_own, process_instance_id, is_process_end
+    from oa_archive
+    <include refid="Base_Where_List" />
+    order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="deptId != null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="projectId != null">
+         AND project_id = #{projectId}
+      </if>
+      <if test="deptName != null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="projectName != null and projectName != ''">
+         AND project_name = #{projectName}
+      </if>
+      <if test="stepName != null and stepName != ''">
+         AND step_name = #{stepName}
+      </if>
+      <if test="stepId != null">
+         AND step_id = #{stepId}
+      </if>
+      <if test="contractNo != null and contractNo != ''">
+         AND contract_no = #{contractNo}
+      </if>
+      <if test="stageName != null and stageName != ''">
+         AND stage_name = #{stageName}
+      </if>
+      <if test="designTime != null and designTime != ''">
+         AND design_time = #{designTime}
+      </if>
+      <if test="projectScale != null and projectScale != ''">
+         AND project_scale = #{projectScale}
+      </if>
+      <if test="projectType != null and projectType != ''">
+         AND project_type = #{projectType}
+      </if>
+      <if test="projectDesc != null and projectDesc != ''">
+         AND project_desc = #{projectDesc}
+      </if>
+      <if test="constructionOrg != null and constructionOrg != ''">
+         AND construction_org = #{constructionOrg}
+      </if>
+      <if test="archiveTime != null and archiveTime != ''">
+         AND archive_time = #{archiveTime}
+      </if>
+      <if test="seq != null">
+         AND seq = #{seq}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="deptOwn != null">
+         AND is_dept_own = #{deptOwn}
+      </if>
+      <if test="processInstanceId != null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="processEnd != null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="projectNames != null and projectNames != '' ">
+        AND (
+        project_name like CONCAT('%',#{projectNames},'%')
+        )
+      </if>
+      <if test="deptNames != null and deptNames != '' ">
+        AND (
+        dept_name like CONCAT('%',#{deptNames},'%')
+        )
+      </if>
+    </where>
+  </sql>
+</mapper>

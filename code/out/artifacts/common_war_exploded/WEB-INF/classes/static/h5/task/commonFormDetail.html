@@ -1,0 +1,42 @@
+﻿<span id="contentForm">
+        <div id="segmentedControl" class="mui-segmented-control">
+            <a class="mui-control-item mui-active">基础信息</a>
+            <a class="mui-control-item">流程信息</a>
+            <a class="mui-control-item">流程图</a>
+        </div>
+        <div class="mui-control-content mui-active">
+
+            <span ng-include="'/h5/tpl/formDetail.html'"></span>
+
+            <span ng-include="'/h5/tpl/businessFile.html'"></span>
+
+            <div style="height: 40px;">&nbsp;</div>
+
+            <div id="multipleSheet" class="mui-popover mui-popover-bottom mui-popover-action ">
+                <!-- 可选择菜单 -->
+                <ul class="mui-table-view">
+                    <li class="mui-table-view-cell" ng-repeat="code in vm.detail.dataSource"
+                        ng-click="code.selected=!code.selected">
+                        <span ng-if="code.selected"> ✔ </span>
+                        <span ng-bind="code.name"></span>
+                    </li>
+                </ul>
+                <!-- 取消菜单 -->
+                <ul class="mui-table-view">
+                    <li class="mui-table-view-cell">
+                        <a ng-click="vm.saveMultiple();"><b>确定</b></a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <div class="mui-control-content">
+              <span ng-include="'/h5/tpl/taskHistory.html'"></span>
+        </div>
+        <div class="mui-control-content">
+           <span ng-include="'/h5/tpl/taskPicture.html'"></span>
+        </div>
+        <div style="height: 50px;">&nbsp;</div>
+</span>
+<span ng-include="'/h5/tpl/taskAction.html'"></span>
+<span ng-include="'/h5/tpl/modals.html'"></span>

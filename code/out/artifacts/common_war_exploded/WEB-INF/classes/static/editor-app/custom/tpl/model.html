@@ -1,0 +1,98 @@
+﻿
+<br/>
+
+<!-- begin:: Content -->
+<div class="kt-container  kt-grid__item kt-grid__item--fluid">
+    <div class="kt-portlet">
+        <div class="kt-portlet__head">
+            <div class="kt-portlet__head-label">
+												<span class="kt-portlet__head-icon">
+													<i class="kt-font-brand flaticon2-document"></i>
+												</span>
+                <h3 class="kt-portlet__head-title">
+                    模型定义
+                </h3>
+            </div>
+            <div class="kt-portlet__head-toolbar" >
+                <div class="kt-portlet__head-wrapper">
+                    <div class="kt-portlet__head-actions">
+                        <div class="kt-subheader">
+                            <div class="kt-subheader__toolbar">
+                                <div class="kt-subheader__wrapper">
+                                    <a class="btn kt-subheader__btn-primary btn-icon" title="刷新数据"
+                                       ng-click="vm.newModel();">
+                                        <i class="flaticon2-plus"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="kt-portlet__body">
+            <!--begin: Datatable -->
+            <div class="dataTables_wrapper dt-bootstrap4">
+                <div class="row">
+                    <div class="col-sm-6 text-left">
+                        <div class="dataTables_filter">
+
+                            <label><input type="text"
+                                                 class="form-control form-control-sm"
+                                                 placeholder="流程名称"
+                                                 ng-model="vm.params.modelName"/></label>
+
+                            <label><select
+                                    ng-options="s.code as s.name for s in vm.modelCategoryList"
+                                    ng-model="vm.params.modelCategory" class="form-control form-control-sm"/></label>
+
+
+                            <a class="btn btn-sm btn-label-linkedin" ng-click="vm.queryData();"><i class="fa fa-search"></i>查询</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-striped- table-bordered table-hover table-checkable dataTable dtr-inline">
+                            <thead>
+                            <tr>
+                                <th style="width: 20px;">#</th>
+                                <th style="width: 70px;">客户</th>
+                                <th style="width: 120px;">流程类别</th>
+                                <th>流程标识</th>
+                                <th>流程名称</th>
+                                <th title="最后一次部署id" style="width: 100px;">部署</th>
+                                <th style="width: 130px;">创建时间</th>
+                                <th style="width: 130px;">更新时间</th>
+                                <th style="width: 60px;">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in vm.pageInfo.list">
+                                <td ng-bind="$index+vm.pageInfo.startRow"></td>
+                                <td ng-bind="item.tenantId"></td>
+                                <td ng-bind="item.metaInfo.modelCategory"></td>
+                                <td><a ng-href="{{'/editor-app/modeler.html?modelId='+item.id}}" target="_blank"
+                                       ng-bind="item.metaInfo.modelKey"></a></td>
+                                <td ng-bind="item.name"></td>
+                                <td ng-bind="item.deploymentId"></td>
+                                <td ng-bind="item.createTime|date:'yyyy-MM-dd HH:mm'"></td>
+                                <td ng-bind="item.lastUpdateTime|date:'yyyy-MM-dd HH:mm'"></td>
+                                <td>
+                                    <i class="flaticon2-paper-plane" style="margin-left: 5px;cursor: pointer;" title="部署" ng-click="vm.deployment(item.id);"/>
+                                    <i class="flaticon2-trash" style="margin-left: 5px;cursor: pointer;" title="删除"  ng-click="vm.remove(item.id);"/>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <my-pager data-page-info="vm.pageInfo" on-load="vm.loadPagedData()"></my-pager>
+            </div>
+            <!--end: Datatable -->
+        </div>
+    </div>
+</div>
+<!-- end:: Content -->
+

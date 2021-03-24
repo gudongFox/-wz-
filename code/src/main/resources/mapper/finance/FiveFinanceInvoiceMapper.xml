@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.finance.dao.FiveFinanceInvoiceMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.finance.entity.FiveFinanceInvoice">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="income_confirm_ids" jdbcType="VARCHAR" property="incomeConfirmIds" />
+    <result column="income_confirm_id" jdbcType="INTEGER" property="incomeConfirmId" />
+    <result column="invoice_cancel_id" jdbcType="INTEGER" property="invoiceCancelId" />
+    <result column="invoice_collection_ids" jdbcType="VARCHAR" property="invoiceCollectionIds" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="form_no" jdbcType="VARCHAR" property="formNo" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="legal_dept" jdbcType="VARCHAR" property="legalDept" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="apply_man" jdbcType="VARCHAR" property="applyMan" />
+    <result column="apply_man_name" jdbcType="VARCHAR" property="applyManName" />
+    <result column="user_tel" jdbcType="VARCHAR" property="userTel" />
+    <result column="invoice_time" jdbcType="VARCHAR" property="invoiceTime" />
+    <result column="contract_customer" jdbcType="VARCHAR" property="contractCustomer" />
+    <result column="local_invoice_type" jdbcType="VARCHAR" property="localInvoiceType" />
+    <result column="other_invoice_type" jdbcType="VARCHAR" property="otherInvoiceType" />
+    <result column="invoice_head_name" jdbcType="VARCHAR" property="invoiceHeadName" />
+    <result column="tax_no" jdbcType="VARCHAR" property="taxNo" />
+    <result column="customer_adderss" jdbcType="VARCHAR" property="customerAdderss" />
+    <result column="customer_tel" jdbcType="VARCHAR" property="customerTel" />
+    <result column="customer_tax_code" jdbcType="VARCHAR" property="customerTaxCode" />
+    <result column="bank" jdbcType="VARCHAR" property="bank" />
+    <result column="bank_account" jdbcType="VARCHAR" property="bankAccount" />
+    <result column="receive_time" jdbcType="VARCHAR" property="receiveTime" />
+    <result column="remind_receive_man" jdbcType="VARCHAR" property="remindReceiveMan" />
+    <result column="remind_receive_man_name" jdbcType="VARCHAR" property="remindReceiveManName" />
+    <result column="dept_charge_man" jdbcType="VARCHAR" property="deptChargeMan" />
+    <result column="dept_charge_man_name" jdbcType="VARCHAR" property="deptChargeManName" />
+    <result column="finance_confirm_time" jdbcType="VARCHAR" property="financeConfirmTime" />
+    <result column="invoice_remark" jdbcType="VARCHAR" property="invoiceRemark" />
+    <result column="contract_library_id" jdbcType="INTEGER" property="contractLibraryId" />
+    <result column="contract_no" jdbcType="VARCHAR" property="contractNo" />
+    <result column="contract_name" jdbcType="VARCHAR" property="contractName" />
+    <result column="contract_money" jdbcType="VARCHAR" property="contractMoney" />
+    <result column="contract_get_invoice" jdbcType="VARCHAR" property="contractGetInvoice" />
+    <result column="receive_type" jdbcType="VARCHAR" property="receiveType" />
+    <result column="invoice_money" jdbcType="VARCHAR" property="invoiceMoney" />
+    <result column="charge_against_pre_money" jdbcType="VARCHAR" property="chargeAgainstPreMoney" />
+    <result column="sale_money" jdbcType="VARCHAR" property="saleMoney" />
+    <result column="out_put_tax_money" jdbcType="VARCHAR" property="outPutTaxMoney" />
+    <result column="invoice_no" jdbcType="VARCHAR" property="invoiceNo" />
+    <result column="promise_remittance_no" jdbcType="VARCHAR" property="promiseRemittanceNo" />
+    <result column="note_money" jdbcType="VARCHAR" property="noteMoney" />
+    <result column="income_stage" jdbcType="VARCHAR" property="incomeStage" />
+    <result column="income_build" jdbcType="VARCHAR" property="incomeBuild" />
+    <result column="invoice_get_money" jdbcType="VARCHAR" property="invoiceGetMoney" />
+    <result column="income_id" jdbcType="INTEGER" property="incomeId" />
+    <result column="invoice_get_money_ing" jdbcType="VARCHAR" property="invoiceGetMoneyIng" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_finance_invoice
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.finance.entity.FiveFinanceInvoice">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_finance_invoice (income_confirm_ids, income_confirm_id, 
+      invoice_cancel_id, invoice_collection_ids, 
+      business_key, form_no, remark, 
+      creator, creator_name, is_deleted, 
+      gmt_create, gmt_modified, is_process_end, 
+      process_instance_id, legal_dept, dept_id, 
+      dept_name, apply_man, apply_man_name, 
+      user_tel, invoice_time, contract_customer, 
+      local_invoice_type, other_invoice_type, invoice_head_name, 
+      tax_no, customer_adderss, customer_tel, 
+      customer_tax_code, bank, bank_account, 
+      receive_time, remind_receive_man, remind_receive_man_name, 
+      dept_charge_man, dept_charge_man_name, finance_confirm_time, 
+      invoice_remark, contract_library_id, contract_no, 
+      contract_name, contract_money, contract_get_invoice, 
+      receive_type, invoice_money, charge_against_pre_money, 
+      sale_money, out_put_tax_money, invoice_no, 
+      promise_remittance_no, note_money, income_stage, 
+      income_build, invoice_get_money, income_id, 
+      invoice_get_money_ing)
+    values (#{incomeConfirmIds,jdbcType=VARCHAR}, #{incomeConfirmId,jdbcType=INTEGER}, 
+      #{invoiceCancelId,jdbcType=INTEGER}, #{invoiceCollectionIds,jdbcType=VARCHAR}, 
+      #{businessKey,jdbcType=VARCHAR}, #{formNo,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{processEnd,jdbcType=BIT}, 
+      #{processInstanceId,jdbcType=VARCHAR}, #{legalDept,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, 
+      #{deptName,jdbcType=VARCHAR}, #{applyMan,jdbcType=VARCHAR}, #{applyManName,jdbcType=VARCHAR}, 
+      #{userTel,jdbcType=VARCHAR}, #{invoiceTime,jdbcType=VARCHAR}, #{contractCustomer,jdbcType=VARCHAR}, 
+      #{localInvoiceType,jdbcType=VARCHAR}, #{otherInvoiceType,jdbcType=VARCHAR}, #{invoiceHeadName,jdbcType=VARCHAR}, 
+      #{taxNo,jdbcType=VARCHAR}, #{customerAdderss,jdbcType=VARCHAR}, #{customerTel,jdbcType=VARCHAR}, 
+      #{customerTaxCode,jdbcType=VARCHAR}, #{bank,jdbcType=VARCHAR}, #{bankAccount,jdbcType=VARCHAR}, 
+      #{receiveTime,jdbcType=VARCHAR}, #{remindReceiveMan,jdbcType=VARCHAR}, #{remindReceiveManName,jdbcType=VARCHAR}, 
+      #{deptChargeMan,jdbcType=VARCHAR}, #{deptChargeManName,jdbcType=VARCHAR}, #{financeConfirmTime,jdbcType=VARCHAR}, 
+      #{invoiceRemark,jdbcType=VARCHAR}, #{contractLibraryId,jdbcType=INTEGER}, #{contractNo,jdbcType=VARCHAR}, 
+      #{contractName,jdbcType=VARCHAR}, #{contractMoney,jdbcType=VARCHAR}, #{contractGetInvoice,jdbcType=VARCHAR}, 
+      #{receiveType,jdbcType=VARCHAR}, #{invoiceMoney,jdbcType=VARCHAR}, #{chargeAgainstPreMoney,jdbcType=VARCHAR}, 
+      #{saleMoney,jdbcType=VARCHAR}, #{outPutTaxMoney,jdbcType=VARCHAR}, #{invoiceNo,jdbcType=VARCHAR}, 
+      #{promiseRemittanceNo,jdbcType=VARCHAR}, #{noteMoney,jdbcType=VARCHAR}, #{incomeStage,jdbcType=VARCHAR}, 
+      #{incomeBuild,jdbcType=VARCHAR}, #{invoiceGetMoney,jdbcType=VARCHAR}, #{incomeId,jdbcType=INTEGER}, 
+      #{invoiceGetMoneyIng,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.finance.entity.FiveFinanceInvoice">
+    update five_finance_invoice
+    set income_confirm_ids = #{incomeConfirmIds,jdbcType=VARCHAR},
+      income_confirm_id = #{incomeConfirmId,jdbcType=INTEGER},
+      invoice_cancel_id = #{invoiceCancelId,jdbcType=INTEGER},
+      invoice_collection_ids = #{invoiceCollectionIds,jdbcType=VARCHAR},
+      business_key = #{businessKey,jdbcType=VARCHAR},
+      form_no = #{formNo,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      is_process_end = #{processEnd,jdbcType=BIT},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      legal_dept = #{legalDept,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      apply_man = #{applyMan,jdbcType=VARCHAR},
+      apply_man_name = #{applyManName,jdbcType=VARCHAR},
+      user_tel = #{userTel,jdbcType=VARCHAR},
+      invoice_time = #{invoiceTime,jdbcType=VARCHAR},
+      contract_customer = #{contractCustomer,jdbcType=VARCHAR},
+      local_invoice_type = #{localInvoiceType,jdbcType=VARCHAR},
+      other_invoice_type = #{otherInvoiceType,jdbcType=VARCHAR},
+      invoice_head_name = #{invoiceHeadName,jdbcType=VARCHAR},
+      tax_no = #{taxNo,jdbcType=VARCHAR},
+      customer_adderss = #{customerAdderss,jdbcType=VARCHAR},
+      customer_tel = #{customerTel,jdbcType=VARCHAR},
+      customer_tax_code = #{customerTaxCode,jdbcType=VARCHAR},
+      bank = #{bank,jdbcType=VARCHAR},
+      bank_account = #{bankAccount,jdbcType=VARCHAR},
+      receive_time = #{receiveTime,jdbcType=VARCHAR},
+      remind_receive_man = #{remindReceiveMan,jdbcType=VARCHAR},
+      remind_receive_man_name = #{remindReceiveManName,jdbcType=VARCHAR},
+      dept_charge_man = #{deptChargeMan,jdbcType=VARCHAR},
+      dept_charge_man_name = #{deptChargeManName,jdbcType=VARCHAR},
+      finance_confirm_time = #{financeConfirmTime,jdbcType=VARCHAR},
+      invoice_remark = #{invoiceRemark,jdbcType=VARCHAR},
+      contract_library_id = #{contractLibraryId,jdbcType=INTEGER},
+      contract_no = #{contractNo,jdbcType=VARCHAR},
+      contract_name = #{contractName,jdbcType=VARCHAR},
+      contract_money = #{contractMoney,jdbcType=VARCHAR},
+      contract_get_invoice = #{contractGetInvoice,jdbcType=VARCHAR},
+      receive_type = #{receiveType,jdbcType=VARCHAR},
+      invoice_money = #{invoiceMoney,jdbcType=VARCHAR},
+      charge_against_pre_money = #{chargeAgainstPreMoney,jdbcType=VARCHAR},
+      sale_money = #{saleMoney,jdbcType=VARCHAR},
+      out_put_tax_money = #{outPutTaxMoney,jdbcType=VARCHAR},
+      invoice_no = #{invoiceNo,jdbcType=VARCHAR},
+      promise_remittance_no = #{promiseRemittanceNo,jdbcType=VARCHAR},
+      note_money = #{noteMoney,jdbcType=VARCHAR},
+      income_stage = #{incomeStage,jdbcType=VARCHAR},
+      income_build = #{incomeBuild,jdbcType=VARCHAR},
+      invoice_get_money = #{invoiceGetMoney,jdbcType=VARCHAR},
+      income_id = #{incomeId,jdbcType=INTEGER},
+      invoice_get_money_ing = #{invoiceGetMoneyIng,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, income_confirm_ids, income_confirm_id, invoice_cancel_id, invoice_collection_ids, 
+    business_key, form_no, remark, creator, creator_name, is_deleted, gmt_create, gmt_modified, 
+    is_process_end, process_instance_id, legal_dept, dept_id, dept_name, apply_man, apply_man_name, 
+    user_tel, invoice_time, contract_customer, local_invoice_type, other_invoice_type, 
+    invoice_head_name, tax_no, customer_adderss, customer_tel, customer_tax_code, bank, 
+    bank_account, receive_time, remind_receive_man, remind_receive_man_name, dept_charge_man, 
+    dept_charge_man_name, finance_confirm_time, invoice_remark, contract_library_id, 
+    contract_no, contract_name, contract_money, contract_get_invoice, receive_type, invoice_money, 
+    charge_against_pre_money, sale_money, out_put_tax_money, invoice_no, promise_remittance_no, 
+    note_money, income_stage, income_build, invoice_get_money, income_id, invoice_get_money_ing
+    from five_finance_invoice
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, income_confirm_ids, income_confirm_id, invoice_cancel_id, invoice_collection_ids, 
+    business_key, form_no, remark, creator, creator_name, is_deleted, gmt_create, gmt_modified, 
+    is_process_end, process_instance_id, legal_dept, dept_id, dept_name, apply_man, apply_man_name, 
+    user_tel, invoice_time, contract_customer, local_invoice_type, other_invoice_type, 
+    invoice_head_name, tax_no, customer_adderss, customer_tel, customer_tax_code, bank, 
+    bank_account, receive_time, remind_receive_man, remind_receive_man_name, dept_charge_man, 
+    dept_charge_man_name, finance_confirm_time, invoice_remark, contract_library_id, 
+    contract_no, contract_name, contract_money, contract_get_invoice, receive_type, invoice_money, 
+    charge_against_pre_money, sale_money, out_put_tax_money, invoice_no, promise_remittance_no, 
+    note_money, income_stage, income_build, invoice_get_money, income_id, invoice_get_money_ing
+    from five_finance_invoice
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="incomeConfirmIds != null and incomeConfirmIds != ''">
+         AND income_confirm_ids = #{incomeConfirmIds}
+      </if>
+      <if test="incomeConfirmId != null">
+         AND income_confirm_id = #{incomeConfirmId}
+      </if>
+      <if test="invoiceCancelId != null">
+         AND invoice_cancel_id = #{invoiceCancelId}
+      </if>
+      <if test="invoiceCollectionIds != null and invoiceCollectionIds != ''">
+         AND invoice_collection_ids = #{invoiceCollectionIds}
+      </if>
+      <if test="businessKey != null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="formNo != null and formNo != ''">
+         AND form_no = #{formNo}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="processEnd != null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="processInstanceId != null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="legalDept != null and legalDept != ''">
+         AND legal_dept = #{legalDept}
+      </if>
+      <if test="deptId != null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="applyMan != null and applyMan != ''">
+         AND apply_man = #{applyMan}
+      </if>
+      <if test="applyManName != null and applyManName != ''">
+         AND apply_man_name = #{applyManName}
+      </if>
+      <if test="userTel != null and userTel != ''">
+         AND user_tel = #{userTel}
+      </if>
+      <if test="invoiceTime != null and invoiceTime != ''">
+         AND invoice_time = #{invoiceTime}
+      </if>
+      <if test="contractCustomer != null and contractCustomer != ''">
+         AND contract_customer = #{contractCustomer}
+      </if>
+      <if test="localInvoiceType != null and localInvoiceType != ''">
+         AND local_invoice_type = #{localInvoiceType}
+      </if>
+      <if test="otherInvoiceType != null and otherInvoiceType != ''">
+         AND other_invoice_type = #{otherInvoiceType}
+      </if>
+      <if test="invoiceHeadName != null and invoiceHeadName != ''">
+         AND invoice_head_name = #{invoiceHeadName}
+      </if>
+      <if test="taxNo != null and taxNo != ''">
+         AND tax_no = #{taxNo}
+      </if>
+      <if test="customerAdderss != null and customerAdderss != ''">
+         AND customer_adderss = #{customerAdderss}
+      </if>
+      <if test="customerTel != null and customerTel != ''">
+         AND customer_tel = #{customerTel}
+      </if>
+      <if test="customerTaxCode != null and customerTaxCode != ''">
+         AND customer_tax_code = #{customerTaxCode}
+      </if>
+      <if test="bank != null and bank != ''">
+         AND bank = #{bank}
+      </if>
+      <if test="bankAccount != null and bankAccount != ''">
+         AND bank_account = #{bankAccount}
+      </if>
+      <if test="receiveTime != null and receiveTime != ''">
+         AND receive_time = #{receiveTime}
+      </if>
+      <if test="remindReceiveMan != null and remindReceiveMan != ''">
+         AND remind_receive_man = #{remindReceiveMan}
+      </if>
+      <if test="remindReceiveManName != null and remindReceiveManName != ''">
+         AND remind_receive_man_name = #{remindReceiveManName}
+      </if>
+      <if test="deptChargeMan != null and deptChargeMan != ''">
+         AND dept_charge_man = #{deptChargeMan}
+      </if>
+      <if test="deptChargeManName != null and deptChargeManName != ''">
+         AND dept_charge_man_name = #{deptChargeManName}
+      </if>
+      <if test="financeConfirmTime != null and financeConfirmTime != ''">
+         AND finance_confirm_time = #{financeConfirmTime}
+      </if>
+      <if test="invoiceRemark != null and invoiceRemark != ''">
+         AND invoice_remark = #{invoiceRemark}
+      </if>
+      <if test="contractLibraryId != null">
+         AND contract_library_id = #{contractLibraryId}
+      </if>
+      <if test="contractNo != null and contractNo != ''">
+         AND contract_no = #{contractNo}
+      </if>
+      <if test="contractName != null and contractName != ''">
+         AND contract_name = #{contractName}
+      </if>
+      <if test="contractMoney != null and contractMoney != ''">
+         AND contract_money = #{contractMoney}
+      </if>
+      <if test="contractGetInvoice != null and contractGetInvoice != ''">
+         AND contract_get_invoice = #{contractGetInvoice}
+      </if>
+      <if test="receiveType != null and receiveType != ''">
+         AND receive_type = #{receiveType}
+      </if>
+      <if test="invoiceMoney != null and invoiceMoney != ''">
+         AND invoice_money = #{invoiceMoney}
+      </if>
+      <if test="chargeAgainstPreMoney != null and chargeAgainstPreMoney != ''">
+         AND charge_against_pre_money = #{chargeAgainstPreMoney}
+      </if>
+      <if test="saleMoney != null and saleMoney != ''">
+         AND sale_money = #{saleMoney}
+      </if>
+      <if test="outPutTaxMoney != null and outPutTaxMoney != ''">
+         AND out_put_tax_money = #{outPutTaxMoney}
+      </if>
+      <if test="invoiceNo != null and invoiceNo != ''">
+         AND invoice_no = #{invoiceNo}
+      </if>
+      <if test="promiseRemittanceNo != null and promiseRemittanceNo != ''">
+         AND promise_remittance_no = #{promiseRemittanceNo}
+      </if>
+      <if test="noteMoney != null and noteMoney != ''">
+         AND note_money = #{noteMoney}
+      </if>
+      <if test="incomeStage != null and incomeStage != ''">
+         AND income_stage = #{incomeStage}
+      </if>
+      <if test="incomeBuild != null and incomeBuild != ''">
+         AND income_build = #{incomeBuild}
+      </if>
+      <if test="invoiceGetMoney != null and invoiceGetMoney != ''">
+         AND invoice_get_money = #{invoiceGetMoney}
+      </if>
+      <if test="incomeId != null">
+         AND income_id = #{incomeId}
+      </if>
+      <if test="invoiceGetMoneyIng != null and invoiceGetMoneyIng != ''">
+         AND invoice_get_money_ing = #{invoiceGetMoneyIng}
+      </if>
+    </where>
+  </sql>
+</mapper>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.common.dao.CommonEdBuildMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.common.entity.CommonEdBuild">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="build_name" jdbcType="VARCHAR" property="buildName" />
+    <result column="build_no" jdbcType="VARCHAR" property="buildNo" />
+    <result column="build_area" jdbcType="VARCHAR" property="buildArea" />
+    <result column="seq" jdbcType="INTEGER" property="seq" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from common_ed_build
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.common.entity.CommonEdBuild">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into common_ed_build (business_key, build_name, build_no,  build_area,
+    seq, is_deleted, gmt_create,
+      gmt_modified, remark)
+    values (#{businessKey,jdbcType=VARCHAR}, #{buildName,jdbcType=VARCHAR}, #{buildNo,jdbcType=VARCHAR},  #{buildArea,jdbcType=VARCHAR},
+    #{seq,jdbcType=INTEGER}, #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP},
+      #{gmtModified,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.common.entity.CommonEdBuild">
+    update common_ed_build
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      build_name = #{buildName,jdbcType=VARCHAR},
+      build_no = #{buildNo,jdbcType=VARCHAR},
+      build_area = #{buildArea,jdbcType=VARCHAR},
+      seq = #{seq,jdbcType=INTEGER},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select *
+    from common_ed_build
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select *
+    from common_ed_build
+    <include refid="Base_Where_List" />
+     order by seq asc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="buildName != null and buildName != ''">
+         AND build_name = #{buildName}
+      </if>
+      <if test="buildNo != null and buildNo != ''">
+         AND build_no = #{buildNo}
+      </if>
+      <if test="buildArea != null and buildArea != ''">
+        AND build_area = #{buildArea}
+      </if>
+      <if test="seq != null">
+         AND seq = #{seq}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+    </where>
+  </sql>
+</mapper>

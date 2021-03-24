@@ -1,0 +1,88 @@
+﻿<span id="contentForm">
+    <div >
+        <div id="segmentedControl" class="mui-segmented-control">
+            <a class="mui-control-item mui-active">基础信息</a>
+            <a class="mui-control-item">流程信息</a>
+            <a class="mui-control-item">流程图</a>
+        </div>
+    </div>
+    <div >
+        <div class="mui-control-content mui-active">
+
+            <div class="mui-card">
+                <div class="mui-card-header">
+                    <span ng-bind="'1.基础信息'"></span>
+                </div>
+                <!--内容区-->
+                <div class="mui-card-content">
+                    <form class="mui-input-group" id="detail_form">
+                         <div class="mui-input-row">
+                                <label style="color: black">办公室主任</label>
+                                <input type="text" ng-model="vm.item.companyOfficeManName" name="companyOfficeManName" required ng-focus="vm.showUserModal('companyOffice','dept_59',false,vm.item.companyOffice);" ng-disabled="processInstance.myRunningTaskName.indexOf('机要秘书-核收')==-1" />
+                         </div>
+                         <div class="mui-input-row">
+                                <label style="color: black">批示领导</label>
+                                <input type="text" ng-model="vm.item.companyLeaderName" required name="companyLeaderName" ng-focus="vm.showUserModal('companyLeader','dept_16',true,vm.item.companyLeader);" ng-disabled="processInstance.myRunningTaskName.indexOf('公司办-核稿')==-1"/>
+                         </div>
+                        <div class="mui-input-row">
+                                <label style="color: black">负责人</label>
+                            <input type="text" ng-model="vm.item.chargeManName" name="chargeManName" required ng-focus="vm.showUserModal('chargeMan','dept_16',false,vm.item.chargeMan);" ng-disabled="!processInstance.firstTask"/>
+                        </div>
+                         <div class="mui-input-row" >
+                              <label style="color: black">分发方式</label>
+                              <select ng-options="s.name as s.name for s in sysCodes | filter:{codeCatalog:'报告文单分发方式'}:true"  ng-disabled="processInstance.myRunningTaskName.indexOf('机要秘书-分发')==-1"
+                                      ng-model="vm.item.flag"></select>
+                         </div>
+                        <div class="mui-input-row">
+                                <label style="color: black">送签部门</label>
+                                <input type="text" ng-model="vm.item.deptName"  name="deptName" required ng-focus="vm.showDeptModal('deptId','',true,vm.item.deptId)"  ng-disabled="!processInstance.firstTask"  />
+                        </div>
+
+                        <div class="mui-input-row">
+                                <label style="color: black">公司办编号</label>
+                                <input type="text" ng-model="vm.item.officeNo" name="officeNo" required  ng-disabled="processInstance.myRunningTaskName.indexOf('公司办公室-审批')==-1"/>
+                        </div>
+                        <div class="mui-input-row">
+                                <label style="color: black">报送日期</label>
+                             <input type="text" ng-model="vm.item.reportTime" name="reportTime" required  ng-disabled="!processInstance.firstTask"/>
+                        </div>
+                        <div class="mui-input-row">
+                                <label style="color: black">事项</label>
+                             <textarea type="text" rows="3" ng-model="vm.item.reportContent" name="reportContent" required  ng-disabled="!processInstance.firstTask"/>
+                        </div>
+                        <div class="mui-input-row">
+                                <label style="color: black">创建人</label>
+                                <input type="text" ng-model="vm.item.creatorName" disabled/>
+                        </div>
+                         <div class="mui-input-row">
+                                <label style="color: black">创建时间</label>
+                                <input type="text" value="{{vm.item.gmtCreate|date:'yyyy-MM-dd HH:mm'}}" disabled/>
+                        </div>
+                </form>
+                </div>
+                <!--页脚，放置补充信息或支持的操作-->
+            </div>
+
+            <span ng-include="'/h5/tpl/businessFile.html'" ng-init="fileTplTitle='2.业务附件'"></span>
+
+            <div style="height: 40px;">&nbsp;</div>
+        </div>
+         <div class="mui-control-content">
+             <span ng-include="'/h5/tpl/taskHistory.html'"></span>
+        </div>
+        <div class="mui-control-content" style="overflow-x: auto;">
+             <span ng-include="'/h5/tpl/taskPicture.html'"></span>
+        </div>
+        <div style="height: 50px;">&nbsp;</div>
+    </div>
+
+</span>
+<span ng-include="'/h5/tpl/taskAction.html'"></span>
+<span ng-include="'/h5/tpl/selectUser.html'"></span>
+
+
+
+
+
+
+

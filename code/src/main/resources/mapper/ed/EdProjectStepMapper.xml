@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.ed.dao.EdProjectStepMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.ed.entity.EdProjectStep">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="project_no" jdbcType="VARCHAR" property="projectNo" />
+    <result column="contract_no" jdbcType="VARCHAR" property="contractNo" />
+    <result column="stage_name" jdbcType="VARCHAR" property="stageName" />
+    <result column="step_name" jdbcType="VARCHAR" property="stepName" />
+    <result column="charge_man" jdbcType="VARCHAR" property="chargeMan" />
+    <result column="charge_man_name" jdbcType="VARCHAR" property="chargeManName" />
+    <result column="exe_charge_man" jdbcType="VARCHAR" property="exeChargeMan" />
+    <result column="exe_charge_man_name" jdbcType="VARCHAR" property="exeChargeManName" />
+    <result column="is_cp" jdbcType="BIT" property="cp" />
+    <result column="is_cp_closed" jdbcType="BIT" property="cpClosed" />
+      <result column="step_status" jdbcType="VARCHAR" property="stepStatus" />
+    <result column="seq" jdbcType="INTEGER" property="seq" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="attend_user" jdbcType="VARCHAR" property="attendUser" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="dwg_version" jdbcType="VARCHAR" property="dwgVersion" />
+    <result column="dwg_time" jdbcType="VARCHAR" property="dwgTime" />
+    <result column="content_sort_method" jdbcType="VARCHAR" property="contentSortMethod" />
+    <result column="other_charge_man" jdbcType="VARCHAR" property="otherChargeMan" />
+    <result column="other_charge_man_name" jdbcType="VARCHAR" property="otherChargeManName" />
+    <result column="project_charge_man" jdbcType="VARCHAR" property="projectChargeMan" />
+    <result column="project_charge_man_name" jdbcType="VARCHAR" property="projectChargeManName" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ed_project_step
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.ed.entity.EdProjectStep">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ed_project_step (project_id, project_name, project_no, 
+      contract_no, stage_name, step_name, 
+      charge_man, charge_man_name, exe_charge_man, 
+      exe_charge_man_name, is_cp, is_cp_closed, step_status,
+      seq, is_deleted, creator, 
+      creator_name, gmt_create, gmt_modified, 
+      attend_user, remark, dwg_version, 
+      dwg_time, content_sort_method, other_charge_man, 
+      other_charge_man_name,project_charge_man,
+      project_charge_man_name)
+    values (#{projectId,jdbcType=INTEGER}, #{projectName,jdbcType=VARCHAR}, #{projectNo,jdbcType=VARCHAR}, 
+      #{contractNo,jdbcType=VARCHAR}, #{stageName,jdbcType=VARCHAR}, #{stepName,jdbcType=VARCHAR}, 
+      #{chargeMan,jdbcType=VARCHAR}, #{chargeManName,jdbcType=VARCHAR}, #{exeChargeMan,jdbcType=VARCHAR}, 
+      #{exeChargeManName,jdbcType=VARCHAR}, #{cp,jdbcType=BIT}, #{cpClosed,jdbcType=BIT}, #{stepStatus,jdbcType=VARCHAR},
+      #{seq,jdbcType=INTEGER}, #{deleted,jdbcType=BIT}, #{creator,jdbcType=VARCHAR}, 
+      #{creatorName,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{attendUser,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{dwgVersion,jdbcType=VARCHAR}, 
+      #{dwgTime,jdbcType=VARCHAR}, #{contentSortMethod,jdbcType=VARCHAR}, #{otherChargeMan,jdbcType=VARCHAR}, 
+      #{otherChargeManName,jdbcType=VARCHAR},#{projectChargeMan,jdbcType=VARCHAR},
+      #{projectChargeManName,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.ed.entity.EdProjectStep">
+    update ed_project_step
+    set project_id = #{projectId,jdbcType=INTEGER},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      project_no = #{projectNo,jdbcType=VARCHAR},
+      contract_no = #{contractNo,jdbcType=VARCHAR},
+      stage_name = #{stageName,jdbcType=VARCHAR},
+      step_name = #{stepName,jdbcType=VARCHAR},
+      charge_man = #{chargeMan,jdbcType=VARCHAR},
+      charge_man_name = #{chargeManName,jdbcType=VARCHAR},
+      exe_charge_man = #{exeChargeMan,jdbcType=VARCHAR},
+      exe_charge_man_name = #{exeChargeManName,jdbcType=VARCHAR},
+      is_cp = #{cp,jdbcType=BIT},
+      is_cp_closed = #{cpClosed,jdbcType=BIT},
+      step_status = #{stepStatus,jdbcType=VARCHAR},
+      seq = #{seq,jdbcType=INTEGER},
+      is_deleted = #{deleted,jdbcType=BIT},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      attend_user = #{attendUser,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      dwg_version = #{dwgVersion,jdbcType=VARCHAR},
+      dwg_time = #{dwgTime,jdbcType=VARCHAR},
+      content_sort_method = #{contentSortMethod,jdbcType=VARCHAR},
+      other_charge_man = #{otherChargeMan,jdbcType=VARCHAR},
+      other_charge_man_name = #{otherChargeManName,jdbcType=VARCHAR},
+      project_charge_man = #{projectChargeMan,jdbcType=VARCHAR},
+      project_charge_man_name = #{projectChargeManName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, project_id, project_name, project_no, contract_no, stage_name, step_name, 
+    charge_man, charge_man_name, exe_charge_man, exe_charge_man_name, is_cp, is_cp_closed,step_status,
+    seq, is_deleted, creator, creator_name, gmt_create, gmt_modified, attend_user, remark, 
+    dwg_version, dwg_time, content_sort_method, other_charge_man, other_charge_man_name,project_charge_man,
+    project_charge_man_name
+    from ed_project_step
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+      select a.* from ed_project_step a
+      left join business_contract b on a.project_id=b.id
+      <include refid="Base_Where_List"/>
+      order by a.seq asc
+  </select>
+    <sql id="Base_Where_List">
+        <where>
+            <if test="id != null">
+                AND a.id = #{id}
+            </if>
+            <if test="projectId != null">
+                AND a.project_id = #{projectId}
+            </if>
+            <if test="projectName != null and projectName != ''">
+                AND a.project_name = #{projectName}
+            </if>
+            <if test="projectNo != null and projectNo != ''">
+                AND a.project_no = #{projectNo}
+            </if>
+            <if test="contractNo != null and contractNo != ''">
+                AND a.contract_no = #{contractNo}
+            </if>
+            <if test="stageName != null and stageName != ''">
+                AND a.stage_name = #{stageName}
+            </if>
+            <if test="stepName != null and stepName != ''">
+                AND a.step_name = #{stepName}
+            </if>
+            <if test="chargeMan != null and chargeMan != ''">
+                AND a.charge_man = #{chargeMan}
+            </if>
+            <if test="chargeManName != null and chargeManName != ''">
+                AND a.charge_man_name = #{chargeManName}
+            </if>
+            <if test="exeChargeMan != null and exeChargeMan != ''">
+                AND a.exe_charge_man = #{exeChargeMan}
+            </if>
+            <if test="exeChargeManName != null and exeChargeManName != ''">
+                AND a.exe_charge_man_name = #{exeChargeManName}
+            </if>
+            <if test="contentSortMethod != null and contentSortMethod != ''">
+                AND content_sort_method = #{contentSortMethod}
+            </if>
+            <if test="otherChargeMan != null and otherChargeMan != ''">
+                AND other_charge_man = #{otherChargeMan}
+            </if>
+            <if test="cp != null">
+                AND a.is_cp = #{cp}
+            </if>
+            <if test="cpClosed != null">
+                AND a.is_cp_closed = #{cpClosed}
+            </if>
+            <if test="stepStatus != null and stepStatus != ''">
+                AND a.step_status = #{stepStatus}
+            </if>
+            <if test="seq != null">
+                AND a.seq = #{seq}
+            </if>
+            <if test="deleted != null">
+                AND a.is_deleted = #{deleted}
+            </if>
+            <if test="creator != null and creator != ''">
+                AND a.creator = #{creator}
+            </if>
+            <if test="creatorName != null and creatorName != ''">
+                AND a.creator_name = #{creatorName}
+            </if>
+            <if test="gmtCreate != null">
+                AND a.gmt_create = #{gmtCreate}
+            </if>
+            <if test="gmtModified != null">
+                AND a.gmt_modified = #{gmtModified}
+            </if>
+            <if test="remark != null and remark != ''">
+                AND a.remark = #{remark}
+            </if>
+            <if test="attendUser != null and attendUser != ''">
+                AND (
+                a.attend_user like CONCAT('%,',#{attendUser},',%')
+                or a.charge_man  like CONCAT('%,',#{attendUser},',%')
+                or a.exe_charge_man  like CONCAT('%,',#{attendUser},',%')
+                or a.project_charge_man  like CONCAT('%,',#{attendUser},',%')
+                or a.other_charge_man  like CONCAT('%,',#{attendUser},',%')
+                )
+            </if>
+            <if test="q != null and q != ''">
+                AND (a.step_name like CONCAT('%',#{q},'%') or  a.project_name like CONCAT('%',#{q},'%'))
+            </if>
+            <if test="qProjectName != null and qProjectName != '' ">
+                AND (
+                a.project_name like CONCAT('%',#{qProjectName},'%')
+                )
+            </if>
+            <if test="qStepName != null and qStepName != '' ">
+                AND (
+                a.step_name like CONCAT('%',#{qStepName},'%')
+                )
+            </if>
+            <if test="qSignTime != null and qSignTime != '' ">
+                AND (
+                b.sign_date like CONCAT('%',#{qSignTime},'%')
+                )
+            </if>
+            <if test="deptIdList != null">
+                AND b.dept_id in
+                <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+                    #{deptId}
+                </foreach>
+            </if>
+        </where>
+    </sql>
+    <select id="listAll" resultMap="BaseResultMap">
+        select *
+        from ed_project_step
+        <include refid="Base_Where_List1"/>
+        order by project_id asc
+    </select>
+    <sql id="Base_Where_List1">
+        <where>
+            <if test="projectId != null">
+                AND project_id = #{projectId}
+            </if>
+            <if test="deleted != null">
+                AND is_deleted = #{deleted}
+            </if>
+        </where>
+    </sql>
+</mapper>

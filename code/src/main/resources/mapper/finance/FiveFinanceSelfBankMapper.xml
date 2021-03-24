@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.finance.dao.FiveFinanceSelfBankMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.finance.entity.FiveFinanceSelfBank">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="form_no" jdbcType="VARCHAR" property="formNo" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="user_login" jdbcType="VARCHAR" property="userLogin" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="bank_name" jdbcType="VARCHAR" property="bankName" />
+    <result column="bank_code" jdbcType="VARCHAR" property="bankCode" />
+    <result column="user_bank_no" jdbcType="VARCHAR" property="userBankNo" />
+    <result column="user_id_no" jdbcType="VARCHAR" property="userIdNo" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_finance_self_bank
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.finance.entity.FiveFinanceSelfBank">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_finance_self_bank (business_key, form_no, dept_id, 
+      dept_name, remark, creator, 
+      creator_name, is_deleted, gmt_create, 
+      gmt_modified, is_process_end, process_instance_id, 
+      title, user_login, user_name, 
+      bank_name, bank_code, user_bank_no, 
+      user_id_no)
+    values (#{businessKey,jdbcType=VARCHAR}, #{formNo,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, 
+      #{deptName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{creatorName,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{processEnd,jdbcType=BIT}, #{processInstanceId,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{userLogin,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{bankName,jdbcType=VARCHAR}, #{bankCode,jdbcType=VARCHAR}, #{userBankNo,jdbcType=VARCHAR}, 
+      #{userIdNo,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.finance.entity.FiveFinanceSelfBank">
+    update five_finance_self_bank
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      form_no = #{formNo,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      is_process_end = #{processEnd,jdbcType=BIT},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      user_login = #{userLogin,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      bank_name = #{bankName,jdbcType=VARCHAR},
+      bank_code = #{bankCode,jdbcType=VARCHAR},
+      user_bank_no = #{userBankNo,jdbcType=VARCHAR},
+      user_id_no = #{userIdNo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, form_no, dept_id, dept_name, remark, creator, creator_name, 
+    is_deleted, gmt_create, gmt_modified, is_process_end, process_instance_id, title, 
+    user_login, user_name, bank_name, bank_code, user_bank_no, user_id_no
+    from five_finance_self_bank
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, form_no, dept_id, dept_name, remark, creator, creator_name, 
+    is_deleted, gmt_create, gmt_modified, is_process_end, process_instance_id, title, 
+    user_login, user_name, bank_name, bank_code, user_bank_no, user_id_no
+    from five_finance_self_bank
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and isLikeSelect==null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="formNo != null and isLikeSelect==null and formNo != ''">
+         AND form_no = #{formNo}
+      </if>
+      <if test="deptId != null and isLikeSelect==null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and isLikeSelect==null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="remark != null and isLikeSelect==null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="processEnd != null and isLikeSelect==null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="processInstanceId != null and isLikeSelect==null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="title != null and isLikeSelect==null and title != ''">
+         AND title = #{title}
+      </if>
+      <if test="userLogin != null and isLikeSelect==null and userLogin != ''">
+         AND user_login = #{userLogin}
+      </if>
+      <if test="userName != null and isLikeSelect==null and userName != ''">
+         AND user_name = #{userName}
+      </if>
+      <if test="bankName != null and isLikeSelect==null and bankName != ''">
+         AND bank_name = #{bankName}
+      </if>
+      <if test="bankCode != null and isLikeSelect==null and bankCode != ''">
+         AND bank_code = #{bankCode}
+      </if>
+      <if test="userBankNo != null and isLikeSelect==null and userBankNo != ''">
+         AND user_bank_no = #{userBankNo}
+      </if>
+      <if test="userIdNo != null and isLikeSelect==null and userIdNo != ''">
+         AND user_id_no = #{userIdNo}
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="businessKey != null and isLikeSelect!= null and businessKey != '' ">
+         AND business_key like  CONCAT('%',#{businessKey},'%')
+      </if>
+      <if test="formNo != null and isLikeSelect!= null and formNo != '' ">
+         AND form_no like  CONCAT('%',#{formNo},'%')
+      </if>
+      <if test="deptName != null and isLikeSelect!= null and deptName != '' ">
+         AND dept_name like  CONCAT('%',#{deptName},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="processInstanceId != null and isLikeSelect!= null and processInstanceId != '' ">
+         AND process_instance_id like  CONCAT('%',#{processInstanceId},'%')
+      </if>
+      <if test="title != null and isLikeSelect!= null and title != '' ">
+         AND title like  CONCAT('%',#{title},'%')
+      </if>
+      <if test="userLogin != null and isLikeSelect!= null and userLogin != '' ">
+         AND user_login like  CONCAT('%',#{userLogin},'%')
+      </if>
+      <if test="userName != null and isLikeSelect!= null and userName != '' ">
+         AND user_name like  CONCAT('%',#{userName},'%')
+      </if>
+      <if test="bankName != null and isLikeSelect!= null and bankName != '' ">
+         AND bank_name like  CONCAT('%',#{bankName},'%')
+      </if>
+      <if test="bankCode != null and isLikeSelect!= null and bankCode != '' ">
+         AND bank_code like  CONCAT('%',#{bankCode},'%')
+      </if>
+      <if test="userBankNo != null and isLikeSelect!= null and userBankNo != '' ">
+         AND user_bank_no like  CONCAT('%',#{userBankNo},'%')
+      </if>
+      <if test="userIdNo != null and isLikeSelect!= null and userIdNo != '' ">
+         AND user_id_no like  CONCAT('%',#{userIdNo},'%')
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+    </where>
+  </sql>
+</mapper>

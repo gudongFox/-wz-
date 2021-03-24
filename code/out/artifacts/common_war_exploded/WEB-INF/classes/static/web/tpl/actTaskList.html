@@ -1,0 +1,91 @@
+<span ng-controller="ActHistoryTaskController">
+    <div class="table-scrollable">
+        <table class="table table-bordered table-hover  dataTable">
+            <thead>
+            <tr>
+                <th style="width:15px;">#</th>
+                <th style="width:70px;">办理人</th>
+                <th style="width:15%;">任务名称</th>
+                <th style="width:120px;">开始时间</th>
+                <th style="width:120px;">结束时间</th>
+                <th>处理意见</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr role="row" ng-repeat="task in tasks">
+                <td ng-bind="$index+1"></td>
+                <td>
+                    <img alt="" class="img-circle"
+                         ng-src="{{task.avatar}}"
+                         onerror="this.src='/assets/img/avatar.jpg'"
+                         style="height: 22px;width: 22px;margin-top: -5px;"/>
+                    <span ng-bind="task.assigneeName" title="{{task.ownerName}}"></span>
+                    <span ng-bind="task.candidateUserNames"  ng-show="task.candidateUserNames"></span>
+                </td>
+                <td>
+                    <i class="fa fa-clock-o" ng-if="!task.endTime" style="color: blue;"></i>
+                    <span ng-bind="task.name" style="font-weight: bold;"></span>
+                </td>
+                <td ng-bind="task.startTime|date:'yyyy-MM-dd HH:mm'"></td>
+                <td ng-bind="task.endTime|date:'yyyy-MM-dd HH:mm'"></td>
+                <td ng-click="showTaskComments(task);">
+                                                            <span ng-if="task.endTime">
+                                                                  <span ng-if="task.passed"
+                                                                        style="color: green;font-weight: bold;">通过 | </span>
+                                                                  <span ng-if="!task.passed"
+                                                                        style="color: red;font-weight: bold;">打回 | </span>
+                                                            </span>
+                    <span ng-bind="task.latestComment" style="cursor: pointer;"
+                          ></span>
+                    <span class="kt-badge kt-badge--success kt-badge--square" ng-show="task.comments.length>1" ng-bind="task.comments.length"></span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+
+    <div class="modal" id="commentsModal">
+        <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" ng-bind="task.name+'-意见列表'"></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-scrollable">
+                       <table class="table table-bordered table-hover  dataTable">
+                          <thead>
+                            <tr>
+                                <th style="width:20px;">#</th>
+                                <th style="width:80px;">办理人</th>
+                                <th style="width:120px;">开始时间</th>
+                                <th>处理意见</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="comment in task.comments">
+                                <td ng-bind="$index+1"></td>
+                                <td>
+                                    <img alt="" class="img-circle"
+                                         ng-src="{{comment.avatar}}"
+                                         onerror="this.src='/assets/img/avatar.jpg'"
+                                         style="height: 22px;width: 22px;margin-top: -5px;"/>
+                                    <span ng-bind="comment.cnName"></span>
+                                </td>
+                                <td ng-bind="comment.gmtCreate|date:'yyyy-MM-dd HH:mm'"></td>
+                                <td ng-bind="comment.message"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+    </div>
+
+</span>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.ed.dao.EdConfigPlanDetailMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.ed.entity.EdConfigPlanDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="template_id" jdbcType="INTEGER" property="templateId" />
+    <result column="cn_name" jdbcType="VARCHAR" property="cnName" />
+    <result column="duration_days" jdbcType="INTEGER" property="durationDays" />
+    <result column="seq" jdbcType="INTEGER" property="seq" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ed_config_plan_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.ed.entity.EdConfigPlanDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ed_config_plan_detail (template_id, cn_name, duration_days, 
+      seq, is_deleted, gmt_create, 
+      gmt_modified, remark)
+    values (#{templateId,jdbcType=INTEGER}, #{cnName,jdbcType=VARCHAR}, #{durationDays,jdbcType=INTEGER}, 
+      #{seq,jdbcType=INTEGER}, #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.ed.entity.EdConfigPlanDetail">
+    update ed_config_plan_detail
+    set template_id = #{templateId,jdbcType=INTEGER},
+      cn_name = #{cnName,jdbcType=VARCHAR},
+      duration_days = #{durationDays,jdbcType=INTEGER},
+      seq = #{seq,jdbcType=INTEGER},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, template_id, cn_name, duration_days, seq, is_deleted, gmt_create, gmt_modified, 
+    remark
+    from ed_config_plan_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, template_id, cn_name, duration_days, seq, is_deleted, gmt_create, gmt_modified, 
+    remark
+    from ed_config_plan_detail
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="templateId != null">
+         AND template_id = #{templateId}
+      </if>
+      <if test="cnName != null and cnName != ''">
+         AND cn_name = #{cnName}
+      </if>
+      <if test="durationDays != null">
+         AND duration_days = #{durationDays}
+      </if>
+      <if test="seq != null">
+         AND seq = #{seq}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+    </where>
+  </sql>
+</mapper>

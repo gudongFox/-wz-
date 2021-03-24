@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveEdProductDetailMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveEdProductDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="product_id" jdbcType="INTEGER" property="productId" />
+    <result column="build_name" jdbcType="VARCHAR" property="buildName" />
+    <result column="major_name" jdbcType="VARCHAR" property="majorName" />
+    <result column="draw_no" jdbcType="VARCHAR" property="drawNo" />
+    <result column="construction_area" jdbcType="VARCHAR" property="constructionArea" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="copy_count" jdbcType="INTEGER" property="copyCount" />
+    <result column="remark1" jdbcType="VARCHAR" property="remark1" />
+    <result column="remark2" jdbcType="VARCHAR" property="remark2" />
+    <result column="remark3" jdbcType="VARCHAR" property="remark3" />
+    <result column="remark4" jdbcType="VARCHAR" property="remark4" />
+    <result column="remark5" jdbcType="VARCHAR" property="remark5" />
+    <result column="remark6" jdbcType="VARCHAR" property="remark6" />
+    <result column="remark7" jdbcType="VARCHAR" property="remark7" />
+    <result column="seq" jdbcType="INTEGER" property="seq" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_ed_product_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveEdProductDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_ed_product_detail (product_id, build_name, major_name, 
+      draw_no, construction_area, dept_id, 
+      dept_name, copy_count, remark1, 
+      remark2, remark3, remark4, 
+      remark5, remark6, remark7, 
+      seq)
+    values (#{productId,jdbcType=INTEGER}, #{buildName,jdbcType=VARCHAR}, #{majorName,jdbcType=VARCHAR}, 
+      #{drawNo,jdbcType=VARCHAR}, #{constructionArea,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, 
+      #{deptName,jdbcType=VARCHAR}, #{copyCount,jdbcType=INTEGER}, #{remark1,jdbcType=VARCHAR}, 
+      #{remark2,jdbcType=VARCHAR}, #{remark3,jdbcType=VARCHAR}, #{remark4,jdbcType=VARCHAR}, 
+      #{remark5,jdbcType=VARCHAR}, #{remark6,jdbcType=VARCHAR}, #{remark7,jdbcType=VARCHAR}, 
+      #{seq,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveEdProductDetail">
+    update five_ed_product_detail
+    set product_id = #{productId,jdbcType=INTEGER},
+      build_name = #{buildName,jdbcType=VARCHAR},
+      major_name = #{majorName,jdbcType=VARCHAR},
+      draw_no = #{drawNo,jdbcType=VARCHAR},
+      construction_area = #{constructionArea,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      copy_count = #{copyCount,jdbcType=INTEGER},
+      remark1 = #{remark1,jdbcType=VARCHAR},
+      remark2 = #{remark2,jdbcType=VARCHAR},
+      remark3 = #{remark3,jdbcType=VARCHAR},
+      remark4 = #{remark4,jdbcType=VARCHAR},
+      remark5 = #{remark5,jdbcType=VARCHAR},
+      remark6 = #{remark6,jdbcType=VARCHAR},
+      remark7 = #{remark7,jdbcType=VARCHAR},
+      seq = #{seq,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, product_id, build_name, major_name, draw_no, construction_area, dept_id, 
+    dept_name, copy_count, remark1, remark2, remark3, remark4, remark5, remark6, remark7, 
+    seq
+    from five_ed_product_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, product_id, build_name, major_name, draw_no, construction_area, dept_id, 
+    dept_name, copy_count, remark1, remark2, remark3, remark4, remark5, remark6, remark7, 
+    seq
+    from five_ed_product_detail
+    <include refid="Base_Where_List" />
+    order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="productId != null">
+         AND product_id = #{productId}
+      </if>
+      <if test="buildName != null and buildName != ''">
+         AND build_name = #{buildName}
+      </if>
+      <if test="majorName != null and majorName != ''">
+         AND major_name = #{majorName}
+      </if>
+      <if test="drawNo != null and drawNo != ''">
+         AND draw_no = #{drawNo}
+      </if>
+      <if test="constructionArea != null and constructionArea != ''">
+         AND construction_area = #{constructionArea}
+      </if>
+      <if test="deptId != null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="copyCount != null">
+         AND copy_count = #{copyCount}
+      </if>
+      <if test="remark1 != null and remark1 != ''">
+         AND remark1 = #{remark1}
+      </if>
+      <if test="remark2 != null and remark2 != ''">
+         AND remark2 = #{remark2}
+      </if>
+      <if test="remark3 != null and remark3 != ''">
+         AND remark3 = #{remark3}
+      </if>
+      <if test="remark4 != null and remark4 != ''">
+         AND remark4 = #{remark4}
+      </if>
+      <if test="remark5 != null and remark5 != ''">
+         AND remark5 = #{remark5}
+      </if>
+      <if test="remark6 != null and remark6 != ''">
+         AND remark6 = #{remark6}
+      </if>
+      <if test="remark7 != null and remark7 != ''">
+         AND remark7 = #{remark7}
+      </if>
+      <if test="seq != null">
+         AND seq = #{seq}
+      </if>
+    </where>
+  </sql>
+</mapper>

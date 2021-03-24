@@ -1,0 +1,60 @@
+﻿<div class="mui-card" ng-show="tplConfig.showBusinessFile" ng-controller="TaskBusinessFileController">
+    <!--页眉，放置标题-->
+    <div class="mui-card-header">
+        <span ng-bind="fileTplTitle?fileTplTitle:((groupList.length+1)+'.业务附件')"></span>
+        <label title="上传图片" for="txtImageUpload" ng-show="tplConfig.saveAble">
+            <input type="file" accept="*" name="file" id="txtImageUpload" style="display: none;" multiple="multiple">
+            <img src="/assets/img/new.png" style="height: 25px;"/>
+        </label>
+    </div>
+    <!--内容区-->
+    <div class="mui-card-content">
+        <div style="height: 40px;line-height: 40px;padding: 0.2rem 0rem 0.2rem 1rem;color: #48465b;font-weight: 400;font-size: 14px;border-bottom: 1px grey;"
+             ng-show="breadcrumbs.length>1">
+                            <span ng-repeat="breadcrumb in breadcrumbs" ng-click="loadDirAndFile(breadcrumb.id);">
+                                <span ng-bind="breadcrumb.text" style="cursor: pointer;"></span>
+                                <span ng-bind="' > '"></span>
+                            </span>
+        </div>
+
+        <ul class="mui-table-view mui-table-view-chevron">
+            <li class="mui-table-view-cell" ng-repeat="dir in dirs"
+                ng-click="loadDirAndFile(dir.id);">
+                <img style="float: left;width: 30px;height: 30px;line-height: 30px;"
+                     src="/assets/img/dir.png"/>
+                <span style="line-height: 30px;margin-left: 10px;" ng-bind="dir.cnName"></span>
+            </li>
+            <li class="mui-table-view-cell" ng-repeat="file in files" ng-click="downloadFile(file,true)">
+                <img style="float: left;width: 30px;height: 30px;line-height: 30px;"
+                     ng-src="{{'/assets/img/'+file.commonAttach.extensionName+'.png'}}" onerror="this.src='/assets/img/file.png'"/>
+                <span style="line-height: 30px;margin-left: 10px;cursor:pointer;"
+                      ng-bind="file.fileName" title="{{file.creatorName+' '+file.commonAttach.sizeName+' '+(file.gmtModified|date:'yyyy-MM-dd HH:mm')}}"></span>
+            </li>
+
+
+<!--            <li class="mui-table-view-cell mui-collapse" ng-repeat="file in files">-->
+<!--                <a class="mui-navigate-right">-->
+<!--                    <img style="float: left;width: 30px;height: 30px;line-height: 30px;"-->
+<!--                         ng-src="{{'/assets/img/'+file.commonAttach.extensionName+'.png'}}" onerror="this.src='/assets/img/file.png'"/>-->
+<!--                    <span style="line-height: 30px;margin-left: 10px;"-->
+<!--                          ng-bind="file.fileName"></span>-->
+<!--                </a>-->
+<!--                <ul class="mui-table-view mui-table-view-chevron">-->
+<!--                    <li class="mui-table-view-cell"><span ng-bind="file.creatorName"></span>-->
+<!--                    </li>-->
+<!--                    <li class="mui-table-view-cell"><span ng-bind="file.commonAttach.sizeName"></span>-->
+<!--                    </li>-->
+<!--                    <li class="mui-table-view-cell"><span ng-bind="file.gmtModified|date:'yyyy-MM-dd HH:mm'"></span>-->
+<!--                    </li>-->
+<!--                    <li class="mui-table-view-cell">-->
+<!--                        <span ng-click="downloadFile(file);"  style="cursor: pointer;color: blue;">下载文件</span>-->
+<!--                        <span ng-click="removeFile(file);" style="margin-left: 20px;cursor: pointer;color: red;" ng-if="tplConfig.saveAble&&file.creator==enLogin">删除文件</span>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </li>-->
+
+
+        </ul>
+    </div>
+    <!--页脚，放置补充信息或支持的操作-->
+</div>

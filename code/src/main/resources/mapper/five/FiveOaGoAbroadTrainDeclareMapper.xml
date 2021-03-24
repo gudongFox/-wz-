@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveOaGoAbroadTrainDeclareMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveOaGoAbroadTrainDeclare">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="form_no" jdbcType="VARCHAR" property="formNo" />
+    <result column="apply_dept_id" jdbcType="INTEGER" property="applyDeptId" />
+    <result column="apply_dept_name" jdbcType="VARCHAR" property="applyDeptName" />
+    <result column="declare_time" jdbcType="VARCHAR" property="declareTime" />
+    <result column="notic_name" jdbcType="VARCHAR" property="noticName" />
+    <result column="train_dept_id" jdbcType="VARCHAR" property="trainDeptId" />
+    <result column="train_dept_name" jdbcType="VARCHAR" property="trainDeptName" />
+    <result column="other_notic" jdbcType="VARCHAR" property="otherNotic" />
+    <result column="train_name" jdbcType="VARCHAR" property="trainName" />
+    <result column="attend_man" jdbcType="VARCHAR" property="attendMan" />
+    <result column="attend_man_name" jdbcType="VARCHAR" property="attendManName" />
+    <result column="attend_reason" jdbcType="VARCHAR" property="attendReason" />
+    <result column="dept_comment" jdbcType="VARCHAR" property="deptComment" />
+    <result column="technology_comment" jdbcType="VARCHAR" property="technologyComment" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_oa_go_abroad_train_declare
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveOaGoAbroadTrainDeclare">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_oa_go_abroad_train_declare (business_key, form_no, apply_dept_id, 
+      apply_dept_name, declare_time, notic_name, 
+      train_dept_id, train_dept_name, other_notic, 
+      train_name, attend_man, attend_man_name, 
+      attend_reason, dept_comment, technology_comment, 
+      remark, creator, creator_name, 
+      is_deleted, gmt_create, gmt_modified, 
+      process_instance_id, is_process_end)
+    values (#{businessKey,jdbcType=VARCHAR}, #{formNo,jdbcType=VARCHAR}, #{applyDeptId,jdbcType=INTEGER}, 
+      #{applyDeptName,jdbcType=VARCHAR}, #{declareTime,jdbcType=VARCHAR}, #{noticName,jdbcType=VARCHAR}, 
+      #{trainDeptId,jdbcType=VARCHAR}, #{trainDeptName,jdbcType=VARCHAR}, #{otherNotic,jdbcType=VARCHAR}, 
+      #{trainName,jdbcType=VARCHAR}, #{attendMan,jdbcType=VARCHAR}, #{attendManName,jdbcType=VARCHAR}, 
+      #{attendReason,jdbcType=VARCHAR}, #{deptComment,jdbcType=VARCHAR}, #{technologyComment,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{processInstanceId,jdbcType=VARCHAR}, #{processEnd,jdbcType=BIT})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveOaGoAbroadTrainDeclare">
+    update five_oa_go_abroad_train_declare
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      form_no = #{formNo,jdbcType=VARCHAR},
+      apply_dept_id = #{applyDeptId,jdbcType=INTEGER},
+      apply_dept_name = #{applyDeptName,jdbcType=VARCHAR},
+      declare_time = #{declareTime,jdbcType=VARCHAR},
+      notic_name = #{noticName,jdbcType=VARCHAR},
+      train_dept_id = #{trainDeptId,jdbcType=VARCHAR},
+      train_dept_name = #{trainDeptName,jdbcType=VARCHAR},
+      other_notic = #{otherNotic,jdbcType=VARCHAR},
+      train_name = #{trainName,jdbcType=VARCHAR},
+      attend_man = #{attendMan,jdbcType=VARCHAR},
+      attend_man_name = #{attendManName,jdbcType=VARCHAR},
+      attend_reason = #{attendReason,jdbcType=VARCHAR},
+      dept_comment = #{deptComment,jdbcType=VARCHAR},
+      technology_comment = #{technologyComment,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      is_process_end = #{processEnd,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, form_no, apply_dept_id, apply_dept_name, declare_time, notic_name, 
+    train_dept_id, train_dept_name, other_notic, train_name, attend_man, attend_man_name, 
+    attend_reason, dept_comment, technology_comment, remark, creator, creator_name, is_deleted, 
+    gmt_create, gmt_modified, process_instance_id, is_process_end
+    from five_oa_go_abroad_train_declare
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, form_no, apply_dept_id, apply_dept_name, declare_time, notic_name, 
+    train_dept_id, train_dept_name, other_notic, train_name, attend_man, attend_man_name, 
+    attend_reason, dept_comment, technology_comment, remark, creator, creator_name, is_deleted, 
+    gmt_create, gmt_modified, process_instance_id, is_process_end
+    from five_oa_go_abroad_train_declare
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and isLikeSelect==null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="formNo != null and isLikeSelect==null and formNo != ''">
+         AND form_no = #{formNo}
+      </if>
+      <if test="applyDeptId != null and isLikeSelect==null">
+         AND apply_dept_id = #{applyDeptId}
+      </if>
+      <if test="applyDeptName != null and isLikeSelect==null and applyDeptName != ''">
+         AND apply_dept_name = #{applyDeptName}
+      </if>
+      <if test="declareTime != null and isLikeSelect==null and declareTime != ''">
+         AND declare_time = #{declareTime}
+      </if>
+      <if test="noticName != null and isLikeSelect==null and noticName != ''">
+         AND notic_name = #{noticName}
+      </if>
+      <if test="trainDeptId != null and isLikeSelect==null and trainDeptId != ''">
+         AND train_dept_id = #{trainDeptId}
+      </if>
+      <if test="trainDeptName != null and isLikeSelect==null and trainDeptName != ''">
+         AND train_dept_name = #{trainDeptName}
+      </if>
+      <if test="otherNotic != null and isLikeSelect==null and otherNotic != ''">
+         AND other_notic = #{otherNotic}
+      </if>
+      <if test="trainName != null and isLikeSelect==null and trainName != ''">
+         AND train_name = #{trainName}
+      </if>
+      <if test="attendMan != null and isLikeSelect==null and attendMan != ''">
+         AND attend_man = #{attendMan}
+      </if>
+      <if test="attendManName != null and isLikeSelect==null and attendManName != ''">
+         AND attend_man_name = #{attendManName}
+      </if>
+      <if test="attendReason != null and isLikeSelect==null and attendReason != ''">
+         AND attend_reason = #{attendReason}
+      </if>
+      <if test="deptComment != null and isLikeSelect==null and deptComment != ''">
+         AND dept_comment = #{deptComment}
+      </if>
+      <if test="technologyComment != null and isLikeSelect==null and technologyComment != ''">
+         AND technology_comment = #{technologyComment}
+      </if>
+      <if test="remark != null and isLikeSelect==null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="processInstanceId != null and isLikeSelect==null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="processEnd != null and isLikeSelect==null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="deptId != null and isLikeSelect==null">
+        AND apply_dept_id = #{deptId}
+      </if>
+
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect==null">
+        AND (
+        apply_dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+        <if test="initiator != null and initiator != ''">
+          or creator = #{initiator}
+        </if>
+        )
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="businessKey != null and isLikeSelect!= null and businessKey != '' ">
+         AND business_key like  CONCAT('%',#{businessKey},'%')
+      </if>
+      <if test="formNo != null and isLikeSelect!= null and formNo != '' ">
+         AND form_no like  CONCAT('%',#{formNo},'%')
+      </if>
+      <if test="applyDeptName != null and isLikeSelect!= null and applyDeptName != '' ">
+         AND apply_dept_name like  CONCAT('%',#{applyDeptName},'%')
+      </if>
+      <if test="declareTime != null and isLikeSelect!= null and declareTime != '' ">
+         AND declare_time like  CONCAT('%',#{declareTime},'%')
+      </if>
+      <if test="noticName != null and isLikeSelect!= null and noticName != '' ">
+         AND notic_name like  CONCAT('%',#{noticName},'%')
+      </if>
+      <if test="trainDeptId != null and isLikeSelect!= null and trainDeptId != '' ">
+         AND train_dept_id like  CONCAT('%',#{trainDeptId},'%')
+      </if>
+      <if test="trainDeptName != null and isLikeSelect!= null and trainDeptName != '' ">
+         AND train_dept_name like  CONCAT('%',#{trainDeptName},'%')
+      </if>
+      <if test="otherNotic != null and isLikeSelect!= null and otherNotic != '' ">
+         AND other_notic like  CONCAT('%',#{otherNotic},'%')
+      </if>
+      <if test="trainName != null and isLikeSelect!= null and trainName != '' ">
+         AND train_name like  CONCAT('%',#{trainName},'%')
+      </if>
+      <if test="attendMan != null and isLikeSelect!= null and attendMan != '' ">
+         AND attend_man like  CONCAT('%',#{attendMan},'%')
+      </if>
+      <if test="attendManName != null and isLikeSelect!= null and attendManName != '' ">
+         AND attend_man_name like  CONCAT('%',#{attendManName},'%')
+      </if>
+      <if test="attendReason != null and isLikeSelect!= null and attendReason != '' ">
+         AND attend_reason like  CONCAT('%',#{attendReason},'%')
+      </if>
+      <if test="deptComment != null and isLikeSelect!= null and deptComment != '' ">
+         AND dept_comment like  CONCAT('%',#{deptComment},'%')
+      </if>
+      <if test="technologyComment != null and isLikeSelect!= null and technologyComment != '' ">
+         AND technology_comment like  CONCAT('%',#{technologyComment},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="processInstanceId != null and isLikeSelect!= null and processInstanceId != '' ">
+         AND process_instance_id like  CONCAT('%',#{processInstanceId},'%')
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="deptId != null and isLikeSelect!=null">
+        AND apply_dept_id = #{deptId}
+      </if>
+
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect!=null">
+        AND (
+        apply_dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+        <if test="initiator != null and initiator != ''">
+          or creator = #{initiator}
+        </if>
+        )
+      </if>
+    </where>
+  </sql>
+</mapper>

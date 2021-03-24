@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.dao.hr.HrIncomeMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.entity.hr.HrIncome">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_login" jdbcType="VARCHAR" property="userLogin" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_idcard" jdbcType="VARCHAR" property="userIdcard" />
+    <result column="work_year_number" jdbcType="VARCHAR" property="workYearNumber" />
+    <result column="request_income_year" jdbcType="VARCHAR" property="requestIncomeYear" />
+    <result column="work_position" jdbcType="VARCHAR" property="workPosition" />
+    <result column="year_income" jdbcType="VARCHAR" property="yearIncome" />
+    <result column="month_income" jdbcType="VARCHAR" property="monthIncome" />
+    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
+    <result column="company_address" jdbcType="VARCHAR" property="companyAddress" />
+    <result column="company_tel" jdbcType="VARCHAR" property="companyTel" />
+    <result column="company_link_man" jdbcType="VARCHAR" property="companyLinkMan" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+  </resultMap>
+
+  <sql id="Base_Where_List">
+    <where>
+      <if test="userLogin != null">
+        AND user_login = #{userLogin,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </sql>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from hr_income
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.entity.hr.HrIncome">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into hr_income (user_login, user_name, user_idcard, 
+      work_year_number, request_income_year, work_position, 
+      year_income, month_income, company_name, 
+      company_address, company_tel, company_link_man, 
+      is_deleted, gmt_create, gmt_modified, 
+      process_instance_id)
+    values (#{userLogin,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{userIdcard,jdbcType=VARCHAR}, 
+      #{workYearNumber,jdbcType=VARCHAR}, #{requestIncomeYear,jdbcType=VARCHAR}, #{workPosition,jdbcType=VARCHAR}, 
+      #{yearIncome,jdbcType=VARCHAR}, #{monthIncome,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, 
+      #{companyAddress,jdbcType=VARCHAR}, #{companyTel,jdbcType=VARCHAR}, #{companyLinkMan,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP},
+      #{processInstanceId,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.entity.hr.HrIncome">
+    update hr_income
+    set user_login = #{userLogin,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_idcard = #{userIdcard,jdbcType=VARCHAR},
+      work_year_number = #{workYearNumber,jdbcType=VARCHAR},
+      request_income_year = #{requestIncomeYear,jdbcType=VARCHAR},
+      work_position = #{workPosition,jdbcType=VARCHAR},
+      year_income = #{yearIncome,jdbcType=VARCHAR},
+      month_income = #{monthIncome,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      company_address = #{companyAddress,jdbcType=VARCHAR},
+      company_tel = #{companyTel,jdbcType=VARCHAR},
+      company_link_man = #{companyLinkMan,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, user_login, user_name, user_idcard, work_year_number, request_income_year, 
+    work_position, year_income, month_income, company_name, company_address, company_tel, 
+    company_link_man, is_deleted, gmt_create, gmt_modified, process_instance_id
+    from hr_income
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, user_login, user_name, user_idcard, work_year_number, request_income_year, 
+    work_position, year_income, month_income, company_name, company_address, company_tel, 
+    company_link_man, is_deleted, gmt_create, gmt_modified, process_instance_id
+    from hr_income
+    <include refid="Base_Where_List"></include>
+    order by id desc
+  </select>
+</mapper>

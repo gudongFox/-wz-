@@ -1,0 +1,383 @@
+﻿<!-- Modal -->
+<div class="modal fade" id="actTaskModal">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><strong
+                        ng-bind="'任务详情:task_id='+actTaskDetail.id"></strong>
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-body">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>任务名称</label>
+                                        <input type="text" class="form-control" placeholder=""
+                                               ng-model="actTaskDetail.name" disabled="disabled"/>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>任务标识</label>
+                                        <input type="text" class="form-control" placeholder=""
+                                               ng-model="actTaskDetail.taskDefinitionKey"
+                                               disabled="disabled"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>拥有人</label>
+                                        <input type="text" class="form-control" placeholder=""
+                                               ng-model="actTaskDetail.ownerName" disabled="disabled"/>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>办理人</label>
+                                        <input type="text" class="form-control" placeholder=""
+                                               ng-model="actTaskDetail.assigneeName" disabled="disabled"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label title="{{actTaskDetail.claimTime |date:'yyyy-MM-dd HH:mm:ss'}}">开始时间</label>
+                                        <input type="text" class="form-control" placeholder=""
+                                               ng-value="actTaskDetail.startTime |date:'yyyy-MM-dd HH:mm:ss'"
+                                               disabled="disabled"/>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>结束时间</label>
+                                        <input type="text" class="form-control" placeholder=""
+                                               ng-value="actTaskDetail.endTime|date:'yyyy-MM-dd HH:mm:ss'"
+                                               disabled="disabled"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>处理意见</label>
+                                <textarea class="form-control" rows="2"
+                                          ng-model="actTaskDetail.comments_"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>流程变量</label>
+                                <textarea class="form-control" rows="3"
+                                          ng-model="actTaskDetail.processVariables_"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>本地变量</label>
+                                <textarea class="form-control" rows="3"
+                                          ng-model="actTaskDetail.taskLocalVariables_"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<div class="modal fade" id="actSendTaskModal">-->
+<!--    <div class="modal-dialog">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>-->
+<!--                <h4 class="modal-title">发送任务</h4>-->
+<!--            </div>-->
+<!--            <div class="modal-body row">-->
+<!--                <div class="col-md-7">-->
+<!--                    <form class="form-horizontal" id="sendFlowForm">-->
+<!--                        <div class="form-body">-->
+<!--                            <div class="form-group">-->
+<!--                                <label class="col-md-4 control-label"-->
+<!--                                       title="{{'认领时间:'+actTaskDetail.claimTime|date:'yyyy-MM-dd HH:mm'}}">开始时间</label>-->
+<!--                                <div class="col-md-8">-->
+<!--                                    <input type="text" class="form-control"-->
+<!--                                           ng-value="actTaskDetail.startTime|date:'yyyy-MM-dd HH:mm:ss'"-->
+<!--                                           disabled="disabled"/>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="form-group">-->
+<!--                                <label class="col-md-4 control-label"-->
+<!--                                       title="{{'拥有人:'+actTaskDetail.ownerName}}">办理人</label>-->
+<!--                                <div class="col-md-8">-->
+<!--                                    <input type="text" class="form-control" placeholder=""-->
+<!--                                           ng-value="actTaskDetail.assigneeName" disabled="disabled"/>-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+<!--                            <div class="form-group" ng-if="actTaskDetail.copyAble">-->
+<!--                                <label class="col-md-4 control-label">抄送用户</label>-->
+<!--                                <div class="col-md-8">-->
+<!--                                    <div class="input-group">-->
+<!--                                        <textarea class="form-control" rows="3"-->
+<!--                                                  ng-model="actTaskDetail.ccUserName" disabled="disabled"></textarea>-->
+<!--                                        <span class="input-group-addon" ng-click="showCcUserModal();">-->
+<!--											        <i class="fa fa-user font-blue"></i>-->
+<!--											    </span>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+<!--                            <div class="form-group">-->
+<!--                                <label class="col-md-4 control-label">办理意见<span style="color: red;">*</span></label>-->
+<!--                                <div class="col-md-8">-->
+<!--                                     <textarea class="form-control" rows="4"-->
+<!--                                               ng-model="actTaskDetail.currentComment"></textarea>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--                <div class="col-md-5" style="padding-left: 0px;max-height: 400px;">-->
+<!--                    <div id="actSendFlowTree"></div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="modal-footer">-->
+<!--                <button type="button" class="btn blue" ng-click="sendActTask(false);">保存</button>-->
+<!--                <button type="button" class="btn blue" ng-click="sendActTask(true);">发送</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<div class="modal fade" id="actBackTaskModal">-->
+<!--    <div class="modal-dialog">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>-->
+<!--                <h4 class="modal-title">打回任务</h4>-->
+<!--            </div>-->
+<!--            <div class="modal-body row">-->
+<!--                <div class="col-md-7">-->
+<!--                    <form class="form-horizontal" id="backFlowForm">-->
+<!--                        <div class="form-body">-->
+<!--                            <div class="form-group">-->
+<!--                                <label class="col-md-4 control-label"-->
+<!--                                       title="{{'认领时间:'+actTaskDetail.claimTime|date:'yyyy-MM-dd HH:mm'}}">开始时间</label>-->
+<!--                                <div class="col-md-7">-->
+<!--                                    <input type="text" class="form-control"-->
+<!--                                           ng-value="actTaskDetail.startTime|date:'yyyy-MM-dd HH:mm:ss'"-->
+<!--                                           disabled="disabled"/>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="form-group">-->
+<!--                                <label class="col-md-4 control-label"-->
+<!--                                       title="{{'拥有人:'+actTaskDetail.ownerName}}">办理人</label>-->
+<!--                                <div class="col-md-7">-->
+<!--                                    <input type="text" class="form-control" placeholder=""-->
+<!--                                           ng-value="actTaskDetail.assigneeName" disabled="disabled"/>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="form-group">-->
+<!--                                <label class="col-md-4 control-label">打回意见<span style="color: red;">*</span></label>-->
+<!--                                <div class="col-md-7">-->
+<!--                                     <textarea class="form-control" rows="4"-->
+<!--                                               ng-model="actTaskDetail.currentComment"></textarea>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--                <div class="col-md-5" style="padding-left: 0px;max-height:350px;">-->
+<!--                    <div id="actBackFlowTree"></div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="modal-footer">-->
+<!--                <button type="button" class="btn blue" ng-click="backActTask(false);">保存</button>-->
+<!--                <button type="button" class="btn blue" ng-click="backActTask(true);">打回</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<div class="modal fade" id="actDelegateTaskModal">-->
+<!--    <div class="modal-dialog">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>-->
+<!--                <h4 class="modal-title"><strong>委托任务</strong></h4>-->
+<!--            </div>-->
+<!--            <div class="modal-body" style="padding-top:5px;">-->
+<!--                <form class="form-horizontal">-->
+<!--                    <div class="form-body">-->
+<!--                        <div class="form-group">-->
+<!--                            <label class="col-md-4 control-label"-->
+<!--                                   title="{{'认领时间:'+actTaskDetail.claimTime|date:'yyyy-MM-dd HH:mm'}}">开始时间</label>-->
+<!--                            <div class="col-md-7">-->
+<!--                                <input type="text" class="form-control"-->
+<!--                                       ng-value="actTaskDetail.startTime|date:'yyyy-MM-dd HH:mm:ss'"-->
+<!--                                       disabled="disabled"/>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <label class="col-md-4 control-label"-->
+<!--                                   title="{{'拥有人:'+actTaskDetail.ownerName}}">办理人</label>-->
+<!--                            <div class="col-md-7">-->
+<!--                                <input type="text" class="form-control" placeholder=""-->
+<!--                                       ng-value="actTaskDetail.assigneeName" disabled="disabled"/>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <label class="col-md-4 control-label"-->
+<!--                                   title="{{'拥有人:'+actTaskDetail.ownerName}}">被委托人<span style="color: red;">*</span></label>-->
+<!--                            <div class="col-md-7">-->
+<!--                                <div class="input-group">-->
+<!--                                    <input type="text" class="form-control" disabled="disabled" ng-model="actTaskDetail.newAssigneeName" />-->
+<!--                                    <div class="input-group-btn">-->
+<!--                                        <a class="btn default"  ng-click="showDelegateUserModal();">-->
+<!--                                            <i class="fa fa-user"></i>-->
+<!--                                        </a>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <label class="col-md-4 control-label">办理意见<span style="color: red;">*</span></label>-->
+<!--                            <div class="col-md-7">-->
+<!--                                     <textarea class="form-control" rows="3"-->
+<!--                                               ng-model="actTaskDetail.currentComment"></textarea>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--            <div class="modal-footer">-->
+<!--                <button type="button" class="btn blue" ng-click="delegateTask();">确认</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<div class="modal fade" id="actTransferTaskModal">-->
+<!--    <div class="modal-dialog">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>-->
+<!--                <h4 class="modal-title"><strong>移交任务</strong></h4>-->
+<!--            </div>-->
+<!--            <div class="modal-body" style="padding-top:5px;">-->
+<!--                <form class="form-horizontal">-->
+<!--                    <div class="form-body">-->
+<!--                        <div class="form-group">-->
+<!--                            <label class="col-md-4 control-label"-->
+<!--                                   title="{{'认领时间:'+actTaskDetail.claimTime|date:'yyyy-MM-dd HH:mm'}}">开始时间</label>-->
+<!--                            <div class="col-md-7">-->
+<!--                                <input type="text" class="form-control"-->
+<!--                                       ng-value="actTaskDetail.startTime|date:'yyyy-MM-dd HH:mm:ss'"-->
+<!--                                       disabled="disabled"/>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <label class="col-md-4 control-label"-->
+<!--                                   title="{{'拥有人:'+actTaskDetail.ownerName}}">办理人</label>-->
+<!--                            <div class="col-md-7">-->
+<!--                                <input type="text" class="form-control" placeholder=""-->
+<!--                                       ng-value="actTaskDetail.assigneeName" disabled="disabled"/>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <label class="col-md-4 control-label"-->
+<!--                                   title="{{'拥有人:'+actTaskDetail.ownerName}}">新任务人<span style="color: red;">*</span></label>-->
+<!--                            <div class="col-md-7">-->
+<!--                                <div class="input-group">-->
+<!--                                    <input type="text" class="form-control" disabled="disabled" ng-model="actTaskDetail.newOwnerName" />-->
+<!--                                    <div class="input-group-btn">-->
+<!--                                        <a class="btn default"  ng-click="showTransferUserModal();">-->
+<!--                                            <i class="fa fa-user"></i>-->
+<!--                                        </a>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <label class="col-md-4 control-label">办理意见<span style="color: red;">*</span></label>-->
+<!--                            <div class="col-md-7">-->
+<!--                                     <textarea class="form-control" rows="3"-->
+<!--                                               ng-model="actTaskDetail.currentComment"></textarea>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--            <div class="modal-footer">-->
+<!--                <button type="button" class="btn blue" ng-click="transferTask();">确认</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<div class="modal fade" id="actResolveTaskModal">-->
+<!--    <div class="modal-dialog">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>-->
+<!--                <h4 class="modal-title"><strong>完成任务</strong></h4>-->
+<!--            </div>-->
+<!--            <div class="modal-body" style="padding-top:5px;">-->
+<!--                <form class="form-horizontal">-->
+<!--                    <div class="form-body">-->
+<!--                        <div class="form-group">-->
+<!--                            <label class="col-md-4 control-label"-->
+<!--                                   title="{{'认领时间:'+actTaskDetail.claimTime|date:'yyyy-MM-dd HH:mm'}}">开始时间</label>-->
+<!--                            <div class="col-md-8">-->
+<!--                                <input type="text" class="form-control"-->
+<!--                                       ng-value="actTaskDetail.startTime|date:'yyyy-MM-dd HH:mm:ss'"-->
+<!--                                       disabled="disabled"/>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <label class="col-md-4 control-label"-->
+<!--                                   title="{{'拥有人:'+actTaskDetail.ownerName}}">办理人</label>-->
+<!--                            <div class="col-md-8">-->
+<!--                                <input type="text" class="form-control" placeholder=""-->
+<!--                                       ng-value="actTaskDetail.assigneeName" disabled="disabled"/>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <label class="col-md-4 control-label">办理意见<span style="color: red;">*</span></label>-->
+<!--                            <div class="col-md-8">-->
+<!--                                     <textarea class="form-control" rows="3"-->
+<!--                                               ng-model="actTaskDetail.currentComment"></textarea>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--            <div class="modal-footer">-->
+<!--                <button type="button" class="btn blue" ng-click="resolveTask();">确定</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<div class="modal fade" id="userJsTreeModal" tabindex="-1" role="basic" aria-hidden="true">-->
+<!--    <div class="modal-dialog">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>-->
+<!--                <h4 class="modal-title">选择用户</h4>-->
+<!--            </div>-->
+<!--            <div class="modal-body" style="max-height: 400px;overflow-y: auto;">-->
+<!--                <div class="input-group input-group-sm margin-bottom-10">-->
+<!--                    <input type="text" class="form-control" placeholder="用户名称" id="userJsTree_Key"/>-->
+<!--                    <span class="input-group-addon"><i class="fa fa-search" ng-click="rebuildJsTreeUser();"></i></span>-->
+<!--                </div>-->
+<!--                <div id="userJsTreeModal_tree"></div>-->
+<!--            </div>-->
+<!--            <div class="modal-footer">-->
+<!--                <button type="button" class="btn default" data-dismiss="modal">关闭</button>-->
+<!--                <button type="button" class="btn blue"  id="btnSelectJsTreeUser">确认</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; /.modal-content &ndash;&gt;-->
+<!--    </div>-->
+<!--    &lt;!&ndash; /.modal-dialog &ndash;&gt;-->
+<!--</div>-->

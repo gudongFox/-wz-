@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.hr.dao.HrVacationDetailMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.hr.entity.HrVacationDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="vacation_id" jdbcType="INTEGER" property="vacationId" />
+    <result column="vacation_type" jdbcType="VARCHAR" property="vacationType" />
+    <result column="plan_begin" jdbcType="VARCHAR" property="planBegin" />
+    <result column="plan_end" jdbcType="VARCHAR" property="planEnd" />
+    <result column="plan_day" jdbcType="INTEGER" property="planDay" />
+    <result column="actual_begin" jdbcType="VARCHAR" property="actualBegin" />
+    <result column="actual_end" jdbcType="VARCHAR" property="actualEnd" />
+    <result column="last_left" jdbcType="INTEGER" property="lastLeft" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from hr_vacation_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.hr.entity.HrVacationDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into hr_vacation_detail (vacation_id, vacation_type, plan_begin, 
+      plan_end, plan_day, actual_begin, 
+      actual_end, last_left, gmt_create, 
+      gmt_modified)
+    values (#{vacationId,jdbcType=INTEGER}, #{vacationType,jdbcType=VARCHAR}, #{planBegin,jdbcType=VARCHAR}, 
+      #{planEnd,jdbcType=VARCHAR}, #{planDay,jdbcType=INTEGER}, #{actualBegin,jdbcType=VARCHAR}, 
+      #{actualEnd,jdbcType=VARCHAR}, #{lastLeft,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.hr.entity.HrVacationDetail">
+    update hr_vacation_detail
+    set vacation_id = #{vacationId,jdbcType=INTEGER},
+      vacation_type = #{vacationType,jdbcType=VARCHAR},
+      plan_begin = #{planBegin,jdbcType=VARCHAR},
+      plan_end = #{planEnd,jdbcType=VARCHAR},
+      plan_day = #{planDay,jdbcType=INTEGER},
+      actual_begin = #{actualBegin,jdbcType=VARCHAR},
+      actual_end = #{actualEnd,jdbcType=VARCHAR},
+      last_left = #{lastLeft,jdbcType=INTEGER},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, vacation_id, vacation_type, plan_begin, plan_end, plan_day, actual_begin, 
+    actual_end, last_left, gmt_create, gmt_modified
+    from hr_vacation_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, vacation_id, vacation_type, plan_begin, plan_end, plan_day, actual_begin, 
+    actual_end, last_left, gmt_create, gmt_modified
+    from hr_vacation_detail
+    <include refid="Base_Where_List" />
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="vacationId != null">
+         AND vacation_id = #{vacationId}
+      </if>
+      <if test="vacationType != null and vacationType != ''">
+         AND vacation_type = #{vacationType}
+      </if>
+      <if test="planBegin != null and planBegin != ''">
+         AND plan_begin = #{planBegin}
+      </if>
+      <if test="planEnd != null and planEnd != ''">
+         AND plan_end = #{planEnd}
+      </if>
+      <if test="planDay != null">
+         AND plan_day = #{planDay}
+      </if>
+      <if test="actualBegin != null and actualBegin != ''">
+         AND actual_begin = #{actualBegin}
+      </if>
+      <if test="actualEnd != null and actualEnd != ''">
+         AND actual_end = #{actualEnd}
+      </if>
+      <if test="lastLeft != null">
+         AND last_left = #{lastLeft}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+    </where>
+  </sql>
+</mapper>

@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.hr.dao.HrEmployeeMapper">
+    <resultMap id="BaseResultMap" type="com.cmcu.mcc.hr.entity.HrEmployee">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="user_login" jdbcType="VARCHAR" property="userLogin"/>
+        <result column="logo_gram" jdbcType="VARCHAR" property="logoGram"/>
+        <result column="user_no" jdbcType="VARCHAR" property="userNo"/>
+        <result column="id_card_type" jdbcType="VARCHAR" property="idCardType"/>
+        <result column="id_card_no" jdbcType="VARCHAR" property="idCardNo"/>
+        <result column="gender" jdbcType="BIT" property="gender"/>
+        <result column="age" jdbcType="INTEGER" property="age"/>
+        <result column="birth_day" jdbcType="VARCHAR" property="birthDay"/>
+        <result column="country" jdbcType="VARCHAR" property="country"/>
+        <result column="nation" jdbcType="VARCHAR" property="nation"/>
+        <result column="birth_place" jdbcType="VARCHAR" property="birthPlace"/>
+        <result column="politics" jdbcType="VARCHAR" property="politics"/>
+        <result column="politics_time" jdbcType="VARCHAR" property="politicsTime"/>
+        <result column="join_work_time" jdbcType="VARCHAR" property="joinWorkTime"/>
+        <result column="join_company_time" jdbcType="VARCHAR" property="joinCompanyTime"/>
+        <result column="leave_company_time" jdbcType="VARCHAR" property="leaveCompanyTime"/>
+        <result column="id_address" jdbcType="VARCHAR" property="idAddress"/>
+        <result column="live_address" jdbcType="VARCHAR" property="liveAddress"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="office_tel" jdbcType="VARCHAR" property="officeTel"/>
+        <result column="home_tel" jdbcType="VARCHAR" property="homeTel"/>
+        <result column="en_email" jdbcType="VARCHAR" property="enEmail"/>
+        <result column="is_city_id" jdbcType="BIT" property="cityId"/>
+        <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
+        <result column="sign_url" jdbcType="VARCHAR" property="signUrl"/>
+        <result column="sign_pic_url" jdbcType="VARCHAR" property="signPicUrl"/>
+        <result column="head_attach_id" jdbcType="VARCHAR" property="headAttachId"/>
+        <result column="sign_attach_id" jdbcType="VARCHAR" property="signAttachId"/>
+        <result column="sign_pic_attach_id" jdbcType="VARCHAR" property="signPicAttachId"/>
+        <result column="education_background" jdbcType="VARCHAR" property="educationBackground"/>
+        <result column="car_no" jdbcType="VARCHAR" property="carNo"/>
+        <result column="user_type" jdbcType="VARCHAR" property="userType"/>
+        <result column="user_type_detail" jdbcType="VARCHAR" property="userTypeDetail"/>
+        <result column="user_status" jdbcType="VARCHAR" property="userStatus"/>
+        <result column="specialty" jdbcType="VARCHAR" property="specialty"/>
+        <result column="other_specialty" jdbcType="VARCHAR" property="otherSpecialty"/>
+        <result column="ranks" jdbcType="VARCHAR" property="ranks"/>
+        <result column="rank_time" jdbcType="VARCHAR" property="rankTime"/>
+        <result column="seq" jdbcType="INTEGER" property="seq"/>
+        <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate"/>
+        <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+    </resultMap>
+
+    <resultMap id="ExtendResultMap" extends="BaseResultMap" type="com.cmcu.mcc.hr.dto.HrEmployeeDto">
+        <result column="dept_id" jdbcType="INTEGER" property="deptId"/>
+        <result column="dept_name" jdbcType="VARCHAR" property="deptName"/>
+        <result column="is_deleted" jdbcType="BIT" property="deleted"/>
+        <result column="position_ids" jdbcType="VARCHAR" property="positionIds"/>
+        <result column="position_names" jdbcType="VARCHAR" property="positionNames"/>
+        <result column="role_ids" jdbcType="VARCHAR" property="roleIds"/>
+        <result column="role_names" jdbcType="VARCHAR" property="roleNames"/>
+        <result column="wx_id" jdbcType="VARCHAR" property="wxId"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from hr_employee
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+
+    <insert id="insert" parameterType="com.cmcu.mcc.hr.entity.HrEmployee">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into hr_employee (user_name, user_login,logo_gram, user_no,
+        id_card_type, id_card_no, gender,
+        age, birth_day, country,
+        nation, birth_place, politics,
+        politics_time, join_work_time, join_company_time,
+        leave_company_time, id_address, live_address,
+        mobile, office_tel, home_tel,
+        en_email, is_city_id, avatar, head_attach_id,
+        sign_url,sign_attach_id,sign_pic_url,sign_pic_attach_id,education_background, car_no,
+        user_type,user_type_detail,user_status, specialty,
+        other_specialty, seq,ranks,rank_time, gmt_create,
+        gmt_modified, remark)
+        values (#{userName,jdbcType=VARCHAR}, #{userLogin,jdbcType=VARCHAR}, #{logoGram,jdbcType=VARCHAR}, #{userNo,jdbcType=VARCHAR},
+        #{idCardType,jdbcType=VARCHAR}, #{idCardNo,jdbcType=VARCHAR}, #{gender,jdbcType=BIT},
+        #{age,jdbcType=INTEGER}, #{birthDay,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR},
+        #{nation,jdbcType=VARCHAR}, #{birthPlace,jdbcType=VARCHAR}, #{politics,jdbcType=VARCHAR},
+        #{politicsTime,jdbcType=VARCHAR}, #{joinWorkTime,jdbcType=VARCHAR}, #{joinCompanyTime,jdbcType=VARCHAR},
+        #{leaveCompanyTime,jdbcType=VARCHAR}, #{idAddress,jdbcType=VARCHAR}, #{liveAddress,jdbcType=VARCHAR},
+        #{mobile,jdbcType=VARCHAR}, #{officeTel,jdbcType=VARCHAR}, #{homeTel,jdbcType=VARCHAR},
+        #{enEmail,jdbcType=VARCHAR}, #{cityId,jdbcType=BIT}, #{avatar,jdbcType=VARCHAR},
+        #{headAttachId,jdbcType=VARCHAR},
+        #{signUrl,jdbcType=VARCHAR},#{signAttachId,jdbcType=VARCHAR},
+        #{signPicUrl,jdbcType=VARCHAR},#{signPicAttachId,jdbcType=VARCHAR},
+        #{educationBackground,jdbcType=VARCHAR}, #{carNo,jdbcType=VARCHAR},
+        #{userType,jdbcType=VARCHAR}, #{userTypeDetail,jdbcType=VARCHAR}, #{userStatus,jdbcType=VARCHAR},
+        #{specialty,jdbcType=VARCHAR},
+        #{otherSpecialty,jdbcType=VARCHAR}, #{seq,jdbcType=INTEGER},#{ranks,jdbcType=VARCHAR},#{rankTime,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP},
+        #{gmtModified,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.hr.entity.HrEmployee">
+    update hr_employee
+    set user_name = #{userName,jdbcType=VARCHAR},
+      user_login = #{userLogin,jdbcType=VARCHAR},
+      logo_gram = #{logoGram,jdbcType=VARCHAR},
+      user_no = #{userNo,jdbcType=VARCHAR},
+      id_card_type = #{idCardType,jdbcType=VARCHAR},
+      id_card_no = #{idCardNo,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=BIT},
+      age = #{age,jdbcType=INTEGER},
+      birth_day = #{birthDay,jdbcType=VARCHAR},
+      country = #{country,jdbcType=VARCHAR},
+      nation = #{nation,jdbcType=VARCHAR},
+      birth_place = #{birthPlace,jdbcType=VARCHAR},
+      politics = #{politics,jdbcType=VARCHAR},
+      politics_time = #{politicsTime,jdbcType=VARCHAR},
+      join_work_time = #{joinWorkTime,jdbcType=VARCHAR},
+      join_company_time = #{joinCompanyTime,jdbcType=VARCHAR},
+      leave_company_time = #{leaveCompanyTime,jdbcType=VARCHAR},
+      id_address = #{idAddress,jdbcType=VARCHAR},
+      live_address = #{liveAddress,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      office_tel = #{officeTel,jdbcType=VARCHAR},
+      home_tel = #{homeTel,jdbcType=VARCHAR},
+      en_email = #{enEmail,jdbcType=VARCHAR},
+      is_city_id = #{cityId,jdbcType=BIT},
+      avatar = #{avatar,jdbcType=VARCHAR},
+      head_attach_id = #{headAttachId,jdbcType=VARCHAR},
+      sign_url = #{signUrl,jdbcType=VARCHAR},
+      sign_attach_id = #{signAttachId,jdbcType=VARCHAR},
+      sign_pic_url = #{signPicUrl,jdbcType=VARCHAR},
+      sign_pic_attach_id = #{signPicAttachId,jdbcType=VARCHAR},
+      education_background = #{educationBackground,jdbcType=VARCHAR},
+      car_no = #{carNo,jdbcType=VARCHAR},
+      user_type = #{userType,jdbcType=VARCHAR},
+      user_type_detail = #{userTypeDetail,jdbcType=VARCHAR},
+      user_status = #{userStatus,jdbcType=VARCHAR},
+      specialty = #{specialty,jdbcType=VARCHAR},
+      other_specialty = #{otherSpecialty,jdbcType=VARCHAR},
+      seq = #{seq,jdbcType=INTEGER},
+      ranks = #{ranks,jdbcType=VARCHAR},
+      rank_time = #{rankTime,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ExtendResultMap">
+           select c.name as dept_name,c.id as dept_id,a.is_deleted,a.position_ids,a.position_names,a.role_ids,a.role_names,b.* from hr_employee_sys a
+    left join hr_employee b on a.user_login=b.user_login
+    left join hr_dept c on a.dept_id=c.id
+    where b.id = #{id,jdbcType=INTEGER}
+  </select>
+
+    <select id="getNameByUserLogin" parameterType="java.lang.String" resultType="java.lang.String">
+    select user_name from hr_employee
+    where user_login = #{userLogin,jdbcType=VARCHAR}
+  </select>
+
+
+    <select id="listByUserLoginList" parameterType="java.util.Arrays" resultType="java.util.Map">
+        select user_login as userLogin,user_name as userName,office_tel as officeTel from hr_employee
+        <where>
+            <if test="userLoginList != null">
+                AND user_login in
+                <foreach collection="userLoginList" open="(" close=")" separator="," item="userLogin" index="i">
+                    #{userLogin}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <select id="selectByUserLoginOrNo" parameterType="java.lang.String" resultMap="ExtendResultMap">
+       select c.name as dept_name,c.id as dept_id,a.is_deleted,a.position_ids,a.position_names,a.role_ids,a.wx_id,a.role_names,b.* from hr_employee_sys a
+        left join hr_employee b on a.user_login=b.user_login
+         left join hr_dept c on a.dept_id=c.id
+         where (a.user_login = #{userLogin,jdbcType=VARCHAR} or b.user_no= #{userNo,jdbcType=VARCHAR})
+         limit 1
+  </select>
+
+
+    <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from hr_employee
+        where user_name = #{cnName,jdbcType=VARCHAR}
+    </select>
+
+
+
+    <select id="selectAll" resultMap="ExtendResultMap">
+        select c.name as dept_name,
+        c.id as
+        dept_id,
+        a.is_deleted,
+        a.position_ids,
+        a.position_names,
+        a.role_ids,
+        a.role_names,
+        a.wx_id,
+        b.* from hr_employee_sys a
+        left join hr_employee b on a.user_login=b.user_login
+        left join hr_dept c on a.dept_id=c.id
+        <include refid="Base_Where_List"/>
+        order by c.name asc,b.seq asc
+    </select>
+
+    <sql id="Base_Where_List">
+        <where>
+            <if test="deleted != null">
+                AND a.is_deleted = #{deleted}
+            </if>
+            <if test="roleId != null">
+                AND a.role_ids like CONCAT('%,',#{roleId},',%')
+            </if>
+            <if test="positionId !=null and positionId != ''">
+                AND a.position_ids like CONCAT('%,',#{positionId},',%')
+            </if>
+            <if test="positionName !=null and positionName != ''">
+                AND a.position_names like CONCAT('%,',#{positionName},',%')
+            </if>
+            <if test="deptId != null and deptId>0">
+                AND a.dept_id = #{deptId}
+            </if>
+            <if test="deptIds != null">
+                AND a.dept_id in
+                <foreach collection="deptIds" open="(" close=")" separator="," item="deptId" index="i">
+                    #{deptId}
+                </foreach>
+            </if>
+
+            <if test="deptName != null">
+                AND c.name like CONCAT('%',#{deptName},'%')
+            </if>
+            <if test="id != null">
+                AND b.id = #{id}
+            </if>
+            <if test="userName != null and userName != ''">
+                AND b.user_name = #{userName}
+            </if>
+            <if test="userLogin != null and userLogin != ''">
+                AND b.user_login = #{userLogin}
+            </if>
+            <if test="userNo != null and userNo != ''">
+                AND b.user_no = #{userNo}
+            </if>
+            <if test="idCardType != null and idCardType != ''">
+                AND b.id_card_type = #{idCardType}
+            </if>
+            <if test="idCardNo != null and idCardNo != ''">
+                AND b.id_card_no = #{idCardNo}
+            </if>
+            <if test="gender != null">
+                AND b.gender = #{gender}
+            </if>
+            <if test="age != null">
+                AND b.age = #{age}
+            </if>
+            <if test="birthDay != null and birthDay != ''">
+                AND b.birth_day = #{birthDay}
+            </if>
+            <if test="country != null and country != ''">
+                AND b.country = #{country}
+            </if>
+            <if test="nation != null and nation != ''">
+                AND b.nation = #{nation}
+            </if>
+            <if test="birthPlace != null and birthPlace != ''">
+                AND b.birth_place = #{birthPlace}
+            </if>
+            <if test="politics != null and politics != ''">
+                AND b.politics = #{politics}
+            </if>
+            <if test="politicsTime != null and politicsTime != ''">
+                AND b.politics_time = #{politicsTime}
+            </if>
+            <if test="joinWorkTime != null and joinWorkTime != ''">
+                AND b.join_work_time = #{joinWorkTime}
+            </if>
+            <if test="joinCompanyTime != null and joinCompanyTime != ''">
+                AND b.join_company_time = #{joinCompanyTime}
+            </if>
+            <if test="leaveCompanyTime != null and leaveCompanyTime != ''">
+                AND b.leave_company_time = #{leaveCompanyTime}
+            </if>
+            <if test="idAddress != null and idAddress != ''">
+                AND b.id_address = #{idAddress}
+            </if>
+            <if test="liveAddress != null and liveAddress != ''">
+                AND b.live_address = #{liveAddress}
+            </if>
+            <if test="mobile != null and mobile != ''">
+                AND b.mobile = #{mobile}
+            </if>
+            <if test="officeTel != null and officeTel != ''">
+                AND b.office_tel = #{officeTel}
+            </if>
+            <if test="homeTel != null and homeTel != ''">
+                AND b.home_tel = #{homeTel}
+            </if>
+            <if test="enEmail != null and enEmail != ''">
+                AND b.en_email = #{enEmail}
+            </if>
+            <if test="cityId != null">
+                AND b.is_city_id = #{cityId}
+            </if>
+            <if test="avatar != null and avatar != ''">
+                AND b.avatar = #{avatar}
+            </if>
+            <if test="signUrl != null and signUrl != ''">
+                AND b.sign_url = #{signUrl}
+            </if>
+            <if test="educationBackground != null and educationBackground != ''">
+                AND b.education_background = #{educationBackground}
+            </if>
+            <if test="carNo != null and carNo != ''">
+                AND b.car_no = #{carNo}
+            </if>
+            <if test="userType != null and userType != ''">
+                AND b.user_type = #{userType}
+            </if>
+            <if test="userStatus != null and userStatus != ''">
+                AND b.user_status = #{userStatus}
+            </if>
+            <if test="specialty != null and specialty != ''">
+                AND b.specialty = #{specialty}
+            </if>
+            <if test="otherSpecialty != null and otherSpecialty != ''">
+                AND b.other_specialty = #{otherSpecialty}
+            </if>
+            <if test="seq != null">
+                AND b.seq = #{seq}
+            </if>
+            <if test="gmtCreate != null">
+                AND b.gmt_create = #{gmtCreate}
+            </if>
+            <if test="gmtModified != null">
+                AND b.gmt_modified = #{gmtModified}
+            </if>
+            <if test="remark != null and remark != ''">
+                AND b.remark = #{remark}
+            </if>
+            <if test="qName != null and qName != '' ">
+                AND (
+                b.user_name like CONCAT('%',#{qName},'%') or
+                b.user_login like CONCAT('%',#{qName},'%')
+                )
+            </if>
+            <if test="q != null and q != '' ">
+                AND (
+                b.user_name like CONCAT('%',#{q},'%') or
+                b.user_no like CONCAT('%',#{q},'%')or
+                b.logo_gram like CONCAT(#{q},'%')
+                )
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectSimpleAll" resultType="com.cmcu.mcc.hr.dto.HrEmployeeSimpleDto">
+        SELECT a.user_login as userLogin,a.position_ids as positionIds,a.position_names as positionNames,
+        a.role_ids as roleIds,a.role_names as roleNames,
+        b.user_name as userName,b.mobile,b.office_tel as officeTel,a.dept_id as deptId,d.name as deptName,b.specialty,
+        c.check_year as checkYear,c.major_name as majorName,c.project_type as projectType,
+        c.is_project_charge as projectCharge, c.is_project_exe_charge as projectExeCharge,
+        c.is_major_charge as majorCharge,c.is_design as design,c.is_proofread as proofread,
+        c.is_audit as audit,c.is_approve as approve,c.is_company_approve as companyApprove,
+        c.is_chief_designer as chiefDesigner,c.is_pro_chief as proChief
+        FROM hr_employee_sys a
+        left join hr_employee b on a.user_login=b.user_login
+        left join hr_qualify c on a.user_login=c.user_login
+        left join hr_dept d on a.dept_id =d.id
+        where  a.is_deleted=0 and c.is_deleted=0 and c.check_year=#{checkYear}
+        <if test="qName !=null and qName != ''">
+            AND (b.user_name like CONCAT('%',#{qName},'%') or  a.user_login like CONCAT('%',#{qName},'%'))
+        </if>
+
+        <if test="qPosition !=null and qPosition != ''">
+            AND a.position_names like CONCAT('%',#{qPosition},'%')
+        </if>
+        <if test="qUserLogin !=null and qUserLogin != ''">
+            AND a.user_login like CONCAT('%',#{qUserLogin},'%')
+        </if>
+        <if test="qUserName !=null and qUserName != ''">
+            AND b.user_name like CONCAT('%',#{qUserName},'%')
+        </if>
+        <if test="qSpecialty != null and qSpecialty != ''">
+            AND b.specialty like CONCAT('%',#{qSpecialty},'%')
+        </if>
+        <if test="deptId != null and deptId>0">
+            AND a.dept_id = #{deptId}
+        </if>
+        <if test="roleId != null and roleId>0 ">
+            AND  a.role_ids like CONCAT('%,',#{roleId},',%')
+        </if>
+        <if test="deptIds != null">
+            AND a.dept_id in
+            <foreach collection="deptIds" open="(" close=")" separator="," item="deptId" index="i">
+                #{deptId}
+            </foreach>
+        </if>
+        <if test="roleIds != null">
+            AND a.role_id in
+            <foreach collection="roleIds" open="(" close=")" separator="," item="roleId" index="i">
+                #{roleId}
+            </foreach>
+        </if>
+        <if test="projectCharge != null">
+            AND c.is_project_charge = #{projectCharge}
+        </if>
+
+        <if test="majorCharge != null">
+            AND c.is_major_charge = #{majorCharge}
+        </if>
+        <if test="design != null">
+            AND c.is_design = #{design}
+        </if>
+        <if test="proofread != null">
+            AND c.is_proofread = #{proofread}
+        </if>
+        <if test="audit != null">
+            AND c.is_audit = #{audit}
+        </if>
+        <if test="approve != null">
+            AND c.is_approve = #{approve}
+        </if>
+        <if test="chiefDesigner != null">
+            AND c.is_chief_designer = #{chiefDesigner}
+        </if>
+        <if test="key != null">
+            AND (
+            b.user_name like CONCAT('%',#{key},'%') or
+            a.position_names like CONCAT('%',#{key},'%') or
+            a.role_names like CONCAT('%',#{key},'%') or
+            a.user_login like CONCAT('%',#{key},'%')
+            )
+        </if>
+
+    </select>
+
+    <select id="selectOaSimpleAll" resultType="com.cmcu.mcc.hr.dto.HrEmployeeSimpleDto">
+        SELECT a.user_login as userLogin,a.position_ids as positionIds,a.position_names as positionNames,
+        a.role_ids as roleIds,a.role_names as roleNames,
+        b.user_name as userName,b.mobile,b.office_tel as officeTel,a.dept_id as deptId,d.name as deptName,b.specialty,b.user_status as userStatus,
+        b.seq as userSeq
+        FROM hr_employee_sys a
+        left join hr_employee b on a.user_login=b.user_login
+        left join hr_dept d on a.dept_id =d.id
+        where  a.is_deleted=0
+        <if test="qName !=null and qName != ''">
+            AND (b.user_name like CONCAT('%',#{qName},'%') or  a.user_login like CONCAT('%',#{qName},'%'))
+        </if>
+        <if test="qPosition !=null and qPosition != ''">
+            AND a.position_names like CONCAT('%',#{qPosition},'%')
+        </if>
+        <if test="qUserLogin !=null and qUserLogin != ''">
+            AND a.user_login like CONCAT('%',#{qUserLogin},'%')
+        </if>
+        <if test="qUserName !=null and qUserName != ''">
+            AND b.user_name like CONCAT('%',#{qUserName},'%')
+        </if>
+        <if test="qSpecialty != null and qSpecialty != ''">
+            AND b.specialty like CONCAT('%',#{qSpecialty},'%')
+        </if>
+        <if test="deptId != null and deptId>0">
+            AND a.dept_id = #{deptId}
+        </if>
+        <if test="roleId != null and roleId>0 ">
+            AND  a.role_ids like CONCAT('%,',#{roleId},',%')
+        </if>
+        <if test="deptIds != null">
+            AND a.dept_id in
+            <foreach collection="deptIds" open="(" close=")" separator="," item="deptId" index="i">
+                #{deptId}
+            </foreach>
+        </if>
+        <if test="roleIds != null">
+            AND a.role_id in
+            <foreach collection="roleIds" open="(" close=")" separator="," item="roleId" index="i">
+                #{roleId}
+            </foreach>
+        </if>
+
+        <if test="key != null">
+            AND (
+            b.user_name like CONCAT('%',#{key},'%') or
+            a.position_names like CONCAT('%',#{key},'%') or
+            a.role_names like CONCAT('%',#{key},'%') or
+            a.user_login like CONCAT('%',#{key},'%')
+            )
+        </if>
+        order by d.seq asc
+    </select>
+
+    <select id="selectOaRoleSimpleAll" resultType="com.cmcu.mcc.hr.dto.HrEmployeeSimpleDto">
+        SELECT a.user_login as userLogin,a.position_ids as positionIds,a.position_names as positionNames,
+        a.role_ids as roleIds,a.role_names as roleNames,
+        b.user_name as userName,b.mobile,b.office_tel as officeTel,a.dept_id as deptId,b.specialty
+        FROM hr_employee_sys a
+        left join hr_employee b on a.user_login=b.user_login
+        where  a.is_deleted=0
+        <if test="qName !=null and qName != ''">
+            AND (b.user_name like CONCAT('%',#{qName},'%') or  a.user_login like CONCAT('%',#{qName},'%'))
+        </if>
+        <if test="qPosition !=null and qPosition != ''">
+            AND a.position_names like CONCAT('%',#{qPosition},'%')
+        </if>
+        <if test="qUserLogin !=null and qUserLogin != ''">
+            AND a.user_login like CONCAT('%',#{qUserLogin},'%')
+        </if>
+        <if test="qUserName !=null and qUserName != ''">
+            AND b.user_name like CONCAT('%',#{qUserName},'%')
+        </if>
+        <if test="qSpecialty != null and qSpecialty != ''">
+            AND b.specialty like CONCAT('%',#{qSpecialty},'%')
+        </if>
+        <if test="deptId != null and deptId>0">
+            AND a.dept_id = #{deptId}
+        </if>
+        <if test="roleId != null and roleId>0 ">
+            AND  a.role_ids like CONCAT('%,',#{roleId},',%')
+        </if>
+        <if test="deptIds != null">
+            AND a.dept_id in
+            <foreach collection="deptIds" open="(" close=")" separator="," item="deptId" index="i">
+                #{deptId}
+            </foreach>
+        </if>
+        <if test="roleIds != null">
+            AND a.role_id in
+            <foreach collection="roleIds" open="(" close=")" separator="," item="roleId" index="i">
+                #{roleId}
+            </foreach>
+        </if>
+
+        <if test="key != null">
+            AND (
+            b.user_name like CONCAT('%',#{key},'%') or
+            a.position_names like CONCAT('%',#{key},'%') or
+            a.role_names like CONCAT('%',#{key},'%') or
+            a.user_login like CONCAT('%',#{key},'%')
+            )
+        </if>
+
+    </select>
+
+
+</mapper>

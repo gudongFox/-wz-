@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.business.dao.BusinessBidContractMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.business.entity.BusinessBidContract">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="bid_apply_id" jdbcType="INTEGER" property="bidApplyId" />
+    <result column="bid_attend_id" jdbcType="INTEGER" property="bidAttendId" />
+    <result column="bid_project_charge_id" jdbcType="INTEGER" property="bidProjectChargeId" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+    <result column="project_address" jdbcType="VARCHAR" property="projectAddress" />
+    <result column="project_time" jdbcType="VARCHAR" property="projectTime" />
+    <result column="project_scale" jdbcType="VARCHAR" property="projectScale" />
+    <result column="project_type" jdbcType="VARCHAR" property="projectType" />
+    <result column="project_quality" jdbcType="VARCHAR" property="projectQuality" />
+    <result column="project_content" jdbcType="VARCHAR" property="projectContent" />
+    <result column="contract_money" jdbcType="DECIMAL" property="contractMoney" />
+    <result column="contract_rate" jdbcType="VARCHAR" property="contractRate" />
+    <result column="contract_type" jdbcType="VARCHAR" property="contractType" />
+    <result column="guarantee_rule" jdbcType="VARCHAR" property="guaranteeRule" />
+    <result column="business_type" jdbcType="VARCHAR" property="businessType" />
+    <result column="payment_rule" jdbcType="VARCHAR" property="paymentRule" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from business_bid_contract
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.business.entity.BusinessBidContract">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into business_bid_contract (bid_apply_id, bid_attend_id, bid_project_charge_id, 
+      dept_id, dept_name, project_name, 
+      customer_name, project_address, project_time, 
+      project_scale, project_type, project_quality, 
+      project_content, contract_money, contract_rate, 
+      contract_type, guarantee_rule, business_type, 
+      payment_rule, remark, creator, 
+      creator_name, is_deleted, gmt_create, 
+      gmt_modified, process_instance_id, is_process_end
+      )
+    values (#{bidApplyId,jdbcType=INTEGER}, #{bidAttendId,jdbcType=INTEGER}, #{bidProjectChargeId,jdbcType=INTEGER}, 
+      #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR}, 
+      #{customerName,jdbcType=VARCHAR}, #{projectAddress,jdbcType=VARCHAR}, #{projectTime,jdbcType=VARCHAR}, 
+      #{projectScale,jdbcType=VARCHAR}, #{projectType,jdbcType=VARCHAR}, #{projectQuality,jdbcType=VARCHAR}, 
+      #{projectContent,jdbcType=VARCHAR}, #{contractMoney,jdbcType=DECIMAL}, #{contractRate,jdbcType=VARCHAR}, 
+      #{contractType,jdbcType=VARCHAR}, #{guaranteeRule,jdbcType=VARCHAR}, #{businessType,jdbcType=VARCHAR}, 
+      #{paymentRule,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{creatorName,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{processInstanceId,jdbcType=VARCHAR}, #{processEnd,jdbcType=BIT}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.business.entity.BusinessBidContract">
+    update business_bid_contract
+    set bid_apply_id = #{bidApplyId,jdbcType=INTEGER},
+      bid_attend_id = #{bidAttendId,jdbcType=INTEGER},
+      bid_project_charge_id = #{bidProjectChargeId,jdbcType=INTEGER},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      project_address = #{projectAddress,jdbcType=VARCHAR},
+      project_time = #{projectTime,jdbcType=VARCHAR},
+      project_scale = #{projectScale,jdbcType=VARCHAR},
+      project_type = #{projectType,jdbcType=VARCHAR},
+      project_quality = #{projectQuality,jdbcType=VARCHAR},
+      project_content = #{projectContent,jdbcType=VARCHAR},
+      contract_money = #{contractMoney,jdbcType=DECIMAL},
+      contract_rate = #{contractRate,jdbcType=VARCHAR},
+      contract_type = #{contractType,jdbcType=VARCHAR},
+      guarantee_rule = #{guaranteeRule,jdbcType=VARCHAR},
+      business_type = #{businessType,jdbcType=VARCHAR},
+      payment_rule = #{paymentRule,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      is_process_end = #{processEnd,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, bid_apply_id, bid_attend_id, bid_project_charge_id, dept_id, dept_name, 
+    project_name, customer_name, project_address, project_time, project_scale, project_type, 
+    project_quality, project_content, contract_money, contract_rate, contract_type, guarantee_rule, 
+    business_type, payment_rule, remark, creator, creator_name, is_deleted, gmt_create, 
+    gmt_modified, process_instance_id, is_process_end
+    from business_bid_contract
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, bid_apply_id, bid_attend_id, bid_project_charge_id, dept_id, dept_name, 
+    project_name, customer_name, project_address, project_time, project_scale, project_type, 
+    project_quality, project_content, contract_money, contract_rate, contract_type, guarantee_rule, 
+    business_type, payment_rule, remark, creator, creator_name, is_deleted, gmt_create, 
+    gmt_modified, process_instance_id, is_process_end
+    from business_bid_contract
+    <include refid="Base_Where_List" />
+    order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="deptIdList != null">
+        AND dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+      </if>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="bidApplyId != null">
+         AND bid_apply_id = #{bidApplyId}
+      </if>
+      <if test="bidAttendId != null">
+         AND bid_attend_id = #{bidAttendId}
+      </if>
+      <if test="bidProjectChargeId != null">
+         AND bid_project_charge_id = #{bidProjectChargeId}
+      </if>
+      <if test="deptId != null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="projectName != null and projectName != ''">
+         AND project_name = #{projectName}
+      </if>
+      <if test="customerName != null and customerName != ''">
+         AND customer_name = #{customerName}
+      </if>
+      <if test="projectAddress != null and projectAddress != ''">
+         AND project_address = #{projectAddress}
+      </if>
+      <if test="projectTime != null and projectTime != ''">
+         AND project_time = #{projectTime}
+      </if>
+      <if test="projectScale != null and projectScale != ''">
+         AND project_scale = #{projectScale}
+      </if>
+      <if test="projectType != null and projectType != ''">
+         AND project_type = #{projectType}
+      </if>
+      <if test="projectQuality != null and projectQuality != ''">
+         AND project_quality = #{projectQuality}
+      </if>
+      <if test="projectContent != null and projectContent != ''">
+         AND project_content = #{projectContent}
+      </if>
+      <if test="contractMoney != null">
+         AND contract_money = #{contractMoney}
+      </if>
+      <if test="contractRate != null and contractRate != ''">
+         AND contract_rate = #{contractRate}
+      </if>
+      <if test="contractType != null and contractType != ''">
+         AND contract_type = #{contractType}
+      </if>
+      <if test="guaranteeRule != null and guaranteeRule != ''">
+         AND guarantee_rule = #{guaranteeRule}
+      </if>
+      <if test="businessType != null and businessType != ''">
+         AND business_type = #{businessType}
+      </if>
+      <if test="paymentRule != null and paymentRule != ''">
+         AND payment_rule = #{paymentRule}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="processInstanceId != null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="processEnd != null">
+         AND is_process_end = #{processEnd}
+      </if>
+    </where>
+  </sql>
+</mapper>

@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.business.dao.FiveBusinessCooperationContractMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.business.entity.FiveBusinessCooperationContract">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="cooperation_delegation_id" jdbcType="INTEGER" property="cooperationDelegationId" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="cooperation_project_name" jdbcType="VARCHAR" property="cooperationProjectName" />
+    <result column="cooperation_project_no" jdbcType="VARCHAR" property="cooperationProjectNo" />
+    <result column="cooperation_project_type" jdbcType="VARCHAR" property="cooperationProjectType" />
+    <result column="delegation_dept_id" jdbcType="INTEGER" property="delegationDeptId" />
+    <result column="delegation_dept_name" jdbcType="VARCHAR" property="delegationDeptName" />
+    <result column="cooperation_dept_id" jdbcType="INTEGER" property="cooperationDeptId" />
+    <result column="cooperation_dept_name" jdbcType="VARCHAR" property="cooperationDeptName" />
+    <result column="contract_name" jdbcType="VARCHAR" property="contractName" />
+    <result column="contract_Type" jdbcType="VARCHAR" property="contractType" />
+    <result column="contract_no" jdbcType="VARCHAR" property="contractNo" />
+    <result column="charge_money" jdbcType="VARCHAR" property="chargeMoney" />
+    <result column="charge_money_time" jdbcType="VARCHAR" property="chargeMoneyTime" />
+    <result column="cooperation_money" jdbcType="VARCHAR" property="cooperationMoney" />
+    <result column="cooperation_content" jdbcType="VARCHAR" property="cooperationContent" />
+    <result column="cooperation_money_close" jdbcType="VARCHAR" property="cooperationMoneyClose" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="sign_time" jdbcType="VARCHAR" property="signTime" />
+    <result column="contract_library_id" jdbcType="INTEGER" property="contractLibraryId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_business_cooperation_contract
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.business.entity.FiveBusinessCooperationContract">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_business_cooperation_contract (business_key, cooperation_delegation_id, 
+      remark, creator, creator_name, 
+      gmt_create, gmt_modified, is_deleted, 
+      is_process_end, process_instance_id, cooperation_project_name, 
+      cooperation_project_no, cooperation_project_type, 
+      delegation_dept_id, delegation_dept_name, cooperation_dept_id, 
+      cooperation_dept_name, contract_name, contract_Type, 
+      contract_no, charge_money, charge_money_time, 
+      cooperation_money, cooperation_content, cooperation_money_close, 
+      title, dept_id, dept_name, 
+      sign_time, contract_library_id)
+    values (#{businessKey,jdbcType=VARCHAR}, #{cooperationDelegationId,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}, 
+      #{processEnd,jdbcType=BIT}, #{processInstanceId,jdbcType=VARCHAR}, #{cooperationProjectName,jdbcType=VARCHAR}, 
+      #{cooperationProjectNo,jdbcType=VARCHAR}, #{cooperationProjectType,jdbcType=VARCHAR}, 
+      #{delegationDeptId,jdbcType=INTEGER}, #{delegationDeptName,jdbcType=VARCHAR}, #{cooperationDeptId,jdbcType=INTEGER}, 
+      #{cooperationDeptName,jdbcType=VARCHAR}, #{contractName,jdbcType=VARCHAR}, #{contractType,jdbcType=VARCHAR}, 
+      #{contractNo,jdbcType=VARCHAR}, #{chargeMoney,jdbcType=VARCHAR}, #{chargeMoneyTime,jdbcType=VARCHAR}, 
+      #{cooperationMoney,jdbcType=VARCHAR}, #{cooperationContent,jdbcType=VARCHAR}, #{cooperationMoneyClose,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, 
+      #{signTime,jdbcType=VARCHAR}, #{contractLibraryId,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.business.entity.FiveBusinessCooperationContract">
+    update five_business_cooperation_contract
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      cooperation_delegation_id = #{cooperationDelegationId,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      is_deleted = #{deleted,jdbcType=BIT},
+      is_process_end = #{processEnd,jdbcType=BIT},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      cooperation_project_name = #{cooperationProjectName,jdbcType=VARCHAR},
+      cooperation_project_no = #{cooperationProjectNo,jdbcType=VARCHAR},
+      cooperation_project_type = #{cooperationProjectType,jdbcType=VARCHAR},
+      delegation_dept_id = #{delegationDeptId,jdbcType=INTEGER},
+      delegation_dept_name = #{delegationDeptName,jdbcType=VARCHAR},
+      cooperation_dept_id = #{cooperationDeptId,jdbcType=INTEGER},
+      cooperation_dept_name = #{cooperationDeptName,jdbcType=VARCHAR},
+      contract_name = #{contractName,jdbcType=VARCHAR},
+      contract_Type = #{contractType,jdbcType=VARCHAR},
+      contract_no = #{contractNo,jdbcType=VARCHAR},
+      charge_money = #{chargeMoney,jdbcType=VARCHAR},
+      charge_money_time = #{chargeMoneyTime,jdbcType=VARCHAR},
+      cooperation_money = #{cooperationMoney,jdbcType=VARCHAR},
+      cooperation_content = #{cooperationContent,jdbcType=VARCHAR},
+      cooperation_money_close = #{cooperationMoneyClose,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      sign_time = #{signTime,jdbcType=VARCHAR},
+      contract_library_id = #{contractLibraryId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, cooperation_delegation_id, remark, creator, creator_name, 
+    gmt_create, gmt_modified, is_deleted, is_process_end, process_instance_id, cooperation_project_name, 
+    cooperation_project_no, cooperation_project_type, delegation_dept_id, delegation_dept_name, 
+    cooperation_dept_id, cooperation_dept_name, contract_name, contract_Type, contract_no, 
+    charge_money, charge_money_time, cooperation_money, cooperation_content, cooperation_money_close, 
+    title, dept_id, dept_name, sign_time, contract_library_id
+    from five_business_cooperation_contract
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, cooperation_delegation_id, remark, creator, creator_name, 
+    gmt_create, gmt_modified, is_deleted, is_process_end, process_instance_id, cooperation_project_name, 
+    cooperation_project_no, cooperation_project_type, delegation_dept_id, delegation_dept_name, 
+    cooperation_dept_id, cooperation_dept_name, contract_name, contract_Type, contract_no, 
+    charge_money, charge_money_time, cooperation_money, cooperation_content, cooperation_money_close, 
+    title, dept_id, dept_name, sign_time, contract_library_id
+    from five_business_cooperation_contract
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and isLikeSelect==null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="cooperationDelegationId != null and isLikeSelect==null">
+         AND cooperation_delegation_id = #{cooperationDelegationId}
+      </if>
+      <if test="remark != null and isLikeSelect==null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="processEnd != null and isLikeSelect==null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="processInstanceId != null and isLikeSelect==null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="cooperationProjectName != null and isLikeSelect==null and cooperationProjectName != ''">
+         AND cooperation_project_name = #{cooperationProjectName}
+      </if>
+      <if test="cooperationProjectNo != null and isLikeSelect==null and cooperationProjectNo != ''">
+         AND cooperation_project_no = #{cooperationProjectNo}
+      </if>
+      <if test="cooperationProjectType != null and isLikeSelect==null and cooperationProjectType != ''">
+         AND cooperation_project_type = #{cooperationProjectType}
+      </if>
+      <if test="delegationDeptId != null and isLikeSelect==null">
+         AND delegation_dept_id = #{delegationDeptId}
+      </if>
+      <if test="delegationDeptName != null and isLikeSelect==null and delegationDeptName != ''">
+         AND delegation_dept_name = #{delegationDeptName}
+      </if>
+      <if test="cooperationDeptId != null and isLikeSelect==null">
+         AND cooperation_dept_id = #{cooperationDeptId}
+      </if>
+      <if test="cooperationDeptName != null and isLikeSelect==null and cooperationDeptName != ''">
+         AND cooperation_dept_name = #{cooperationDeptName}
+      </if>
+      <if test="contractName != null and isLikeSelect==null and contractName != ''">
+         AND contract_name = #{contractName}
+      </if>
+      <if test="contractType != null and isLikeSelect==null and contractType != ''">
+         AND contract_Type = #{contractType}
+      </if>
+      <if test="contractNo != null and isLikeSelect==null and contractNo != ''">
+         AND contract_no = #{contractNo}
+      </if>
+      <if test="chargeMoney != null and isLikeSelect==null and chargeMoney != ''">
+         AND charge_money = #{chargeMoney}
+      </if>
+      <if test="chargeMoneyTime != null and isLikeSelect==null and chargeMoneyTime != ''">
+         AND charge_money_time = #{chargeMoneyTime}
+      </if>
+      <if test="cooperationMoney != null and isLikeSelect==null and cooperationMoney != ''">
+         AND cooperation_money = #{cooperationMoney}
+      </if>
+      <if test="cooperationContent != null and isLikeSelect==null and cooperationContent != ''">
+         AND cooperation_content = #{cooperationContent}
+      </if>
+      <if test="cooperationMoneyClose != null and isLikeSelect==null and cooperationMoneyClose != ''">
+         AND cooperation_money_close = #{cooperationMoneyClose}
+      </if>
+      <if test="title != null and isLikeSelect==null and title != ''">
+         AND title = #{title}
+      </if>
+      <if test="deptId != null and isLikeSelect==null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and isLikeSelect==null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="signTime != null and isLikeSelect==null and signTime != ''">
+         AND sign_time = #{signTime}
+      </if>
+      <if test="contractLibraryId != null and isLikeSelect==null">
+         AND contract_library_id = #{contractLibraryId}
+      </if>
+      <if test="contractNoHead != null and contractNoHead != '' and isLikeSelect==null">
+        AND contract_no like  CONCAT(#{contractNoHead},'%')
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="businessKey != null and isLikeSelect!= null and businessKey != '' ">
+         AND business_key like  CONCAT('%',#{businessKey},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="processInstanceId != null and isLikeSelect!= null and processInstanceId != '' ">
+         AND process_instance_id like  CONCAT('%',#{processInstanceId},'%')
+      </if>
+      <if test="cooperationProjectName != null and isLikeSelect!= null and cooperationProjectName != '' ">
+         AND cooperation_project_name like  CONCAT('%',#{cooperationProjectName},'%')
+      </if>
+      <if test="cooperationProjectNo != null and isLikeSelect!= null and cooperationProjectNo != '' ">
+         AND cooperation_project_no like  CONCAT('%',#{cooperationProjectNo},'%')
+      </if>
+      <if test="cooperationProjectType != null and isLikeSelect!= null and cooperationProjectType != '' ">
+         AND cooperation_project_type like  CONCAT('%',#{cooperationProjectType},'%')
+      </if>
+      <if test="delegationDeptName != null and isLikeSelect!= null and delegationDeptName != '' ">
+         AND delegation_dept_name like  CONCAT('%',#{delegationDeptName},'%')
+      </if>
+      <if test="cooperationDeptName != null and isLikeSelect!= null and cooperationDeptName != '' ">
+         AND cooperation_dept_name like  CONCAT('%',#{cooperationDeptName},'%')
+      </if>
+      <if test="contractName != null and isLikeSelect!= null and contractName != '' ">
+         AND contract_name like  CONCAT('%',#{contractName},'%')
+      </if>
+      <if test="contractType != null and isLikeSelect!= null and contractType != '' ">
+         AND contract_Type like  CONCAT('%',#{contractType},'%')
+      </if>
+      <if test="contractNo != null and isLikeSelect!= null and contractNo != '' ">
+         AND contract_no like  CONCAT('%',#{contractNo},'%')
+      </if>
+      <if test="chargeMoney != null and isLikeSelect!= null and chargeMoney != '' ">
+         AND charge_money like  CONCAT('%',#{chargeMoney},'%')
+      </if>
+      <if test="chargeMoneyTime != null and isLikeSelect!= null and chargeMoneyTime != '' ">
+         AND charge_money_time like  CONCAT('%',#{chargeMoneyTime},'%')
+      </if>
+      <if test="cooperationMoney != null and isLikeSelect!= null and cooperationMoney != '' ">
+         AND cooperation_money like  CONCAT('%',#{cooperationMoney},'%')
+      </if>
+      <if test="cooperationContent != null and isLikeSelect!= null and cooperationContent != '' ">
+         AND cooperation_content like  CONCAT('%',#{cooperationContent},'%')
+      </if>
+      <if test="cooperationMoneyClose != null and isLikeSelect!= null and cooperationMoneyClose != '' ">
+         AND cooperation_money_close like  CONCAT('%',#{cooperationMoneyClose},'%')
+      </if>
+      <if test="title != null and isLikeSelect!= null and title != '' ">
+         AND title like  CONCAT('%',#{title},'%')
+      </if>
+      <if test="deptName != null and isLikeSelect!= null and deptName != '' ">
+         AND dept_name like  CONCAT('%',#{deptName},'%')
+      </if>
+      <if test="signTime != null and isLikeSelect!= null and signTime != '' ">
+         AND sign_time like  CONCAT('%',#{signTime},'%')
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="deptId != null and isLikeSelect!=null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="contractNoHead != null and contractNoHead != '' and isLikeSelect!=null">
+        AND contract_no like  CONCAT(#{contractNoHead},'%')
+      </if>
+    </where>
+  </sql>
+</mapper>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.sys.dao.SysRoleUserMapper">
+    <resultMap id="BaseResultMap" type="com.cmcu.mcc.sys.entity.SysRoleUser">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="role_id" jdbcType="INTEGER" property="roleId"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+    </resultMap>
+
+    <resultMap id="ExtendResultMap" type="com.cmcu.mcc.sys.dto.SysRoleUserDto" extends="BaseResultMap">
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="user_login" jdbcType="VARCHAR" property="userLogin"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="dept_id" jdbcType="INTEGER" property="deptId"/>
+        <result column="dept_name" jdbcType="VARCHAR" property="deptName"/>
+        <result column="is_mine" jdbcType="BIT" property="mine"/>
+        <result column="role_name" jdbcType="VARCHAR" property="roleName"/>
+    </resultMap>
+
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_role_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.cmcu.mcc.sys.entity.SysRoleUser">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into sys_role_user (role_id, user_id)
+        values (#{roleId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER})
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.sys.entity.SysRoleUser">
+    update sys_role_user
+    set role_id = #{roleId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, role_id, user_id
+    from sys_role_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+    select id, role_id, user_id
+    from sys_role_user
+  </select>
+
+
+    <select id="deleteByRoleId" parameterType="java.lang.Integer">
+         delete from sys_role_user where role_id= #{roleId,jdbcType=INTEGER}
+     </select>
+
+
+    <select id="listExtendByUserId" parameterType="java.lang.Integer" resultMap="ExtendResultMap">
+      SELECT a.*,c.name as dept_name,d.name as role_name,
+       b.user_name, b.user_login, b.dept_id, b.is_mine, b.mobile
+      FROM sys_role_user a
+      left join sys_user b on a.user_id=b.id
+      left join sys_dept c on b.dept_id=c.id
+      left join sys_role d on a.role_id=d.id
+      where a.user_id=#{userId,jdbcType=INTEGER}
+  </select>
+
+
+    <select id="listExtendByRoleId" parameterType="java.lang.Integer" resultMap="ExtendResultMap">
+        SELECT a.*,c.name as dept_name,d.name as role_name,
+        b.user_name, b.user_login, b.dept_id, b.is_mine, b.mobile
+        FROM sys_role_user a
+        left join sys_user b on a.user_id=b.id
+        left join sys_dept c on b.dept_id=c.id
+        left join sys_role d on a.role_id=d.id
+        where b.is_deleted=0 and a.role_id=#{roleId,jdbcType=INTEGER}
+        <if test="q != null and q != '' ">
+            AND (
+            b.user_name like CONCAT('%',#{q},'%') or
+            b.user_login like CONCAT('%',#{q},'%') or
+            c.name like CONCAT('%',#{q},'%')
+            )
+        </if>
+    </select>
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

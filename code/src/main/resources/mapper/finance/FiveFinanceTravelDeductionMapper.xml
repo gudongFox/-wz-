@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.finance.dao.FiveFinanceTravelDeductionMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.finance.entity.FiveFinanceTravelDeduction">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="relevanse_business_key" jdbcType="VARCHAR" property="relevanseBusinessKey" />
+    <result column="travel_id" jdbcType="INTEGER" property="travelId" />
+    <result column="relevance_name" jdbcType="VARCHAR" property="relevanceName" />
+    <result column="relevance_id" jdbcType="INTEGER" property="relevanceId" />
+    <result column="relevance_type" jdbcType="VARCHAR" property="relevanceType" />
+    <result column="relevance_money" jdbcType="VARCHAR" property="relevanceMoney" />
+    <result column="relevance_time" jdbcType="VARCHAR" property="relevanceTime" />
+    <result column="relevance_remain_money" jdbcType="VARCHAR" property="relevanceRemainMoney" />
+    <result column="relevance_remark" jdbcType="VARCHAR" property="relevanceRemark" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_finance_travel_deduction
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.finance.entity.FiveFinanceTravelDeduction">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_finance_travel_deduction (relevanse_business_key, travel_id, relevance_name, 
+      relevance_id, relevance_type, relevance_money, 
+      relevance_time, relevance_remain_money, relevance_remark, 
+      dept_id, dept_name, creator, 
+      creator_name, is_deleted, gmt_create, 
+      gmt_modified)
+    values (#{relevanseBusinessKey,jdbcType=VARCHAR}, #{travelId,jdbcType=INTEGER}, #{relevanceName,jdbcType=VARCHAR}, 
+      #{relevanceId,jdbcType=INTEGER}, #{relevanceType,jdbcType=VARCHAR}, #{relevanceMoney,jdbcType=VARCHAR}, 
+      #{relevanceTime,jdbcType=VARCHAR}, #{relevanceRemainMoney,jdbcType=VARCHAR}, #{relevanceRemark,jdbcType=VARCHAR}, 
+      #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{creatorName,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.finance.entity.FiveFinanceTravelDeduction">
+    update five_finance_travel_deduction
+    set relevanse_business_key = #{relevanseBusinessKey,jdbcType=VARCHAR},
+      travel_id = #{travelId,jdbcType=INTEGER},
+      relevance_name = #{relevanceName,jdbcType=VARCHAR},
+      relevance_id = #{relevanceId,jdbcType=INTEGER},
+      relevance_type = #{relevanceType,jdbcType=VARCHAR},
+      relevance_money = #{relevanceMoney,jdbcType=VARCHAR},
+      relevance_time = #{relevanceTime,jdbcType=VARCHAR},
+      relevance_remain_money = #{relevanceRemainMoney,jdbcType=VARCHAR},
+      relevance_remark = #{relevanceRemark,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, relevanse_business_key, travel_id, relevance_name, relevance_id, relevance_type, 
+    relevance_money, relevance_time, relevance_remain_money, relevance_remark, dept_id, 
+    dept_name, creator, creator_name, is_deleted, gmt_create, gmt_modified
+    from five_finance_travel_deduction
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, relevanse_business_key, travel_id, relevance_name, relevance_id, relevance_type, 
+    relevance_money, relevance_time, relevance_remain_money, relevance_remark, dept_id, 
+    dept_name, creator, creator_name, is_deleted, gmt_create, gmt_modified
+    from five_finance_travel_deduction
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="relevanseBusinessKey != null and isLikeSelect==null and relevanseBusinessKey != ''">
+         AND relevanse_business_key = #{relevanseBusinessKey}
+      </if>
+      <if test="travelId != null and isLikeSelect==null">
+         AND travel_id = #{travelId}
+      </if>
+      <if test="relevanceName != null and isLikeSelect==null and relevanceName != ''">
+         AND relevance_name = #{relevanceName}
+      </if>
+      <if test="relevanceId != null and isLikeSelect==null">
+         AND relevance_id = #{relevanceId}
+      </if>
+      <if test="relevanceType != null and isLikeSelect==null and relevanceType != ''">
+         AND relevance_type = #{relevanceType}
+      </if>
+      <if test="relevanceMoney != null and isLikeSelect==null and relevanceMoney != ''">
+         AND relevance_money = #{relevanceMoney}
+      </if>
+      <if test="relevanceTime != null and isLikeSelect==null and relevanceTime != ''">
+         AND relevance_time = #{relevanceTime}
+      </if>
+      <if test="relevanceRemainMoney != null and isLikeSelect==null and relevanceRemainMoney != ''">
+         AND relevance_remain_money = #{relevanceRemainMoney}
+      </if>
+      <if test="relevanceRemark != null and isLikeSelect==null and relevanceRemark != ''">
+         AND relevance_remark = #{relevanceRemark}
+      </if>
+      <if test="deptId != null and isLikeSelect==null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and isLikeSelect==null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="relevanseBusinessKey != null and isLikeSelect!= null and relevanseBusinessKey != '' ">
+         AND relevanse_business_key like  CONCAT('%',#{relevanseBusinessKey},'%')
+      </if>
+      <if test="relevanceName != null and isLikeSelect!= null and relevanceName != '' ">
+         AND relevance_name like  CONCAT('%',#{relevanceName},'%')
+      </if>
+      <if test="relevanceType != null and isLikeSelect!= null and relevanceType != '' ">
+         AND relevance_type like  CONCAT('%',#{relevanceType},'%')
+      </if>
+      <if test="relevanceMoney != null and isLikeSelect!= null and relevanceMoney != '' ">
+         AND relevance_money like  CONCAT('%',#{relevanceMoney},'%')
+      </if>
+      <if test="relevanceTime != null and isLikeSelect!= null and relevanceTime != '' ">
+         AND relevance_time like  CONCAT('%',#{relevanceTime},'%')
+      </if>
+      <if test="relevanceRemainMoney != null and isLikeSelect!= null and relevanceRemainMoney != '' ">
+         AND relevance_remain_money like  CONCAT('%',#{relevanceRemainMoney},'%')
+      </if>
+      <if test="relevanceRemark != null and isLikeSelect!= null and relevanceRemark != '' ">
+         AND relevance_remark like  CONCAT('%',#{relevanceRemark},'%')
+      </if>
+      <if test="deptName != null and isLikeSelect!= null and deptName != '' ">
+         AND dept_name like  CONCAT('%',#{deptName},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="deptId != null and isLikeSelect!=null">
+         AND dept_id = #{deptId}
+      </if>
+    </where>
+  </sql>
+</mapper>

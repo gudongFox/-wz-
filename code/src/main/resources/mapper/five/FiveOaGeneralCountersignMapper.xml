@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveOaGeneralCountersignMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveOaGeneralCountersign">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="charge_man" jdbcType="VARCHAR" property="chargeMan" />
+    <result column="charge_man_name" jdbcType="VARCHAR" property="chargeManName" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_Name" jdbcType="VARCHAR" property="deptName" />
+    <result column="submit_time" jdbcType="VARCHAR" property="submitTime" />
+    <result column="manager" jdbcType="VARCHAR" property="manager" />
+    <result column="manager_name" jdbcType="VARCHAR" property="managerName" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="legal_review" jdbcType="VARCHAR" property="legalReview" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="process_flag" jdbcType="VARCHAR" property="processFlag" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_oa_general_countersign
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveOaGeneralCountersign">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_oa_general_countersign (business_key, charge_man, charge_man_name, 
+      dept_id, dept_Name, submit_time, 
+      manager, manager_name, content, 
+      legal_review, creator, creator_name, 
+      gmt_create, gmt_modified, is_deleted, 
+      is_process_end, process_instance_id, process_flag
+      )
+    values (#{businessKey,jdbcType=VARCHAR}, #{chargeMan,jdbcType=VARCHAR}, #{chargeManName,jdbcType=VARCHAR}, 
+      #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, #{submitTime,jdbcType=VARCHAR}, 
+      #{manager,jdbcType=VARCHAR}, #{managerName,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{legalReview,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}, 
+      #{processEnd,jdbcType=BIT}, #{processInstanceId,jdbcType=VARCHAR}, #{processFlag,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveOaGeneralCountersign">
+    update five_oa_general_countersign
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      charge_man = #{chargeMan,jdbcType=VARCHAR},
+      charge_man_name = #{chargeManName,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_Name = #{deptName,jdbcType=VARCHAR},
+      submit_time = #{submitTime,jdbcType=VARCHAR},
+      manager = #{manager,jdbcType=VARCHAR},
+      manager_name = #{managerName,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      legal_review = #{legalReview,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      is_deleted = #{deleted,jdbcType=BIT},
+      is_process_end = #{processEnd,jdbcType=BIT},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      process_flag = #{processFlag,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, charge_man, charge_man_name, dept_id, dept_Name, submit_time, 
+    manager, manager_name, content, legal_review, creator, creator_name, gmt_create, 
+    gmt_modified, is_deleted, is_process_end, process_instance_id, process_flag
+    from five_oa_general_countersign
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, charge_man, charge_man_name, dept_id, dept_Name, submit_time, 
+    manager, manager_name, content, legal_review, creator, creator_name, gmt_create, 
+    gmt_modified, is_deleted, is_process_end, process_instance_id, process_flag
+    from five_oa_general_countersign
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="chargeMan != null and chargeMan != ''">
+         AND charge_man = #{chargeMan}
+      </if>
+      <if test="chargeManName != null and chargeManName != ''">
+         AND charge_man_name = #{chargeManName}
+      </if>
+      <if test="deptId != null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and deptName != ''">
+         AND dept_Name = #{deptName}
+      </if>
+      <if test="submitTime != null and submitTime != ''">
+         AND submit_time = #{submitTime}
+      </if>
+      <if test="manager != null and manager != ''">
+         AND manager = #{manager}
+      </if>
+      <if test="managerName != null and managerName != ''">
+         AND manager_name = #{managerName}
+      </if>
+      <if test="content != null and content != ''">
+         AND content = #{content}
+      </if>
+      <if test="legalReview != null and legalReview != ''">
+         AND legal_review = #{legalReview}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="processEnd != null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="processInstanceId != null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="processFlag != null and processFlag != ''">
+         AND process_flag = #{processFlag}
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0">
+        AND dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+      </if>
+    </where>
+  </sql>
+</mapper>

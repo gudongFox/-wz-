@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveOaFileTransferMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveOaFileTransfer">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_Name" jdbcType="VARCHAR" property="deptName" />
+    <result column="sender" jdbcType="VARCHAR" property="sender" />
+    <result column="sender_name" jdbcType="VARCHAR" property="senderName" />
+    <result column="send_time" jdbcType="VARCHAR" property="sendTime" />
+    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+    <result column="receiver" jdbcType="VARCHAR" property="receiver" />
+    <result column="receiver_name" jdbcType="VARCHAR" property="receiverName" />
+    <result column="file_type" jdbcType="VARCHAR" property="fileType" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_affirm" jdbcType="BIT" property="affirm" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_oa_file_transfer
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveOaFileTransfer">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_oa_file_transfer (business_key, dept_id, dept_Name, 
+      sender, sender_name, send_time, 
+      file_name, receiver, receiver_name, 
+      file_type, creator, creator_name, 
+      gmt_create, gmt_modified, is_deleted, 
+      is_process_end, process_instance_id, remark, 
+      is_affirm)
+    values (#{businessKey,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, 
+      #{sender,jdbcType=VARCHAR}, #{senderName,jdbcType=VARCHAR}, #{sendTime,jdbcType=VARCHAR}, 
+      #{fileName,jdbcType=VARCHAR}, #{receiver,jdbcType=VARCHAR}, #{receiverName,jdbcType=VARCHAR}, 
+      #{fileType,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}, 
+      #{processEnd,jdbcType=BIT}, #{processInstanceId,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{affirm,jdbcType=BIT})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveOaFileTransfer">
+    update five_oa_file_transfer
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_Name = #{deptName,jdbcType=VARCHAR},
+      sender = #{sender,jdbcType=VARCHAR},
+      sender_name = #{senderName,jdbcType=VARCHAR},
+      send_time = #{sendTime,jdbcType=VARCHAR},
+      file_name = #{fileName,jdbcType=VARCHAR},
+      receiver = #{receiver,jdbcType=VARCHAR},
+      receiver_name = #{receiverName,jdbcType=VARCHAR},
+      file_type = #{fileType,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      is_deleted = #{deleted,jdbcType=BIT},
+      is_process_end = #{processEnd,jdbcType=BIT},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_affirm = #{affirm,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, dept_id, dept_Name, sender, sender_name, send_time, file_name, 
+    receiver, receiver_name, file_type, creator, creator_name, gmt_create, gmt_modified, 
+    is_deleted, is_process_end, process_instance_id, remark, is_affirm
+    from five_oa_file_transfer
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, dept_id, dept_Name, sender, sender_name, send_time, file_name, 
+    receiver, receiver_name, file_type, creator, creator_name, gmt_create, gmt_modified, 
+    is_deleted, is_process_end, process_instance_id, remark, is_affirm
+    from five_oa_file_transfer
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="deptId != null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and deptName != ''">
+         AND dept_Name = #{deptName}
+      </if>
+      <if test="sender != null and sender != ''">
+         AND sender = #{sender}
+      </if>
+      <if test="senderName != null and senderName != ''">
+         AND sender_name = #{senderName}
+      </if>
+      <if test="sendTime != null and sendTime != ''">
+         AND send_time = #{sendTime}
+      </if>
+      <if test="fileName != null and fileName != ''">
+         AND file_name = #{fileName}
+      </if>
+      <if test="receiver != null and receiver != ''">
+         AND receiver = #{receiver}
+      </if>
+      <if test="receiverName != null and receiverName != ''">
+         AND receiver_name = #{receiverName}
+      </if>
+      <if test="fileType != null and fileType != ''">
+         AND file_type = #{fileType}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="processEnd != null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="processInstanceId != null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="affirm != null">
+         AND is_affirm = #{affirm}
+      </if>
+      <if test="deptIdList != null and deptIdList.size()>0">
+        AND dept_id in
+        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
+          #{deptId}
+        </foreach>
+      </if>
+    </where>
+  </sql>
+</mapper>

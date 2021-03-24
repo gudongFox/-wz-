@@ -1,0 +1,99 @@
+﻿<span id="contentForm">
+
+        <div id="segmentedControl" class="mui-segmented-control">
+            <a class="mui-control-item mui-active">基础信息</a>
+            <a class="mui-control-item">流程信息</a>
+            <a class="mui-control-item">流程图</a>
+        </div>
+
+
+        <div class="mui-control-content mui-active">
+
+            <span ng-include="'/h5/tpl/formDetail.html'"></span>
+             <span ng-include="'/h5/tpl/businessFile.html'" ng-init="fileTplTitle='5.业务附件'"></span>
+                <div class="mui-card">
+                <div class="mui-card-header">
+                    <span ng-bind="'6.总包明细'"></span>
+                </div>
+                    <!--内容区-->
+                <div class="mui-card-content">
+                    <ul class="mui-table-view mui-table-view-chevron">
+                       <li class="mui-table-view-cell mui-collapse"
+                           ng-repeat="decision in vm.decisions |filter:{type:'总包'}:true">
+                           <a class="mui-navigate-right" href="#">
+                                <span style="line-height: 30px;margin-left: 10px;font-weight: bold;"
+                                      ng-bind="decision.projectName"></span>
+                           </a>
+                           <ul class="mui-table-view mui-table-view-chevron">
+                            <li class="mui-table-view-cell"><span ng-bind="'合同号：'+decision.contractNo"></span></li>
+                            <li class="mui-table-view-cell"><span
+                                    ng-bind="'采购平台：'+decision.purchasePlatform"></span></li>
+                            <li class="mui-table-view-cell"><span ng-bind="'采购方式：'+decision.purchaseType"></span></li>
+                            <li class="mui-table-view-cell"><span ng-bind="'对方单位：'+decision.deptName"></span></li>
+                            <li class="mui-table-view-cell"><span
+                                    ng-bind="'合同额（万元）：'+decision.contractPrice"></span></li>
+                            <li class="mui-table-view-cell"><span
+                                    ng-bind="'本月前累计收款（万元）：'+decision.accumulativePrice"></span></li>
+                            <li class="mui-table-view-cell"><span
+                                    ng-bind="'本月应收款（万元）：'+decision.receivablePrice"></span></li>
+                            <li class="mui-table-view-cell"><span ng-bind="'合同尾款（万元）：'+decision.finalPrice"></span></li>
+                            <li class="mui-table-view-cell"><span ng-bind="'备注：'+decision.remark"></span></li>
+                        </ul>
+                       </li>
+                     </ul>
+                </div>
+                    <!--页脚，放置补充信息或支持的操作-->
+            </div>
+            <div class="mui-card">
+                <div class="mui-card-header">
+                    <span ng-bind="'7.分包明细'"></span>
+                </div>
+                <!--内容区-->
+                <div class="mui-card-content">
+                    <ul class="mui-table-view mui-table-view-chevron">
+                       <li class="mui-table-view-cell mui-collapse"
+                           ng-repeat="decision in vm.decisions |filter:{type:'分包'}:true">
+                           <a class="mui-navigate-right" href="#">
+                                <span style="line-height: 30px;margin-left: 10px;font-weight: bold;"
+                                      ng-bind="decision.projectName"></span>
+                           </a>
+                           <ul class="mui-table-view mui-table-view-chevron">
+                            <li class="mui-table-view-cell"><span ng-bind="'合同号：'+decision.contractNo"></span></li>
+                            <li class="mui-table-view-cell"><span
+                                    ng-bind="'采购平台：'+decision.purchasePlatform"></span></li>
+                            <li class="mui-table-view-cell"><span ng-bind="'采购方式：'+decision.purchaseType"></span></li>
+                            <li class="mui-table-view-cell"><span ng-bind="'对方单位：'+decision.deptName"></span></li>
+                            <li class="mui-table-view-cell"><span
+                                    ng-bind="'合同额（万元）：'+decision.contractPrice"></span></li>
+                            <li class="mui-table-view-cell"><span
+                                    ng-bind="'本月前累计付款（万元）：'+decision.accumulativePrice"></span></li>
+                            <li class="mui-table-view-cell"><span
+                                    ng-bind="'本月应付款（万元）：'+decision.receivablePrice"></span></li>
+                            <li class="mui-table-view-cell"><span ng-bind="'合同尾款（万元）：'+decision.finalPrice"></span></li>
+                            <li class="mui-table-view-cell"><span ng-bind="'备注：'+decision.remark"></span></li>
+                        </ul>
+                       </li>
+                     </ul>
+                </div>
+                <!--页脚，放置补充信息或支持的操作-->
+            </div>
+
+            <div style="height: 40px;">&nbsp;</div>
+        </div>
+        <div class="mui-control-content">
+             <span ng-include="'/h5/tpl/taskHistory.html'"></span>
+        </div>
+        <div class="mui-control-content" style="overflow-x: auto;">
+             <span ng-include="'/h5/tpl/taskPicture.html'"></span>
+        </div>
+        <div style="height: 50px;">&nbsp;</div>
+
+</span>
+
+<span ng-include="'/h5/tpl/taskAction.html'"></span>
+<span ng-include="'/h5/tpl/selectUser.html'"></span>
+
+
+
+
+

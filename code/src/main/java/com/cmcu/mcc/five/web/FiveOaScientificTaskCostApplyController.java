@@ -1,0 +1,83 @@
+package com.cmcu.mcc.five.web;
+
+import com.cmcu.common.JsonData;
+import com.cmcu.common.util.WebUtil;
+import com.cmcu.mcc.five.dto.FiveOaScientificTaskCostApplyDto;
+import com.cmcu.mcc.five.entity.FiveOaScientificTaskCostApplyDetail;
+import com.cmcu.mcc.five.service.FiveOaScientificTaskCostApplyService;
+import com.github.pagehelper.PageInfo;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
+
+@RestController
+@RequestMapping("/five/oa/scientificTaskCostApply")
+public class FiveOaScientificTaskCostApplyController {
+    @Autowired
+    FiveOaScientificTaskCostApplyService fiveOaScientificTaskCostApplyService;
+
+    @PostMapping(value = "/getModelById.json")
+    public JsonData getModelById(int id){
+        return JsonData.success(fiveOaScientificTaskCostApplyService.getModelById(id));
+    }
+
+
+    @PostMapping("/getNewModel.json")
+    public JsonData getNewModel(String userLogin){
+        return JsonData.success(fiveOaScientificTaskCostApplyService.getNewModel(userLogin));
+    }
+    @PostMapping("/remove.json")
+    public JsonData remove(int id,String userLogin){
+        fiveOaScientificTaskCostApplyService.remove(id,userLogin);
+        return JsonData.success();
+    }
+    @PostMapping("/update.json")
+    public JsonData update(@RequestBody FiveOaScientificTaskCostApplyDto item){
+        Assert.state(StringUtils.isNotEmpty(item.getOperateUserLogin()),"操作人不能为空!");
+        fiveOaScientificTaskCostApplyService.update(item);
+        return JsonData.success();
+    }
+    @PostMapping("/listPagedData.json")
+    public JsonData listPagedData(String userLogin,String uiSref, int pageNum, int pageSize) {
+        Map params = WebUtil.getRequestParameters();
+        PageInfo pageInfo = fiveOaScientificTaskCostApplyService.listPagedData(params, userLogin, uiSref, pageNum, pageSize);
+        return JsonData.success(pageInfo);
+    }
+
+
+    @PostMapping(value = "/getNewModelDetail.json")
+    public JsonData getNewModelDetail(int  id ){
+        return JsonData.success(fiveOaScientificTaskCostApplyService.getNewModelDetail(id));
+    }
+
+    @PostMapping("/getModelDetailById.json")
+    public JsonData getModelDetailById(int  id){
+        return JsonData.success(fiveOaScientificTaskCostApplyService.getModelDetailById(id));
+    }
+    @PostMapping("/removeDetail.json")
+    public JsonData removeDetail(int  id){
+        fiveOaScientificTaskCostApplyService.removeDetail(id);
+        return JsonData.success();
+    }
+    @PostMapping("/updateDetail.json")
+    public JsonData updateDetail(@RequestBody FiveOaScientificTaskCostApplyDetail item){
+        fiveOaScientificTaskCostApplyService.updateDetail(item);
+        return JsonData.success();
+    }
+    @PostMapping("/listDetail.json")
+    public JsonData listDetail(int  id){
+        return JsonData.success(fiveOaScientificTaskCostApplyService.listDetail(id));
+    }
+
+    @PostMapping("/getPrintData.json")
+    public JsonData getPrintData(int id){
+        return JsonData.success(fiveOaScientificTaskCostApplyService.getPrintData(id));
+    }
+
+}

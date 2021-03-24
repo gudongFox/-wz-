@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.five.dao.FiveEdDesignDrawingCheckMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveEdDesignDrawingCheck">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="project_no" jdbcType="VARCHAR" property="projectNo" />
+    <result column="parent_no" jdbcType="VARCHAR" property="parentNo" />
+    <result column="secret_level" jdbcType="VARCHAR" property="secretLevel" />
+    <result column="stage_name" jdbcType="VARCHAR" property="stageName" />
+    <result column="step_id" jdbcType="INTEGER" property="stepId" />
+    <result column="form_no" jdbcType="VARCHAR" property="formNo" />
+    <result column="step_name" jdbcType="VARCHAR" property="stepName" />
+    <result column="contract_no" jdbcType="VARCHAR" property="contractNo" />
+    <result column="project_charge_man" jdbcType="VARCHAR" property="projectChargeMan" />
+    <result column="project_charge_man_name" jdbcType="VARCHAR" property="projectChargeManName" />
+    <result column="check_time" jdbcType="VARCHAR" property="checkTime" />
+    <result column="send_dept_name" jdbcType="VARCHAR" property="sendDeptName" />
+    <result column="send_copies" jdbcType="INTEGER" property="sendCopies" />
+    <result column="finish_produce_leaflet" jdbcType="INTEGER" property="finishProduceLeaflet" />
+    <result column="finish_produce_paperback" jdbcType="INTEGER" property="finishProducePaperback" />
+    <result column="finish_produce_inland_hardbound" jdbcType="INTEGER" property="finishProduceInlandHardbound" />
+    <result column="finish_produce_foreign_hardbound" jdbcType="INTEGER" property="finishProduceForeignHardbound" />
+    <result column="add_produce_leaflet" jdbcType="INTEGER" property="addProduceLeaflet" />
+    <result column="add_produce_paperback" jdbcType="INTEGER" property="addProducePaperback" />
+    <result column="add_produce_inland_hardbound" jdbcType="INTEGER" property="addProduceInlandHardbound" />
+    <result column="add_produce_foreign_hardbound" jdbcType="INTEGER" property="addProduceForeignHardbound" />
+    <result column="total_produce_leaflet" jdbcType="INTEGER" property="totalProduceLeaflet" />
+    <result column="total_produce_paperback" jdbcType="INTEGER" property="totalProducePaperback" />
+    <result column="total_produce_inland_hardbound" jdbcType="INTEGER" property="totalProduceInlandHardbound" />
+    <result column="total_produce_foreign_hardbound" jdbcType="INTEGER" property="totalProduceForeignHardbound" />
+    <result column="build_ids" jdbcType="VARCHAR" property="buildIds" />
+    <result column="build_name" jdbcType="VARCHAR" property="buildName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_ed_design_drawing_check
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveEdDesignDrawingCheck">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_ed_design_drawing_check (business_key, project_id, project_name, 
+      project_no, parent_no, secret_level, 
+      stage_name, step_id, form_no, 
+      step_name, contract_no, project_charge_man, 
+      project_charge_man_name, check_time, send_dept_name, 
+      send_copies, finish_produce_leaflet, finish_produce_paperback, 
+      finish_produce_inland_hardbound, finish_produce_foreign_hardbound, 
+      add_produce_leaflet, add_produce_paperback, 
+      add_produce_inland_hardbound, add_produce_foreign_hardbound, 
+      total_produce_leaflet, total_produce_paperback, 
+      total_produce_inland_hardbound, total_produce_foreign_hardbound, 
+      build_ids, build_name, is_deleted, 
+      creator, creator_name, gmt_create, 
+      gmt_modified, remark, process_instance_id, 
+      is_process_end)
+    values (#{businessKey,jdbcType=VARCHAR}, #{projectId,jdbcType=INTEGER}, #{projectName,jdbcType=VARCHAR}, 
+      #{projectNo,jdbcType=VARCHAR}, #{parentNo,jdbcType=VARCHAR}, #{secretLevel,jdbcType=VARCHAR}, 
+      #{stageName,jdbcType=VARCHAR}, #{stepId,jdbcType=INTEGER}, #{formNo,jdbcType=VARCHAR}, 
+      #{stepName,jdbcType=VARCHAR}, #{contractNo,jdbcType=VARCHAR}, #{projectChargeMan,jdbcType=VARCHAR}, 
+      #{projectChargeManName,jdbcType=VARCHAR}, #{checkTime,jdbcType=VARCHAR}, #{sendDeptName,jdbcType=VARCHAR}, 
+      #{sendCopies,jdbcType=INTEGER}, #{finishProduceLeaflet,jdbcType=INTEGER}, #{finishProducePaperback,jdbcType=INTEGER}, 
+      #{finishProduceInlandHardbound,jdbcType=INTEGER}, #{finishProduceForeignHardbound,jdbcType=INTEGER}, 
+      #{addProduceLeaflet,jdbcType=INTEGER}, #{addProducePaperback,jdbcType=INTEGER}, 
+      #{addProduceInlandHardbound,jdbcType=INTEGER}, #{addProduceForeignHardbound,jdbcType=INTEGER}, 
+      #{totalProduceLeaflet,jdbcType=INTEGER}, #{totalProducePaperback,jdbcType=INTEGER}, 
+      #{totalProduceInlandHardbound,jdbcType=INTEGER}, #{totalProduceForeignHardbound,jdbcType=INTEGER}, 
+      #{buildIds,jdbcType=VARCHAR}, #{buildName,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, 
+      #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{processInstanceId,jdbcType=VARCHAR}, 
+      #{processEnd,jdbcType=BIT})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveEdDesignDrawingCheck">
+    update five_ed_design_drawing_check
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      project_id = #{projectId,jdbcType=INTEGER},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      project_no = #{projectNo,jdbcType=VARCHAR},
+      parent_no = #{parentNo,jdbcType=VARCHAR},
+      secret_level = #{secretLevel,jdbcType=VARCHAR},
+      stage_name = #{stageName,jdbcType=VARCHAR},
+      step_id = #{stepId,jdbcType=INTEGER},
+      form_no = #{formNo,jdbcType=VARCHAR},
+      step_name = #{stepName,jdbcType=VARCHAR},
+      contract_no = #{contractNo,jdbcType=VARCHAR},
+      project_charge_man = #{projectChargeMan,jdbcType=VARCHAR},
+      project_charge_man_name = #{projectChargeManName,jdbcType=VARCHAR},
+      check_time = #{checkTime,jdbcType=VARCHAR},
+      send_dept_name = #{sendDeptName,jdbcType=VARCHAR},
+      send_copies = #{sendCopies,jdbcType=INTEGER},
+      finish_produce_leaflet = #{finishProduceLeaflet,jdbcType=INTEGER},
+      finish_produce_paperback = #{finishProducePaperback,jdbcType=INTEGER},
+      finish_produce_inland_hardbound = #{finishProduceInlandHardbound,jdbcType=INTEGER},
+      finish_produce_foreign_hardbound = #{finishProduceForeignHardbound,jdbcType=INTEGER},
+      add_produce_leaflet = #{addProduceLeaflet,jdbcType=INTEGER},
+      add_produce_paperback = #{addProducePaperback,jdbcType=INTEGER},
+      add_produce_inland_hardbound = #{addProduceInlandHardbound,jdbcType=INTEGER},
+      add_produce_foreign_hardbound = #{addProduceForeignHardbound,jdbcType=INTEGER},
+      total_produce_leaflet = #{totalProduceLeaflet,jdbcType=INTEGER},
+      total_produce_paperback = #{totalProducePaperback,jdbcType=INTEGER},
+      total_produce_inland_hardbound = #{totalProduceInlandHardbound,jdbcType=INTEGER},
+      total_produce_foreign_hardbound = #{totalProduceForeignHardbound,jdbcType=INTEGER},
+      build_ids = #{buildIds,jdbcType=VARCHAR},
+      build_name = #{buildName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      is_process_end = #{processEnd,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, project_id, project_name, project_no, parent_no, secret_level, 
+    stage_name, step_id, form_no, step_name, contract_no, project_charge_man, project_charge_man_name, 
+    check_time, send_dept_name, send_copies, finish_produce_leaflet, finish_produce_paperback, 
+    finish_produce_inland_hardbound, finish_produce_foreign_hardbound, add_produce_leaflet, 
+    add_produce_paperback, add_produce_inland_hardbound, add_produce_foreign_hardbound, 
+    total_produce_leaflet, total_produce_paperback, total_produce_inland_hardbound, total_produce_foreign_hardbound, 
+    build_ids, build_name, is_deleted, creator, creator_name, gmt_create, gmt_modified, 
+    remark, process_instance_id, is_process_end
+    from five_ed_design_drawing_check
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, project_id, project_name, project_no, parent_no, secret_level, 
+    stage_name, step_id, form_no, step_name, contract_no, project_charge_man, project_charge_man_name, 
+    check_time, send_dept_name, send_copies, finish_produce_leaflet, finish_produce_paperback, 
+    finish_produce_inland_hardbound, finish_produce_foreign_hardbound, add_produce_leaflet, 
+    add_produce_paperback, add_produce_inland_hardbound, add_produce_foreign_hardbound, 
+    total_produce_leaflet, total_produce_paperback, total_produce_inland_hardbound, total_produce_foreign_hardbound, 
+    build_ids, build_name, is_deleted, creator, creator_name, gmt_create, gmt_modified, 
+    remark, process_instance_id, is_process_end
+    from five_ed_design_drawing_check
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and isLikeSelect==null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="projectId != null and isLikeSelect==null">
+         AND project_id = #{projectId}
+      </if>
+      <if test="projectName != null and isLikeSelect==null and projectName != ''">
+         AND project_name = #{projectName}
+      </if>
+      <if test="projectNo != null and isLikeSelect==null and projectNo != ''">
+         AND project_no = #{projectNo}
+      </if>
+      <if test="parentNo != null and isLikeSelect==null and parentNo != ''">
+         AND parent_no = #{parentNo}
+      </if>
+      <if test="secretLevel != null and isLikeSelect==null and secretLevel != ''">
+         AND secret_level = #{secretLevel}
+      </if>
+      <if test="stageName != null and isLikeSelect==null and stageName != ''">
+         AND stage_name = #{stageName}
+      </if>
+      <if test="stepId != null and isLikeSelect==null">
+         AND step_id = #{stepId}
+      </if>
+      <if test="formNo != null and isLikeSelect==null and formNo != ''">
+         AND form_no = #{formNo}
+      </if>
+      <if test="stepName != null and isLikeSelect==null and stepName != ''">
+         AND step_name = #{stepName}
+      </if>
+      <if test="contractNo != null and isLikeSelect==null and contractNo != ''">
+         AND contract_no = #{contractNo}
+      </if>
+      <if test="projectChargeMan != null and isLikeSelect==null and projectChargeMan != ''">
+         AND project_charge_man = #{projectChargeMan}
+      </if>
+      <if test="projectChargeManName != null and isLikeSelect==null and projectChargeManName != ''">
+         AND project_charge_man_name = #{projectChargeManName}
+      </if>
+      <if test="checkTime != null and isLikeSelect==null and checkTime != ''">
+         AND check_time = #{checkTime}
+      </if>
+      <if test="sendDeptName != null and isLikeSelect==null and sendDeptName != ''">
+         AND send_dept_name = #{sendDeptName}
+      </if>
+      <if test="sendCopies != null and isLikeSelect==null">
+         AND send_copies = #{sendCopies}
+      </if>
+      <if test="finishProduceLeaflet != null and isLikeSelect==null">
+         AND finish_produce_leaflet = #{finishProduceLeaflet}
+      </if>
+      <if test="finishProducePaperback != null and isLikeSelect==null">
+         AND finish_produce_paperback = #{finishProducePaperback}
+      </if>
+      <if test="finishProduceInlandHardbound != null and isLikeSelect==null">
+         AND finish_produce_inland_hardbound = #{finishProduceInlandHardbound}
+      </if>
+      <if test="finishProduceForeignHardbound != null and isLikeSelect==null">
+         AND finish_produce_foreign_hardbound = #{finishProduceForeignHardbound}
+      </if>
+      <if test="addProduceLeaflet != null and isLikeSelect==null">
+         AND add_produce_leaflet = #{addProduceLeaflet}
+      </if>
+      <if test="addProducePaperback != null and isLikeSelect==null">
+         AND add_produce_paperback = #{addProducePaperback}
+      </if>
+      <if test="addProduceInlandHardbound != null and isLikeSelect==null">
+         AND add_produce_inland_hardbound = #{addProduceInlandHardbound}
+      </if>
+      <if test="addProduceForeignHardbound != null and isLikeSelect==null">
+         AND add_produce_foreign_hardbound = #{addProduceForeignHardbound}
+      </if>
+      <if test="totalProduceLeaflet != null and isLikeSelect==null">
+         AND total_produce_leaflet = #{totalProduceLeaflet}
+      </if>
+      <if test="totalProducePaperback != null and isLikeSelect==null">
+         AND total_produce_paperback = #{totalProducePaperback}
+      </if>
+      <if test="totalProduceInlandHardbound != null and isLikeSelect==null">
+         AND total_produce_inland_hardbound = #{totalProduceInlandHardbound}
+      </if>
+      <if test="totalProduceForeignHardbound != null and isLikeSelect==null">
+         AND total_produce_foreign_hardbound = #{totalProduceForeignHardbound}
+      </if>
+      <if test="buildIds != null and isLikeSelect==null and buildIds != ''">
+         AND build_ids = #{buildIds}
+      </if>
+      <if test="buildName != null and isLikeSelect==null and buildName != ''">
+         AND build_name = #{buildName}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="remark != null and isLikeSelect==null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="processInstanceId != null and isLikeSelect==null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="processEnd != null and isLikeSelect==null">
+         AND is_process_end = #{processEnd}
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="businessKey != null and isLikeSelect!= null and businessKey != '' ">
+         AND business_key like  CONCAT('%',#{businessKey},'%')
+      </if>
+      <if test="projectName != null and isLikeSelect!= null and projectName != '' ">
+         AND project_name like  CONCAT('%',#{projectName},'%')
+      </if>
+      <if test="projectNo != null and isLikeSelect!= null and projectNo != '' ">
+         AND project_no like  CONCAT('%',#{projectNo},'%')
+      </if>
+      <if test="parentNo != null and isLikeSelect!= null and parentNo != '' ">
+         AND parent_no like  CONCAT('%',#{parentNo},'%')
+      </if>
+      <if test="secretLevel != null and isLikeSelect!= null and secretLevel != '' ">
+         AND secret_level like  CONCAT('%',#{secretLevel},'%')
+      </if>
+      <if test="stageName != null and isLikeSelect!= null and stageName != '' ">
+         AND stage_name like  CONCAT('%',#{stageName},'%')
+      </if>
+      <if test="formNo != null and isLikeSelect!= null and formNo != '' ">
+         AND form_no like  CONCAT('%',#{formNo},'%')
+      </if>
+      <if test="stepName != null and isLikeSelect!= null and stepName != '' ">
+         AND step_name like  CONCAT('%',#{stepName},'%')
+      </if>
+      <if test="contractNo != null and isLikeSelect!= null and contractNo != '' ">
+         AND contract_no like  CONCAT('%',#{contractNo},'%')
+      </if>
+      <if test="projectChargeMan != null and isLikeSelect!= null and projectChargeMan != '' ">
+         AND project_charge_man like  CONCAT('%',#{projectChargeMan},'%')
+      </if>
+      <if test="projectChargeManName != null and isLikeSelect!= null and projectChargeManName != '' ">
+         AND project_charge_man_name like  CONCAT('%',#{projectChargeManName},'%')
+      </if>
+      <if test="checkTime != null and isLikeSelect!= null and checkTime != '' ">
+         AND check_time like  CONCAT('%',#{checkTime},'%')
+      </if>
+      <if test="sendDeptName != null and isLikeSelect!= null and sendDeptName != '' ">
+         AND send_dept_name like  CONCAT('%',#{sendDeptName},'%')
+      </if>
+      <if test="buildIds != null and isLikeSelect!= null and buildIds != '' ">
+         AND build_ids like  CONCAT('%',#{buildIds},'%')
+      </if>
+      <if test="buildName != null and isLikeSelect!= null and buildName != '' ">
+         AND build_name like  CONCAT('%',#{buildName},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="processInstanceId != null and isLikeSelect!= null and processInstanceId != '' ">
+         AND process_instance_id like  CONCAT('%',#{processInstanceId},'%')
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="deptId != null and isLikeSelect!=null">
+         AND dept_id = #{deptId}
+      </if>
+    </where>
+  </sql>
+</mapper>

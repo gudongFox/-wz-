@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.finance.dao.FiveFinanceRefundDetailMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.finance.entity.FiveFinanceRefundDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="refund_id" jdbcType="INTEGER" property="refundId" />
+    <result column="refund_man" jdbcType="VARCHAR" property="refundMan" />
+    <result column="refund_man_name" jdbcType="VARCHAR" property="refundManName" />
+    <result column="refund_receipts" jdbcType="VARCHAR" property="refundReceipts" />
+    <result column="refund_money" jdbcType="VARCHAR" property="refundMoney" />
+    <result column="return_money" jdbcType="VARCHAR" property="returnMoney" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_finance_refund_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.finance.entity.FiveFinanceRefundDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_finance_refund_detail (refund_id, refund_man, refund_man_name, 
+      refund_receipts, refund_money, return_money, 
+      remark, creator, creator_name, 
+      is_deleted, gmt_create, gmt_modified
+      )
+    values (#{refundId,jdbcType=INTEGER}, #{refundMan,jdbcType=VARCHAR}, #{refundManName,jdbcType=VARCHAR}, 
+      #{refundReceipts,jdbcType=VARCHAR}, #{refundMoney,jdbcType=VARCHAR}, #{returnMoney,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.finance.entity.FiveFinanceRefundDetail">
+    update five_finance_refund_detail
+    set refund_id = #{refundId,jdbcType=INTEGER},
+      refund_man = #{refundMan,jdbcType=VARCHAR},
+      refund_man_name = #{refundManName,jdbcType=VARCHAR},
+      refund_receipts = #{refundReceipts,jdbcType=VARCHAR},
+      refund_money = #{refundMoney,jdbcType=VARCHAR},
+      return_money = #{returnMoney,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, refund_id, refund_man, refund_man_name, refund_receipts, refund_money, 
+    return_money, remark, creator, creator_name, is_deleted, gmt_create, gmt_modified
+    from five_finance_refund_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, refund_id, refund_man, refund_man_name, refund_receipts, refund_money, 
+    return_money, remark, creator, creator_name, is_deleted, gmt_create, gmt_modified
+    from five_finance_refund_detail
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="refundId != null and isLikeSelect==null">
+         AND refund_id = #{refundId}
+      </if>
+      <if test="refundMan != null and isLikeSelect==null and refundMan != ''">
+         AND refund_man = #{refundMan}
+      </if>
+      <if test="refundManName != null and isLikeSelect==null and refundManName != ''">
+         AND refund_man_name = #{refundManName}
+      </if>
+      <if test="refundReceipts != null and isLikeSelect==null and refundReceipts != ''">
+         AND refund_receipts = #{refundReceipts}
+      </if>
+      <if test="refundMoney != null and isLikeSelect==null and refundMoney != ''">
+         AND refund_money = #{refundMoney}
+      </if>
+      <if test="returnMoney != null and isLikeSelect==null and returnMoney != ''">
+         AND return_money = #{returnMoney}
+      </if>
+      <if test="remark != null and isLikeSelect==null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="refundMan != null and isLikeSelect!= null and refundMan != '' ">
+         AND refund_man like  CONCAT('%',#{refundMan},'%')
+      </if>
+      <if test="refundManName != null and isLikeSelect!= null and refundManName != '' ">
+         AND refund_man_name like  CONCAT('%',#{refundManName},'%')
+      </if>
+      <if test="refundReceipts != null and isLikeSelect!= null and refundReceipts != '' ">
+         AND refund_receipts like  CONCAT('%',#{refundReceipts},'%')
+      </if>
+      <if test="refundMoney != null and isLikeSelect!= null and refundMoney != '' ">
+         AND refund_money like  CONCAT('%',#{refundMoney},'%')
+      </if>
+      <if test="returnMoney != null and isLikeSelect!= null and returnMoney != '' ">
+         AND return_money like  CONCAT('%',#{returnMoney},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+    </where>
+  </sql>
+</mapper>

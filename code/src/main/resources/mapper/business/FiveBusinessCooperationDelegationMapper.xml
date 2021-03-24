@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.business.dao.FiveBusinessCooperationDelegationMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.business.entity.FiveBusinessCooperationDelegation">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="project_no" jdbcType="VARCHAR" property="projectNo" />
+    <result column="record_id" jdbcType="INTEGER" property="recordId" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="interior_project_no" jdbcType="VARCHAR" property="interiorProjectNo" />
+    <result column="interior_project_name" jdbcType="VARCHAR" property="interiorProjectName" />
+    <result column="interior_project_type" jdbcType="VARCHAR" property="interiorProjectType" />
+    <result column="delegation_dept_id" jdbcType="INTEGER" property="delegationDeptId" />
+    <result column="delegation_dept_name" jdbcType="VARCHAR" property="delegationDeptName" />
+    <result column="cooperation_dept_name" jdbcType="VARCHAR" property="cooperationDeptName" />
+    <result column="cooperation_dept_id" jdbcType="INTEGER" property="cooperationDeptId" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="delegation_time" jdbcType="VARCHAR" property="delegationTime" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_business_cooperation_delegation
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.business.entity.FiveBusinessCooperationDelegation">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_business_cooperation_delegation (business_key, project_name, project_no, 
+      record_id, dept_id, dept_name, 
+      interior_project_no, interior_project_name, 
+      interior_project_type, delegation_dept_id, 
+      delegation_dept_name, cooperation_dept_name, 
+      cooperation_dept_id, remark, creator, 
+      creator_name, gmt_create, gmt_modified, 
+      is_deleted, is_process_end, process_instance_id, 
+      title, delegation_time)
+    values (#{businessKey,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR}, #{projectNo,jdbcType=VARCHAR}, 
+      #{recordId,jdbcType=INTEGER}, #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, 
+      #{interiorProjectNo,jdbcType=VARCHAR}, #{interiorProjectName,jdbcType=VARCHAR}, 
+      #{interiorProjectType,jdbcType=VARCHAR}, #{delegationDeptId,jdbcType=INTEGER}, 
+      #{delegationDeptName,jdbcType=VARCHAR}, #{cooperationDeptName,jdbcType=VARCHAR}, 
+      #{cooperationDeptId,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{creatorName,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{deleted,jdbcType=BIT}, #{processEnd,jdbcType=BIT}, #{processInstanceId,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{delegationTime,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.business.entity.FiveBusinessCooperationDelegation">
+    update five_business_cooperation_delegation
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      project_no = #{projectNo,jdbcType=VARCHAR},
+      record_id = #{recordId,jdbcType=INTEGER},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      interior_project_no = #{interiorProjectNo,jdbcType=VARCHAR},
+      interior_project_name = #{interiorProjectName,jdbcType=VARCHAR},
+      interior_project_type = #{interiorProjectType,jdbcType=VARCHAR},
+      delegation_dept_id = #{delegationDeptId,jdbcType=INTEGER},
+      delegation_dept_name = #{delegationDeptName,jdbcType=VARCHAR},
+      cooperation_dept_name = #{cooperationDeptName,jdbcType=VARCHAR},
+      cooperation_dept_id = #{cooperationDeptId,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      is_deleted = #{deleted,jdbcType=BIT},
+      is_process_end = #{processEnd,jdbcType=BIT},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      delegation_time = #{delegationTime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, business_key, project_name, project_no, record_id, dept_id, dept_name, 
+    interior_project_no, interior_project_name, interior_project_type, delegation_dept_id, 
+    delegation_dept_name, cooperation_dept_name, cooperation_dept_id, remark, creator, 
+    creator_name, gmt_create, gmt_modified, is_deleted, is_process_end, process_instance_id, 
+    title, delegation_time
+    from five_business_cooperation_delegation
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, business_key, project_name, project_no, record_id, dept_id, dept_name, 
+    interior_project_no, interior_project_name, interior_project_type, delegation_dept_id, 
+    delegation_dept_name, cooperation_dept_name, cooperation_dept_id, remark, creator, 
+    creator_name, gmt_create, gmt_modified, is_deleted, is_process_end, process_instance_id, 
+    title, delegation_time
+    from five_business_cooperation_delegation
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and isLikeSelect==null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="projectName != null and isLikeSelect==null and projectName != ''">
+         AND project_name = #{projectName}
+      </if>
+      <if test="projectNo != null and isLikeSelect==null and projectNo != ''">
+         AND project_no = #{projectNo}
+      </if>
+      <if test="recordId != null and isLikeSelect==null">
+         AND record_id = #{recordId}
+      </if>
+      <if test="deptId != null and isLikeSelect==null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and isLikeSelect==null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="interiorProjectNo != null and isLikeSelect==null and interiorProjectNo != ''">
+         AND interior_project_no = #{interiorProjectNo}
+      </if>
+      <if test="interiorProjectName != null and isLikeSelect==null and interiorProjectName != ''">
+         AND interior_project_name = #{interiorProjectName}
+      </if>
+      <if test="interiorProjectType != null and isLikeSelect==null and interiorProjectType != ''">
+         AND interior_project_type = #{interiorProjectType}
+      </if>
+      <if test="delegationDeptId != null and isLikeSelect==null">
+         AND delegation_dept_id = #{delegationDeptId}
+      </if>
+      <if test="delegationDeptName != null and isLikeSelect==null and delegationDeptName != ''">
+         AND delegation_dept_name = #{delegationDeptName}
+      </if>
+      <if test="cooperationDeptName != null and isLikeSelect==null and cooperationDeptName != ''">
+         AND cooperation_dept_name = #{cooperationDeptName}
+      </if>
+      <if test="cooperationDeptId != null and isLikeSelect==null">
+         AND cooperation_dept_id = #{cooperationDeptId}
+      </if>
+      <if test="remark != null and isLikeSelect==null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="processEnd != null and isLikeSelect==null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="processInstanceId != null and isLikeSelect==null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="title != null and isLikeSelect==null and title != ''">
+         AND title = #{title}
+      </if>
+      <if test="delegationTime != null and isLikeSelect==null and delegationTime != ''">
+         AND delegation_time = #{delegationTime}
+      </if>
+      <if test="projectNoHead != null and projectNoHead != '' and isLikeSelect==null">
+        AND interior_project_no like  CONCAT('%',#{projectNoHead},'%')
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="businessKey != null and isLikeSelect!= null and businessKey != '' ">
+         AND business_key like  CONCAT('%',#{businessKey},'%')
+      </if>
+      <if test="projectName != null and isLikeSelect!= null and projectName != '' ">
+         AND project_name like  CONCAT('%',#{projectName},'%')
+      </if>
+      <if test="projectNo != null and isLikeSelect!= null and projectNo != '' ">
+         AND project_no like  CONCAT('%',#{projectNo},'%')
+      </if>
+      <if test="deptName != null and isLikeSelect!= null and deptName != '' ">
+         AND dept_name like  CONCAT('%',#{deptName},'%')
+      </if>
+      <if test="interiorProjectNo != null and isLikeSelect!= null and interiorProjectNo != '' ">
+         AND interior_project_no like  CONCAT('%',#{interiorProjectNo},'%')
+      </if>
+      <if test="interiorProjectName != null and isLikeSelect!= null and interiorProjectName != '' ">
+         AND interior_project_name like  CONCAT('%',#{interiorProjectName},'%')
+      </if>
+      <if test="interiorProjectType != null and isLikeSelect!= null and interiorProjectType != '' ">
+         AND interior_project_type like  CONCAT('%',#{interiorProjectType},'%')
+      </if>
+      <if test="delegationDeptName != null and isLikeSelect!= null and delegationDeptName != '' ">
+         AND delegation_dept_name like  CONCAT('%',#{delegationDeptName},'%')
+      </if>
+      <if test="cooperationDeptName != null and isLikeSelect!= null and cooperationDeptName != '' ">
+         AND cooperation_dept_name like  CONCAT('%',#{cooperationDeptName},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="processInstanceId != null and isLikeSelect!= null and processInstanceId != '' ">
+         AND process_instance_id like  CONCAT('%',#{processInstanceId},'%')
+      </if>
+      <if test="title != null and isLikeSelect!= null and title != '' ">
+         AND title like  CONCAT('%',#{title},'%')
+      </if>
+      <if test="delegationTime != null and isLikeSelect!= null and delegationTime != '' ">
+         AND delegation_time like  CONCAT('%',#{delegationTime},'%')
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="deptId != null and isLikeSelect!=null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="projectNoHead != null and projectNoHead != '' and isLikeSelect!=null">
+        AND project_no like  CONCAT('%',#{projectNoHead},'%')
+      </if>
+    </where>
+  </sql>
+</mapper>
