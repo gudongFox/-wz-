@@ -54,6 +54,7 @@
                             <thead>
                             <tr>
                                 <th style="width: 35px;">#</th>
+                                <th>单据号</th>
                                 <th>报销人</th>
                                 <th class="hidden-md hidden-sm">报销部门</th>
                                 <th>项目</th>
@@ -66,8 +67,9 @@
                             <tbody>
                             <tr ng-repeat="item in vm.pageInfo.list">
                                 <td class="dt-right" ng-bind="$index+vm.pageInfo.startRow"></td>
-                                <td ng-bind="item.applicantName"  class="data_title"  ng-click="vm.show(item.id);"><strong ></strong>
+                                <td ng-bind="item.receiptsNumber" class="data_title"  ng-click="vm.show(item.id);"><strong ></strong>
                                 </td>
+                                <td ng-bind="item.applicantName"></td>
                                 <td ng-bind="item.deptName" class="hidden-md hidden-sm"></td>
                                 <td ng-bind="item.projectName"></td>
                                 <td ng-bind="item.projectType"></td>

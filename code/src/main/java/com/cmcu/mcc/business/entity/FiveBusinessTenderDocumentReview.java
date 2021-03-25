@@ -86,8 +86,8 @@ public class FiveBusinessTenderDocumentReview {
     @Size(max=45, message="项目经理长度不能超过45")
     private String projectManager;
 
-    @NotNull(message="projectManagerName不能为空!")
-    @Size(max=45, message="projectManagerName长度不能超过45")
+    @NotNull(message="项目经理不能为空!")
+    @Size(max=45, message="项目经理长度不能超过45")
     private String projectManagerName;
 
     @NotNull(message="标书来源不能为空!")
@@ -113,4 +113,24 @@ public class FiveBusinessTenderDocumentReview {
     @NotNull(message="deptReviewUsername不能为空!")
     @Size(max=45, message="deptReviewUsername长度不能超过45")
     private String deptReviewUsername;
+
+    @NotNull(message="deptChargeMan不能为空!")
+    @Size(max=45, message="deptChargeMan长度不能超过45")
+    private String deptChargeMan;
+
+    @NotNull(message="部门负责人不能为空!")
+    @Size(max=45, message="部门负责人长度不能超过45")
+    private String deptChargeManName;
+
+    @NotNull(message="项目概况不能为空!")
+    @Size(max=450, message="项目概况长度不能超过450")
+    private String projectSituation;
+
+    @NotNull(message="deptCharge不能为空!")
+    @Size(max=45, message="deptCharge长度不能超过45")
+    private String deptCharge;
+
+    @NotNull(message="主管部门不能为空!")
+    @Size(max=45, message="主管部门长度不能超过45")
+    private String deptChargeName;
 }

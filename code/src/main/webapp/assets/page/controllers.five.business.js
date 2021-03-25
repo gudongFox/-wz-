@@ -7333,7 +7333,7 @@
         return vm;
 
     })
-    .controller("FiveBusinessTenderDocumentReviewDetailController", function ($state,$stateParams,$rootScope,$scope,fiveBusinessTenderDocumentReviewService,commonPrintTableService,businessRecordService) {
+    .controller("FiveBusinessTenderDocumentReviewDetailController", function ($state,$stateParams,$rootScope,$scope,fiveBusinessTenderDocumentReviewService,commonPrintTableService,businessRecordService,commonFileService) {
         var vm = this;
         vm.params = { qName: "",pageNum: 1, pageSize: $scope.pageSize,total:0};
         vm.pageInfo = {pageNum:  vm.params.pageNum, pageSize: vm.params.pageSize,total:vm.params.total};
@@ -7357,6 +7357,9 @@
             if (vm.status=='deptReviewUsername'){
                 $scope.showOaSelectEmployeeModal_({title:"请选择院级评审人员",type:"部门",deptIds:"1", userLoginList: vm.item.deptReviewUser,multiple:true});
             }
+            if (vm.status=='deptChargeManName'){
+                $scope.showOaSelectEmployeeModal_({title:"请选择院级评审人员",type:"部门",deptIds:"1", userLoginList: vm.item.deptReviewUser,multiple:true});
+            }
         };
         //保存选人的login和名字
         $rootScope.saveSelectEmployee_ = function () {
@@ -7373,19 +7376,36 @@
                 vm.item.deptReviewUser = $scope.selectedOaUserLogins_;
                 vm.item.deptReviewUsername = $scope.selectedOaUserNames_;
             }
+            else if ( vm.status=='deptChargeManName'){
+                vm.item.deptChargeMan = $scope.selectedOaUserLogins_;
+                vm.item.deptChargeManName = $scope.selectedOaUserNames_;
+            }
         };
         //选部门模块
         vm.showDeptModal=function(id) {
+            if (id = 0){
+                $scope.showOaSelectEmployeeModal_({title:"请选择部门",type:"选部门", deptIdList: vm.item.deptId+"",
+                    multiple:false,deptIds:"1",parentDeptId:2});
+            }
+            if (id = 1){
+                $scope.showOaSelectEmployeeModal_({title:"请选择部门",type:"选部门", deptIdList: vm.item.deptCharge+"",
+                    multiple:false,deptIds:"48,29",parentDeptId:2});
+            }
 
-            $scope.showOaSelectEmployeeModal_({title:"请选择部门",type:"选部门", deptIdList: vm.item.deptId+"",
-                multiple:false,deptIds:"1",parentDeptId:2});
 
         };
 
         $rootScope.saveSelectDept_ =function() {
-            $scope.closeOaSelectEmployeeModal_();
-            vm.item.deptName = $scope.selectedOaDeptNames_;
-            vm.item.deptId = Number($scope.selectedOaDeptIds_);
+            if (id = 0){
+                $scope.closeOaSelectEmployeeModal_();
+                vm.item.deptName = $scope.selectedOaDeptNames_;
+                vm.item.deptId = Number($scope.selectedOaDeptIds_);
+            }
+            if (id = 1){
+                $scope.closeOaSelectEmployeeModal_();
+                vm.item.deptChargeName = $scope.selectedOaDeptNames_;
+                vm.item.deptCharge = Number($scope.selectedOaDeptIds_);
+            }
         };
 
         vm.countTotalPrice =function(){
@@ -7446,25 +7466,32 @@
 
         //发送流程验证
         $scope.showSendTask=function(send){
-            if ($("#detail_form").validate().form()) {
-                vm.item.operateUserLogin = user.userLogin;
-                fiveBusinessTenderDocumentReviewService.update(vm.item).then(function (value) {
-                    if (value.data.ret) {
-                        jQuery.showActHandleModal({
-                            taskId: $scope.processInstance.taskId,
-                            send: send,
-                            enLogin: user.enLogin
-                        }, function () {
-                            return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
+            commonFileService.listDataCount(vm.item.businessKey, '-1').then(function (value) {
+                if (vm.item.combo == "是" && value.data.data == 0) {
+                    toastr.warning("请上传联合体附件!");
+                    return;
+                } else {
+                    if ($("#detail_form").validate().form()) {
+                        vm.item.operateUserLogin = user.userLogin;
+                        fiveBusinessTenderDocumentReviewService.update(vm.item).then(function (value) {
+                            if (value.data.ret) {
+                                jQuery.showActHandleModal({
+                                    taskId: $scope.processInstance.taskId,
+                                    send: send,
+                                    enLogin: user.enLogin
+                                }, function () {
+                                    return true;
+                                }, function (processInstanceId) {
+                                    $scope.refresh();
+                                });
+                            }
+                        })
+                    } else {
+                        toastr.warning("请准确填写数据!")
+                        return false;
                     }
-                })
-
-            }else {
-                toastr.warning("请准确填写数据!")
-                return false;
-            }
+                }
+            })
 
         };
 

@@ -446,6 +446,9 @@ public class FiveFinanceTravelExpenseService {
 
         item.setTitle(title);
         fiveFinanceTravelExpenseMapper.updateByPrimaryKey(item);
+        //自动生成单据号
+        String receiptsNumber = getReceiptsNumber(item.getId());
+        item.setReceiptsNumber(receiptsNumber);
         return item.getId();
     }
 

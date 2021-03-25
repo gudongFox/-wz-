@@ -63,4 +63,16 @@ public class SysController {
         ModelAndView modelAndView=new ModelAndView("/sys/schedule");
         return modelAndView;
     }
+    
+    @RequestMapping("/contentFile")
+    public ModelAndView contentFile(){
+        ModelAndView modelAndView=new ModelAndView("/sys/contentFile");
+        return modelAndView;
+    }
+
+    @RequestMapping("/wordSize")
+    public ModelAndView wordSize(){
+        ModelAndView modelAndView=new ModelAndView("/sys/wordSize");
+        return modelAndView;
+    }
 }

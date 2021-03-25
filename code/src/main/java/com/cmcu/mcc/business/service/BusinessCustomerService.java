@@ -101,16 +101,34 @@ public class BusinessCustomerService extends BaseService {
     }
 
     public void update(BusinessCustomerDto dto) {
-
+        String taxNo=dto.getTaxNo();
         //验证纳税人识别号是否存在,没有填写不做判断，点击纳税人识别号的时候验证
-        if (!Strings.isNullOrEmpty(dto.getTaxNo())){
-            checkTaxNo(dto.getTaxNo(),dto.getId());
+        /*if (!Strings.isNullOrEmpty(dto.getTaxNo())){
+            if(!taxNo.equals("无")){
+                checkTaxNo(dto.getTaxNo(), dto.getId());
+            }
+
+        }else{
+            Assert.state(taxNo==null,"纳税人识别号为空！请填写'无'");
+        }*/
+        if (Strings.isNullOrEmpty(dto.getTaxNo())){
+            Assert.state(taxNo==null,"纳税人识别号为空！请填写'无'");
+        }
+        else if(!taxNo.equals("无")){
+            checkTaxNo(dto.getTaxNo(), dto.getId());
         }
         //验证客户信息是否存在,2021.3.17注释客户不需要验证
-       // checkCustomer(dto.getName(),dto.getId());
+        //checkCustomer(dto.getName(),dto.getId());
         //验证客户编号是否存在
         if(!Strings.isNullOrEmpty(dto.getCode())){
             checkCustomerCode(dto.getCode(),dto.getId());
+        }
+
+        try{
+
+        }
+        catch (Exception e){
+            throw  new  IllegalArgumentException("纳税人识别号错误：" + e.getMessage());
         }
 
         BusinessCustomer model = businessCustomerMapper.selectByPrimaryKey(dto.getId());

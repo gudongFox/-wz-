@@ -2304,3 +2304,268 @@ angular.module('services.sys', [])
         }
     })
 
+    .factory('fiveContentFileService', function ($q, $http) {
+
+        var head = "/sys/contentFile";
+
+        var getModelByBusinessKey = function (businessKey,fileType) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/getModelByBusinessKey.json',
+                params: {
+                    businessKey: businessKey,
+                    fileType:fileType,
+                }
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+        var remove = function (id) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/remove.json',
+                params: {
+                    id: id,
+                }
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        var listPagedData = function (params) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/listPagedData.json',
+                params: params
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        return {
+            getModelByBusinessKey: function (businessKey,fileType) {
+                return getModelByBusinessKey(businessKey,fileType);
+            },
+            listPagedData: function (params) {
+                return listPagedData(params);
+            },
+            remove: function (id) {
+                return remove(id);
+            },
+        }
+    })
+
+    .factory('fiveOaWordSizeService', function ($q, $http) {
+
+        var head = "/sys/wordSize";
+
+        var getModelById = function (id) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/getModelById.json',
+                params: {
+                    id: id
+                }
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        var getCanUseWord = function (keyNames,year,type) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/getCanUseWord.json',
+                params: {
+                    keyNames:keyNames,
+                    year:year,
+                    type:type,
+                }
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        var updateWordSize = function (params) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/updateWordSize.json',
+                params: params
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        var getMarkByChange = function (word,year) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/getMarkByChange.json',
+                params: {
+                    word: word,
+                    year:year,
+                }
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        var listUserWord = function (word,year,key) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/listUserWord.json',
+                params: {
+                    word: word,
+                    year:year,
+                    key:key,
+                }
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        var removeWordByBusinessKey = function (businessKey) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/removeWordByBusinessKey.json',
+                params: {
+                    businessKey: businessKey,
+                }
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        var listItem = function (advanceId) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/listItem.json',
+                params: {
+                    advanceId: advanceId,
+                }
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        var getNewModelItem = function (word) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/getNewModelItem.json',
+                params: {
+                    word:word,
+                }
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        var getModelItemById = function (id) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/getModelItemById.json',
+                params: {
+                    id: id
+                }
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        var listPagedData = function (params) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/listPagedData.json',
+                params: params
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        return {
+            getCanUseWord: function (keyNames,year,type) {
+                return getCanUseWord(keyNames,year,type);
+            },
+            getModelById: function (id) {
+                return getModelById(id);
+            },
+            updateWordSize: function (params) {
+                return updateWordSize(params);
+            },
+            getMarkByChange: function (word,year) {
+                return getMarkByChange(word,year);
+            },
+            listUserWord: function (word,year,key) {
+                return listUserWord(word,year,key);
+            },
+            removeWordByBusinessKey: function (businessKey){
+                return removeWordByBusinessKey(businessKey);
+            },
+            listPagedData: function (params) {
+                return listPagedData(params);
+            },
+            getModelItemById:function (id) {
+                return getModelItemById(id);
+            },
+            listItem: function (params) {
+                return listItem(params);
+            },
+            getNewModelItem: function (word) {
+                return getNewModelItem(word);
+            },
+
+        }
+    })
+
+
+

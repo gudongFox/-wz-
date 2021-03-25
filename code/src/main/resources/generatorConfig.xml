@@ -6,8 +6,8 @@
 
   <properties resource="jdbc.properties"/>
 
-      <context id="finance" targetRuntime="MyBatis3Simple">
-     <!--   <plugin type="com.cmcu.mybatis.MyGeneratorPlugin" />-->
+      <!--<context id="finance" targetRuntime="MyBatis3Simple">
+     &lt;!&ndash;   <plugin type="com.cmcu.mybatis.MyGeneratorPlugin" />&ndash;&gt;
         <plugin type="com.cmcu.mybatis.MyGeneratorPlugin1" />
 
         <commentGenerator type="com.cmcu.mybatis.MyCommentGenerator">
@@ -39,9 +39,9 @@
         <table tableName="five_finance_travel_expense_detail">
             <generatedKey column="id" sqlStatement="mysql" identity="true"/>
         </table>
-    </context>
+    </context>-->
 
-       <!--<context id="business" targetRuntime="MyBatis3Simple">
+       <context id="business" targetRuntime="MyBatis3Simple">
     <plugin type="com.cmcu.mybatis.MyGeneratorPlugin" />
     <commentGenerator type="com.cmcu.mybatis.MyCommentGenerator">
         <property name="suppressAllComments" value="true"/>
@@ -73,7 +73,7 @@
     <table tableName="five_business_tender_document_review">
         <generatedKey column="id" sqlStatement="mysql" identity="true"/>
     </table>
-</context>-->
+</context>
 
     <!-- <context id="budget" targetRuntime="MyBatis3Simple"  defaultModelType="flat">
         <plugin type="com.cmcu.mybatis.MyGeneratorPlugin" />

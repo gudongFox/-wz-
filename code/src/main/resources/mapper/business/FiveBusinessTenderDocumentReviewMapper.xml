@@ -30,6 +30,11 @@
     <result column="review_username" jdbcType="VARCHAR" property="reviewUsername" />
     <result column="dept_review_user" jdbcType="VARCHAR" property="deptReviewUser" />
     <result column="dept_review_username" jdbcType="VARCHAR" property="deptReviewUsername" />
+    <result column="dept_charge_man" jdbcType="VARCHAR" property="deptChargeMan" />
+    <result column="dept_charge_man_name" jdbcType="VARCHAR" property="deptChargeManName" />
+    <result column="project_situation" jdbcType="VARCHAR" property="projectSituation" />
+    <result column="dept_charge" jdbcType="VARCHAR" property="deptCharge" />
+    <result column="dept_charge_name" jdbcType="VARCHAR" property="deptChargeName" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from five_business_tender_document_review
@@ -47,8 +52,9 @@
       is_process_end, project_name, project_level, 
       project_location, project_manager, project_manager_name, 
       tender_source, combo, review_user, 
-      review_username, dept_review_user, dept_review_username
-      )
+      review_username, dept_review_user, dept_review_username, 
+      dept_charge_man, dept_charge_man_name, project_situation, 
+      dept_charge, dept_charge_name)
     values (#{businessKey,jdbcType=VARCHAR}, #{recordId,jdbcType=INTEGER}, #{formNo,jdbcType=VARCHAR}, 
       #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, #{beginTime,jdbcType=VARCHAR}, 
       #{planBeginTime,jdbcType=VARCHAR}, #{totalPrice,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
@@ -57,8 +63,9 @@
       #{processEnd,jdbcType=BIT}, #{projectName,jdbcType=VARCHAR}, #{projectLevel,jdbcType=VARCHAR}, 
       #{projectLocation,jdbcType=VARCHAR}, #{projectManager,jdbcType=VARCHAR}, #{projectManagerName,jdbcType=VARCHAR}, 
       #{tenderSource,jdbcType=VARCHAR}, #{combo,jdbcType=VARCHAR}, #{reviewUser,jdbcType=VARCHAR}, 
-      #{reviewUsername,jdbcType=VARCHAR}, #{deptReviewUser,jdbcType=VARCHAR}, #{deptReviewUsername,jdbcType=VARCHAR}
-      )
+      #{reviewUsername,jdbcType=VARCHAR}, #{deptReviewUser,jdbcType=VARCHAR}, #{deptReviewUsername,jdbcType=VARCHAR}, 
+      #{deptChargeMan,jdbcType=VARCHAR}, #{deptChargeManName,jdbcType=VARCHAR}, #{projectSituation,jdbcType=VARCHAR}, 
+      #{deptCharge,jdbcType=VARCHAR}, #{deptChargeName,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.business.entity.FiveBusinessTenderDocumentReview">
     update five_business_tender_document_review
@@ -88,7 +95,12 @@
       review_user = #{reviewUser,jdbcType=VARCHAR},
       review_username = #{reviewUsername,jdbcType=VARCHAR},
       dept_review_user = #{deptReviewUser,jdbcType=VARCHAR},
-      dept_review_username = #{deptReviewUsername,jdbcType=VARCHAR}
+      dept_review_username = #{deptReviewUsername,jdbcType=VARCHAR},
+      dept_charge_man = #{deptChargeMan,jdbcType=VARCHAR},
+      dept_charge_man_name = #{deptChargeManName,jdbcType=VARCHAR},
+      project_situation = #{projectSituation,jdbcType=VARCHAR},
+      dept_charge = #{deptCharge,jdbcType=VARCHAR},
+      dept_charge_name = #{deptChargeName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -96,7 +108,8 @@
     total_price, remark, creator, creator_name, is_deleted, gmt_create, gmt_modified, 
     process_instance_id, is_process_end, project_name, project_level, project_location, 
     project_manager, project_manager_name, tender_source, combo, review_user, review_username, 
-    dept_review_user, dept_review_username
+    dept_review_user, dept_review_username, dept_charge_man, dept_charge_man_name, project_situation, 
+    dept_charge, dept_charge_name
     from five_business_tender_document_review
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -105,7 +118,8 @@
     total_price, remark, creator, creator_name, is_deleted, gmt_create, gmt_modified, 
     process_instance_id, is_process_end, project_name, project_level, project_location, 
     project_manager, project_manager_name, tender_source, combo, review_user, review_username, 
-    dept_review_user, dept_review_username
+    dept_review_user, dept_review_username, dept_charge_man, dept_charge_man_name, project_situation, 
+    dept_charge, dept_charge_name
     from five_business_tender_document_review
     <include refid="Base_Where_List" />
     <include refid="Base_Where_List1" />
@@ -197,6 +211,21 @@
       <if test="deptReviewUsername != null and isLikeSelect==null and deptReviewUsername != ''">
          AND dept_review_username = #{deptReviewUsername}
       </if>
+      <if test="deptChargeMan != null and isLikeSelect==null and deptChargeMan != ''">
+         AND dept_charge_man = #{deptChargeMan}
+      </if>
+      <if test="deptChargeManName != null and isLikeSelect==null and deptChargeManName != ''">
+         AND dept_charge_man_name = #{deptChargeManName}
+      </if>
+      <if test="projectSituation != null and isLikeSelect==null and projectSituation != ''">
+         AND project_situation = #{projectSituation}
+      </if>
+      <if test="deptCharge != null and isLikeSelect==null and deptCharge != ''">
+         AND dept_charge = #{deptCharge}
+      </if>
+      <if test="deptChargeName != null and isLikeSelect==null and deptChargeName != ''">
+         AND dept_charge_name = #{deptChargeName}
+      </if>
     </where>
   </sql>
   <sql id="Base_Where_List1">
@@ -263,6 +292,21 @@
       </if>
       <if test="deptReviewUsername != null and isLikeSelect!= null and deptReviewUsername != '' ">
          AND dept_review_username like  CONCAT('%',#{deptReviewUsername},'%')
+      </if>
+      <if test="deptChargeMan != null and isLikeSelect!= null and deptChargeMan != '' ">
+         AND dept_charge_man like  CONCAT('%',#{deptChargeMan},'%')
+      </if>
+      <if test="deptChargeManName != null and isLikeSelect!= null and deptChargeManName != '' ">
+         AND dept_charge_man_name like  CONCAT('%',#{deptChargeManName},'%')
+      </if>
+      <if test="projectSituation != null and isLikeSelect!= null and projectSituation != '' ">
+         AND project_situation like  CONCAT('%',#{projectSituation},'%')
+      </if>
+      <if test="deptCharge != null and isLikeSelect!= null and deptCharge != '' ">
+         AND dept_charge like  CONCAT('%',#{deptCharge},'%')
+      </if>
+      <if test="deptChargeName != null and isLikeSelect!= null and deptChargeName != '' ">
+         AND dept_charge_name like  CONCAT('%',#{deptChargeName},'%')
       </if>
       <if test="deleted != null and isLikeSelect!=null">
          AND is_deleted = #{deleted}

@@ -276,7 +276,7 @@ function  initApp() {
             return vm;
         })
 
-        .controller('ApplyStampOfficeController', function ($rootScope,$scope,$stateParams,commonFormDataService,fiveOaStampApplyOfficeService2) {
+        .controller('ApplyStampOfficeController', function ($rootScope,$scope,$state,$stateParams,commonFormDataService,fiveOaStampApplyOfficeService2) {
             var vm=this;
 
             var uiSref="five.oaStampApplyOffice";
@@ -297,11 +297,15 @@ function  initApp() {
             };
 
             vm.show = function (id) {
-                $state.go("apply.stampOfficeDetail",{applyId: id});
+                fiveOaStampApplyOfficeService2.getModelById(id).then(function (value) {
+                    var businessKey = value.data.data.businessKey;
+                    //$state.go("task.stampOfficeDetail", {businessKey: businessKey});
+                    window.location.href="/h5/taskDetail.html?businessKey="+businessKey;
+                })
             }
 
             vm.add = function () {
-                fiveOaStampApplyOfficeService2.getNewModel(user.userLogin).then(function (value) {
+                fiveOaStampApplyOfficeService2.getNewModel(user.enLogin).then(function (value) {
                     if (value.data.ret) {
                         vm.show(value.data.data);
                     }
@@ -311,7 +315,7 @@ function  initApp() {
             vm.remove=function(id) {
                 bootbox.confirm("您确定要删除吗?无法恢复,请谨慎操作!", function (result) {
                     if(result){
-                        fiveOaStampApplyOfficeService2.remove(id,user.userLogin).then(function (value) {
+                        fiveOaStampApplyOfficeService2.remove(id,user.enLogin).then(function (value) {
                             if (value.data.ret){
                                 toastr.success("删除成功!")
                                 vm.loadPagedData();

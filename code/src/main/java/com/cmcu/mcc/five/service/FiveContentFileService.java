@@ -1,12 +1,17 @@
 package com.cmcu.mcc.five.service;
 
 import com.cmcu.act.service.ProcessQueryService;
+import com.cmcu.common.service.BaseService;
 import com.cmcu.common.util.FileUtil;
 import com.cmcu.common.util.ModelUtil;
 import com.cmcu.mcc.five.dao.FiveContentFileMapper;
 import com.cmcu.mcc.five.dto.FiveContentFileDto;
 import com.cmcu.mcc.five.entity.FiveContentFile;
+import com.cmcu.mcc.five.entity.FiveOaNonSecretEquipmentScrap;
 import com.cmcu.mcc.hr.service.HrEmployeeService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +21,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class FiveContentFileService {
+public class FiveContentFileService extends BaseService {
     @Resource
     FiveContentFileMapper fiveContentFileMapper;
     @Autowired
@@ -66,6 +71,25 @@ public class FiveContentFileService {
         ModelUtil.setNotNullFields(model);
         fiveContentFileMapper.insert(model);
         return model.getId();
+    }
+
+    public PageInfo<Object> listPagedData(Map<String, Object> params, String userLogin, String uiSref, int pageNum, int pageSize) {
+        params.put("deleted", false);
+        params.put("isLikeSelect",true);
+
+        Map map =new HashMap();
+        map.put("myDeptData",false);
+        map.put("uiSref",uiSref);
+        map.put("enLogin",userLogin);
+        params.putAll(getDefaultRightParams(map));
+        PageInfo<Object> pageInfo = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> fiveContentFileMapper.selectAll(params));
+        List<Object> list = Lists.newArrayList();
+        pageInfo.getList().forEach(p -> {
+            FiveContentFile item = (FiveContentFile) p;
+            list.add(getDto(item));
+        });
+        pageInfo.setList(list);
+        return pageInfo;
     }
 
     public FiveContentFile getModelById(int id) {

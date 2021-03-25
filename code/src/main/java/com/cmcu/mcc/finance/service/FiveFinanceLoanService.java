@@ -400,6 +400,9 @@ public class FiveFinanceLoanService extends BaseService {
 
         item.setTitle(title);
         fiveFinanceLoanMapper.updateByPrimaryKey(item);
+        //自动生成单据号
+        String receiptsNumber = getReceiptsNumber(item.getId());
+        item.setReceiptsNumber(receiptsNumber);
         return item.getId();
     }
     public PageInfo<Object> listPagedData(Map<String,Object> params, String userLogin, String uiSref,int pageNum, int pageSize) {
@@ -606,7 +609,7 @@ public class FiveFinanceLoanService extends BaseService {
             return newReceiptsNumber;
 
         }catch (Exception e){
-            Assert.state(false,"请准确填写，预计开始时间、xxx、xxx！");
+            Assert.state(false,"请准确填写，借款人、借款部门、借款日期！");
             return "";
         }
     }

@@ -261,6 +261,9 @@ public class FiveFinanceTransferAccountsService {
 
         item.setTitle(title);
         fiveFinanceTransferAccountsMapper.updateByPrimaryKey(item);
+        //自动生成单据号
+        String accountNumber = getAccountNumber(item.getId());
+        item.setAccountNumber(accountNumber);
         return item.getId();
     }
 

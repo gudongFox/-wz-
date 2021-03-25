@@ -53,6 +53,20 @@
             return deferred.promise;
         };
 
+        var listActPagedData = function (params) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: '/common/formData/listActPagedData.json',
+                params:params
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
         var getModelById = function (id,enLogin) {
             var deferred = $q.defer();
             return $http({
@@ -242,6 +256,9 @@
             },
             listPagedData:function (params) {
                 return listPagedData(params);
+            },
+            listActPagedData:function (params) {
+                return listActPagedData(params);
             },
             listNewPagedData:function (params) {
                 return listNewPagedData(params);

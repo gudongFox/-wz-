@@ -70,15 +70,20 @@
                         <div class="form-body">
                             <div class="form-group">
                                 <label class="col-md-2 control-label required">纳税人识别号</label>
-                               
+
                                 <div class="col-md-4"  ng-if="!vm.item.processEnd">
-                                    <input type="text" class="form-control" placeholder="纳税人识别号"  ng-disabled="!processInstance.firstTask"
+                                    <input type="text" onkeyup="this.value=this.value.replace(/\s+/g,'')" class="form-control" placeholder="纳税人识别号"  ng-disabled="!processInstance.firstTask"
                                            ng-model="vm.item.taxNo" name="taxNo" maxlength="20"  required="true"/>
+                                   <%-- <input type="text" class="form-control" placeholder="纳税人识别号"  ng-disabled="!processInstance.firstTask"
+                                           ng-model="vm.item.taxNo" name="taxNo" maxlength="20"  required="true"/>--%>
+                                    <small style="color:red;">没有纳税人识别号 请填写无</small>
                                 </div>
                                 <div class="col-md-4"  ng-if="vm.item.processEnd">
                                     <input type="text" class="form-control" placeholder="纳税人识别号(补录)"  ng-disabled="user.userLogin!='2736'"
                                            ng-model="vm.item.taxNo" name="taxNo" maxlength="20"  required="true"/>
+                                    <small style="color:red;">没有纳税人识别号 请填写无</small>
                                 </div>
+
                                 <label class="col-md-2 control-label">纳税主体资格</label>
                                
                                 <div class="col-md-4" ng-if="!vm.item.processEnd">

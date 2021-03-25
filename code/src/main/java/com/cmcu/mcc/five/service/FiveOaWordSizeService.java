@@ -1,8 +1,10 @@
 package com.cmcu.mcc.five.service;
 
+import com.cmcu.common.service.BaseService;
 import com.cmcu.common.util.ModelUtil;
 import com.cmcu.common.util.MyDateUtil;
 import com.cmcu.common.util.MyStringUtil;
+import com.cmcu.mcc.finance.entity.FiveFinanceLoanDetail;
 import com.cmcu.mcc.five.dao.FiveOaUseWordSizeMapper;
 import com.cmcu.mcc.five.dao.FiveOaWordSizeMapper;
 
@@ -25,7 +27,8 @@ import java.util.Map;
 
 @Service
 public class
-FiveOaWordSizeService {
+    //添加继承BaseService，2021.3.25
+FiveOaWordSizeService extends BaseService {
     @Resource
     FiveOaWordSizeMapper fiveOaWordSizeMapper;
     @Resource
@@ -293,6 +296,45 @@ FiveOaWordSizeService {
        List<FiveOaUseWordSize> list = fiveOaUseWordSizeMapper.selectAll(map);
        return list;
    }
+
+    public FiveOaWordSize getNewModelItem(int id){
+        FiveOaWordSize item=new FiveOaWordSize();
+        item.setWord("");
+        item.setMark(0);
+        item.setYear("");
+        item.setType("");
+        item.setAbandonMark("");
+        item.setDeptName("");
+        item.setId(0);
+        item.setGmtModified(new Date());
+        item.setRemark("");
+        item.getDeptId();
+        /*item.setGmtCreate(new Date());
+        item.setDeleted(false);
+        item.setControlBalance(MyStringUtil.moneyToString("0"));
+        item.setBudgetBalance(MyStringUtil.moneyToString("0"));
+        item.setApplyMoney(MyStringUtil.moneyToString("0"));*/
+
+        ModelUtil.setNotNullFields(item);
+        //BeanValidator.check(item);
+        fiveOaWordSizeMapper.insert(item);
+        if(Double.valueOf(item.getWord()).equals(0.0)){
+            item.setWord("");
+        }
+        if(Double.valueOf(item.getMark()).equals(0.0)){
+            item.setMark(null);
+        }
+        if(Double.valueOf(item.getAbandonMark()).equals(0.0)){
+            item.setAbandonMark("");
+        }
+        return item;
+
+    }
+
+    public FiveOaWordSize getModelItemById(int id){
+        FiveOaWordSize fiveOaWordSize = fiveOaWordSizeMapper.selectByPrimaryKey(id);
+        return (fiveOaWordSize);
+    }
 
     public PageInfo<Object> listPagedData(Map<String,Object> params, int pageNum, int pageSize) {
         params.put("deleted",false);

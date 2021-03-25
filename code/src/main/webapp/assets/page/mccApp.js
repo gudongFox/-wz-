@@ -60,6 +60,7 @@ function initApp() {
                     controller: 'FiveDashboardController as vm'
                 });
 
+
             $stateProvider
                 .state('finance', {
                     url: "/finance",
@@ -1213,8 +1214,21 @@ function initApp() {
                         return "/sys/schedule";
                     },
                     controller: 'SysScheduleController as vm'
+                })
+                .state('sys.contentFile',{
+                    url:"/contentFile",
+                    templateUrl: function () {
+                        return"/sys/contentFile";
+                    },
+                    controller:'FiveFileContentController as vm'
+                })
+                .state('sys.wordSize',{
+                    url:"/wordSize",
+                    templateUrl: function () {
+                        return"/sys/wordSize";
+                    },
+                    controller:'FiveOaWordSizeController as vm'
                 });
-
 
             $stateProvider
                 .state('bid', {

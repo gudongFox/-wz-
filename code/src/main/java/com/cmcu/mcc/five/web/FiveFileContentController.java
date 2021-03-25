@@ -9,15 +9,18 @@ import com.cmcu.common.service.CommonFileService;
 import com.cmcu.common.service.CommonUserService;
 import com.cmcu.common.util.CookieSessionUtils;
 import com.cmcu.common.util.FileUtil;
+import com.cmcu.common.util.WebUtil;
 import com.cmcu.mcc.five.dto.FiveContentFileDto;
 import com.cmcu.mcc.five.entity.FiveContentFile;
 import com.cmcu.mcc.five.service.FiveContentFileService;
+import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,10 +33,11 @@ import java.net.URLEncoder;
 import java.nio.channels.FileChannel;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/wuzhou/file")
+@RequestMapping("/sys/contentFile")
 public class FiveFileContentController {
 
 
@@ -147,6 +151,13 @@ public class FiveFileContentController {
     @RequestMapping("/getModelByBusinessKey.json")
     public JsonData getModelByBusinessKey(String businessKey){
         return  JsonData.success(fileService.getModelByBusinessKey(businessKey));
+    }
+
+    @PostMapping("/listPagedData.json")
+    public JsonData listPagedData(String userLogin,String uiSref, int pageNum, int pageSize) {
+        Map params = WebUtil.getRequestParameters();
+        PageInfo pageInfo = fiveContentFileService.listPagedData(params, userLogin, uiSref, pageNum, pageSize);
+        return JsonData.success(pageInfo);
     }
 
     @RequestMapping(value = "/receive.do")

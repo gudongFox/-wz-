@@ -10652,7 +10652,7 @@ angular.module('services.five.oa', [])
         }
     })
 
-    .factory('fiveOaWordSizeService', function ($q, $http) {
+    /*.factory('fiveOaWordSizeService', function ($q, $http) {
 
         var head = "/five/oa/wordSize";
 
@@ -10755,7 +10755,7 @@ angular.module('services.five.oa', [])
                 return listUserWord(word,year,key);
             },
         }
-    })
+    })*/
 
     .factory('fiveOaDecisionMakingService', function ($q, $http) {
 

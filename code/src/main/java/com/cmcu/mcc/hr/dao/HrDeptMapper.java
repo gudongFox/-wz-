@@ -12,6 +12,7 @@ public interface HrDeptMapper {
     HrDept selectByPrimaryKey(Integer id);
 
     List<HrDept> selectAll(Map params);
+    //List<HrDept> selectDeptLeaderAndFinancer(Map params);
 
     int updateByPrimaryKey(HrDept record);
 }

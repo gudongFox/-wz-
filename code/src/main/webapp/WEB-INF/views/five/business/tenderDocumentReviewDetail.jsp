@@ -85,6 +85,15 @@
                                         </span>
                                     </div>
                                 </div>
+                                <label class="col-md-2 control-label required" ng-if="vm.item.projectLevel=='公司级'">主管部门</label>
+                                <div class="col-md-4" ng-if="vm.item.projectLevel=='公司级'">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" ng-model="vm.item.deptChargeName" name="deptChargeName"  required="true" ng-disabled="true"/>
+                                        <span class="input-group-btn" >
+                                            <button class="btn default" type="button" ng-click="vm.showDeptModal(1);" ><i class="fa fa-cog"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
                                 <label class="col-md-2 control-label required" ng-if="vm.item.projectLevel=='院级'">评审人员</label>
                                 <div class="col-md-4" ng-if="vm.item.projectLevel=='院级'">
                                     <div class="input-group">
@@ -92,6 +101,17 @@
                                         <span class="input-group-btn" >
                                             <button class="btn default" type="button" ng-click="vm.showUserModel('deptReviewUsername');" ng-disabled="!processInstance.firstTask"><i class="fa fa-user"></i></button>
                                         </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label required">部门负责人</label>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" ng-model="vm.item.deptChargeManName" name="deptChargeManName"  required="true"  ng-disabled="!processInstance.firstTask"/>
+                                        <span class="input-group-btn" >
+                                            <button class="btn default" type="button" ng-click="vm.showUserModel('deptChargeManName');" ng-disabled="!processInstance.firstTask"><i class="fa fa-user"></i></button>
+                                         </span>
                                     </div>
                                 </div>
                             </div>
@@ -110,7 +130,7 @@
                                     <div class="input-group">
                                         <input type="text" class="form-control" ng-model="vm.item.deptName" name="deptName" required="true"   readonly/>
                                         <span class="input-group-btn" >
-                                            <button class="btn default" type="button" ng-click="vm.showDeptModal();" ng-disabled="!processInstance.firstTask"><i class="fa fa-cog"></i></button>
+                                            <button class="btn default" type="button" ng-click="vm.showDeptModal(0);" ng-disabled="!processInstance.firstTask"><i class="fa fa-cog"></i></button>
                                          </span>
                                     </div>
                                 </div>
@@ -155,6 +175,13 @@
                                 <div class="col-md-4">
                                     <select ng-options="s.name as s.name for s in sysCodes | filter:{codeCatalog:'是否'}:true"
                                             ng-model="vm.item.combo" class="form-control" ng-disabled="!processInstance.firstTask"></select>
+                                    <span style="color: red" ng-if="vm.item.combo=='是'">请上传附件</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">项目概况</label>
+                                <div class="col-md-10">
+                                    <textarea rows="3" type="text" class="form-control" ng-model="vm.item.projectSituation" name="projectSituation"  placeholder=""ng-disabled="!processInstance.firstTask" ></textarea>
                                 </div>
                             </div>
                             <div class="form-group">

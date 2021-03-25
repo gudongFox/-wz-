@@ -4865,7 +4865,7 @@
         vm.init();
     })
      //用印申请
-    .controller('TaskStampOfficeDetailController', function ($rootScope,$scope,$http,$stateParams,commonCodeService,fiveOaStampApplyOfficeService2) {
+    .controller('TaskStampOfficeDetailController', function ($rootScope,$scope,$http,$stateParams,commonCodeService,actTaskHandleService,fiveOaStampApplyOfficeService2) {
         var vm=this;
         var businessKey=$stateParams.businessKey;
         var applyId= businessKey.split('_')[1];
@@ -4908,6 +4908,10 @@
         }
         //发送流程验证
         $scope.showSendTask=function(send){
+            if(vm.item.stampName==""){
+                mui.alert("请先选择用印类型!")
+                return
+            }
             if ($("#detail_form").validate().form()) {
                 vm.item.operateUserLogin = enLogin;
                 fiveOaStampApplyOfficeService2.update(vm.item).then(function (value) {
@@ -4988,6 +4992,7 @@
             $http({
                 method: 'POST',
                 url: '/common/user/listFormDeptTree.json',
+                params: config
             }).then(function (response) {
                 vm.deptTree = response.data.data;
                 $('#deptTree').jstree("destroy");

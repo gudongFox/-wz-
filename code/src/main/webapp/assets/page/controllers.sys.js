@@ -1329,5 +1329,182 @@
         return vm;
     })
 
+    .controller("FiveFileContentController", function ($state, $stateParams,$rootScope,$scope,fiveHomeService,actService,fiveContentFileService) {
+        var vm = this;
+        var key = $state.current.name + "_" + user.userLogin;
+        vm.params ={fileNames: "",userName:"",pageNum: 1, pageSize: $scope.pageSize,total:0};
+        vm.pageInfo = {pageNum:  vm.params.pageNum, pageSize: vm.params.pageSize,total:vm.params.total};
+        var uiSref="sys.contentFile";
+
+        vm.init=function(){
+            $scope.loadRightData(user.userLogin,uiSref);
+            vm.queryData(true);
+        };
+
+        vm.queryData = function () {
+            vm.pageInfo.pageNum = 1;
+            $scope.loadRightData(user.userLogin,uiSref);
+            vm.loadPagedData();
+            $scope.basicInit("");
+        };
+
+        vm.loadPagedData = function () {
+            /*var params = $.extend(tablefilter.params, {
+                qName:vm.params.qName,pageNum: vm.pageInfo.pageNum, pageSize: vm.pageInfo.pageSize,userLogin:user.userLogin,uiSref:uiSref,startTime1:vm.params.startTime1,endTime1:vm.params.endTime1
+            });*/
+            /*var params = {qName:vm.params.qName,pageNum: vm.pageInfo.pageNum, pageSize: vm.pageInfo.pageSize,
+                userLogin:user.userLogin,uiSref:uiSref,startTime1:vm.params.startTime1,endTime1:vm.params.endTime1
+            };*/
+            var params = $.extend(tablefilter.params, {
+                qName:vm.params.qName,pageNum: vm.pageInfo.pageNum, pageSize: vm.pageInfo.pageSize,userLogin:user.userLogin,uiSref:uiSref
+            });
+            fiveContentFileService.listPagedData(params).then(function (value) {
+                if (value.data.ret) {
+                    vm.pageInfo = value.data.data;
+                   // setCacheParams(key,vm.params,vm.pageInfo);
+                }
+            })
+            $scope.loadRightData(user.userLogin,uiSref);
+        };
+
+
+
+        vm.fuzzySearch = function () {
+            var params = $.extend(tablefilter.params, {
+                qName:vm.params.qName,pageNum: vm.pageInfo.pageNum, pageSize: vm.pageInfo.pageSize,userLogin:user.userLogin,uiSref:uiSref
+            });
+            fiveContentFileService.listPagedData(params).then(function (value) {
+                if (value.data.ret) {
+                    vm.pageInfo = value.data.data;
+                }
+            })
+        };
+        $scope.$on('ngRepeatFinished', function( ngRepeatFinishedEvent ) {
+            var option={filterColumns:{
+                    1:{type:"input",colName:'fileName',placeholder:'请输文件名..'},
+                    2:{type:"input",colName:'deptName',placeholder:'本地路径'},
+                    3:{type:"input",colName:'drafterName',placeholder:'创建人'},
+                    4:{type:"input",colName:'gmtCreate'},
+                    //注：当type为select时 会根据option创建下拉列表 option中
+                },handleColumn:5};
+            tablefilter.queryFunction=vm.fuzzySearch;
+            tablefilter.params=vm.params;
+            tablefilter.initializeFilter(option);
+        });
+
+
+        $(".cb_edFile:checked").each(function () {
+            var index = $(this).attr("data-index");
+            if (index < $rootScope.files.length) {
+                $rootScope.downloadEdFileWithXml($rootScope.files[index]);
+            }
+        });
+
+        vm.init();
+        vm.loadPagedData();
+        return vm;
+    })
+
+    .controller("FiveOaWordSizeController", function ($state, $stateParams,$rootScope,$scope,fiveHomeService,actService,fiveOaWordSizeService) {
+        var vm = this;
+        var key = $state.current.name + "_" + user.userLogin;
+        vm.params ={fileNames: "",userName:"",pageNum: 1, pageSize:10,total:0};
+        vm.pageInfo = {pageNum:  vm.params.pageNum, pageSize: vm.params.pageSize,total:vm.params.total};
+        var uiSref="sys.wordSize";
+
+        vm.init=function(){
+            $scope.loadRightData(user.userLogin,uiSref);
+            vm.queryData(true);
+        };
+
+
+
+        vm.queryData = function () {
+            vm.pageInfo.pageNum = 1;
+            $scope.loadRightData(user.userLogin,uiSref);
+            vm.loadPagedData();
+            $scope.basicInit("");
+        };
+
+        vm.loadPagedData = function () {
+            var params = $.extend(tablefilter.params, {
+                qName:vm.params.qName,pageNum: vm.pageInfo.pageNum, pageSize: vm.pageInfo.pageSize,userLogin:user.userLogin,uiSref:uiSref
+            });
+            fiveOaWordSizeService.listPagedData(params).then(function (value) {
+                if (value.data.ret) {
+                    vm.pageInfo = value.data.data;
+                    // setCacheParams(key,vm.params,vm.pageInfo);
+                }
+            })
+            $scope.loadRightData(user.userLogin,uiSref);
+        };
+
+        vm.loadItem=function(){
+            fiveOaWordSizeService.loadItem(word).then(function (value) {
+                if (value.data.ret) {
+                    vm.items = value.data.data;
+                }
+            })
+        };
+
+        vm.showItemModel = function (id) {
+            /*if (id === 0) {
+                fiveOaWordSizeService.getNewModelItem(word).then(function (value) {
+                    if (value.data.ret) {
+                        vm.item = value.data.data;
+                        $("#detailModel").modal("show");
+                        vm.loadDetail();
+                    }
+                })
+            } else {*/
+                fiveOaWordSizeService.getModelItemById(id).then(function (value) {
+                    if (value.data.ret) {
+                        vm.item = value.data.data;
+                        $("#itemModal").modal("show");
+                    }
+                })
+        };
+
+
+
+        vm.fuzzySearch = function () {
+            var params = $.extend(tablefilter.params, {
+                qName:vm.params.qName,pageNum: vm.pageInfo.pageNum, pageSize: vm.pageInfo.pageSize,userLogin:user.userLogin,uiSref:uiSref
+            });
+            fiveOaWordSizeService.listPagedData(params).then(function (value) {
+                if (value.data.ret) {
+                    vm.pageInfo = value.data.data;
+                }
+            })
+        };
+        $scope.$on('ngRepeatFinished', function( ngRepeatFinishedEvent ) {
+            var option={filterColumns:{
+                    1:{type:"input",colName:'word',placeholder:'请输入字..'},
+                    2:{type:"input",colName:'mark',placeholder:'号'},
+                    3:{type:"input",colName:'year',placeholder:'年份'},
+                    4:{type:"input",colName:'type',placeholder:'类型'},
+                    5:{type:"input",colName:'abandonMark',placeholder:'跳号'},
+                    6:{type:"input",colName:'deptName',placeholder:'部门'},
+                    7:{type:"input",colName:'gmtCreate'},
+                    //注：当type为select时 会根据option创建下拉列表 option中
+                },handleColumn:8};
+            tablefilter.queryFunction=vm.fuzzySearch;
+            tablefilter.params=vm.params;
+            tablefilter.initializeFilter(option);
+        });
+
+
+        $(".cb_edFile:checked").each(function () {
+            var index = $(this).attr("data-index");
+            if (index < $rootScope.files.length) {
+                $rootScope.downloadEdFileWithXml($rootScope.files[index]);
+            }
+        });
+
+        vm.init();
+        vm.loadPagedData();
+        return vm;
+    })
+
 
 

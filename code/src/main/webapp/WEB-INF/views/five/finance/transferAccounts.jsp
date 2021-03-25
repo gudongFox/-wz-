@@ -50,9 +50,9 @@
                             <thead>
                             <tr>
                                 <th style="width: 35px;">#</th>
+                                <th>单据号</th>
                                 <th>报销人</th>
                                 <th class="hidden-md hidden-sm">报销部门</th>
-                                <th>单据号</th>
                                 <th>申请时间</th>
                                 <th style="width: 100px;">创建时间</th>
                                 <th style="width: 150px">流程状态</th>
@@ -62,10 +62,9 @@
                             <tbody>
                             <tr ng-repeat="item in vm.pageInfo.list">
                                 <td class="dt-right" ng-bind="$index+vm.pageInfo.startRow"></td>
-                                <td ng-bind="item.applicantName"  class="data_title"  ng-click="vm.show(item.id);"><strong ></strong>
-                                </td>
+                                <td ng-bind="item.accountNumber" class="data_title"  ng-click="vm.show(item.id);"><strong ></strong></td>
+                                <td ng-bind="item.applicantName"></td>
                                 <td ng-bind="item.deptName" class="hidden-md hidden-sm"></td>
-                                <td ng-bind="item.accountNumber"></td>
                                 <td ng-bind="item.applicantTime"></td>
                                 <td ng-bind="item.gmtCreate|date:'yyyy-MM-dd'"></td>
                                 <td>

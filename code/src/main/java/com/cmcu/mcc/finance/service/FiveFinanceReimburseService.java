@@ -389,6 +389,9 @@ public class FiveFinanceReimburseService {
 
         item.setTitle(title);
         fiveFinanceReimburseMapper.updateByPrimaryKey(item);
+        //自动生成单据号
+        String receiptsNumber = getReceiptsNumber(item.getId());
+        item.setReceiptsNumber(receiptsNumber);
         return item.getId();
     }
     public PageInfo<Object> listPagedData(Map<String,Object> params, String userLogin, String uiSref,int pageNum, int pageSize) {

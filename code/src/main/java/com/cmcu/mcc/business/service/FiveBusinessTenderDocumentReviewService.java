@@ -102,6 +102,11 @@ public class FiveBusinessTenderDocumentReviewService extends BaseService {
         model.setDeptReviewUser(fiveBusinessTenderDocumentReviewDto.getDeptReviewUser());
         model.setDeptReviewUsername(fiveBusinessTenderDocumentReviewDto.getDeptReviewUsername());
         model.setGmtModified(new Date());
+        model.setProjectSituation(fiveBusinessTenderDocumentReviewDto.getProjectSituation());  // 项目概况
+        model.setDeptCharge(fiveBusinessTenderDocumentReviewDto.getDeptCharge());
+        model.setDeptChargeName(fiveBusinessTenderDocumentReviewDto.getDeptChargeName());  // 主管部门
+        model.setDeptChargeMan(fiveBusinessTenderDocumentReviewDto.getDeptChargeMan());
+        model.setDeptChargeManName(fiveBusinessTenderDocumentReviewDto.getDeptChargeManName());  // 部门负责人
         fiveBusinessTenderDocumentReviewMapper.updateByPrimaryKey(model);
 
         Map variables = Maps.newHashMap();
@@ -110,19 +115,32 @@ public class FiveBusinessTenderDocumentReviewService extends BaseService {
         if (model.getProjectLevel().equals("公司级")){
             variables.put("flag",false);
             variables.put("reviewUsers",MyStringUtil.getStringList(model.getReviewUser()));
-
-            variables.put("engineeringDeptChargeMan",selectEmployeeService.getParentDeptChargeMen(29,1,false));//工程管理部主管领导
-            variables.put("engineeringDeptLeader",selectEmployeeService.getParentDeptChargeMen(29,4,false));//工程管理部分管领导
+            if (model.getDeptChargeName().equals("经营发展部")){
+                variables.put("temp",false);
+                variables.put("businessDeptChargeMan",selectEmployeeService.getParentDeptChargeMen(48,1,false));//经营发展部主管领导
+                variables.put("businessDeptLeader",selectEmployeeService.getParentDeptChargeMen(48,4,false));//经营发展部分管领导
+                variables.put("copyMan2", MyStringUtil.listToString(hrEmployeeService.selectUserByRoleNames("经营发展部人员(合同岗)")));
+            }else {
+                variables.put("temp",true);
+                variables.put("engineeringDeptChargeMan",selectEmployeeService.getParentDeptChargeMen(29,1,false));//工程管理部主管领导
+                variables.put("engineeringDeptLeader",selectEmployeeService.getParentDeptChargeMen(29,4,false));//工程管理部分管领导
+                variables.put("copyMan3", MyStringUtil.listToString(hrEmployeeService.selectUserByRoleNames("工程管理部(评审岗)")));
+            }
 
         }else {
             variables.put("flag",true);
             variables.put("deptReviewUsers",MyStringUtil.getStringList(model.getDeptReviewUser()));
+            List<String> list = hrEmployeeService.selectUserByRoleNames("工程管理部(评审岗)");
+            list.addAll(hrEmployeeService.selectUserByRoleNames("经营发展部人员(合同岗)"));
+            variables.put("copyMan", MyStringUtil.listToString(list));
         }
+        variables.put("projectManager",model.getProjectManager()); // 项目经理
+        variables.put("deptChargeMen",MyStringUtil.getStringList(model.getDeptChargeMan())); // 部门负责人
 
-        List<String> list = hrEmployeeService.selectUserByRoleNames("财务金融部(工资岗)");
-        list.addAll(hrEmployeeService.selectUserByRoleNames("经营发展部人员(合同)"));
-        variables.put("copyMan", MyStringUtil.listToString(list));
+
         variables.put("lawReview", hrEmployeeService.selectUserByRoleNames("法律审查"));//法律审查
+        variables.put("copyMan1", MyStringUtil.listToString(hrEmployeeService.selectUserByRoleNames("董办负责人")));
+
         myActService.setVariables(model.getProcessInstanceId(),variables);
     }
 
@@ -177,7 +195,7 @@ public class FiveBusinessTenderDocumentReviewService extends BaseService {
         Map variables = Maps.newHashMap();
         variables.put("userLogin", userLogin);
         variables.put("processDescription", "工程承包项目招标文件评审："+item.getCreatorName());
-        variables.put("deptChargeMen",selectEmployeeService.getParentDeptChargeMen(item.getDeptId(),3,true));//部门领导
+//        variables.put("deptChargeMen",selectEmployeeService.getParentDeptChargeMen(item.getDeptId(),3,true));//部门领导
         variables.put("lawReview", hrEmployeeService.selectUserByRoleNames("法律审查"));//法律审查
 
         item.setBusinessKey(businessKey);

@@ -1714,7 +1714,9 @@
             vm.loadData(true);
         }
 
-        vm.loadData = function (loadProcess) {
+        vm.loadData = function (
+
+        ) {
             fiveOaDepartmentPostService.getModelById(departmentPostId).then(function (value) {
                 if (value.data.ret) {
                     vm.item = value.data.data;
@@ -14236,6 +14238,7 @@
             vm.pageInfo.pageNum = 1;
             $scope.loadRightData(user.userLogin,uiSref);//tth添加0125
             vm.loadPagedData();
+            $scope.basicInit("");
         };
 
         vm.loadPagedData = function () {
