@@ -70,7 +70,7 @@
         <property name="enableSubPackages" value="false"/>
     </javaClientGenerator>
 
-    <table tableName="five_business_tender_document_review">
+    <table tableName="five_business_advance_collect">
         <generatedKey column="id" sqlStatement="mysql" identity="true"/>
     </table>
 </context>

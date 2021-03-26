@@ -86,6 +86,7 @@ public class FiveBusinessAdvanceCollectService extends BaseService {
         model.setRemark(fiveBusinessAdvanceCollectDto.getRemark());
         model.setCollectYear(fiveBusinessAdvanceCollectDto.getCollectYear());
         model.setCollectMonth(fiveBusinessAdvanceCollectDto.getCollectMonth());
+        model.setDeclareType(fiveBusinessAdvanceCollectDto.getDeclareType());
 
         fiveBusinessAdvanceCollectMapper.updateByPrimaryKey(model);
 
@@ -132,6 +133,8 @@ public class FiveBusinessAdvanceCollectService extends BaseService {
         item.setCreator(userLogin);
         item.setGmtModified(new Date());
         item.setGmtCreate(new Date());
+//        item.setDeclareType("预支绩效工资");
+        item.setDeclareType(commonCodeService.selectDefaultCodeValue(MccConst.APP_CODE,"申报类型").toString());
         ModelUtil.setNotNullFields(item);
 
         fiveBusinessAdvanceCollectMapper.insert(item);

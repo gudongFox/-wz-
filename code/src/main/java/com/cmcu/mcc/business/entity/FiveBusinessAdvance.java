@@ -69,4 +69,8 @@ public class FiveBusinessAdvance {
     @NotNull(message="projectName不能为空!")
     @Size(max=45, message="projectName长度不能超过45")
     private String projectName;
+
+    @NotNull(message="申报类型不能为空!")
+    @Size(max=45, message="申报类型长度不能超过45")
+    private String declareType;
 }

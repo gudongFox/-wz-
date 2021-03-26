@@ -51,7 +51,8 @@
                             <tr>
                                 <th style="width: 35px;">#</th>
                                 <th style="width: 180px">申报部门</th>
-                                <th >备注</th>
+                                <th style="width: 100px">申报类型</th>
+                                <th style="width: 100px">备注</th>
                                 <th style="width: 70px">经办人</th>
                                 <th style="width: 100px;">创建时间</th>
                                 <th style="width: 200px">流程状态</th>
@@ -62,6 +63,7 @@
                             <tr ng-repeat="item in vm.pageInfo.list">
                                 <td class="dt-right" ng-bind="$index+vm.pageInfo.startRow"></td>
                                 <td ng-bind="item.deptName"  class="data_title"  ng-click="vm.show(item.id);"></td>
+                                <td ng-bind="item.declareType"   ></td>
                                 <td ng-bind="item.remark"   ></td>
                                 <td ng-bind="item.creatorName"></td>
                                 <td ng-bind="item.gmtCreate|date:'yyyy-MM-dd'"></td>

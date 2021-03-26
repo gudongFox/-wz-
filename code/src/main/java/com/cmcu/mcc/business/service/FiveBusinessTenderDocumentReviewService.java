@@ -111,7 +111,7 @@ public class FiveBusinessTenderDocumentReviewService extends BaseService {
 
         Map variables = Maps.newHashMap();
         variables.put("deptChargeMen",selectEmployeeService.getParentDeptChargeMen(model.getDeptId(),3,true));
-
+        variables.put("projectManager",model.getProjectManager());
         if (model.getProjectLevel().equals("公司级")){
             variables.put("flag",false);
             variables.put("reviewUsers",MyStringUtil.getStringList(model.getReviewUser()));

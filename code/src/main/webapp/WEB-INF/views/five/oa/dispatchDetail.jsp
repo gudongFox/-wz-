@@ -167,7 +167,7 @@
                                 </div>
                             </div>
 
-                           <%-- <div  class="form-group">
+                            <div  class="form-group" ng-show="processInstance.myRunningTaskName.indexOf('发起人-确认')>=0">
                                 <label class="col-md-2 control-label ">抄送领导</label>
                                 <div class="col-md-4">
                                     <div class="input-group">
@@ -177,9 +177,9 @@
                                          </span>
                                     </div>
                                 </div>
-                            </div>--%>
+                            </div>
                             <div class="form-group">
-                                <label class="col-md-2 control-label  ">主送</label>
+                                <label class="col-md-2 control-label">主送</label>
                                 <div class="col-md-10">
                                     <div class="input-group">
                                         <textarea rows="3" class="form-control" ng-model="vm.item.realSendManName" name="realSendManName"  placeholder=""ng-disabled="!processInstance.firstTask"></textarea>
@@ -188,6 +188,7 @@
                                          </span>
                                     </div>
                                 </div>
+                                <span style="color: red">发起人确认节点,选择需要抄送的领导人员</span>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-2 control-label ">抄送</label>

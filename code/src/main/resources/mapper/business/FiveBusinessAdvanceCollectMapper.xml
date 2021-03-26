@@ -17,6 +17,7 @@
     <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
     <result column="collect_year" jdbcType="VARCHAR" property="collectYear" />
     <result column="collect_month" jdbcType="VARCHAR" property="collectMonth" />
+    <result column="declare_type" jdbcType="VARCHAR" property="declareType" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from five_business_advance_collect
@@ -30,12 +31,14 @@
       form_no, remark, is_deleted, 
       creator, creator_name, is_process_end, 
       gmt_create, gmt_modified, process_instance_id, 
-      collect_year, collect_month)
+      collect_year, collect_month, declare_type
+      )
     values (#{businessKey,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, 
       #{formNo,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, 
       #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, #{processEnd,jdbcType=BIT}, 
       #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{processInstanceId,jdbcType=VARCHAR}, 
-      #{collectYear,jdbcType=VARCHAR}, #{collectMonth,jdbcType=VARCHAR})
+      #{collectYear,jdbcType=VARCHAR}, #{collectMonth,jdbcType=VARCHAR}, #{declareType,jdbcType=VARCHAR}
+      )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.business.entity.FiveBusinessAdvanceCollect">
     update five_business_advance_collect
@@ -52,20 +55,21 @@
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
       process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
       collect_year = #{collectYear,jdbcType=VARCHAR},
-      collect_month = #{collectMonth,jdbcType=VARCHAR}
+      collect_month = #{collectMonth,jdbcType=VARCHAR},
+      declare_type = #{declareType,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select id, business_key, dept_id, dept_name, form_no, remark, is_deleted, creator, 
     creator_name, is_process_end, gmt_create, gmt_modified, process_instance_id, collect_year, 
-    collect_month
+    collect_month, declare_type
     from five_business_advance_collect
     where id = #{id,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
     select id, business_key, dept_id, dept_name, form_no, remark, is_deleted, creator, 
     creator_name, is_process_end, gmt_create, gmt_modified, process_instance_id, collect_year, 
-    collect_month
+    collect_month, declare_type
     from five_business_advance_collect
     <include refid="Base_Where_List" />
     <include refid="Base_Where_List1" />
@@ -118,6 +122,9 @@
       <if test="collectMonth != null and isLikeSelect==null and collectMonth != ''">
          AND collect_month = #{collectMonth}
       </if>
+      <if test="declareType != null and isLikeSelect==null and declareType != ''">
+         AND declare_type = #{declareType}
+      </if>
     </where>
   </sql>
   <sql id="Base_Where_List1">
@@ -148,6 +155,9 @@
       </if>
       <if test="collectMonth != null and isLikeSelect!= null and collectMonth != '' ">
          AND collect_month like  CONCAT('%',#{collectMonth},'%')
+      </if>
+      <if test="declareType != null and isLikeSelect!= null and declareType != '' ">
+         AND declare_type like  CONCAT('%',#{declareType},'%')
       </if>
       <if test="deleted != null and isLikeSelect!=null">
          AND is_deleted = #{deleted}

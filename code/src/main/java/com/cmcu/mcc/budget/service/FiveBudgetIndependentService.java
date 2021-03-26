@@ -406,6 +406,7 @@ public class FiveBudgetIndependentService {
                 fiveBudgetIndependentMapper.updateByPrimaryKey(dto);
             }
         }
+        dto.setBudgetTotalMoney(MyStringUtil.moneyToString(dto.getBudgetTotalMoney(),6));
 
         return dto;
     }
@@ -560,6 +561,7 @@ public class FiveBudgetIndependentService {
         }else{
             map.put("budgetYear",Integer.valueOf(budgetYear)-1);
         }
+        map.put("deptId",dto.getDeptId());
         map.put("qBusinessKey",dto.getBusinessKey().split("_")[0]);
         //排除自己
         List<FiveBudgetIndependent> fiveBudgetIndependents = fiveBudgetIndependentMapper.selectAll(map).stream().filter(p->p.getId()!=id)

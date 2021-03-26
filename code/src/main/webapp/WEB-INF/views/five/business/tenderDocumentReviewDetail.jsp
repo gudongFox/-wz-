@@ -119,7 +119,7 @@
                                 <label class="col-md-2 control-label required">项目经理</label>
                                 <div class="col-md-4">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" ng-model="vm.item.projectManagerName" name="projectManagerName"  required="true"  ng-disabled="!processInstance.firstTask"/>
+                                        <input type="text" class="form-control" ng-model="vm.item.projectManagerName" name="projectManagerName"  required="true"  readonly/>
                                         <span class="input-group-btn" >
                                             <button class="btn default" type="button" ng-click="vm.showUserModel('projectManager');" ng-disabled="!processInstance.firstTask"><i class="fa fa-user"></i></button>
                                          </span>
@@ -169,7 +169,7 @@
                             <div class="form-group" >
                                 <label class="col-md-2 control-label required">总投资（万元）</label>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control" ng-model="vm.item.totalPrice" ng-change="vm.countTotalPrice();" name="totalPrice"  placeholder=""ng-disabled="!processInstance.firstTask" />
+                                    <input type="text" class="form-control" ng-model="vm.item.totalPrice" required="true" ng-change="vm.countTotalPrice();" name="totalPrice"  placeholder=""ng-disabled="!processInstance.firstTask" />
                                 </div>
                                 <label class="col-md-2 control-label required">是否为联合体</label>
                                 <div class="col-md-4">

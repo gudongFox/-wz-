@@ -37,7 +37,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/sys/contentFile")
+@RequestMapping("/wuzhou/file")
 public class FiveFileContentController {
 
 

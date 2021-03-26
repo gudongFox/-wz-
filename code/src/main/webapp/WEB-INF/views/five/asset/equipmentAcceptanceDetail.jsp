@@ -54,6 +54,19 @@
                     <form class="form-horizontal form" role="form" id="detail_form">
                         <div class="form-body">
                             <div class="form-group">
+                                <label class="col-md-2 control-label required">申请部门</label>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" ng-model="vm.item.deptName" name="deptName"   ng-disabled="!processInstance.firstTask"/>
+                                        <span class="input-group-btn" >
+                                            <button class="btn default" type="button" ng-click="vm.showDeptModal('dept');" ng-disabled="!processInstance.firstTask"><i class="fa fa-cog"></i></button>
+                                         </span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
                                 <label class="col-md-2 control-label required ">验收说明</label>
                                 <div class="col-md-10">
                                     <textarea type="text" class="form-control" rows="3" required="true"

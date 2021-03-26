@@ -3845,6 +3845,7 @@
     .controller("FiveOaStampApplyOfficeDetailController", function ($state,$stateParams,$rootScope,$scope,$sce, commonCodeService,fiveOaStampApplyOfficeService,commonPrintTableService) {
         var vm = this;
         var applyId = $stateParams.applyId;
+        var uiSref="five.oaStampApplyOffice";
 
         var tableName = $rootScope.loadTableName(uiSref);
 

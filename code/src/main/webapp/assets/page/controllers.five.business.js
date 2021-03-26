@@ -6963,13 +6963,14 @@
         $scope.$on('ngRepeatFinished', function( ngRepeatFinishedEvent ) {
             var option={filterColumns:{
                     1:{type:"input",colName:'deptName',placeholder:'部门'},
-                    2:{type:"input",colName:'month',placeholder:'申报时间'},
-                    3:{type:"input",colName:'month',placeholder:'预支总额'},
-                    4:{type:"input",colName:'creatorName',placeholder:'创建人'},
-                    5:{type:"input",colName:'gmtCreate'},
-                    6:{type:"select",colName:'processEnd',placeholder:'流程状态..',option:[{title:"全部",value:""},{title:"运行中",value:0},{title:"已完成",value:1}]}
+                    2:{type:"input",colName:'declareType',placeholder:'申报类型'},
+                    3:{type:"input",colName:'month',placeholder:'申报时间'},
+                    4:{type:"input",colName:'month',placeholder:'预支总额'},
+                    5:{type:"input",colName:'creatorName',placeholder:'创建人'},
+                    6:{type:"input",colName:'gmtCreate'},
+                    7:{type:"select",colName:'processEnd',placeholder:'流程状态..',option:[{title:"全部",value:""},{title:"运行中",value:0},{title:"已完成",value:1}]}
                     //注：当type为select时 会根据option创建下拉列表 option中
-                },handleColumn:7};
+                },handleColumn:8};
             tablefilter.queryFunction=vm.fuzzySearch;
             tablefilter.params=vm.params;
             tablefilter.initializeFilter(option);
@@ -7624,9 +7625,9 @@
 
         $scope.$on('ngRepeatFinished', function( ngRepeatFinishedEvent ) {
             var option={filterColumns:{
-                    1:{type:"input",colName:'year',placeholder:'请输入项目名称..'},
-                    2:{type:"input",colName:'deptName',placeholder:'部门'},
-                    3:{type:"input",colName:'month',placeholder:'月份'},
+                    1:{type:"input",colName:'deptName',placeholder:'部门'},
+                    2:{type:"input",colName:'declareType',placeholder:'申报类型'},
+                    3:{type:"input",colName:'remark',placeholder:'备注'},
                     4:{type:"input",colName:'creatorName',placeholder:'创建人'},
                     5:{type:"input",colName:'gmtCreate'},
                     6:{type:"select",colName:'processEnd',placeholder:'流程状态..',option:[{title:"全部",value:""},{title:"运行中",value:0},{title:"已完成",value:1}]}

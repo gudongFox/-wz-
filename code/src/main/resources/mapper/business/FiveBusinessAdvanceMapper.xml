@@ -19,6 +19,7 @@
     <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
     <result column="is_process_end" jdbcType="BIT" property="processEnd" />
     <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="declare_type" jdbcType="VARCHAR" property="declareType" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from five_business_advance
@@ -33,13 +34,13 @@
       total_price, remark, creator, 
       creator_name, is_deleted, gmt_create, 
       gmt_modified, process_instance_id, is_process_end, 
-      project_name)
+      project_name, declare_type)
     values (#{businessKey,jdbcType=VARCHAR}, #{formNo,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, 
       #{deptName,jdbcType=VARCHAR}, #{year,jdbcType=VARCHAR}, #{month,jdbcType=VARCHAR}, 
       #{totalPrice,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
       #{creatorName,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
       #{gmtModified,jdbcType=TIMESTAMP}, #{processInstanceId,jdbcType=VARCHAR}, #{processEnd,jdbcType=BIT}, 
-      #{projectName,jdbcType=VARCHAR})
+      #{projectName,jdbcType=VARCHAR}, #{declareType,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.business.entity.FiveBusinessAdvance">
     update five_business_advance
@@ -58,20 +59,21 @@
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
       process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
       is_process_end = #{processEnd,jdbcType=BIT},
-      project_name = #{projectName,jdbcType=VARCHAR}
+      project_name = #{projectName,jdbcType=VARCHAR},
+      declare_type = #{declareType,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select id, business_key, form_no, dept_id, dept_name, year, month, total_price, remark, 
     creator, creator_name, is_deleted, gmt_create, gmt_modified, process_instance_id, 
-    is_process_end, project_name
+    is_process_end, project_name, declare_type
     from five_business_advance
     where id = #{id,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
     select id, business_key, form_no, dept_id, dept_name, year, month, total_price, remark, 
     creator, creator_name, is_deleted, gmt_create, gmt_modified, process_instance_id, 
-    is_process_end, project_name
+    is_process_end, project_name, declare_type
     from five_business_advance
     <include refid="Base_Where_List" />
     <include refid="Base_Where_List1" />
@@ -130,6 +132,9 @@
       <if test="projectName != null and isLikeSelect==null and projectName != ''">
          AND project_name = #{projectName}
       </if>
+      <if test="declareType != null and isLikeSelect==null and declareType != ''">
+         AND declare_type = #{declareType}
+      </if>
     </where>
   </sql>
   <sql id="Base_Where_List1">
@@ -166,6 +171,9 @@
       </if>
       <if test="projectName != null and isLikeSelect!= null and projectName != '' ">
          AND project_name like  CONCAT('%',#{projectName},'%')
+      </if>
+      <if test="declareType != null and isLikeSelect!= null and declareType != '' ">
+         AND declare_type like  CONCAT('%',#{declareType},'%')
       </if>
       <if test="deleted != null and isLikeSelect!=null">
          AND is_deleted = #{deleted}

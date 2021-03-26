@@ -85,6 +85,7 @@ public class FiveBusinessAdvanceSevice extends BaseService {
         model.setDeptName(fiveBusinessAdvanceDto.getDeptName());
         model.setGmtCreate(fiveBusinessAdvanceDto.getGmtCreate());
 
+        model.setDeclareType(fiveBusinessAdvanceDto.getDeclareType());
         model.setFormNo(fiveBusinessAdvanceDto.getFormNo());
         model.setRemark(fiveBusinessAdvanceDto.getRemark());
         model.setMonth(fiveBusinessAdvanceDto.getMonth());
@@ -154,6 +155,8 @@ public class FiveBusinessAdvanceSevice extends BaseService {
         item.setCreator(userLogin);
         item.setGmtModified(new Date());
         item.setGmtCreate(new Date());
+//        item.setDeclareType("预支绩效工资");
+        item.setDeclareType(commonCodeService.selectDefaultCodeValue(MccConst.APP_CODE,"申报类型").toString());
         ModelUtil.setNotNullFields(item);
 
         fiveBusinessAdvanceMapper.insert(item);

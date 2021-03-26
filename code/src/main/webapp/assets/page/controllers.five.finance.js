@@ -1056,7 +1056,8 @@
             //取消保存按钮
             setTimeout(function () {
                 $scope.rightData.selectOpts ='';
-            }, 200);
+                $scope.$apply();
+            }, 500);
 
             vm.loadData(true);
         }
@@ -1240,7 +1241,7 @@
                 invoiceIdList.push($(this).attr("data-id"));
             });
             var invoiceIds = invoiceIdList.join(',');
-
+            vm.item.operateUserLogin = user.userLogin;
             fiveFinanceIncomeConfirmService.update(vm.item).then(function (value) {
                 if (value.data.ret) {
                     incomeConfirmId = value.data.data;
@@ -1253,9 +1254,6 @@
                     });
                 }
             })
-
-
-
         }
 
         //发票申请
@@ -6286,8 +6284,8 @@
 
         $rootScope.saveSelectEmployee_ = function () {
             $scope.closeOaSelectEmployeeModal_();
-            vm.item.userName = $scope.selectedOaUserNames_;
-            vm.item.userLogin = $scope.selectedOaUserLogins_;
+            vm.item.applicantName = $scope.selectedOaUserNames_;
+            vm.item.applican = $scope.selectedOaUserLogins_;
         };
 
         //单据号

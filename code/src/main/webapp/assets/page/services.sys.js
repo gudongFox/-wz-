@@ -2306,7 +2306,7 @@ angular.module('services.sys', [])
 
     .factory('fiveContentFileService', function ($q, $http) {
 
-        var head = "/sys/contentFile";
+        var head = "/wuzhou/file";
 
         var getModelByBusinessKey = function (businessKey,fileType) {
             var deferred = $q.defer();

@@ -60,4 +60,8 @@ public class FiveBusinessAdvanceCollect {
     @NotNull(message="collectMonth不能为空!")
     @Size(max=45, message="collectMonth长度不能超过45")
     private String collectMonth;
+
+    @NotNull(message="申报类型不能为空!")
+    @Size(max=45, message="申报类型长度不能超过45")
+    private String declareType;
 }

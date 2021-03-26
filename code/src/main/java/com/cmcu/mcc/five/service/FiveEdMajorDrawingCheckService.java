@@ -154,7 +154,7 @@ public class FiveEdMajorDrawingCheckService {
 
 
         //限制创建人为个专业负责人
-        Assert.state(majorList.size()>0,"只能由各专业负责人发起！");
+        //Assert.state(majorList.size()>0,"只能由各专业负责人发起！");
         item.setMajorName(StringUtils.join(majorList,","));//去除前后逗号
 
         item.setProjectName(edProjectStepDto.getProjectName());//项目名称

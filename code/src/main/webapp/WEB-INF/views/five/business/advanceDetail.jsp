@@ -79,7 +79,13 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="form-group" >
+                                <label class="col-md-2 control-label">申报类型</label>
+                                <div class="col-md-4">
+                                    <select ng-options="s.codeValue as s.name for s in sysCodes | filter:{codeCatalog:'申报类型'}:true"
+                                            ng-model="vm.item.declareType" class="form-control" ng-disabled="!processInstance.firstTask"></select>
+                                </div>
+                            </div>
                             <div class="form-group" >
                                 <label class="col-md-2 control-label">预支说明</label>
                                 <div class="col-md-10">

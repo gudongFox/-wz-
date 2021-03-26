@@ -3,7 +3,7 @@
 
         .controller("FiveHomeController", function ($state, $stateParams,$rootScope,$scope,fiveHomeService,actService,hrDeptService,actTaskQueryService,fiveSuperviseService,actProcessQueryService,oaLinkService,oaNoticeService) {
         var vm = this;
-        vm.params = { qName: "",pageNum: 1, pageSize:99,total:0,showSign:false};
+        vm.params = { qName: "",pageNum: 1, pageSize:10,total:0,showSign:false};
 
 
 

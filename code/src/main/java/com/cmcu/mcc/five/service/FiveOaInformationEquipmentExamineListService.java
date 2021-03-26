@@ -105,6 +105,8 @@ public class FiveOaInformationEquipmentExamineListService extends BaseService {
             if (StringUtils.isEmpty(detail.getCheckPrice()))continue;
             if (Double.valueOf(detail.getCheckPrice())>=5000){
                 variables.put("sign",true);
+                //抄送:网络运维中心人员,各单位财务
+                variables.put("copyMen", MyStringUtil.listToString(selectEmployeeService.getFinanceChargeMen(item.getDeptId()))+",2589");
             }else {
                 variables.put("flag",true);
                 variables.put("financeMan",selectEmployeeService.getFinanceChargeMen(item.getDeptId()));

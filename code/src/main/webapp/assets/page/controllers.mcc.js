@@ -27,6 +27,7 @@
                     $rootScope.selectBudget= value.data.data;
                     if($rootScope.selectBudget.budgetId==0){
                         toastr.warning($rootScope.selectBudget.budgetDeptName+" 缺少 "+ $rootScope.selectBudget.budgetYear+"年 部门预算记录！");
+                        $('#budgetTreeTable').bootstrapTreeTable('destroy');
                         return;
                     }
                     //独立法人 职能单位
@@ -3746,6 +3747,7 @@
                      vm.pageInfo=value.data.data.pageInfo;
                      vm.heads=value.data.data.heads;
                      vm.template=value.data.data.template;
+                     debugger;
                  }
             })
         }

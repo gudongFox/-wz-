@@ -324,7 +324,7 @@ public class HrDeptService {
     public List<HrDeptDto> selectByDeptIds(String deptIds) {
         Calendar date = Calendar.getInstance();
         int sortId =99999;
-
+        //可选择的部门
         List<String> depts = MyStringUtil.getStringList(deptIds);
         List<HrDeptDto> list= Lists.newArrayList();
 
@@ -353,6 +353,7 @@ public class HrDeptService {
                             hrDeptDto.setName(hrEmployeeSimpleDtos.get(i).getUserName());
                             hrDeptDto.setUserLogin(hrEmployeeSimpleDtos.get(i).getUserLogin());
                             hrDeptDto.setIcon("icon-user");
+                            //减少查询 取消人员部门查询
                             hrDeptDto.setUserDeptName(hrEmployeeSimpleDtos.get(i).getDeptName());
                             sortId--;
                             hrDeptDto.setId(sortId);

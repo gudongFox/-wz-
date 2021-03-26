@@ -370,8 +370,8 @@
                                                         <th>列支人</th>
                                                         <th style="width: 200px">扣减预算类型</th>
                                                         <th>出差天数(天)</th>
-                                                        <th>在途时间(天)</th>
-                                                        <th>报销标准</th>
+                                                     <%--   <th>在途时间(天)</th>--%>
+                                                        <th>报销标准(元/天)</th>
                                                         <th>报销金额（万元）</th>
                                                         <th>在途补助</th>
                                                         <th>金额小计（万元）</th>
@@ -386,7 +386,7 @@
                                                         <td ng-bind="detail.applicantName"></td>
                                                         <td ng-bind="detail.budgetNo"  class="data_title" ng-click="vm.showDetailModel(detail.id);"></td>
                                                         <td ng-bind="detail.travelExpenseDays"></td>
-                                                        <td ng-bind="detail.onRoadTime"></td>
+                                                        <%--<td ng-bind="detail.onRoadTime"></td>--%>
                                                         <td ng-bind="detail.applyStandard"></td>
                                                         <td ng-bind="detail.applyMoney"></td>
                                                         <td ng-bind="detail.onRoadSubsidy">
@@ -400,7 +400,6 @@
                                                     </tr>
                                                     <tr>
                                                         <td style="width: 50px;">合计</td>
-                                                        <td></td>
                                                         <td></td>
                                                         <td></td>
                                                         <td></td>
@@ -621,6 +620,17 @@
                             </div>
                         </div>
                     </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">选择补助类型</label>
+                            <div class="col-md-7">
+                                <div class="input-group">
+                                    <label style="margin-right: 10px"><input type="checkbox" ng-model="vm.detail.accommodationAllowance" ng-checked=vm.detail.accommodationAllowance value="住宿费补助" ng-click="vm.countAllowance(vm.detail.accommodationAllowance,'住宿费补助')" class="icheck" ng-disabled="!processInstance.firstTask">住宿费补助</label>
+                                    <label style="margin-right: 10px"><input type="checkbox" ng-model="vm.detail.travelAllowance" ng-checked=vm.detail.travelAllowance value="出差补助" ng-click="vm.countAllowance(vm.detail.travelAllowance,'出差补助')" class="icheck" ng-disabled="!processInstance.firstTask">出差补助</label>
+                                    <label style="margin-right: 10px"><input type="checkbox" ng-model="vm.detail.dinnerAllowance" ng-checked=vm.detail.dinnerAllowance value="夜间伙补" ng-click="vm.countAllowance(vm.detail.dinnerAllowance,'夜间伙补')" class="icheck" ng-disabled="!processInstance.firstTask">夜间伙补</label>
+                                    <label style="margin-right: 10px"><input type="checkbox" ng-model="vm.detail.siteAllowance" ng-checked=vm.detail.siteAllowance value="工地补贴" ng-click="vm.countAllowance(vm.detail.siteAllowance,'工地补贴')" class="icheck" ng-disabled="!processInstance.firstTask">工地补贴</label>
+                                </div>
+                            </div>
+                        </div>
                     <div class="form-group">
                         <label class="col-md-4 control-label">在途补助</label>
                         <div class="col-md-7">
@@ -632,17 +642,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">选择类型</label>
-                        <div class="col-md-7">
-                            <div class="input-group">
-                                <label style="margin-right: 10px"><input type="checkbox" ng-model="vm.detail.accommodationAllowance" ng-checked=vm.detail.accommodationAllowance value="住宿费补助" ng-click="vm.countAllowance(vm.detail.accommodationAllowance,'住宿费补助')" class="icheck" ng-disabled="!processInstance.firstTask">住宿费补助</label>
-                                <label style="margin-right: 10px"><input type="checkbox" ng-model="vm.detail.travelAllowance" ng-checked=vm.detail.travelAllowance value="出差补助" ng-click="vm.countAllowance(vm.detail.travelAllowance,'出差补助')" class="icheck" ng-disabled="!processInstance.firstTask">出差补助</label>
-                                <label style="margin-right: 10px"><input type="checkbox" ng-model="vm.detail.dinnerAllowance" ng-checked=vm.detail.dinnerAllowance value="夜间伙补" ng-click="vm.countAllowance(vm.detail.dinnerAllowance,'夜间伙补')" class="icheck" ng-disabled="!processInstance.firstTask">夜间伙补</label>
-                                <label style="margin-right: 10px"><input type="checkbox" ng-model="vm.detail.siteAllowance" ng-checked=vm.detail.siteAllowance value="工地补贴" ng-click="vm.countAllowance(vm.detail.siteAllowance,'工地补贴')" class="icheck" ng-disabled="!processInstance.firstTask">工地补贴</label>
-                            </div>
-                        </div>
-                    </div>
+
                     <div class="form-group">
                         <label class="col-md-4 control-label">金额小计</label>
                         <div class="col-md-7">

@@ -64,6 +64,7 @@
                             <tr>
                                 <th style="width: 35px;">#</th>
                                 <th style="min-width: 20px" >申报部门</th>
+                                <th style="min-width: 20px" >申报类型</th>
                                 <th style="width: 180px" >申报时间</th>
                                 <th style="width: 160px" >预支总额（元）</th>
                                 <th style="width: 130px">创建人</th>
@@ -76,6 +77,7 @@
                             <tr ng-repeat="item in vm.pageInfo.list" on-finish-render="">
                                 <td class="dt-right" ng-bind="$index+vm.pageInfo.startRow"></td>
                                 <td ng-bind="item.deptName" ng-click="vm.show(item.id);" class="data_title"><strong ></strong></td>
+                                <td ng-bind="item.declareType"></td>
                                 <td ng-bind="item.month"></td>
                                 <td ng-bind="item.totalPrice"></td>
                                 <td ng-bind="item.creatorName"></td>

@@ -140,6 +140,9 @@ public class FiveOaComputerChangeService extends BaseService {
            if(!model.getNewDutyLogin().equals(model.getDutyLogin())){
                change=1;
                variables.put("endDutyMan", fiveOaComputerChangeDto.getNewDutyLogin());//变更后责任人
+               //20210325 hnz 责任人变更后要走 资产管理员和行政管理部负责人审批
+               flag=1;
+               variables.put("administrative",selectEmployeeService.getDeptChargeMen(67));//行政事务部负责人
            }
            if (!model.getDeptName().equals(model.getNewDeptName())){
                flag=1;

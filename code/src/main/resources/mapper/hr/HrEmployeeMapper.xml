@@ -437,12 +437,13 @@
     <select id="selectOaSimpleAll" resultType="com.cmcu.mcc.hr.dto.HrEmployeeSimpleDto">
         SELECT a.user_login as userLogin,a.position_ids as positionIds,a.position_names as positionNames,
         a.role_ids as roleIds,a.role_names as roleNames,
-        b.user_name as userName,b.mobile,b.office_tel as officeTel,a.dept_id as deptId,d.name as deptName,b.specialty,b.user_status as userStatus,
+        b.user_name as userName,b.mobile,b.office_tel as officeTel,a.dept_id as deptId,d.name as deptName,b.specialty,
+               b.user_status as userStatus,
         b.seq as userSeq
         FROM hr_employee_sys a
         left join hr_employee b on a.user_login=b.user_login
         left join hr_dept d on a.dept_id =d.id
-        where  a.is_deleted=0
+        where  a.is_deleted=0 and d.is_deleted =0
         <if test="qName !=null and qName != ''">
             AND (b.user_name like CONCAT('%',#{qName},'%') or  a.user_login like CONCAT('%',#{qName},'%'))
         </if>

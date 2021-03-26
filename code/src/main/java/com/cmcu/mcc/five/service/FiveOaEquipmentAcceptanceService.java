@@ -17,6 +17,7 @@ import com.cmcu.mcc.five.dao.FiveOaEquipmentAcceptanceMapper;
 import com.cmcu.mcc.five.dto.FiveOaEquipmentAcceptanceDto;
 import com.cmcu.mcc.five.entity.FiveOaEquipmentAcceptance;
 import com.cmcu.mcc.five.entity.FiveOaEquipmentAcceptanceDetail;
+import com.cmcu.mcc.five.entity.FiveOaInformationEquipmentExamineListDetail;
 import com.cmcu.mcc.hr.dao.HrEmployeeMapper;
 import com.cmcu.mcc.hr.dto.HrEmployeeDto;
 import com.cmcu.mcc.hr.service.SelectEmployeeService;
@@ -69,13 +70,20 @@ public class FiveOaEquipmentAcceptanceService extends BaseService {
         List<String> user=Lists.newArrayList();
         Map variables = Maps.newHashMap();
 
-        if (list.stream().anyMatch(p->Double.parseDouble(p.getTotalPrice())>=5000)){
-            user.add("4003");
+        variables.put("flag",false);
+        variables.put("sign",false);
+        for (FiveOaEquipmentAcceptanceDetail detail:list){
+            if (StringUtils.isEmpty(detail.getTotalPrice()))continue;
+            if (Double.valueOf(detail.getTotalPrice())>=5000){
+                variables.put("sign",true);
+                //抄送:网络运维中心人员,各单位财务
+                variables.put("copyMen", MyStringUtil.listToString(selectEmployeeService.getFinanceChargeMen(item.getDeptId())));
+            }else {
+                variables.put("flag",true);
+                variables.put("financeMan",selectEmployeeService.getFinanceChargeMen(item.getDeptId()));
+            }
         }
-        if (list.stream().anyMatch(p->Double.parseDouble(p.getTotalPrice())<5000)){
-            user.addAll(selectEmployeeService.getFinanceChargeMen(item.getDeptId()));
-        }
-        variables.put("financeMan",user);
+
         myActService.setVariables(model.getProcessInstanceId(),variables);
         fiveOaEquipmentAcceptanceMapper.updateByPrimaryKey(model);
 

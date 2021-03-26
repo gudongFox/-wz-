@@ -543,15 +543,28 @@
 
         };
 
-        vm.showDeptModal=function(id) {
-            $scope.showOaSelectEmployeeModal_({title:"请选择部门",type:"选部门", deptIdList: vm.item.deptId+"",
-                multiple:false,deptIds:"1",parentDeptId:2});
+        vm.showDeptModal=function(deptStatus) {
+            vm.deptStatus=deptStatus;
+            if (deptStatus=='dept'){
+                $scope.showOaSelectEmployeeModal_({title:"请选择部门",type:"选部门", deptIdList: vm.item.deptId+"",
+                    multiple:false,deptIds:"1",parentDeptId:2});
+            }else {
+                $scope.showOaSelectEmployeeModal_({title:"请选择部门",type:"选部门", deptIdList: vm.item.deptId+"",
+                    multiple:false,deptIds:"1",parentDeptId:2});
+            }
+
         };
 
         $rootScope.saveSelectDept_ =function() {
             $scope.closeOaSelectEmployeeModal_();
-            vm.detail.deptName = $scope.selectedOaDeptNames_;
-            vm.detail.deptId = Number($scope.selectedOaDeptIds_);
+            if (vm.deptStatus=='dept'){
+                vm.item.deptName = $scope.selectedOaDeptNames_;
+                vm.item.deptId = Number($scope.selectedOaDeptIds_);
+            }else {
+                vm.detail.deptName = $scope.selectedOaDeptNames_;
+                vm.detail.deptId = Number($scope.selectedOaDeptIds_);
+            }
+
         };
 
 

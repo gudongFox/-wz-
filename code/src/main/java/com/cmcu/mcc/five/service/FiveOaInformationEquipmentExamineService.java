@@ -10,6 +10,7 @@ import com.cmcu.common.service.CommonCodeService;
 import com.cmcu.common.util.BeanValidator;
 import com.cmcu.common.util.ModelUtil;
 import com.cmcu.common.util.MyDateUtil;
+import com.cmcu.common.util.MyStringUtil;
 import com.cmcu.mcc.act.service.MyActService;
 import com.cmcu.mcc.comm.EdConst;
 import com.cmcu.mcc.comm.MccConst;
@@ -146,6 +147,8 @@ public class FiveOaInformationEquipmentExamineService extends BaseService {
               variables.put("financeMan",selectEmployeeService.getFinanceChargeMen(item.getDeptId()));
           }else {
               variables.put("sign",1);
+              //抄送:各单位财务
+              variables.put("copyMen", MyStringUtil.listToString(selectEmployeeService.getFinanceChargeMen(item.getDeptId())));
           }
       }
 

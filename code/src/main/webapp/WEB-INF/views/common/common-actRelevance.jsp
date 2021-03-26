@@ -76,6 +76,7 @@
                                 <th style="width: 35px;">#</th>
                                 <th>任务名称</th>
                                 <th>任务描述</th>
+                                <th>部门名称</th>
                                 <th style="width: 60px;"> 发起人</th>
                                 <th style="width: 100px;"> 发起时间</th>
                                 <th style="width: 80px;"> 流程状态</th>
@@ -90,6 +91,7 @@
                                     <span ng-bind="item.propertyList[0].head+':'+item.propertyList[0].text"></span><br>
                                     <span ng-bind="item.propertyList[1].head+':'+item.propertyList[1].text"></span>
                                 </td>
+                                <td ng-bind="item.deptName"></td>
                                 <td ng-bind="item.creatorName"></td>
                                 <td ng-bind="item.gmtCreate|date:'yyyy-MM-dd'"></td>
                                 <td >
