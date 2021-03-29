@@ -1714,9 +1714,7 @@
             vm.loadData(true);
         }
 
-        vm.loadData = function (
-
-        ) {
+        vm.loadData = function (loadProcess) {
             fiveOaDepartmentPostService.getModelById(departmentPostId).then(function (value) {
                 if (value.data.ret) {
                     vm.item = value.data.data;
@@ -1803,6 +1801,12 @@
                     if (vm.redHead.redhead==null){
                         toastr.warning("请上传发文正文word!")
                         return ;
+                    }
+                    if ($scope.processInstance.myRunningTaskName.indexOf('部门负责人-审批文号')>-1){
+                        if (vm.item.dispatch == ''){
+                            toastr.warning("请填写或申请文号!");
+                            return;
+                        }
                     }
                     //表单验证  流程发送
                     if ($("#detail_form").validate().form()) {

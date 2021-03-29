@@ -70,22 +70,22 @@ public class FiveAssetComputerService extends BaseService {
     HrDeptService hrDeptService ;
 
 
-    public List<FiveAssetComputer> listDate(String userLogin){
-      Map map= Maps.newHashMap();
-      map.put("deleted",false);
-      map.put("processEnd",true);
-     //按照权限设置
-      /*    Map map1=Maps.newHashMap();
-        map1.put("myDeptData",true);
-        map1.put("uiSref","five.assetComputer");
-        map.put("enLogin",userLogin);
+    public List<FiveAssetComputer> listDate(String userLogin) {
+        Map map = Maps.newHashMap();
+        map.put("deleted", false);
+        map.put("processEnd", true);
+        //map.put("chargeOrUser",userLogin);
+        //按照权限设置
+        Map map1 = Maps.newHashMap();
+        map1.put("myDeptData", true);
+        map1.put("uiSref", "five.assetComputer");
+        map.put("enLogin", userLogin);
         map.putAll(getDefaultRightParams(map1));
-        */
-      map.put("chargeOrUser",userLogin);
-      List<FiveAssetComputer> fiveAssetComputers = fiveAssetComputerMapper.selectAll(map).stream().filter(p->!Strings.isNullOrEmpty(p.getComputerNo()))
-              .collect(Collectors.toList());
-      return  fiveAssetComputers;
-  }
+
+        List<FiveAssetComputer> fiveAssetComputers = fiveAssetComputerMapper.selectAll(map).stream().filter(p -> !Strings.isNullOrEmpty(p.getComputerNo()))
+                .collect(Collectors.toList());
+        return fiveAssetComputers;
+    }
 
     public void remove(int id,String userLogin){
         FiveAssetComputer model = fiveAssetComputerMapper.selectByPrimaryKey(id);

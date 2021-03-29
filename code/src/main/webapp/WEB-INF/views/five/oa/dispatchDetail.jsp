@@ -12,7 +12,6 @@
         </li>
         <li>
             <span ng-bind="vm.item.dispatchType"></span>
-
         </li>
     </ul>
 </div>
