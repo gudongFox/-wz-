@@ -11,7 +11,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span>股权投资预算</span>
+            <span ng-bind="tableName">股权投资预算</span>
             <i class="fa fa-angle-right"></i>
         </li>
  <%--       <li>
@@ -25,7 +25,7 @@
         <div class="portlet blue box">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="icon-note"></i> <span >股权投资预算</span>
+                    <i class="icon-note"></i> <span ng-bind="tableName">股权投资预算</span>
                 </div>
                 <div class="actions">
                     <a href="javascript:;" class="btn btn-sm btn-default" ng-click="vm.loadPagedData();">

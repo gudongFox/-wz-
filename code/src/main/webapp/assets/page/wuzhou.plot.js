@@ -1211,13 +1211,6 @@ var mccApp = angular.module(appName, ['ui.router', 'ui.router.state.events', 'ui
                     return "/sys/schedule";
                 },
                 controller: 'SysScheduleController as vm'
-            })
-            .state('sys.contentFile', {
-            url: "/contentFile",
-            templateUrl: function () {
-                return "/sys/contentFile";
-            },
-            controller: 'FiveFileContentController as vm'
             });
 
 

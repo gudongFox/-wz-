@@ -102,7 +102,6 @@ public class FiveFinanceLoanService extends BaseService {
         model.setItem(dto.getItem());
         model.setProjectType(dto.getProjectType());
         model.setUnit(dto.getUnit());
-        model.setProjectType(dto.getProjectType());
         model.setReceiptsNumber(dto.getReceiptsNumber());
 
         if(dto.getIsProject()){

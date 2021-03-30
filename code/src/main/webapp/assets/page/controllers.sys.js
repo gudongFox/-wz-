@@ -1334,10 +1334,11 @@
         var key = $state.current.name + "_" + user.userLogin;
         vm.params ={fileNames: "",userName:"",pageNum: 1, pageSize: $scope.pageSize,total:0};
         vm.pageInfo = {pageNum:  vm.params.pageNum, pageSize: vm.params.pageSize,total:vm.params.total};
-        var uiSref="sys.contentFile";
+        var uiSref="wuzhou.file";
 
         vm.init=function(){
             $scope.loadRightData(user.userLogin,uiSref);
+
             vm.queryData(true);
         };
 
@@ -1361,13 +1362,38 @@
             fiveContentFileService.listPagedData(params).then(function (value) {
                 if (value.data.ret) {
                     vm.pageInfo = value.data.data;
-                   // setCacheParams(key,vm.params,vm.pageInfo);
                 }
             })
             $scope.loadRightData(user.userLogin,uiSref);
         };
 
+        vm.loadData = function (loadProcess) {
+            fiveContentFileService.getModelById(fileId).then(function (value) {
+                if (value.data.ret) {
+                    vm.item = value.data.data;
+                    if (loadProcess) {
+                        $scope.loadProcessInstance(vm.item.processInstanceId);
+                        $scope.basicInit(vm.item.businessKey);
+                    }
+                }
+            })
+        };
 
+       /* vm.show = function (id) {
+            $state.go("wuzhou.fileDetail", {signQuoteId: id});
+        }*/
+
+        vm.downloadContent=function(businessKey){
+            fiveContentFileService.downloadContent(businessKey).then(function (value) {
+                if (value.data.ret) {
+                    vm.item = value.data.data;
+                    /*if (loadProcess) {
+                        $scope.loadProcessInstance(vm.item.processInstanceId);
+                        $scope.basicInit(vm.item.businessKey);
+                    }*/
+                }
+            })
+        };
 
         vm.fuzzySearch = function () {
             var params = $.extend(tablefilter.params, {
@@ -1399,6 +1425,21 @@
                 $rootScope.downloadEdFileWithXml($rootScope.files[index]);
             }
         });
+
+
+
+        vm.remove = function (id) {
+            bootbox.confirm("您确定要删除吗?无法恢复,请谨慎操作!", function (result) {
+                if (result) {
+                    fiveContentFileService.remove(id, user.userLogin).then(function (value) {
+                        if (value.data.ret) {
+                            toastr.success("删除成功!")
+                            vm.queryData();
+                        }
+                    });
+                }
+            })
+        };
 
         vm.init();
         vm.loadPagedData();
@@ -1447,6 +1488,11 @@
             })
         };
 
+        vm.show=function(id){
+                $state.go("sys.wordSizeDetail", {id: id});
+
+        }
+
         vm.showItemModel = function (id) {
             /*if (id === 0) {
                 fiveOaWordSizeService.getNewModelItem(word).then(function (value) {
@@ -1485,9 +1531,11 @@
                     4:{type:"input",colName:'type',placeholder:'类型'},
                     5:{type:"input",colName:'abandonMark',placeholder:'跳号'},
                     6:{type:"input",colName:'deptName',placeholder:'部门'},
-                    7:{type:"input",colName:'gmtCreate'},
+                    7:{type:"select",colName:'remark',option:[{"title":"全部","value":""},{"title":"大流水号","value":"大流水号"},
+                            {"title":"单独号","value":"单独号"}]},
+                    8:{type:"input",colName:'gmtCreate'},
                     //注：当type为select时 会根据option创建下拉列表 option中
-                },handleColumn:8};
+                },handleColumn:9};
             tablefilter.queryFunction=vm.fuzzySearch;
             tablefilter.params=vm.params;
             tablefilter.initializeFilter(option);
@@ -1500,6 +1548,19 @@
                 $rootScope.downloadEdFileWithXml($rootScope.files[index]);
             }
         });
+
+        vm.remove = function (id) {
+            bootbox.confirm("您确定要删除吗?无法恢复,请谨慎操作!", function (result) {
+                if (result) {
+                    fiveOaWordSizeService.remove(id, user.userLogin).then(function (value) {
+                        if (value.data.ret) {
+                            toastr.success("删除成功!")
+                            vm.queryData();
+                        }
+                    });
+                }
+            })
+        };
 
         vm.init();
         vm.loadPagedData();

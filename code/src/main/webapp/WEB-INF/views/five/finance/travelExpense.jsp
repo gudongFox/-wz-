@@ -11,7 +11,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span>差旅费报销</span>
+            <span ng-bind="tableName">差旅费报销</span>
         </li>
  <%--       <li>
             <span>差旅费报销单</span>
@@ -24,7 +24,7 @@
         <div class="portlet blue box">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="icon-note"></i> <span >差旅费报销</span>
+                    <i class="icon-note"></i> <span ng-bind="tableName">差旅费报销</span>
                 </div>
                 <div class="actions">
                     <a href="javascript:;" class="btn btn-sm btn-default" ng-click="vm.loadPagedData();">

@@ -2989,13 +2989,10 @@
                     for(element of acls){
                         if(element.code == uiSref){
                             $rootScope.tableName= element.name;
-                            console.log(element.name)
                         }
                     }
-
                 }else {
                     $rootScope.tableName= acls[i].name;
-                    console.log(acls[i].name)
                 }
             });
 

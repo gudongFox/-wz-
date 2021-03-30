@@ -3,6 +3,7 @@
     .controller("FiveBudgetIndependentController", function ($state, $scope, $rootScope, fiveBudgetIndependentService) {
         var vm = this;
         var uiSref = "budget.independent";
+        var tableName = $rootScope.loadTableName(uiSref);
         var key = $state.current.name + "_" + user.userLogin;
         vm.params = getCacheParams(key, {qName: "", pageNum: 1, pageSize: $scope.pageSize, total: 0,uiSref: uiSref});
         vm.pageInfo = {pageNum: vm.params.pageNum, pageSize: vm.params.pageSize, total: vm.params.total};
@@ -80,6 +81,7 @@
         var vm = this;
         var uiSref = "budget.independent";
         var independentId = $stateParams.independentId;
+        var tableName = $rootScope.loadTableName(uiSref);
 
         vm.init = function () {
             $scope.loadRightData(user.userLogin, uiSref);
@@ -1025,6 +1027,7 @@
     .controller("FiveBudgetFunctionController", function ($state, $scope, $rootScope, fiveBudgetFunctionService) {
         var vm = this;
         var uiSref = "budget.function";
+        var tableName = $rootScope.loadTableName(uiSref);
         var key = $state.current.name + "_" + user.userLogin;
         vm.params = getCacheParams(key, {qName: "", pageNum: 1, pageSize: $scope.pageSize, total: 0});
         vm.pageInfo = {pageNum: vm.params.pageNum, pageSize: vm.params.pageSize, total: vm.params.total};
@@ -1101,7 +1104,7 @@
         var vm = this;
         var uiSref = "budget.function";
         var functionId = $stateParams.functionId;
-
+        var tableName = $rootScope.loadTableName(uiSref);
         vm.init = function () {
             $scope.loadRightData(user.userLogin, uiSref);
             vm.loadData(true);
@@ -1548,6 +1551,7 @@
     .controller("FiveBudgetPostExpenseController", function ($state, $scope, $rootScope, fiveBudgetPostExpenseService) {
         var vm = this;
         var uiSref = "budget.postExpense";
+        var tableName = $rootScope.loadTableName(uiSref);
         var key = $state.current.name + "_" + user.userLogin;
         vm.params = getCacheParams(key, {qName: "", pageNum: 1, pageSize: $scope.pageSize, total: 0});
         vm.pageInfo = {pageNum: vm.params.pageNum, pageSize: vm.params.pageSize, total: vm.params.total};
@@ -1609,7 +1613,7 @@
         var vm = this;
         var uiSref = "budget.postExpense";
         var postExpenseId = $stateParams.postExpenseId;
-
+        var tableName = $rootScope.loadTableName(uiSref);
         vm.init = function () {
             $scope.loadRightData(user.userLogin, uiSref);
             vm.loadData(true);
@@ -2010,6 +2014,7 @@
             total: vm.params.total
         };
         var uiSref = "budget.maintain";
+        var tableName = $rootScope.loadTableName(uiSref);
 
         vm.queryData = function () {
             vm.pageInfo.pageNum = 1;
@@ -2067,6 +2072,7 @@
         var vm = this;
         var uiSref = "budget.maintain";
         var maintainId = $stateParams.maintainId;
+        var tableName = $rootScope.loadTableName(uiSref);
 
         vm.init = function () {
             $scope.loadRightData(user.userLogin, uiSref);
@@ -2509,6 +2515,7 @@
     .controller("FiveBudgetScientificFundsOutController", function ($state, $scope, $rootScope, fiveBudgetScientificFundsOutService) {
         var vm = this;
         var uiSref = "budget.scientificFundsOut";
+        var tableName = $rootScope.loadTableName(uiSref);
         var key = $state.current.name + "_" + user.userLogin;
         vm.params = getCacheParams(key, {qName: "", pageNum: 1, pageSize: $scope.pageSize, total: 0});
         vm.pageInfo = {pageNum: vm.params.pageNum, pageSize: vm.params.pageSize, total: vm.params.total};
@@ -2570,7 +2577,7 @@
         var vm = this;
         var uiSref = "budget.scientificFundsOut";
         var scientificFundsOutId = $stateParams.scientificFundsOutId;
-
+        var tableName = $rootScope.loadTableName(uiSref);
         vm.init = function () {
             $scope.loadRightData(user.userLogin, uiSref);
             vm.loadData(true);
@@ -3051,6 +3058,7 @@
     .controller("FiveBudgetScientificFundsInController", function ($state, $scope, $rootScope, fiveBudgetScientificFundsInService) {
         var vm = this;
         var uiSref = "budget.scientificFundsIn";
+        var tableName = $rootScope.loadTableName(uiSref);
         var key = $state.current.name + "_" + user.userLogin;
         vm.params = getCacheParams(key, {qName: "", pageNum: 1, pageSize: $scope.pageSize, total: 0});
         vm.pageInfo = {pageNum: vm.params.pageNum, pageSize: vm.params.pageSize, total: vm.params.total};
@@ -3112,7 +3120,7 @@
         var vm = this;
         var uiSref = "budget.scientificFundsIn";
         var scientificFundsInId = $stateParams.scientificFundsInId;
-
+        var tableName = $rootScope.loadTableName(uiSref);
         vm.init = function () {
             $scope.loadRightData(user.userLogin, uiSref);
             vm.loadData(true);
@@ -3573,6 +3581,7 @@
     .controller("FiveBudgetPublicFundsController", function ($state, $scope, $rootScope, fiveBudgetPublicFundsService) {
         var vm = this;
         var uiSref = "budget.publicFunds";
+        var tableName = $rootScope.loadTableName(uiSref);
         var key = $state.current.name + "_" + user.userLogin;
         vm.params = getCacheParams(key, {qName: "", pageNum: 1, pageSize: $scope.pageSize, total: 0});
         vm.pageInfo = {pageNum: vm.params.pageNum, pageSize: vm.params.pageSize, total: vm.params.total};
@@ -3632,9 +3641,9 @@
     })
     .controller("FiveBudgetPublicFundsDetailController", function ($state, $stateParams, $scope, $rootScope, commonCodeService, fiveBudgetPublicFundsService ) {
         var vm = this;
-        var uiSref = "budget.PublicFunds";
+        var uiSref = "budget.publicFunds";
         var publicFundsId = $stateParams.publicFundsId;
-
+        var tableName = $rootScope.loadTableName(uiSref);
         vm.init = function () {
             $scope.loadRightData(user.userLogin, uiSref);
             vm.loadData(true);
@@ -4071,6 +4080,7 @@
     .controller("FiveBudgetCapitalOutController", function ($state, $scope, $rootScope, fiveBudgetCapitalOutService) {
         var vm = this;
         var uiSref = "budget.capitalOut";
+        var tableName = $rootScope.loadTableName(uiSref);
         var key = $state.current.name + "_" + user.userLogin;
         vm.params = getCacheParams(key, {qName: "", pageNum: 1, pageSize: $scope.pageSize, total: 0});
         vm.pageInfo = {pageNum: vm.params.pageNum, pageSize: vm.params.pageSize, total: vm.params.total};
@@ -4132,6 +4142,7 @@
         var vm = this;
         var uiSref = "budget.capitalOut";
         var capitalOutId = $stateParams.capitalOutId;
+        var tableName = $rootScope.loadTableName(uiSref);
 
         vm.init = function () {
             $scope.loadRightData(user.userLogin, uiSref);
@@ -4541,6 +4552,7 @@
     .controller("FiveBudgetTurnInRentController", function ($state, $scope, $rootScope, fiveBudgetTurnInRentService) {
         var vm = this;
         var uiSref = "budget.turnInRent";
+        var tableName = $rootScope.loadTableName(uiSref);
         var key = $state.current.name + "_" + user.userLogin;
         vm.params = getCacheParams(key, {qName: "", pageNum: 1, pageSize: $scope.pageSize, total: 0});
         vm.pageInfo = {pageNum: vm.params.pageNum, pageSize: vm.params.pageSize, total: vm.params.total};
@@ -4602,7 +4614,7 @@
         var vm = this;
         var uiSref = "budget.turnInRent";
         var turnInRentId = $stateParams.turnInRentId;
-
+        var tableName = $rootScope.loadTableName(uiSref);
         vm.init = function () {
             $scope.loadRightData(user.userLogin, uiSref);
             vm.loadData(true);
@@ -4984,6 +4996,7 @@
     .controller("FiveBudgetLaborCostController", function ($state, $scope, $rootScope, fiveBudgetLaborCostService) {
         var vm = this;
         var uiSref = "budget.laborCost";
+        var tableName = $rootScope.loadTableName(uiSref);
         var key = $state.current.name + "_" + user.userLogin;
         vm.params = getCacheParams(key, {qName: "", pageNum: 1, pageSize: $scope.pageSize, total: 0});
         vm.pageInfo = {pageNum: vm.params.pageNum, pageSize: vm.params.pageSize, total: vm.params.total};
@@ -5045,7 +5058,7 @@
         var vm = this;
         var uiSref = "budget.laborCost";
         var laborCostId = $stateParams.laborCostId;
-
+        var tableName = $rootScope.loadTableName(uiSref);
         vm.init = function () {
             $scope.loadRightData(user.userLogin, uiSref);
             vm.loadData(true);
@@ -5583,6 +5596,7 @@
     .controller("FiveBudgetStaffNumberController", function ($state, $scope, $rootScope, fiveBudgetStaffNumberService) {
         var vm = this;
         var uiSref = "budget.staffNumber";
+        var tableName = $rootScope.loadTableName(uiSref);
         var key = $state.current.name + "_" + user.userLogin;
         vm.params = getCacheParams(key, {qName: "", pageNum: 1, pageSize: $scope.pageSize, total: 0});
         vm.pageInfo = {pageNum: vm.params.pageNum, pageSize: vm.params.pageSize, total: vm.params.total};
@@ -5644,7 +5658,7 @@
         var vm = this;
         var uiSref = "budget.staffNumber";
         var staffNumberId = $stateParams.staffNumberId;
-
+        var tableName = $rootScope.loadTableName(uiSref);
         vm.init = function () {
             $scope.loadRightData(user.userLogin, uiSref);
             vm.loadData(true);
@@ -6017,6 +6031,7 @@
     .controller("FiveBudgetFeeController", function ($state, $scope, $rootScope, fiveBudgetFeeService) {
         var vm = this;
         var uiSref = "budget.fee";
+        var tableName = $rootScope.loadTableName(uiSref);
         var key = $state.current.name + "_" + user.userLogin;
         vm.params = getCacheParams(key, {qName: "", pageNum: 1, pageSize: $scope.pageSize, total: 0});
         vm.pageInfo = {pageNum: vm.params.pageNum, pageSize: vm.params.pageSize, total: vm.params.total};
@@ -6092,6 +6107,7 @@
     .controller("FiveBudgetFeeDetailController", function ($state, $stateParams, $scope, $rootScope, commonCodeService, fiveBudgetFeeService ) {
         var vm = this;
         var uiSref = "budget.fee";
+        var tableName = $rootScope.loadTableName(uiSref);
         var feeId = $stateParams.feeId;
 
         vm.init = function () {
@@ -6508,6 +6524,7 @@
     .controller("FiveBudgetTurnInController", function ($state, $scope, $rootScope, fiveBudgetTurnInService) {
         var vm = this;
         var uiSref = "budget.turnIn";
+        var tableName = $rootScope.loadTableName(uiSref);
         var key = $state.current.name + "_" + user.userLogin;
         vm.params = getCacheParams(key, {qName: "", pageNum: 1, pageSize: $scope.pageSize, total: 0});
         vm.pageInfo = {pageNum: vm.params.pageNum, pageSize: vm.params.pageSize, total: vm.params.total};
@@ -6569,7 +6586,7 @@
         var vm = this;
         var uiSref = "budget.turnIn";
         var turnInId = $stateParams.turnInId;
-
+        var tableName = $rootScope.loadTableName(uiSref);
         vm.init = function () {
             $scope.loadRightData(user.userLogin, uiSref);
             vm.loadData(true);
@@ -6965,6 +6982,7 @@
             total: vm.params.total
         };
         var uiSref = "budget.stock";
+        var tableName = $rootScope.loadTableName(uiSref);
 
         vm.queryData = function () {
             vm.pageInfo.pageNum = 1;
@@ -7022,6 +7040,7 @@
         var vm = this;
         var uiSref = "budget.stock";
         var stockId = $stateParams.stockId;
+        var tableName = $rootScope.loadTableName(uiSref);
 
         vm.init = function () {
             $scope.loadRightData(user.userLogin, uiSref);

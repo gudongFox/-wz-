@@ -14,6 +14,7 @@ import com.cmcu.mcc.five.dto.FiveContentFileDto;
 import com.cmcu.mcc.five.entity.FiveContentFile;
 import com.cmcu.mcc.five.service.FiveContentFileService;
 import com.github.pagehelper.PageInfo;
+import javafx.scene.control.Alert;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -55,12 +56,18 @@ public class FiveFileContentController {
     CommonUserService commonUserService;
 
 
+    /*//tth2021.3.29
+    @PostMapping(value = "/getModelById.json")
+    public JsonData getModelById(int id){
+        return JsonData.success(fiveContentFileService.getModelById(id));
+    }*/
+
     @RequestMapping("/uploadContent")
     public String uploadContent(FiveContentFileDto contentFile){
         fileService.Add(contentFile);
         return  "";
     }
-    @RequestMapping("remove.json")
+    @RequestMapping("/remove.json")
     public JsonData remove(int id){
         fileService.remove(id);
         return JsonData.success();
@@ -236,6 +243,9 @@ public class FiveFileContentController {
         String filePath = fiveContentFile.getLocalPath();
         if(filePath!=null) {
             downloadingFile(filePath, fiveContentFile.getFileName(), response);
+        }
+        else{
+            Assert.state(StringUtils.isNotEmpty(fiveContentFile.getLocalPath()),"文件不存在！");
         }
     }
 

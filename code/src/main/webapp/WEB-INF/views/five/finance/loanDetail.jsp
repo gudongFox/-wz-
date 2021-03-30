@@ -12,7 +12,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span>借款</span>
+            <span ng-bind="tableName">借款</span>
             <i class="fa fa-angle-right"></i>
         </li>
     </ul>
@@ -20,7 +20,7 @@
 <div class="portlet  box blue">
     <div class="portlet-title">
         <div class="caption">
-            <i class="icon-note"></i> 借款
+            <i class="icon-note"></i> <span ng-bind="tableName">借款</span>
             <small ng-if="!processInstance.myRunningTaskName" ng-bind="processInstance.currentTaskName"></small>
             <small ng-if="processInstance.myRunningTaskName" ng-bind="processInstance.myRunningTaskName"
                    style="color: #35e0e1;"></small>
@@ -149,7 +149,7 @@
                                                 <div class="col-md-4">
                                                     <div class="input-group">
                                                         <input type="text" class="form-control"
-                                                               ng-model="vm.item.projectName" name="projectName"
+                                                               ng-model="vm.item.projectName" name="projectName"  required="true"
                                                                ng-disabled="vm.item.contractLibraryId==0||!processInstance.firstTask"/>
                                                         <span class="input-group-btn">
                                                             <button class="btn default" type="button"
@@ -164,7 +164,7 @@
                                                 <div class="col-md-4">
                                                     <div class="input-group">
                                                         <input type="text" class="form-control"
-                                                               ng-model="vm.item.businessManagerName" name="businessManagerName" disabled/>
+                                                               ng-model="vm.item.businessManagerName" name="businessManagerName" readonly/>
                                                         <span class="input-group-btn">
                                                             <button class="btn default" type="button" ng-click="vm.showUserModel('businessManager');" ng-disabled="!processInstance.firstTask"><i class="fa fa-user"></i></button>
                                                         </span>
@@ -172,13 +172,13 @@
                                                 </div>
                                             </div>
                                             <div class="form-group" ng-if="vm.item.isProject">
-                                                <label class="col-md-2 control-label">项目类型</label>
+                                                <label class="col-md-2 control-label required">项目类型</label>
                                                 <div class="col-md-4">
                                                     <select ng-options="s.name as s.name for s in sysCodes | filter:{codeCatalog:'五洲项目类型'}:true"
                                                             ng-model="vm.item.projectType" class="form-control"
                                                             ng-disabled="!processInstance.firstTask"></select>
                                                 </div>
-                                                <label class="col-md-2 control-label ">是否是科研项目</label>
+                                                <label class="col-md-2 control-label required">是否是科研项目</label>
                                                 <div class="col-md-4">
                                                     <select ng-options="s.name as s.name for s in sysCodes | filter:{codeCatalog:'是否'}:true"
                                                             ng-model="vm.item.scientific" class="form-control"

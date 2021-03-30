@@ -383,9 +383,9 @@ public class BusinessPurchaseService extends BaseService {
         params.put("deleted",false);
         //查看分包
         params.put("purchase",true);
-//如果有数据权限判断数据权限  myDeptData true查看当前部门 false查看创建人
+        //如果有数据权限判断数据权限  myDeptData true查看当前部门 false查看创建人
         Map map =new HashMap();
-        map.put("myDeptData",true);
+        map.put("myDeptData",false);
         map.put("uiSref",uiSref);
         map.put("enLogin",userLogin);
         params.putAll(getDefaultRightParams(map));

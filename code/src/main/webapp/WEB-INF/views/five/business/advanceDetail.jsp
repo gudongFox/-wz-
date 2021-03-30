@@ -154,7 +154,7 @@
                     <th>姓名</th>
                     <th>具体部门</th>
                     <th>人员类别</th>
-                    <th>项目奖金（元）</th>
+                    <th>金额（元）</th>
                     <th>备注</th>
                     <th style="width: 55px;">操作</th>
                 </tr>
@@ -228,7 +228,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-3 control-label required">项目奖金（元）</label>
+                        <label class="col-md-3 control-label required">金额（元）</label>
                         <div class="col-md-9">
                             <input type="text" class="form-control" ng-model="vm.detail.projectBonus" name="projectBonus" ng-change="vm.countTotalPrice();" required="true" ng-disabled="!processInstance.firstTask" />
                         </div>

@@ -197,7 +197,7 @@ public class FiveFinanceReimburseService {
             }
         }
         Map variables = Maps.newHashMap();
-        variables.put("balance", dto.getGreaterThan());//抵扣后金额是否大于报销金额
+        variables.put("balance", dto.getGreaterThan());//抵扣后金额小于申请金额 true
         variables.put("phone", phone);
         variables.put("attributeList", attributeList);//归口负责人
         variables.put("train", train);
@@ -311,13 +311,12 @@ public class FiveFinanceReimburseService {
         dto.setDeductionMoney(deductionMoney);
         String shouldRefundMoney = MyStringUtil.getNewSubMoney(deductionMoney,dto.getTotalApplyMoney());
         dto.setShouldRefundMoney(shouldRefundMoney);
-        if(Double.valueOf(shouldRefundMoney)>0.0){
+        if(Double.valueOf(shouldRefundMoney)>=0.0){
             //还需要还款
             dto.setGreaterThan(false);
         }else {
             dto.setGreaterThan(true);
         }
-
         dto.setTotalApplyMoney(MyStringUtil.moneyToString(dto.getTotalApplyMoney(),6));
         dto.setTotalConfirmMoney(MyStringUtil.moneyToString(dto.getTotalConfirmMoney(),6));
         dto.setDeductionMoney(MyStringUtil.moneyToString(dto.getDeductionMoney(),6));

@@ -18,7 +18,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span>人员信息查询</span>
+            <span ng-bind="tableName">人员信息查询</span>
         </li>
     </ul>
 </div>

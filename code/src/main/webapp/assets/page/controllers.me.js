@@ -37,9 +37,10 @@
         return vm;
     })
 
-    .controller("MeAllController", function ($state, $scope,businessContractService) {
+    .controller("MeAllController", function ($state, $scope, $rootScope, businessContractService) {
         var vm = this;
         var uiSref="me.all";
+        var tableName = $rootScope.loadTableName(uiSref);
         var key = $state.current.name + "_" + user.userLogin;
         vm.appCode=user.appCode;
         vm.params = getCacheParams(key,{q: "",pageNum: 1, pageSize: $scope.pageSize,total:0});
@@ -121,9 +122,10 @@
         return vm;
     })
 
-    .controller("MeCpStepController", function ($state, $scope, edProjectStepService) {
+    .controller("MeCpStepController", function ($state, $scope, $rootScope, edProjectStepService) {
         var vm = this;
         var key = $state.current.name + "_" + user.userLogin;
+        var tableName = $rootScope.loadTableName("me.cpStep");
         vm.params = getCacheParams(key,{qProjectName: "", qStepName: "",pageNum: 1, pageSize: $scope.pageSize,total:0});
         vm.pageInfo = {pageNum: vm.params.pageNum, pageSize: vm.params.pageSize,total:vm.params.total};
         $scope.basicInit();

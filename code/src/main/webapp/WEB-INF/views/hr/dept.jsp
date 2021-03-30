@@ -18,7 +18,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span>组织机构管理</span>
+            <span ng-bind="tableName">组织机构管理</span>
         </li>
     </ul>
 </div>
@@ -28,7 +28,7 @@
         <div class="portlet box blue">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-tree"></i> 组织机构
+                    <i class="fa fa-tree"></i> <span ng-bind="tableName">组织机构</span>
                 </div>
                 <div class="tools">
                     <i class="fa fa-plus margin-right-5" title="增加" ng-click="vm.add();"></i>

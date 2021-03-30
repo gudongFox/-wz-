@@ -12,7 +12,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span>对外提供资料</span>
+            <span ng-bind="tableName">对外提供资料</span>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
@@ -24,7 +24,7 @@
 <div class="portlet  box blue">
     <div class="portlet-title">
         <div class="caption">
-            <i class="icon-note"></i>对外提供资料审批
+            <i class="icon-note"></i><span ng-bind="tableName">对外提供资料审批</span>
               <small ng-if="!processInstance.myRunningTaskName" ng-bind="processInstance.currentTaskName"></small>
             <small ng-if="processInstance.myRunningTaskName" ng-bind="processInstance.myRunningTaskName" style="color: #35e0e1;"></small>
         </div>

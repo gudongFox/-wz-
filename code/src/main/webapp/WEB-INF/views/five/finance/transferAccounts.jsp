@@ -21,7 +21,7 @@
         <div class="portlet blue box">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="icon-note"></i> <span >费用退款</span>
+                    <i class="icon-note"></i> <span ng-bind="tableName">费用退款</span>
                 </div>
                 <div class="actions">
                     <a href="javascript:;" class="btn btn-sm btn-default" ng-click="vm.loadPagedData();">

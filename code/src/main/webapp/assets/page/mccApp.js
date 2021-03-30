@@ -36,6 +36,27 @@ function initApp() {
 
             initCadRoute($stateProvider);
 
+            $stateProvider
+                .state('wuzhou',{
+                    url:"/wuzhou",
+                    template:"<div ui-view></div>",
+                    abstract:true
+                })
+                .state('wuzhou.file',{
+                    url:"/file",
+                    templateUrl: function () {
+                        return "/five/wuzhou/file";
+                    },
+                    controller: 'FiveFileContentController as vm'
+                })
+                .state('wuzhou.fileDetail',{
+                    url:"/fileDetail?fileId",
+                    templateUrl:function () {
+                        return "/five/wuzhou/fileDetail";
+                    },
+                    controller:'FiveFileContentController as vm'
+                });
+
 
             $stateProvider
                 .state('dashboard', {
@@ -1215,13 +1236,13 @@ function initApp() {
                     },
                     controller: 'SysScheduleController as vm'
                 })
-                .state('sys.contentFile',{
+                /*.state('sys.contentFile',{
                     url:"/contentFile",
                     templateUrl: function () {
                         return"/sys/contentFile";
                     },
                     controller:'FiveFileContentController as vm'
-                })
+                })*/
                 .state('sys.wordSize',{
                     url:"/wordSize",
                     templateUrl: function () {

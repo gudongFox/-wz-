@@ -2608,10 +2608,11 @@
 
     })
 
-    .controller("HrDeptController", function ($state, $scope,$rootScope, hrDeptService,commonCodeService,hrEmployeeService,sysRoleService,hrPositionService) {
+    .controller("HrDeptController", function ($state, $scope, $rootScope, hrDeptService,commonCodeService,hrEmployeeService,sysRoleService,hrPositionService) {
         var vm = this;
         var key = $state.current.name + "_" + user.userLogin;
         var selectId=0;
+        var tableName = $rootScope.loadTableName("hr.dept");
 
         vm.init=function(){
             vm.params= getCacheParams(key, {qDeptName: "", qUserName: "", deptName: "", userName: "",parentDeptId:0, pageNum: 1, pageSize: $scope.pageSize,total:0 });
@@ -3245,10 +3246,11 @@
 
     })
 
-    .controller("HrDeptUserController", function ($state, $scope, hrDeptService,commonCodeService,hrEmployeeService,sysRoleService) {
+    .controller("HrDeptUserController", function ($state, $scope, $rootScope, hrDeptService,commonCodeService,hrEmployeeService,sysRoleService) {
         var vm = this;
         var key = $state.current.name + "_" + user.userLogin;
         var selectId=0;
+        var tableName = $rootScope.loadTableName("hr.deptUser");
 
         vm.init=function(){
             vm.params= getCacheParams(key, {qDeptName: "", qUserName: "", deptName: "", userName: "",parentDeptId:0, pageNum: 1, pageSize: $scope.pageSize,total:0 });

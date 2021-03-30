@@ -5,6 +5,7 @@
     .controller("FiveFinanceIncomeController", function ($state, $scope, $rootScope, fiveFinanceIncomeService, fiveFinanceInvoiceService) {
         var vm = this;
         var uiSref = "finance.income";
+        var tableName = $rootScope.loadTableName(uiSref);
         var key = $state.current.name + "_" + user.userLogin;
         vm.params = getCacheParams(key, {qName: "", pageNum: 1, pageSize: $scope.pageSize, total: 0});
         vm.pageInfo = {pageNum: vm.params.pageNum, pageSize: vm.params.pageSize, total: vm.params.total};
@@ -238,7 +239,7 @@
         var vm = this;
         var uiSref = "finance.income";
         var incomeId = $stateParams.incomeId;
-
+        var tableName = $rootScope.loadTableName(uiSref);
 
         vm.init = function () {
             $scope.loadRightData(user.userLogin, uiSref);
@@ -474,6 +475,7 @@
     .controller("FiveFinanceIncomeLibraryController", function ($state, $scope, $rootScope, fiveFinanceIncomeService, fiveFinanceInvoiceService) {
         var vm = this;
         var uiSref = "finance.incomeLibrary";
+        var tableName = $rootScope.loadTableName(uiSref);
         var key = $state.current.name + "_" + user.userLogin;
         var keyConfirmed = $state.current.name + "_" + user.userLogin +"_confirmed";
         vm.params = getCacheParams(key, {qName: "", pageNum: 1, pageSize: 10, total: 0});
@@ -623,6 +625,7 @@
     .controller("FiveFinanceIncomeConfirmController", function ($state, $scope, $rootScope, fiveFinanceIncomeService,fiveFinanceIncomeConfirmService) {
         var vm = this;
         var uiSref = "finance.incomeConfirm";
+        var tableName = $rootScope.loadTableName(uiSref);
         var key = $state.current.name + "_" + user.userLogin;
         vm.params = getCacheParams(key, {qName: "", pageNum: 1, pageSize: $scope.pageSize, total: 0});
         vm.pageInfo = {pageNum: vm.params.pageNum, pageSize: vm.params.pageSize, total: vm.params.total};
@@ -715,6 +718,7 @@
         var vm = this;
         var uiSref = "finance.incomeConfirm";
         var incomeConfirmId = $stateParams.incomeConfirmId;
+        var tableName = $rootScope.loadTableName(uiSref);
 
         vm.init = function () {
             $scope.loadRightData(user.userLogin, uiSref);
@@ -1395,6 +1399,7 @@
     .controller("FiveFinanceInvoiceController", function ($state, $scope, $rootScope, $sce,fiveFinanceInvoiceService) {
         var vm = this;
         var uiSref = "finance.invoice";
+        var tableName = $rootScope.loadTableName(uiSref);
         var key = $state.current.name + "_" + user.userLogin;
         vm.params = getCacheParams(key, {qName: "", pageNum: 1, pageSize: $scope.pageSize, total: 0});
         vm.pageInfo = {pageNum: vm.params.pageNum, pageSize: vm.params.pageSize, total: vm.params.total};
@@ -1488,7 +1493,7 @@
         var vm = this;
         var uiSref = "finance.invoice";
         var invoiceId = $stateParams.invoiceId;
-
+        var tableName = $rootScope.loadTableName(uiSref);
 
         vm.init = function () {
             $scope.loadRightData(user.userLogin, uiSref);
@@ -1691,6 +1696,7 @@
     .controller("FiveFinanceInvoiceCancelController", function ($state, $scope, $rootScope, fiveFinanceInvoiceCancelService) {
         var vm = this;
         var uiSref = "finance.invoiceCancel";
+        var tableName = $rootScope.loadTableName(uiSref);
         var key = $state.current.name + "_" + user.userLogin;
         vm.params = getCacheParams(key, {qName: "", pageNum: 1, pageSize: $scope.pageSize, total: 0});
         vm.pageInfo = {pageNum: vm.params.pageNum, pageSize: vm.params.pageSize, total: vm.params.total};
@@ -1754,6 +1760,7 @@
     .controller("FiveFinanceInvoiceCancelDetailController", function ($state, $stateParams, $scope, $rootScope, commonCodeService, fiveFinanceNodeService, fiveFinanceInvoiceCancelService, fiveFinanceInvoiceService) {
         var vm = this;
         var uiSref = "finance.invoiceCancel";
+        var tableName = $rootScope.loadTableName(uiSref);
         var invoiceCancelId = $stateParams.invoiceCancelId;
 
 
@@ -2139,6 +2146,7 @@
     .controller("FiveFinanceNodeController", function ($state, $scope, $rootScope, fiveFinanceNodeService) {
         var vm = this;
         var uiSref = "finance.node";
+        var tableName = $rootScope.loadTableName(uiSref);
         var key = $state.current.name + "_" + user.userLogin;
         vm.params = getCacheParams(key, {qName: "", pageNum: 1, pageSize: $scope.pageSize, total: 0});
         vm.pageInfo = {pageNum: vm.params.pageNum, pageSize: vm.params.pageSize, total: vm.params.total};
@@ -2203,7 +2211,7 @@
         var vm = this;
         var uiSref = "finance.node";
         var nodeId = $stateParams.nodeId;
-
+        var tableName = $rootScope.loadTableName(uiSref);
         vm.init = function () {
             $scope.loadRightData(user.userLogin, uiSref);
             vm.loadData(true);
@@ -2745,7 +2753,7 @@
 
 
     //收据管理
-    .controller("FiveFinanceReceiptController", function ($state, $scope, fiveFinanceReceiptService) {
+    .controller("FiveFinanceReceiptController", function ($state, $scope, $rootScope, fiveFinanceReceiptService) {
         var vm = this;
         var key = $state.current.name + "_" + user.userLogin;
         vm.params = getCacheParams(key, {
@@ -2762,6 +2770,7 @@
             total: vm.params.total
         };
         var uiSref = "finance.receipt";
+        var tableName = $rootScope.loadTableName(uiSref);
 
         vm.queryData = function () {
             vm.pageInfo.pageNum = 1;
@@ -2820,6 +2829,7 @@
         var vm = this;
         var uiSref = "finance.receipt";
         var receiptId = $stateParams.receiptId;
+        var tableName = $rootScope.loadTableName(uiSref);
 
         vm.init = function () {
             $scope.loadRightData(user.userLogin, uiSref);
@@ -3377,6 +3387,7 @@
     .controller("FiveFinanceBalanceController", function ($state, $scope, $rootScope, fiveFinanceBalanceService) {
         var vm = this;
         var uiSref = "finance.balance";
+        var tableName = $rootScope.loadTableName(uiSref);
         var key = $state.current.name + "_" + user.userLogin;
         vm.params = getCacheParams(key, {qName: "", pageNum: 1, pageSize: $scope.pageSize, total: 0});
         vm.pageInfo = {pageNum: vm.params.pageNum, pageSize: vm.params.pageSize, total: vm.params.total};
@@ -3439,6 +3450,7 @@
         var vm = this;
         var uiSref = "finance.balance";
         var balanceId = $stateParams.balanceId;
+        var tableName = $rootScope.loadTableName(uiSref);
 
         vm.init = function () {
             $scope.loadRightData(user.userLogin, uiSref);
@@ -4053,6 +4065,7 @@
     .controller("FiveFinanceStampTaxController", function ($state, $scope, $rootScope, fiveFinanceStampTaxService) {
         var vm = this;
         var uiSref = "finance.stampTax";
+        var tableName = $rootScope.loadTableName(uiSref);
         var key = $state.current.name + "_" + user.userLogin;
         vm.params = getCacheParams(key, {qName: "", pageNum: 1, pageSize: $scope.pageSize, total: 0});
         vm.pageInfo = {pageNum: vm.params.pageNum, pageSize: vm.params.pageSize, total: vm.params.total};
@@ -4166,6 +4179,7 @@
         var vm = this;
         var uiSref = "finance.stampTax";
         var stampTaxId = $stateParams.stampTaxId;
+        var tableName = $rootScope.loadTableName(uiSref);
         vm.init = function () {
             $scope.loadRightData(user.userLogin, uiSref);
             vm.loadData(true);
@@ -4443,6 +4457,7 @@
     .controller("FiveFinanceOutSupplyController", function ($state, $scope, $rootScope, fiveFinanceOutSupplyService) {
         var vm = this;
         var uiSref = "finance.outSupply";
+        var tableName = $rootScope.loadTableName(uiSref);
         var key = $state.current.name + "_" + user.userLogin;
         vm.params = getCacheParams(key, {qName: "", pageNum: 1, pageSize: $scope.pageSize, total: 0});
         vm.pageInfo = {pageNum: vm.params.pageNum, pageSize: vm.params.pageSize, total: vm.params.total};
@@ -4505,6 +4520,7 @@
         var vm = this;
         var uiSref = "finance.outSupply";
         var outSupplyId = $stateParams.outSupplyId;
+        var tableName = $rootScope.loadTableName(uiSref);
 
         vm.init = function () {
             $scope.loadRightData(user.userLogin, uiSref);
@@ -4654,7 +4670,7 @@
 
     })
     //保函管理
-    .controller("FiveFinanceBackLetterController", function ($state, $scope, fiveFinanceBackLetterService) {
+    .controller("FiveFinanceBackLetterController", function ($state, $scope, $rootScope, fiveFinanceBackLetterService) {
         var vm = this;
         var key = $state.current.name + "_" + user.userLogin;
         vm.params = getCacheParams(key, {
@@ -4671,6 +4687,7 @@
             total: vm.params.total
         };
         var uiSref = "finance.backLetter";
+        var tableName = $rootScope.loadTableName(uiSref);
 
         vm.queryData = function () {
             vm.pageInfo.pageNum = 1;
@@ -4729,6 +4746,7 @@
         var vm = this;
         var uiSref = "finance.backLetter";
         var backLetterId = $stateParams.backLetterId;
+        var tableName = $rootScope.loadTableName(uiSref);
 
         vm.init = function () {
             $scope.loadRightData(user.userLogin, uiSref);
@@ -4866,7 +4884,7 @@
 
 
     //费用申请-生产部门
-    .controller("FiveFinanceTransferAccountsController", function ($state, $scope, fiveFinanceTransferAccountsService) {
+    .controller("FiveFinanceTransferAccountsController", function ($state, $scope,$rootScope, fiveFinanceTransferAccountsService) {
         var vm = this;
         var key = $state.current.name + "_" + user.userLogin;
         vm.params = getCacheParams(key, {
@@ -4883,6 +4901,8 @@
             total: vm.params.total
         };
         var uiSref = "finance.transferAccounts";
+        var tableName = $rootScope.loadTableName(uiSref);
+
         vm.showTopTitle='费用退款(生产部门)';
 
         vm.queryData = function () {
@@ -4942,7 +4962,9 @@
         var vm = this;
         var uiSref = "finance.transferAccounts";
         var transferAccountsId = $stateParams.transferAccountsId;
-        vm.showTopTitle='费用退款(生产部门)';
+        vm.showTopTitle='费用退款';
+        var tableName = $rootScope.loadTableName(uiSref);
+
 
         vm.init = function () {
             $scope.loadRightData(user.userLogin, uiSref);
@@ -5221,7 +5243,7 @@
     })
 
     //费用申请-红河项目
-    .controller("FiveFinanceTransferAccountsRedController", function ($state, $scope, fiveFinanceTransferAccountsService) {
+    .controller("FiveFinanceTransferAccountsRedController", function ($state, $scope,$rootScope, fiveFinanceTransferAccountsService) {
         var vm = this;
         var key = $state.current.name + "_" + user.userLogin;
         vm.params = getCacheParams(key, {
@@ -5238,6 +5260,7 @@
             total: vm.params.total
         };
         var uiSref = "finance.transferAccountsRed";
+        var tableName = $rootScope.loadTableName(uiSref);
         vm.showTopTitle='费用退款(红河项目)';
 
         vm.queryData = function () {
@@ -5296,6 +5319,8 @@
         var vm = this;
         var uiSref = "finance.transferAccountsRed";
         var transferAccountsId = $stateParams.transferAccountsId;
+        var tableName = $rootScope.loadTableName(uiSref);
+
         vm.showTopTitle='费用退款(红河项目)';
         vm.init = function () {
             $scope.loadRightData(user.userLogin, uiSref);
@@ -5570,7 +5595,7 @@
     })
 
     //费用申请-建研院
-    .controller("FiveFinanceTransferAccountsBuildController", function ($state, $scope, fiveFinanceTransferAccountsService) {
+    .controller("FiveFinanceTransferAccountsBuildController", function ($state, $scope,$rootScope, fiveFinanceTransferAccountsService) {
         var vm = this;
         var key = $state.current.name + "_" + user.userLogin;
         vm.params = getCacheParams(key, {
@@ -5587,6 +5612,8 @@
             total: vm.params.total
         };
         var uiSref = "finance.transferAccountsBuild";
+        var tableName = $rootScope.loadTableName(uiSref);
+        vm.showTopTitle='费用退款(建研院)';
 
         vm.queryData = function () {
             vm.pageInfo.pageNum = 1;
@@ -5645,6 +5672,9 @@
     .controller("FiveFinanceTransferAccountsBuildDetailController", function ($sce, $state, $stateParams, $rootScope, $scope, hrEmployeeService, fiveFinanceTransferAccountsService,fiveBusinessContractLibraryService, hrDeptService) {
         var vm = this;
         var uiSref = "finance.transferAccountsBuild";
+        var tableName = $rootScope.loadTableName(uiSref);
+        vm.showTopTitle='费用退款(建研院)';
+
         var transferAccountsId = $stateParams.transferAccountsId;
 
         vm.init = function () {
@@ -6162,7 +6192,7 @@
     })
 
     //借款-生产部门
-    .controller("FiveFinanceLoanController", function ($state, $scope, fiveFinanceLoanService) {
+    .controller("FiveFinanceLoanController", function ($state, $scope,$rootScope, fiveFinanceLoanService) {
         var vm = this;
         var key = $state.current.name + "_" + user.userLogin;
         vm.params = getCacheParams(key, {
@@ -6179,6 +6209,7 @@
             total: vm.params.total
         };
         var uiSref = "finance.loan";
+        var tableName = $rootScope.loadTableName(uiSref);
 
         vm.queryData = function () {
             vm.pageInfo.pageNum = 1;
@@ -6236,6 +6267,8 @@
     .controller("FiveFinanceLoanDetailController", function ($sce, $state, $stateParams, $rootScope, $scope, hrEmployeeService, fiveFinanceLoanService) {
         var vm = this;
         var uiSref = "finance.loan";
+        var tableName = $rootScope.loadTableName(uiSref);
+
         var loanId = $stateParams.loanId;
 
         vm.init = function () {
@@ -6501,7 +6534,7 @@
     })
 
     //借款-管理部门
-    .controller("FiveFinanceLoanFunctionController", function ($state, $scope, fiveFinanceLoanService) {
+    .controller("FiveFinanceLoanFunctionController", function ($state, $scope,$rootScope, fiveFinanceLoanService) {
         var vm = this;
         var key = $state.current.name + "_" + user.userLogin;
         vm.params = getCacheParams(key, {
@@ -6518,6 +6551,8 @@
             total: vm.params.total
         };
         var uiSref = "finance.loanFunction";
+        var tableName = $rootScope.loadTableName(uiSref);
+
 
         vm.queryData = function () {
             vm.pageInfo.pageNum = 1;
@@ -6575,6 +6610,8 @@
     .controller("FiveFinanceLoanFunctionDetailController", function ($sce, $state, $stateParams, $rootScope, $scope, hrEmployeeService, fiveFinanceLoanService, fiveBusinessContractLibraryService,hrDeptService) {
         var vm = this;
         var uiSref = "finance.loanFunction";
+        var tableName = $rootScope.loadTableName(uiSref);
+
         var loanId = $stateParams.loanId;
 
         vm.init = function () {
@@ -6830,7 +6867,7 @@
 
     })
     //借款-红河项目
-    .controller("FiveFinanceLoanRedController", function ($state, $scope, fiveFinanceLoanService) {
+    .controller("FiveFinanceLoanRedController", function ($state, $scope,$rootScope, fiveFinanceLoanService) {
         var vm = this;
         var key = $state.current.name + "_" + user.userLogin;
         vm.params = getCacheParams(key, {
@@ -6847,6 +6884,8 @@
             total: vm.params.total
         };
         var uiSref = "finance.loanRed";
+        var tableName = $rootScope.loadTableName(uiSref);
+
 
         vm.queryData = function () {
             vm.pageInfo.pageNum = 1;
@@ -6904,6 +6943,8 @@
     .controller("FiveFinanceLoanRedDetailController", function ($sce, $state, $stateParams, $rootScope, $scope, hrEmployeeService, fiveFinanceLoanService, fiveBusinessContractLibraryService,hrDeptService) {
         var vm = this;
         var uiSref = "finance.loanRed";
+        var tableName = $rootScope.loadTableName(uiSref);
+
         var loanId = $stateParams.loanId;
 
         vm.init = function () {
@@ -7173,7 +7214,7 @@
 
     })
     //借款-建研院
-    .controller("FiveFinanceLoanBuildController", function ($state, $scope, fiveFinanceLoanService) {
+    .controller("FiveFinanceLoanBuildController", function ($state, $scope,$rootScope, fiveFinanceLoanService) {
         var vm = this;
         var key = $state.current.name + "_" + user.userLogin;
         vm.params = getCacheParams(key, {
@@ -7190,6 +7231,8 @@
             total: vm.params.total
         };
         var uiSref = "finance.loanBuild";
+        var tableName = $rootScope.loadTableName(uiSref);
+
 
         vm.queryData = function () {
             vm.pageInfo.pageNum = 1;
@@ -7247,6 +7290,8 @@
     .controller("FiveFinanceLoanBuildDetailController", function ($sce, $state, $stateParams, $rootScope, $scope, hrEmployeeService, fiveFinanceLoanService, fiveBusinessContractLibraryService,hrDeptService) {
         var vm = this;
         var uiSref = "finance.loanBuild";
+        var tableName = $rootScope.loadTableName(uiSref);
+
         var loanId = $stateParams.loanId;
 
         vm.init = function () {
@@ -7509,7 +7554,7 @@
     })
 
     //还款-生产部门、管理部门、红河项目、建研院
-    .controller("FiveFinanceRefundController", function ($state, $scope, fiveFinanceRefundService) {
+    .controller("FiveFinanceRefundController", function ($state, $scope,$rootScope, fiveFinanceRefundService) {
         var vm = this;
         var key = $state.current.name + "_" + user.userLogin;
         vm.params = getCacheParams(key, {
@@ -7526,6 +7571,7 @@
             total: vm.params.total
         };
         var uiSref = "finance.refund";
+        var tableName = $rootScope.loadTableName(uiSref);
 
         vm.queryData = function () {
             vm.pageInfo.pageNum = 1;
@@ -7583,6 +7629,7 @@
     .controller("FiveFinanceRefundDetailController", function ($sce, $state, $stateParams, $rootScope, $scope, hrEmployeeService, fiveFinanceRefundService, hrDeptService) {
         var vm = this;
         var uiSref = "finance.refund";
+        var tableName = $rootScope.loadTableName(uiSref);
 
         var refundId = $stateParams.refundId;
 
@@ -7820,7 +7867,7 @@
 
 
     //费用报销-生产
-    .controller("FiveFinanceReimburseController", function ($state, $scope, fiveFinanceReimburseService) {
+    .controller("FiveFinanceReimburseController", function ($state, $scope, $rootScope, fiveFinanceReimburseService) {
         var vm = this;
         var key = $state.current.name + "_" + user.userLogin;
         vm.params = getCacheParams(key, {
@@ -7837,6 +7884,7 @@
             total: vm.params.total
         };
         var uiSref = "finance.reimburse";
+        var tableName = $rootScope.loadTableName(uiSref);
 
         vm.queryData = function () {
             vm.pageInfo.pageNum = 1;
@@ -7895,6 +7943,7 @@
         var vm = this;
         var uiSref = "finance.reimburse";
         var reimburseId = $stateParams.reimburseId;
+        var tableName = $rootScope.loadTableName(uiSref);
 
         vm.init = function () {
             $scope.loadRightData(user.userLogin, uiSref);
@@ -8289,7 +8338,7 @@
 
     })
     //费用报销-职能
-    .controller("FiveFinanceReimburseFunctionController", function ($state, $scope, fiveFinanceReimburseService) {
+    .controller("FiveFinanceReimburseFunctionController", function ($state, $scope, $rootScope, fiveFinanceReimburseService) {
         var vm = this;
         var key = $state.current.name + "_" + user.userLogin;
         vm.params = getCacheParams(key, {
@@ -8306,6 +8355,7 @@
             total: vm.params.total
         };
         var uiSref = "finance.reimburseFunction";
+        var tableName = $rootScope.loadTableName(uiSref);
 
         vm.queryData = function () {
             vm.pageInfo.pageNum = 1;
@@ -8364,6 +8414,7 @@
         var vm = this;
         var uiSref = "finance.reimburseFunction";
         var reimburseId = $stateParams.reimburseId;
+        var tableName = $rootScope.loadTableName(uiSref);
 
         vm.init = function () {
             $scope.loadRightData(user.userLogin, uiSref);
@@ -8742,7 +8793,7 @@
 
     })
     //费用报销-红河
-    .controller("FiveFinanceReimburseRedController", function ($state, $scope, fiveFinanceReimburseService) {
+    .controller("FiveFinanceReimburseRedController", function ($state, $scope, $rootScope, fiveFinanceReimburseService) {
         var vm = this;
         var key = $state.current.name + "_" + user.userLogin;
         vm.params = getCacheParams(key, {
@@ -8759,6 +8810,7 @@
             total: vm.params.total
         };
         var uiSref = "finance.reimburseRed";
+        var tableName = $rootScope.loadTableName(uiSref);
 
         vm.queryData = function () {
             vm.pageInfo.pageNum = 1;
@@ -8817,6 +8869,7 @@
         var vm = this;
         var uiSref = "finance.reimburseRed";
         var reimburseId = $stateParams.reimburseId;
+        var tableName = $rootScope.loadTableName(uiSref);
 
         vm.init = function () {
             $scope.loadRightData(user.userLogin, uiSref);
@@ -9195,7 +9248,7 @@
 
     })
     //费用报销-建研院
-    .controller("FiveFinanceReimburseBuildController", function ($state, $scope, fiveFinanceReimburseService) {
+    .controller("FiveFinanceReimburseBuildController", function ($state, $scope, $rootScope, fiveFinanceReimburseService) {
         var vm = this;
         var key = $state.current.name + "_" + user.userLogin;
         vm.params = getCacheParams(key, {
@@ -9212,6 +9265,7 @@
             total: vm.params.total
         };
         var uiSref = "finance.reimburseBuild";
+        var tableName = $rootScope.loadTableName(uiSref);
 
         vm.queryData = function () {
             vm.pageInfo.pageNum = 1;
@@ -9270,6 +9324,7 @@
         var vm = this;
         var uiSref = "finance.reimburseBuild";
         var reimburseId = $stateParams.reimburseId;
+        var tableName = $rootScope.loadTableName(uiSref);
 
         vm.init = function () {
             $scope.loadRightData(user.userLogin, uiSref);
@@ -9649,7 +9704,7 @@
     })
 
     //差旅费报销-生产
-    .controller("FiveFinanceTravelExpenseController", function ($state, $scope, fiveFinanceTravelExpenseService) {
+    .controller("FiveFinanceTravelExpenseController", function ($state, $scope, $rootScope, fiveFinanceTravelExpenseService) {
         var vm = this;
         var key = $state.current.name + "_" + user.userLogin;
         vm.params = getCacheParams(key, {
@@ -9666,6 +9721,7 @@
             total: vm.params.total
         };
         var uiSref = "finance.travelExpense";
+        var tableName = $rootScope.loadTableName(uiSref);
 
         vm.queryData = function () {
             vm.pageInfo.pageNum = 1;
@@ -9723,6 +9779,7 @@
         var vm = this;
         var uiSref = "finance.travelExpense";
         var travelExpenseId = $stateParams.travelExpenseId;
+        var tableName = $rootScope.loadTableName(uiSref);
 
         vm.init = function () {
             $scope.loadRightData(user.userLogin, uiSref);
@@ -10217,7 +10274,7 @@
 
     })
     //差旅费报销-职能
-    .controller("FiveFinanceTravelExpenseFunctionController", function ($state, $scope, fiveFinanceTravelExpenseService) {
+    .controller("FiveFinanceTravelExpenseFunctionController", function ($state, $scope, $rootScope, fiveFinanceTravelExpenseService) {
         var vm = this;
         var key = $state.current.name + "_" + user.userLogin;
         vm.params = getCacheParams(key, {
@@ -10234,6 +10291,7 @@
             total: vm.params.total
         };
         var uiSref = "finance.travelExpenseFunction";
+        var tableName = $rootScope.loadTableName(uiSref);
 
         vm.queryData = function () {
             vm.pageInfo.pageNum = 1;
@@ -10291,6 +10349,7 @@
         var vm = this;
         var uiSref = "finance.travelExpenseFunction";
         var travelExpenseId = $stateParams.travelExpenseId;
+        var tableName = $rootScope.loadTableName(uiSref);
 
         vm.init = function () {
             $scope.loadRightData(user.userLogin, uiSref);
@@ -10731,7 +10790,7 @@
 
     })
     //差旅费报销-红河
-    .controller("FiveFinanceTravelExpenseRedController", function ($state, $scope, fiveFinanceTravelExpenseService) {
+    .controller("FiveFinanceTravelExpenseRedController", function ($state, $scope, $rootScope, fiveFinanceTravelExpenseService) {
         var vm = this;
         var key = $state.current.name + "_" + user.userLogin;
         vm.params = getCacheParams(key, {
@@ -10748,6 +10807,7 @@
             total: vm.params.total
         };
         var uiSref = "finance.travelExpenseRed";
+        var tableName = $rootScope.loadTableName(uiSref);
 
         vm.queryData = function () {
             vm.pageInfo.pageNum = 1;
@@ -10805,6 +10865,7 @@
         var vm = this;
         var uiSref = "finance.travelExpenseRed";
         var travelExpenseId = $stateParams.travelExpenseId;
+        var tableName = $rootScope.loadTableName(uiSref);
 
         vm.init = function () {
             $scope.loadRightData(user.userLogin, uiSref);
@@ -11247,7 +11308,7 @@
 
     })
     //差旅费报销-建研院
-    .controller("FiveFinanceTravelExpenseBuildController", function ($state, $scope, fiveFinanceTravelExpenseService) {
+    .controller("FiveFinanceTravelExpenseBuildController", function ($state, $scope, $rootScope, fiveFinanceTravelExpenseService) {
         var vm = this;
         var key = $state.current.name + "_" + user.userLogin;
         vm.params = getCacheParams(key, {
@@ -11264,6 +11325,7 @@
             total: vm.params.total
         };
         var uiSref = "finance.travelExpenseBuild";
+        var tableName = $rootScope.loadTableName(uiSref);
 
         vm.queryData = function () {
             vm.pageInfo.pageNum = 1;
@@ -11321,6 +11383,7 @@
         var vm = this;
         var uiSref = "finance.travelExpenseBuild";
         var travelExpenseId = $stateParams.travelExpenseId;
+        var tableName = $rootScope.loadTableName(uiSref);
 
         vm.init = function () {
             $scope.loadRightData(user.userLogin, uiSref);

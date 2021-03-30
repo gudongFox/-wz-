@@ -11,7 +11,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span>行政职务设置</span>
+            <span ng-bind="tableName">行政职务设置</span>
         </li>
     </ul>
     <div class="page-toolbar">
@@ -23,7 +23,7 @@
         <div class="portlet box blue">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-tree"></i> 行政职务管理
+                    <i class="fa fa-tree"></i> <span ng-bind="tableName">行政职务管理</span>
                 </div>
                 <div class="tools">
                     <i class="fa fa-plus margin-right-5" title="增加" ng-click="vm.addPosition();"></i>

@@ -11,7 +11,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span>发票申请</span>
+            <span ng-bind="tableName">发票申请</span>
         </li>
     </ul>
 </div>
@@ -22,7 +22,7 @@
         <div class="portlet blue box">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="icon-note"></i> 发票申请
+                    <i class="icon-note"></i> <span ng-bind="tableName">发票申请</span>
                 </div>
                 <div class="actions">
                     <a href="javascript:;" class="btn btn-sm btn-default" ng-click="vm.loadPagedData();">

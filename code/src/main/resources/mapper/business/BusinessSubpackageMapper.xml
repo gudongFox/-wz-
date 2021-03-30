@@ -405,10 +405,14 @@
         )
       </if>
       <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect==null">
-        AND dept_id in
+        AND (
+        dept_id in
         <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
           #{deptId}
         </foreach>
+        <if test="initiator != null and initiator != ''">or creator = #{initiator}
+        </if>
+        )
       </if>
       <if test="subContractNoHead != null and subContractNoHead != '' and isLikeSelect==null">
         AND sub_contract_no like  CONCAT('%',#{subContractNoHead},'%')
@@ -564,10 +568,14 @@
         )
       </if>
       <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect!=null">
-        AND dept_id in
+        AND (
+        dept_id in
         <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
           #{deptId}
         </foreach>
+        <if test="initiator != null and initiator != ''">or creator = #{initiator}
+        </if>
+        )
       </if>
       <if test="subContractNoHead != null and subContractNoHead != '' and isLikeSelect!=null">
         AND sub_contract_no like  CONCAT('%',#{subContractNoHead},'%')

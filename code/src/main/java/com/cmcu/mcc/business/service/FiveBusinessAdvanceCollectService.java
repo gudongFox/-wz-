@@ -3,6 +3,7 @@ package com.cmcu.mcc.business.service;
 import com.cmcu.act.dto.CustomSimpleProcessInstance;
 import com.cmcu.act.service.ProcessQueryService;
 import com.cmcu.act.service.TaskHandleService;
+import com.cmcu.common.dao.CommonCodeMapper;
 import com.cmcu.common.service.BaseService;
 import com.cmcu.common.util.*;
 import com.cmcu.mcc.act.service.MyActService;
@@ -70,7 +71,6 @@ public class FiveBusinessAdvanceCollectService extends BaseService {
         Assert.state(item.getCreator().equals(userLogin),"该数据是用户"+item.getCreatorName()+"创建");
         //流程作废
         handleFormService.removeProcessInstance(item.getBusinessKey(),userLogin);
-
     }
 
     //update
@@ -133,7 +133,7 @@ public class FiveBusinessAdvanceCollectService extends BaseService {
         item.setCreator(userLogin);
         item.setGmtModified(new Date());
         item.setGmtCreate(new Date());
-//        item.setDeclareType("预支绩效工资");
+       
         item.setDeclareType(commonCodeService.selectDefaultCodeValue(MccConst.APP_CODE,"申报类型").toString());
         ModelUtil.setNotNullFields(item);
 
@@ -184,6 +184,7 @@ public class FiveBusinessAdvanceCollectService extends BaseService {
         params.put("deleted",false);
         //params.put("processEnd",true);
         params.put("month",advanceCollectDto.getCollectMonth().trim());
+        params.put("declareType","预支绩效工资");
 
         List<FiveBusinessAdvance> fiveBusinessAdvances = fiveBusinessAdvanceMapper.selectAll(params);
 

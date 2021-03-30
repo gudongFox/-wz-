@@ -24,7 +24,7 @@
 <div class="portlet  box blue">
     <div class="portlet-title">
         <div class="caption">
-            <i class="icon-note"></i>收入管理
+            <i class="icon-note"></i><span>收入管理</span>
               <%--<small ng-if="!processInstance.myRunningTaskName" ng-bind="processInstance.currentTaskName"></small>
             <small ng-if="processInstance.myRunningTaskName" ng-bind="processInstance.myRunningTaskName" style="color: #35e0e1;"></small>--%>
 

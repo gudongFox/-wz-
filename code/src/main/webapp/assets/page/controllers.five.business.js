@@ -395,10 +395,10 @@
         return vm;
     })
 
-    .controller("FiveMeContractController", function ($state, $scope, businessContractService) {
+    .controller("FiveMeContractController", function ($state, $scope, $rootScope, businessContractService) {
         var vm = this;
         var uiSref = "five.businessContract";
-        var tableName = $rootScope.loadTableName(uiSref);
+        var tableName = $rootScope.loadTableName("five.meContract");
 
         var key = $state.current.name + "_" + user.userLogin;
         vm.params = getCacheParams(key, {q: "", pageNum: 1, pageSize: $scope.pageSize, total: 0});
@@ -632,7 +632,7 @@
             }*/
             commonFileService.listDataCount(vm.item.businessKey, '-1').then(function (value) {
                 if (value.data.data == 0) {
-                    toastr.warning("请上传供方单位营业执照与相关资料!");
+                    toastr.warning("请上传对方单位营业执照与相关资料!");
                     return;
                 } else {
                     if ($("#detail_form").validate().form()) {

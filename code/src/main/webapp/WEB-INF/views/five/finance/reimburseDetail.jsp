@@ -12,14 +12,14 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span>费用报销</span>
+            <span ng-bind="tableName">费用报销</span>
         </li>
     </ul>
 </div>
 <div class="portlet  box blue">
     <div class="portlet-title">
         <div class="caption">
-            <i class="icon-note"></i> 费用报销
+            <i class="icon-note"></i> <span ng-bind="tableName">费用报销</span>
             <small ng-if="!processInstance.myRunningTaskName" ng-bind="processInstance.currentTaskName"></small>
             <small ng-if="processInstance.myRunningTaskName" ng-bind="processInstance.myRunningTaskName"
                    style="color: #35e0e1;"></small>
@@ -158,7 +158,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group" ng-if="vm.item.isProject">
-                                                <label class="col-md-2 control-label">项目经理</label>
+                                                <label class="col-md-2 control-label ">项目经理</label>
                                                 <div class="col-md-4">
                                                     <div class="input-group">
                                                         <input type="text" class="form-control"
@@ -346,6 +346,8 @@
                                                     </tbody>
                                                     <tr>
                                                         <td style="width: 50px;">合计</td>
+                                                        <td></td>
+                                                        <td></td>
                                                         <td></td>
                                                         <td></td>
                                                         <td ng-bind="vm.item.totalApplyMoney"></td>

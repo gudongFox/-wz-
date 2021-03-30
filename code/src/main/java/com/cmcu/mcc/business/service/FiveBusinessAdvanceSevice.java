@@ -155,7 +155,7 @@ public class FiveBusinessAdvanceSevice extends BaseService {
         item.setCreator(userLogin);
         item.setGmtModified(new Date());
         item.setGmtCreate(new Date());
-//        item.setDeclareType("预支绩效工资");
+       
         item.setDeclareType(commonCodeService.selectDefaultCodeValue(MccConst.APP_CODE,"申报类型").toString());
         ModelUtil.setNotNullFields(item);
 
@@ -268,7 +268,7 @@ public class FiveBusinessAdvanceSevice extends BaseService {
             map1.put("姓名",dto.getPersonName());
             map1.put("部门",dto.getDeptName());
             map1.put("人员类别",dto.getPersonnelCategory());
-            map1.put("项目奖金",dto.getProjectBonus() );
+            map1.put("金额",dto.getProjectBonus() );
             map1.put("备注",dto.getRemark() );
             list.add(map1);
         }
@@ -278,7 +278,7 @@ public class FiveBusinessAdvanceSevice extends BaseService {
         map1.put("姓名","总计");
         map1.put("部门","");
         map1.put("人员类别","");
-        map1.put("项目奖金",getModelById(advanceId).getTotalPrice());
+        map1.put("金额",getModelById(advanceId).getTotalPrice());
         map1.put("备注","");
         list.add(map1);
         return list;

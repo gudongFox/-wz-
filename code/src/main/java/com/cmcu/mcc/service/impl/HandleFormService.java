@@ -2777,7 +2777,7 @@ public class HandleFormService implements IHandleFormService {
                 item.add(new CommonCode(detail.getPersonName(),"姓名",6));
                 item.add(new CommonCode(detail.getDeptName(),"具体部门",6));
                 item.add(new CommonCode(detail.getPersonnelCategory(),"人员类别",6));
-                item.add(new CommonCode(detail.getProjectBonus(),"项目奖金（元）",6));
+                item.add(new CommonCode(detail.getProjectBonus(),"金额（元）",6));
                 item.add(new CommonCode(detail.getRemark(),"备注",6));
                 list1.add(item);
             }

@@ -12,7 +12,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span>科研经费支出预算</span>
+            <span ng-bind="tableName">科研经费支出预算</span>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
@@ -24,7 +24,7 @@
 <div class="portlet  box blue">
     <div class="portlet-title">
         <div class="caption">
-            <i class="icon-note"></i>科研经费支出预算
+            <i class="icon-note"></i><span ng-bind="tableName">科研经费支出预算</span>
             <small ng-if="!processInstance.myRunningTaskName" ng-bind="processInstance.currentTaskName"></small>
             <small ng-if="processInstance.myRunningTaskName" ng-bind="processInstance.myRunningTaskName"
                    style="color: #35e0e1;"></small>

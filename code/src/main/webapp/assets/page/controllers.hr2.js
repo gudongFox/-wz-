@@ -1195,7 +1195,7 @@
 
     })
 
-    .controller("HrQualifyController", function ($state, $scope, hrQualifyService, hrDeptService,sysCodeService) {
+    .controller("HrQualifyController", function ($state, $scope, $rootScope, hrQualifyService, hrDeptService,sysCodeService) {
         var vm = this;
         var key = $state.current.name + "_" + user.userLogin;
         var selectId=0;
@@ -1616,7 +1616,7 @@
 
     })
 
-    .controller("HrPositionController", function ($state, $scope, hrPositionService,hrDeptService,hrEmployeeService) {
+    .controller("HrPositionController", function ($state, $scope, $rootScope, hrPositionService,hrDeptService,hrEmployeeService) {
 
         var vm = this;
         vm.params = {name: "", qName: ""};
@@ -1624,6 +1624,7 @@
         var key = $state.current.name + "_" + user.userLogin;
         vm.params = getCacheParams(key,{qUserName: "",qAclName:"", currentPositionId: 1,pageNum: 1, pageSize: $scope.pageSize,total:0});
         vm.currentPositionId=vm.params.currentPositionId;
+        var tableName = $rootScope.loadTableName("hr.position");
 
         vm.buildTree = function () {
             hrPositionService.listSortedAll().then(function (value) {
@@ -2120,8 +2121,9 @@
 
     })
 
-    .controller("FiveHrQualifyApplyController", function ($state, $scope, fiveHrChiefQualifyApplyService) {
+    .controller("FiveHrQualifyApplyController", function ($state, $scope, $rootScope, fiveHrChiefQualifyApplyService) {
         var vm = this;
+        // var tableName = $rootScope.loadTableName("five.hrQualifyApply");
 
         alert(1);
 

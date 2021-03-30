@@ -12,14 +12,14 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span>差旅费报销</span>
+            <span ng-bind="tableName">差旅费报销</span>
         </li>
     </ul>
 </div>
 <div class="portlet  box blue">
     <div class="portlet-title">
         <div class="caption">
-            <i class="icon-note"></i> 差旅费报销
+            <i class="icon-note"></i> <span ng-bind="tableName">差旅费报销</span>
               <small ng-if="!processInstance.myRunningTaskName" ng-bind="processInstance.currentTaskName"></small>
             <small ng-if="processInstance.myRunningTaskName" ng-bind="processInstance.myRunningTaskName" style="color: #35e0e1;"></small>
         </div>
@@ -400,6 +400,8 @@
                                                     </tr>
                                                     <tr>
                                                         <td style="width: 50px;">合计</td>
+                                                        <td></td>
+                                                        <td></td>
                                                         <td></td>
                                                         <td></td>
                                                         <td></td>

@@ -88,7 +88,8 @@ public class FiveBusinessAdvanceController {
     public void downTempleXls(String uiSref,String userLogin,final HttpServletResponse response,int advanceId) {
         Map params = WebUtil.getRequestParameters();
         List<Map> list = fiveOaAdvanceSevice.listMapData(params,uiSref,userLogin,advanceId);
-        MyPoiUtil.downloadExcel(list, FileUtil.getGoodFileName("预支明细表"+ DateFormatUtils.format(new Date(),"yyyyMMddHHmm")+".xls"), response);
+        FiveBusinessAdvanceDto dto = fiveOaAdvanceSevice.getModelById(advanceId);
+        MyPoiUtil.downloadExcel(list, FileUtil.getGoodFileName(dto.getDeclareType()+"明细表"+ DateFormatUtils.format(new Date(),"yyyyMMddHHmm")+".xls"), response);
     }
     @PostMapping("/updateExcl.json")
     public JsonData updateExcl(MultipartFile multipartFile, int advanceId, String userLogin) throws IOException, ParseException {

@@ -13,7 +13,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span>项目档案管理</span>
+            <span ng-bind="tableName">项目档案管理</span>
         </li>
     </ul>
 </div>
@@ -21,7 +21,7 @@
 <div class="portlet box blue">
     <div class="portlet-title">
         <div class="caption">
-            <i class="icon-note"></i>  <span>协同项目信息</span>
+            <i class="icon-note"></i>  <span ng-bind="tableName">协同项目信息</span>
         </div>
         <div class="actions">
             <a href="javascript:;" class="btn btn-sm btn-default" ng-click="vm.loadPagedData();">

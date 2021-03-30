@@ -12,7 +12,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span>设计校审人员资格认定</span>
+            <span <%--ng-bind="tableName"--%>>设计校审人员资格认定</span>
         </li>
     </ul>
     <div class="page-toolbar">
@@ -24,7 +24,7 @@
         <div class="portlet blue box">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="icon-note"></i>设计校审人员资格认定申请
+                    <i class="icon-note"></i><span <%--ng-bind="tableName"--%>>设计校审人员资格认定申请</span>
                 </div>
                 <div class="actions">
                     <a href="javascript:;" class="btn btn-sm btn-default" ng-click=" vm.loadData();">

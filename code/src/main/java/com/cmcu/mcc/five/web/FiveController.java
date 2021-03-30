@@ -1273,6 +1273,11 @@ public class FiveController {
     }
 
 
+    @RequestMapping("/wuzhou/file")
+    public ModelAndView contentFile(){
+        ModelAndView modelAndView=new ModelAndView("/sys/contentFile");
+        return modelAndView;
+    }
 
 
 }

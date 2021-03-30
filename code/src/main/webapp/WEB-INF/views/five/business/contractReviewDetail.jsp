@@ -214,16 +214,6 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="col-md-2 control-label required">项目性质</label>
-                                <div class="col-md-4">
-                                    <input type="checkbox" />1
-                                    <input type="checkbox" />2
-                                    <input type="checkbox" />3
-                                </div>
-
-                            </div>
-
-                            <div class="form-group">
                                 <label class="col-md-2 control-label required">建设规模</label>
                                 <div class="col-md-4">
                                     <input type="text" class="form-control" ng-model="vm.item.constructionScale" name="constructionScale"   ng-disabled="!processInstance.firstTask"/>

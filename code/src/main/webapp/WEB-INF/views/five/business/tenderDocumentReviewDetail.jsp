@@ -61,7 +61,7 @@
                                 <label class="col-md-2 control-label required">项目名称</label>
                                 <div class="col-md-4">
                                     <div class="input-group">
-                                    <input type="text" class="form-control" ng-model="vm.item.projectName" name="projectName" required="true"  ng-disabled="!processInstance.firstTask" />
+                                    <input type="text" class="form-control" ng-model="vm.item.projectName" name="projectName" required="true"  readonly />
                                     <span class="input-group-btn">
                                             <button class="btn default" type="button" ng-click="vm.showRecordModal();"
                                                     ng-disabled="!processInstance.firstTask"> <i
@@ -97,7 +97,7 @@
                                 <label class="col-md-2 control-label required" ng-if="vm.item.projectLevel=='院级'">评审人员</label>
                                 <div class="col-md-4" ng-if="vm.item.projectLevel=='院级'">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" ng-model="vm.item.deptReviewUsername" name="deptReviewUsername"  required="true" ng-disabled="true"/>
+                                        <input type="text" class="form-control" ng-model="vm.item.deptReviewUsername" name="deptReviewUsername"  required="true" readonly/>
                                         <span class="input-group-btn" >
                                             <button class="btn default" type="button" ng-click="vm.showUserModel('deptReviewUsername');" ng-disabled="!processInstance.firstTask"><i class="fa fa-user"></i></button>
                                         </span>
@@ -108,7 +108,7 @@
                                 <label class="col-md-2 control-label required">部门负责人</label>
                                 <div class="col-md-4">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" ng-model="vm.item.deptChargeManName" name="deptChargeManName"  required="true"  ng-disabled="!processInstance.firstTask"/>
+                                        <input type="text" class="form-control" ng-model="vm.item.deptChargeManName" name="deptChargeManName"  required="true"  readonly/>
                                         <span class="input-group-btn" >
                                             <button class="btn default" type="button" ng-click="vm.showUserModel('deptChargeManName');" ng-disabled="!processInstance.firstTask"><i class="fa fa-user"></i></button>
                                          </span>

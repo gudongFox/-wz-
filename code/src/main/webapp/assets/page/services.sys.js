@@ -2354,6 +2354,42 @@ angular.module('services.sys', [])
             return deferred.promise;
         };
 
+        var getModelById = function (id) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/getModelById.json',
+                params: {
+                    id: id
+                }
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+        var downloadContent =function (businessKey) {
+            var deferred = $q.defer();
+            console.log(1)
+            return $http({
+                method: 'POST',
+                /*url: head + '/downloadContent/{businessKey}',*/
+                /*url: head + '/downloadContent'+businessKey,*/
+                url: head + '/downloadContent/'+businessKey,
+                params: {
+                    businessKey: businessKey
+                }
+            }).success(function (data) {
+                console.log(2)
+                deferred.resolve(data);
+            }).error(function (error) {
+                console.log(3)
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        }
+
         return {
             getModelByBusinessKey: function (businessKey,fileType) {
                 return getModelByBusinessKey(businessKey,fileType);
@@ -2363,6 +2399,12 @@ angular.module('services.sys', [])
             },
             remove: function (id) {
                 return remove(id);
+            },
+            getModelById: function (id) {
+                return getModelById(id);
+            },
+            downloadContent:function (businessKey) {
+                return downloadContent(businessKey);
             },
         }
     })

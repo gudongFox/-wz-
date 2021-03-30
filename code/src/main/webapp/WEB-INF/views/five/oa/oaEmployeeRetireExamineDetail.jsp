@@ -12,7 +12,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span>职工退休审批单</span>
+            <span ng-bind="tableName">职工退休审批单</span>
 
         </li>
     </ul>
@@ -21,7 +21,7 @@
 <div class="portlet  box blue">
     <div class="portlet-title">
         <div class="caption">
-            <i class="icon-note"></i><span>职工退休审批单</span>
+            <i class="icon-note"></i><span ng-bind="tableName">职工退休审批单</span>
               <small ng-if="!processInstance.myRunningTaskName" ng-bind="processInstance.currentTaskName"></small>
             <small ng-if="processInstance.myRunningTaskName" ng-bind="processInstance.myRunningTaskName" style="color: #35e0e1;"></small>
 

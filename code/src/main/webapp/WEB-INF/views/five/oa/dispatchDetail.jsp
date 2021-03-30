@@ -89,8 +89,8 @@
                                            ng-disabled="processInstance.myRunningTaskName.indexOf('机要秘书-文号')==-1||vm.showDis"/>
                                 </div>
 
-                                <label class="col-md-2 control-label required" >选择发文</label><%--ng-if="processInstance.myRunningTaskName.indexOf('机要秘书-文号')>=0&&vm.showDis"--%>
-                                <div class="col-md-4" ><%--ng-if="processInstance.myRunningTaskName.indexOf('机要秘书-文号')>=0&&vm.showDis"--%>
+                                <label class="col-md-2 control-label required" ng-if="processInstance.myRunningTaskName.indexOf('机要秘书-文号')>=0&&vm.showDis">选择发文</label><%----%>
+                                <div class="col-md-4" ng-if="processInstance.myRunningTaskName.indexOf('机要秘书-文号')>=0&&vm.showDis"><%----%>
                                     <div class="input-group" >
                                         <select style="height: 34px;width: 60%" ng-change="vm.changeWord(1);"  ng-options="s.word as s.word for s in vm.wordSizeList" ng-model="vm.selectword" ></select>
                                         <select style="height: 34px;width: 20%"  ng-model="vm.selectyear" ng-change="vm.changeWord(2);">

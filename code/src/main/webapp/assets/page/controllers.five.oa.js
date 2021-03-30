@@ -616,6 +616,12 @@
                 toastr.warning("注：此平台为非密平台，严禁填写涉密信息!")
                 return false;
             }
+            if ($scope.processInstance.myRunningTaskName.indexOf('文号')>-1){
+                if (vm.item.dispatch == ''){
+                    toastr.warning("请填写或申请文号!");
+                    return;
+                }
+            }
             if ($("#detail_form").validate().form()) {
                 vm.item.operateUserLogin = user.userLogin;
                 fiveOaFileInstructionService.update(vm.item).then(function (value) {
@@ -1400,7 +1406,6 @@
                                 });
                             }
                         })
-
                     }else {
                         toastr.warning("请准确填写数据!")
                         return false;
@@ -1724,7 +1729,6 @@
                         $scope.basicInit(vm.item.businessKey);
                         vm.loadWordSize(vm.year);
                         $rootScope.loadContentFiles(vm.item.businessKey,true);
-
                     }
                     vm.loadDoc();
                 }
@@ -8256,25 +8260,35 @@
 
         //发送流程验证
         $scope.showSendTask=function(send){
-            if ($("#detail_form").validate().form()) {
-                vm.item.operateUserLogin = user.userLogin;
-                fiveOaComputerMaintainService.update(vm.item).then(function (value) {
-                    if (value.data.ret) {
-                        jQuery.showActHandleModal({
-                            taskId: $scope.processInstance.taskId,
-                            send: send,
-                            enLogin: user.enLogin
-                        }, function () {
-                            return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
-                    }
-                })
+            if (send){
+                if ($("#detail_form").validate().form()) {
+                    vm.item.operateUserLogin = user.userLogin;
+                    fiveOaComputerMaintainService.update(vm.item).then(function (value) {
+                        if (value.data.ret) {
+                            jQuery.showActHandleModal({
+                                taskId: $scope.processInstance.taskId,
+                                send: send,
+                                enLogin: user.enLogin
+                            }, function () {
+                                return true;
+                            }, function (processInstanceId) {
+                                $scope.refresh();});
+                        }
+                    })
+                }else {
+                    toastr.warning("请准确填写数据!");
+                    return false;
+                }
             }else {
-                toastr.warning("请准确填写数据!");
-                return false;
+                jQuery.showActHandleModal({
+                    taskId: $scope.processInstance.taskId,
+                    send: send,
+                    enLogin: user.enLogin
+                }, function () {
+                    return true;
+                }, function (processInstanceId) {
+                    $scope.refresh();});
             }
-
         };
 
         vm.print=function () {

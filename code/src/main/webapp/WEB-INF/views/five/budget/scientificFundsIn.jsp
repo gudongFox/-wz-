@@ -11,7 +11,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span>科研经费收入预算</span>
+            <span ng-bind="tableName">科研经费收入预算</span>
         </li>
     </ul>
 </div>
@@ -22,7 +22,7 @@
         <div class="portlet blue box">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="icon-note"></i> 科研经费收入预算
+                    <i class="icon-note"></i> <span ng-bind="tableName">科研经费收入预算</span>
                 </div>
                 <div class="actions">
                     <a href="javascript:;" class="btn btn-sm btn-default" ng-click="vm.loadPagedData();">

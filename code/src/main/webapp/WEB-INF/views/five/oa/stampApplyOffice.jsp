@@ -34,7 +34,7 @@
     <div class="portlet-body">
         <div class="row">
             <div >
-                <label style="margin-left: 20px;">标题：<input type="search"
+                <label style="margin-left: 20px;">事项：<input type="search"
                                                             class="form-control input-inline input-sm"
                                                             placeholder="标题"
                                                             ng-model="vm.params.fileNames"></label>

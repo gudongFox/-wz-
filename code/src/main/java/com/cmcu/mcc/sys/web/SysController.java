@@ -64,12 +64,12 @@ public class SysController {
         return modelAndView;
     }
     
-    @RequestMapping("/contentFile")
+   /* @RequestMapping("/contentFile")
     public ModelAndView contentFile(){
         ModelAndView modelAndView=new ModelAndView("/sys/contentFile");
         return modelAndView;
     }
-
+*/
     @RequestMapping("/wordSize")
     public ModelAndView wordSize(){
         ModelAndView modelAndView=new ModelAndView("/sys/wordSize");

@@ -3,6 +3,7 @@ package com.cmcu.mcc.business.service;
 import com.cmcu.act.dto.CustomSimpleProcessInstance;
 import com.cmcu.act.service.ProcessQueryService;
 import com.cmcu.act.service.TaskHandleService;
+import com.cmcu.common.service.BaseService;
 import com.cmcu.common.util.BeanValidator;
 import com.cmcu.common.util.ModelUtil;
 import com.cmcu.mcc.act.service.MyActService;
@@ -38,7 +39,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
-public class FiveBusinessOutAssistService {
+public class FiveBusinessOutAssistService extends BaseService {
 
     @Resource
     FiveBusinessOutAssistMapper fiveBusinessOutAssistMapper;
@@ -214,8 +215,14 @@ public class FiveBusinessOutAssistService {
 
     public PageInfo<Object> listPagedData(Map<String,Object> params, String userLogin, String uiSref,int pageNum, int pageSize) {
         params.put("deleted",false);
-        List<Integer> deptIdList=hrEmployeeSysService.getMyDeptList(userLogin,uiSref);
-        params.put("deptIdList",deptIdList);
+        //如果有数据权限判断数据权限  myDeptData true查看当前部门 false查看创建人
+        Map map =new HashMap();
+        map.put("myDeptData",false);
+        map.put("uiSref",uiSref);
+        map.put("enLogin",userLogin);
+        params.putAll(getDefaultRightParams(map));
+        //params.put("isLikeSelect",true);
+
         PageInfo<Object> pageInfo = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> fiveBusinessOutAssistMapper.selectAll(params));
         List<Object> list = Lists.newArrayList();
         pageInfo.getList().forEach(p -> {
