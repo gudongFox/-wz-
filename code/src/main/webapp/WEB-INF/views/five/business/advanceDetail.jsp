@@ -87,7 +87,7 @@
                                 </div>
                             </div>
                             <div class="form-group" >
-                                <label class="col-md-2 control-label">预支说明</label>
+                                <label class="col-md-2 control-label">预支或年终奖说明</label>
                                 <div class="col-md-10">
                                     <textarea rows="3" type="text" class="form-control" ng-model="vm.item.remark" name="remark"  placeholder=""ng-disabled="!processInstance.firstTask" ></textarea>
                                 </div>

@@ -1554,7 +1554,7 @@
                 var types=vm.notice.types+","+user.deptName;
                 oaNoticeService.getNewModelByDispatch(vm.item.businessKey,types,vm.notice.noticeLevel,vm.notice.noticeSystemType).then(function(value){
                     if (value.data.ret){
-                        toastr.success("公司发文自动转入"+types+"完成!请到信息管理查看");
+                        toastr.success("公司发文转入"+types+"完成!请到信息管理查看");
                     }
                 })
             }
@@ -5515,6 +5515,23 @@
             })
         };
 
+        vm.downExcel=function(){
+            var params = $.extend(tablefilter.params, {
+                qName:vm.params.qName,pageNum: vm.pageInfo.pageNum, pageSize: vm.pageInfo.pageSize,userLogin:user.userLogin,uiSref:uiSref,startTime1:vm.params.startTime1,endTime1:vm.params.endTime1
+            });
+            fiveOaInformationEquipmentExamineListService.downTempleXls(params).then(function (response) {
+
+                var objectUrl = URL.createObjectURL(new Blob([response.data.data], {type: response.data.data.type}));
+                var contentDisposition = response.data.headers['content-disposition'];
+                var fileName = contentDisposition.substring(contentDisposition.indexOf("=")).replace("=", "");
+                var a = document.createElement("a");
+                document.body.appendChild(a);
+                a.download = decodeURI(fileName);
+                a.href = objectUrl;
+                a.click();
+            })
+        }
+
         vm.fuzzySearch = function () {
             var params = $.extend(tablefilter.params, {
                 pageNum: vm.pageInfo.pageNum, pageSize: vm.pageInfo.pageSize,userLogin:user.userLogin,uiSref:uiSref
@@ -6365,6 +6382,7 @@
 
 
         vm.showComputer=function(){
+            vm.qCustomer='';
             fiveAssetComputerService.listDate(user.userLogin).then(function (value) {
                 if (value.data.ret){
                     vm.listComputer=value.data.data;
@@ -6604,6 +6622,7 @@
         }
 
         vm.showComputer=function(){
+            vm.qCustomer='';
             fiveAssetComputerService.listDate(user.userLogin).then(function (value) {
                 if (value.data.ret){
                     vm.listComputer=value.data.data;
@@ -7064,6 +7083,7 @@
 
         //选择设备台账
         vm.showComputer=function(){
+            vm.qCustomer='';
             fiveAssetComputerService.listDate(user.userLogin).then(function (value) {
                 if (value.data.ret){
                     vm.listComputer=value.data.data;
@@ -8227,6 +8247,7 @@
 
         //选择设备台账
         vm.showComputer=function(){
+            vm.qCustomer='';
             fiveAssetComputerService.listDate(user.userLogin).then(function (value) {
                 if (value.data.ret){
                     vm.listComputer=value.data.data;

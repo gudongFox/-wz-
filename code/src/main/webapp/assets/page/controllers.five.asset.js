@@ -293,7 +293,9 @@
         }
 
         vm.downExcel=function(){
-            var params={startTime:vm.params.startTime,endTime:vm.params.endTime,creatorName:vm.params.userName};
+            var params = $.extend(tablefilter.params, {
+                qName:vm.params.qName,pageNum: vm.pageInfo.pageNum, pageSize: vm.pageInfo.pageSize,userLogin:user.userLogin,uiSref:uiSref,startTime1:vm.params.startTime1,endTime1:vm.params.endTime1
+            });
             fiveOaEquipmentAcceptanceService.downTempleXls(params).then(function (response) {
 
                 var objectUrl = URL.createObjectURL(new Blob([response.data.data], {type: response.data.data.type}));

@@ -250,7 +250,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title margin-right-10">变更计算机</h4>
+                <h4 class="modal-title margin-right-10">非密信息化设备</h4>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -274,7 +274,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="computer in vm.listComputer|filter:{name:vm.qCustomer}" ng-show="computer.name!=''">
+                        <tr ng-repeat="computer in vm.listComputer|filter:{computerNo:vm.qCustomer}" >
                             <td ng-bind="$index +1"></td>
                             <td ng-bind="computer.computerNo" style="color:{{computer.computerNo==vm.item.computerNo?'red':'blue'}}"></td>
                             <td ng-bind="computer.computerName"></td>

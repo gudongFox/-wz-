@@ -418,6 +418,9 @@
       <if test="processInstanceId != null and isLikeSelect!= null and processInstanceId != '' ">
          AND process_instance_id like  CONCAT('%',#{processInstanceId},'%')
       </if>
+      <if test="processEnd != null and isLikeSelect!=null">
+        AND is_process_end = #{processEnd}
+      </if>
       <if test="deleted != null and isLikeSelect!=null">
          AND is_deleted = #{deleted}
       </if>

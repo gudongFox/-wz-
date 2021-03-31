@@ -61,4 +61,6 @@ public class HrEmployeeSimpleDto {
 
     private int userSeq;
 
+    private String userType;
+
 }

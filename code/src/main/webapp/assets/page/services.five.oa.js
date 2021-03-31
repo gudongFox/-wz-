@@ -2141,6 +2141,27 @@ angular.module('services.five.oa', [])
             return deferred.promise;
         };
 
+        var downTempleXls = function (params) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/downTempleXls.json',
+                responseType: "blob",
+                transformResponse: function(data, headers){
+                    var response = {};
+                    response.data = data;
+                    response.headers = headers();
+                    return response;
+                },
+                params: params
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
         return {
             update: function (item) {
                 return update(item);
@@ -2186,6 +2207,9 @@ angular.module('services.five.oa', [])
             },
             getEquipmentExamineNo: function (id) {
                 return getEquipmentExamineNo(id);
+            },
+            downTempleXls:function(params){
+                return downTempleXls(params);
             },
 
         }

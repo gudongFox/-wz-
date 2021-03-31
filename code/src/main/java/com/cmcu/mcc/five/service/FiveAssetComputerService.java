@@ -78,8 +78,8 @@ public class FiveAssetComputerService extends BaseService {
         //按照权限设置
         Map map1 = Maps.newHashMap();
         map1.put("myDeptData", true);
-        map1.put("uiSref", "five.assetComputer");
-        map.put("enLogin", userLogin);
+        map1.put("uiSref", "five.oaAssetComputer");
+        map1.put("enLogin", userLogin);
         map.putAll(getDefaultRightParams(map1));
 
         List<FiveAssetComputer> fiveAssetComputers = fiveAssetComputerMapper.selectAll(map).stream().filter(p -> !Strings.isNullOrEmpty(p.getComputerNo()))

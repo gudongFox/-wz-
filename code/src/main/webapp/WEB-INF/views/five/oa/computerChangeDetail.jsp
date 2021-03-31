@@ -365,7 +365,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title margin-right-10">变更计算机</h4>
+                <h4 class="modal-title margin-right-10">非密信息化设备</h4>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -380,7 +380,7 @@
                             <th style="width: 35px;">序号</th>
                             <th>计算机设备编号</th>
                             <th>设备名称</th>
-                            <th>资产编号</th>
+                            <th>固定资产编号</th>
                             <th>MAC地址</th>
                             <th>责任人</th>
                             <th>使用人</th>
@@ -389,7 +389,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="computer in vm.listComputer|filter:{name:vm.qCustomer}" ng-show="computer.name!=''">
+                        <tr ng-repeat="computer in vm.listComputer|filter:{computerNo:vm.qCustomer}" >
                             <td ng-bind="$index +1"></td>
                             <td ng-bind="computer.computerNo" style="color:{{computer.computerNo==vm.item.computerNo?'red':'blue'}}"></td>
                             <td ng-bind="computer.computerName"></td>
@@ -414,7 +414,6 @@
 
     </div>
 </div>
-
 
 <div class="modal fade" id="computerModal" tabindex="-1" role="basic" aria-hidden="true">
     <div class="modal-dialog modal-lg">

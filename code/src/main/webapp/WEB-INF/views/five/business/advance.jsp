@@ -66,7 +66,7 @@
                                 <th style="min-width: 20px" >申报部门</th>
                                 <th style="min-width: 20px" >申报类型</th>
                                 <th style="width: 180px" >申报时间</th>
-                                <th style="width: 160px" >预支总额（元）</th>
+                                <th style="width: 160px" >总金额（元）</th>
                                 <th style="width: 130px">创建人</th>
                                 <th style="width: 100px;">创建时间</th>
                                 <th style="width: 150px">流程状态</th>

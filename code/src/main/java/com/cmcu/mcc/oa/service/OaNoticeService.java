@@ -181,8 +181,6 @@ public class OaNoticeService  {
         return getModelById(oaNotice.getId(), enLogin);
     }
 
-
-
     /**
      * 集团制度 公司制度 通知公告 公司新闻 文件简报 类型新增
      * @param userLogin

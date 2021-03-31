@@ -89,18 +89,18 @@
                                             ng-disabled="!processInstance.firstTask"><i class="fa fa-calendar"></i></button></span>
                                 </div>
                             </div>
-                               <label class="col-md-2 control-label " style="font-weight: bold; color: red" ng-show="processInstance.firstTask">导出当月统计数据</label>
-                               <div class="col-md-4">
-                                   <a href="javascript:;" class="  btn btn-sm default" ng-show="processInstance.firstTask"
-                                      ng-click="vm.downCollect();" >
-                                       <i class="fa fa-cloud-download"></i> 下载 </a>
-                               </div>
                         </div>
                             <div class="form-group" >
                                 <label class="col-md-2 control-label">申报类型</label>
                                 <div class="col-md-4">
                                     <select ng-options="s.codeValue as s.name for s in sysCodes | filter:{codeCatalog:'申报类型'}:true"
                                             ng-model="vm.item.declareType" class="form-control" ng-disabled="!processInstance.firstTask"></select>
+                                </div>
+                                <label class="col-md-2 control-label " style="font-weight: bold; color: red" ng-show="processInstance.firstTask">导出已上报数据统计表</label>
+                                <div class="col-md-4">
+                                    <a href="javascript:;" class="  btn btn-sm default" ng-show="processInstance.firstTask"
+                                       ng-click="vm.downCollect();" >
+                                        <i class="fa fa-cloud-download"></i> 下载 </a>
                                 </div>
                             </div>
 

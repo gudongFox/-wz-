@@ -44,7 +44,7 @@
                                                                            ng-model="vm.params.qName"></label>
                             <a class="btn green btn-sm defaultBtn" ng-click="vm.loadPagedData();"><i class="fa fa-search"></i> 查询 </a>--%>
                             <a style="margin-left: 10px" ng-show="rightData.selectOpts.indexOf('修改')>=0"
-                               class="btn btn-sm green" ng-click="vm.downloadModelExcel()" target="_blank"><i class="fa fa-cloud-download"></i> 导出全部信息 </a>
+                               class="btn btn-sm green" ng-click="vm.downExcel()" target="_blank"><i class="fa fa-cloud-download"></i> 导出全部信息 </a>
                         </div>
                     </div>
                     <div class="table-scrollable">

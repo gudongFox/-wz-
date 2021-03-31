@@ -347,7 +347,9 @@ public class HrDeptService {
                     List<HrEmployeeSimpleDto> hrEmployeeSimpleDtos = hrEmployeeMapper.selectOaSimpleAll(map);
                     for(int i=0;i<hrEmployeeSimpleDtos.size();i++){
                         //判断人员状态
-                        if(!hrEmployeeSimpleDtos.get(i).getUserStatus().equals("离职")){
+                        if(hrEmployeeSimpleDtos.get(i).getUserStatus().equals("在职")||
+                                (hrEmployeeSimpleDtos.get(i).getUserStatus().equals("退休")
+                                        &&hrEmployeeSimpleDtos.get(i).getUserType().equals("回聘"))){
                             HrDeptDto hrDeptDto = new HrDeptDto();
                             hrDeptDto.setParentId(dto.getId());
                             hrDeptDto.setName(hrEmployeeSimpleDtos.get(i).getUserName());

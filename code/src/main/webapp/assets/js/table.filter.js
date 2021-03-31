@@ -21,7 +21,6 @@ tablefilter.initializeFilterTable=function(tableSelector,option,randomId){
         var row=document.createElement("tr");
         tableSelector.attr("filter",randomId)
         var trHtml="";
-        console.log("创建过滤行");
         for(var index=0;index<thLength;index++){
             if(option.filterColumns.hasOwnProperty(index)){
                 var property=option.filterColumns[index];

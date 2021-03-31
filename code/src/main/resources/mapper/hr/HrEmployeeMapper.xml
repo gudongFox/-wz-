@@ -438,7 +438,7 @@
         SELECT a.user_login as userLogin,a.position_ids as positionIds,a.position_names as positionNames,
         a.role_ids as roleIds,a.role_names as roleNames,
         b.user_name as userName,b.mobile,b.office_tel as officeTel,a.dept_id as deptId,d.name as deptName,b.specialty,
-               b.user_status as userStatus,
+               b.user_status as userStatus,  b.user_type as userType,
         b.seq as userSeq
         FROM hr_employee_sys a
         left join hr_employee b on a.user_login=b.user_login

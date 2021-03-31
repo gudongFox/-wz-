@@ -269,7 +269,6 @@ public class IndexController {
         return JsonData.success(menus);
     }
 
-
     @RequestMapping("/m")
     public String m() {
         return "redirect:/h5/login.html";
@@ -347,6 +346,7 @@ public class IndexController {
             request.getRequestDispatcher("/").forward(request, response);
         }
     }
+
     //2021-01-09 验证密码复杂度
     public Boolean checkPassword(String password){
             int contains=0;
@@ -416,7 +416,6 @@ public class IndexController {
         result.put("url", "/index");
         return JsonData.success(result);
     }
-
 
 
     @ResponseBody

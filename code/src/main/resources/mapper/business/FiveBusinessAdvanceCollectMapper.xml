@@ -125,6 +125,10 @@
       <if test="declareType != null and isLikeSelect==null and declareType != ''">
          AND declare_type = #{declareType}
       </if>
+      <if test="searchYear != null and isLikeSelect==null and searchYear != ''">
+        AND collect_month like  CONCAT('%',#{searchYear})
+      </if>
+
     </where>
   </sql>
   <sql id="Base_Where_List1">

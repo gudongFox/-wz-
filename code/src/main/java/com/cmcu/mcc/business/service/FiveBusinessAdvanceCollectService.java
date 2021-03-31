@@ -183,8 +183,14 @@ public class FiveBusinessAdvanceCollectService extends BaseService {
         Map params = new HashMap();
         params.put("deleted",false);
         //params.put("processEnd",true);
-        params.put("month",advanceCollectDto.getCollectMonth().trim());
-        params.put("declareType","预支绩效工资");
+        if(advanceCollectDto.getDeclareType().equals("预支绩效工资")){
+            params.put("month",advanceCollectDto.getCollectMonth().trim());
+            params.put("declareType","预支绩效工资");
+        }else{
+            params.put("searchYear",advanceCollectDto.getCollectMonth().split("-")[0]);
+            params.put("declareType","年终奖");
+        }
+
 
         List<FiveBusinessAdvance> fiveBusinessAdvances = fiveBusinessAdvanceMapper.selectAll(params);
 
@@ -202,9 +208,17 @@ public class FiveBusinessAdvanceCollectService extends BaseService {
         String month =advanceCollectDto.getCollectMonth().split("-")[1];
 
         HSSFCell headCell =  sheet.getRow(0).getCell(0);
-        headCell.setCellValue(year+"年"+month+"月"+"预支奖金签发单");
+        if(advanceCollectDto.getDeclareType().equals("预支绩效工资")) {
+            headCell.setCellValue(year + "年" + month + "月" + "预支奖金签发单");
+        }else{
+            headCell.setCellValue(year + "年终奖签发单");
+        }
         HSSFCell headCell1 =  sheet.getRow(1).getCell(0);
-        headCell1.setCellValue("根据各生产单位申请和公司总体生产经营情况，经公司领导研究，决定支付下列部门"+year+"年"+month+"月"+"奖金，请财务金融部予以核发。");
+        if(advanceCollectDto.getDeclareType().equals("预支绩效工资")) {
+            headCell1.setCellValue("根据各生产单位申请和公司总体生产经营情况，经公司领导研究，决定支付下列部门" + year + "年" + month + "月" + "奖金，请财务金融部予以核发。");
+        }else{
+            headCell1.setCellValue("根据各生产单位申请和公司总体生产经营情况，经公司领导研究，决定支付下列部门" + year + "年" + "奖金，请财务金融部予以核发。");
+        }
         Double colloctMoney = 0.0;
         //一院
         colloctMoney = getCollectByDeptId(fiveBusinessAdvances,75);

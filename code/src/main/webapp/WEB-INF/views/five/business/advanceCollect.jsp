@@ -51,8 +51,8 @@
                             <tr>
                                 <th style="width: 35px;">#</th>
                                 <th style="width: 180px">申报部门</th>
-                                <th style="width: 100px">申报类型</th>
-                                <th style="width: 100px">备注</th>
+                                <th style="width: 120px">申报类型</th>
+                                <th >备注</th>
                                 <th style="width: 70px">经办人</th>
                                 <th style="width: 100px;">创建时间</th>
                                 <th style="width: 200px">流程状态</th>

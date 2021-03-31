@@ -391,8 +391,6 @@ public class FiveOaInformationEquipmentExamineService extends BaseService {
         //时间端参数
         params.put("startTime1",startTime1);
         params.put("endTime1",endTime1);
-
-
         List<FiveOaInformationEquipmentExamine> fiveOaInformationEquipmentExamines=fiveOaInformationEquipmentExamineMapper.selectAll(params);
         for (FiveOaInformationEquipmentExamine dto:fiveOaInformationEquipmentExamines){
             Map map1=new LinkedHashMap();
@@ -419,8 +417,6 @@ public class FiveOaInformationEquipmentExamineService extends BaseService {
             map1.put("创建时间",dto.getGmtCreate());
             list.add(map1);
         }
-
-
         return list;
     }
 
