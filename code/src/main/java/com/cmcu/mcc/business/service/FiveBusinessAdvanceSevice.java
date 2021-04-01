@@ -167,7 +167,8 @@ public class FiveBusinessAdvanceSevice extends BaseService {
         variables.put("deptChargeMen",selectEmployeeService.getParentDeptChargeMen(item.getDeptId(),3,true));
         variables.put("managePerfMan", hrEmployeeService.selectUserByRoleNames("经营发展部(绩效岗)"));//经营发展部(绩效岗)
 
-        String copyMan = MyStringUtil.listToString(hrEmployeeService.selectUserByRoleNames("人力资源部(工资岗)"))+""+
+        String copyMan = MyStringUtil.listToString(hrEmployeeService.selectUserByRoleNames("人力资源部(工资岗)"))+""
+                +MyStringUtil.listToString(selectEmployeeService.getDeptChargeMen(38))+
                 MyStringUtil.listToString(hrEmployeeService.selectUserByRoleNames("财务金融部(工资岗)"));
         variables.put("copyMan", copyMan);//财务金融部(工资岗)
         item.setBusinessKey(businessKey);
@@ -312,9 +313,9 @@ public class FiveBusinessAdvanceSevice extends BaseService {
                         detail=fiveBusinessAdvanceDetailMapper.selectAll(params).get(0);
                     }
                     detail.setAdvanceId(advanceId);
-                    detail.setPersonNo(map.get(1).toString());
+                    detail.setPersonNo(map.get(1).toString().replace(".0",""));
                     detail.setPersonName(map.get(2).toString());
-                    detail.setSeq(Integer.valueOf(map.get(1).toString()));
+                    //detail.setSeq(Integer.valueOf(map.get(0).toString()));
 
                     detail.setDeptName(map.get(3).toString());
                     HrDeptDto hrDeptDto = hrDeptService.getModelByName(detail.getDeptName());

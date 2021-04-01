@@ -24,11 +24,13 @@ import com.cmcu.mcc.business.service.BusinessIncomeService;
 import com.cmcu.mcc.comm.EdConst;
 import com.cmcu.mcc.comm.MccConst;
 import com.cmcu.mcc.finance.dao.*;
+import com.cmcu.mcc.finance.dto.FiveFinanceLoanDto;
 import com.cmcu.mcc.finance.entity.FiveFinanceLoanDetail;
 import com.cmcu.mcc.finance.entity.FiveFinanceReimburseDetail;
 import com.cmcu.mcc.finance.entity.FiveFinanceTransferAccountsDetail;
 import com.cmcu.mcc.finance.entity.FiveFinanceTravelExpenseDetail;
 import com.cmcu.mcc.finance.service.FiveFinanceIncomeConfirmService;
+import com.cmcu.mcc.finance.service.FiveFinanceLoanService;
 import com.cmcu.mcc.hr.dao.HrEmployeeMapper;
 import com.cmcu.mcc.hr.dto.HrDeptDto;
 import com.cmcu.mcc.hr.dto.HrEmployeeDto;
@@ -127,6 +129,8 @@ public class FiveBudgetIndependentService {
     FiveFinanceReimburseDetailMapper fiveFinanceReimburseDetailMapper;
     @Autowired
     FiveFinanceTravelExpenseDetailMapper fiveFinanceTravelExpenseDetailMapper;
+    @Autowired
+    FiveFinanceLoanService fiveFinanceLoanService;
 
 
     public void remove(int id, String userLogin) {
@@ -464,7 +468,8 @@ public class FiveBudgetIndependentService {
             map2.put("budgetId",detailDto.getId());
             List<FiveFinanceLoanDetail> fiveFinanceLoanDetails = fiveFinanceLoanDetailMapper.selectAll(map2);
             for(FiveFinanceLoanDetail detail:fiveFinanceLoanDetails){
-                totalDeductionMoney=MyStringUtil.getNewAddMoney(totalDeductionMoney,detail.getApplyMoney());
+                FiveFinanceLoanDto loanDto = fiveFinanceLoanService.getModelById(detail.getLoanId());
+                totalDeductionMoney=MyStringUtil.getNewAddMoney(totalDeductionMoney,loanDto.getRemainMoney());
             }
 
             //差旅费

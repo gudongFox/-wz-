@@ -4958,7 +4958,7 @@
         return vm;
 
     })
-    .controller("FiveFinanceTransferAccountsDetailController", function ($sce, $state, $stateParams, $rootScope, $scope, hrEmployeeService, fiveFinanceTransferAccountsService,fiveBusinessContractLibraryService, hrDeptService) {
+    .controller("FiveFinanceTransferAccountsDetailController", function ($sce, $state, $stateParams, fiveFinanceLoanService,$rootScope, $scope, hrEmployeeService, fiveFinanceTransferAccountsService,fiveBusinessContractLibraryService, hrDeptService) {
         var vm = this;
         var uiSref = "finance.transferAccounts";
         var transferAccountsId = $stateParams.transferAccountsId;
@@ -5115,14 +5115,14 @@
             vm.id=id;
             if(id==1){
                 $scope.showBankSelectModal_({
-                    userLogin: "",
+                    
                     uiSref:uiSref,
                     userBankNo:vm.item.outBankAccount
                 });
             }
             if(id==0){
                 $scope.showBankSelectModal_({
-                    userLogin: "",
+                    
                     uiSref:uiSref,
                     userBankNo:vm.item.inBankAccount
                 });
@@ -5209,8 +5209,28 @@
             vm.item.projectName = $rootScope.selectedLibrary.projectName;
             //vm.item.projectType = $rootScope.selectedLibrary.projectNature;
             vm.item.businessManager= $rootScope.selectedLibrary.projectManager;
-            vm.item.businessManagerName= $rootScope.selectedLibrary.businessManagerName;
+            vm.item.businessManagerName= $rootScope.selectedLibrary.projectManagerName;
             $scope.closeLibrarySelectModal_();
+        }
+
+        //选择借款流程
+        vm.showLoanModel = function () {
+            fiveFinanceLoanService.listLoanByUserLogin(user.userLogin).then(function (value) {
+                if (value.data.ret) {
+                    vm.listLoans = value.data.data;
+                    singleCheckBox(".cb_loan", "data-name");
+                }
+            })
+            $("#selectLoanModal").modal("show");
+        }
+        vm.saveSelectLoanModel = function () {
+            if ($(".cb_loan:checked").length > 0) {
+                var loan = $.parseJSON($(".cb_loan:checked").first().attr("data-name"));
+                vm.item.loanId =loan.id;
+                vm.item.loanTitle = loan.item;
+                vm.item.totalMoney = loan.remainMoney;
+            }
+            $("#selectLoanModal").modal("hide");
         }
 
 
@@ -5469,14 +5489,14 @@
             vm.id=id;
             if(id==1){
                 $scope.showBankSelectModal_({
-                    userLogin: "",
+                    
                     uiSref:uiSref,
                     userBankNo:vm.item.outBankAccount
                 });
             }
             if(id==0){
                 $scope.showBankSelectModal_({
-                    userLogin: "",
+                   
                     uiSref:uiSref,
                     userBankNo:vm.item.inBankAccount
                 });
@@ -5562,7 +5582,7 @@
             vm.item.projectName = $rootScope.selectedLibrary.projectName;
             //vm.item.projectType = $rootScope.selectedLibrary.projectNature;
             vm.item.businessManager= $rootScope.selectedLibrary.projectManager;
-            vm.item.businessManagerName= $rootScope.selectedLibrary.businessManagerName;
+            vm.item.businessManagerName= $rootScope.selectedLibrary.projectManagerName;
             $scope.closeLibrarySelectModal_();
         }
 
@@ -5825,14 +5845,14 @@
             vm.id=id;
             if(id==1){
                 $scope.showBankSelectModal_({
-                    userLogin: "",
+                    
                     uiSref:uiSref,
                     userBankNo:vm.item.outBankAccount
                 });
             }
             if(id==0){
                 $scope.showBankSelectModal_({
-                    userLogin: "",
+                   
                     uiSref:uiSref,
                     userBankNo:vm.item.inBankAccount
                 });
@@ -5917,7 +5937,7 @@
             vm.item.projectName = $rootScope.selectedLibrary.projectName;
             //vm.item.projectType = $rootScope.selectedLibrary.projectNature;
             vm.item.businessManager= $rootScope.selectedLibrary.projectManager;
-            vm.item.businessManagerName= $rootScope.selectedLibrary.businessManagerName;
+            vm.item.businessManagerName= $rootScope.selectedLibrary.projectManagerName;
             $scope.closeLibrarySelectModal_();
         }
 
@@ -6304,21 +6324,38 @@
             })
         }
 
-        vm.showUserModel = function () {
-            $scope.showOaSelectEmployeeModal_({
-                title: "请选择申报人员",
-                type: '部门',
-                deptIds: 1,
-                userLoginList: vm.item.userLogin,
-                multiple: true
-            });
+        vm.showUserModel = function (opt) {
+            vm.opt=opt;
+            if(opt=='applicant'){
+                $scope.showOaSelectEmployeeModal_({
+                    title: "请选择申报人员",
+                    type: '部门',
+                    deptIds: 1,
+                    userLoginList: vm.item.userLogin,
+                    multiple: true
+                });
+            }else if(opt=='businessManager'){
+                $scope.showOaSelectEmployeeModal_({
+                    title: "请选择项目经理",
+                    type: '部门',
+                    deptIds: 1,
+                    userLoginList: vm.item.businessManager,
+                    multiple: true
+                });
+            }
+
 
         }
 
         $rootScope.saveSelectEmployee_ = function () {
             $scope.closeOaSelectEmployeeModal_();
-            vm.item.applicantName = $scope.selectedOaUserNames_;
-            vm.item.applican = $scope.selectedOaUserLogins_;
+            if(vm.opt=='applicant') {
+                vm.item.applicantName = $scope.selectedOaUserNames_;
+                vm.item.applican = $scope.selectedOaUserLogins_;
+            }else if(vm.opt=='businessManager'){
+                vm.item.businessManagerName = $scope.selectedOaUserNames_;
+                vm.item.businessManager = $scope.selectedOaUserLogins_;
+            }
         };
 
         //单据号
@@ -6445,7 +6482,7 @@
             vm.item.projectName = $rootScope.selectedLibrary.projectName;
             vm.item.projectType = $rootScope.selectedLibrary.projectNature;
             vm.item.businessManager= $rootScope.selectedLibrary.projectManager;
-            vm.item.businessManagerName= $rootScope.selectedLibrary.businessManagerName;
+            vm.item.businessManagerName= $rootScope.selectedLibrary.projectManagerName;
             $scope.closeLibrarySelectModal_();
         }
 
@@ -6453,14 +6490,13 @@
             vm.id=id;
             if(id==1){
                 $scope.showBankSelectModal_({
-                    userLogin: "",
                     uiSref:uiSref,
                     userBankNo:vm.item.outBankAccount
                 });
             }
             if(id==0){
                 $scope.showBankSelectModal_({
-                    userLogin: "",
+                   
                     uiSref:uiSref,
                     userBankNo:vm.item.inBankAccount
                 });
@@ -6783,7 +6819,7 @@
             vm.item.projectName = $rootScope.selectedLibrary.projectName;
             vm.item.projectType = $rootScope.selectedLibrary.projectNature;
             vm.item.businessManager= $rootScope.selectedLibrary.projectManager;
-            vm.item.businessManagerName= $rootScope.selectedLibrary.businessManagerName;
+            vm.item.businessManagerName= $rootScope.selectedLibrary.projectManagerName;
             $scope.closeLibrarySelectModal_();
         }
 
@@ -6792,14 +6828,14 @@
             vm.id=id;
             if(id==1){
                 $scope.showBankSelectModal_({
-                    userLogin: "",
+                   
                     uiSref:uiSref,
                     userBankNo:vm.item.outBankAccount
                 });
             }
             if(id==0){
                 $scope.showBankSelectModal_({
-                    userLogin: "",
+                   
                     uiSref:uiSref,
                     userBankNo:vm.item.inBankAccount
                 });
@@ -7138,14 +7174,14 @@
             vm.id=id;
             if(id==1){
                 $scope.showBankSelectModal_({
-                    userLogin: "",
+                    
                     uiSref:uiSref,
                     userBankNo:vm.item.outBankAccount
                 });
             }
             if(id==0){
                 $scope.showBankSelectModal_({
-                    userLogin: "",
+                    
                     uiSref:uiSref,
                     userBankNo:vm.item.inBankAccount
                 });
@@ -7470,7 +7506,7 @@
             vm.item.projectName = $rootScope.selectedLibrary.projectName;
             vm.item.projectType = $rootScope.selectedLibrary.projectNature;
             vm.item.businessManager= $rootScope.selectedLibrary.projectManager;
-            vm.item.businessManagerName= $rootScope.selectedLibrary.businessManagerName;
+            vm.item.businessManagerName= $rootScope.selectedLibrary.projectManagerName;
             $scope.closeLibrarySelectModal_();
         }
 
@@ -7479,14 +7515,14 @@
             vm.id=id;
             if(id==1){
                 $scope.showBankSelectModal_({
-                    userLogin: "",
+                   
                     uiSref:uiSref,
                     userBankNo:vm.item.outBankAccount
                 });
             }
             if(id==0){
                 $scope.showBankSelectModal_({
-                    userLogin: "",
+                    
                     uiSref:uiSref,
                     userBankNo:vm.item.inBankAccount
                 });
@@ -7793,14 +7829,14 @@
             vm.id=id;
             if(id==1){
                 $scope.showBankSelectModal_({
-                    userLogin: "",
+                    
                     uiSref:uiSref,
                     userBankNo:vm.item.outBankAccount
                 });
             }
             if(id==0){
                 $scope.showBankSelectModal_({
-                    userLogin: "",
+                 
                     uiSref:uiSref,
                     userBankNo:vm.item.inBankAccount
                 });
@@ -8168,7 +8204,7 @@
             vm.item.projectName = $rootScope.selectedLibrary.projectName;
             vm.item.projectType = $rootScope.selectedLibrary.projectNature;
             vm.item.businessManager= $rootScope.selectedLibrary.projectManager;
-            vm.item.businessManagerName= $rootScope.selectedLibrary.businessManagerName;
+            vm.item.businessManagerName= $rootScope.selectedLibrary.projectManagerName;
             $scope.closeLibrarySelectModal_();
         }
         vm.print = function () {
@@ -8638,7 +8674,7 @@
             vm.item.projectName = $rootScope.selectedLibrary.projectName;
             vm.item.projectType = $rootScope.selectedLibrary.projectNature;
             vm.item.businessManager= $rootScope.selectedLibrary.projectManager;
-            vm.item.businessManagerName= $rootScope.selectedLibrary.businessManagerName;
+            vm.item.businessManagerName= $rootScope.selectedLibrary.projectManagerName;
             $scope.closeLibrarySelectModal_();
         }
         vm.print = function () {
@@ -9091,7 +9127,7 @@
             vm.item.projectName = $rootScope.selectedLibrary.projectName;
             vm.item.projectType = $rootScope.selectedLibrary.projectNature;
 /*            vm.item.businessManager= $rootScope.selectedLibrary.projectManager;
-            vm.item.businessManagerName= $rootScope.selectedLibrary.businessManagerName;*/
+            vm.item.businessManagerName= $rootScope.selectedLibrary.projectManagerName;*/
             vm.item.businessManager= $rootScope.selectedLibrary.businessChargeLeader;
             vm.item.businessManagerName= $rootScope.selectedLibrary.businessChargeLeaderName;
             $scope.closeLibrarySelectModal_();
@@ -9546,7 +9582,7 @@
             vm.item.projectName = $rootScope.selectedLibrary.projectName;
             vm.item.projectType = $rootScope.selectedLibrary.projectNature;
             vm.item.businessManager= $rootScope.selectedLibrary.projectManager;
-            vm.item.businessManagerName= $rootScope.selectedLibrary.businessManagerName;
+            vm.item.businessManagerName= $rootScope.selectedLibrary.projectManagerName;
             $scope.closeLibrarySelectModal_();
         }
         vm.print = function () {
@@ -10199,7 +10235,7 @@
                 vm.item.projectName = $rootScope.selectedLibrary.projectName;
                 vm.item.projectType = $rootScope.selectedLibrary.projectNature;
                 vm.item.businessManager= $rootScope.selectedLibrary.projectManager;
-                vm.item.businessManagerName= $rootScope.selectedLibrary.businessManagerName;
+                vm.item.businessManagerName= $rootScope.selectedLibrary.projectManagerName;
                 /*                vm.detail.applyRefundProject = $rootScope.selectedLibrary.projectName;
                                 vm.detail.projectType = $rootScope.selectedLibrary.projectNature;*/
                 $scope.closeLibrarySelectModal_();
@@ -10715,7 +10751,7 @@
                 vm.item.projectName = $rootScope.selectedLibrary.projectName;
                 vm.item.projectType = $rootScope.selectedLibrary.projectNature;
                 vm.item.businessManager= $rootScope.selectedLibrary.projectManager;
-                vm.item.businessManagerName= $rootScope.selectedLibrary.businessManagerName;
+                vm.item.businessManagerName= $rootScope.selectedLibrary.projectManagerName;
                 /*                vm.detail.applyRefundProject = $rootScope.selectedLibrary.projectName;
                                 vm.detail.projectType = $rootScope.selectedLibrary.projectNature;*/
                 $scope.closeLibrarySelectModal_();
@@ -11233,7 +11269,7 @@
                 vm.item.projectName = $rootScope.selectedLibrary.projectName;
                 vm.item.projectType = $rootScope.selectedLibrary.projectNature;
                 vm.item.businessManager= $rootScope.selectedLibrary.projectManager;
-                vm.item.businessManagerName= $rootScope.selectedLibrary.businessManagerName;
+                vm.item.businessManagerName= $rootScope.selectedLibrary.projectManagerName;
                 /*                vm.detail.applyRefundProject = $rootScope.selectedLibrary.projectName;
                                 vm.detail.projectType = $rootScope.selectedLibrary.projectNature;*/
                 $scope.closeLibrarySelectModal_();
@@ -11751,7 +11787,7 @@
                 vm.item.projectName = $rootScope.selectedLibrary.projectName;
                 vm.item.projectType = $rootScope.selectedLibrary.projectNature;
                 vm.item.businessManager= $rootScope.selectedLibrary.projectManager;
-                vm.item.businessManagerName= $rootScope.selectedLibrary.businessManagerName;
+                vm.item.businessManagerName= $rootScope.selectedLibrary.projectManagerName;
                 /*                vm.detail.applyRefundProject = $rootScope.selectedLibrary.projectName;
                                 vm.detail.projectType = $rootScope.selectedLibrary.projectNature;*/
                 $scope.closeLibrarySelectModal_();

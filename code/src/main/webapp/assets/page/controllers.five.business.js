@@ -1771,12 +1771,12 @@
         vm.queryData();
 
         vm.changeOpen = function (id) {
-            bootbox.confirm("您确定修改该合同关闭状态吗？", function (result) {
+            bootbox.confirm("您确定修改该 合同状态吗？", function (result) {
                 if (result) {
                     fiveBusinessContractReviewService.changeOpen(id, user.userLogin).then(function (value) {
                         if (value.data.ret) {
                             toastr.success("切换成功!");
-                            vm.queryData();
+                            vm.loadPagedData();
                         }
                     });
                 }
@@ -2514,6 +2514,20 @@
 
         }
 
+
+        vm.changeOpen = function (id) {
+            bootbox.confirm("您确定修改该 合同状态吗？", function (result) {
+                if (result) {
+                    fiveBusinessContractLibraryService.changeOpen(id, user.userLogin).then(function (value) {
+                        if (value.data.ret) {
+                            toastr.success("切换成功!");
+                            vm.loadPagedData();
+                        }
+                    });
+                }
+            })
+        }
+
         //导出合同
         vm.downloadModelExcel = function () {
             $rootScope.commonDownload('/common/export/download/' + 5, {enLogin: user.enLogin});
@@ -2548,7 +2562,6 @@
                 }
             })
         }
-
 
         vm.statisticalData = function () {
             fiveBusinessContractLibraryService.statisticalData(user.userLogin).then(function (response) {

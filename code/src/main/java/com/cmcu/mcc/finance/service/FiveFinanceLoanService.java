@@ -76,6 +76,8 @@ public class FiveFinanceLoanService extends BaseService {
     FiveFinanceReimburseService fiveFinanceReimburseService;
     @Resource
     FiveFinanceTravelExpenseService fiveFinanceTravelExpenseService;
+    @Resource
+    FiveFinanceTransferAccountsMapper fiveFinanceTransferAccountsMapper;
 
 
     @Autowired
@@ -299,6 +301,7 @@ public class FiveFinanceLoanService extends BaseService {
         dto.setRemainMoney(dto.getTotalApplyMoney());
 
         //计算剩余金额 抵扣信息 中 报销金额 小于 借款金额 则计算剩余金额
+        //差旅费
         Map travelParams = Maps.newHashMap();
         travelParams.put("relevanceType","loan");
         travelParams.put("relevanceId",dto.getId());
@@ -313,6 +316,7 @@ public class FiveFinanceLoanService extends BaseService {
                 dto.setRemainMoney(MyStringUtil.moneyToString("0"));
             }
         }
+        //报销
         Map reimburseParams = Maps.newHashMap();
         reimburseParams.put("relevanceType","loan");
         reimburseParams.put("relevanceId",dto.getId());
@@ -326,6 +330,14 @@ public class FiveFinanceLoanService extends BaseService {
             }else{
                 dto.setRemainMoney(MyStringUtil.moneyToString("0"));
             }
+        }
+        //退款
+        Map transferParams = Maps.newHashMap();
+        transferParams.put("loanId",dto.getId());
+        transferParams.put("deleted",0);
+        List<FiveFinanceTransferAccounts> fiveFinanceTransferAccounts = fiveFinanceTransferAccountsMapper.selectAll(transferParams);
+        for(FiveFinanceTransferAccounts transferAccounts:fiveFinanceTransferAccounts){
+            dto.setRemainMoney(MyStringUtil.getNewSubMoney(dto.getRemainMoney(),transferAccounts.getTotalMoney()));
         }
 
         dto.setRemainMoney(MyStringUtil.moneyToString(dto.getRemainMoney(),6));

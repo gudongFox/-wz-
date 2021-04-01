@@ -78,7 +78,7 @@
                                 <th style="width: 50px;">是否立项</th>
                                 <th style="width: 50px;">补充情况</th>
                                 <th style="width: 50px;">分包情况</th>
-                                <th style="width: 30px;">是否开启</th>
+                                <th style="width: 30px;" ng-if="rightData.selectOpts.indexOf('修改')>=0">是否开启</th>
                                 <th style="width: 55px">操作</th>
                             </tr>
                             </thead>
@@ -121,7 +121,7 @@
                                     <strong  ng-if="item.subpackageIds==''" ><span style="color: grey">未分包</span></strong>
                                 </td>
 
-                                <td class="text-center" >
+                                <td class="text-center" ng-if="rightData.selectOpts.indexOf('修改')>=0" ng-click="vm.changeOpen(item.id)">
                                     <span class="label label-sm label-success" style="cursor: pointer;" ng-if="item.open">开启</span>
                                     <span class="label label-sm label-default" ng-if="!item.open">关闭</span>
                                 </td>

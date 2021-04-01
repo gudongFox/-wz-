@@ -142,6 +142,7 @@
                 pageNum: 1,
                 pageSize: 5,
                 userLogin: user.userLogin},config);
+            debugger;
             //获取个人网银
             fiveFinanceSelfBankService.selectAllWithSuccess($rootScope.bankParams).then(function (value) {
                 if (value.data.ret) {

@@ -126,7 +126,7 @@
 <div class="portlet light">
     <div class="portlet-title">
         <div class="caption">
-            <i class="fa fa-file"></i>预支详情 <span style="margin-left: 30px;color: red;font-size: 12px">总计：<span style="font-size: 16px;" ng-bind="vm.item.totalPrice+'元'"></span></span>
+            <i class="fa fa-file"></i>明细 <span style="margin-left: 30px;color: red;font-size: 12px">总计：<span style="font-size: 16px;" ng-bind="vm.item.totalPrice+'元'"></span></span>
             <a class="btn green btn-sm defaultBtn" style="margin-left: 10px" href="/assets/doc/预支明细.xls"><i class="fa fa-download"></i>模板下载</a>
             <span style="margin-left: 3px;" id="btnUpload" class="btn btn-sm blue fileinput-button" >
                 <i class="fa fa-cloud-upload"></i>

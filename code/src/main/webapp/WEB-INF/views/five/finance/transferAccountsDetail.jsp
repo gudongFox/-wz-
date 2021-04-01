@@ -122,9 +122,26 @@
                                                         </span>
                                                     </div>
                                                 </div>
-
                                             </div>
                                             <div class="form-group">
+                                                <label class="col-md-2 control-label required">是否借款退款</label>
+                                                <div class="col-md-4">
+                                                    <select ng-options="s.codeValue as s.name for s in sysCodes | filter:{codeCatalog:'是否'}:true"
+                                                            ng-model="vm.item.loan" class="form-control" ng-disabled="!processInstance.firstTask"></select>
+                                                </div>
+                                                <label class="col-md-2 control-label required" ng-if="vm.item.loan">借款事项</label>
+                                                <div class="col-md-4" ng-if="vm.item.loan">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" readonly
+                                                               ng-model="vm.item.loanTitle" name="loanTitle" ng-disabled="vm.item.loanId==0||!processInstance.firstTask"/>
+                                                        <span class="input-group-btn">
+                                                            <button class="btn default" type="button" ng-click="vm.showLoanModel()" ng-disabled="!processInstance.firstTask"><i class="fa fa-cog"></i>
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-if="!vm.item.loan">
                                                 <label class="col-md-2 control-label required">是否存在项目</label>
                                                 <div class="col-md-4">
                                                     <select ng-options="s.codeValue as s.name for s in sysCodes | filter:{codeCatalog:'是否'}:true"
@@ -155,6 +172,10 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
+                                                <label class="col-md-2 control-label required">退款总金额（万元）</label>
+                                                <div class="col-md-4">
+                                                    <input type="text" class="form-control" ng-model="vm.item.totalMoney" name="totalMoney" ng-disabled="true"/>
+                                                </div>
                                                 <label class="col-md-2 control-label required">流程标题</label>
                                                 <div class="col-md-4">
                                                     <input type="text" class="form-control" ng-model="vm.item.title" name="title" ng-disabled="!processInstance.firstTask"/>
@@ -177,7 +198,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row" ng-if="!vm.item.loan">
                                 <div class="col-md-12 col-xl-12">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
@@ -416,3 +437,58 @@
     <!-- /.modal-dialog -->
 </div>
 <jsp:include page="../print/print-oaMaterialPurchaseDetail.jsp"/>
+
+<div class="modal fade draggable-modal" id="selectLoanModal" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4>选择借款流程</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <input type="text" class="form-control input-sm" placeholder="关键字"
+                               ng-model="vm.qProject"/>
+                    </div>
+                </div>
+                <div class="table-scrollable"
+                     style="max-height: {{contentHeight-400}}px;overflow-y: auto;overflow-x: hidden;">
+                    <table class="table table-striped table-hover table-bordered table-advance no-footer">
+                        <thead>
+                        <tr>
+                            <th style="width: 35px;">#</th>
+                            <th>报销人</th>
+                            <th class="hidden-md hidden-sm">报销部门</th>
+                            <th>借款事由</th>
+                            <th>借款金额（万元）</th>
+                            <th>借款剩余金额（万元）</th>
+                            <th style="width: 100px;">创建时间</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in vm.listLoans|filter:{projectName:vm.qProject}">
+                            <td class="dt-right">
+                                <input type="checkbox" class="cb_loan"
+                                       data-name="{{item}}" style="width: 15px;height: 15px;"/>
+                            </td>
+                            <td ng-bind="item.applicantName" class="data_title"><strong></strong>
+                            </td>
+                            <td ng-bind="item.deptName" class="hidden-md hidden-sm"></td>
+                            <td ng-bind="item.item"></td>
+                            <td ng-bind="item.totalApplyMoney"></td>
+                            <td ng-bind="item.remainMoney"></td>
+                            <td ng-bind="item.gmtCreate|date:'yyyy-MM-dd'"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn blue" ng-click="vm.saveSelectLoanModel()">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+

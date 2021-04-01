@@ -58,8 +58,7 @@ public class FiveFinanceTransferAccounts {
     @Max(value=999999999, message="deptId必须为数字")
     private Integer deptId;
 
-    @NotNull(message="申请部门不能为空!")
-    @Size(max=45, message="申请部门长度不能超过45")
+    @Size(max=145, message="deptName长度不能超过145")
     private String deptName;
 
     @NotNull(message="remark不能为空!")
@@ -133,4 +132,12 @@ public class FiveFinanceTransferAccounts {
     @NotNull(message="报销状态不能为空!")
     @Size(max=45, message="报销状态长度不能超过45")
     private String state;
+
+    private Boolean loan;
+
+    @Max(value=999999999, message="loanId必须为数字")
+    private Integer loanId;
+
+    @Size(max=450, message="loanTitle长度不能超过450")
+    private String loanTitle;
 }

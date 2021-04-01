@@ -1282,7 +1282,7 @@ public class HandleFormService implements IHandleFormService {
                     fiveOaResearchProjectReviewMapper.updateByPrimaryKey(p);
                 });
             }
-            else if (businessKey.startsWith("fiveBusinessAdvance")) {//支出明细
+            else if (businessKey.startsWith("fiveBusinessAdvance_")) {//支出明细
                 List<FiveBusinessAdvance> list = fiveBusinessAdvanceMapper.selectAll(params);
                 list.forEach(p -> {
                     p.setDeleted(true);
@@ -2519,7 +2519,7 @@ public class HandleFormService implements IHandleFormService {
             List<FiveOaEquipmentAcceptance> list = fiveOaEquipmentAcceptanceMapper.selectAll(params);
             if (list.size() > 0) item = list.get(0);
         }
-        else if (businessKey.startsWith("fiveBusinessAdvance")) {//月度支出明细
+        else if (businessKey.startsWith("fiveBusinessAdvance_")) {//月度支出明细
             List<FiveBusinessAdvance> list = fiveBusinessAdvanceMapper.selectAll(params);
             if (list.size() > 0) item = list.get(0);
         }

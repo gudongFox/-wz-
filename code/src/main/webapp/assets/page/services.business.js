@@ -3373,6 +3373,23 @@ angular.module('services.business', [])
             });
             return deferred.promise;
         };
+        var changeOpen = function (id, userLogin) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/changeOpen.json',
+                params: {
+                    id: id,
+                    userLogin: userLogin
+                }
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
 
 
 
@@ -3432,6 +3449,9 @@ angular.module('services.business', [])
             },
             getIncomeMoney:function(incomeId){
                 return getIncomeMoney(incomeId);
+            },
+            changeOpen: function (id, userLogin) {
+                return changeOpen(id, userLogin);
             },
             downTempleXls:function(userLogin){
                 return downTempleXls(userLogin);

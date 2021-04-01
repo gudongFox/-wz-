@@ -47,14 +47,14 @@
 
 <%--                            <a class="btn btn-sm green" ng-click="vm.downTempleXml()" target="_blank">
                                 <i class="fa fa-cloud-download"></i> 下载模板 </a>--%>
-                            <span id="btnUpload" class="btn btn-sm blue fileinput-button"  ng-show="rightData.selectOpts.indexOf('修改')>=0">
+<%--                            <span id="btnUpload" class="btn btn-sm blue fileinput-button"  ng-show="rightData.selectOpts.indexOf('修改')>=0">
                                     <i class="fa fa-cloud-upload"></i>
                                     <span>上传数据</span>
                                     <span id="uploadProgress"></span>
                                     <input type="file" name="multipartFile" id="uploadModelFile"
                                            data-url="/business/income/receive.json"  type="file" name="file" accept="application/vnd.sealed.xls"
                                            multiple="multiple"/>
-                                 </span>
+                                 </span>--%>
 
                         </div>
                     </div>

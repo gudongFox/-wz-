@@ -63,7 +63,7 @@
                                 <th style="width: 100px;">创建时间</th>
                                 <th style="width: 30px;">补充标识</th>
                                 <th style="width: 30px;">补录标识</th>
-                                <th style="width: 30px;">是否开启</th>
+                                <th style="width: 30px;" ng-if="rightData.selectOpts.indexOf('修改')>=0">是否开启</th>
                               <%--  <th style="width: 30px;">印花税状态</th>--%>
                                 <th style="width: 150px">流程状态</th>
                                 <th style="width: 55px">操作</th>

@@ -308,6 +308,8 @@ public class FiveBusinessContractLibraryService extends BaseService {
             params.put("deptIdList",deptIdList);
         }
         params.put("isLikeSelect",true);
+        //获取开启的合同数据
+        params.put("open",true);
         //过滤掉合同名称为空的数据
         PageInfo<Object> pageInfo = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> fiveBusinessContractLibraryMapper.selectAll(params)
         .stream().filter(p->Strings.isNullOrEmpty(p.getContractName())).collect(Collectors.toList()));
@@ -702,5 +704,25 @@ public class FiveBusinessContractLibraryService extends BaseService {
             }
         }
         return list;
+    }
+
+    public void changeOpen(int id,String userLogin){
+        FiveBusinessContractLibrary model = fiveBusinessContractLibraryMapper.selectByPrimaryKey(id);
+        if(model.getOpen()){
+            model.setOpen(false);
+        }else {
+            model.setOpen(true);
+        }
+        fiveBusinessContractLibraryMapper.updateByPrimaryKey(model);
+        //跟新合同评审状态
+        Map map = new HashMap();
+        map.put("deleted",false);
+        map.put("contractLibraryId",model.getId());
+        List<FiveBusinessContractReview> contractReviews = fiveBusinessContractReviewMapper.selectAll(map);
+        if(contractReviews.size()>0){
+            FiveBusinessContractReview contractReview =contractReviews.get(0);
+            contractReview.setOpen(model.getOpen());
+            fiveBusinessContractReviewMapper.updateByPrimaryKey(contractReview);
+        }
     }
 }

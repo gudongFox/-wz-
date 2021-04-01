@@ -101,6 +101,16 @@ public class FiveFinanceTransferAccountsService {
         model.setApplicantName(dto.getApplicantName());
         model.setTitle(dto.getTitle());
 
+        if(dto.getLoan()){
+            model.setLoan(dto.getLoan());
+            model.setLoanId(dto.getLoanId());
+            model.setLoanTitle(dto.getLoanTitle());
+        }else{
+            model.setLoan(dto.getLoan());
+            model.setLoanId(0);
+            model.setLoanTitle("");
+        }
+
         if(dto.getIsProject()){
             model.setProjectId(dto.getProjectId());
             model.setProjectName(dto.getProjectName());
@@ -117,7 +127,7 @@ public class FiveFinanceTransferAccountsService {
         model.setReceiveName(dto.getReceiveName());
         model.setReceiveDeptName(dto.getReceiveDeptName());
         model.setApplicantTime(dto.getApplicantTime());
-        // model.setTotalMoney(model.getTotalMoney());
+        model.setTotalMoney(dto.getTotalMoney());
         model.setDeptId(dto.getDeptId());
         model.setDeptName(dto.getDeptName());
         model.setRemark(dto.getRemark());
@@ -176,12 +186,16 @@ public class FiveFinanceTransferAccountsService {
             dto.setProcessName("流程已结束");
         }
 
-        String applyMoney = "0";
-        List<FiveFinanceTransferAccountsDetailDto> detailList = listDetail(item.getId());
-        for (FiveFinanceTransferAccountsDetailDto detail : detailList) {
-            applyMoney = MyStringUtil.getNewAddMoney(applyMoney, detail.getApplyMoney());
+        //如果不是借款退款
+        if(!item.getLoan()){
+            String applyMoney = "0";
+            List<FiveFinanceTransferAccountsDetailDto> detailList = listDetail(item.getId());
+            for (FiveFinanceTransferAccountsDetailDto detail : detailList) {
+                applyMoney = MyStringUtil.getNewAddMoney(applyMoney, detail.getApplyMoney());
+            }
+            dto.setTotalMoney(MyStringUtil.moneyToString(applyMoney,6));
         }
-        dto.setTotalMoney(MyStringUtil.moneyToString(applyMoney,6));
+
         return dto;
     }
 
@@ -205,6 +219,7 @@ public class FiveFinanceTransferAccountsService {
         item.setCreatorName(hrEmployeeDto.getUserName());
         item.setApplicant(hrEmployeeDto.getUserLogin());
         item.setApplicantName(hrEmployeeDto.getUserName());
+        item.setLoan(false);
         item.setDeleted(false);
         item.setProcessEnd(false);
         item.setCreator(userLogin);

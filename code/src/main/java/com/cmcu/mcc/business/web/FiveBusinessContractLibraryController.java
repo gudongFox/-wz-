@@ -140,5 +140,11 @@ public class FiveBusinessContractLibraryController {
         return JsonMapper.obj2String(result);
     }
 
+    @PostMapping("/changeOpen.json")
+    public JsonData changeOpen(int id,String userLogin){
+        fiveBusinessContractLibraryService.changeOpen(id,userLogin);
+        return JsonData.success();
+    }
+
 
 }

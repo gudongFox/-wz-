@@ -56,7 +56,7 @@
                                 <th>单据号</th>
                                 <th>报销人</th>
                                 <th class="hidden-md hidden-sm">报销部门</th>
-                                <th>项目类型</th>
+                                <th>报销合计（万元）</th>
                                 <th style="width: 100px;">创建时间</th>
                                 <th style="width: 150px">流程状态</th>
                                 <th style="width: 55px">操作</th>
@@ -69,7 +69,7 @@
                                 </td>
                                 <td ng-bind="item.applicantName"></td>
                                 <td ng-bind="item.deptName" class="hidden-md hidden-sm"></td>
-                                <td ng-bind="item.projectType"></td>
+                                <td ng-bind="item.totalApplyMoney"></td>
                                 <td ng-bind="item.gmtCreate|date:'yyyy-MM-dd'"></td>
                                 <td>
                                     <span ng-bind="item.processName"></span>
