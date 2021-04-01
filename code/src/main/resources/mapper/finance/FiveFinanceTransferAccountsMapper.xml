@@ -35,6 +35,9 @@
     <result column="total_money" jdbcType="VARCHAR" property="totalMoney" />
     <result column="total_apply_money" jdbcType="VARCHAR" property="totalApplyMoney" />
     <result column="state" jdbcType="VARCHAR" property="state" />
+    <result column="is_loan" jdbcType="BIT" property="loan" />
+    <result column="loan_id" jdbcType="INTEGER" property="loanId" />
+    <result column="loan_title" jdbcType="VARCHAR" property="loanTitle" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from five_finance_transfer_accounts
@@ -54,7 +57,8 @@
       receive, receive_name, receive_dept_name, 
       title, project_id, project_name, 
       business_manager, business_manager_name, total_money, 
-      total_apply_money, state)
+      total_apply_money, state, is_loan, 
+      loan_id, loan_title)
     values (#{businessKey,jdbcType=VARCHAR}, #{formNo,jdbcType=VARCHAR}, #{accountName,jdbcType=VARCHAR}, 
       #{outBankName,jdbcType=VARCHAR}, #{outBankAccount,jdbcType=VARCHAR}, #{inBankName,jdbcType=VARCHAR}, 
       #{inBankAccount,jdbcType=VARCHAR}, #{applicant,jdbcType=VARCHAR}, #{applicantName,jdbcType=VARCHAR}, 
@@ -65,7 +69,8 @@
       #{receive,jdbcType=VARCHAR}, #{receiveName,jdbcType=VARCHAR}, #{receiveDeptName,jdbcType=VARCHAR}, 
       #{title,jdbcType=VARCHAR}, #{projectId,jdbcType=INTEGER}, #{projectName,jdbcType=VARCHAR}, 
       #{businessManager,jdbcType=VARCHAR}, #{businessManagerName,jdbcType=VARCHAR}, #{totalMoney,jdbcType=VARCHAR}, 
-      #{totalApplyMoney,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR})
+      #{totalApplyMoney,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, #{loan,jdbcType=BIT}, 
+      #{loanId,jdbcType=INTEGER}, #{loanTitle,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.finance.entity.FiveFinanceTransferAccounts">
     update five_finance_transfer_accounts
@@ -100,7 +105,10 @@
       business_manager_name = #{businessManagerName,jdbcType=VARCHAR},
       total_money = #{totalMoney,jdbcType=VARCHAR},
       total_apply_money = #{totalApplyMoney,jdbcType=VARCHAR},
-      state = #{state,jdbcType=VARCHAR}
+      state = #{state,jdbcType=VARCHAR},
+      is_loan = #{loan,jdbcType=BIT},
+      loan_id = #{loanId,jdbcType=INTEGER},
+      loan_title = #{loanTitle,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -109,7 +117,7 @@
     dept_id, dept_name, remark, creator, creator_name, is_deleted, is_process_end, gmt_create, 
     gmt_modified, process_instance_id, receive, receive_name, receive_dept_name, title, 
     project_id, project_name, business_manager, business_manager_name, total_money, total_apply_money, 
-    state
+    state, is_loan, loan_id, loan_title
     from five_finance_transfer_accounts
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -119,7 +127,7 @@
     dept_id, dept_name, remark, creator, creator_name, is_deleted, is_process_end, gmt_create, 
     gmt_modified, process_instance_id, receive, receive_name, receive_dept_name, title, 
     project_id, project_name, business_manager, business_manager_name, total_money, total_apply_money, 
-    state
+    state, is_loan, loan_id, loan_title
     from five_finance_transfer_accounts
     <include refid="Base_Where_List" />
     <include refid="Base_Where_List1" />
@@ -226,11 +234,14 @@
       <if test="state != null and isLikeSelect==null and state != ''">
          AND state = #{state}
       </if>
-      <if test="qBusinessKey != null and isLikeSelect==null and qBusinessKey != ''">
-        AND business_key like CONCAT(#{qBusinessKey},'%')
+      <if test="loan != null and isLikeSelect==null">
+         AND is_loan = #{loan}
       </if>
-      <if test="qBusinessKey != null and isLikeSelect==null and qBusinessKey != ''">
-        AND business_key like CONCAT(#{qBusinessKey},'%')
+      <if test="loanId != null and isLikeSelect==null">
+         AND loan_id = #{loanId}
+      </if>
+      <if test="loanTitle != null and isLikeSelect==null and loanTitle != ''">
+         AND loan_title = #{loanTitle}
       </if>
     </where>
   </sql>
@@ -314,8 +325,14 @@
       <if test="state != null and isLikeSelect!= null and state != '' ">
          AND state like  CONCAT('%',#{state},'%')
       </if>
+      <if test="loanTitle != null and isLikeSelect!= null and loanTitle != '' ">
+         AND loan_title like  CONCAT('%',#{loanTitle},'%')
+      </if>
       <if test="deleted != null and isLikeSelect!=null">
          AND is_deleted = #{deleted}
+      </if>
+      <if test="deptId != null and isLikeSelect!=null">
+         AND dept_id = #{deptId}
       </if>
     </where>
   </sql>

@@ -245,10 +245,10 @@ public class FiveOaEquipmentAcceptanceService extends BaseService {
      * 导出excl
      * @param startTime 开始时间
      * @param endTime 结束时间
-     * @param userName 发起人
+     * @param userLogin 发起人
      * @return
      */
-    public List<Map> listMapData(String startTime ,String endTime,String userName) {
+    public List<Map> listMapData(Map<String,Object> params,String uiSref,String startTime ,String endTime,String userLogin) {
         List<Map> list = new ArrayList<>();
         Map map = new LinkedHashMap();
         map.put("验收说明","");
@@ -264,14 +264,20 @@ public class FiveOaEquipmentAcceptanceService extends BaseService {
         map.put("备注", "");
         list.add(map);
 
-        Map <String,Object> params=Maps.newHashMap();
+        //模糊匹配查询
+        params.put("isLikeSelect",true);
+        //数据权限验证
+        Map head=Maps.newHashMap();
+        head.put("myDeptData",false);
+        head.put("uiSref",uiSref);
+        head.put("enLogin",userLogin);
+        params.putAll(getDefaultRightParams(head));
+        params.remove("userLogin");//字段中含有userLogin 排除干扰因素
+        //为删除 流程已完成
         params.put("deleted",false);
         params.put("processEnd",true);
         params.put("startTime",startTime);
         params.put("endTime",endTime);
-        params.put("creator",userName);
-
-
 
         List<FiveOaEquipmentAcceptance> fiveOaEquipmentAcceptances = fiveOaEquipmentAcceptanceMapper.selectAll(params);
         for (FiveOaEquipmentAcceptance dto:fiveOaEquipmentAcceptances){

@@ -83,8 +83,9 @@ public class FiveOaEquipmentAcceptanceController {
     }
 
     @PostMapping("/downTempleXls.json")
-    public void downTempleXls(String startTime,String endTime,String userName,final HttpServletResponse response) {
-        List<Map> list = fiveOaEquipmentAcceptanceService.listMapData(startTime,endTime,userName);
+    public void downTempleXls(String startTime,String endTime,String uiSref,String userLogin,final HttpServletResponse response) {
+        Map params = WebUtil.getRequestParameters();
+        List<Map> list = fiveOaEquipmentAcceptanceService.listMapData(params,uiSref,startTime,endTime,userLogin);
         MyPoiUtil.downloadExcel(list, FileUtil.getGoodFileName("资产管理物资验收(低值易耗)"+ DateFormatUtils.format(new Date(),"yyyyMMddHHmm")+".xls"), response);
     }
 
