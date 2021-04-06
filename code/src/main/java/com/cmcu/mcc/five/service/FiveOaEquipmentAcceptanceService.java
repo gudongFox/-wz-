@@ -250,19 +250,19 @@ public class FiveOaEquipmentAcceptanceService extends BaseService {
      */
     public List<Map> listMapData(Map<String,Object> params,String uiSref,String startTime ,String endTime,String userLogin) {
         List<Map> list = new ArrayList<>();
-        Map map = new LinkedHashMap();
-        map.put("验收说明","");
-        map.put("创建人", "");
-        map.put("创建时间", "");
-        map.put("设备名称", "");
-        map.put("固定资产编号", "");
-        map.put("设备规格", "");
-        map.put("所属部门", "");
-        map.put("单价（元）", "");
-        map.put("数量", "");
-        map.put("总价(元)", "");
-        map.put("备注", "");
-        list.add(map);
+//        Map map = new LinkedHashMap();
+//        map.put("验收说明","");
+//        map.put("创建人", "");
+//        map.put("创建时间", "");
+//        map.put("设备名称", "");
+//        map.put("固定资产编号", "");
+//        map.put("设备规格", "");
+//        map.put("所属部门", "");
+//        map.put("单价（元）", "");
+//        map.put("数量", "");
+//        map.put("总价(元)", "");
+//        map.put("备注", "");
+//        list.add(map);
 
         //模糊匹配查询
         params.put("isLikeSelect",true);

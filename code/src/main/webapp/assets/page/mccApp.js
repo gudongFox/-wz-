@@ -657,6 +657,20 @@ function initApp() {
                     },
                     controller: 'FiveBudgetFeeDetailController as vm'
                 })
+                .state('budget.feeChange', {
+                    url: "/budget/feeChange",
+                    templateUrl: function () {
+                        return "/budget/feeChange";
+                    },
+                    controller: 'FiveBudgetFeeChangeController as vm'
+                })
+                .state('budget.feeChangeDetail', {
+                    url: "/budget/feeChangeDetail?feeId",
+                    templateUrl: function () {
+                        return "/budget/feeChangeDetail";
+                    },
+                    controller: 'FiveBudgetFeeChangeDetailController as vm'
+                })
                 .state('budget.maintain', {
                     url: "/budget/maintain",
                     templateUrl: function () {
@@ -3713,7 +3727,7 @@ angular.element(document).ready(function () {
                 initApp();
                 angular.bootstrap(document, [appName]);
             } else {
-                toastr.error("System Error");
+                window.location.replace("/login");
             }
         }
     });

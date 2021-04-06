@@ -276,8 +276,6 @@ public class FiveOaInlandProjectApplyService extends BaseService {
             map1.put("备注",dto.getRemark());
             list.add(map1);
         }
-
-
         return list;
     }
 

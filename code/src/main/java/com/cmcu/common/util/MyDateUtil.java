@@ -172,7 +172,7 @@ public class MyDateUtil {
     }
 
     /**
-     * 将短时间格式时间转换为字符串 yyyy-MM-dd
+     * 将短时间格式时间转换为字符串 yyyyMMdd
      *
      * @param dateDate
      * @param

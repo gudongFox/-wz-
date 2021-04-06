@@ -354,7 +354,7 @@
 
         $scope.$on('ngRepeatFinished', function( ngRepeatFinishedEvent ) {
             var option={filterColumns:{
-                    1:{type:"input",colName:'associationName',placeholder:'请输入事项名称..'},
+                    1:{type:"input",colName:'remark',placeholder:'请输入事项名称..'},
                     2:{type:"input",colName:'deptChargeName',placeholder:'创建人'},
                     3:{type:"input",colName:'gmtCreate'},
                     4:{type:"select",colName:'processEnd',placeholder:'流程状态..',option:[{title:"全部",value:""},{title:"运行中",value:0},{title:"已完成",value:1}]}

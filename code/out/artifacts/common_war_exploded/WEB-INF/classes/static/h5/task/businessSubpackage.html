@@ -19,7 +19,8 @@
                     <form class="mui-input-group" id="detail_form">
                           <div class="mui-input-row" >
                                 <label style="color: black">是否为补充合同</label>
-                               <input type="text" class="form-control" ng-model="vm.item.isReplenish" name="isReplenish" required="true" readonly>
+                               <input type="text" class="form-control" ng-if="vm.item.isReplenish"  required="true" readonly value="是">
+                              <input type="text" class="form-control" ng-if="!vm.item.isReplenish"  required="true" readonly value="否">
                          </div>
                           <div class="mui-input-row" ng-if="!vm.item.isReplenish" >
                                 <label style="color: black">主合同名称</label>

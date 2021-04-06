@@ -525,8 +525,6 @@ public class SysRoleAclService {
         }
     }
 
-
-
     public List<Map> listSystemMenu(String enLogin) {
         List<Map> menus = guavaCacheService.get("listSystemMenu_" + enLogin, () -> {
             List<Map> list = Lists.newArrayList();

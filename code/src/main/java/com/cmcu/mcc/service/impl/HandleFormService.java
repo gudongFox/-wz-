@@ -1178,6 +1178,14 @@ public class HandleFormService implements IHandleFormService {
                     fiveBudgetLaborCostMapper.updateByPrimaryKey(p);
                 });
             }
+            else if (businessKey.startsWith("fiveBudgetFeeChange")) {//收费预算更改
+                List<FiveBudgetFeeChange> list = fiveBudgetFeeChangeMapper.selectAll(params);
+                list.forEach(p -> {
+                    p.setDeleted(true);
+                    p.setGmtModified(new Date());
+                    fiveBudgetFeeChangeMapper.updateByPrimaryKey(p);
+                });
+            }
             else if (businessKey.startsWith("fiveBudgetFee")) {//上缴预算
                 List<FiveBudgetFee> list = fiveBudgetFeeMapper.selectAll(params);
                 list.forEach(p -> {
@@ -1938,6 +1946,8 @@ public class HandleFormService implements IHandleFormService {
     @Resource
     FiveBudgetFeeMapper fiveBudgetFeeMapper;
     @Resource
+    FiveBudgetFeeChangeMapper fiveBudgetFeeChangeMapper;
+    @Resource
     FiveBudgetScientificFundsOutMapper fiveBudgetScientificFundsOutMapper;
     @Resource
     FiveBudgetScientificFundsInMapper fiveBudgetScientificFundsInMapper;
@@ -2473,6 +2483,10 @@ public class HandleFormService implements IHandleFormService {
         }
         else if (businessKey.startsWith("fiveBudgetFee")) {//收费预算
             List<FiveBudgetFee> list = fiveBudgetFeeMapper.selectAll(params);
+            if (list.size() > 0) item = list.get(0);
+        }
+        else if (businessKey.startsWith("fiveBudgetFeeChange")) {//收费预算变更
+            List<FiveBudgetFeeChange> list = fiveBudgetFeeChangeMapper.selectAll(params);
             if (list.size() > 0) item = list.get(0);
         }
         else if (businessKey.startsWith("fiveFinanceTransferAccountsCommon")||businessKey.startsWith("fiveFinanceTransferAccountsRed")||businessKey.startsWith("fiveFinanceTransferAccountsBuild")||businessKey.startsWith("fiveFinanceTransferAccountsFinance")) {//费用申请

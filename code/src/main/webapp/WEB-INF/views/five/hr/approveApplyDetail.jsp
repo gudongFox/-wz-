@@ -12,7 +12,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span>{{vm.item.type}}岗位资格认定</span>
+            <span ng-bind="tableName">{{vm.item.type}}岗位资格认定</span>
         </li>
     </ul>
     <div class="page-toolbar">
@@ -22,7 +22,7 @@
 <div class="portlet  box blue">
     <div class="portlet-title">
         <div class="caption">
-            <i class="icon-note"></i>{{vm.item.applyType}}资格认定申报
+            <i class="icon-note"></i><span ng-bind="tableName">{{vm.item.applyType}}资格认定申报</span>
               <small ng-if="!processInstance.myRunningTaskName" ng-bind="processInstance.currentTaskName"></small>
               <small ng-if="processInstance.myRunningTaskName" ng-bind="processInstance.myRunningTaskName" style="color: #35e0e1;"></small>
               <small ng-if="vm.item.handled" style="color: red;">岗位资格已更新</small>

@@ -66,4 +66,6 @@ public class FiveFinanceTransferAccountsDetail {
     @NotNull(message="冲销状态不能为空!")
     @Size(max=45, message="冲销状态长度不能超过45")
     private String chargeAgainst;
+
+    private Integer flag = 0;//新建item的标志，在保存时判断，若为1则插入，为0则update
 }

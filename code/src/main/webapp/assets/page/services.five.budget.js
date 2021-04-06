@@ -3474,6 +3474,168 @@ angular.module('services.five.budget', [])
 
         }
     })
+
+    .factory('fiveBudgetFeeChangeService', function ($q, $http) {
+
+        var head = "/five/budget/feeChange";
+
+        var getModelById = function (id) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/getModelById.json',
+                params: {
+                    id: id
+                }
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        var insert = function (item) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/insert.json',
+                data: item
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        var update = function (item) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/update.json',
+                data: item
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        var getNewModel = function (userLogin,uiSref) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/getNewModel.json',
+                params: {
+                    userLogin: userLogin,
+                    uiSref:uiSref
+                }
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        var remove = function (id, userLogin) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/remove.json',
+                params: {
+                    id: id,
+                    userLogin: userLogin
+                }
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        var getPrintData = function (id) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/getPrintData.json',
+                params: {
+                    id: id
+                }
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        var listPagedData = function (params) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/listPagedData.json',
+                params: params
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        var selectAll = function (userLogin,uiSref) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/selectAll.json',
+                params: {
+                    userLogin: userLogin,
+                    uiSref:uiSref
+                }
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        }
+
+
+        return {
+            insert: function (item) {
+                return insert(item);
+            },
+            update: function (item) {
+                return update(item);
+            },
+            getModelById: function (id) {
+                return getModelById(id);
+            },
+            getNewModel: function (userLogin,uiSref) {
+                return getNewModel(userLogin,uiSref);
+            },
+            remove: function (id, userLogin) {
+                return remove(id, userLogin);
+            },
+            listPagedData: function (params) {
+                return listPagedData(params);
+            },
+            getPrintData: function (id) {
+                return getPrintData(id);
+            },
+            downloadModel: function (userLogin) {
+                return downloadModel(userLogin);
+            },
+            selectAll:function (userLogin,uiSref) {
+                return selectAll(userLogin,uiSref);
+            },
+        }
+    })
+
     .factory('fiveBudgetTurnInService', function ($q, $http) {
 
         var head = "/five/budget/turnIn";

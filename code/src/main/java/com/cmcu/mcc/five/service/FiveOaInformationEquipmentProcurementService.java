@@ -289,20 +289,6 @@ public class FiveOaInformationEquipmentProcurementService  extends BaseService {
      */
     public List<Map> listMapData(Map<String,Object> params,String uiSref,String startTime1,String endTime1,String userLogin,String userName){
         List<Map> list = new ArrayList<>();
-        Map map=new LinkedHashMap();
-        map.put("采购单位","");
-        map.put("采购年份","");
-        map.put("创建人","");
-        map.put("创建时间","");
-        map.put("设备名称","");
-        map.put("设备类型","");
-        map.put("型号","");
-        map.put("功能（用途、网络）","");
-        map.put("购置数量","");
-        map.put("单价（元）","");
-        map.put("总价（元）","");
-        map.put("备注","");
-        list.add(map);
 
         //数据权限验证
         Map head=Maps.newHashMap();

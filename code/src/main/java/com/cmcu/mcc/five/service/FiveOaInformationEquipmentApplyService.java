@@ -345,7 +345,7 @@ public class FiveOaInformationEquipmentApplyService extends BaseService {
      */
     public List<Map> listMapData(Map<String,Object> params,String uiSref,String startTime1,String endTime1,String userLogin,String userName){
         List<Map> list = new ArrayList<>();
-        Map map=new LinkedHashMap();
+        /*Map map=new LinkedHashMap();
         map.put("采购审批编号","");
         map.put("申请单位","");
         map.put("是否在预算内","");
@@ -363,7 +363,7 @@ public class FiveOaInformationEquipmentApplyService extends BaseService {
         map.put("总价（元）","");
         map.put("特殊需求","");
         map.put("备注","");
-        list.add(map);
+        list.add(map);*/
 
         //数据权限验证
         Map head=Maps.newHashMap();
@@ -388,25 +388,25 @@ public class FiveOaInformationEquipmentApplyService extends BaseService {
             List<FiveOaInformationEquipmentApplyDetail> fiveOaInformationEquipmentApplyDetails=listDetail(dto.getId());
 
             for (FiveOaInformationEquipmentApplyDetail detail:fiveOaInformationEquipmentApplyDetails){
-                Map map1=new LinkedHashMap();
-                map1.put("采购审批编号",dto.getFormNo());
-                map1.put("申请单位",dto.getDeptName());
-                map1.put("是否在预算内",dto.getPlan());
-                map1.put("联系人",dto.getLinkManName());
-                map1.put("联系电话",dto.getLinkManPhone());
-                map1.put("设备用途及购置理由",dto.getEquipmentUse());
-                map1.put("创建人",dto.getCreatorName());
-                map1.put("创建时间",MyDateUtil.dateToStr(dto.getGmtCreate()));
-                map1.put("设备名称",detail.getEquipmentName());
-                map1.put("设备所在单位",detail.getDeptName());
-                map1.put("品牌",detail.getBrand());
-                map1.put("设备类型",detail.getEquipmentType());
-                map1.put("购置数量",detail.getNumber());
-                map1.put("单价（元）",detail.getPrice());
-                map1.put("总价（元）",detail.getTotalPrice());
-                map1.put("特殊需求",detail.getOtherRequirement());
-                map1.put("备注",detail.getRemark());
-                list.add(map1);
+                Map map=new LinkedHashMap();
+                map.put("采购审批编号",dto.getFormNo());
+                map.put("申请单位",dto.getDeptName());
+                map.put("是否在预算内",dto.getPlan());
+                map.put("联系人",dto.getLinkManName());
+                map.put("联系电话",dto.getLinkManPhone());
+                map.put("设备用途及购置理由",dto.getEquipmentUse());
+                map.put("创建人",dto.getCreatorName());
+                map.put("创建时间",MyDateUtil.dateToStr(dto.getGmtCreate()));
+                map.put("设备名称",detail.getEquipmentName());
+                map.put("设备所在单位",detail.getDeptName());
+                map.put("品牌",detail.getBrand());
+                map.put("设备类型",detail.getEquipmentType());
+                map.put("购置数量",detail.getNumber());
+                map.put("单价（元）",detail.getPrice());
+                map.put("总价（元）",detail.getTotalPrice());
+                map.put("特殊需求",detail.getOtherRequirement());
+                map.put("备注",detail.getRemark());
+                list.add(map);
             }
         }
 

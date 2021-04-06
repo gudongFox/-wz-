@@ -673,9 +673,10 @@
         return vm;
     })
 
-    .controller("FiveHrApproveApplyController", function ($state, $scope, fiveHrQualifyApplyService) {
+    .controller("FiveHrApproveApplyController", function ($state, $scope,$rootScope, fiveHrQualifyApplyService) {
         var vm = this;
         var uiSref="five.hrApproveApply";
+        var tableName = $rootScope.loadTableName(uiSref);
 
         var key = $state.current.name + "_" + user.userLogin;
         vm.params = getCacheParams(key,{qYear: "", qDeptName: "",pageNum: 1, pageSize: $scope.pageSize,total:0});
@@ -733,6 +734,7 @@
         var vm = this;
         var qualifyApplyId = $stateParams.qualifyApplyId;
         var uiSref="five.hrApproveApply";
+        var tableName = $rootScope.loadTableName(uiSref);
 
         vm.init=function(){
             vm.loadData(true);

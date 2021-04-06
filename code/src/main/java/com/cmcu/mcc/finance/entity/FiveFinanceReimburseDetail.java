@@ -93,4 +93,6 @@ public class FiveFinanceReimburseDetail {
     @NotNull(message="预算可用余额不能为空!")
     @Size(max=45, message="预算可用余额长度不能超过45")
     private String budgetBalance;
+
+    private Integer flag = 0;//新建item的标志，在保存时判断，若为1则插入，为0则update
 }

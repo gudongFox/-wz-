@@ -313,6 +313,7 @@ public class EdConst {
     public static final String FIVE_BUDGET_LABORCOST = "fiveBudgetLaborCost";//人工成本
     public static final String FIVE_BUDGET_STAFFNUMBER = "fiveBudgetStaffNumber";//职工人数预算
     public static final String FIVE_BUDGET_FEE = "fiveBudgetFee";//收费预算
+    public static final String FIVE_BUDGET_FEE_Change = "fiveBudgetFeeChange";//收费预算
     public static final String FIVE_BUDGET_STOCK = "fiveBudgetStock";//股权投资预算
 
 }

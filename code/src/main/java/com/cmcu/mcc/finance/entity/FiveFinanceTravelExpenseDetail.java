@@ -117,4 +117,6 @@ public class FiveFinanceTravelExpenseDetail {
 
     @NotNull(message="工地补贴不能为空!")
     private Boolean siteAllowance;
+
+    private Integer flag = 0;//新建item的标志，在保存时判断，若为1则插入，为0则update
 }

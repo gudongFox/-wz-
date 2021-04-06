@@ -251,7 +251,7 @@
                                              </span>
                                             <a href="javascript:;" class="btn btn-sm btn-default"
                                                style="float: right;line-height: 0;" ng-click="vm.showDetailModel(0);"
-                                               ng-show="processInstance.firstTask&&vm.details.length==0">
+                                               ng-show="processInstance.firstTask">
                                                 <i class="fa fa-plus"></i> 新增 </a>
                                         </div>
                                         <div class="panel-body" id="panelDetail" class="panel-collapse collapse in">

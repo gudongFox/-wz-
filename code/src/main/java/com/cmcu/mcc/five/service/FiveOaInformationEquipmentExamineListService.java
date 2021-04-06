@@ -461,20 +461,20 @@ public class FiveOaInformationEquipmentExamineListService extends BaseService {
         params.put("deleted",false);
         params.put("processEnd",true);
         //时间端参数
-        params.put("startTime1",startTime1);
-        params.put("endTime1",endTime1);
+        //params.put("startTime1",startTime1);
+        //params.put("endTime1",endTime1);
 
-        int i = 0;
-        List<FiveOaInformationEquipmentExamineList> fiveOaInformationEquipmentExamineList=fiveOaInformationEquipmentExamineListMapper.selectAll(params);
-        for (FiveOaInformationEquipmentExamineList dto:fiveOaInformationEquipmentExamineList){
-            Map map1=new LinkedHashMap();
-            map1.put("所属单位",dto.getDeptName());
-            map1.put("采购审批编号",dto.getDiskNo());
-            map1.put("验收价格（元）",dto.getCheckPrice());
-            map1.put("备注",dto.getRemark());
-            map1.put("创建人",dto.getCreatorName());
-            map1.put("创建时间",dto.getGmtCreate());
-            list.add(map1);
+        //int i = 0;
+        List<FiveOaInformationEquipmentExamineList> fiveOaInformationEquipmentExamineLists=fiveOaInformationEquipmentExamineListMapper.selectAll(params);
+        for (FiveOaInformationEquipmentExamineList dto:fiveOaInformationEquipmentExamineLists){
+            Map map=new LinkedHashMap();
+            map.put("所属单位",dto.getDeptName());
+            map.put("采购审批编号",dto.getDiskNo());
+            map.put("验收价格（元）",dto.getCheckPrice());
+            map.put("备注",dto.getRemark());
+            map.put("创建人",dto.getCreatorName());
+            map.put("创建时间",MyDateUtil.dateToStr(dto.getGmtCreate()));
+            list.add(map);
         }
         return list;
     }

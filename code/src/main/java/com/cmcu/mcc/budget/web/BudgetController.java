@@ -12,6 +12,16 @@ public class BudgetController {
         ModelAndView modelAndView=new ModelAndView("/five/budget/fee");
         return modelAndView;
     }
+    @RequestMapping("/feeChange")
+    public ModelAndView feeBudgetChange(){
+        ModelAndView modelAndView=new ModelAndView("/five/budget/feeChange");
+        return modelAndView;
+    }
+    @RequestMapping("/feeChangeDetail")
+    public ModelAndView feeBudgetChangeDetail(){
+        ModelAndView modelAndView=new ModelAndView("/five/budget/feeChangeDetail");
+        return modelAndView;
+    }
     @RequestMapping("/feeDetail")
     public ModelAndView feeBudgetDetail(){
         ModelAndView modelAndView=new ModelAndView("/five/budget/feeDetail");

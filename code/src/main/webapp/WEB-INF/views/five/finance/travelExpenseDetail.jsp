@@ -565,7 +565,7 @@
                             <div class="col-md-7">
                                 <div class="input-group">
                                     <input type="text" class="form-control" ng-model="vm.detail.budgetNo"
-                                           name="budgetNo" required="true" disabled>
+                                           name="budgetNo" required="true" >
                                     <span class="input-group-btn">
                                     <button class="btn default" type="button" ng-click="vm.showPlanTypeModal();"
                                             ng-disabled="!processInstance.firstTask"><i
@@ -581,7 +581,7 @@
                                 <div class="input-group">
                                     <span class="input-group-addon">￥</span>
                                     <input type="text" class="form-control" ng-model="vm.detail.budgetBalance"
-                                           name="budgetBalance" required="true" disabled>
+                                           name="budgetBalance" required="true" >
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>

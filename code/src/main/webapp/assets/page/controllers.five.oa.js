@@ -5544,16 +5544,14 @@
         };
         $scope.$on('ngRepeatFinished', function( ngRepeatFinishedEvent ) {
             var option={filterColumns:{
-                    1:{type:"input",colName:'equipmentName',placeholder:'请输入设备名称..'},
-                    2:{type:"input",colName:'formNo',placeholder:'设备编号'},
-                    3:{type:"input",colName:'deptName',placeholder:'所属单位'},
-                    4:{type:"input",colName:'osInstallTime'},
-                    5:{type:"input",colName:'chargeManName'},
-                    6:{type:"input",colName:'startTime'},
-                    7:{type:"input",colName:'gmtCreate'},
-                    8:{type:"select",colName:'processEnd',placeholder:'流程状态..',option:[{title:"全部",value:""},{title:"运行中",value:"0"},{title:"已完成",value:"1"}]}
+                    1:{type:"input",colName:'deptName',placeholder:'请输入发起部门名称..'},
+                    2:{type:"input",colName:'diskNo',placeholder:'审批单编号'},
+                    3:{type:"input",colName:'checkPrice',placeholder:'总验收价'},
+                    4:{type:"input",colName:'remark'},
+                    5:{type:"input",colName:'gmtCreate'},
+                    6:{type:"select",colName:'processEnd',placeholder:'流程状态..',option:[{title:"全部",value:""},{title:"运行中",value:"0"},{title:"已完成",value:"1"}]}
                     //注：当type为select时 会根据option创建下拉列表 option中
-                },handleColumn:9};
+                },handleColumn:7};
             tablefilter.queryFunction=vm.fuzzySearch;
             tablefilter.params=vm.params;
             tablefilter.initializeFilter(option);

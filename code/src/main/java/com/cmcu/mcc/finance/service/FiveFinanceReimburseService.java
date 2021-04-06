@@ -425,6 +425,9 @@ public class FiveFinanceReimburseService {
     public void updateDetail(FiveFinanceReimburseDetail item){
         //如果申请金额 大于 预算剩余金额 提示
         Assert.state(Double.valueOf(item.getApplyMoney())<=Double.valueOf(item.getBudgetBalance()),"申请金额 大于 预算剩余金额!");
+        if (item.getFlag() == 1){
+            fiveFinanceReimburseDetailMapper.insert(item);
+        }
         FiveFinanceReimburseDetail model = fiveFinanceReimburseDetailMapper.selectByPrimaryKey(item.getId());
         model.setProjectType(item.getProjectType());
         model.setCostProject(item.getCostProject());
@@ -464,8 +467,8 @@ public class FiveFinanceReimburseService {
         item.setConfirmMoney(MyStringUtil.moneyToString("0"));
         item.setApplyMoney(MyStringUtil.moneyToString("0"));
         item.setCount(MyStringUtil.moneyToString("0"));
+        item.setFlag(1);
         ModelUtil.setNotNullFields(item);
-        fiveFinanceReimburseDetailMapper.insert(item);
         return getDetailDto(item);
     }
 

@@ -3151,6 +3151,7 @@
                 vm.reloadAllTask();
             });
         }
+
         //查询调度方法
         vm.reloadAllTask=function() {
             if (vm.taskCondition.tableName == "待办任务") {
@@ -3201,7 +3202,7 @@
                 if (value.data.ret) {
                     vm.taskList = value.data.data.list;
                     vm.taskList.forEach(function (item) {
-                        item.outTime = vm.jugeOutTime(item.claimTime);
+                        item.outTime = vm.jugeOutTime(item.createTime);
                     })
                     vm.taskPageInfo = value.data.data;
                 }
@@ -3214,12 +3215,14 @@
 
         //判断是否超时
         vm.jugeOutTime=function(timeStamp){
-            var yellow=60*60*24*2;//2天后变为黄色
+            if (timeStamp==undefined || timeStamp==''){
+                debugger;
+                return 0;
+            }
+            var yellow=60*60*24*3;//2天后变为黄色
             var red=60*60*24*15;//15天超期
             var now=new Date().valueOf();
             var temporyValue=(parseInt(now)-parseInt(timeStamp))/1000;
-
-
             if(temporyValue<yellow){
                 return 1;
             }

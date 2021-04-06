@@ -172,7 +172,7 @@
                                 <select ng-options="s.codeValue as s.name for s in sysCodes | filter:{codeCatalog:'是否'}:true"
                                         ng-model="vm.item.attach"  ng-disabled="!processInstance.firstTask"></select>
                          </div>
-                         <div class="mui-input-row">
+                        <!-- <div class="mui-input-row">
                                 <label style="color: black">项目专业分类 一级</label>
                               <select id="select" ng-options="s.name as s.name for s in sysCodes| filter:{codeCatalog:'项目专业分类一级'}:true" ng-model="vm.item.projectMajorTypeFirst"
                                             ng-disabled="!processInstance.firstTask">
@@ -187,7 +187,7 @@
                                 <label style="color: black">项目专业分类 三级</label>
                                 <input type="text" ng-model="vm.item.projectMajorTypeThird" name="projectMajorTypeThird"
                                        ng-disabled="!(processInstance.firstTask||processInstance.myRunningTaskName.indexOf('经营发展部')>=0)"/>
-                         </div>
+                         </div>-->
                 </form>
                 </div>
                 <!--页脚，放置补充信息或支持的操作-->
@@ -233,11 +233,11 @@
                 </div>
                   <!--页脚，放置补充信息或支持的操作-->
             </div>
-             <div class="mui-card">
+<!--             <div class="mui-card">
                 <div class="mui-card-header">
                     <span ng-bind="'4.评审记录'"> </span><span style="font-size: 5px;text-align: left; color: grey">请在网页端完成修改</span>
                 </div>
-                 <!--内容区-->
+                 &lt;!&ndash;内容区&ndash;&gt;
                 <div class="mui-card-content">
                     <ul class="mui-table-view mui-table-view-chevron">
                        <li class="mui-table-view-cell mui-collapse" ng-repeat="detail in vm.contractReviewDetails">
@@ -246,8 +246,8 @@
                        </li>
                      </ul>
                 </div>
-                 <!--页脚，放置补充信息或支持的操作-->
-            </div>
+                 &lt;!&ndash;页脚，放置补充信息或支持的操作&ndash;&gt;
+            </div>-->
             <span ng-include="'/h5/tpl/businessFile.html'" ng-init="fileTplTitle='5.业务附件'"></span>
 
             <div style="height: 40px;">&nbsp;</div>

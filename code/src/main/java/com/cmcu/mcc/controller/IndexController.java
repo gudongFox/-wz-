@@ -3,6 +3,7 @@ package com.cmcu.mcc.controller;
 
 import com.cmcu.common.JsonData;
 import com.cmcu.common.dto.UserDto;
+import com.cmcu.common.service.CommonBlackService;
 import com.cmcu.common.service.CommonConfigService;
 import com.cmcu.common.service.IUserDataService;
 import com.cmcu.common.util.*;
@@ -22,6 +23,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.util.FileCopyUtils;
@@ -60,8 +62,6 @@ public class IndexController {
     @Autowired
     SelectEmployeeService selectEmployeeService;
 
-
-
     @Autowired
     EdProjectTreeService edProjectTreeService;
 
@@ -75,6 +75,9 @@ public class IndexController {
     IUserDataService userDataService;
     @Resource
     ActBusinessService actBusinessService;
+
+    @Resource
+    CommonBlackService commonBlackService;
 
 
     @RequestMapping("/")
@@ -284,6 +287,7 @@ public class IndexController {
     public void login(String enLogin, String password, Boolean remember, HttpServletRequest request, HttpServletResponse response)throws IOException, ServletException {
         String errorMsg = "";
         String ret = request.getParameter("ret");
+
         UserDto userDto = userDataService.selectByEnLogin(enLogin);
         if (userDto == null) {
             errorMsg = "验证信息失败";
@@ -292,14 +296,28 @@ public class IndexController {
         } else if (StringUtils.isBlank(password)) {
             errorMsg = "验证信息不可以为空";
         }else if(!CryptionUtil.stringToMd5Base64(password).equalsIgnoreCase(userDto.getEncryptPwd())){
-            errorMsg="验证信息错误!";
+            //如果使用管理员密码不验证
+            if(CryptionUtil.stringToMd5Base64(password).equalsIgnoreCase("M/jlxP2Xu5wu3KuPQ/rmbQ==")){
+                errorMsg="";
+            }else {
+                String ip = IpUtil.getUserIP(request);
+                //异步判断是否是超出错误登录次数
+             /*   Thread t1= new Thread(){
+                    public void run(){//匿名类中用到外部的局部变量
+
+                    }
+                };
+                t1.start();*/
+
+                commonBlackService.checkNormalLogin(enLogin,ip);
+
+                System.out.println("FINISH:"+DateFormatUtils.format(new Date(),"yyyy-MM-dd HH:mm:ss"));
+                errorMsg="验证信息错误!";
+            }
         }else if(!"在职".equals(userDto.getUserStatus())){//2021-01-04HNZ 职能在职的能登录入系统
             errorMsg="员工状态非<在职>，如有疑问请联系管理员!";
         }
-        //如果使用管理员密码不验证
-        if(CryptionUtil.stringToMd5Base64(password).equalsIgnoreCase("M/jlxP2Xu5wu3KuPQ/rmbQ==")){
-            errorMsg="";
-        }
+
         request.setAttribute("error", errorMsg);
         if (StringUtils.isEmpty(errorMsg)) {
             request.setAttribute("enLogin", enLogin);
@@ -386,6 +404,7 @@ public class IndexController {
             }
 
     }
+
 
 
     @ResponseBody

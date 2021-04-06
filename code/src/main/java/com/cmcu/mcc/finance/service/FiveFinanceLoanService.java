@@ -447,19 +447,23 @@ public class FiveFinanceLoanService extends BaseService {
     public void updateDetail(FiveFinanceLoanDetail item){
         //如果申请金额 大于 预算剩余金额 提示
         Assert.state(Double.valueOf(item.getApplyMoney())<=Double.valueOf(item.getBudgetBalance()),"申请金额 大于 预算剩余金额!");
-        FiveFinanceLoanDetail model = fiveFinanceLoanDetailMapper.selectByPrimaryKey(item.getId());
-        model.setBudgetId(item.getBudgetId());
-        model.setBudgetType(item.getBudgetType());
-        model.setBudgetNo(item.getBudgetNo());
-        model.setBudgetDegree(item.getBudgetDegree());
-        model.setControlBalance(item.getControlBalance());
-        model.setBudgetBalance(item.getBudgetBalance());
-        model.setApplyMoney(MyStringUtil.moneyToString(item.getApplyMoney()));
-        model.setRemark(item.getRemark());
-        fiveFinanceLoanDetailMapper.updateByPrimaryKey(model);
+        if (item.getFlag()==1){
+            fiveFinanceLoanDetailMapper.insert(item);
+        }else {
+            FiveFinanceLoanDetail model = fiveFinanceLoanDetailMapper.selectByPrimaryKey(item.getId());
+            model.setBudgetId(item.getBudgetId());
+            model.setBudgetType(item.getBudgetType());
+            model.setBudgetNo(item.getBudgetNo());
+            model.setBudgetDegree(item.getBudgetDegree());
+            model.setControlBalance(item.getControlBalance());
+            model.setBudgetBalance(item.getBudgetBalance());
+            model.setApplyMoney(MyStringUtil.moneyToString(item.getApplyMoney()));
+            model.setRemark(item.getRemark());
+            fiveFinanceLoanDetailMapper.updateByPrimaryKey(model);
+        }
     }
 
-    public FiveFinanceLoanDetail getNewModelDetail(int  id){
+    public FiveFinanceLoanDetail getNewModelDetail(int id){
         FiveFinanceLoanDetail item=new FiveFinanceLoanDetail();
         item.setLoanId(id);
         item.setGmtModified(new Date());
@@ -468,10 +472,11 @@ public class FiveFinanceLoanService extends BaseService {
         item.setControlBalance(MyStringUtil.moneyToString("0"));
         item.setBudgetBalance(MyStringUtil.moneyToString("0"));
         item.setApplyMoney(MyStringUtil.moneyToString("0"));
+        item.setFlag(1);
 
         ModelUtil.setNotNullFields(item);
         //BeanValidator.check(item);
-        fiveFinanceLoanDetailMapper.insert(item);
+//        fiveFinanceLoanDetailMapper.insert(item);
         if(Double.valueOf(item.getControlBalance()).equals(0.0)){
             item.setControlBalance("");
         }

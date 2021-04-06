@@ -60,10 +60,10 @@
                             <thead>
                             <tr>
                                 <th style="width: 35px;">#</th>
-                                <th>申请部门</th>
-                                <th  style="width: 90px;">使用人</th>
+                                <th style="min-width: 185px;">申请部门</th>
+                                <th style="width: 90px;">使用人</th>
                                 <th style="width: 90px;">责任人</th>
-                                <th  style="width: 120px;">设备编号</th>
+                                <th style="width: 120px;">设备编号</th>
                                 <th style="min-width: 200px;">设备序列号</th>
                                 <th style="min-width: 200px;">设备名称</th>
                                 <th style="width: 100px;">创建时间</th>

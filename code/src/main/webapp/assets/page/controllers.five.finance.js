@@ -5080,7 +5080,7 @@
         vm.showDeptModal = function (id) {
             $scope.showOaSelectEmployeeModal_({
                 title: "请选择部门", type: "选部门", deptIdList: vm.item.deptId + "",
-                multiple: false, deptIds: "1", parentDeptId: 2
+                multiple: false, deptIds: "1", parentDeptId: 2, bigDept:true
             });
         }
 
@@ -5456,7 +5456,7 @@
         vm.showDeptModal = function (id) {
             $scope.showOaSelectEmployeeModal_({
                 title: "请选择部门", type: "选部门", deptIdList: vm.item.deptId + "",
-                multiple: false, deptIds: "1", parentDeptId: 2
+                multiple: false, deptIds: "1", parentDeptId: 2,bigDept:true
             });
         }
 
@@ -5812,7 +5812,7 @@
         vm.showDeptModal = function (id) {
             $scope.showOaSelectEmployeeModal_({
                 title: "请选择部门", type: "选部门", deptIdList: vm.item.deptId + "",
-                multiple: false, deptIds: "1", parentDeptId: 2
+                multiple: false, deptIds: "1", parentDeptId: 2,bigDept:true
             });
         }
 
@@ -6404,7 +6404,8 @@
                 type: '选部门',
                 deptIds: "1",
                 deptIdList: vm.item.deptId,
-                multiple: false
+                multiple: false,
+                bigDept:true,
 
 
             });
@@ -6758,7 +6759,7 @@
         //新增
         vm.showDetailModel = function (id) {
             if (id === 0) {
-                fiveFinanceLoanService.getNewModelDetail(loanFunctionId).then(function (value) {
+                fiveFinanceLoanService.getNewModelDetail(loanId).then(function (value) {
                     if (value.data.ret) {
                         vm.detail = value.data.data;
                         $("#detailModal").modal("show");
@@ -7091,7 +7092,7 @@
         vm.showDeptModal = function (id) {
             $scope.showOaSelectEmployeeModal_({
                 title: "请选择部门", type: "选部门", deptIdList: vm.item.deptId + "",
-                multiple: false, deptIds: "1", parentDeptId: 2
+                multiple: false, deptIds: "1", parentDeptId: 2,bigDept:true
             });
         }
 
@@ -7438,7 +7439,7 @@
         vm.showDeptModal = function (id) {
             $scope.showOaSelectEmployeeModal_({
                 title: "请选择部门", type: "选部门", deptIdList: vm.item.deptId + "",
-                multiple: false, deptIds: "1", parentDeptId: 2
+                multiple: false, deptIds: "1", parentDeptId: 2,bigDept:true
             });
         }
 
@@ -8111,13 +8112,13 @@
         }
         //选部门
         vm.showDeptModal = function (id) {
-            if (id = 0){
+            if (id == 0){
                 $scope.showOaSelectEmployeeModal_({
                     title: "请选择部门", type: "选部门", deptIdList: vm.item.deptId + "",
-                    multiple: false, deptIds: "1", parentDeptId: 2
+                    multiple: false, deptIds: "1", parentDeptId: 2, bigDept: true
                 });
             }
-            if (id = 1){
+            if (id == 1){
                 $scope.showOaSelectEmployeeModal_({
                     title: "请选择部门", type: "选部门", deptIdList: vm.detail.deptId + "",
                     multiple: false, deptIds: "1", parentDeptId: 2
@@ -8127,12 +8128,12 @@
         }
         //保存选部门
         $rootScope.saveSelectDept_ = function () {
-            if (id = 0){
+            if (id == 0){
                 $scope.closeOaSelectEmployeeModal_();
                 vm.item.deptName = $scope.selectedOaDeptNames_;
                 vm.item.deptId = Number($scope.selectedOaDeptIds_);
             }
-            if (id = 1){
+            if (id == 1){
                 $scope.closeOaSelectEmployeeModal_();
                 vm.detail.deptName = $scope.selectedOaDeptNames_;
                 vm.detail.deptId = Number($scope.selectedOaDeptIds_);
@@ -8582,13 +8583,13 @@
         }
         //选部门
         vm.showDeptModal = function (id) {
-            if (id = 0){
+            if (id == 0){
                 $scope.showOaSelectEmployeeModal_({
                     title: "请选择部门", type: "选部门", deptIdList: vm.item.deptId + "",
                     multiple: false, deptIds: "1", parentDeptId: 2
                 });
             }
-            if (id = 1){
+            if (id == 1){
                 $scope.showOaSelectEmployeeModal_({
                     title: "请选择部门", type: "选部门", deptIdList: vm.detail.deptId + "",
                     multiple: false, deptIds: "1", parentDeptId: 2
@@ -8598,12 +8599,12 @@
         }
         //保存选部门
         $rootScope.saveSelectDept_ = function () {
-            if (id = 0){
+            if (id == 0){
                 $scope.closeOaSelectEmployeeModal_();
                 vm.item.deptName = $scope.selectedOaDeptNames_;
                 vm.item.deptId = Number($scope.selectedOaDeptIds_);
             }
-            if (id = 1){
+            if (id == 1){
                 $scope.closeOaSelectEmployeeModal_();
                 vm.detail.deptName = $scope.selectedOaDeptNames_;
                 vm.detail.deptId = Number($scope.selectedOaDeptIds_);
@@ -9037,13 +9038,13 @@
         }
         //选部门
         vm.showDeptModal = function (id) {
-            if (id = 0){
+            if (id == 0){
                 $scope.showOaSelectEmployeeModal_({
                     title: "请选择部门", type: "选部门", deptIdList: vm.item.deptId + "",
                     multiple: false, deptIds: "1", parentDeptId: 2
                 });
             }
-            if (id = 1){
+            if (id == 1){
                 $scope.showOaSelectEmployeeModal_({
                     title: "请选择部门", type: "选部门", deptIdList: vm.detail.deptId + "",
                     multiple: false, deptIds: "1", parentDeptId: 2
@@ -9053,12 +9054,12 @@
         }
         //保存选部门
         $rootScope.saveSelectDept_ = function () {
-            if (id = 0){
+            if (id == 0){
                 $scope.closeOaSelectEmployeeModal_();
                 vm.item.deptName = $scope.selectedOaDeptNames_;
                 vm.item.deptId = Number($scope.selectedOaDeptIds_);
             }
-            if (id = 1){
+            if (id == 1){
                 $scope.closeOaSelectEmployeeModal_();
                 vm.detail.deptName = $scope.selectedOaDeptNames_;
                 vm.detail.deptId = Number($scope.selectedOaDeptIds_);
@@ -9492,13 +9493,13 @@
         }
         //选部门
         vm.showDeptModal = function (id) {
-            if (id = 0){
+            if (id == 0){
                 $scope.showOaSelectEmployeeModal_({
                     title: "请选择部门", type: "选部门", deptIdList: vm.item.deptId + "",
-                    multiple: false, deptIds: "1", parentDeptId: 2
+                    multiple: false, deptIds: "1", parentDeptId: 2,bigDept:true
                 });
             }
-            if (id = 1){
+            if (id == 1){
                 $scope.showOaSelectEmployeeModal_({
                     title: "请选择部门", type: "选部门", deptIdList: vm.detail.deptId + "",
                     multiple: false, deptIds: "1", parentDeptId: 2
@@ -9508,12 +9509,12 @@
         }
         //保存选部门
         $rootScope.saveSelectDept_ = function () {
-            if (id = 0){
+            if (id == 0){
                 $scope.closeOaSelectEmployeeModal_();
                 vm.item.deptName = $scope.selectedOaDeptNames_;
                 vm.item.deptId = Number($scope.selectedOaDeptIds_);
             }
-            if (id = 1){
+            if (id == 1){
                 $scope.closeOaSelectEmployeeModal_();
                 vm.detail.deptName = $scope.selectedOaDeptNames_;
                 vm.detail.deptId = Number($scope.selectedOaDeptIds_);
@@ -9867,7 +9868,6 @@
             }else {
                 vm.detail.travelExpenseDays = bonus.toString();
             }
-            console.log(vm.detail.travelExpenseDays)
             count = (count * vm.detail.travelExpenseDays).toFixed(6)
             vm.detail.onRoadSubsidy = count.toString()
         }
@@ -10006,13 +10006,14 @@
 
         //选部门
         vm.showDeptModal = function (id) {
-            if (id = 0){
+            if (id == 0){
                 $scope.showOaSelectEmployeeModal_({
                     title: "请选择部门", type: "选部门", deptIdList: vm.item.deptId + "",
-                    multiple: false, deptIds: "1", parentDeptId: 2
+                    multiple: false, deptIds: "1", parentDeptId: 2, bigDept: true
                 });
             }
-            if (id = 1){
+
+            if (id == 1){
                 $scope.showOaSelectEmployeeModal_({
                     title: "请选择部门", type: "选部门", deptIdList: vm.detail.deptId + "",
                     multiple: false, deptIds: "1", parentDeptId: 2
@@ -10022,12 +10023,12 @@
         }
         //保存选部门
         $rootScope.saveSelectDept_ = function () {
-            if (id = 0){
+            if (id == 0){
                 $scope.closeOaSelectEmployeeModal_();
                 vm.item.deptName = $scope.selectedOaDeptNames_;
                 vm.item.deptId = Number($scope.selectedOaDeptIds_);
             }
-            if (id = 1){
+            if (id == 1){
                 $scope.closeOaSelectEmployeeModal_();
                 vm.detail.deptName = $scope.selectedOaDeptNames_;
                 vm.detail.deptId = Number($scope.selectedOaDeptIds_);
@@ -10081,10 +10082,7 @@
         };
         //金额小计=报销金额-在途补助
         vm.coutFinalPrice=function(){
-            fiveFinanceTravelExpenseService.updateDetail(vm.detail).then(function (value) {
-                if (value.data.ret) {
-                }
-            })
+            vm.detail.count = parseFloat(vm.detail.onRoadSubsidy) + parseFloat(vm.detail.applyMoney)
         };
 
         vm.print = function () {
@@ -10526,13 +10524,13 @@
 
         //选部门
         vm.showDeptModal = function (id) {
-            if (id = 0){
+            if (id == 0){
                 $scope.showOaSelectEmployeeModal_({
                     title: "请选择部门", type: "选部门", deptIdList: vm.item.deptId + "",
                     multiple: false, deptIds: "1", parentDeptId: 2
                 });
             }
-            if (id = 1){
+            if (id == 1){
                 $scope.showOaSelectEmployeeModal_({
                     title: "请选择部门", type: "选部门", deptIdList: vm.detail.deptId + "",
                     multiple: false, deptIds: "1", parentDeptId: 2
@@ -10542,12 +10540,12 @@
         }
         //保存选部门
         $rootScope.saveSelectDept_ = function () {
-            if (id = 0){
+            if (id == 0){
                 $scope.closeOaSelectEmployeeModal_();
                 vm.item.deptName = $scope.selectedOaDeptNames_;
                 vm.item.deptId = Number($scope.selectedOaDeptIds_);
             }
-            if (id = 1){
+            if (id == 1){
                 $scope.closeOaSelectEmployeeModal_();
                 vm.detail.deptName = $scope.selectedOaDeptNames_;
                 vm.detail.deptId = Number($scope.selectedOaDeptIds_);
@@ -11042,13 +11040,13 @@
 
         //选部门
         vm.showDeptModal = function (id) {
-            if (id = 0){
+            if (id == 0){
                 $scope.showOaSelectEmployeeModal_({
                     title: "请选择部门", type: "选部门", deptIdList: vm.item.deptId + "",
-                    multiple: false, deptIds: "1", parentDeptId: 2
+                    multiple: false, deptIds: "1", parentDeptId: 2,bigDept:true
                 });
             }
-            if (id = 1){
+            if (id == 1){
                 $scope.showOaSelectEmployeeModal_({
                     title: "请选择部门", type: "选部门", deptIdList: vm.detail.deptId + "",
                     multiple: false, deptIds: "1", parentDeptId: 2
@@ -11058,12 +11056,12 @@
         }
         //保存选部门
         $rootScope.saveSelectDept_ = function () {
-            if (id = 0){
+            if (id == 0){
                 $scope.closeOaSelectEmployeeModal_();
                 vm.item.deptName = $scope.selectedOaDeptNames_;
                 vm.item.deptId = Number($scope.selectedOaDeptIds_);
             }
-            if (id = 1){
+            if (id == 1){
                 $scope.closeOaSelectEmployeeModal_();
                 vm.detail.deptName = $scope.selectedOaDeptNames_;
                 vm.detail.deptId = Number($scope.selectedOaDeptIds_);
@@ -11560,13 +11558,13 @@
 
         //选部门
         vm.showDeptModal = function (id) {
-            if (id = 0){
+            if (id == 0){
                 $scope.showOaSelectEmployeeModal_({
                     title: "请选择部门", type: "选部门", deptIdList: vm.item.deptId + "",
-                    multiple: false, deptIds: "1", parentDeptId: 2
+                    multiple: false, deptIds: "1", parentDeptId: 2,bigDept:true
                 });
             }
-            if (id = 1){
+            if (id == 1){
                 $scope.showOaSelectEmployeeModal_({
                     title: "请选择部门", type: "选部门", deptIdList: vm.detail.deptId + "",
                     multiple: false, deptIds: "1", parentDeptId: 2
@@ -11576,12 +11574,12 @@
         }
         //保存选部门
         $rootScope.saveSelectDept_ = function () {
-            if (id = 0){
+            if (id == 0){
                 $scope.closeOaSelectEmployeeModal_();
                 vm.item.deptName = $scope.selectedOaDeptNames_;
                 vm.item.deptId = Number($scope.selectedOaDeptIds_);
             }
-            if (id = 1){
+            if (id == 1){
                 $scope.closeOaSelectEmployeeModal_();
                 vm.detail.deptName = $scope.selectedOaDeptNames_;
                 vm.detail.deptId = Number($scope.selectedOaDeptIds_);

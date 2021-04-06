@@ -73,6 +73,7 @@
         <property name="keepAliveSeconds" value="${task.keep_alive_seconds}"/>
     </bean>
 
+
     <tx:annotation-driven/>
     <task:annotation-driven/>
 

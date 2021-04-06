@@ -6520,6 +6520,450 @@
         return vm;
 
     })
+
+    //预算更改
+    .controller("FiveBudgetFeeChangeController", function ($state, $scope, $rootScope, fiveBudgetFeeChangeService) {
+        var vm = this;
+        var uiSref = "budget.feeChange";
+        var tableName = $rootScope.loadTableName(uiSref);
+        var key = $state.current.name + "_" + user.userLogin;
+        vm.params = getCacheParams(key, {qName: "", pageNum: 1, pageSize: $scope.pageSize, total: 0});
+        vm.pageInfo = {pageNum: vm.params.pageNum, pageSize: vm.params.pageSize, total: vm.params.total};
+        vm.init = function () {
+            $scope.loadRightData(user.userLogin, uiSref);
+            vm.loadPagedData();
+        }
+
+        vm.queryData = function () {
+            vm.pageInfo.pageNum = 1;
+            vm.loadPagedData();
+        }
+
+        vm.loadPagedData = function () {
+            var params = {
+                q: vm.params.qName,
+                userLogin: user.userLogin,
+                pageNum: vm.pageInfo.pageNum,
+                pageSize: vm.pageInfo.pageSize,
+                uiSref: uiSref
+            };
+            fiveBudgetFeeChangeService.listPagedData(params).then(function (value) {
+                if (value.data.ret) {
+                    vm.pageInfo = value.data.data;
+                    setCacheParams(key, vm.params, vm.pageInfo);
+                }
+            })
+        }
+
+        vm.show = function (id) {
+            $state.go("budget.feeChangeDetail", {feeId: id});
+        }
+
+        vm.add = function () {
+            var userLogin = user.userLogin;
+            fiveBudgetFeeChangeService.getNewModel(userLogin, uiSref).then(function (value) {
+                if (value.data.ret) {
+                    vm.show(value.data.data);
+                }
+            })
+        }
+        vm.remove = function (id) {
+            bootbox.confirm("确认要删除该条数据吗", function (result) {
+                if (result) {
+                    fiveBudgetFeeChangeService.remove(id, user.userLogin).then(function (value) {
+                        if (value.data.ret) {
+                            vm.loadPagedData();
+                        }
+                    })
+                }
+            })
+        }
+
+        vm.init();
+
+        //蒋 新建带参页面刷新方法
+        vm.refreshPagedData = function (params) {
+            fiveBudgetFeeChangeService.listPagedData(params).then(function (value) {
+                if (value.data.ret) {
+                    vm.pageInfo = value.data.data;
+                }
+            })
+        };
+        $scope.$on('ngRepeatFinished', function( ngRepeatFinishedEvent ) {
+            var option={filterColumns:{1:'deptName',2:'budgetYear',3:'budgetTotalMoney',4:'remark',5:'creator',6:'gmtCreate',7:'processName'},handleColumn:8};
+            tablefilter.queryFunction=vm.refreshPagedData;
+            tablefilter.params=vm.params;
+            tablefilter.initializeFilter(option);
+        });
+
+        return vm;
+    })
+    .controller("FiveBudgetFeeChangeDetailController", function ($state, $stateParams, $scope, $rootScope, commonCodeService,fiveBudgetFeeService, fiveBudgetFeeChangeService,fiveBudgetIndependentService) {
+        var vm = this;
+        var uiSref = "budget.feeChange";
+        var tableName = $rootScope.loadTableName(uiSref);
+        var id = $stateParams.feeId;
+        var feeId = 0;
+
+        vm.init = function () {
+            $scope.loadRightData(user.userLogin, uiSref);
+            vm.loadData(true);
+        }
+
+        vm.loadData = function (loadProcess) {
+            fiveBudgetFeeChangeService.getModelById(id).then(function (value) {
+                if (value.data.ret) {
+                    vm.item = value.data.data;
+                    if (loadProcess) {
+                        $scope.loadProcessInstance(vm.item.processInstanceId);
+                        $scope.basicInit(vm.item.businessKey);
+                        if (vm.item.projectNo != 0){
+                            fiveBudgetIndependentService.getModelById(vm.item.projectNo).then(function (value) {
+                                if (value.data.ret) {
+                                    vm.budgetIndepend = value.data.data;
+                                    vm.item.totalBudgetMoney = vm.budgetIndepend.budgetTotalMoney;
+                                }
+                            })
+                            fiveBudgetIndependentService.getDetailById(vm.item.projectNo).then(function (value) {
+                                feeId = vm.item.projectNo;
+                                if (value.data.ret) {
+                                    vm.details = value.data.data;
+                                    $('#treeTable').bootstrapTreeTable('destroy')
+                                    var treeTable = $('#treeTable').bootstrapTreeTable({
+                                        toolbar: "#demo-toolbar",    //顶部工具条
+                                        expandColumn: 1,            // 在哪一列上面显示展开按钮
+                                        showExport: true,
+                                        height: 500,
+                                        search:true,
+                                        expandAll: true,
+                                        condensed: true,        //紧凑
+                                        onDblClickRow:function(){
+                                            vm.showDetailModel(1);
+                                        },
+                                        columns: [{
+                                            field: 'selectItem',
+                                            radio: true
+                                        }, {
+                                            title: '类型名称',
+                                            field: 'typeName',
+                                            width: '30%',
+                                            formatter: function (value, row, index) {
+                                                if(row.lv==1){
+                                                    return '<span style="color:red">'+value+'</span>';
+                                                }
+                                                return value;
+                                            }
+                                        },
+                                            {
+                                                field: 'lastYearMoney',
+                                                title: '上年预算',
+                                                width: '20%',
+                                                align: "left",
+                                                valign: "top",
+                                                formatter: function (value, item, index) {
+                                                    return value;
+                                                }
+                                            },
+                                            {
+                                                field: 'lastYearSuccess',
+                                                title: '上年预计完成',
+                                                width: '20%',
+                                                align: "left",
+                                                valign: "top",
+                                                formatter: function (value, item, index) {
+                                                    return value;
+                                                }
+                                            },
+                                            {
+                                                field: 'budgetMoney',
+                                                title: '本年预算金额',
+                                                width: '20%',
+                                                align: "left",
+                                                valign: "top",
+                                                formatter: function (value, item, index) {
+                                                    return value;
+                                                }
+                                            },
+                                            {
+                                                field: 'budgetProportion',
+                                                title: '本年预算占比',
+                                                width: '15%',
+                                                align: "left",
+                                                formatter: function (value, row, index) {
+                                                    return value;
+                                                }
+                                            },
+                                            {
+                                                field: 'remark',
+                                                title: '备注',
+                                                width: '35%',
+                                                align: "left",
+                                            },
+                                        ],
+                                        data: value.data.data,
+                                    });
+                                }
+                            });
+                        }
+                    }
+
+                }
+            })
+        };
+        //新增detail
+        $("#addBtn").click(function () {
+            var data = [];
+            $('#treeTable').bootstrapTreeTable('appendData', data);
+        })
+
+        //展开隐藏全部
+        var _expandFlag_all = false;
+        vm.expandAll = function () {
+            if (_expandFlag_all) {
+                $('#treeTable').bootstrapTreeTable('expandAll');
+            } else {
+                $('#treeTable').bootstrapTreeTable('collapseAll');
+            }
+            _expandFlag_all = _expandFlag_all ? false : true;
+        }
+
+        //新增
+        vm.showDetailModel = function (id) {
+            var detailId = 0;
+            var selecteds = $('#treeTable').bootstrapTreeTable('getSelections');
+            $.each(selecteds, function (_i, _item) {
+                detailId = _item.id;
+            });
+            if (id === 0) {
+                fiveBudgetIndependentService.getNewModelDetail(feeId,detailId, user.userLogin).then(function (value) {
+                    if (value.data.ret) {
+                        vm.detail = value.data.data;
+                        $("#detailModal").modal("show");
+                    }
+                })
+            } else {
+                if (detailId == 0) {
+                    toastr.warning("请先选择要修改的记录！")
+                    return;
+                }
+                fiveBudgetIndependentService.getModelDetailById(detailId).then(function (value) {
+                    if (value.data.ret) {
+                        vm.detail = value.data.data;
+                        $("#detailModal").modal("show");
+                    }
+                })
+            }
+        }
+        vm.removeDetail = function () {
+            var selecteds = $('#treeTable').bootstrapTreeTable('getSelections');
+            var detailId = 0;
+            $.each(selecteds, function (_i, _item) {
+                detailId = _item.id;
+            });
+            if (detailId == 0) {
+                toastr.warning("请先选择要修改的记录！")
+                return;
+            }
+            bootbox.confirm("确定要删除该数据吗?", function (result) {
+                if (result) {
+                    fiveBudgetIndependentService.removeDetail(detailId, user.userLogin).then(function (value) {
+                        if (value.data.ret) {
+                            toastr.success("删除成功");
+                            $('#treeTable').bootstrapTreeTable('destroy');
+                            vm.save();
+                            vm.loadData(true);
+                        }
+                    })
+                }
+            });
+        };
+        //保存
+        vm.saveDetail = function () {
+            vm.detail.budgetIndependentId = feeId;
+            vm.detail.creator = user.userLogin;
+            fiveBudgetIndependentService.updateDetail(vm.detail).then(function (value) {
+                if (value.data.ret) {
+                    $("#detailModal").modal("hide");
+                    $('#treeTable').bootstrapTreeTable('destroy');
+                    vm.save();
+                    vm.loadData(true);
+                }
+            })
+        };
+        vm.showParentTree = function (item) {
+            fiveBudgetIndependentService.getDetailById(feeId).then(function (value) {
+                if (value.data.ret) {
+                    var list = value.data.data;
+                    var treeData = [];
+                    for (var i = 0; i < list.length; i++) {
+                        var data = list[i];
+                        var node = {
+                            id: data.id,
+                            parent: (data.parentId == 0 ? "#" : data.parentId.toString()),
+                            text: data.typeName,
+                            icon: data.icon,
+                            state: {opened: true, disabled: false, selected: false}
+                        };
+                        if (data.id == item.parentId) {
+                            node.state.selected = true;
+                        }
+                        treeData.push(node);
+                    }
+                    $('#detail_parent_tree').jstree("destroy");
+                    $('#detail_parent_tree')
+                        .jstree({
+                            'core': {
+                                'data': treeData
+                            }
+                        });
+                    $("#detailParentTreeModal").modal("show");
+                }
+            });
+        };
+        vm.chooseDetailParent = function () {
+            var data = $('#detail_parent_tree').jstree(true).get_selected(true)[0];
+            vm.detail.parentId = data.id;
+            vm.detail.parentName = data.text;
+            $("#detailParentTreeModal").modal("hide");
+        }
+        vm.save = function () {
+            vm.item.operateUserLogin = user.userLogin;
+            fiveBudgetFeeChangeService.update(vm.item).then(function (value) {
+                if (value.data.ret) {
+                    toastr.success("保存成功!")
+                    vm.loadData(true);
+                }
+            })
+        }
+
+
+        vm.showBigNum = function () {
+            if (vm.item.money != null) {
+                fiveBudgetIndependentService.moneyTurnCapital(vm.item.money).then(function (value) {
+                    vm.item.moneyMax = value.data.data;
+                })
+            }
+        }
+
+        vm.showUserModel = function (status) {
+            vm.status = status;
+
+            if (vm.status == 'remindReceiveMan') {
+                $scope.showOaSelectEmployeeModal_({
+                    title: "请选择催收责任人",
+                    type: '部门',
+                    deptIds: "1",
+                    userLoginList: vm.item.messageUser,
+                    multiple: true
+                });
+            }
+        }
+        $rootScope.saveSelectEmployee_ = function () {
+            $scope.closeOaSelectEmployeeModal_();
+            if (vm.status == 'remindReceiveMan') {
+                vm.item.remindReceiveManName = $scope.selectedOaUserNames_;
+                vm.item.remindReceiveMan = $scope.selectedOaUserLogins_;
+            }
+
+        };
+
+        //发送流程验证
+        $scope.showSendTask = function (send) {
+            if ($("#detail_form").validate().form()) {
+                vm.item.operateUserLogin = user.userLogin;
+                fiveBudgetFeeChangeService.update(vm.item).then(function (value) {
+                    if (value.data.ret) {
+                        jQuery.showActHandleModal({
+                            taskId: $scope.processInstance.taskId,
+                            send: send,
+                            enLogin: user.enLogin
+                        }, function () {
+                            return true;
+                        }, function (processInstanceId) {
+                            $scope.refresh();
+                        });
+                    }
+                })
+            } else {
+                toastr.warning("请准确填写数据!")
+                return false;
+            }
+        }
+
+        vm.showDeptModal = function () {
+            if(vm.opt == "detailDeptId"){
+                $scope.showOaSelectEmployeeModal_({
+                    title: "请选择部门",
+                    type: '选部门',
+                    deptIds: "1",
+                    deptIdList: vm.detail.deptId,
+                    multiple: false
+                });
+            }else{
+                $scope.showOaSelectEmployeeModal_({
+                    title: "请选择部门",
+                    type: '选部门',
+                    deptIds: "1",
+                    deptIdList: vm.item.deptId,
+                    multiple: false
+                });
+            }
+
+        }
+        $rootScope.saveSelectDept_ = function () {
+            $scope.closeOaSelectEmployeeModal_();
+            if(vm.opt == "detailDeptId") {
+                vm.detail.typeName = $scope.selectedOaDeptNames_;
+                vm.detail.deptId = Number($scope.selectedOaDeptIds_);
+            }else{
+                vm.item.deptName = $scope.selectedOaDeptNames_;
+                vm.item.deptId = Number($scope.selectedOaDeptIds_);
+            }
+        }
+
+
+        vm.selectFee = function(){
+            vm.qFee = "";
+            fiveBudgetIndependentService.selectAll(user.userLogin,"budget.independent").then(function (value) {
+                vm.fees = value.data.data;
+                console.log(vm.fees)
+                singleCheckBox(".cb_fee", "data-name");
+            });
+            $("#selectFeeModal").modal("show");
+        };
+
+        vm.saveSelectFee = function(){
+            $("#selectFeeModal").modal("hide");
+            if ($(".cb_fee:checked").length > 0){
+                var fee = $.parseJSON($(".cb_fee:checked").first().attr("data-name"));
+                vm.item.projectNo = fee.id;
+                feeId = vm.item.projectNo;
+                vm.item.totalBudgetMoney = fee.budgetTotalMoney;
+                vm.item.budgetYear = fee.budgetYear;
+                vm.item.projectName = fee.title;
+            }
+            vm.save();
+        };
+
+        vm.saveChange = function () {
+            vm.budgetIndepend.operateUserLogin = user.userLogin;
+            fiveBudgetIndependentService.update(vm.budgetIndepend).then(function (value) {
+                if (value.data.ret) {
+                    toastr.success("变更信息 保存成功!");
+                }
+            })
+            vm.loadData(true);
+        };
+
+        vm.init();
+        $scope.refresh = function () {
+            vm.loadData(true);
+        }
+
+        return vm;
+
+    })
+
     //上缴预算
     .controller("FiveBudgetTurnInController", function ($state, $scope, $rootScope, fiveBudgetTurnInService) {
         var vm = this;

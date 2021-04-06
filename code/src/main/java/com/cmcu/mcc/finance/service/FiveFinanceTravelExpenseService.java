@@ -483,6 +483,9 @@ public class FiveFinanceTravelExpenseService {
     public void updateDetail(FiveFinanceTravelExpenseDetail item){
         //如果申请金额 大于 预算剩余金额 提示
         Assert.state(Double.valueOf(item.getApplyMoney())<=Double.valueOf(item.getBudgetBalance()),"申请金额 大于 预算剩余金额!");
+        if (item.getFlag()==1){
+            fiveFinanceTravelExpenseDetailMapper.insert(item);
+        }
         FiveFinanceTravelExpenseDetail model = fiveFinanceTravelExpenseDetailMapper.selectByPrimaryKey(item.getId());
         model.setApplyRefundProject(item.getApplyRefundProject());
         model.setDeptId(item.getDeptId());
@@ -528,6 +531,7 @@ public class FiveFinanceTravelExpenseService {
         item.setApplyMoney(MyStringUtil.moneyToString("0"));//报销金额
         item.setOnRoadSubsidy(MyStringUtil.moneyToString("0"));//在途补助
         item.setCount(MyStringUtil.moneyToString("0"));//金额小计
+        item.setFlag(1);  //新建item的标志，在保存时判断，若为1则插入，为0则update
 
         //获取申请人的报销标准
         String applyStandard = "0";
@@ -548,7 +552,6 @@ public class FiveFinanceTravelExpenseService {
         }
         item.setApplyStandard(applyStandard);
         ModelUtil.setNotNullFields(item);
-        fiveFinanceTravelExpenseDetailMapper.insert(item);
         if(Double.valueOf(item.getApplyMoney()).equals(0.0)){
             item.setApplyMoney("");
         }

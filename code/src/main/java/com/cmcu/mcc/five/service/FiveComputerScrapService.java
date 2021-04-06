@@ -253,7 +253,7 @@ public class FiveComputerScrapService extends BaseService {
      */
     public List<Map> listMapData(Map<String,Object> params,String uiSref,String startTime1,String endTime1,String userLogin,String userName){
         List<Map> list = new ArrayList<>();
-        Map map=new LinkedHashMap();
+        /*Map map=new LinkedHashMap();
         map.put("申请人","");
         map.put("申请部门","");
         map.put("申请理由","");
@@ -270,7 +270,7 @@ public class FiveComputerScrapService extends BaseService {
         map.put("折旧年限","");
         map.put("已提折旧","");
         map.put("净值","");
-        list.add(map);
+        list.add(map);*/
 
         //数据权限验证
         Map head=Maps.newHashMap();
@@ -296,24 +296,24 @@ public class FiveComputerScrapService extends BaseService {
             List<FiveComputerScrapDetail> fiveComputerScrapDetails=listDetail(dto.getId());
 
             for (FiveComputerScrapDetail detail:fiveComputerScrapDetails){
-                Map map1=new LinkedHashMap();
-                map1.put("申请人",dto.getApplicantName());
-                map1.put("申请部门",dto.getDeptName());
-                map1.put("申请理由",dto.getApplicantReason());
-                map1.put("计算机所设备检定意见",dto.getAuthenticateResult());
-                map1.put("设备处理过程意见",dto.getHandleResult());
-                map1.put("创建人",dto.getCreatorName());
-                map1.put("创建时间", MyDateUtil.dateToStr(dto.getGmtCreate()));
-                map1.put("设备类型",detail.getDeviceType());
-                map1.put("资产编号",detail.getDeviceNo());
-                map1.put("品牌型号",detail.getDeviceModel());
-                map1.put("责任人",detail.getDutyPerson());
-                map1.put("启用时间",detail.getStartTime());
-                map1.put("原值",detail.getOriginalValue());
-                map1.put("折旧年限",detail.getDepreciableLife());
-                map1.put("已提折旧",detail.getSubmitted());
-                map1.put("净值",detail.getNetWorth());
-                list.add(map1);
+                Map map=new LinkedHashMap();
+                map.put("申请人",dto.getApplicantName());
+                map.put("申请部门",dto.getDeptName());
+                map.put("申请理由",dto.getApplicantReason());
+                map.put("计算机所设备检定意见",dto.getAuthenticateResult());
+                map.put("设备处理过程意见",dto.getHandleResult());
+                map.put("创建人",dto.getCreatorName());
+                map.put("创建时间", MyDateUtil.dateToStr(dto.getGmtCreate()));
+                map.put("设备类型",detail.getDeviceType());
+                map.put("资产编号",detail.getDeviceNo());
+                map.put("品牌型号",detail.getDeviceModel());
+                map.put("责任人",detail.getDutyPerson());
+                map.put("启用时间",detail.getStartTime());
+                map.put("原值",detail.getOriginalValue());
+                map.put("折旧年限",detail.getDepreciableLife());
+                map.put("已提折旧",detail.getSubmitted());
+                map.put("净值",detail.getNetWorth());
+                list.add(map);
             }
         }
 

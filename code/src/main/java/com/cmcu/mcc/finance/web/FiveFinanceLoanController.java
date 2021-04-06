@@ -61,7 +61,7 @@ public class FiveFinanceLoanController {
 
 
     @PostMapping(value = "/getNewModelDetail.json")
-    public JsonData getNewModelDetail(int  id){
+    public JsonData getNewModelDetail(int id){
         return JsonData.success(fiveFinanceLoanService.getNewModelDetail(id));
     }
 

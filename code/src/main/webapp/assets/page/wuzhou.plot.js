@@ -633,6 +633,20 @@ var mccApp = angular.module(appName, ['ui.router', 'ui.router.state.events', 'ui
                 },
                 controller: 'FiveBudgetFeeDetailController as vm'
             })
+            .state('budget.feeChange', {
+                url: "/budget/feeChange",
+                templateUrl: function () {
+                    return "/budget/feeChange";
+                },
+                controller: 'FiveBudgetFeeChangeController as vm'
+            })
+            .state('budget.feeChangeDetail', {
+                url: "/budget/feeChangeDetail?feeId",
+                templateUrl: function () {
+                    return "/budget/feeChangeDetail";
+                },
+                controller: 'FiveBudgetFeeChangeDetailController as vm'
+            })
             .state('budget.maintain', {
                 url: "/budget/maintain",
                 templateUrl: function () {

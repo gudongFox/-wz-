@@ -1236,6 +1236,10 @@ public class ActBusinessService {
                     result.put("url", "budget.feeDetail");
                     params.put("feeId", projectId);
                     break;
+                case EdConst.FIVE_BUDGET_FEE_Change:
+                    result.put("url", "budget.feeChangeDetail");
+                    params.put("feeId", projectId);
+                    break;
                 case EdConst.FIVE_FINANCE_SELFBANK:
                     result.put("url", "finance.selfBankDetail");
                     params.put("selfBankId", projectId);

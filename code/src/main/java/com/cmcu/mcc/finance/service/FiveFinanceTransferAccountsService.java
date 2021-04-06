@@ -318,6 +318,9 @@ public class FiveFinanceTransferAccountsService {
     }
 
     public void updateDetail(FiveFinanceTransferAccountsDetail item) {
+        if (item.getFlag()==1){
+            fiveFinanceTransferAccountsDetailMapper.insert(item);
+        }
         FiveFinanceTransferAccountsDetail model = fiveFinanceTransferAccountsDetailMapper.selectByPrimaryKey(item.getId());
         model.setBudgetId(item.getBudgetId());
         model.setBudgetType(item.getBudgetType());
@@ -340,8 +343,8 @@ public class FiveFinanceTransferAccountsService {
         item.setGmtModified(new Date());
         item.setGmtCreate(new Date());
         item.setDeleted(false);
+        item.setFlag(1);  //新建item的标志，在保存时判断，若为1则插入，为0则update
         ModelUtil.setNotNullFields(item);
-        fiveFinanceTransferAccountsDetailMapper.insert(item);
         return getDetailDto(item);
 
     }

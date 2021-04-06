@@ -414,7 +414,7 @@ public class FiveOaInformationEquipmentExamineService extends BaseService {
             map1.put("备注",dto.getMacAddress());
             map1.put("资产编号",dto.getFixedAssetNo());
             map1.put("创建人",dto.getCreatorName());
-            map1.put("创建时间",dto.getGmtCreate());
+            map1.put("创建时间",MyDateUtil.dateToStr(dto.getGmtCreate()));
             list.add(map1);
         }
         return list;
