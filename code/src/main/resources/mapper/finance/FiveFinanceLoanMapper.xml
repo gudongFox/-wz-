@@ -42,6 +42,8 @@
     <result column="business_manager_name" jdbcType="VARCHAR" property="businessManagerName" />
     <result column="reimburse_id" jdbcType="INTEGER" property="reimburseId" />
     <result column="travel_id" jdbcType="INTEGER" property="travelId" />
+    <result column="project_charge_man" jdbcType="VARCHAR" property="projectChargeMan" />
+    <result column="project_charge_man_name" jdbcType="VARCHAR" property="projectChargeManName" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from five_finance_loan
@@ -62,9 +64,9 @@
       project_type, pay_name, pay_bank, 
       pay_account, receive_name, receive_id, 
       receive_dept, receive_account, receive_bank, 
-      bid, scientific, business_manager, 
-      business_manager_name, reimburse_id, travel_id
-      )
+      bid, scientific, business_manager,
+      business_manager_name, reimburse_id, travel_id,
+      project_charge_man, project_charge_man_name)
     values (#{businessKey,jdbcType=VARCHAR}, #{formNo,jdbcType=VARCHAR}, #{item,jdbcType=VARCHAR}, 
       #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, #{unit,jdbcType=VARCHAR}, 
       #{receiptsNumber,jdbcType=VARCHAR}, #{applicant,jdbcType=VARCHAR}, #{applicantName,jdbcType=VARCHAR}, 
@@ -77,8 +79,8 @@
       #{payAccount,jdbcType=VARCHAR}, #{receiveName,jdbcType=VARCHAR}, #{receiveId,jdbcType=INTEGER}, 
       #{receiveDept,jdbcType=VARCHAR}, #{receiveAccount,jdbcType=VARCHAR}, #{receiveBank,jdbcType=VARCHAR}, 
       #{bid,jdbcType=VARCHAR}, #{scientific,jdbcType=VARCHAR}, #{businessManager,jdbcType=VARCHAR}, 
-      #{businessManagerName,jdbcType=VARCHAR}, #{reimburseId,jdbcType=INTEGER}, #{travelId,jdbcType=INTEGER}
-      )
+      #{businessManagerName,jdbcType=VARCHAR}, #{reimburseId,jdbcType=INTEGER}, #{travelId,jdbcType=INTEGER},
+      #{projectChargeMan,jdbcType=VARCHAR}, #{projectChargeManName,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.finance.entity.FiveFinanceLoan">
     update five_finance_loan
@@ -120,7 +122,9 @@
       business_manager = #{businessManager,jdbcType=VARCHAR},
       business_manager_name = #{businessManagerName,jdbcType=VARCHAR},
       reimburse_id = #{reimburseId,jdbcType=INTEGER},
-      travel_id = #{travelId,jdbcType=INTEGER}
+      travel_id = #{travelId,jdbcType=INTEGER},
+      project_charge_man = #{projectChargeMan,jdbcType=VARCHAR},
+      project_charge_man_name = #{projectChargeManName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -129,7 +133,8 @@
     remark, creator, creator_name, is_deleted, is_process_end, gmt_create, gmt_modified, 
     process_instance_id, project_id, project_name, project_type, pay_name, pay_bank, 
     pay_account, receive_name, receive_id, receive_dept, receive_account, receive_bank, 
-    bid, scientific, business_manager, business_manager_name, reimburse_id, travel_id
+    bid, scientific, business_manager, business_manager_name, reimburse_id, travel_id,
+    project_charge_man, project_charge_man_name
     from five_finance_loan
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -139,7 +144,8 @@
     remark, creator, creator_name, is_deleted, is_process_end, gmt_create, gmt_modified, 
     process_instance_id, project_id, project_name, project_type, pay_name, pay_bank, 
     pay_account, receive_name, receive_id, receive_dept, receive_account, receive_bank, 
-    bid, scientific, business_manager, business_manager_name, reimburse_id, travel_id
+    bid, scientific, business_manager, business_manager_name, reimburse_id, travel_id,
+    project_charge_man, project_charge_man_name
     from five_finance_loan
     <include refid="Base_Where_List" />
     <include refid="Base_Where_List1" />
@@ -267,6 +273,12 @@
       <if test="travelId != null and isLikeSelect==null">
          AND travel_id = #{travelId}
       </if>
+      <if test="projectChargeMan != null and isLikeSelect==null and projectChargeMan != ''">
+         AND project_charge_man = #{projectChargeMan}
+      </if>
+      <if test="projectChargeManName != null and isLikeSelect==null and projectChargeManName != ''">
+         AND project_charge_man_name = #{projectChargeManName}
+      </if>
       <if test="qBusinessKey != null and isLikeSelect==null and qBusinessKey != ''">
         AND business_key like CONCAT(#{qBusinessKey},'%')
       </if>
@@ -364,8 +376,17 @@
       <if test="businessManagerName != null and isLikeSelect!= null and businessManagerName != '' ">
          AND business_manager_name like  CONCAT('%',#{businessManagerName},'%')
       </if>
+      <if test="projectChargeMan != null and isLikeSelect!= null and projectChargeMan != '' ">
+         AND project_charge_man like  CONCAT('%',#{projectChargeMan},'%')
+      </if>
+      <if test="projectChargeManName != null and isLikeSelect!= null and projectChargeManName != '' ">
+         AND project_charge_man_name like  CONCAT('%',#{projectChargeManName},'%')
+      </if>
       <if test="deleted != null and isLikeSelect!=null">
          AND is_deleted = #{deleted}
+      </if>
+      <if test="deptId != null and isLikeSelect!=null">
+         AND dept_id = #{deptId}
       </if>
     </where>
   </sql>

@@ -34,7 +34,9 @@
 
 </style>
 
-
+<div id="page_index" hidden>
+    <p>表单编号：{{vm.printData.tableNo}}</p>
+</div>
 <div id="print_area1" hidden >
     <h1 style="text-align: center; color: red;font-size: 60px" class="pStyle2"><span ng-bind="vm.printData.meetingType">总经理办公会</span>纪要</h1>
 

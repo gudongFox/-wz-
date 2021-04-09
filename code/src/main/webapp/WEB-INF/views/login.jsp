@@ -66,7 +66,7 @@
 <!-- BEGIN LOGIN -->
 <div class="content" style="padding-top: 20px;padding-bottom: 20px;">
     <!-- BEGIN LOGIN FORM -->
-    <form class="login-form" action="/login?ret=<%=ret%>" method="post">
+    <form class="login-form" action="/login?ret=<%=ret%>" method="post" autocomplete="off">
         <h3 class="form-title">系统登录</h3>
         <div class="alert alert-danger display-hide">
             <button class="close" data-close="alert"></button>
@@ -79,7 +79,7 @@
             <div class="input-icon">
                 <i class="fa fa-user"></i>
                 <input class="form-control placeholder-no-fix" autofocus type="text" autocomplete="off"
-                       placeholder="登录名" name="enLogin" value="<%=enLogin%>"/>
+                       placeholder="登录名" name="enLogin" id="txt_login" value="<%=enLogin%>"/>
             </div>
         </div>
         <div class="form-group" style="margin-bottom: 20px;">
@@ -87,8 +87,7 @@
             <div class="input-icon">
                 <i class="fa fa-lock"></i>
                 <input class="form-control placeholder-no-fix" type="password"
-                       autocomplete="off" data-max-length="50" placeholder="您的密码" value="${pwd}"
-                       name="password"/>
+                       autocomplete="off" data-max-length="50" placeholder="您的密码" name="password"/>
             </div>
         </div>
         <div class="form-actions">

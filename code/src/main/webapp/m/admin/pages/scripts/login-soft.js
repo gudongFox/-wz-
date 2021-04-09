@@ -45,6 +45,8 @@
 			},
 
 			submitHandler: function (form) {
+				var enLogin_ = $("#txt_login").val().replaceAll("<", "").replaceAll(">", "").replaceAll("\"", "").replaceAll("\r\n", "").replaceAll("\t", "").replaceAll("\n", "").replaceAll(" ","");
+				$("#txt_login").val(enLogin_);
 				form.submit();
 			}
 		});
@@ -52,6 +54,9 @@
 		$('.login-form input').keypress(function (e) {
 			if (e.which == 13) {
 				if ($('.login-form').validate().form()) {
+					var enLogin_ = $("#txt_login").val().replaceAll("<", "").replaceAll(">", "").replaceAll("\"", "").replaceAll("\r\n", "").replaceAll("\t", "").replaceAll("\n", "").replaceAll(" ","");
+					$("#txt_login").val(enLogin_);
+
 					$('.login-form').submit();
 				}
 				return false;

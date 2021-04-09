@@ -471,7 +471,8 @@
                 type: '选部门',
                 deptIds: "1",
                 deptIdList: vm.item.deptId,
-                multiple: false
+                multiple: false,
+                parentDeptId: 2, bigDept:true
             });
         }
 
@@ -1004,7 +1005,8 @@
                 type: '选部门',
                 deptIds: "1",
                 deptIdList: vm.item.deptId,
-                multiple: false
+                multiple: false,
+                parentDeptId: 2, bigDept:true
             });
         }
         $rootScope.saveSelectDept_ = function () {
@@ -1490,7 +1492,9 @@
                 type: '选部门',
                 deptIds: "1",
                 deptIdList: vm.item.deptId,
-                multiple: false
+                multiple: false,
+                parentDeptId: 2, bigDept:true
+
             });
         }
         $rootScope.saveSelectDept_ = function () {
@@ -1979,7 +1983,9 @@
                 type: '选部门',
                 deptIds: "1",
                 deptIdList: vm.item.deptId,
-                multiple: false
+                multiple: false,
+                parentDeptId: 2, bigDept:true
+
             });
         }
         $rootScope.saveSelectDept_ = function () {
@@ -2169,7 +2175,8 @@
         vm.showDeptModal = function (id) {
             $scope.showOaSelectEmployeeModal_({
                 title: "请选择部门", type: "选部门", deptIdList: vm.item.deptId + "",
-                multiple: false, deptIds: "1", parentDeptId: 2
+                multiple: false, deptIds: "1", parentDeptId: 2, bigDept:true
+
             });
         };
 
@@ -2425,7 +2432,8 @@
         vm.showDeptModal = function (id) {
             $scope.showOaSelectEmployeeModal_({
                 title: "请选择部门", type: "选部门", deptIdList: vm.item.deptId + "",
-                multiple: false, deptIds: "1", parentDeptId: 2
+                multiple: false, deptIds: "1", parentDeptId: 2, bigDept:true
+
             });
         };
 
@@ -3037,7 +3045,9 @@
                 type: '选部门',
                 deptIds: "1",
                 deptIdList: vm.item.deptId,
-                multiple: false
+                multiple: false,
+                parentDeptId: 2, bigDept:true
+
             });
         }
         $rootScope.saveSelectDept_ = function () {
@@ -3560,7 +3570,9 @@
                 type: '选部门',
                 deptIds: "1",
                 deptIdList: vm.item.deptId,
-                multiple: false
+                multiple: false,
+                parentDeptId: 2, bigDept:true
+
             });
         }
         $rootScope.saveSelectDept_ = function () {
@@ -4058,14 +4070,16 @@
                 title: "请选择部门",
                 type: '选部门',
                 deptIds: "1",
-                deptIdList: vm.detail.deptId,
-                multiple: false
+                deptIdList: vm.item.deptId,
+                multiple: false,
+                parentDeptId: 2, bigDept:true
+
             });
         }
         $rootScope.saveSelectDept_ = function () {
             $scope.closeOaSelectEmployeeModal_();
-            vm.detail.typeName = $scope.selectedOaDeptNames_;
-            vm.detail.deptId = Number($scope.selectedOaDeptIds_);
+            vm.item.deptName = $scope.selectedOaDeptNames_;
+            vm.item.deptId = Number($scope.selectedOaDeptIds_);
         }
 
         vm.init();
@@ -4530,14 +4544,16 @@
                 title: "请选择部门",
                 type: '选部门',
                 deptIds: "1",
-                deptIdList: vm.detail.deptId,
-                multiple: false
+                deptIdList: vm.item.deptId,
+                multiple: false,
+                parentDeptId: 2, bigDept:true
+
             });
         }
         $rootScope.saveSelectDept_ = function () {
             $scope.closeOaSelectEmployeeModal_();
-            vm.detail.typeName = $scope.selectedOaDeptNames_;
-            vm.detail.deptId = Number($scope.selectedOaDeptIds_);
+            vm.item.deptName = $scope.selectedOaDeptNames_;
+            vm.item.deptId = Number($scope.selectedOaDeptIds_);
         }
 
         vm.init();
@@ -4974,14 +4990,16 @@
                 title: "请选择部门",
                 type: '选部门',
                 deptIds: "1",
-                deptIdList: vm.detail.deptId,
-                multiple: false
+                deptIdList: vm.item.deptId,
+                multiple: false,
+                parentDeptId: 2, bigDept:true
+
             });
         }
         $rootScope.saveSelectDept_ = function () {
             $scope.closeOaSelectEmployeeModal_();
-            vm.detail.typeName = $scope.selectedOaDeptNames_;
-            vm.detail.deptId = Number($scope.selectedOaDeptIds_);
+            vm.item.deptName = $scope.selectedOaDeptNames_;
+            vm.item.deptId = Number($scope.selectedOaDeptIds_);
         }
 
         vm.init();
@@ -5574,14 +5592,16 @@
                 title: "请选择部门",
                 type: '选部门',
                 deptIds: "1",
-                deptIdList: vm.detail.deptId,
-                multiple: false
+                deptIdList: vm.item.deptId,
+                multiple: false,
+                parentDeptId: 2, bigDept:true
+
             });
         }
         $rootScope.saveSelectDept_ = function () {
             $scope.closeOaSelectEmployeeModal_();
-            vm.detail.typeName = $scope.selectedOaDeptNames_;
-            vm.detail.deptId = Number($scope.selectedOaDeptIds_);
+            vm.item.deptName = $scope.selectedOaDeptNames_;
+            vm.item.deptId = Number($scope.selectedOaDeptIds_);
         }
 
         vm.init();
@@ -6009,14 +6029,16 @@
                 title: "请选择部门",
                 type: '选部门',
                 deptIds: "1",
-                deptIdList: vm.detail.deptId,
-                multiple: false
+                deptIdList: vm.item.deptId,
+                multiple: false,
+                parentDeptId: 2, bigDept:true
+
             });
         }
         $rootScope.saveSelectDept_ = function () {
             $scope.closeOaSelectEmployeeModal_();
-            vm.detail.typeName = $scope.selectedOaDeptNames_;
-            vm.detail.deptId = Number($scope.selectedOaDeptIds_);
+            vm.item.deptName = $scope.selectedOaDeptNames_;
+            vm.item.deptId = Number($scope.selectedOaDeptIds_);
         }
 
         vm.init();
@@ -6487,7 +6509,9 @@
                     type: '选部门',
                     deptIds: "1",
                     deptIdList: vm.detail.deptId,
-                    multiple: false
+                    multiple: false,
+                    parentDeptId: 2, bigDept:true
+
                 });
             }else{
                 $scope.showOaSelectEmployeeModal_({
@@ -6495,7 +6519,9 @@
                     type: '选部门',
                     deptIds: "1",
                     deptIdList: vm.item.deptId,
-                    multiple: false
+                    multiple: false,
+                    parentDeptId: 2, bigDept:true
+
                 });
             }
 
@@ -6604,6 +6630,19 @@
         var tableName = $rootScope.loadTableName(uiSref);
         var id = $stateParams.feeId;
         var feeId = 0;
+        var key = $state.current.name + "_" + user.userLogin;
+        vm.params = getCacheParams(key, {qName: "", pageNum: 1, pageSize: $scope.pageSize, total: 0});
+        vm.pageInfo = {pageNum: vm.params.pageNum, pageSize: vm.params.pageSize, total: vm.params.total};
+        vm.searchParams = {
+            q: vm.params.qName,
+            userLogin: user.userLogin,
+            pageNum: vm.pageInfo.pageNum,
+            pageSize: vm.pageInfo.pageSize,
+            uiSref: uiSref,
+            title: '',
+            deptName: '',
+            budgetYear: ''
+        };
 
         vm.init = function () {
             $scope.loadRightData(user.userLogin, uiSref);
@@ -6897,7 +6936,9 @@
                     type: '选部门',
                     deptIds: "1",
                     deptIdList: vm.detail.deptId,
-                    multiple: false
+                    multiple: false,
+                    parentDeptId: 2, bigDept:true
+
                 });
             }else{
                 $scope.showOaSelectEmployeeModal_({
@@ -6905,7 +6946,9 @@
                     type: '选部门',
                     deptIds: "1",
                     deptIdList: vm.item.deptId,
-                    multiple: false
+                    multiple: false,
+                    parentDeptId: 2, bigDept:true
+
                 });
             }
 
@@ -6924,9 +6967,13 @@
 
         vm.selectFee = function(){
             vm.qFee = "";
+            fiveBudgetIndependentService.listPagedData(vm.searchParams).then(function (value) {
+                vm.pageInfo = value.data.data;
+                vm.fees = vm.pageInfo.list;
+                setCacheParams(key, vm.params, vm.pageInfo);
+            });
             fiveBudgetIndependentService.selectAll(user.userLogin,"budget.independent").then(function (value) {
                 vm.fees = value.data.data;
-                console.log(vm.fees)
                 singleCheckBox(".cb_fee", "data-name");
             });
             $("#selectFeeModal").modal("show");
@@ -6955,6 +7002,13 @@
             vm.loadData(true);
         };
 
+        vm.searchData = function(){
+            fiveBudgetIndependentService.listPagedData(vm.searchParams).then(function (value) {
+                vm.pageInfo = value.data.data;
+                vm.fees = vm.pageInfo.list;
+                setCacheParams(key, vm.params, vm.pageInfo);
+            });
+        }
         vm.init();
         $scope.refresh = function () {
             vm.loadData(true);
@@ -7390,14 +7444,16 @@
                 title: "请选择部门",
                 type: '选部门',
                 deptIds: "1",
-                deptIdList: vm.detail.deptId,
-                multiple: false
+                deptIdList: vm.item.deptId,
+                multiple: false,
+                parentDeptId: 2, bigDept:true
+
             });
         }
         $rootScope.saveSelectDept_ = function () {
             $scope.closeOaSelectEmployeeModal_();
-            vm.detail.typeName = $scope.selectedOaDeptNames_;
-            vm.detail.deptId = Number($scope.selectedOaDeptIds_);
+            vm.item.deptName = $scope.selectedOaDeptNames_;
+            vm.item.deptId = Number($scope.selectedOaDeptIds_);
         }
 
         vm.init();
@@ -7581,7 +7637,8 @@
         vm.showDeptModal = function (id) {
             $scope.showOaSelectEmployeeModal_({
                 title: "请选择部门", type: "选部门", deptIdList: vm.item.deptId + "",
-                multiple: false, deptIds: "1", parentDeptId: 2
+                multiple: false, deptIds: "1", parentDeptId: 2, bigDept:true
+
             });
         };
 

@@ -243,6 +243,9 @@
       <if test="loanTitle != null and isLikeSelect==null and loanTitle != ''">
          AND loan_title = #{loanTitle}
       </if>
+      <if test="qBusinessKey != null and isLikeSelect==null and qBusinessKey != ''">
+        AND business_key like CONCAT(#{qBusinessKey},'%')
+      </if>
     </where>
   </sql>
   <sql id="Base_Where_List1">

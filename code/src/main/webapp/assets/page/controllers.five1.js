@@ -360,7 +360,7 @@
 
             commonEdArrangeUserService.getDefaultArrangeBusinessKey(vm.treeData.foreignKey).then(function (value) {
                 vm.businessKey = value.data.data;
-                debugger;
+
             });
         }
 

@@ -15,9 +15,10 @@
         word-break:break-all;
     }
 </style>
-
-<div id="print_area" hidden>
+<div id="page_index" hidden>
     <p>表单编号：{{vm.printData.tableNo}}</p>
+</div>
+<div id="print_area" hidden>
     <h3 style="text-align: center;"><span ng-bind="vm.printData.year"></span>年信息化设备采购预算</h3>
     <span style="padding-left: 15px" ng-bind="vm.printData.deptName+'印章处:'"></span><span style="float:right;padding-right: 15px;">单位:元</span>
  <%--   <table class="print_table">

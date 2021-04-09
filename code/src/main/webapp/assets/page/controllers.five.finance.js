@@ -2958,7 +2958,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml = strBodyStyle + "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.SET_PRINT_PAGESIZE(2, 0, 0, "A4");
                         lodop.PREVIEW();
                     }, 500);
@@ -4852,7 +4857,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml = strBodyStyle + "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.SET_PRINT_PAGESIZE(2, 0, 0, "A4");
                         lodop.PREVIEW();
                     }, 500);
@@ -5246,7 +5256,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml = strBodyStyle + "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.SET_PRINT_PAGESIZE(2, 0, 0, "A4");
                         lodop.PREVIEW();
                     }, 500);
@@ -5262,954 +5277,6 @@
 
     })
 
-    //费用申请-红河项目
-    .controller("FiveFinanceTransferAccountsRedController", function ($state, $scope,$rootScope, fiveFinanceTransferAccountsService) {
-        var vm = this;
-        var key = $state.current.name + "_" + user.userLogin;
-        vm.params = getCacheParams(key, {
-            dispatchType: "费用申请",
-            qDeptName: "",
-            pageNum: 1,
-            pageSize: $scope.pageSize,
-            total: 0
-        });
-        vm.pageInfo = {
-            q: vm.params.qName,
-            pageNum: vm.params.pageNum,
-            pageSize: vm.params.pageSize,
-            total: vm.params.total
-        };
-        var uiSref = "finance.transferAccountsRed";
-        var tableName = $rootScope.loadTableName(uiSref);
-        vm.showTopTitle='费用退款(红河项目)';
-
-        vm.queryData = function () {
-            vm.pageInfo.pageNum = 1;
-
-            vm.loadPagedData();
-        };
-
-        vm.loadPagedData = function () {
-            var params = {
-                pageNum: vm.pageInfo.pageNum,
-                pageSize: vm.pageInfo.pageSize,
-                userLogin: user.userLogin,
-                uiSref: uiSref
-            };
-            fiveFinanceTransferAccountsService.listPagedData(params).then(function (value) {
-                if (value.data.ret) {
-                    vm.pageInfo = value.data.data;
-                    setCacheParams(key, vm.params, vm.pageInfo);
-                }
-            })
-            $scope.loadRightData(user.userLogin, uiSref);
-        };
-
-        vm.show = function (id) {
-            $state.go("finance.transferAccountsRedDetail", {transferAccountsId: id});
-        }
-
-        vm.add = function () {
-            fiveFinanceTransferAccountsService.getNewModel(user.userLogin,uiSref).then(function (value) {
-                if (value.data.ret) {
-                    vm.show(value.data.data);
-                }
-            })
-        }
-
-        vm.remove = function (id) {
-            bootbox.confirm("您确定要删除吗?无法恢复,请谨慎操作!", function (result) {
-                if (result) {
-                    fiveFinanceTransferAccountsService.remove(id, user.userLogin).then(function (value) {
-                        if (value.data.ret) {
-                            toastr.success("删除成功!")
-                            vm.queryData();
-                        }
-                    });
-                }
-            })
-        }
-
-        vm.loadPagedData();
-
-        return vm;
-
-    })
-    .controller("FiveFinanceTransferAccountsRedDetailController", function ($sce, $state, $stateParams, $rootScope, $scope, hrEmployeeService, fiveFinanceTransferAccountsService,fiveBusinessContractLibraryService, hrDeptService) {
-        var vm = this;
-        var uiSref = "finance.transferAccountsRed";
-        var transferAccountsId = $stateParams.transferAccountsId;
-        var tableName = $rootScope.loadTableName(uiSref);
-
-        vm.showTopTitle='费用退款(红河项目)';
-        vm.init = function () {
-            $scope.loadRightData(user.userLogin, uiSref);
-            vm.loadData(true);
-        }
-
-        vm.loadData = function (loadProcess) {
-            fiveFinanceTransferAccountsService.getModelById(transferAccountsId).then(function (value) {
-                if (value.data.ret) {
-                    vm.item = value.data.data;
-                    if (loadProcess) {
-                        $scope.loadProcessInstance(vm.item.processInstanceId);
-                        $scope.basicInit(vm.item.businessKey);
-                    }
-                    $("#applicantTime").datepicker('setDate', vm.item.applicantTime);
-
-                }
-            })
-            fiveFinanceTransferAccountsService.listDetail(transferAccountsId).then(function (value) {
-                if (value.data.ret) {
-                    vm.details = value.data.data;
-                }
-            })
-        };
-
-        vm.save = function () {
-            vm.item.operateUserLogin = user.userLogin;
-            fiveFinanceTransferAccountsService.update(vm.item).then(function (value) {
-                if (value.data.ret) {
-                    toastr.success("保存成功!")
-                    vm.loadData(false);
-                }
-            })
-        }
-
-        vm.showUserModel = function (status) {
-            vm.status = status;
-            if (vm.status == 'applicant') {
-                $scope.showOaSelectEmployeeModal_({
-                    title: "请选择申请人",
-                    type: "部门",
-                    deptIds: "1",
-                    userLoginList: vm.item.applicantMan,
-                    multiple: true
-                });
-            }
-
-            if (vm.status == 'businessManager') {
-                $scope.showOaSelectEmployeeModal_({
-                    title: "请选择项目经理",
-                    type: "部门",
-                    deptIds: "1",
-                    userLoginList: vm.item.applicantMan,
-                    multiple: true
-                });
-            }
-        }
-
-        $rootScope.saveSelectEmployee_ = function () {
-            $scope.closeOaSelectEmployeeModal_();
-            if (vm.status == 'applicant') {
-                vm.item.applicant = $scope.selectedOaUserLogins_;
-                vm.item.applicantName = $scope.selectedOaUserNames_;
-            }
-            if (vm.status == 'businessManager') {
-                vm.item.businessManager = $scope.selectedOaUserLogins_;
-                vm.item.businessManagerName = $scope.selectedOaUserNames_;
-            }
-        };
-
-        //单据号
-        vm.getAccountNumber=function(){
-            vm.item.operateUserLogin=user.userLogin;
-            fiveFinanceTransferAccountsService.update(vm.item).then(function(value){
-                if (value.data.ret) {
-                    fiveFinanceTransferAccountsService.getAccountNumber(vm.item.id).then(function (value) {
-                        if (value.data.ret) {
-                            vm.loadData();
-                            toastr.success("单据号已更新!");
-                        }
-                    })
-                }
-            })
-        }
-        //发送流程验证
-        $scope.showSendTask = function (send) {
-            if (vm.item.projectName.length!=0&&vm.item.businessManagerName == "") {
-                toastr.warning("请填写 项目经理/总设计师!");
-                return;
-            }
-            if ($("#detail_form").validate().form()) {
-                vm.item.operateUserLogin = user.userLogin;
-                fiveFinanceTransferAccountsService.update(vm.item).then(function (value) {
-                    if (value.data.ret) {
-                        jQuery.showActHandleModal({
-                            taskId: $scope.processInstance.taskId,
-                            send: send,
-                            enLogin: user.enLogin
-                        }, function () {
-                            return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
-                        });
-                    }
-                })
-            } else {
-                toastr.warning("请准确填写数据!")
-                return false;
-            }
-
-        }
-
-        vm.showDeptModal = function (id) {
-            $scope.showOaSelectEmployeeModal_({
-                title: "请选择部门", type: "选部门", deptIdList: vm.item.deptId + "",
-                multiple: false, deptIds: "1", parentDeptId: 2,bigDept:true
-            });
-        }
-
-        $rootScope.saveSelectDept_ = function () {
-            $scope.closeOaSelectEmployeeModal_();
-            vm.item.deptName = $scope.selectedOaDeptNames_;
-            vm.item.deptId = Number($scope.selectedOaDeptIds_);
-        }
-
-        vm.showPlanTypeModal = function () {
-            $scope.showBudgetSelectModal_({
-                deptId: vm.item.deptId,
-                budgetYear:vm.item.applicantTime.substring(0,4)
-            });
-        }
-
-        $rootScope.saveSelectBudget_ = function () {
-            var selecteds = $('#budgetTreeTable').bootstrapTreeTable('getSelections');
-            $.each(selecteds, function (_i, _item) {
-                vm.detail.budgetId= _item.id;
-                vm.detail.chargePlan=_item.typeName;
-                vm.detail.deduction=_item.remainMoney;
-            });
-            $scope.closeBudgetSelectModal_();
-        }
-
-        //选择个人网银
-        vm.showBankSelect = function (id) {
-
-            vm.id=id;
-            if(id==1){
-                $scope.showBankSelectModal_({
-                    
-                    uiSref:uiSref,
-                    userBankNo:vm.item.outBankAccount
-                });
-            }
-            if(id==0){
-                $scope.showBankSelectModal_({
-                   
-                    uiSref:uiSref,
-                    userBankNo:vm.item.inBankAccount
-                });
-            }
-        }
-
-        $rootScope.saveSelectBank_ = function () {
-            if(vm.id==1){
-                var v1 = $rootScope.selectBank.type ;
-                vm.item.accountName = $rootScope.selectBank.userName ;
-                vm.item.outBankAccount = $rootScope.selectBank.bankNo ;
-                vm.item.outBankName = $rootScope.selectBank.bankName ;
-                $scope.closeBankSelectModal_();
-            }
-            if(vm.id==0){
-                var v2 = $rootScope.selectBank.type ;
-                vm.item.receiveName = $rootScope.selectBank.userName ;
-                vm.item.inBankAccount = $rootScope.selectBank.bankNo ;
-                vm.item.inBankName = $rootScope.selectBank.bankName ;
-                $scope.closeBankSelectModal_();
-            }
-        }
-        //新增
-        vm.showDetailModel = function (id) {
-            if (id==0) {
-                fiveFinanceTransferAccountsService.getNewModelDetail(transferAccountsId).then(function (value) {
-                    if (value.data.ret) {
-                        vm.detail = value.data.data;
-                        $("#detailModal").modal("show");
-                    }
-                })
-                //修改
-            } else {
-                fiveFinanceTransferAccountsService.getModelDetailById(id).then(function (value) {
-                    if (value.data.ret) {
-                        vm.detail = value.data.data;
-                        $("#detailModal").modal("show");
-                    }
-                })
-            }
-        }
-
-        vm.removeDetail = function (id) {
-            bootbox.confirm("确定要删除该数据吗?", function (result) {
-                if (result) {
-                    fiveFinanceTransferAccountsService.removeDetail(id, user.userLogin).then(function (value) {
-                        if (value.data.ret) {
-                            toastr.success("删除成功");
-                            vm.loadData(true);
-                        }
-                    })
-                }
-            });
-        };
-        //保存
-        vm.saveDetail = function () {
-            fiveFinanceTransferAccountsService.updateDetail(vm.detail).then(function (value) {
-                if (value.data.ret) {
-                    $("#detailModal").modal("hide");
-                    vm.save();
-                    vm.loadData(true)
-                }
-            })
-        };
-
-        vm.showSelectPreOrReviewModal = function () {
-            $scope.showLibrarySelectModal_({
-                selectLibraryId:vm.item.projectId,
-                uiSref:uiSref,
-                multiple: false
-            });
-        };
-
-        $rootScope.saveSelectLibrary_ = function () {
-            /*            vm.detail.contractName = $rootScope.selectedLibrary.contractName;
-                        vm.detail.contractNo = $rootScope.selectedLibrary.contractNo;
-                        vm.detail.contractId = $rootScope.selectedLibrary.id;
-                        vm.detail.projectNo =$rootScope.selectedLibrary.projectNo;
-                        vm.detail.signTime = $rootScope.selectedLibrary.signTime;
-                        vm.detail.contractMoney = $rootScope.selectedLibrary.contractMoney;
-                        vm.detail.customerName = $rootScope.selectedLibrary.customerName;*/
-            vm.item.projectId = $rootScope.selectedLibrary.id;
-            vm.item.projectName = $rootScope.selectedLibrary.projectName;
-            //vm.item.projectType = $rootScope.selectedLibrary.projectNature;
-            vm.item.businessManager= $rootScope.selectedLibrary.projectManager;
-            vm.item.businessManagerName= $rootScope.selectedLibrary.projectManagerName;
-            $scope.closeLibrarySelectModal_();
-        }
-
-        vm.print = function () {
-            fiveFinanceTransferAccountsService.getPrintData(transferAccountsId).then(function (value) {
-                if (value.data.ret) {
-                    lodop = getLodop();
-                    vm.printData = value.data.data;
-                    lodop.PRINT_INIT("中国五洲工程设计集团有限公司发文单");
-                    var materialPurchaseDetails = vm.printData.materialPurchaseDetails;
-
-                    vm.printDetails = materialPurchaseDetails;
-                    var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
-                    setTimeout(function () {
-                        var strFormHtml = strBodyStyle + "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
-                        lodop.SET_PRINT_PAGESIZE(2, 0, 0, "A4");
-                        lodop.PREVIEW();
-                    }, 500);
-                }
-            })
-        }
-
-        vm.init();
-        $scope.refresh = function () {
-            vm.loadData(true);
-        }
-        return vm;
-
-    })
-
-    //费用申请-建研院
-    .controller("FiveFinanceTransferAccountsBuildController", function ($state, $scope,$rootScope, fiveFinanceTransferAccountsService) {
-        var vm = this;
-        var key = $state.current.name + "_" + user.userLogin;
-        vm.params = getCacheParams(key, {
-            dispatchType: "费用申请",
-            qDeptName: "",
-            pageNum: 1,
-            pageSize: $scope.pageSize,
-            total: 0
-        });
-        vm.pageInfo = {
-            q: vm.params.qName,
-            pageNum: vm.params.pageNum,
-            pageSize: vm.params.pageSize,
-            total: vm.params.total
-        };
-        var uiSref = "finance.transferAccountsBuild";
-        var tableName = $rootScope.loadTableName(uiSref);
-        vm.showTopTitle='费用退款(建研院)';
-
-        vm.queryData = function () {
-            vm.pageInfo.pageNum = 1;
-
-            vm.loadPagedData();
-        };
-
-        vm.loadPagedData = function () {
-            var params = {
-                pageNum: vm.pageInfo.pageNum,
-                pageSize: vm.pageInfo.pageSize,
-                userLogin: user.userLogin,
-                uiSref: uiSref
-            };
-            fiveFinanceTransferAccountsService.listPagedData(params).then(function (value) {
-                if (value.data.ret) {
-                    vm.pageInfo = value.data.data;
-                    setCacheParams(key, vm.params, vm.pageInfo);
-                }
-            })
-            $scope.loadRightData(user.userLogin, uiSref);
-        };
-
-        vm.show = function (id) {
-            $state.go("finance.transferAccountsBuildDetail", {transferAccountsId: id});
-        }
-
-
-        vm.add = function () {
-
-            fiveFinanceTransferAccountsService.getNewModel(user.userLogin,uiSref).then(function (value) {
-                if (value.data.ret) {
-                    vm.show(value.data.data);
-                }
-            })
-        }
-
-        vm.remove = function (id) {
-            bootbox.confirm("您确定要删除吗?无法恢复,请谨慎操作!", function (result) {
-                if (result) {
-                    fiveFinanceTransferAccountsService.remove(id, user.userLogin).then(function (value) {
-                        if (value.data.ret) {
-                            toastr.success("删除成功!")
-                            vm.queryData();
-                        }
-                    });
-                }
-            })
-        }
-
-        vm.loadPagedData();
-
-        return vm;
-
-    })
-    .controller("FiveFinanceTransferAccountsBuildDetailController", function ($sce, $state, $stateParams, $rootScope, $scope, hrEmployeeService, fiveFinanceTransferAccountsService,fiveBusinessContractLibraryService, hrDeptService) {
-        var vm = this;
-        var uiSref = "finance.transferAccountsBuild";
-        var tableName = $rootScope.loadTableName(uiSref);
-        vm.showTopTitle='费用退款(建研院)';
-
-        var transferAccountsId = $stateParams.transferAccountsId;
-
-        vm.init = function () {
-            $scope.loadRightData(user.userLogin, uiSref);
-            vm.loadData(true);
-        }
-
-        vm.loadData = function (loadProcess) {
-            fiveFinanceTransferAccountsService.getModelById(transferAccountsId).then(function (value) {
-                if (value.data.ret) {
-                    vm.item = value.data.data;
-                    if (loadProcess) {
-                        $scope.loadProcessInstance(vm.item.processInstanceId);
-                        $scope.basicInit(vm.item.businessKey);
-                    }
-                    $("#applicantTime").datepicker('setDate', vm.item.applicantTime);
-
-                }
-            })
-            fiveFinanceTransferAccountsService.listDetail(transferAccountsId).then(function (value) {
-                if (value.data.ret) {
-                    vm.details = value.data.data;
-                }
-            })
-        };
-
-        vm.save = function () {
-            vm.item.operateUserLogin = user.userLogin;
-            fiveFinanceTransferAccountsService.update(vm.item).then(function (value) {
-                if (value.data.ret) {
-                    toastr.success("保存成功!")
-                    vm.loadData(false);
-                }
-            })
-        }
-
-        vm.showUserModel = function (status) {
-            vm.status = status;
-            if (vm.status == 'applicant') {
-                $scope.showOaSelectEmployeeModal_({
-                    title: "请选择申请人",
-                    type: "部门",
-                    deptIds: "1",
-                    userLoginList: vm.item.applicantMan,
-                    multiple: true
-                });
-            }
-
-            if (vm.status == 'businessManager') {
-                $scope.showOaSelectEmployeeModal_({
-                    title: "请选择项目经理",
-                    type: "部门",
-                    deptIds: "1",
-                    userLoginList: vm.item.applicantMan,
-                    multiple: true
-                });
-            }
-        }
-
-        $rootScope.saveSelectEmployee_ = function () {
-            $scope.closeOaSelectEmployeeModal_();
-            if (vm.status == 'applicant') {
-                vm.item.applicant = $scope.selectedOaUserLogins_;
-                vm.item.applicantName = $scope.selectedOaUserNames_;
-            }
-            if (vm.status == 'businessManager') {
-                vm.item.businessManager = $scope.selectedOaUserLogins_;
-                vm.item.businessManagerName = $scope.selectedOaUserNames_;
-            }
-        };
-
-       //单据号
-        vm.getAccountNumber=function(){
-            vm.item.operateUserLogin=user.userLogin;
-            fiveFinanceTransferAccountsService.update(vm.item).then(function(value){
-                if (value.data.ret) {
-                    fiveFinanceTransferAccountsService.getAccountNumber(vm.item.id).then(function (value) {
-                        if (value.data.ret) {
-                            vm.loadData();
-                            toastr.success("单据号已更新!");
-                        }
-                    })
-                }
-            })
-        }
-
-        //发送流程验证
-        $scope.showSendTask = function (send) {
-/*            if (vm.item.projectName.length!=0&&vm.item.businessManagerName == "") {
-                toastr.warning("请填写 项目经理/总设计师!");
-                return;
-            }*/
-            if ($("#detail_form").validate().form()) {
-                vm.item.operateUserLogin = user.userLogin;
-                fiveFinanceTransferAccountsService.update(vm.item).then(function (value) {
-                    if (value.data.ret) {
-                        jQuery.showActHandleModal({
-                            taskId: $scope.processInstance.taskId,
-                            send: send,
-                            enLogin: user.enLogin
-                        }, function () {
-                            return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
-                        });
-                    }
-                })
-            } else {
-                toastr.warning("请准确填写数据!")
-                return false;
-            }
-
-        }
-
-        vm.showDeptModal = function (id) {
-            $scope.showOaSelectEmployeeModal_({
-                title: "请选择部门", type: "选部门", deptIdList: vm.item.deptId + "",
-                multiple: false, deptIds: "1", parentDeptId: 2,bigDept:true
-            });
-        }
-
-        $rootScope.saveSelectDept_ = function () {
-            $scope.closeOaSelectEmployeeModal_();
-            vm.item.deptName = $scope.selectedOaDeptNames_;
-            vm.item.deptId = Number($scope.selectedOaDeptIds_);
-        }
-
-        vm.showPlanTypeModal = function () {
-            $scope.showBudgetSelectModal_({
-                deptId: vm.item.deptId,
-                budgetYear:vm.item.applicantTime.substring(0,4)
-            });
-        }
-
-        $rootScope.saveSelectBudget_ = function () {
-            var selecteds = $('#budgetTreeTable').bootstrapTreeTable('getSelections');
-            $.each(selecteds, function (_i, _item) {
-                vm.detail.budgetId= _item.id;
-                vm.detail.chargePlan=_item.typeName;
-                vm.detail.deduction=_item.remainMoney;
-            });
-            $scope.closeBudgetSelectModal_();
-        }
-
-        //选择个人网银
-        vm.showBankSelect = function (id) {
-
-            vm.id=id;
-            if(id==1){
-                $scope.showBankSelectModal_({
-                    
-                    uiSref:uiSref,
-                    userBankNo:vm.item.outBankAccount
-                });
-            }
-            if(id==0){
-                $scope.showBankSelectModal_({
-                   
-                    uiSref:uiSref,
-                    userBankNo:vm.item.inBankAccount
-                });
-            }
-        }
-
-        $rootScope.saveSelectBank_ = function () {
-            if(vm.id==1){
-                var v1 = $rootScope.selectBank.type ;
-                vm.item.accountName = $rootScope.selectBank.userName ;
-                vm.item.outBankAccount = $rootScope.selectBank.bankNo ;
-                vm.item.outBankName = $rootScope.selectBank.bankName ;
-                $scope.closeBankSelectModal_();
-            }
-            if(vm.id==0){
-                var v2 = $rootScope.selectBank.type ;
-                vm.item.receiveName = $rootScope.selectBank.userName ;
-                vm.item.inBankAccount = $rootScope.selectBank.bankNo ;
-                vm.item.inBankName = $rootScope.selectBank.bankName ;
-                $scope.closeBankSelectModal_();
-            }
-        }
-        //新增
-        vm.showDetailModel = function (id) {
-            if (id==0) {
-                fiveFinanceTransferAccountsService.getNewModelDetail(transferAccountsId).then(function (value) {
-                    if (value.data.ret) {
-                        vm.detail = value.data.data;
-                        $("#detailModal").modal("show");
-                    }
-                })
-                //修改
-            } else {
-                fiveFinanceTransferAccountsService.getModelDetailById(id).then(function (value) {
-                    if (value.data.ret) {
-                        vm.detail = value.data.data;
-                        $("#detailModal").modal("show");
-                    }
-                })
-            }
-        }
-
-        vm.removeDetail = function (id) {
-            bootbox.confirm("确定要删除该数据吗?", function (result) {
-                if (result) {
-                    fiveFinanceTransferAccountsService.removeDetail(id, user.userLogin).then(function (value) {
-                        if (value.data.ret) {
-                            toastr.success("删除成功");
-                            vm.loadData(true);
-                        }
-                    })
-                }
-            });
-        };
-        //保存
-        vm.saveDetail = function () {
-            fiveFinanceTransferAccountsService.updateDetail(vm.detail).then(function (value) {
-                if (value.data.ret) {
-                    $("#detailModal").modal("hide");
-                    vm.save();
-                    vm.loadData(true);
-                }
-            })
-        };
-
-        vm.showSelectPreOrReviewModal = function () {
-            $scope.showLibrarySelectModal_({
-                selectLibraryId:vm.item.projectId,
-                uiSref:uiSref,
-                multiple: false
-            });
-        };
-        $rootScope.saveSelectLibrary_ = function () {
-            /*            vm.detail.contractName = $rootScope.selectedLibrary.contractName;
-                        vm.detail.contractNo = $rootScope.selectedLibrary.contractNo;
-                        vm.detail.contractId = $rootScope.selectedLibrary.id;
-                        vm.detail.projectNo =$rootScope.selectedLibrary.projectNo;
-                        vm.detail.signTime = $rootScope.selectedLibrary.signTime;
-                        vm.detail.contractMoney = $rootScope.selectedLibrary.contractMoney;
-                        vm.detail.customerName = $rootScope.selectedLibrary.customerName;*/
-            vm.item.projectId = $rootScope.selectedLibrary.id;
-            vm.item.projectName = $rootScope.selectedLibrary.projectName;
-            //vm.item.projectType = $rootScope.selectedLibrary.projectNature;
-            vm.item.businessManager= $rootScope.selectedLibrary.projectManager;
-            vm.item.businessManagerName= $rootScope.selectedLibrary.projectManagerName;
-            $scope.closeLibrarySelectModal_();
-        }
-
-        vm.print = function () {
-            fiveFinanceTransferAccountsService.getPrintData(transferAccountsId).then(function (value) {
-                if (value.data.ret) {
-                    lodop = getLodop();
-                    vm.printData = value.data.data;
-                    lodop.PRINT_INIT("中国五洲工程设计集团有限公司发文单");
-                    var materialPurchaseDetails = vm.printData.materialPurchaseDetails;
-
-                    vm.printDetails = materialPurchaseDetails;
-                    var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
-                    setTimeout(function () {
-                        var strFormHtml = strBodyStyle + "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
-                        lodop.SET_PRINT_PAGESIZE(2, 0, 0, "A4");
-                        lodop.PREVIEW();
-                    }, 500);
-                }
-            })
-        }
-
-        vm.init();
-        $scope.refresh = function () {
-            vm.loadData(true);
-        }
-        return vm;
-
-    })
-
-    //费用申请-财务转账
-    .controller("FiveFinanceTransferFeeController", function ($state, $scope, fiveFinanceTransferFeeService) {
-        var vm = this;
-        var key = $state.current.name + "_" + user.userLogin;
-        vm.params = getCacheParams(key, {
-            dispatchType: "费用申请",
-            qDeptName: "",
-            pageNum: 1,
-            pageSize: $scope.pageSize,
-            total: 0
-        });
-        vm.pageInfo = {
-            q: vm.params.qName,
-            pageNum: vm.params.pageNum,
-            pageSize: vm.params.pageSize,
-            total: vm.params.total
-        };
-        var uiSref = "finance.transferFee";
-
-        vm.queryData = function () {
-            vm.pageInfo.pageNum = 1;
-
-            vm.loadPagedData();
-        };
-
-        vm.loadPagedData = function () {
-            var params = {
-                pageNum: vm.pageInfo.pageNum,
-                pageSize: vm.pageInfo.pageSize,
-                userLogin: user.userLogin,
-                uiSref: uiSref
-            };
-            fiveFinanceTransferFeeService.listPagedData(params).then(function (value) {
-                if (value.data.ret) {
-                    vm.pageInfo = value.data.data;
-                    setCacheParams(key, vm.params, vm.pageInfo);
-                }
-            })
-            $scope.loadRightData(user.userLogin, uiSref);
-        };
-
-        vm.show = function (id) {
-            $state.go("finance.transferFeeDetail", {transferFeeId: id});
-        }
-
-        vm.add = function () {
-            fiveFinanceTransferFeeService.getNewModel(user.userLogin,uiSref).then(function (value) {
-                if (value.data.ret) {
-                    vm.show(value.data.data);
-                }
-            })
-        }
-
-        vm.remove = function (id) {
-            bootbox.confirm("您确定要删除吗?无法恢复,请谨慎操作!", function (result) {
-                if (result) {
-                    fiveFinanceTransferFeeService.remove(id, user.userLogin).then(function (value) {
-                        if (value.data.ret) {
-                            toastr.success("删除成功!")
-                            vm.queryData();
-                        }
-                    });
-                }
-            })
-        }
-
-        vm.loadPagedData();
-
-        return vm;
-
-    })
-    .controller("FiveFinanceTransferFeeDetailController", function ($sce, $state, $stateParams, $rootScope, $scope, hrEmployeeService, fiveFinanceTransferFeeService, hrDeptService) {
-        var vm = this;
-        var uiSref = "finance.transferFee";
-        var transferFeeId = $stateParams.transferFeeId;
-
-        vm.init = function () {
-            $scope.loadRightData(user.userLogin, uiSref);
-            vm.loadData(true);
-        }
-
-        vm.loadData = function (loadProcess) {
-            fiveFinanceTransferFeeService.getModelById(transferFeeId).then(function (value) {
-                if (value.data.ret) {
-                    vm.item = value.data.data;
-                    if (loadProcess) {
-                        $scope.loadProcessInstance(vm.item.processInstanceId);
-                        $scope.basicInit(vm.item.businessKey);
-                    }
-                    $("#applicantTime").datepicker('setDate', vm.item.applicantTime);
-
-                }
-            })
-            fiveFinanceTransferFeeService.listDetail(transferFeeId).then(function (value) {
-                if (value.data.ret) {
-                    vm.details = value.data.data;
-                }
-            })
-        };
-
-        vm.save = function () {
-            vm.item.operateUserLogin = user.userLogin;
-            fiveFinanceTransferFeeService.update(vm.item).then(function (value) {
-                if (value.data.ret) {
-                    toastr.success("保存成功!")
-                    vm.loadData(false);
-                }
-            })
-        }
-
-        vm.showUserModel = function (status) {
-            vm.status = status;
-            if (vm.status == 'applicant') {
-                $scope.showOaSelectEmployeeModal_({
-                    title: "请选择申请人",
-                    type: "部门",
-                    deptIds: "1",
-                    userLoginList: vm.item.applicantMan,
-                    multiple: true
-                });
-            }
-
-        }
-
-        $rootScope.saveSelectEmployee_ = function () {
-            $scope.closeOaSelectEmployeeModal_();
-            if (vm.status == 'applicant') {
-                vm.item.applicant = $scope.selectedOaUserLogins_;
-                vm.item.applicantName = $scope.selectedOaUserNames_;
-            }
-        };
-
-        //发送流程验证
-        $scope.showSendTask = function (send) {
-            if ($("#detail_form").validate().form()) {
-                vm.item.operateUserLogin = user.userLogin;
-                fiveFinanceTransferFeeService.update(vm.item).then(function (value) {
-                    if (value.data.ret) {
-                        jQuery.showActHandleModal({
-                            taskId: $scope.processInstance.taskId,
-                            send: send,
-                            enLogin: user.enLogin
-                        }, function () {
-                            return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
-                        });
-                    }
-                })
-            } else {
-                toastr.warning("请准确填写数据!")
-                return false;
-            }
-
-        }
-
-        vm.showDeptModal = function (id) {
-            $scope.showOaSelectEmployeeModal_({
-                title: "请选择部门", type: "选部门", deptIdList: vm.item.deptId + "",
-                multiple: false, deptIds: "1", parentDeptId: 2
-            });
-        }
-
-        $rootScope.saveSelectDept_ = function () {
-            $scope.closeOaSelectEmployeeModal_();
-            vm.item.deptName = $scope.selectedOaDeptNames_;
-            vm.item.deptId = Number($scope.selectedOaDeptIds_);
-        }
-
-        //新增
-        vm.showDetailModel = function (id) {
-            if (id === 0) {
-                fiveFinanceTransferFeeService.getNewModelDetail(transferFeeId).then(function (value) {
-                    if (value.data.ret) {
-                        vm.detail = value.data.data;
-                        $("#detailModal").modal("show");
-                    }
-                })
-                //修改
-            } else {
-                fiveFinanceTransferFeeService.getModelDetailById(id).then(function (value) {
-                    if (value.data.ret) {
-                        vm.detail = value.data.data;
-                        $("#detailModal").modal("show");
-                    }
-                })
-            }
-        }
-
-        vm.removeDetail = function (id) {
-            bootbox.confirm("确定要删除该数据吗?", function (result) {
-                if (result) {
-                    fiveFinanceTransferFeeService.removeDetail(id, user.userLogin).then(function (value) {
-                        if (value.data.ret) {
-                            toastr.success("删除成功");
-                            vm.loadData(true);
-                        }
-                    })
-                }
-            });
-
-
-        };
-        //保存
-        vm.saveDetail = function () {
-            fiveFinanceTransferFeeService.updateDetail(vm.detail).then(function (value) {
-                if (value.data.ret) {
-                    $("#detailModal").modal("hide");
-                    vm.save();
-                    vm.loadData(true);
-                }
-            })
-        };
-
-        vm.print = function () {
-            fiveFinanceTransferFeeService.getPrintData(transferFeeId).then(function (value) {
-                if (value.data.ret) {
-                    lodop = getLodop();
-                    vm.printData = value.data.data;
-                    lodop.PRINT_INIT("中国五洲工程设计集团有限公司发文单");
-                    var materialPurchaseDetails = vm.printData.materialPurchaseDetails;
-
-                    vm.printDetails = materialPurchaseDetails;
-                    var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
-                    setTimeout(function () {
-                        var strFormHtml = strBodyStyle + "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
-                        lodop.SET_PRINT_PAGESIZE(2, 0, 0, "A4");
-                        lodop.PREVIEW();
-                    }, 500);
-                }
-            })
-        }
-
-        vm.init();
-        $scope.refresh = function () {
-            vm.loadData(true);
-        }
-        return vm;
-
-    })
 
     //借款-生产部门
     .controller("FiveFinanceLoanController", function ($state, $scope,$rootScope, fiveFinanceLoanService) {
@@ -6552,7 +5619,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml = strBodyStyle + "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.SET_PRINT_PAGESIZE(2, 0, 0, "A4");
                         lodop.PREVIEW();
                     }, 500);
@@ -6863,7 +5935,7 @@
         vm.showPlanTypeModal = function () {
             $scope.showBudgetSelectModal_({
                 deptId: vm.item.deptId,
-                budgetYear:vm.item.applicantTime.substring(0,4)
+                budgetYear: vm.item.applicantTime.substring(0,4)
             });
         }
 
@@ -6872,6 +5944,7 @@
             $.each(selecteds, function (_i, _item) {
                 vm.detail.budgetBalance=_item.remainMoney;
                 vm.detail.budgetNo=_item.typeName;
+                vm.detail.budgetId=_item.id; //预算子表id
             });
             $scope.closeBudgetSelectModal_();
         }
@@ -6888,693 +5961,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml = strBodyStyle + "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
-                        lodop.SET_PRINT_PAGESIZE(2, 0, 0, "A4");
-                        lodop.PREVIEW();
-                    }, 500);
-                }
-            })
-        }
-
-        vm.init();
-        $scope.refresh = function () {
-            vm.loadData(true);
-        }
-        return vm;
-
-    })
-    //借款-红河项目
-    .controller("FiveFinanceLoanRedController", function ($state, $scope,$rootScope, fiveFinanceLoanService) {
-        var vm = this;
-        var key = $state.current.name + "_" + user.userLogin;
-        vm.params = getCacheParams(key, {
-            dispatchType: "借款",
-            qDeptName: "",
-            pageNum: 1,
-            pageSize: $scope.pageSize,
-            total: 0
-        });
-        vm.pageInfo = {
-            q: vm.params.qName,
-            pageNum: vm.params.pageNum,
-            pageSize: vm.params.pageSize,
-            total: vm.params.total
-        };
-        var uiSref = "finance.loanRed";
-        var tableName = $rootScope.loadTableName(uiSref);
-
-
-        vm.queryData = function () {
-            vm.pageInfo.pageNum = 1;
-
-            vm.loadPagedData();
-        };
-
-        vm.loadPagedData = function () {
-            var params = {
-                pageNum: vm.pageInfo.pageNum,
-                pageSize: vm.pageInfo.pageSize,
-                userLogin: user.userLogin,
-                uiSref: uiSref
-            };
-            fiveFinanceLoanService.listPagedData(params).then(function (value) {
-                if (value.data.ret) {
-                    vm.pageInfo = value.data.data;
-                    setCacheParams(key, vm.params, vm.pageInfo);
-                }
-            })
-            $scope.loadRightData(user.userLogin, uiSref);
-        };
-
-        vm.show = function (id) {
-            $state.go("finance.loanRedDetail", {loanId: id});
-        }
-
-
-        vm.add = function () {
-            fiveFinanceLoanService.getNewModel(user.userLogin,uiSref).then(function (value) {
-                if (value.data.ret) {
-                    vm.show(value.data.data);
-                }
-            })
-        }
-
-        vm.remove = function (id) {
-            bootbox.confirm("您确定要删除吗?无法恢复,请谨慎操作!", function (result) {
-                if (result) {
-                    fiveFinanceLoanService.remove(id, user.userLogin).then(function (value) {
-                        if (value.data.ret) {
-                            toastr.success("删除成功!")
-                            vm.queryData();
-                        }
-                    });
-                }
-            })
-        }
-
-        vm.loadPagedData();
-
-        return vm;
-
-    })
-    .controller("FiveFinanceLoanRedDetailController", function ($sce, $state, $stateParams, $rootScope, $scope, hrEmployeeService, fiveFinanceLoanService, fiveBusinessContractLibraryService,hrDeptService) {
-        var vm = this;
-        var uiSref = "finance.loanRed";
-        var tableName = $rootScope.loadTableName(uiSref);
-
-        var loanId = $stateParams.loanId;
-
-        vm.init = function () {
-            $scope.loadRightData(user.userLogin, uiSref);
-            vm.loadData(true);
-        }
-
-        vm.loadData = function (loadProcess) {
-            fiveFinanceLoanService.getModelById(loanId).then(function (value) {
-                if (value.data.ret) {
-                    vm.item = value.data.data;
-                    if (loadProcess) {
-                        $scope.loadProcessInstance(vm.item.processInstanceId);
-                        $scope.basicInit(vm.item.businessKey);
-                    }
-                    $("#applicantTime").datepicker('setDate', vm.item.applicantTime);
-                }
-            })
-            fiveFinanceLoanService.listDetail(loanId).then(function (value) {
-                if (value.data.ret) {
-                    vm.details = value.data.data;
-                }
-            })
-        };
-
-        vm.save = function () {
-            vm.item.operateUserLogin = user.userLogin;
-            fiveFinanceLoanService.update(vm.item).then(function (value) {
-                if (value.data.ret) {
-                    toastr.success("保存成功!")
-                    vm.loadData(false);
-                }
-            })
-        }
-
-        vm.showUserModel = function (status) {
-            vm.status = status;
-            if (vm.status == 'applicant') {
-                $scope.showOaSelectEmployeeModal_({
-                    title: "请选择申请人",
-                    type: "部门",
-                    deptIds: "1",
-                    userLoginList: vm.item.applicantMan,
-                    multiple: true
-                });
-            }
-            if (vm.status == 'businessManager') {
-                $scope.showOaSelectEmployeeModal_({
-                    title: "请选择项目经理",
-                    type: "部门",
-                    deptIds: "1",
-                    userLoginList: vm.item.applicantMan,
-                    multiple: true
-                });
-            }
-
-        }
-
-        $rootScope.saveSelectEmployee_ = function () {
-            $scope.closeOaSelectEmployeeModal_();
-            if (vm.status == 'applicant') {
-                vm.item.applicant = $scope.selectedOaUserLogins_;
-                vm.item.applicantName = $scope.selectedOaUserNames_;
-            }
-            if (vm.status == 'businessManager') {
-                vm.item.businessManager = $scope.selectedOaUserLogins_;
-                vm.item.businessManagerName = $scope.selectedOaUserNames_;
-            }
-        };
-        //单据号
-        vm.getReceiptsNumber=function(){
-            vm.item.operateUserLogin=user.userLogin;
-            fiveFinanceLoanService.update(vm.item).then(function(value){
-                if (value.data.ret) {
-                    fiveFinanceLoanService.getReceiptsNumber(vm.item.id).then(function (value) {
-                        if (value.data.ret) {
-                            vm.loadData();
-                            toastr.success("单据号已更新!");
-                        }
-                    })
-                }
-            })
-        }
-        //发送流程验证
-        $scope.showSendTask = function (send) {
-            if ($("#detail_form").validate().form()) {
-                vm.item.operateUserLogin = user.userLogin;
-                fiveFinanceLoanService.update(vm.item).then(function (value) {
-                    if (value.data.ret) {
-                        jQuery.showActHandleModal({
-                            taskId: $scope.processInstance.taskId,
-                            send: send,
-                            enLogin: user.enLogin
-                        }, function () {
-                            return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
-                        });
-                    }
-                })
-            } else {
-                toastr.warning("请准确填写数据!")
-                return false;
-            }
-
-        }
-
-        vm.showDeptModal = function (id) {
-            $scope.showOaSelectEmployeeModal_({
-                title: "请选择部门", type: "选部门", deptIdList: vm.item.deptId + "",
-                multiple: false, deptIds: "1", parentDeptId: 2,bigDept:true
-            });
-        }
-
-        $rootScope.saveSelectDept_ = function () {
-            $scope.closeOaSelectEmployeeModal_();
-            vm.item.deptName = $scope.selectedOaDeptNames_;
-            vm.item.deptId = Number($scope.selectedOaDeptIds_);
-        }
-
-        //新增
-        vm.showDetailModel = function (id) {
-            if (id === 0) {
-                fiveFinanceLoanService.getNewModelDetail(loanId).then(function (value) {
-                    if (value.data.ret) {
-                        vm.detail = value.data.data;
-                        $("#detailModal").modal("show");
-                    }
-                })
-                //修改
-            } else {
-                fiveFinanceLoanService.getModelDetailById(id).then(function (value) {
-                    if (value.data.ret) {
-                        vm.detail = value.data.data;
-                        $("#detailModal").modal("show");
-                    }
-                })
-            }
-        }
-
-        vm.removeDetail = function (id) {
-            bootbox.confirm("确定要删除该数据吗?", function (result) {
-                if (result) {
-                    fiveFinanceLoanService.removeDetail(id, user.userLogin).then(function (value) {
-                        if (value.data.ret) {
-                            toastr.success("删除成功");
-                            vm.loadData(true);
-                        }
-                    })
-                }
-            });
-
-
-        };
-        //保存
-        vm.saveDetail = function () {
-            fiveFinanceLoanService.updateDetail(vm.detail).then(function (value) {
-                if (value.data.ret) {
-                    $("#detailModal").modal("hide");
-                    vm.save();
-                    vm.loadData(true);
-                }
-
-            })
-        };
-
-        vm.showSelectPreOrReviewModal = function () {
-            $scope.showLibrarySelectModal_({
-                selectLibraryId:vm.item.projectId,
-                uiSref:uiSref,
-                multiple: false
-            });
-        };
-        $rootScope.saveSelectLibrary_ = function () {
-            /*            vm.detail.contractName = $rootScope.selectedLibrary.contractName;
-                        vm.detail.contractNo = $rootScope.selectedLibrary.contractNo;
-                        vm.detail.contractId = $rootScope.selectedLibrary.id;
-                        vm.detail.projectNo =$rootScope.selectedLibrary.projectNo;
-                        vm.detail.signTime = $rootScope.selectedLibrary.signTime;
-                        vm.detail.contractMoney = $rootScope.selectedLibrary.contractMoney;
-                        vm.detail.customerName = $rootScope.selectedLibrary.customerName;*/
-            vm.item.projectId = $rootScope.selectedLibrary.id;
-            vm.item.projectName = $rootScope.selectedLibrary.projectName;
-            vm.item.projectType = $rootScope.selectedLibrary.projectNature;
-            vm.item.businessManager= $rootScope.selectedLibrary.businessChargeLeader;
-            vm.item.businessManagerName= $rootScope.selectedLibrary.businessChargeLeaderName;
-            $scope.closeLibrarySelectModal_();
-        }
-
-        vm.showBankSelect = function (id) {
-            vm.id=id;
-            if(id==1){
-                $scope.showBankSelectModal_({
-                    
-                    uiSref:uiSref,
-                    userBankNo:vm.item.outBankAccount
-                });
-            }
-            if(id==0){
-                $scope.showBankSelectModal_({
-                    
-                    uiSref:uiSref,
-                    userBankNo:vm.item.inBankAccount
-                });
-            }
-        }
-
-        $rootScope.saveSelectBank_ = function () {
-            if(vm.id==1){
-                var v1 = $rootScope.selectBank.type ;
-                vm.item.payName = $rootScope.selectBank.userName ;
-                vm.item.payAccount = $rootScope.selectBank.bankNo ;
-                vm.item.payBank = $rootScope.selectBank.bankName ;
-                $scope.closeBankSelectModal_();
-            }
-            if(vm.id==0){
-                var v2 = $rootScope.selectBank.type ;
-                vm.item.receiveName = $rootScope.selectBank.userName ;
-                vm.item.receiveAccount = $rootScope.selectBank.bankNo ;
-                vm.item.receiveBank = $rootScope.selectBank.bankName ;
-                $scope.closeBankSelectModal_();
-            }
-        }
-
-        vm.showPlanTypeModal = function () {
-            $scope.showBudgetSelectModal_({
-                deptId: vm.item.deptId,
-                budgetYear:vm.item.applicantTime.substring(0,4)
-            });
-        }
-
-        $rootScope.saveSelectBudget_ = function () {
-            var selecteds = $('#budgetTreeTable').bootstrapTreeTable('getSelections');
-            $.each(selecteds, function (_i, _item) {
-                vm.detail.budgetId= _item.id;
-                vm.detail.budgetBalance=_item.remainMoney;
-                vm.detail.budgetNo=_item.typeName;
-            });
-            $scope.closeBudgetSelectModal_();
-        }
-
-        vm.print = function () {
-            fiveFinanceLoanService.getPrintData(loanRedId).then(function (value) {
-                if (value.data.ret) {
-                    lodop = getLodop();
-                    vm.printData = value.data.data;
-                    lodop.PRINT_INIT("中国五洲工程设计集团有限公司发文单");
-                    var materialPurchaseDetails = vm.printData.materialPurchaseDetails;
-
-                    vm.printDetails = materialPurchaseDetails;
-                    var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
-                    setTimeout(function () {
-                        var strFormHtml = strBodyStyle + "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
-                        lodop.SET_PRINT_PAGESIZE(2, 0, 0, "A4");
-                        lodop.PREVIEW();
-                    }, 500);
-                }
-            })
-        }
-
-        vm.init();
-        $scope.refresh = function () {
-            vm.loadData(true);
-        }
-        return vm;
-
-    })
-    //借款-建研院
-    .controller("FiveFinanceLoanBuildController", function ($state, $scope,$rootScope, fiveFinanceLoanService) {
-        var vm = this;
-        var key = $state.current.name + "_" + user.userLogin;
-        vm.params = getCacheParams(key, {
-            dispatchType: "借款",
-            qDeptName: "",
-            pageNum: 1,
-            pageSize: $scope.pageSize,
-            total: 0
-        });
-        vm.pageInfo = {
-            q: vm.params.qName,
-            pageNum: vm.params.pageNum,
-            pageSize: vm.params.pageSize,
-            total: vm.params.total
-        };
-        var uiSref = "finance.loanBuild";
-        var tableName = $rootScope.loadTableName(uiSref);
-
-
-        vm.queryData = function () {
-            vm.pageInfo.pageNum = 1;
-
-            vm.loadPagedData();
-        };
-
-        vm.loadPagedData = function () {
-            var params = {
-                pageNum: vm.pageInfo.pageNum,
-                pageSize: vm.pageInfo.pageSize,
-                userLogin: user.userLogin,
-                uiSref: uiSref
-            };
-            fiveFinanceLoanService.listPagedData(params).then(function (value) {
-                if (value.data.ret) {
-                    vm.pageInfo = value.data.data;
-                    setCacheParams(key, vm.params, vm.pageInfo);
-                }
-            })
-            $scope.loadRightData(user.userLogin, uiSref);
-        };
-
-        vm.show = function (id) {
-            $state.go("finance.loanBuildDetail", {loanId: id});
-        }
-
-
-        vm.add = function () {
-            fiveFinanceLoanService.getNewModel(user.userLogin,uiSref).then(function (value) {
-                if (value.data.ret) {
-                    vm.show(value.data.data);
-                }
-            })
-        }
-
-        vm.remove = function (id) {
-            bootbox.confirm("您确定要删除吗?无法恢复,请谨慎操作!", function (result) {
-                if (result) {
-                    fiveFinanceLoanService.remove(id, user.userLogin).then(function (value) {
-                        if (value.data.ret) {
-                            toastr.success("删除成功!")
-                            vm.queryData();
-                        }
-                    });
-                }
-            })
-        }
-
-        vm.loadPagedData();
-
-        return vm;
-
-    })
-    .controller("FiveFinanceLoanBuildDetailController", function ($sce, $state, $stateParams, $rootScope, $scope, hrEmployeeService, fiveFinanceLoanService, fiveBusinessContractLibraryService,hrDeptService) {
-        var vm = this;
-        var uiSref = "finance.loanBuild";
-        var tableName = $rootScope.loadTableName(uiSref);
-
-        var loanId = $stateParams.loanId;
-
-        vm.init = function () {
-            $scope.loadRightData(user.userLogin, uiSref);
-            vm.loadData(true);
-        }
-
-        vm.loadData = function (loadProcess) {
-            fiveFinanceLoanService.getModelById(loanId).then(function (value) {
-                if (value.data.ret) {
-                    vm.item = value.data.data;
-                    if (loadProcess) {
-                        $scope.loadProcessInstance(vm.item.processInstanceId);
-                        $scope.basicInit(vm.item.businessKey);
-                    }
-                    $("#applicantTime").datepicker('setDate', vm.item.applicantTime);
-                }
-            })
-            fiveFinanceLoanService.listDetail(loanId).then(function (value) {
-                if (value.data.ret) {
-                    vm.details = value.data.data;
-                }
-            })
-        };
-
-        vm.save = function () {
-            vm.item.operateUserLogin = user.userLogin;
-            fiveFinanceLoanService.update(vm.item).then(function (value) {
-                if (value.data.ret) {
-                    toastr.success("保存成功!")
-                    vm.loadData(false);
-                }
-            })
-        }
-
-        vm.showUserModel = function (status) {
-            vm.status = status;
-            if (vm.status == 'applicant') {
-                $scope.showOaSelectEmployeeModal_({
-                    title: "请选择申请人",
-                    type: "部门",
-                    deptIds: "1",
-                    userLoginList: vm.item.applicantMan,
-                    multiple: true
-                });
-            }
-            if (vm.status == 'businessManager') {
-                $scope.showOaSelectEmployeeModal_({
-                    title: "请选择项目经理",
-                    type: "部门",
-                    deptIds: "1",
-                    userLoginList: vm.item.applicantMan,
-                    multiple: true
-                });
-            }
-
-        }
-
-        $rootScope.saveSelectEmployee_ = function () {
-            $scope.closeOaSelectEmployeeModal_();
-            if (vm.status == 'applicant') {
-                vm.item.applicant = $scope.selectedOaUserLogins_;
-                vm.item.applicantName = $scope.selectedOaUserNames_;
-            }
-            if (vm.status == 'businessManager') {
-                vm.item.businessManager = $scope.selectedOaUserLogins_;
-                vm.item.businessManagerName = $scope.selectedOaUserNames_;
-            }
-        };
-        //单据号
-        vm.getReceiptsNumber=function(){
-            vm.item.operateUserLogin=user.userLogin;
-            fiveFinanceLoanService.update(vm.item).then(function(value){
-                if (value.data.ret) {
-                    fiveFinanceLoanService.getReceiptsNumber(vm.item.id).then(function (value) {
-                        if (value.data.ret) {
-                            vm.loadData();
-                            toastr.success("单据号已更新!");
-                        }
-                    })
-                }
-            })
-        }
-        //发送流程验证
-        $scope.showSendTask = function (send) {
-            if ($("#detail_form").validate().form()) {
-                vm.item.operateUserLogin = user.userLogin;
-                fiveFinanceLoanService.update(vm.item).then(function (value) {
-                    if (value.data.ret) {
-                        jQuery.showActHandleModal({
-                            taskId: $scope.processInstance.taskId,
-                            send: send,
-                            enLogin: user.enLogin
-                        }, function () {
-                            return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
-                        });
-                    }
-                })
-            } else {
-                toastr.warning("请准确填写数据!")
-                return false;
-            }
-
-        }
-
-        vm.showDeptModal = function (id) {
-            $scope.showOaSelectEmployeeModal_({
-                title: "请选择部门", type: "选部门", deptIdList: vm.item.deptId + "",
-                multiple: false, deptIds: "1", parentDeptId: 2,bigDept:true
-            });
-        }
-
-        $rootScope.saveSelectDept_ = function () {
-            $scope.closeOaSelectEmployeeModal_();
-            vm.item.deptName = $scope.selectedOaDeptNames_;
-            vm.item.deptId = Number($scope.selectedOaDeptIds_);
-        }
-
-        //新增
-        vm.showDetailModel = function (id) {
-            if (id === 0) {
-                fiveFinanceLoanService.getNewModelDetail(loanId).then(function (value) {
-                    if (value.data.ret) {
-                        vm.detail = value.data.data;
-                        $("#detailModal").modal("show");
-                    }
-                })
-                //修改
-            } else {
-                fiveFinanceLoanService.getModelDetailById(id).then(function (value) {
-                    if (value.data.ret) {
-                        vm.detail = value.data.data;
-                        $("#detailModal").modal("show");
-                    }
-                })
-            }
-        }
-
-        vm.removeDetail = function (id) {
-            bootbox.confirm("确定要删除该数据吗?", function (result) {
-                if (result) {
-                    fiveFinanceLoanService.removeDetail(id, user.userLogin).then(function (value) {
-                        if (value.data.ret) {
-                            toastr.success("删除成功");
-                            vm.loadData(true);
-                        }
-                    })
-                }
-            });
-
-
-        };
-        //保存
-        vm.saveDetail = function () {
-            fiveFinanceLoanService.updateDetail(vm.detail).then(function (value) {
-                if (value.data.ret) {
-                    $("#detailModal").modal("hide");
-                    vm.save();
-                    vm.loadData(true);
-                }
-
-            })
-        };
-
-        vm.showSelectPreOrReviewModal = function () {
-            $scope.showLibrarySelectModal_({
-                selectLibraryId:vm.item.projectId,
-                uiSref:uiSref,
-                multiple: false
-            });
-        };
-        $rootScope.saveSelectLibrary_ = function () {
-            vm.item.projectId = $rootScope.selectedLibrary.id;
-            vm.item.projectName = $rootScope.selectedLibrary.projectName;
-            vm.item.projectType = $rootScope.selectedLibrary.projectNature;
-            vm.item.businessManager= $rootScope.selectedLibrary.projectManager;
-            vm.item.businessManagerName= $rootScope.selectedLibrary.projectManagerName;
-            $scope.closeLibrarySelectModal_();
-        }
-
-        vm.showBankSelect = function (id) {
-
-            vm.id=id;
-            if(id==1){
-                $scope.showBankSelectModal_({
-                   
-                    uiSref:uiSref,
-                    userBankNo:vm.item.outBankAccount
-                });
-            }
-            if(id==0){
-                $scope.showBankSelectModal_({
-                    
-                    uiSref:uiSref,
-                    userBankNo:vm.item.inBankAccount
-                });
-            }
-        }
-
-        $rootScope.saveSelectBank_ = function () {
-            if(vm.id==1){
-                var v1 = $rootScope.selectBank.type ;
-                vm.item.payName = $rootScope.selectBank.userName ;
-                vm.item.payAccount = $rootScope.selectBank.bankNo ;
-                vm.item.payBank = $rootScope.selectBank.bankName ;
-                $scope.closeBankSelectModal_();
-            }
-            if(vm.id==0){
-                var v2 = $rootScope.selectBank.type ;
-                vm.item.receiveName = $rootScope.selectBank.userName ;
-                vm.item.receiveAccount = $rootScope.selectBank.bankNo ;
-                vm.item.receiveBank = $rootScope.selectBank.bankName ;
-                $scope.closeBankSelectModal_();
-            }
-        }
-
-        vm.showPlanTypeModal = function () {
-            $scope.showBudgetSelectModal_({
-                deptId: vm.item.deptId,
-                budgetYear:vm.item.applicantTime.substring(0,4)
-            });
-        }
-        $rootScope.saveSelectBudget_ = function () {
-            var selecteds = $('#budgetTreeTable').bootstrapTreeTable('getSelections');
-            $.each(selecteds, function (_i, _item) {
-                vm.detail.budgetBalance=_item.remainMoney;
-                vm.detail.budgetNo=_item.typeName;
-            });
-            $scope.closeBudgetSelectModal_();
-        }
-
-        vm.print = function () {
-            fiveFinanceLoanService.getPrintData(loanId).then(function (value) {
-                if (value.data.ret) {
-                    lodop = getLodop();
-                    vm.printData = value.data.data;
-                    lodop.PRINT_INIT("中国五洲工程设计集团有限公司发文单");
-                    var materialPurchaseDetails = vm.printData.materialPurchaseDetails;
-
-                    vm.printDetails = materialPurchaseDetails;
-                    var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
-                    setTimeout(function () {
-                        var strFormHtml = strBodyStyle + "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.SET_PRINT_PAGESIZE(2, 0, 0, "A4");
                         lodop.PREVIEW();
                     }, 500);
@@ -7886,7 +6278,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml = strBodyStyle + "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.SET_PRINT_PAGESIZE(2, 0, 0, "A4");
                         lodop.PREVIEW();
                     }, 500);
@@ -8220,7 +6617,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml = strBodyStyle + "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.SET_PRINT_PAGESIZE(2, 0, 0, "A4");
                         lodop.PREVIEW();
                     }, 500);
@@ -8690,7 +7092,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml = strBodyStyle + "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.SET_PRINT_PAGESIZE(2, 0, 0, "A4");
                         lodop.PREVIEW();
                     }, 500);
@@ -8816,919 +7223,9 @@
 
             var selecteds = $('#budgetTreeTable').bootstrapTreeTable('getSelections');
             $.each(selecteds, function (_i, _item) {
-                 vm.detail.budgetId= _item.id;
-                vm.detail.controlBalance=_item.remainMoney;
-                vm.detail.costProject=_item.typeName;
-            });
-            $scope.closeBudgetSelectModal_();
-        }
-        vm.init();
-        $scope.refresh = function () {
-            vm.loadData(true);
-        }
-        return vm;
-
-    })
-    //费用报销-红河
-    .controller("FiveFinanceReimburseRedController", function ($state, $scope, $rootScope, fiveFinanceReimburseService) {
-        var vm = this;
-        var key = $state.current.name + "_" + user.userLogin;
-        vm.params = getCacheParams(key, {
-            dispatchType: "费用报销",
-            qDeptName: "",
-            pageNum: 1,
-            pageSize: $scope.pageSize,
-            total: 0
-        });
-        vm.pageInfo = {
-            q: vm.params.qName,
-            pageNum: vm.params.pageNum,
-            pageSize: vm.params.pageSize,
-            total: vm.params.total
-        };
-        var uiSref = "finance.reimburseRed";
-        var tableName = $rootScope.loadTableName(uiSref);
-
-        vm.queryData = function () {
-            vm.pageInfo.pageNum = 1;
-
-            vm.loadPagedData();
-        };
-
-        vm.loadPagedData = function () {
-            var params = {
-                pageNum: vm.pageInfo.pageNum,
-                pageSize: vm.pageInfo.pageSize,
-                userLogin: user.userLogin,
-                uiSref: uiSref
-            };
-            fiveFinanceReimburseService.listPagedData(params).then(function (value) {
-                if (value.data.ret) {
-                    vm.pageInfo = value.data.data;
-                    setCacheParams(key, vm.params, vm.pageInfo);
-                }
-            })
-            $scope.loadRightData(user.userLogin, uiSref);
-        };
-
-        vm.show = function (id) {
-            $state.go("finance.reimburseRedDetail", {reimburseId: id});
-        }
-
-
-        vm.add = function () {
-            fiveFinanceReimburseService.getNewModel(user.userLogin,uiSref).then(function (value) {
-                if (value.data.ret) {
-                    vm.show(value.data.data);
-                }
-            })
-        }
-
-        vm.remove = function (id) {
-            bootbox.confirm("您确定要删除吗?无法恢复,请谨慎操作!", function (result) {
-                if (result) {
-                    fiveFinanceReimburseService.remove(id, user.userLogin).then(function (value) {
-                        if (value.data.ret) {
-                            toastr.success("删除成功!")
-                            vm.queryData();
-                        }
-                    });
-                }
-            })
-        }
-
-        vm.loadPagedData();
-
-        return vm;
-
-    })
-    .controller("FiveFinanceReimburseRedDetailController", function ($sce, $state, $stateParams, $rootScope, $scope,actService, hrEmployeeService, fiveFinanceLoanService,fiveFinanceReimburseService, fiveFinanceRefundService,hrDeptService) {
-        var vm = this;
-        var uiSref = "finance.reimburseRed";
-        var reimburseId = $stateParams.reimburseId;
-        var tableName = $rootScope.loadTableName(uiSref);
-
-        vm.init = function () {
-            $scope.loadRightData(user.userLogin, uiSref);
-            vm.loadData(true);
-        }
-
-        vm.loadData = function (loadProcess) {
-            fiveFinanceReimburseService.getModelById(reimburseId).then(function (value) {
-                if (value.data.ret) {
-                    vm.item = value.data.data;
-                    if (loadProcess) {
-                        $scope.loadProcessInstance(vm.item.processInstanceId);
-                        $scope.basicInit(vm.item.businessKey);
-                    }
-                    $("#applicantTime").datepicker('setDate', vm.item.applicantTime);
-                }
-            })
-            fiveFinanceReimburseService.listDetail(reimburseId).then(function (value) {
-                if (value.data.ret) {
-                    vm.details = value.data.data;
-                }
-            })
-            fiveFinanceReimburseService.listDeduction(reimburseId).then(function (value) {
-                if (value.data.ret) {
-                    vm.deductions = value.data.data;
-                }
-            })
-        };
-
-        vm.save = function () {
-            vm.item.operateUserLogin = user.userLogin;
-            fiveFinanceReimburseService.update(vm.item).then(function (value) {
-                if (value.data.ret) {
-                    toastr.success("保存成功!")
-                    vm.loadData(false);
-                }
-            })
-        }
-        //选人
-        vm.showUserModel = function (status) {
-            vm.status = status;
-            if (vm.status == 'applicant') {
-                $scope.showOaSelectEmployeeModal_({
-                    title: "请选择申请人",
-                    type: "部门",
-                    deptIds: "1",
-                    userLoginList: vm.item.applicantMan,
-                    multiple: true
-                });
-            }
-            if (vm.status == 'businessManager') {
-                $scope.showOaSelectEmployeeModal_({
-                    title: "请选择项目经理",
-                    type: "部门",
-                    deptIds: "1",
-                    userLoginList: vm.item.businessManager,
-                    multiple: true
-                });
-            }
-            if (vm.status == 'applicantName') {
-                $scope.showOaSelectEmployeeModal_({
-                    title: "请选择支列人",
-                    type: "部门",
-                    deptIds: "1",
-                    userLoginList: vm.detail.applicant,
-                    multiple: true
-                });
-            }
-
-        }
-        //保存选人
-        $rootScope.saveSelectEmployee_ = function () {
-            $scope.closeOaSelectEmployeeModal_();
-            if (vm.status == 'applicant') {
-                vm.item.applicant = $scope.selectedOaUserLogins_;
-                vm.item.applicantName = $scope.selectedOaUserNames_;
-                /*                hrEmployeeService.getModelByUserLogin(vm.item.applicantMan).then(function (value) {
-                                    var user = value.data.data;
-                                    vm.item.applicantNo = user.userLogin;
-                                    vm.item.applicantTel=user.mobile;
-                                })*/
-            }
-            if (vm.status == 'businessManager') {
-                vm.item.businessManager = $scope.selectedOaUserLogins_;
-                vm.item.businessManagerName = $scope.selectedOaUserNames_;
-            }
-            if (vm.status == 'applicantName') {
-                vm.detail.applicant = $scope.selectedOaUserLogins_;
-                vm.detail.applicantName = $scope.selectedOaUserNames_;
-            }
-
-        };
-        //单据号
-        vm.getReceiptsNumber=function(){
-            vm.item.operateUserLogin=user.userLogin;
-            fiveFinanceReimburseService.update(vm.item).then(function(value){
-                if (value.data.ret) {
-                    fiveFinanceReimburseService.getReceiptsNumber(vm.item.id).then(function (value) {
-                        if (value.data.ret) {
-                            vm.loadData();
-                            toastr.success("单据号已更新!");
-                        }
-                    })
-                }
-            })
-        }
-        //发送流程验证
-        $scope.showSendTask = function (send) {
-            if ($("#detail_form").validate().form()) {
-                vm.item.operateUserLogin = user.userLogin;
-                fiveFinanceReimburseService.update(vm.item).then(function (value) {
-                    if (value.data.ret) {
-                        jQuery.showActHandleModal({
-                            taskId: $scope.processInstance.taskId,
-                            send: send,
-                            enLogin: user.enLogin
-                        }, function () {
-                            return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
-                        });
-                    }
-                })
-            } else {
-                toastr.warning("请准确填写数据!")
-                return false;
-            }
-
-        }
-        //选部门
-        vm.showDeptModal = function (id) {
-            if (id == 0){
-                $scope.showOaSelectEmployeeModal_({
-                    title: "请选择部门", type: "选部门", deptIdList: vm.item.deptId + "",
-                    multiple: false, deptIds: "1", parentDeptId: 2
-                });
-            }
-            if (id == 1){
-                $scope.showOaSelectEmployeeModal_({
-                    title: "请选择部门", type: "选部门", deptIdList: vm.detail.deptId + "",
-                    multiple: false, deptIds: "1", parentDeptId: 2
-                });
-            }
-
-        }
-        //保存选部门
-        $rootScope.saveSelectDept_ = function () {
-            if (id == 0){
-                $scope.closeOaSelectEmployeeModal_();
-                vm.item.deptName = $scope.selectedOaDeptNames_;
-                vm.item.deptId = Number($scope.selectedOaDeptIds_);
-            }
-            if (id == 1){
-                $scope.closeOaSelectEmployeeModal_();
-                vm.detail.deptName = $scope.selectedOaDeptNames_;
-                vm.detail.deptId = Number($scope.selectedOaDeptIds_);
-            }
-
-        }
-
-        //新增
-        vm.showDetailModel = function (id) {
-            if (id === 0) {
-                fiveFinanceReimburseService.getNewModelDetail(reimburseId, user.userLogin,uiSref).then(function (value) {
-                    if (value.data.ret) {
-                        vm.detail = value.data.data;
-                        $("#detailModal").modal("show");
-                    }
-                })
-                //修改
-            } else {
-                fiveFinanceReimburseService.getModelDetailById(id).then(function (value) {
-                    if (value.data.ret) {
-                        vm.detail = value.data.data;
-                        $("#detailModal").modal("show");
-                    }
-                })
-            }
-        }
-        //删除
-        vm.removeDetail = function (id) {
-            bootbox.confirm("确定要删除该数据吗?", function (result) {
-                if (result) {
-                    fiveFinanceReimburseService.removeDetail(id, user.userLogin).then(function (value) {
-                        if (value.data.ret) {
-                            toastr.success("删除成功");
-                            vm.loadData(true);
-                        }
-                    })
-                }
-            });
-        };
-        //保存
-        vm.saveDetail = function () {
-            fiveFinanceReimburseService.updateDetail(vm.detail).then(function (value) {
-                if (value.data.ret) {
-                    $("#detailModal").modal("hide");
-                    vm.save();
-                    vm.loadData(true);
-                }
-            })
-        };
-        vm.showSelectPreOrReviewModal = function () {
-            $scope.showLibrarySelectModal_({
-                selectLibraryId:vm.item.projectId,
-                uiSref:uiSref,
-                multiple: false
-            });
-        };
-        $rootScope.saveSelectLibrary_ = function () {
-            /*            vm.detail.contractName = $rootScope.selectedLibrary.contractName;
-                        vm.detail.contractNo = $rootScope.selectedLibrary.contractNo;
-                        vm.detail.contractId = $rootScope.selectedLibrary.id;
-                        vm.detail.projectNo =$rootScope.selectedLibrary.projectNo;
-                        vm.detail.signTime = $rootScope.selectedLibrary.signTime;
-                        vm.detail.contractMoney = $rootScope.selectedLibrary.contractMoney;
-                        vm.detail.customerName = $rootScope.selectedLibrary.customerName;*/
-            vm.item.projectId = $rootScope.selectedLibrary.id;
-            vm.item.projectName = $rootScope.selectedLibrary.projectName;
-            vm.item.projectType = $rootScope.selectedLibrary.projectNature;
-/*            vm.item.businessManager= $rootScope.selectedLibrary.projectManager;
-            vm.item.businessManagerName= $rootScope.selectedLibrary.projectManagerName;*/
-            vm.item.businessManager= $rootScope.selectedLibrary.businessChargeLeader;
-            vm.item.businessManagerName= $rootScope.selectedLibrary.businessChargeLeaderName;
-            $scope.closeLibrarySelectModal_();
-        }
-        vm.print = function () {
-            fiveFinanceReimburseService.getPrintData(reimburseId).then(function (value) {
-                if (value.data.ret) {
-                    lodop = getLodop();
-                    vm.printData = value.data.data;
-                    lodop.PRINT_INIT("中国五洲工程设计集团有限公司发文单");
-                    var materialPurchaseDetails = vm.printData.materialPurchaseDetails;
-
-                    vm.printDetails = materialPurchaseDetails;
-                    var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
-                    setTimeout(function () {
-                        var strFormHtml = strBodyStyle + "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
-                        lodop.SET_PRINT_PAGESIZE(2, 0, 0, "A4");
-                        lodop.PREVIEW();
-                    }, 500);
-                }
-            })
-        }
-        //选择借款流程
-        vm.showLoanModel = function () {
-            fiveFinanceLoanService.listLoanByUserLogin(user.userLogin).then(function (value) {
-                if (value.data.ret) {
-                    vm.listLoans = value.data.data;
-                    singleCheckBox(".cb_loan", "data-name");
-                }
-            })
-            $("#selectLoanModal").modal("show");
-        }
-        vm.saveSelectLoanModel = function () {
-            if ($(".cb_loan:checked").length > 0) {
-                var loan = $.parseJSON($(".cb_loan:checked").first().attr("data-name"));
-                fiveFinanceReimburseService.saveSelectedDeduction(reimburseId,loan.id,"loan").then(function (value) {
-                    if (value.data.ret) {
-                        //刷新抵扣
-                        vm.loadData(false);
-                    }
-                })
-            }
-            $("#selectLoanModal").modal("hide");
-        }
-        //选择还款流程
-        vm.showRefundModel = function () {
-            fiveFinanceRefundService.listRefundByUserLogin(user.userLogin).then(function (value) {
-                if (value.data.ret) {
-                    vm.listRefunds = value.data.data;
-                    singleCheckBox(".cb_refund", "data-name");
-                }
-            })
-            $("#selectRefundModal").modal("show");
-        }
-        vm.saveSelectRefundModel = function () {
-            if ($(".cb_refund:checked").length > 0) {
-                var refund = $.parseJSON($(".cb_refund:checked").first().attr("data-name"));
-                fiveFinanceReimburseService.saveSelectedDeduction(reimburseId,refund.id,"refund").then(function (value) {
-                    if (value.data.ret) {
-                        //刷新抵扣
-                        vm.loadData(false);
-                    }
-                })
-            }
-            $("#selectRefundModal").modal("hide");
-        }
-        vm.removeDeduction = function (id) {
-            bootbox.confirm("确定要删除该数据吗?", function (result) {
-                if (result) {
-                    fiveFinanceReimburseService.removeDeduction(id, user.userLogin).then(function (value) {
-                        if (value.data.ret) {
-                            toastr.success("删除成功");
-                            vm.loadData(false);
-                        }
-                    })
-                }
-            });
-        };
-        vm.showRelevanceModel  = function (deduction){
-            /*if(deduction.relevanceType=='loan'){
-                $state.go("finance.loanRedDetail", {loanId: deduction.relevanceId});
-            }else if(deduction.relevanceType=='refund'){
-                $state.go("finance.refundRedDetail", {refundId: deduction.relevanceId});
-            }*/
-            actService.getNgRedirectUrl(deduction.relevanceBusinessKey).then(function (value) {
-                if(value.data.ret){
-                    var result=value.data.data;
-                    var name='';
-                    var id='';
-                    for (var key in  result.params){
-                        name=key;
-                        id=result.params[key];
-                    }
-                    window.open("/act/plotIndex#?id="+ id+"&&url="+result.url+"&&name="+name);
-                }
-            })
-
-        }
-        vm.showBankSelect = function (type) {
-            vm.bankType=type;
-            if(type==1){
-                $scope.showBankSelectModal_({
-                    selectBankType:"company",
-                    userLogin: "",
-                    uiSref:uiSref,
-                    userBankNo:vm.item.bankAccount
-                });
-            } else if(type==0){
-                $scope.showBankSelectModal_({
-                    userLogin: "",
-                    uiSref:uiSref,
-                    userBankNo:vm.item.accountName
-                });
-            }
-        }
-        $rootScope.saveSelectBank_ = function () {
-            if(vm.bankType==1){
-                var v1 = $rootScope.selectBank.type ;
-                vm.item.accountName = $rootScope.selectBank.userName ;
-                vm.item.bankAccount = $rootScope.selectBank.bankNo ;
-                vm.item.bankName = $rootScope.selectBank.bankName ;
-                $scope.closeBankSelectModal_();
-            }
-            if(vm.bankType==0){
-                var v2 = $rootScope.selectBank.type ;
-                vm.item.receiveName = $rootScope.selectBank.userName ;
-                vm.item.receiveAccount = $rootScope.selectBank.bankNo ;
-                vm.item.receiveBank = $rootScope.selectBank.bankName ;
-                $scope.closeBankSelectModal_();
-            }
-        }
-        vm.showPlanTypeModal = function () {
-            $scope.showBudgetSelectModal_({
-                deptId: vm.item.deptId,
-                budgetYear: vm.item.applicantTime.substring(0,4)
-            });
-        }
-        $rootScope.saveSelectBudget_ = function () {
-
-            var selecteds = $('#budgetTreeTable').bootstrapTreeTable('getSelections');
-            $.each(selecteds, function (_i, _item) {
-                 vm.detail.budgetId= _item.id;
-                vm.detail.controlBalance=_item.remainMoney;
-                vm.detail.costProject=_item.typeName;
-            });
-            $scope.closeBudgetSelectModal_();
-        }
-        vm.init();
-        $scope.refresh = function () {
-            vm.loadData(true);
-        }
-        return vm;
-
-    })
-    //费用报销-建研院
-    .controller("FiveFinanceReimburseBuildController", function ($state, $scope, $rootScope, fiveFinanceReimburseService) {
-        var vm = this;
-        var key = $state.current.name + "_" + user.userLogin;
-        vm.params = getCacheParams(key, {
-            dispatchType: "费用报销",
-            qDeptName: "",
-            pageNum: 1,
-            pageSize: $scope.pageSize,
-            total: 0
-        });
-        vm.pageInfo = {
-            q: vm.params.qName,
-            pageNum: vm.params.pageNum,
-            pageSize: vm.params.pageSize,
-            total: vm.params.total
-        };
-        var uiSref = "finance.reimburseBuild";
-        var tableName = $rootScope.loadTableName(uiSref);
-
-        vm.queryData = function () {
-            vm.pageInfo.pageNum = 1;
-
-            vm.loadPagedData();
-        };
-
-        vm.loadPagedData = function () {
-            var params = {
-                pageNum: vm.pageInfo.pageNum,
-                pageSize: vm.pageInfo.pageSize,
-                userLogin: user.userLogin,
-                uiSref: uiSref
-            };
-            fiveFinanceReimburseService.listPagedData(params).then(function (value) {
-                if (value.data.ret) {
-                    vm.pageInfo = value.data.data;
-                    setCacheParams(key, vm.params, vm.pageInfo);
-                }
-            })
-            $scope.loadRightData(user.userLogin, uiSref);
-        };
-
-        vm.show = function (id) {
-            $state.go("finance.reimburseBuildDetail", {reimburseId: id});
-        }
-
-
-        vm.add = function () {
-            fiveFinanceReimburseService.getNewModel(user.userLogin,uiSref).then(function (value) {
-                if (value.data.ret) {
-                    vm.show(value.data.data);
-                }
-            })
-        }
-
-        vm.remove = function (id) {
-            bootbox.confirm("您确定要删除吗?无法恢复,请谨慎操作!", function (result) {
-                if (result) {
-                    fiveFinanceReimburseService.remove(id, user.userLogin).then(function (value) {
-                        if (value.data.ret) {
-                            toastr.success("删除成功!")
-                            vm.queryData();
-                        }
-                    });
-                }
-            })
-        }
-
-        vm.loadPagedData();
-
-        return vm;
-
-    })
-    .controller("FiveFinanceReimburseBuildDetailController", function ($sce, $state, $stateParams, $rootScope, $scope,actService, hrEmployeeService, fiveFinanceLoanService,fiveFinanceReimburseService, fiveFinanceRefundService,hrDeptService) {
-        var vm = this;
-        var uiSref = "finance.reimburseBuild";
-        var reimburseId = $stateParams.reimburseId;
-        var tableName = $rootScope.loadTableName(uiSref);
-
-        vm.init = function () {
-            $scope.loadRightData(user.userLogin, uiSref);
-            vm.loadData(true);
-        }
-
-        vm.loadData = function (loadProcess) {
-            fiveFinanceReimburseService.getModelById(reimburseId).then(function (value) {
-                if (value.data.ret) {
-                    vm.item = value.data.data;
-                    if (loadProcess) {
-                        $scope.loadProcessInstance(vm.item.processInstanceId);
-                        $scope.basicInit(vm.item.businessKey);
-                    }
-                    $("#applicantTime").datepicker('setDate', vm.item.applicantTime);
-                }
-            })
-            fiveFinanceReimburseService.listDetail(reimburseId).then(function (value) {
-                if (value.data.ret) {
-                    vm.details = value.data.data;
-                }
-            })
-            fiveFinanceReimburseService.listDeduction(reimburseId).then(function (value) {
-                if (value.data.ret) {
-                    vm.deductions = value.data.data;
-                }
-            })
-        };
-
-        vm.save = function () {
-            vm.item.operateUserLogin = user.userLogin;
-            fiveFinanceReimburseService.update(vm.item).then(function (value) {
-                if (value.data.ret) {
-                    toastr.success("保存成功!")
-                    vm.loadData(false);
-                }
-            })
-        }
-        //选人
-        vm.showUserModel = function (status) {
-            vm.status = status;
-            if (vm.status == 'applicant') {
-                $scope.showOaSelectEmployeeModal_({
-                    title: "请选择申请人",
-                    type: "部门",
-                    deptIds: "1",
-                    userLoginList: vm.item.applicantMan,
-                    multiple: true
-                });
-            }
-            if (vm.status == 'businessManager') {
-                $scope.showOaSelectEmployeeModal_({
-                    title: "请选择项目经理",
-                    type: "部门",
-                    deptIds: "1",
-                    userLoginList: vm.item.businessManager,
-                    multiple: true
-                });
-            }
-            if (vm.status == 'applicantName') {
-                $scope.showOaSelectEmployeeModal_({
-                    title: "请选择支列人",
-                    type: "部门",
-                    deptIds: "1",
-                    userLoginList: vm.detail.applicant,
-                    multiple: true
-                });
-            }
-
-        }
-        //保存选人
-        $rootScope.saveSelectEmployee_ = function () {
-            $scope.closeOaSelectEmployeeModal_();
-            if (vm.status == 'applicant') {
-                vm.item.applicant = $scope.selectedOaUserLogins_;
-                vm.item.applicantName = $scope.selectedOaUserNames_;
-                /*                hrEmployeeService.getModelByUserLogin(vm.item.applicantMan).then(function (value) {
-                                    var user = value.data.data;
-                                    vm.item.applicantNo = user.userLogin;
-                                    vm.item.applicantTel=user.mobile;
-                                })*/
-            }
-            if (vm.status == 'businessManager') {
-                vm.item.businessManager = $scope.selectedOaUserLogins_;
-                vm.item.businessManagerName = $scope.selectedOaUserNames_;
-            }
-            if (vm.status == 'applicantName') {
-                vm.detail.applicant = $scope.selectedOaUserLogins_;
-                vm.detail.applicantName = $scope.selectedOaUserNames_;
-            }
-
-        };
-        //单据号
-        vm.getReceiptsNumber=function(){
-            vm.item.operateUserLogin=user.userLogin;
-            fiveFinanceReimburseService.update(vm.item).then(function(value){
-                if (value.data.ret) {
-                    fiveFinanceReimburseService.getReceiptsNumber(vm.item.id).then(function (value) {
-                        if (value.data.ret) {
-                            vm.loadData();
-                            toastr.success("单据号已更新!");
-                        }
-                    })
-                }
-            })
-        }
-        //发送流程验证
-        $scope.showSendTask = function (send) {
-            if ($("#detail_form").validate().form()) {
-                vm.item.operateUserLogin = user.userLogin;
-                fiveFinanceReimburseService.update(vm.item).then(function (value) {
-                    if (value.data.ret) {
-                        jQuery.showActHandleModal({
-                            taskId: $scope.processInstance.taskId,
-                            send: send,
-                            enLogin: user.enLogin
-                        }, function () {
-                            return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
-                        });
-                    }
-                })
-            } else {
-                toastr.warning("请准确填写数据!")
-                return false;
-            }
-
-        }
-        //选部门
-        vm.showDeptModal = function (id) {
-            if (id == 0){
-                $scope.showOaSelectEmployeeModal_({
-                    title: "请选择部门", type: "选部门", deptIdList: vm.item.deptId + "",
-                    multiple: false, deptIds: "1", parentDeptId: 2,bigDept:true
-                });
-            }
-            if (id == 1){
-                $scope.showOaSelectEmployeeModal_({
-                    title: "请选择部门", type: "选部门", deptIdList: vm.detail.deptId + "",
-                    multiple: false, deptIds: "1", parentDeptId: 2
-                });
-            }
-
-        }
-        //保存选部门
-        $rootScope.saveSelectDept_ = function () {
-            if (id == 0){
-                $scope.closeOaSelectEmployeeModal_();
-                vm.item.deptName = $scope.selectedOaDeptNames_;
-                vm.item.deptId = Number($scope.selectedOaDeptIds_);
-            }
-            if (id == 1){
-                $scope.closeOaSelectEmployeeModal_();
-                vm.detail.deptName = $scope.selectedOaDeptNames_;
-                vm.detail.deptId = Number($scope.selectedOaDeptIds_);
-            }
-
-        }
-
-        //新增
-        vm.showDetailModel = function (id) {
-            if (id === 0) {
-                fiveFinanceReimburseService.getNewModelDetail(reimburseId, user.userLogin,uiSref).then(function (value) {
-                    if (value.data.ret) {
-                        vm.detail = value.data.data;
-                        $("#detailModal").modal("show");
-                    }
-                })
-                //修改
-            } else {
-                fiveFinanceReimburseService.getModelDetailById(id).then(function (value) {
-                    if (value.data.ret) {
-                        vm.detail = value.data.data;
-                        $("#detailModal").modal("show");
-                    }
-                })
-            }
-        }
-        //删除
-        vm.removeDetail = function (id) {
-            bootbox.confirm("确定要删除该数据吗?", function (result) {
-                if (result) {
-                    fiveFinanceReimburseService.removeDetail(id, user.userLogin).then(function (value) {
-                        if (value.data.ret) {
-                            toastr.success("删除成功");
-                            vm.loadData(true);
-                        }
-                    })
-                }
-            });
-        };
-        //保存
-        vm.saveDetail = function () {
-            fiveFinanceReimburseService.updateDetail(vm.detail).then(function (value) {
-                if (value.data.ret) {
-                    $("#detailModal").modal("hide");
-                    vm.save();
-                    vm.loadData(true);
-                }
-            })
-        };
-        vm.showSelectPreOrReviewModal = function () {
-            $scope.showLibrarySelectModal_({
-                selectLibraryId:vm.item.projectId,
-                uiSref:uiSref,
-                multiple: false
-            });
-        };
-        $rootScope.saveSelectLibrary_ = function () {
-            /*            vm.detail.contractName = $rootScope.selectedLibrary.contractName;
-                        vm.detail.contractNo = $rootScope.selectedLibrary.contractNo;
-                        vm.detail.contractId = $rootScope.selectedLibrary.id;
-                        vm.detail.projectNo =$rootScope.selectedLibrary.projectNo;
-                        vm.detail.signTime = $rootScope.selectedLibrary.signTime;
-                        vm.detail.contractMoney = $rootScope.selectedLibrary.contractMoney;
-                        vm.detail.customerName = $rootScope.selectedLibrary.customerName;*/
-            vm.item.projectId = $rootScope.selectedLibrary.id;
-            vm.item.projectName = $rootScope.selectedLibrary.projectName;
-            vm.item.projectType = $rootScope.selectedLibrary.projectNature;
-            vm.item.businessManager= $rootScope.selectedLibrary.projectManager;
-            vm.item.businessManagerName= $rootScope.selectedLibrary.projectManagerName;
-            $scope.closeLibrarySelectModal_();
-        }
-        vm.print = function () {
-            fiveFinanceReimburseService.getPrintData(reimburseId).then(function (value) {
-                if (value.data.ret) {
-                    lodop = getLodop();
-                    vm.printData = value.data.data;
-                    lodop.PRINT_INIT("中国五洲工程设计集团有限公司发文单");
-                    var materialPurchaseDetails = vm.printData.materialPurchaseDetails;
-
-                    vm.printDetails = materialPurchaseDetails;
-                    var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
-                    setTimeout(function () {
-                        var strFormHtml = strBodyStyle + "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
-                        lodop.SET_PRINT_PAGESIZE(2, 0, 0, "A4");
-                        lodop.PREVIEW();
-                    }, 500);
-                }
-            })
-        }
-        //选择借款流程
-        vm.showLoanModel = function () {
-            fiveFinanceLoanService.listLoanByDeptId(user.userLogin,158).then(function (value) {
-                if (value.data.ret) {
-                    vm.listLoans = value.data.data;
-                    singleCheckBox(".cb_loan", "data-name");
-                }
-            })
-            $("#selectLoanModal").modal("show");
-        }
-        vm.saveSelectLoanModel = function () {
-            if ($(".cb_loan:checked").length > 0) {
-                var loan = $.parseJSON($(".cb_loan:checked").first().attr("data-name"));
-                fiveFinanceReimburseService.saveSelectedDeduction(reimburseId,loan.id,"loan").then(function (value) {
-                    if (value.data.ret) {
-                        //刷新抵扣
-                        vm.loadData(false);
-                    }
-                })
-            }
-            $("#selectLoanModal").modal("hide");
-        }
-        //选择还款流程
-        vm.showRefundModel = function () {
-            fiveFinanceRefundService.listRefundByDeptId(user.userLogin,158).then(function (value) {
-                if (value.data.ret) {
-                    vm.listRefunds = value.data.data;
-                    singleCheckBox(".cb_refund", "data-name");
-                }
-            })
-            $("#selectRefundModal").modal("show");
-        }
-        vm.saveSelectRefundModel = function () {
-            if ($(".cb_refund:checked").length > 0) {
-                var refund = $.parseJSON($(".cb_refund:checked").first().attr("data-name"));
-                fiveFinanceReimburseService.saveSelectedDeduction(reimburseId,refund.id,"refund").then(function (value) {
-                    if (value.data.ret) {
-                        //刷新抵扣
-                        vm.loadData(false);
-                    }
-                })
-            }
-            $("#selectRefundModal").modal("hide");
-        }
-        vm.removeDeduction = function (id) {
-            bootbox.confirm("确定要删除该数据吗?", function (result) {
-                if (result) {
-                    fiveFinanceReimburseService.removeDeduction(id, user.userLogin).then(function (value) {
-                        if (value.data.ret) {
-                            toastr.success("删除成功");
-                            vm.loadData(false);
-                        }
-                    })
-                }
-            });
-        };
-        vm.showRelevanceModel  = function (deduction){
-          /*  if(deduction.relevanceType=='loan'){
-                $state.go("finance.loanBuildDetail", {loanId: deduction.relevanceId});
-            }else if(deduction.relevanceType=='refund'){
-                $state.go("finance.refundBuildDetail", {refundId: deduction.relevanceId});
-            }*/
-            actService.getNgRedirectUrl(deduction.relevanceBusinessKey).then(function (value) {
-                if(value.data.ret){
-                    var result=value.data.data;
-                    var name='';
-                    var id='';
-                    for (var key in  result.params){
-                        name=key;
-                        id=result.params[key];
-                    }
-                    window.open("/act/plotIndex#?id="+ id+"&&url="+result.url+"&&name="+name);
-                }
-            })
-
-        }
-
-        vm.showBankSelect = function (type) {
-            vm.bankType=type;
-            if(type==1){
-                $scope.showBankSelectModal_({
-                    selectBankType:"company",
-                    userLogin: "",
-                    uiSref:uiSref,
-                    userBankNo:vm.item.bankAccount
-                });
-            } else if(type==0){
-                $scope.showBankSelectModal_({
-                    userLogin: "",
-                    uiSref:uiSref,
-                    userBankNo:vm.item.accountName
-                });
-            }
-        }
-        $rootScope.saveSelectBank_ = function () {
-            if(vm.bankType==1){
-                var v1 = $rootScope.selectBank.type ;
-                vm.item.accountName = $rootScope.selectBank.userName ;
-                vm.item.bankAccount = $rootScope.selectBank.bankNo ;
-                vm.item.bankName = $rootScope.selectBank.bankName ;
-                $scope.closeBankSelectModal_();
-            }
-            if(vm.bankType==0){
-                var v2 = $rootScope.selectBank.type ;
-                vm.item.receiveName = $rootScope.selectBank.userName ;
-                vm.item.receiveAccount = $rootScope.selectBank.bankNo ;
-                vm.item.receiveBank = $rootScope.selectBank.bankName ;
-                $scope.closeBankSelectModal_();
-            }
-        }
-
-        vm.showPlanTypeModal = function () {
-            $scope.showBudgetSelectModal_({
-                deptId: vm.item.deptId,
-                budgetYear: vm.item.applicantTime.substring(0,4)
-            });
-        }
-        $rootScope.saveSelectBudget_ = function () {
-
-            var selecteds = $('#budgetTreeTable').bootstrapTreeTable('getSelections');
-            $.each(selecteds, function (_i, _item) {
-                vm.detail.budgetId= _item.id;
-                vm.detail.controlBalance=_item.remainMoney;
-                vm.detail.costProject=_item.typeName;
+                vm.detail.budgetBalance=_item.remainMoney;
+                vm.detail.budgetNo=_item.typeName;
+                vm.detail.budgetId=_item.id; //预算子表id
             });
             $scope.closeBudgetSelectModal_();
         }
@@ -9824,7 +7321,6 @@
         }
 
         vm.countAllowance = function(isChecked,name){
-            console.log(name)
             var count = 0;
             // vm.detail.onRoadSubsidy = vm.detail.onRoadSubsidy==null? 0 : parseFloat(vm.detail.onRoadSubsidy);
 
@@ -9841,16 +7337,16 @@
                 vm.detail.siteAllowance = true
             }
             if (vm.detail.accommodationAllowance){
-                count = count + 0.0050
+                count = count + 50
             }
             if (vm.detail.travelAllowance){
-                count = count + 0.0150
+                count = count + 150
             }
             if (vm.detail.dinnerAllowance){
-                count = count + 0.0100
+                count = count + 100
             }
             if (vm.detail.siteAllowance){
-                count = count + 0.0050
+                count = count + 50
             }
             var bonus = vm.detail.travelExpenseDays;
             //确保输入的是数字
@@ -9868,8 +7364,9 @@
             }else {
                 vm.detail.travelExpenseDays = bonus.toString();
             }
-            count = (count * vm.detail.travelExpenseDays).toFixed(6)
-            vm.detail.onRoadSubsidy = count.toString()
+            count = (count * vm.detail.travelExpenseDays).toFixed(2)
+            vm.detail.onRoadSubsidy = count.toString();
+            vm.coutFinalPrice();
         }
 
         vm.loadData = function (loadProcess) {
@@ -10097,7 +7594,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml = strBodyStyle + "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.SET_PRINT_PAGESIZE(2, 0, 0, "A4");
                         lodop.PREVIEW();
                     }, 500);
@@ -10390,6 +7892,56 @@
             vm.loadData(true);
         }
 
+        vm.countAllowance = function(isChecked,name){
+            console.log(name)
+            var count = 0;
+            // vm.detail.onRoadSubsidy = vm.detail.onRoadSubsidy==null? 0 : parseFloat(vm.detail.onRoadSubsidy);
+
+            if(name == "住宿费补助" && isChecked){
+                vm.detail.accommodationAllowance = true
+            }
+            if(name == "出差补助" && isChecked){
+                vm.detail.travelAllowance = true
+            }
+            if(name == "夜间伙补" && isChecked){
+                vm.detail.dinnerAllowance = true
+            }
+            if(name == "工地补贴" && isChecked){
+                vm.detail.siteAllowance = true
+            }
+            if (vm.detail.accommodationAllowance){
+                count = count + 50
+            }
+            if (vm.detail.travelAllowance){
+                count = count + 150
+            }
+            if (vm.detail.dinnerAllowance){
+                count = count + 100
+            }
+            if (vm.detail.siteAllowance){
+                count = count + 50
+            }
+            var bonus = vm.detail.travelExpenseDays;
+            //确保输入的是数字
+            bonus = bonus.replace(/[^\d\.]/g, '');
+            //确保第一个输入的是数字
+            bonus = bonus.replace(/^\./g,'');
+            //确保不能输入两个小数点
+            bonus = bonus.replace(/\.{2,}/g,'.');
+            //保证小数点只出现一次，而不能出现两次以上
+            bonus = bonus.replace('.','$#$').replace(/\./g,'').replace('$#$','.');
+            //确保只能输入两位小数
+            bonus = bonus.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');
+            if (bonus == null){
+                vm.detail.travelExpenseDays = 0;
+            }else {
+                vm.detail.travelExpenseDays = bonus.toString();
+            }
+            count = (count * vm.detail.travelExpenseDays).toFixed(2)
+            vm.detail.onRoadSubsidy = count.toString();
+            vm.coutFinalPrice();
+        }
+
         vm.loadData = function (loadProcess) {
             fiveFinanceTravelExpenseService.getModelById(travelExpenseId).then(function (value) {
                 if (value.data.ret) {
@@ -10614,7 +8166,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml = strBodyStyle + "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.SET_PRINT_PAGESIZE(2, 0, 0, "A4");
                         lodop.PREVIEW();
                     }, 500);
@@ -10809,11 +8366,713 @@
         $rootScope.saveSelectBudget_ = function () {
             var selecteds = $('#budgetTreeTable').bootstrapTreeTable('getSelections');
             $.each(selecteds, function (_i, _item) {
-                vm.detail.budgetId= _item.id;
-                vm.detail.controlBalance=_item.remainMoney;
-                vm.detail.applyRefundProject=_item.typeName;
+                vm.detail.budgetBalance=_item.remainMoney;
+                vm.detail.budgetNo=_item.typeName;
+                vm.detail.budgetId=_item.id; //预算子表id
             });
             $scope.closeBudgetSelectModal_();
+        }
+
+        vm.init();
+        $scope.refresh = function () {
+            vm.loadData(true);
+        }
+        return vm;
+
+    })
+
+
+
+
+
+
+    //借款-红河项目
+    .controller("FiveFinanceLoanRedController", function ($state, $scope,$rootScope, fiveFinanceLoanService) {
+        var vm = this;
+        var key = $state.current.name + "_" + user.userLogin;
+        vm.params = getCacheParams(key, {
+            dispatchType: "借款",
+            qDeptName: "",
+            pageNum: 1,
+            pageSize: $scope.pageSize,
+            total: 0
+        });
+        vm.pageInfo = {
+            q: vm.params.qName,
+            pageNum: vm.params.pageNum,
+            pageSize: vm.params.pageSize,
+            total: vm.params.total
+        };
+        var uiSref = "finance.loanRed";
+        var tableName = $rootScope.loadTableName(uiSref);
+
+
+        vm.queryData = function () {
+            vm.pageInfo.pageNum = 1;
+
+            vm.loadPagedData();
+        };
+
+        vm.loadPagedData = function () {
+            var params = {
+                pageNum: vm.pageInfo.pageNum,
+                pageSize: vm.pageInfo.pageSize,
+                userLogin: user.userLogin,
+                uiSref: uiSref
+            };
+            fiveFinanceLoanService.listPagedData(params).then(function (value) {
+                if (value.data.ret) {
+                    vm.pageInfo = value.data.data;
+                    setCacheParams(key, vm.params, vm.pageInfo);
+                }
+            })
+            $scope.loadRightData(user.userLogin, uiSref);
+        };
+
+        vm.show = function (id) {
+            $state.go("finance.loanRedDetail", {loanId: id});
+        }
+
+
+        vm.add = function () {
+            fiveFinanceLoanService.getNewModel(user.userLogin,uiSref).then(function (value) {
+                if (value.data.ret) {
+                    vm.show(value.data.data);
+                }
+            })
+        }
+
+        vm.remove = function (id) {
+            bootbox.confirm("您确定要删除吗?无法恢复,请谨慎操作!", function (result) {
+                if (result) {
+                    fiveFinanceLoanService.remove(id, user.userLogin).then(function (value) {
+                        if (value.data.ret) {
+                            toastr.success("删除成功!")
+                            vm.queryData();
+                        }
+                    });
+                }
+            })
+        }
+
+        vm.loadPagedData();
+
+        return vm;
+
+    })
+    .controller("FiveFinanceLoanRedDetailController", function ($sce, $state, $stateParams, $rootScope, $scope, hrEmployeeService, fiveFinanceLoanService, fiveBusinessContractLibraryService,hrDeptService) {
+        var vm = this;
+        var uiSref = "finance.loanRed";
+        var tableName = $rootScope.loadTableName(uiSref);
+
+        var loanId = $stateParams.loanId;
+
+        vm.init = function () {
+            $scope.loadRightData(user.userLogin, uiSref);
+            vm.loadData(true);
+        }
+
+        vm.loadData = function (loadProcess) {
+            fiveFinanceLoanService.getModelById(loanId).then(function (value) {
+                if (value.data.ret) {
+                    vm.item = value.data.data;
+                    if (loadProcess) {
+                        $scope.loadProcessInstance(vm.item.processInstanceId);
+                        $scope.basicInit(vm.item.businessKey);
+                    }
+                    $("#applicantTime").datepicker('setDate', vm.item.applicantTime);
+                }
+            })
+            fiveFinanceLoanService.listDetail(loanId).then(function (value) {
+                if (value.data.ret) {
+                    vm.details = value.data.data;
+                }
+            })
+        };
+
+        vm.save = function () {
+            vm.item.operateUserLogin = user.userLogin;
+            fiveFinanceLoanService.update(vm.item).then(function (value) {
+                if (value.data.ret) {
+                    toastr.success("保存成功!")
+                    vm.loadData(false);
+                }
+            })
+        }
+
+        vm.showUserModel = function (status) {
+            vm.status = status;
+            if (vm.status == 'applicant') {
+                $scope.showOaSelectEmployeeModal_({
+                    title: "请选择申请人",
+                    type: "部门",
+                    deptIds: "1",
+                    userLoginList: vm.item.applicantMan,
+                    multiple: true
+                });
+            }
+            if (vm.status == 'businessManager') {
+                $scope.showOaSelectEmployeeModal_({
+                    title: "请选择项目经理",
+                    type: "部门",
+                    deptIds: "1",
+                    userLoginList: vm.item.applicantMan,
+                    multiple: true
+                });
+            }
+
+        }
+
+        $rootScope.saveSelectEmployee_ = function () {
+            $scope.closeOaSelectEmployeeModal_();
+            if (vm.status == 'applicant') {
+                vm.item.applicant = $scope.selectedOaUserLogins_;
+                vm.item.applicantName = $scope.selectedOaUserNames_;
+            }
+            if (vm.status == 'businessManager') {
+                vm.item.businessManager = $scope.selectedOaUserLogins_;
+                vm.item.businessManagerName = $scope.selectedOaUserNames_;
+            }
+        };
+        //单据号
+        vm.getReceiptsNumber=function(){
+            vm.item.operateUserLogin=user.userLogin;
+            fiveFinanceLoanService.update(vm.item).then(function(value){
+                if (value.data.ret) {
+                    fiveFinanceLoanService.getReceiptsNumber(vm.item.id).then(function (value) {
+                        if (value.data.ret) {
+                            vm.loadData();
+                            toastr.success("单据号已更新!");
+                        }
+                    })
+                }
+            })
+        }
+        //发送流程验证
+        $scope.showSendTask = function (send) {
+            if ($("#detail_form").validate().form()) {
+                vm.item.operateUserLogin = user.userLogin;
+                fiveFinanceLoanService.update(vm.item).then(function (value) {
+                    if (value.data.ret) {
+                        jQuery.showActHandleModal({
+                            taskId: $scope.processInstance.taskId,
+                            send: send,
+                            enLogin: user.enLogin
+                        }, function () {
+                            return true;
+                        }, function (processInstanceId) {
+                            $scope.refresh();
+                        });
+                    }
+                })
+            } else {
+                toastr.warning("请准确填写数据!")
+                return false;
+            }
+
+        }
+
+        vm.showDeptModal = function (id) {
+            $scope.showOaSelectEmployeeModal_({
+                title: "请选择部门", type: "选部门", deptIdList: vm.item.deptId + "",
+                multiple: false, deptIds: "1", parentDeptId: 2,bigDept:true
+            });
+        }
+
+        $rootScope.saveSelectDept_ = function () {
+            $scope.closeOaSelectEmployeeModal_();
+            vm.item.deptName = $scope.selectedOaDeptNames_;
+            vm.item.deptId = Number($scope.selectedOaDeptIds_);
+        }
+
+        //新增
+        vm.showDetailModel = function (id) {
+            if (id === 0) {
+                fiveFinanceLoanService.getNewModelDetail(loanId).then(function (value) {
+                    if (value.data.ret) {
+                        vm.detail = value.data.data;
+                        $("#detailModal").modal("show");
+                    }
+                })
+                //修改
+            } else {
+                fiveFinanceLoanService.getModelDetailById(id).then(function (value) {
+                    if (value.data.ret) {
+                        vm.detail = value.data.data;
+                        $("#detailModal").modal("show");
+                    }
+                })
+            }
+        }
+
+        vm.removeDetail = function (id) {
+            bootbox.confirm("确定要删除该数据吗?", function (result) {
+                if (result) {
+                    fiveFinanceLoanService.removeDetail(id, user.userLogin).then(function (value) {
+                        if (value.data.ret) {
+                            toastr.success("删除成功");
+                            vm.loadData(true);
+                        }
+                    })
+                }
+            });
+
+
+        };
+        //保存
+        vm.saveDetail = function () {
+            fiveFinanceLoanService.updateDetail(vm.detail).then(function (value) {
+                if (value.data.ret) {
+                    $("#detailModal").modal("hide");
+                    vm.save();
+                    vm.loadData(true);
+                }
+
+            })
+        };
+
+        vm.showSelectPreOrReviewModal = function () {
+            $scope.showLibrarySelectModal_({
+                selectLibraryId:vm.item.projectId,
+                uiSref:uiSref,
+                multiple: false
+            });
+        };
+        $rootScope.saveSelectLibrary_ = function () {
+            /*            vm.detail.contractName = $rootScope.selectedLibrary.contractName;
+                        vm.detail.contractNo = $rootScope.selectedLibrary.contractNo;
+                        vm.detail.contractId = $rootScope.selectedLibrary.id;
+                        vm.detail.projectNo =$rootScope.selectedLibrary.projectNo;
+                        vm.detail.signTime = $rootScope.selectedLibrary.signTime;
+                        vm.detail.contractMoney = $rootScope.selectedLibrary.contractMoney;
+                        vm.detail.customerName = $rootScope.selectedLibrary.customerName;*/
+            vm.item.projectId = $rootScope.selectedLibrary.id;
+            vm.item.projectName = $rootScope.selectedLibrary.projectName;
+            vm.item.projectType = $rootScope.selectedLibrary.projectNature;
+            vm.item.businessManager= $rootScope.selectedLibrary.businessChargeLeader;
+            vm.item.businessManagerName= $rootScope.selectedLibrary.businessChargeLeaderName;
+            $scope.closeLibrarySelectModal_();
+        }
+
+        vm.showBankSelect = function (id) {
+            vm.id=id;
+            if(id==1){
+                $scope.showBankSelectModal_({
+
+                    uiSref:uiSref,
+                    userBankNo:vm.item.outBankAccount
+                });
+            }
+            if(id==0){
+                $scope.showBankSelectModal_({
+
+                    uiSref:uiSref,
+                    userBankNo:vm.item.inBankAccount
+                });
+            }
+        }
+
+        $rootScope.saveSelectBank_ = function () {
+            if(vm.id==1){
+                var v1 = $rootScope.selectBank.type ;
+                vm.item.payName = $rootScope.selectBank.userName ;
+                vm.item.payAccount = $rootScope.selectBank.bankNo ;
+                vm.item.payBank = $rootScope.selectBank.bankName ;
+                $scope.closeBankSelectModal_();
+            }
+            if(vm.id==0){
+                var v2 = $rootScope.selectBank.type ;
+                vm.item.receiveName = $rootScope.selectBank.userName ;
+                vm.item.receiveAccount = $rootScope.selectBank.bankNo ;
+                vm.item.receiveBank = $rootScope.selectBank.bankName ;
+                $scope.closeBankSelectModal_();
+            }
+        }
+
+        vm.showPlanTypeModal = function () {
+            $scope.showBudgetSelectModal_({
+                deptId: vm.item.deptId,
+                budgetYear:vm.item.applicantTime.substring(0,4)
+            });
+        }
+
+        $rootScope.saveSelectBudget_ = function () {
+            var selecteds = $('#budgetTreeTable').bootstrapTreeTable('getSelections');
+            $.each(selecteds, function (_i, _item) {
+                vm.detail.budgetId= _item.id;
+                vm.detail.budgetBalance=_item.remainMoney;
+                vm.detail.budgetNo=_item.typeName;
+            });
+            $scope.closeBudgetSelectModal_();
+        }
+
+        vm.print = function () {
+            fiveFinanceLoanService.getPrintData(loanRedId).then(function (value) {
+                if (value.data.ret) {
+                    lodop = getLodop();
+                    vm.printData = value.data.data;
+                    lodop.PRINT_INIT("中国五洲工程设计集团有限公司发文单");
+                    var materialPurchaseDetails = vm.printData.materialPurchaseDetails;
+
+                    vm.printDetails = materialPurchaseDetails;
+                    var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
+                    setTimeout(function () {
+                        var strFormHtml = strBodyStyle + "<body>" + document.getElementById("print_area").innerHTML + "</body>";
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
+                        lodop.SET_PRINT_PAGESIZE(2, 0, 0, "A4");
+                        lodop.PREVIEW();
+                    }, 500);
+                }
+            })
+        }
+
+        vm.init();
+        $scope.refresh = function () {
+            vm.loadData(true);
+        }
+        return vm;
+
+    })
+    //借款-建研院
+    .controller("FiveFinanceLoanBuildController", function ($state, $scope,$rootScope, fiveFinanceLoanService) {
+        var vm = this;
+        var key = $state.current.name + "_" + user.userLogin;
+        vm.params = getCacheParams(key, {
+            dispatchType: "借款",
+            qDeptName: "",
+            pageNum: 1,
+            pageSize: $scope.pageSize,
+            total: 0
+        });
+        vm.pageInfo = {
+            q: vm.params.qName,
+            pageNum: vm.params.pageNum,
+            pageSize: vm.params.pageSize,
+            total: vm.params.total
+        };
+        var uiSref = "finance.loanBuild";
+        var tableName = $rootScope.loadTableName(uiSref);
+
+
+        vm.queryData = function () {
+            vm.pageInfo.pageNum = 1;
+
+            vm.loadPagedData();
+        };
+
+        vm.loadPagedData = function () {
+            var params = {
+                pageNum: vm.pageInfo.pageNum,
+                pageSize: vm.pageInfo.pageSize,
+                userLogin: user.userLogin,
+                uiSref: uiSref
+            };
+            fiveFinanceLoanService.listPagedData(params).then(function (value) {
+                if (value.data.ret) {
+                    vm.pageInfo = value.data.data;
+                    setCacheParams(key, vm.params, vm.pageInfo);
+                }
+            })
+            $scope.loadRightData(user.userLogin, uiSref);
+        };
+
+        vm.show = function (id) {
+            $state.go("finance.loanBuildDetail", {loanId: id});
+        }
+
+
+        vm.add = function () {
+            fiveFinanceLoanService.getNewModel(user.userLogin,uiSref).then(function (value) {
+                if (value.data.ret) {
+                    vm.show(value.data.data);
+                }
+            })
+        }
+
+        vm.remove = function (id) {
+            bootbox.confirm("您确定要删除吗?无法恢复,请谨慎操作!", function (result) {
+                if (result) {
+                    fiveFinanceLoanService.remove(id, user.userLogin).then(function (value) {
+                        if (value.data.ret) {
+                            toastr.success("删除成功!")
+                            vm.queryData();
+                        }
+                    });
+                }
+            })
+        }
+
+        vm.loadPagedData();
+
+        return vm;
+
+    })
+    .controller("FiveFinanceLoanBuildDetailController", function ($sce, $state, $stateParams, $rootScope, $scope, hrEmployeeService, fiveFinanceLoanService, fiveBusinessContractLibraryService,hrDeptService) {
+        var vm = this;
+        var uiSref = "finance.loanBuild";
+        var tableName = $rootScope.loadTableName(uiSref);
+
+        var loanId = $stateParams.loanId;
+
+        vm.init = function () {
+            $scope.loadRightData(user.userLogin, uiSref);
+            vm.loadData(true);
+        }
+
+        vm.loadData = function (loadProcess) {
+            fiveFinanceLoanService.getModelById(loanId).then(function (value) {
+                if (value.data.ret) {
+                    vm.item = value.data.data;
+                    if (loadProcess) {
+                        $scope.loadProcessInstance(vm.item.processInstanceId);
+                        $scope.basicInit(vm.item.businessKey);
+                    }
+                    $("#applicantTime").datepicker('setDate', vm.item.applicantTime);
+                }
+            })
+            fiveFinanceLoanService.listDetail(loanId).then(function (value) {
+                if (value.data.ret) {
+                    vm.details = value.data.data;
+                }
+            })
+        };
+
+        vm.save = function () {
+            vm.item.operateUserLogin = user.userLogin;
+            fiveFinanceLoanService.update(vm.item).then(function (value) {
+                if (value.data.ret) {
+                    toastr.success("保存成功!")
+                    vm.loadData(false);
+                }
+            })
+        }
+
+        vm.showUserModel = function (status) {
+            vm.status = status;
+            if (vm.status == 'applicant') {
+                $scope.showOaSelectEmployeeModal_({
+                    title: "请选择申请人",
+                    type: "部门",
+                    deptIds: "1",
+                    userLoginList: vm.item.applicantMan,
+                    multiple: true
+                });
+            }
+            if (vm.status == 'businessManager') {
+                $scope.showOaSelectEmployeeModal_({
+                    title: "请选择项目经理",
+                    type: "部门",
+                    deptIds: "1",
+                    userLoginList: vm.item.applicantMan,
+                    multiple: true
+                });
+            }
+
+        }
+
+        $rootScope.saveSelectEmployee_ = function () {
+            $scope.closeOaSelectEmployeeModal_();
+            if (vm.status == 'applicant') {
+                vm.item.applicant = $scope.selectedOaUserLogins_;
+                vm.item.applicantName = $scope.selectedOaUserNames_;
+            }
+            if (vm.status == 'businessManager') {
+                vm.item.businessManager = $scope.selectedOaUserLogins_;
+                vm.item.businessManagerName = $scope.selectedOaUserNames_;
+            }
+        };
+        //单据号
+        vm.getReceiptsNumber=function(){
+            vm.item.operateUserLogin=user.userLogin;
+            fiveFinanceLoanService.update(vm.item).then(function(value){
+                if (value.data.ret) {
+                    fiveFinanceLoanService.getReceiptsNumber(vm.item.id).then(function (value) {
+                        if (value.data.ret) {
+                            vm.loadData();
+                            toastr.success("单据号已更新!");
+                        }
+                    })
+                }
+            })
+        }
+        //发送流程验证
+        $scope.showSendTask = function (send) {
+            if ($("#detail_form").validate().form()) {
+                vm.item.operateUserLogin = user.userLogin;
+                fiveFinanceLoanService.update(vm.item).then(function (value) {
+                    if (value.data.ret) {
+                        jQuery.showActHandleModal({
+                            taskId: $scope.processInstance.taskId,
+                            send: send,
+                            enLogin: user.enLogin
+                        }, function () {
+                            return true;
+                        }, function (processInstanceId) {
+                            $scope.refresh();
+                        });
+                    }
+                })
+            } else {
+                toastr.warning("请准确填写数据!")
+                return false;
+            }
+
+        }
+
+        vm.showDeptModal = function (id) {
+            $scope.showOaSelectEmployeeModal_({
+                title: "请选择部门", type: "选部门", deptIdList: vm.item.deptId + "",
+                multiple: false, deptIds: "1", parentDeptId: 2,bigDept:true
+            });
+        }
+
+        $rootScope.saveSelectDept_ = function () {
+            $scope.closeOaSelectEmployeeModal_();
+            vm.item.deptName = $scope.selectedOaDeptNames_;
+            vm.item.deptId = Number($scope.selectedOaDeptIds_);
+        }
+
+        //新增
+        vm.showDetailModel = function (id) {
+            if (id === 0) {
+                fiveFinanceLoanService.getNewModelDetail(loanId).then(function (value) {
+                    if (value.data.ret) {
+                        vm.detail = value.data.data;
+                        $("#detailModal").modal("show");
+                    }
+                })
+                //修改
+            } else {
+                fiveFinanceLoanService.getModelDetailById(id).then(function (value) {
+                    if (value.data.ret) {
+                        vm.detail = value.data.data;
+                        $("#detailModal").modal("show");
+                    }
+                })
+            }
+        }
+
+        vm.removeDetail = function (id) {
+            bootbox.confirm("确定要删除该数据吗?", function (result) {
+                if (result) {
+                    fiveFinanceLoanService.removeDetail(id, user.userLogin).then(function (value) {
+                        if (value.data.ret) {
+                            toastr.success("删除成功");
+                            vm.loadData(true);
+                        }
+                    })
+                }
+            });
+
+
+        };
+        //保存
+        vm.saveDetail = function () {
+            fiveFinanceLoanService.updateDetail(vm.detail).then(function (value) {
+                if (value.data.ret) {
+                    $("#detailModal").modal("hide");
+                    vm.save();
+                    vm.loadData(true);
+                }
+
+            })
+        };
+
+        vm.showSelectPreOrReviewModal = function () {
+            $scope.showLibrarySelectModal_({
+                selectLibraryId:vm.item.projectId,
+                uiSref:uiSref,
+                multiple: false
+            });
+        };
+        $rootScope.saveSelectLibrary_ = function () {
+            vm.item.projectId = $rootScope.selectedLibrary.id;
+            vm.item.projectName = $rootScope.selectedLibrary.projectName;
+            vm.item.projectType = $rootScope.selectedLibrary.projectNature;
+            vm.item.businessManager= $rootScope.selectedLibrary.projectManager;
+            vm.item.businessManagerName= $rootScope.selectedLibrary.projectManagerName;
+            $scope.closeLibrarySelectModal_();
+        }
+
+        vm.showBankSelect = function (id) {
+
+            vm.id=id;
+            if(id==1){
+                $scope.showBankSelectModal_({
+
+                    uiSref:uiSref,
+                    userBankNo:vm.item.outBankAccount
+                });
+            }
+            if(id==0){
+                $scope.showBankSelectModal_({
+
+                    uiSref:uiSref,
+                    userBankNo:vm.item.inBankAccount
+                });
+            }
+        }
+
+        $rootScope.saveSelectBank_ = function () {
+            if(vm.id==1){
+                var v1 = $rootScope.selectBank.type ;
+                vm.item.payName = $rootScope.selectBank.userName ;
+                vm.item.payAccount = $rootScope.selectBank.bankNo ;
+                vm.item.payBank = $rootScope.selectBank.bankName ;
+                $scope.closeBankSelectModal_();
+            }
+            if(vm.id==0){
+                var v2 = $rootScope.selectBank.type ;
+                vm.item.receiveName = $rootScope.selectBank.userName ;
+                vm.item.receiveAccount = $rootScope.selectBank.bankNo ;
+                vm.item.receiveBank = $rootScope.selectBank.bankName ;
+                $scope.closeBankSelectModal_();
+            }
+        }
+
+        vm.showPlanTypeModal = function () {
+            $scope.showBudgetSelectModal_({
+                deptId: vm.item.deptId,
+                budgetYear:vm.item.applicantTime.substring(0,4)
+            });
+        }
+        $rootScope.saveSelectBudget_ = function () {
+            var selecteds = $('#budgetTreeTable').bootstrapTreeTable('getSelections');
+            $.each(selecteds, function (_i, _item) {
+                vm.detail.budgetBalance=_item.remainMoney;
+                vm.detail.budgetNo=_item.typeName;
+            });
+            $scope.closeBudgetSelectModal_();
+        }
+
+        vm.print = function () {
+            fiveFinanceLoanService.getPrintData(loanId).then(function (value) {
+                if (value.data.ret) {
+                    lodop = getLodop();
+                    vm.printData = value.data.data;
+                    lodop.PRINT_INIT("中国五洲工程设计集团有限公司发文单");
+                    var materialPurchaseDetails = vm.printData.materialPurchaseDetails;
+
+                    vm.printDetails = materialPurchaseDetails;
+                    var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
+                    setTimeout(function () {
+                        var strFormHtml = strBodyStyle + "<body>" + document.getElementById("print_area").innerHTML + "</body>";
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
+                        lodop.SET_PRINT_PAGESIZE(2, 0, 0, "A4");
+                        lodop.PREVIEW();
+                    }, 500);
+                }
+            })
         }
 
         vm.init();
@@ -11132,7 +9391,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml = strBodyStyle + "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.SET_PRINT_PAGESIZE(2, 0, 0, "A4");
                         lodop.PREVIEW();
                     }, 500);
@@ -11650,7 +9914,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml = strBodyStyle + "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.SET_PRINT_PAGESIZE(2, 0, 0, "A4");
                         lodop.PREVIEW();
                     }, 500);
@@ -11743,11 +10012,11 @@
             });
         };
         vm.showRelevanceModel  = function (deduction){
-         /*   if(deduction.relevanceType=='loan'){
-                $state.go("finance.loanDetail", {loanId: deduction.relevanceId});
-            }else if(deduction.relevanceType=='refund'){
-                $state.go("finance.refundDetail", {refundId: deduction.relevanceId});
-            }*/
+            /*   if(deduction.relevanceType=='loan'){
+                   $state.go("finance.loanDetail", {loanId: deduction.relevanceId});
+               }else if(deduction.relevanceType=='refund'){
+                   $state.go("finance.refundDetail", {refundId: deduction.relevanceId});
+               }*/
             actService.getNgRedirectUrl(deduction.relevanseBusinessKey).then(function (value) {
                 if(value.data.ret){
                     var result=value.data.data;
@@ -11850,6 +10119,1622 @@
                 vm.detail.applyRefundProject=_item.typeName;
             });
             $scope.closeBudgetSelectModal_();
+        }
+
+        vm.init();
+        $scope.refresh = function () {
+            vm.loadData(true);
+        }
+        return vm;
+
+    })
+    //费用报销-红河
+    .controller("FiveFinanceReimburseRedController", function ($state, $scope, $rootScope, fiveFinanceReimburseService) {
+        var vm = this;
+        var key = $state.current.name + "_" + user.userLogin;
+        vm.params = getCacheParams(key, {
+            dispatchType: "费用报销",
+            qDeptName: "",
+            pageNum: 1,
+            pageSize: $scope.pageSize,
+            total: 0
+        });
+        vm.pageInfo = {
+            q: vm.params.qName,
+            pageNum: vm.params.pageNum,
+            pageSize: vm.params.pageSize,
+            total: vm.params.total
+        };
+        var uiSref = "finance.reimburseRed";
+        var tableName = $rootScope.loadTableName(uiSref);
+
+        vm.queryData = function () {
+            vm.pageInfo.pageNum = 1;
+
+            vm.loadPagedData();
+        };
+
+        vm.loadPagedData = function () {
+            var params = {
+                pageNum: vm.pageInfo.pageNum,
+                pageSize: vm.pageInfo.pageSize,
+                userLogin: user.userLogin,
+                uiSref: uiSref
+            };
+            fiveFinanceReimburseService.listPagedData(params).then(function (value) {
+                if (value.data.ret) {
+                    vm.pageInfo = value.data.data;
+                    setCacheParams(key, vm.params, vm.pageInfo);
+                }
+            })
+            $scope.loadRightData(user.userLogin, uiSref);
+        };
+
+        vm.show = function (id) {
+            $state.go("finance.reimburseRedDetail", {reimburseId: id});
+        }
+
+
+        vm.add = function () {
+            fiveFinanceReimburseService.getNewModel(user.userLogin,uiSref).then(function (value) {
+                if (value.data.ret) {
+                    vm.show(value.data.data);
+                }
+            })
+        }
+
+        vm.remove = function (id) {
+            bootbox.confirm("您确定要删除吗?无法恢复,请谨慎操作!", function (result) {
+                if (result) {
+                    fiveFinanceReimburseService.remove(id, user.userLogin).then(function (value) {
+                        if (value.data.ret) {
+                            toastr.success("删除成功!")
+                            vm.queryData();
+                        }
+                    });
+                }
+            })
+        }
+
+        vm.loadPagedData();
+
+        return vm;
+
+    })
+    .controller("FiveFinanceReimburseRedDetailController", function ($sce, $state, $stateParams, $rootScope, $scope,actService, hrEmployeeService, fiveFinanceLoanService,fiveFinanceReimburseService, fiveFinanceRefundService,hrDeptService) {
+        var vm = this;
+        var uiSref = "finance.reimburseRed";
+        var reimburseId = $stateParams.reimburseId;
+        var tableName = $rootScope.loadTableName(uiSref);
+
+        vm.init = function () {
+            $scope.loadRightData(user.userLogin, uiSref);
+            vm.loadData(true);
+        }
+
+        vm.loadData = function (loadProcess) {
+            fiveFinanceReimburseService.getModelById(reimburseId).then(function (value) {
+                if (value.data.ret) {
+                    vm.item = value.data.data;
+                    if (loadProcess) {
+                        $scope.loadProcessInstance(vm.item.processInstanceId);
+                        $scope.basicInit(vm.item.businessKey);
+                    }
+                    $("#applicantTime").datepicker('setDate', vm.item.applicantTime);
+                }
+            })
+            fiveFinanceReimburseService.listDetail(reimburseId).then(function (value) {
+                if (value.data.ret) {
+                    vm.details = value.data.data;
+                }
+            })
+            fiveFinanceReimburseService.listDeduction(reimburseId).then(function (value) {
+                if (value.data.ret) {
+                    vm.deductions = value.data.data;
+                }
+            })
+        };
+
+        vm.save = function () {
+            vm.item.operateUserLogin = user.userLogin;
+            fiveFinanceReimburseService.update(vm.item).then(function (value) {
+                if (value.data.ret) {
+                    toastr.success("保存成功!")
+                    vm.loadData(false);
+                }
+            })
+        }
+        //选人
+        vm.showUserModel = function (status) {
+            vm.status = status;
+            if (vm.status == 'applicant') {
+                $scope.showOaSelectEmployeeModal_({
+                    title: "请选择申请人",
+                    type: "部门",
+                    deptIds: "1",
+                    userLoginList: vm.item.applicantMan,
+                    multiple: true
+                });
+            }
+            if (vm.status == 'businessManager') {
+                $scope.showOaSelectEmployeeModal_({
+                    title: "请选择项目经理",
+                    type: "部门",
+                    deptIds: "1",
+                    userLoginList: vm.item.businessManager,
+                    multiple: true
+                });
+            }
+            if (vm.status == 'applicantName') {
+                $scope.showOaSelectEmployeeModal_({
+                    title: "请选择支列人",
+                    type: "部门",
+                    deptIds: "1",
+                    userLoginList: vm.detail.applicant,
+                    multiple: true
+                });
+            }
+
+        }
+        //保存选人
+        $rootScope.saveSelectEmployee_ = function () {
+            $scope.closeOaSelectEmployeeModal_();
+            if (vm.status == 'applicant') {
+                vm.item.applicant = $scope.selectedOaUserLogins_;
+                vm.item.applicantName = $scope.selectedOaUserNames_;
+                /*                hrEmployeeService.getModelByUserLogin(vm.item.applicantMan).then(function (value) {
+                                    var user = value.data.data;
+                                    vm.item.applicantNo = user.userLogin;
+                                    vm.item.applicantTel=user.mobile;
+                                })*/
+            }
+            if (vm.status == 'businessManager') {
+                vm.item.businessManager = $scope.selectedOaUserLogins_;
+                vm.item.businessManagerName = $scope.selectedOaUserNames_;
+            }
+            if (vm.status == 'applicantName') {
+                vm.detail.applicant = $scope.selectedOaUserLogins_;
+                vm.detail.applicantName = $scope.selectedOaUserNames_;
+            }
+
+        };
+        //单据号
+        vm.getReceiptsNumber=function(){
+            vm.item.operateUserLogin=user.userLogin;
+            fiveFinanceReimburseService.update(vm.item).then(function(value){
+                if (value.data.ret) {
+                    fiveFinanceReimburseService.getReceiptsNumber(vm.item.id).then(function (value) {
+                        if (value.data.ret) {
+                            vm.loadData();
+                            toastr.success("单据号已更新!");
+                        }
+                    })
+                }
+            })
+        }
+        //发送流程验证
+        $scope.showSendTask = function (send) {
+            if ($("#detail_form").validate().form()) {
+                vm.item.operateUserLogin = user.userLogin;
+                fiveFinanceReimburseService.update(vm.item).then(function (value) {
+                    if (value.data.ret) {
+                        jQuery.showActHandleModal({
+                            taskId: $scope.processInstance.taskId,
+                            send: send,
+                            enLogin: user.enLogin
+                        }, function () {
+                            return true;
+                        }, function (processInstanceId) {
+                            $scope.refresh();
+                        });
+                    }
+                })
+            } else {
+                toastr.warning("请准确填写数据!")
+                return false;
+            }
+
+        }
+        //选部门
+        vm.showDeptModal = function (id) {
+            if (id == 0){
+                $scope.showOaSelectEmployeeModal_({
+                    title: "请选择部门", type: "选部门", deptIdList: vm.item.deptId + "",
+                    multiple: false, deptIds: "1", parentDeptId: 2
+                });
+            }
+            if (id == 1){
+                $scope.showOaSelectEmployeeModal_({
+                    title: "请选择部门", type: "选部门", deptIdList: vm.detail.deptId + "",
+                    multiple: false, deptIds: "1", parentDeptId: 2
+                });
+            }
+
+        }
+        //保存选部门
+        $rootScope.saveSelectDept_ = function () {
+            if (id == 0){
+                $scope.closeOaSelectEmployeeModal_();
+                vm.item.deptName = $scope.selectedOaDeptNames_;
+                vm.item.deptId = Number($scope.selectedOaDeptIds_);
+            }
+            if (id == 1){
+                $scope.closeOaSelectEmployeeModal_();
+                vm.detail.deptName = $scope.selectedOaDeptNames_;
+                vm.detail.deptId = Number($scope.selectedOaDeptIds_);
+            }
+
+        }
+
+        //新增
+        vm.showDetailModel = function (id) {
+            if (id === 0) {
+                fiveFinanceReimburseService.getNewModelDetail(reimburseId, user.userLogin,uiSref).then(function (value) {
+                    if (value.data.ret) {
+                        vm.detail = value.data.data;
+                        $("#detailModal").modal("show");
+                    }
+                })
+                //修改
+            } else {
+                fiveFinanceReimburseService.getModelDetailById(id).then(function (value) {
+                    if (value.data.ret) {
+                        vm.detail = value.data.data;
+                        $("#detailModal").modal("show");
+                    }
+                })
+            }
+        }
+        //删除
+        vm.removeDetail = function (id) {
+            bootbox.confirm("确定要删除该数据吗?", function (result) {
+                if (result) {
+                    fiveFinanceReimburseService.removeDetail(id, user.userLogin).then(function (value) {
+                        if (value.data.ret) {
+                            toastr.success("删除成功");
+                            vm.loadData(true);
+                        }
+                    })
+                }
+            });
+        };
+        //保存
+        vm.saveDetail = function () {
+            fiveFinanceReimburseService.updateDetail(vm.detail).then(function (value) {
+                if (value.data.ret) {
+                    $("#detailModal").modal("hide");
+                    vm.save();
+                    vm.loadData(true);
+                }
+            })
+        };
+        vm.showSelectPreOrReviewModal = function () {
+            $scope.showLibrarySelectModal_({
+                selectLibraryId:vm.item.projectId,
+                uiSref:uiSref,
+                multiple: false
+            });
+        };
+        $rootScope.saveSelectLibrary_ = function () {
+            /*            vm.detail.contractName = $rootScope.selectedLibrary.contractName;
+                        vm.detail.contractNo = $rootScope.selectedLibrary.contractNo;
+                        vm.detail.contractId = $rootScope.selectedLibrary.id;
+                        vm.detail.projectNo =$rootScope.selectedLibrary.projectNo;
+                        vm.detail.signTime = $rootScope.selectedLibrary.signTime;
+                        vm.detail.contractMoney = $rootScope.selectedLibrary.contractMoney;
+                        vm.detail.customerName = $rootScope.selectedLibrary.customerName;*/
+            vm.item.projectId = $rootScope.selectedLibrary.id;
+            vm.item.projectName = $rootScope.selectedLibrary.projectName;
+            vm.item.projectType = $rootScope.selectedLibrary.projectNature;
+            /*            vm.item.businessManager= $rootScope.selectedLibrary.projectManager;
+                        vm.item.businessManagerName= $rootScope.selectedLibrary.projectManagerName;*/
+            vm.item.businessManager= $rootScope.selectedLibrary.businessChargeLeader;
+            vm.item.businessManagerName= $rootScope.selectedLibrary.businessChargeLeaderName;
+            $scope.closeLibrarySelectModal_();
+        }
+        vm.print = function () {
+            fiveFinanceReimburseService.getPrintData(reimburseId).then(function (value) {
+                if (value.data.ret) {
+                    lodop = getLodop();
+                    vm.printData = value.data.data;
+                    lodop.PRINT_INIT("中国五洲工程设计集团有限公司发文单");
+                    var materialPurchaseDetails = vm.printData.materialPurchaseDetails;
+
+                    vm.printDetails = materialPurchaseDetails;
+                    var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
+                    setTimeout(function () {
+                        var strFormHtml = strBodyStyle + "<body>" + document.getElementById("print_area").innerHTML + "</body>";
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
+                        lodop.SET_PRINT_PAGESIZE(2, 0, 0, "A4");
+                        lodop.PREVIEW();
+                    }, 500);
+                }
+            })
+        }
+        //选择借款流程
+        vm.showLoanModel = function () {
+            fiveFinanceLoanService.listLoanByUserLogin(user.userLogin).then(function (value) {
+                if (value.data.ret) {
+                    vm.listLoans = value.data.data;
+                    singleCheckBox(".cb_loan", "data-name");
+                }
+            })
+            $("#selectLoanModal").modal("show");
+        }
+        vm.saveSelectLoanModel = function () {
+            if ($(".cb_loan:checked").length > 0) {
+                var loan = $.parseJSON($(".cb_loan:checked").first().attr("data-name"));
+                fiveFinanceReimburseService.saveSelectedDeduction(reimburseId,loan.id,"loan").then(function (value) {
+                    if (value.data.ret) {
+                        //刷新抵扣
+                        vm.loadData(false);
+                    }
+                })
+            }
+            $("#selectLoanModal").modal("hide");
+        }
+        //选择还款流程
+        vm.showRefundModel = function () {
+            fiveFinanceRefundService.listRefundByUserLogin(user.userLogin).then(function (value) {
+                if (value.data.ret) {
+                    vm.listRefunds = value.data.data;
+                    singleCheckBox(".cb_refund", "data-name");
+                }
+            })
+            $("#selectRefundModal").modal("show");
+        }
+        vm.saveSelectRefundModel = function () {
+            if ($(".cb_refund:checked").length > 0) {
+                var refund = $.parseJSON($(".cb_refund:checked").first().attr("data-name"));
+                fiveFinanceReimburseService.saveSelectedDeduction(reimburseId,refund.id,"refund").then(function (value) {
+                    if (value.data.ret) {
+                        //刷新抵扣
+                        vm.loadData(false);
+                    }
+                })
+            }
+            $("#selectRefundModal").modal("hide");
+        }
+        vm.removeDeduction = function (id) {
+            bootbox.confirm("确定要删除该数据吗?", function (result) {
+                if (result) {
+                    fiveFinanceReimburseService.removeDeduction(id, user.userLogin).then(function (value) {
+                        if (value.data.ret) {
+                            toastr.success("删除成功");
+                            vm.loadData(false);
+                        }
+                    })
+                }
+            });
+        };
+        vm.showRelevanceModel  = function (deduction){
+            /*if(deduction.relevanceType=='loan'){
+                $state.go("finance.loanRedDetail", {loanId: deduction.relevanceId});
+            }else if(deduction.relevanceType=='refund'){
+                $state.go("finance.refundRedDetail", {refundId: deduction.relevanceId});
+            }*/
+            actService.getNgRedirectUrl(deduction.relevanceBusinessKey).then(function (value) {
+                if(value.data.ret){
+                    var result=value.data.data;
+                    var name='';
+                    var id='';
+                    for (var key in  result.params){
+                        name=key;
+                        id=result.params[key];
+                    }
+                    window.open("/act/plotIndex#?id="+ id+"&&url="+result.url+"&&name="+name);
+                }
+            })
+
+        }
+        vm.showBankSelect = function (type) {
+            vm.bankType=type;
+            if(type==1){
+                $scope.showBankSelectModal_({
+                    selectBankType:"company",
+                    userLogin: "",
+                    uiSref:uiSref,
+                    userBankNo:vm.item.bankAccount
+                });
+            } else if(type==0){
+                $scope.showBankSelectModal_({
+                    userLogin: "",
+                    uiSref:uiSref,
+                    userBankNo:vm.item.accountName
+                });
+            }
+        }
+        $rootScope.saveSelectBank_ = function () {
+            if(vm.bankType==1){
+                var v1 = $rootScope.selectBank.type ;
+                vm.item.accountName = $rootScope.selectBank.userName ;
+                vm.item.bankAccount = $rootScope.selectBank.bankNo ;
+                vm.item.bankName = $rootScope.selectBank.bankName ;
+                $scope.closeBankSelectModal_();
+            }
+            if(vm.bankType==0){
+                var v2 = $rootScope.selectBank.type ;
+                vm.item.receiveName = $rootScope.selectBank.userName ;
+                vm.item.receiveAccount = $rootScope.selectBank.bankNo ;
+                vm.item.receiveBank = $rootScope.selectBank.bankName ;
+                $scope.closeBankSelectModal_();
+            }
+        }
+        vm.showPlanTypeModal = function () {
+            $scope.showBudgetSelectModal_({
+                deptId: vm.item.deptId,
+                budgetYear: vm.item.applicantTime.substring(0,4)
+            });
+        }
+        $rootScope.saveSelectBudget_ = function () {
+
+            var selecteds = $('#budgetTreeTable').bootstrapTreeTable('getSelections');
+            $.each(selecteds, function (_i, _item) {
+                vm.detail.budgetId= _item.id;
+                vm.detail.controlBalance=_item.remainMoney;
+                vm.detail.costProject=_item.typeName;
+            });
+            $scope.closeBudgetSelectModal_();
+        }
+        vm.init();
+        $scope.refresh = function () {
+            vm.loadData(true);
+        }
+        return vm;
+
+    })
+    //费用报销-建研院
+    .controller("FiveFinanceReimburseBuildController", function ($state, $scope, $rootScope, fiveFinanceReimburseService) {
+        var vm = this;
+        var key = $state.current.name + "_" + user.userLogin;
+        vm.params = getCacheParams(key, {
+            dispatchType: "费用报销",
+            qDeptName: "",
+            pageNum: 1,
+            pageSize: $scope.pageSize,
+            total: 0
+        });
+        vm.pageInfo = {
+            q: vm.params.qName,
+            pageNum: vm.params.pageNum,
+            pageSize: vm.params.pageSize,
+            total: vm.params.total
+        };
+        var uiSref = "finance.reimburseBuild";
+        var tableName = $rootScope.loadTableName(uiSref);
+
+        vm.queryData = function () {
+            vm.pageInfo.pageNum = 1;
+
+            vm.loadPagedData();
+        };
+
+        vm.loadPagedData = function () {
+            var params = {
+                pageNum: vm.pageInfo.pageNum,
+                pageSize: vm.pageInfo.pageSize,
+                userLogin: user.userLogin,
+                uiSref: uiSref
+            };
+            fiveFinanceReimburseService.listPagedData(params).then(function (value) {
+                if (value.data.ret) {
+                    vm.pageInfo = value.data.data;
+                    setCacheParams(key, vm.params, vm.pageInfo);
+                }
+            })
+            $scope.loadRightData(user.userLogin, uiSref);
+        };
+
+        vm.show = function (id) {
+            $state.go("finance.reimburseBuildDetail", {reimburseId: id});
+        }
+
+
+        vm.add = function () {
+            fiveFinanceReimburseService.getNewModel(user.userLogin,uiSref).then(function (value) {
+                if (value.data.ret) {
+                    vm.show(value.data.data);
+                }
+            })
+        }
+
+        vm.remove = function (id) {
+            bootbox.confirm("您确定要删除吗?无法恢复,请谨慎操作!", function (result) {
+                if (result) {
+                    fiveFinanceReimburseService.remove(id, user.userLogin).then(function (value) {
+                        if (value.data.ret) {
+                            toastr.success("删除成功!")
+                            vm.queryData();
+                        }
+                    });
+                }
+            })
+        }
+
+        vm.loadPagedData();
+
+        return vm;
+
+    })
+    .controller("FiveFinanceReimburseBuildDetailController", function ($sce, $state, $stateParams, $rootScope, $scope,actService, hrEmployeeService, fiveFinanceLoanService,fiveFinanceReimburseService, fiveFinanceRefundService,hrDeptService) {
+        var vm = this;
+        var uiSref = "finance.reimburseBuild";
+        var reimburseId = $stateParams.reimburseId;
+        var tableName = $rootScope.loadTableName(uiSref);
+
+        vm.init = function () {
+            $scope.loadRightData(user.userLogin, uiSref);
+            vm.loadData(true);
+        }
+
+        vm.loadData = function (loadProcess) {
+            fiveFinanceReimburseService.getModelById(reimburseId).then(function (value) {
+                if (value.data.ret) {
+                    vm.item = value.data.data;
+                    if (loadProcess) {
+                        $scope.loadProcessInstance(vm.item.processInstanceId);
+                        $scope.basicInit(vm.item.businessKey);
+                    }
+                    $("#applicantTime").datepicker('setDate', vm.item.applicantTime);
+                }
+            })
+            fiveFinanceReimburseService.listDetail(reimburseId).then(function (value) {
+                if (value.data.ret) {
+                    vm.details = value.data.data;
+                }
+            })
+            fiveFinanceReimburseService.listDeduction(reimburseId).then(function (value) {
+                if (value.data.ret) {
+                    vm.deductions = value.data.data;
+                }
+            })
+        };
+
+        vm.save = function () {
+            vm.item.operateUserLogin = user.userLogin;
+            fiveFinanceReimburseService.update(vm.item).then(function (value) {
+                if (value.data.ret) {
+                    toastr.success("保存成功!")
+                    vm.loadData(false);
+                }
+            })
+        }
+        //选人
+        vm.showUserModel = function (status) {
+            vm.status = status;
+            if (vm.status == 'applicant') {
+                $scope.showOaSelectEmployeeModal_({
+                    title: "请选择申请人",
+                    type: "部门",
+                    deptIds: "1",
+                    userLoginList: vm.item.applicantMan,
+                    multiple: true
+                });
+            }
+            if (vm.status == 'businessManager') {
+                $scope.showOaSelectEmployeeModal_({
+                    title: "请选择项目经理",
+                    type: "部门",
+                    deptIds: "1",
+                    userLoginList: vm.item.businessManager,
+                    multiple: true
+                });
+            }
+            if (vm.status == 'applicantName') {
+                $scope.showOaSelectEmployeeModal_({
+                    title: "请选择支列人",
+                    type: "部门",
+                    deptIds: "1",
+                    userLoginList: vm.detail.applicant,
+                    multiple: true
+                });
+            }
+
+        }
+        //保存选人
+        $rootScope.saveSelectEmployee_ = function () {
+            $scope.closeOaSelectEmployeeModal_();
+            if (vm.status == 'applicant') {
+                vm.item.applicant = $scope.selectedOaUserLogins_;
+                vm.item.applicantName = $scope.selectedOaUserNames_;
+                /*                hrEmployeeService.getModelByUserLogin(vm.item.applicantMan).then(function (value) {
+                                    var user = value.data.data;
+                                    vm.item.applicantNo = user.userLogin;
+                                    vm.item.applicantTel=user.mobile;
+                                })*/
+            }
+            if (vm.status == 'businessManager') {
+                vm.item.businessManager = $scope.selectedOaUserLogins_;
+                vm.item.businessManagerName = $scope.selectedOaUserNames_;
+            }
+            if (vm.status == 'applicantName') {
+                vm.detail.applicant = $scope.selectedOaUserLogins_;
+                vm.detail.applicantName = $scope.selectedOaUserNames_;
+            }
+
+        };
+        //单据号
+        vm.getReceiptsNumber=function(){
+            vm.item.operateUserLogin=user.userLogin;
+            fiveFinanceReimburseService.update(vm.item).then(function(value){
+                if (value.data.ret) {
+                    fiveFinanceReimburseService.getReceiptsNumber(vm.item.id).then(function (value) {
+                        if (value.data.ret) {
+                            vm.loadData();
+                            toastr.success("单据号已更新!");
+                        }
+                    })
+                }
+            })
+        }
+        //发送流程验证
+        $scope.showSendTask = function (send) {
+            if ($("#detail_form").validate().form()) {
+                vm.item.operateUserLogin = user.userLogin;
+                fiveFinanceReimburseService.update(vm.item).then(function (value) {
+                    if (value.data.ret) {
+                        jQuery.showActHandleModal({
+                            taskId: $scope.processInstance.taskId,
+                            send: send,
+                            enLogin: user.enLogin
+                        }, function () {
+                            return true;
+                        }, function (processInstanceId) {
+                            $scope.refresh();
+                        });
+                    }
+                })
+            } else {
+                toastr.warning("请准确填写数据!")
+                return false;
+            }
+
+        }
+        //选部门
+        vm.showDeptModal = function (id) {
+            if (id == 0){
+                $scope.showOaSelectEmployeeModal_({
+                    title: "请选择部门", type: "选部门", deptIdList: vm.item.deptId + "",
+                    multiple: false, deptIds: "1", parentDeptId: 2,bigDept:true
+                });
+            }
+            if (id == 1){
+                $scope.showOaSelectEmployeeModal_({
+                    title: "请选择部门", type: "选部门", deptIdList: vm.detail.deptId + "",
+                    multiple: false, deptIds: "1", parentDeptId: 2
+                });
+            }
+
+        }
+        //保存选部门
+        $rootScope.saveSelectDept_ = function () {
+            if (id == 0){
+                $scope.closeOaSelectEmployeeModal_();
+                vm.item.deptName = $scope.selectedOaDeptNames_;
+                vm.item.deptId = Number($scope.selectedOaDeptIds_);
+            }
+            if (id == 1){
+                $scope.closeOaSelectEmployeeModal_();
+                vm.detail.deptName = $scope.selectedOaDeptNames_;
+                vm.detail.deptId = Number($scope.selectedOaDeptIds_);
+            }
+
+        }
+
+        //新增
+        vm.showDetailModel = function (id) {
+            if (id === 0) {
+                fiveFinanceReimburseService.getNewModelDetail(reimburseId, user.userLogin,uiSref).then(function (value) {
+                    if (value.data.ret) {
+                        vm.detail = value.data.data;
+                        $("#detailModal").modal("show");
+                    }
+                })
+                //修改
+            } else {
+                fiveFinanceReimburseService.getModelDetailById(id).then(function (value) {
+                    if (value.data.ret) {
+                        vm.detail = value.data.data;
+                        $("#detailModal").modal("show");
+                    }
+                })
+            }
+        }
+        //删除
+        vm.removeDetail = function (id) {
+            bootbox.confirm("确定要删除该数据吗?", function (result) {
+                if (result) {
+                    fiveFinanceReimburseService.removeDetail(id, user.userLogin).then(function (value) {
+                        if (value.data.ret) {
+                            toastr.success("删除成功");
+                            vm.loadData(true);
+                        }
+                    })
+                }
+            });
+        };
+        //保存
+        vm.saveDetail = function () {
+            fiveFinanceReimburseService.updateDetail(vm.detail).then(function (value) {
+                if (value.data.ret) {
+                    $("#detailModal").modal("hide");
+                    vm.save();
+                    vm.loadData(true);
+                }
+            })
+        };
+        vm.showSelectPreOrReviewModal = function () {
+            $scope.showLibrarySelectModal_({
+                selectLibraryId:vm.item.projectId,
+                uiSref:uiSref,
+                multiple: false
+            });
+        };
+        $rootScope.saveSelectLibrary_ = function () {
+            /*            vm.detail.contractName = $rootScope.selectedLibrary.contractName;
+                        vm.detail.contractNo = $rootScope.selectedLibrary.contractNo;
+                        vm.detail.contractId = $rootScope.selectedLibrary.id;
+                        vm.detail.projectNo =$rootScope.selectedLibrary.projectNo;
+                        vm.detail.signTime = $rootScope.selectedLibrary.signTime;
+                        vm.detail.contractMoney = $rootScope.selectedLibrary.contractMoney;
+                        vm.detail.customerName = $rootScope.selectedLibrary.customerName;*/
+            vm.item.projectId = $rootScope.selectedLibrary.id;
+            vm.item.projectName = $rootScope.selectedLibrary.projectName;
+            vm.item.projectType = $rootScope.selectedLibrary.projectNature;
+            vm.item.businessManager= $rootScope.selectedLibrary.projectManager;
+            vm.item.businessManagerName= $rootScope.selectedLibrary.projectManagerName;
+            $scope.closeLibrarySelectModal_();
+        }
+        vm.print = function () {
+            fiveFinanceReimburseService.getPrintData(reimburseId).then(function (value) {
+                if (value.data.ret) {
+                    lodop = getLodop();
+                    vm.printData = value.data.data;
+                    lodop.PRINT_INIT("中国五洲工程设计集团有限公司发文单");
+                    var materialPurchaseDetails = vm.printData.materialPurchaseDetails;
+
+                    vm.printDetails = materialPurchaseDetails;
+                    var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
+                    setTimeout(function () {
+                        var strFormHtml = strBodyStyle + "<body>" + document.getElementById("print_area").innerHTML + "</body>";
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
+                        lodop.SET_PRINT_PAGESIZE(2, 0, 0, "A4");
+                        lodop.PREVIEW();
+                    }, 500);
+                }
+            })
+        }
+        //选择借款流程
+        vm.showLoanModel = function () {
+            fiveFinanceLoanService.listLoanByDeptId(user.userLogin,158).then(function (value) {
+                if (value.data.ret) {
+                    vm.listLoans = value.data.data;
+                    singleCheckBox(".cb_loan", "data-name");
+                }
+            })
+            $("#selectLoanModal").modal("show");
+        }
+        vm.saveSelectLoanModel = function () {
+            if ($(".cb_loan:checked").length > 0) {
+                var loan = $.parseJSON($(".cb_loan:checked").first().attr("data-name"));
+                fiveFinanceReimburseService.saveSelectedDeduction(reimburseId,loan.id,"loan").then(function (value) {
+                    if (value.data.ret) {
+                        //刷新抵扣
+                        vm.loadData(false);
+                    }
+                })
+            }
+            $("#selectLoanModal").modal("hide");
+        }
+        //选择还款流程
+        vm.showRefundModel = function () {
+            fiveFinanceRefundService.listRefundByDeptId(user.userLogin,158).then(function (value) {
+                if (value.data.ret) {
+                    vm.listRefunds = value.data.data;
+                    singleCheckBox(".cb_refund", "data-name");
+                }
+            })
+            $("#selectRefundModal").modal("show");
+        }
+        vm.saveSelectRefundModel = function () {
+            if ($(".cb_refund:checked").length > 0) {
+                var refund = $.parseJSON($(".cb_refund:checked").first().attr("data-name"));
+                fiveFinanceReimburseService.saveSelectedDeduction(reimburseId,refund.id,"refund").then(function (value) {
+                    if (value.data.ret) {
+                        //刷新抵扣
+                        vm.loadData(false);
+                    }
+                })
+            }
+            $("#selectRefundModal").modal("hide");
+        }
+        vm.removeDeduction = function (id) {
+            bootbox.confirm("确定要删除该数据吗?", function (result) {
+                if (result) {
+                    fiveFinanceReimburseService.removeDeduction(id, user.userLogin).then(function (value) {
+                        if (value.data.ret) {
+                            toastr.success("删除成功");
+                            vm.loadData(false);
+                        }
+                    })
+                }
+            });
+        };
+        vm.showRelevanceModel  = function (deduction){
+            /*  if(deduction.relevanceType=='loan'){
+                  $state.go("finance.loanBuildDetail", {loanId: deduction.relevanceId});
+              }else if(deduction.relevanceType=='refund'){
+                  $state.go("finance.refundBuildDetail", {refundId: deduction.relevanceId});
+              }*/
+            actService.getNgRedirectUrl(deduction.relevanceBusinessKey).then(function (value) {
+                if(value.data.ret){
+                    var result=value.data.data;
+                    var name='';
+                    var id='';
+                    for (var key in  result.params){
+                        name=key;
+                        id=result.params[key];
+                    }
+                    window.open("/act/plotIndex#?id="+ id+"&&url="+result.url+"&&name="+name);
+                }
+            })
+
+        }
+
+        vm.showBankSelect = function (type) {
+            vm.bankType=type;
+            if(type==1){
+                $scope.showBankSelectModal_({
+                    selectBankType:"company",
+                    userLogin: "",
+                    uiSref:uiSref,
+                    userBankNo:vm.item.bankAccount
+                });
+            } else if(type==0){
+                $scope.showBankSelectModal_({
+                    userLogin: "",
+                    uiSref:uiSref,
+                    userBankNo:vm.item.accountName
+                });
+            }
+        }
+        $rootScope.saveSelectBank_ = function () {
+            if(vm.bankType==1){
+                var v1 = $rootScope.selectBank.type ;
+                vm.item.accountName = $rootScope.selectBank.userName ;
+                vm.item.bankAccount = $rootScope.selectBank.bankNo ;
+                vm.item.bankName = $rootScope.selectBank.bankName ;
+                $scope.closeBankSelectModal_();
+            }
+            if(vm.bankType==0){
+                var v2 = $rootScope.selectBank.type ;
+                vm.item.receiveName = $rootScope.selectBank.userName ;
+                vm.item.receiveAccount = $rootScope.selectBank.bankNo ;
+                vm.item.receiveBank = $rootScope.selectBank.bankName ;
+                $scope.closeBankSelectModal_();
+            }
+        }
+
+        vm.showPlanTypeModal = function () {
+            $scope.showBudgetSelectModal_({
+                deptId: vm.item.deptId,
+                budgetYear: vm.item.applicantTime.substring(0,4)
+            });
+        }
+        $rootScope.saveSelectBudget_ = function () {
+
+            var selecteds = $('#budgetTreeTable').bootstrapTreeTable('getSelections');
+            $.each(selecteds, function (_i, _item) {
+                vm.detail.budgetId= _item.id;
+                vm.detail.controlBalance=_item.remainMoney;
+                vm.detail.costProject=_item.typeName;
+            });
+            $scope.closeBudgetSelectModal_();
+        }
+        vm.init();
+        $scope.refresh = function () {
+            vm.loadData(true);
+        }
+        return vm;
+
+    })
+    //借款-红河项目
+    .controller("FiveFinanceLoanRedController", function ($state, $scope,$rootScope, fiveFinanceLoanService) {
+        var vm = this;
+        var key = $state.current.name + "_" + user.userLogin;
+        vm.params = getCacheParams(key, {
+            dispatchType: "借款",
+            qDeptName: "",
+            pageNum: 1,
+            pageSize: $scope.pageSize,
+            total: 0
+        });
+        vm.pageInfo = {
+            q: vm.params.qName,
+            pageNum: vm.params.pageNum,
+            pageSize: vm.params.pageSize,
+            total: vm.params.total
+        };
+        var uiSref = "finance.loanRed";
+        var tableName = $rootScope.loadTableName(uiSref);
+
+
+        vm.queryData = function () {
+            vm.pageInfo.pageNum = 1;
+
+            vm.loadPagedData();
+        };
+
+        vm.loadPagedData = function () {
+            var params = {
+                pageNum: vm.pageInfo.pageNum,
+                pageSize: vm.pageInfo.pageSize,
+                userLogin: user.userLogin,
+                uiSref: uiSref
+            };
+            fiveFinanceLoanService.listPagedData(params).then(function (value) {
+                if (value.data.ret) {
+                    vm.pageInfo = value.data.data;
+                    setCacheParams(key, vm.params, vm.pageInfo);
+                }
+            })
+            $scope.loadRightData(user.userLogin, uiSref);
+        };
+
+        vm.show = function (id) {
+            $state.go("finance.loanRedDetail", {loanId: id});
+        }
+
+
+        vm.add = function () {
+            fiveFinanceLoanService.getNewModel(user.userLogin,uiSref).then(function (value) {
+                if (value.data.ret) {
+                    vm.show(value.data.data);
+                }
+            })
+        }
+
+        vm.remove = function (id) {
+            bootbox.confirm("您确定要删除吗?无法恢复,请谨慎操作!", function (result) {
+                if (result) {
+                    fiveFinanceLoanService.remove(id, user.userLogin).then(function (value) {
+                        if (value.data.ret) {
+                            toastr.success("删除成功!")
+                            vm.queryData();
+                        }
+                    });
+                }
+            })
+        }
+
+        vm.loadPagedData();
+
+        return vm;
+
+    })
+    .controller("FiveFinanceLoanRedDetailController", function ($sce, $state, $stateParams, $rootScope, $scope, hrEmployeeService, fiveFinanceLoanService, fiveBusinessContractLibraryService,hrDeptService) {
+        var vm = this;
+        var uiSref = "finance.loanRed";
+        var tableName = $rootScope.loadTableName(uiSref);
+
+        var loanId = $stateParams.loanId;
+
+        vm.init = function () {
+            $scope.loadRightData(user.userLogin, uiSref);
+            vm.loadData(true);
+        }
+
+        vm.loadData = function (loadProcess) {
+            fiveFinanceLoanService.getModelById(loanId).then(function (value) {
+                if (value.data.ret) {
+                    vm.item = value.data.data;
+                    if (loadProcess) {
+                        $scope.loadProcessInstance(vm.item.processInstanceId);
+                        $scope.basicInit(vm.item.businessKey);
+                    }
+                    $("#applicantTime").datepicker('setDate', vm.item.applicantTime);
+                }
+            })
+            fiveFinanceLoanService.listDetail(loanId).then(function (value) {
+                if (value.data.ret) {
+                    vm.details = value.data.data;
+                }
+            })
+        };
+
+        vm.save = function () {
+            vm.item.operateUserLogin = user.userLogin;
+            fiveFinanceLoanService.update(vm.item).then(function (value) {
+                if (value.data.ret) {
+                    toastr.success("保存成功!")
+                    vm.loadData(false);
+                }
+            })
+        }
+
+        vm.showUserModel = function (status) {
+            vm.status = status;
+            if (vm.status == 'applicant') {
+                $scope.showOaSelectEmployeeModal_({
+                    title: "请选择申请人",
+                    type: "部门",
+                    deptIds: "1",
+                    userLoginList: vm.item.applicantMan,
+                    multiple: true
+                });
+            }
+            if (vm.status == 'businessManager') {
+                $scope.showOaSelectEmployeeModal_({
+                    title: "请选择项目经理",
+                    type: "部门",
+                    deptIds: "1",
+                    userLoginList: vm.item.applicantMan,
+                    multiple: true
+                });
+            }
+
+        }
+
+        $rootScope.saveSelectEmployee_ = function () {
+            $scope.closeOaSelectEmployeeModal_();
+            if (vm.status == 'applicant') {
+                vm.item.applicant = $scope.selectedOaUserLogins_;
+                vm.item.applicantName = $scope.selectedOaUserNames_;
+            }
+            if (vm.status == 'businessManager') {
+                vm.item.businessManager = $scope.selectedOaUserLogins_;
+                vm.item.businessManagerName = $scope.selectedOaUserNames_;
+            }
+        };
+        //单据号
+        vm.getReceiptsNumber=function(){
+            vm.item.operateUserLogin=user.userLogin;
+            fiveFinanceLoanService.update(vm.item).then(function(value){
+                if (value.data.ret) {
+                    fiveFinanceLoanService.getReceiptsNumber(vm.item.id).then(function (value) {
+                        if (value.data.ret) {
+                            vm.loadData();
+                            toastr.success("单据号已更新!");
+                        }
+                    })
+                }
+            })
+        }
+        //发送流程验证
+        $scope.showSendTask = function (send) {
+            if ($("#detail_form").validate().form()) {
+                vm.item.operateUserLogin = user.userLogin;
+                fiveFinanceLoanService.update(vm.item).then(function (value) {
+                    if (value.data.ret) {
+                        jQuery.showActHandleModal({
+                            taskId: $scope.processInstance.taskId,
+                            send: send,
+                            enLogin: user.enLogin
+                        }, function () {
+                            return true;
+                        }, function (processInstanceId) {
+                            $scope.refresh();
+                        });
+                    }
+                })
+            } else {
+                toastr.warning("请准确填写数据!")
+                return false;
+            }
+
+        }
+
+        vm.showDeptModal = function (id) {
+            $scope.showOaSelectEmployeeModal_({
+                title: "请选择部门", type: "选部门", deptIdList: vm.item.deptId + "",
+                multiple: false, deptIds: "1", parentDeptId: 2,bigDept:true
+            });
+        }
+
+        $rootScope.saveSelectDept_ = function () {
+            $scope.closeOaSelectEmployeeModal_();
+            vm.item.deptName = $scope.selectedOaDeptNames_;
+            vm.item.deptId = Number($scope.selectedOaDeptIds_);
+        }
+
+        //新增
+        vm.showDetailModel = function (id) {
+            if (id === 0) {
+                fiveFinanceLoanService.getNewModelDetail(loanId).then(function (value) {
+                    if (value.data.ret) {
+                        vm.detail = value.data.data;
+                        $("#detailModal").modal("show");
+                    }
+                })
+                //修改
+            } else {
+                fiveFinanceLoanService.getModelDetailById(id).then(function (value) {
+                    if (value.data.ret) {
+                        vm.detail = value.data.data;
+                        $("#detailModal").modal("show");
+                    }
+                })
+            }
+        }
+
+        vm.removeDetail = function (id) {
+            bootbox.confirm("确定要删除该数据吗?", function (result) {
+                if (result) {
+                    fiveFinanceLoanService.removeDetail(id, user.userLogin).then(function (value) {
+                        if (value.data.ret) {
+                            toastr.success("删除成功");
+                            vm.loadData(true);
+                        }
+                    })
+                }
+            });
+
+
+        };
+        //保存
+        vm.saveDetail = function () {
+            fiveFinanceLoanService.updateDetail(vm.detail).then(function (value) {
+                if (value.data.ret) {
+                    $("#detailModal").modal("hide");
+                    vm.save();
+                    vm.loadData(true);
+                }
+
+            })
+        };
+
+        vm.showSelectPreOrReviewModal = function () {
+            $scope.showLibrarySelectModal_({
+                selectLibraryId:vm.item.projectId,
+                uiSref:uiSref,
+                multiple: false
+            });
+        };
+        $rootScope.saveSelectLibrary_ = function () {
+            /*            vm.detail.contractName = $rootScope.selectedLibrary.contractName;
+                        vm.detail.contractNo = $rootScope.selectedLibrary.contractNo;
+                        vm.detail.contractId = $rootScope.selectedLibrary.id;
+                        vm.detail.projectNo =$rootScope.selectedLibrary.projectNo;
+                        vm.detail.signTime = $rootScope.selectedLibrary.signTime;
+                        vm.detail.contractMoney = $rootScope.selectedLibrary.contractMoney;
+                        vm.detail.customerName = $rootScope.selectedLibrary.customerName;*/
+            vm.item.projectId = $rootScope.selectedLibrary.id;
+            vm.item.projectName = $rootScope.selectedLibrary.projectName;
+            vm.item.projectType = $rootScope.selectedLibrary.projectNature;
+            vm.item.businessManager= $rootScope.selectedLibrary.businessChargeLeader;
+            vm.item.businessManagerName= $rootScope.selectedLibrary.businessChargeLeaderName;
+            $scope.closeLibrarySelectModal_();
+        }
+
+        vm.showBankSelect = function (id) {
+            vm.id=id;
+            if(id==1){
+                $scope.showBankSelectModal_({
+
+                    uiSref:uiSref,
+                    userBankNo:vm.item.outBankAccount
+                });
+            }
+            if(id==0){
+                $scope.showBankSelectModal_({
+
+                    uiSref:uiSref,
+                    userBankNo:vm.item.inBankAccount
+                });
+            }
+        }
+
+        $rootScope.saveSelectBank_ = function () {
+            if(vm.id==1){
+                var v1 = $rootScope.selectBank.type ;
+                vm.item.payName = $rootScope.selectBank.userName ;
+                vm.item.payAccount = $rootScope.selectBank.bankNo ;
+                vm.item.payBank = $rootScope.selectBank.bankName ;
+                $scope.closeBankSelectModal_();
+            }
+            if(vm.id==0){
+                var v2 = $rootScope.selectBank.type ;
+                vm.item.receiveName = $rootScope.selectBank.userName ;
+                vm.item.receiveAccount = $rootScope.selectBank.bankNo ;
+                vm.item.receiveBank = $rootScope.selectBank.bankName ;
+                $scope.closeBankSelectModal_();
+            }
+        }
+
+        vm.showPlanTypeModal = function () {
+            $scope.showBudgetSelectModal_({
+                deptId: vm.item.deptId,
+                budgetYear:vm.item.applicantTime.substring(0,4)
+            });
+        }
+
+        $rootScope.saveSelectBudget_ = function () {
+            var selecteds = $('#budgetTreeTable').bootstrapTreeTable('getSelections');
+            $.each(selecteds, function (_i, _item) {
+                vm.detail.budgetId= _item.id;
+                vm.detail.budgetBalance=_item.remainMoney;
+                vm.detail.budgetNo=_item.typeName;
+            });
+            $scope.closeBudgetSelectModal_();
+        }
+
+        vm.print = function () {
+            fiveFinanceLoanService.getPrintData(loanRedId).then(function (value) {
+                if (value.data.ret) {
+                    lodop = getLodop();
+                    vm.printData = value.data.data;
+                    lodop.PRINT_INIT("中国五洲工程设计集团有限公司发文单");
+                    var materialPurchaseDetails = vm.printData.materialPurchaseDetails;
+
+                    vm.printDetails = materialPurchaseDetails;
+                    var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
+                    setTimeout(function () {
+                        var strFormHtml = strBodyStyle + "<body>" + document.getElementById("print_area").innerHTML + "</body>";
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
+                        lodop.SET_PRINT_PAGESIZE(2, 0, 0, "A4");
+                        lodop.PREVIEW();
+                    }, 500);
+                }
+            })
+        }
+
+        vm.init();
+        $scope.refresh = function () {
+            vm.loadData(true);
+        }
+        return vm;
+
+    })
+    //借款-建研院
+    .controller("FiveFinanceLoanBuildController", function ($state, $scope,$rootScope, fiveFinanceLoanService) {
+        var vm = this;
+        var key = $state.current.name + "_" + user.userLogin;
+        vm.params = getCacheParams(key, {
+            dispatchType: "借款",
+            qDeptName: "",
+            pageNum: 1,
+            pageSize: $scope.pageSize,
+            total: 0
+        });
+        vm.pageInfo = {
+            q: vm.params.qName,
+            pageNum: vm.params.pageNum,
+            pageSize: vm.params.pageSize,
+            total: vm.params.total
+        };
+        var uiSref = "finance.loanBuild";
+        var tableName = $rootScope.loadTableName(uiSref);
+
+
+        vm.queryData = function () {
+            vm.pageInfo.pageNum = 1;
+
+            vm.loadPagedData();
+        };
+
+        vm.loadPagedData = function () {
+            var params = {
+                pageNum: vm.pageInfo.pageNum,
+                pageSize: vm.pageInfo.pageSize,
+                userLogin: user.userLogin,
+                uiSref: uiSref
+            };
+            fiveFinanceLoanService.listPagedData(params).then(function (value) {
+                if (value.data.ret) {
+                    vm.pageInfo = value.data.data;
+                    setCacheParams(key, vm.params, vm.pageInfo);
+                }
+            })
+            $scope.loadRightData(user.userLogin, uiSref);
+        };
+
+        vm.show = function (id) {
+            $state.go("finance.loanBuildDetail", {loanId: id});
+        }
+
+
+        vm.add = function () {
+            fiveFinanceLoanService.getNewModel(user.userLogin,uiSref).then(function (value) {
+                if (value.data.ret) {
+                    vm.show(value.data.data);
+                }
+            })
+        }
+
+        vm.remove = function (id) {
+            bootbox.confirm("您确定要删除吗?无法恢复,请谨慎操作!", function (result) {
+                if (result) {
+                    fiveFinanceLoanService.remove(id, user.userLogin).then(function (value) {
+                        if (value.data.ret) {
+                            toastr.success("删除成功!")
+                            vm.queryData();
+                        }
+                    });
+                }
+            })
+        }
+
+        vm.loadPagedData();
+
+        return vm;
+
+    })
+    .controller("FiveFinanceLoanBuildDetailController", function ($sce, $state, $stateParams, $rootScope, $scope, hrEmployeeService, fiveFinanceLoanService, fiveBusinessContractLibraryService,hrDeptService) {
+        var vm = this;
+        var uiSref = "finance.loanBuild";
+        var tableName = $rootScope.loadTableName(uiSref);
+
+        var loanId = $stateParams.loanId;
+
+        vm.init = function () {
+            $scope.loadRightData(user.userLogin, uiSref);
+            vm.loadData(true);
+        }
+
+        vm.loadData = function (loadProcess) {
+            fiveFinanceLoanService.getModelById(loanId).then(function (value) {
+                if (value.data.ret) {
+                    vm.item = value.data.data;
+                    if (loadProcess) {
+                        $scope.loadProcessInstance(vm.item.processInstanceId);
+                        $scope.basicInit(vm.item.businessKey);
+                    }
+                    $("#applicantTime").datepicker('setDate', vm.item.applicantTime);
+                }
+            })
+            fiveFinanceLoanService.listDetail(loanId).then(function (value) {
+                if (value.data.ret) {
+                    vm.details = value.data.data;
+                }
+            })
+        };
+
+        vm.save = function () {
+            vm.item.operateUserLogin = user.userLogin;
+            fiveFinanceLoanService.update(vm.item).then(function (value) {
+                if (value.data.ret) {
+                    toastr.success("保存成功!")
+                    vm.loadData(false);
+                }
+            })
+        }
+
+        vm.showUserModel = function (status) {
+            vm.status = status;
+            if (vm.status == 'applicant') {
+                $scope.showOaSelectEmployeeModal_({
+                    title: "请选择申请人",
+                    type: "部门",
+                    deptIds: "1",
+                    userLoginList: vm.item.applicantMan,
+                    multiple: true
+                });
+            }
+            if (vm.status == 'businessManager') {
+                $scope.showOaSelectEmployeeModal_({
+                    title: "请选择项目经理",
+                    type: "部门",
+                    deptIds: "1",
+                    userLoginList: vm.item.applicantMan,
+                    multiple: true
+                });
+            }
+
+        }
+
+        $rootScope.saveSelectEmployee_ = function () {
+            $scope.closeOaSelectEmployeeModal_();
+            if (vm.status == 'applicant') {
+                vm.item.applicant = $scope.selectedOaUserLogins_;
+                vm.item.applicantName = $scope.selectedOaUserNames_;
+            }
+            if (vm.status == 'businessManager') {
+                vm.item.businessManager = $scope.selectedOaUserLogins_;
+                vm.item.businessManagerName = $scope.selectedOaUserNames_;
+            }
+        };
+        //单据号
+        vm.getReceiptsNumber=function(){
+            vm.item.operateUserLogin=user.userLogin;
+            fiveFinanceLoanService.update(vm.item).then(function(value){
+                if (value.data.ret) {
+                    fiveFinanceLoanService.getReceiptsNumber(vm.item.id).then(function (value) {
+                        if (value.data.ret) {
+                            vm.loadData();
+                            toastr.success("单据号已更新!");
+                        }
+                    })
+                }
+            })
+        }
+        //发送流程验证
+        $scope.showSendTask = function (send) {
+            if ($("#detail_form").validate().form()) {
+                vm.item.operateUserLogin = user.userLogin;
+                fiveFinanceLoanService.update(vm.item).then(function (value) {
+                    if (value.data.ret) {
+                        jQuery.showActHandleModal({
+                            taskId: $scope.processInstance.taskId,
+                            send: send,
+                            enLogin: user.enLogin
+                        }, function () {
+                            return true;
+                        }, function (processInstanceId) {
+                            $scope.refresh();
+                        });
+                    }
+                })
+            } else {
+                toastr.warning("请准确填写数据!")
+                return false;
+            }
+
+        }
+
+        vm.showDeptModal = function (id) {
+            $scope.showOaSelectEmployeeModal_({
+                title: "请选择部门", type: "选部门", deptIdList: vm.item.deptId + "",
+                multiple: false, deptIds: "1", parentDeptId: 2,bigDept:true
+            });
+        }
+
+        $rootScope.saveSelectDept_ = function () {
+            $scope.closeOaSelectEmployeeModal_();
+            vm.item.deptName = $scope.selectedOaDeptNames_;
+            vm.item.deptId = Number($scope.selectedOaDeptIds_);
+        }
+
+        //新增
+        vm.showDetailModel = function (id) {
+            if (id === 0) {
+                fiveFinanceLoanService.getNewModelDetail(loanId).then(function (value) {
+                    if (value.data.ret) {
+                        vm.detail = value.data.data;
+                        $("#detailModal").modal("show");
+                    }
+                })
+                //修改
+            } else {
+                fiveFinanceLoanService.getModelDetailById(id).then(function (value) {
+                    if (value.data.ret) {
+                        vm.detail = value.data.data;
+                        $("#detailModal").modal("show");
+                    }
+                })
+            }
+        }
+
+        vm.removeDetail = function (id) {
+            bootbox.confirm("确定要删除该数据吗?", function (result) {
+                if (result) {
+                    fiveFinanceLoanService.removeDetail(id, user.userLogin).then(function (value) {
+                        if (value.data.ret) {
+                            toastr.success("删除成功");
+                            vm.loadData(true);
+                        }
+                    })
+                }
+            });
+
+
+        };
+        //保存
+        vm.saveDetail = function () {
+            fiveFinanceLoanService.updateDetail(vm.detail).then(function (value) {
+                if (value.data.ret) {
+                    $("#detailModal").modal("hide");
+                    vm.save();
+                    vm.loadData(true);
+                }
+
+            })
+        };
+
+        vm.showSelectPreOrReviewModal = function () {
+            $scope.showLibrarySelectModal_({
+                selectLibraryId:vm.item.projectId,
+                uiSref:uiSref,
+                multiple: false
+            });
+        };
+        $rootScope.saveSelectLibrary_ = function () {
+            vm.item.projectId = $rootScope.selectedLibrary.id;
+            vm.item.projectName = $rootScope.selectedLibrary.projectName;
+            vm.item.projectType = $rootScope.selectedLibrary.projectNature;
+            vm.item.businessManager= $rootScope.selectedLibrary.projectManager;
+            vm.item.businessManagerName= $rootScope.selectedLibrary.projectManagerName;
+            $scope.closeLibrarySelectModal_();
+        }
+
+        vm.showBankSelect = function (id) {
+
+            vm.id=id;
+            if(id==1){
+                $scope.showBankSelectModal_({
+
+                    uiSref:uiSref,
+                    userBankNo:vm.item.outBankAccount
+                });
+            }
+            if(id==0){
+                $scope.showBankSelectModal_({
+
+                    uiSref:uiSref,
+                    userBankNo:vm.item.inBankAccount
+                });
+            }
+        }
+
+        $rootScope.saveSelectBank_ = function () {
+            if(vm.id==1){
+                var v1 = $rootScope.selectBank.type ;
+                vm.item.payName = $rootScope.selectBank.userName ;
+                vm.item.payAccount = $rootScope.selectBank.bankNo ;
+                vm.item.payBank = $rootScope.selectBank.bankName ;
+                $scope.closeBankSelectModal_();
+            }
+            if(vm.id==0){
+                var v2 = $rootScope.selectBank.type ;
+                vm.item.receiveName = $rootScope.selectBank.userName ;
+                vm.item.receiveAccount = $rootScope.selectBank.bankNo ;
+                vm.item.receiveBank = $rootScope.selectBank.bankName ;
+                $scope.closeBankSelectModal_();
+            }
+        }
+
+        vm.showPlanTypeModal = function () {
+            $scope.showBudgetSelectModal_({
+                deptId: vm.item.deptId,
+                budgetYear:vm.item.applicantTime.substring(0,4)
+            });
+        }
+        $rootScope.saveSelectBudget_ = function () {
+            var selecteds = $('#budgetTreeTable').bootstrapTreeTable('getSelections');
+            $.each(selecteds, function (_i, _item) {
+                vm.detail.budgetBalance=_item.remainMoney;
+                vm.detail.budgetNo=_item.typeName;
+            });
+            $scope.closeBudgetSelectModal_();
+        }
+
+        vm.print = function () {
+            fiveFinanceLoanService.getPrintData(loanId).then(function (value) {
+                if (value.data.ret) {
+                    lodop = getLodop();
+                    vm.printData = value.data.data;
+                    lodop.PRINT_INIT("中国五洲工程设计集团有限公司发文单");
+                    var materialPurchaseDetails = vm.printData.materialPurchaseDetails;
+
+                    vm.printDetails = materialPurchaseDetails;
+                    var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
+                    setTimeout(function () {
+                        var strFormHtml = strBodyStyle + "<body>" + document.getElementById("print_area").innerHTML + "</body>";
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
+                        lodop.SET_PRINT_PAGESIZE(2, 0, 0, "A4");
+                        lodop.PREVIEW();
+                    }, 500);
+                }
+            })
         }
 
         vm.init();

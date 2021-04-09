@@ -283,7 +283,10 @@ public class FiveBudgetIndependentService {
         insertDetail(lastYearDetails,projectBudgetId,parentId4,"2）取暖费",2);
 
 
-        insertDetail(lastYearDetails,projectBudgetId,parentId2,"3.人员成本",3);
+        int parentId7 = insertDetail(lastYearDetails, projectBudgetId, parentId2, "3.人员成本", 3);
+        insertDetail(lastYearDetails,projectBudgetId,parentId7,"1）咨询劳务",1);
+        insertDetail(lastYearDetails,projectBudgetId,parentId7,"2）培训费",2);
+        insertDetail(lastYearDetails,projectBudgetId,parentId7,"3）其他费用",3);
 
         int parentId5 = insertDetail(lastYearDetails,projectBudgetId,parentId2,"4.工程外付成本",4);
         insertDetail(lastYearDetails,projectBudgetId,parentId5,"1）分包工程款、设备材料购置",1);
@@ -318,7 +321,14 @@ public class FiveBudgetIndependentService {
         insertDetail(lastYearDetails,projectBudgetId,parentId,"10.保险费",10);
         insertDetail(lastYearDetails,projectBudgetId,parentId,"11.油料费",11);
         insertDetail(lastYearDetails,projectBudgetId,parentId,"12.修理费",12);
-        insertDetail(lastYearDetails,projectBudgetId,parentId,"13.其他支出",13);
+        insertDetail(lastYearDetails,projectBudgetId,parentId,"13.股权投资",13);
+
+        int parentId7 = insertDetail(lastYearDetails, projectBudgetId, parentId, "14.人员成本", 14);
+        insertDetail(lastYearDetails,projectBudgetId,parentId7,"1）咨询劳务",1);
+        insertDetail(lastYearDetails,projectBudgetId,parentId7,"2）培训费",2);
+        insertDetail(lastYearDetails,projectBudgetId,parentId7,"3）其他费用",3);
+
+        insertDetail(lastYearDetails,projectBudgetId,parentId,"15.其他支出",15);
 
         int parent2 = insertDetail(lastYearDetails,projectBudgetId, 0, "二、办公设备支出", 2);
         insertDetail(lastYearDetails,projectBudgetId,parent2,"1.办公自动化支出",1);
@@ -469,7 +479,9 @@ public class FiveBudgetIndependentService {
             List<FiveFinanceLoanDetail> fiveFinanceLoanDetails = fiveFinanceLoanDetailMapper.selectAll(map2);
             for(FiveFinanceLoanDetail detail:fiveFinanceLoanDetails){
                 FiveFinanceLoanDto loanDto = fiveFinanceLoanService.getModelById(detail.getLoanId());
-                totalDeductionMoney=MyStringUtil.getNewAddMoney(totalDeductionMoney,loanDto.getRemainMoney());
+                //转换金额 万元
+                totalDeductionMoney=MyStringUtil.getNewAddMoney(totalDeductionMoney,
+                        MyStringUtil.getMoneyW(loanDto.getRemainMoney()));
             }
 
             //差旅费
@@ -522,6 +534,10 @@ public class FiveBudgetIndependentService {
             params.put("isLikeSelect","true");
         }else if(uiSref.equalsIgnoreCase("budget.postExpense")){
             params.put("qBusinessKey","fiveBudgetPostExpense");
+        }else if(uiSref.equalsIgnoreCase("budget.feeChange")){
+            params.put("qBusinessKey","fiveBudgetIndependent");
+            params.put("qBusinessKey1","fiveBudgetFunction");
+            params.put("isLikeSelect","true");
         }
         PageInfo<Object> pageInfo = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> fiveBudgetIndependentMapper.selectAll(params));
         List<Object> list = Lists.newArrayList();

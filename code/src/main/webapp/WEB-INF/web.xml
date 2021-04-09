@@ -5,7 +5,7 @@
          version="3.1">
 
     <display-name>MCC WEB</display-name>
-    
+
     <mime-mapping>
         <extension>html</extension>
         <mime-type>text/html;charset=UTF-8</mime-type>
@@ -39,7 +39,6 @@
     </listener>
 
 
-
     <!--匹配Spring mvc 以及静态资源，不匹配jsp-->
     <servlet-mapping>
         <servlet-name>spring</servlet-name>
@@ -71,15 +70,31 @@
     </filter-mapping>
 
 
+    <filter>
+        <filter-name>xssFilter</filter-name>
+        <filter-class>com.cmcu.common.filter.XssFilter</filter-class>
+        <init-param>
+            <param-name>exclude</param-name>
+            <param-value>/assets/*;/m/*</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>xssFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+        <!-- 直接从客户端过来的请求以及通过forward过来的请求都要经过该过滤器 -->
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+
+
     <!--<error-page>-->
     <!--<error-code>500</error-code>-->
     <!--<location>/WEB-INF/views/500.jsp</location>-->
     <!--</error-page>-->
 
-
     <error-page>
-    <error-code>404</error-code>
-    <location>/WEB-INF/views/404.jsp</location>
+        <error-code>404</error-code>
+        <location>/WEB-INF/views/404.jsp</location>
     </error-page>
 
 </web-app>

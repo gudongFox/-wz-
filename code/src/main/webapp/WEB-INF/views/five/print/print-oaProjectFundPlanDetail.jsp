@@ -30,9 +30,10 @@
     }
 </style>
 
-
-<div id="print_area" hidden>
+<div id="page_index" hidden>
     <p>表单编号：{{vm.printData.tableNo}}</p>
+</div>
+<div id="print_area" hidden>
     <h3 style="text-align: center;"><span ng-bind="vm.printData.projectName"></span>项目<span ng-bind="vm.printData.planTime|date:'yyyy年-MM月'"></span>资金使用计划</h3>
     <span style="padding-left: 15px" ng-bind="'编制单位:'+vm.printData.deptName"></span><span style="float:right;padding-right: 15px;">单位:万元</span>
     <table class="print_table1">

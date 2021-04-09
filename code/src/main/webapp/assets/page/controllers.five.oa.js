@@ -363,21 +363,36 @@
                         var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                         setTimeout(function () {
                             var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
+                            lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                             lodop.PREVIEW();
                         }, 500);
                     }else if (vm.printData.flag=='通用会签'){
                         var strBodyStyle = "<style>" + document.getElementById("print_style_common").innerHTML + "</style>";
                         setTimeout(function () {
                             var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area_common").innerHTML + "</body>";
+                            lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                             lodop.PREVIEW();
                         }, 500);
                     }else if (vm.printData.flag=='制度会签'){
                         var strBodyStyle = "<style>" + document.getElementById("print_area_system").innerHTML + "</style>";
                         setTimeout(function () {
                             var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area_system").innerHTML + "</body>";
+                            lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                             lodop.PREVIEW();
                         }, 500);
                     }
@@ -728,7 +743,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -874,6 +894,7 @@
         var vm = this;
 
         var reportId = $stateParams.reportId;
+        var uiSref="five.oaReport";
 
         var tableName = $rootScope.loadTableName(uiSref);
 
@@ -983,7 +1004,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -1111,7 +1137,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -1569,7 +1600,12 @@
                         lodop.PRINT_INIT("中国五洲工程设计集团有限公司发文单");
                         var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.SET_PRINT_STYLEA(0,"HtmWaitMilSecs",500);
                         lodop.PREVIEW();
                     }, 500);
@@ -1952,7 +1988,12 @@
                     var str_BodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =str_BodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -2290,7 +2331,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -2890,7 +2936,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -3043,8 +3094,6 @@
         };
         //打印
         vm.print=function () {
-            console.log(vm.item.businessKey);
-            console.log(user.userLogin);
             commonPrintTableService.getPrintDate(vm.item.businessKey,user.userLogin).then(function (value) {
 
                 if(value.data.ret){
@@ -3054,7 +3103,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -3512,7 +3566,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -3529,21 +3588,36 @@
                         var strBodyStyle = "<style>" + document.getElementById("print_style2").innerHTML + "</style>";
                         setTimeout(function () {
                             var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area2").innerHTML + "</body>";
+                            lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                             lodop.PREVIEW();
                         }, 500);
                     } else if (vm.printData.meetingType.indexOf("总经理办公会")>=0) {
                         var strBodyStyle = "<style>" + document.getElementById("print_style1").innerHTML + "</style>";
                         setTimeout(function () {
                             var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area1").innerHTML + "</body>";
+                            lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                             lodop.PREVIEW();
                         }, 500);
                     }else {
                         var strBodyStyle = "<style>" + document.getElementById("print_style3").innerHTML + "</style>";
                         setTimeout(function () {
                             var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area3").innerHTML + "</body>";
+                            lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                             lodop.PREVIEW();
                         }, 500);
                     }
@@ -3877,7 +3951,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -3910,31 +3989,45 @@
         }
         //发送流程验证
         $scope.showSendTask=function(send){
-            if(vm.item.stampName==""){
-                toastr.warning("请先选择用印类型!")
-                return
-            }
-            if ($("#detail_form").validate().form()) {
-                vm.item.operateUserLogin = user.userLogin;
+            if (send){
+                if(vm.item.stampName==""){
+                    toastr.warning("请先选择用印类型!")
+                    return
+                }
+                if ($("#detail_form").validate().form()) {
+                    vm.item.operateUserLogin = user.userLogin;
 
-                fiveOaStampApplyOfficeService.update(vm.item).then(function (value) {
-                    if (value.data.ret) {
-                        jQuery.showActHandleModal({
-                            taskId: $scope.processInstance.taskId,
-                            send: send,
-                            enLogin: user.enLogin
-                        }, function () {
-                            return true;
-                        }, function (processInstanceId) {
-                            $rootScope.loadNewProcessInstance(processInstanceId);
-                            $rootScope.loadProcessInstance(processInstanceId);
-                            vm.loadData();
-                        });
-                    }
-                })
+                    fiveOaStampApplyOfficeService.update(vm.item).then(function (value) {
+                        if (value.data.ret) {
+                            jQuery.showActHandleModal({
+                                taskId: $scope.processInstance.taskId,
+                                send: send,
+                                enLogin: user.enLogin
+                            }, function () {
+                                return true;
+                            }, function (processInstanceId) {
+                                $rootScope.loadNewProcessInstance(processInstanceId);
+                                $rootScope.loadProcessInstance(processInstanceId);
+                                vm.loadData();
+                            });
+                        }
+                    })
+                }else {
+                    toastr.warning("请准确填写数据!")
+                    return false;
+                }
             }else {
-                toastr.warning("请准确填写数据!")
-                return false;
+                jQuery.showActHandleModal({
+                    taskId: $scope.processInstance.taskId,
+                    send: send,
+                    enLogin: user.enLogin
+                }, function () {
+                    return true;
+                }, function (processInstanceId) {
+                    $rootScope.loadNewProcessInstance(processInstanceId);
+                    $rootScope.loadProcessInstance(processInstanceId);
+                    vm.loadData();
+                });
             }
         }
 
@@ -4204,7 +4297,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -4425,7 +4523,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -4591,7 +4694,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -4847,7 +4955,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -5132,7 +5245,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -5445,7 +5563,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -5886,7 +6009,6 @@
 
         //打印
         vm.print=function () {
-            console.log(vm.item.businessKey);
             commonPrintTableService.getPrintDate(vm.item.businessKey,user.userLogin).then(function (value) {
                 if(value.data.ret){
                     lodop=getLodop();
@@ -5895,7 +6017,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -6189,7 +6316,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -6445,7 +6577,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -6792,7 +6929,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -7112,7 +7254,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.SET_PRINT_PAGESIZE(2,0,0,"A4");
                         lodop.PREVIEW();
                     }, 500);
@@ -7344,7 +7491,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -7593,7 +7745,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -7807,7 +7964,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -8062,7 +8224,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -8319,7 +8486,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -8532,7 +8704,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -8799,7 +8976,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -8931,14 +9113,27 @@
                 }
             })
         };
-        vm.showDeptModal=function(id) {
-            $scope.showOaSelectEmployeeModal_({title:"请选择部门",type:"选部门", deptIdList: vm.item.deptId+"",
-                multiple:false,deptIds:"1",parentDeptId:2});
+        vm.showDeptModal=function(opt) {
+            vm.opt=opt;
+            if(opt=='dept'){
+                $scope.showOaSelectEmployeeModal_({title:"请选择申请部门",type:"选部门", deptIdList: vm.item.deptId+"",
+                    multiple:false,deptIds:"1",parentDeptId:2});
+            }else if(opt=='managementDept'){
+                $scope.showOaSelectEmployeeModal_({title:"请选择权限责任部门",type:"选部门", deptIdList: vm.item.managementDeptId+"",
+                    multiple:false,deptIds:"1",parentDeptId:2});
+            }
+
         };
         $rootScope.saveSelectDept_ =function() {
             $scope.closeOaSelectEmployeeModal_();
-            vm.item.deptName = $scope.selectedOaDeptNames_;
-            vm.item.deptId = Number($scope.selectedOaDeptIds_);
+            if(vm.opt=='dept'){
+                vm.item.deptName = $scope.selectedOaDeptNames_;
+                vm.item.deptId = Number($scope.selectedOaDeptIds_);
+            }else if(vm.opt=='managementDept'){
+                vm.item.managementDeptName = $scope.selectedOaDeptNames_;
+                vm.item.managementDeptId = Number($scope.selectedOaDeptIds_);
+            }
+
         };
         vm.showUserModel = function (status) {
             vm.status=status;
@@ -9017,7 +9212,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -9308,7 +9508,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -9520,7 +9725,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -9774,7 +9984,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -9978,7 +10193,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -10217,7 +10437,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -10441,7 +10666,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -10645,7 +10875,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -10903,7 +11138,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -11129,7 +11369,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -11326,7 +11571,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -11529,7 +11779,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -11732,7 +11987,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -11935,7 +12195,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -12165,7 +12430,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -12370,7 +12640,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -12597,7 +12872,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -12827,7 +13107,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -13077,7 +13362,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -13274,7 +13564,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -13517,7 +13812,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -13725,7 +14025,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -14040,7 +14345,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -14248,7 +14558,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -14527,7 +14842,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.SET_PRINT_PAGESIZE(2,0,0,"A4");
                         lodop.PREVIEW();
                     }, 500);
@@ -14797,7 +15117,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.SET_PRINT_PAGESIZE(2,0,0,"A4");
                         lodop.PREVIEW();
                     }, 500);
@@ -14823,7 +15148,6 @@
         vm.pageInfo = {q:vm.params.qName,pageNum: vm.params.pageNum, pageSize: vm.params.pageSize,total:vm.params.total};
         var tableName = $rootScope.loadTableName(uiSref);
 
-        console.log("项目资金使用计划");
         vm.init=function(){
             hrDeptService.listMultipleDept().then(function (value) {
                 if(value.data.ret){
@@ -15158,7 +15482,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.SET_PRINT_PAGESIZE(2,0,0,"A4");
                         lodop.PREVIEW();
                     }, 500);
@@ -15411,7 +15740,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -15562,7 +15896,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -15699,7 +16038,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -15861,7 +16205,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -16121,7 +16470,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -16310,7 +16664,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -16523,7 +16882,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -16695,7 +17059,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -16866,7 +17235,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -17036,7 +17410,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -17672,7 +18051,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -17926,7 +18310,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -18469,7 +18858,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }

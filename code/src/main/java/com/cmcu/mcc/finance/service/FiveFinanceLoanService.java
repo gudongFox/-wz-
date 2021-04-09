@@ -111,16 +111,19 @@ public class FiveFinanceLoanService extends BaseService {
             model.setProjectName(dto.getProjectName());
             model.setBusinessManager(dto.getBusinessManager());
             model.setBusinessManagerName(dto.getBusinessManagerName());
+            model.setProjectChargeMan(dto.getProjectChargeMan());
+            model.setProjectChargeManName(dto.getProjectChargeManName());
         }else{
             model.setProjectId(0);
             model.setProjectName("");
             model.setBusinessManager("");
             model.setBusinessManagerName("");
+            model.setProjectChargeMan("");
+            model.setProjectChargeManName("");
         }
 
-
         model.setApplicantTime(dto.getApplicantTime());
-        model.setLoanMoney(dto.getLoanMoney());
+        //model.setLoanMoney(dto.getLoanMoney());
         model.setLoanReason(dto.getLoanReason());
         model.setPayName(dto.getPayName());
         model.setPayAccount(dto.getPayAccount());
@@ -166,7 +169,7 @@ public class FiveFinanceLoanService extends BaseService {
                     attributeList.add("2169");
                 } else if(modelDetail.getBudgetNo().contains("软件")){
                     attributeList.add("2887");
-                } else if(modelDetail.getBudgetNo().contains("团体会费")){
+                } else if(modelDetail.getBudgetNo().contains("会议费")){
                     attributeList.add("2887");
                 } else if(modelDetail.getBudgetNo().contains("图书资料费")){
                     attributeList.add("1543");
@@ -184,7 +187,7 @@ public class FiveFinanceLoanService extends BaseService {
                 } else if(modelDetail.getBudgetNo().contains("软件")){
                     attributeList.add("2887");
                     attribute = 2;
-                } else if(modelDetail.getBudgetNo().contains("团体会费")){
+                } else if(modelDetail.getBudgetNo().contains("会议费")){
                     attributeList.add("2887");
                     attribute = 2;
                 } else if(modelDetail.getBudgetNo().contains("图书资料费")){
@@ -206,7 +209,7 @@ public class FiveFinanceLoanService extends BaseService {
         variables.put("financeConfirm", selectEmployeeService.getDeptFinanceMan(model.getDeptId()));//财务确认
         variables.put("deptChargeMan", selectEmployeeService.getDeptChargeMen(model.getDeptId()));//部门领导
         variables.put("financeChargeMan", selectEmployeeService.getDeptChargeMen(18));//财务负责人
-        variables.put("financeDeputy", selectEmployeeService.getOtherDeptChargeMan(18));//主管副职领导 分管副总  分管领导
+        variables.put("financeDeputy", selectEmployeeService.getDeptChargeMen(model.getDeptId()));//申请部门正副职
         variables.put("chiefAccountant", hrEmployeeService.selectUserByPositionName("总会计师"));//总会计师
         variables.put("generalManager", hrEmployeeService.selectUserByPositionName("总经理"));//总经理
         variables.put("financialAccount", selectEmployeeService.getDeptFinanceMan(model.getDeptId()));//财务核算
@@ -232,6 +235,12 @@ public class FiveFinanceLoanService extends BaseService {
         } else if(model.getBusinessKey().indexOf("Common") != -1){//生产部门
             //是否投标保证金
             int bid=0;
+            List<String> businessMen = selectEmployeeService.getBusinessMenByDeptId(model.getDeptId());
+            if(businessMen.size()!=0){
+                variables.put("businessMen",selectEmployeeService.getBusinessMenByDeptId(model.getDeptId()));//部门经营人员
+            }else{
+                bid = 2;
+            }
             if(dto.getBid().contains("否")){
                 bid = 1;
                 if (selectEmployeeService.getDeptChargeMen(dto.getDeptId()).contains(dto.getCreator())) {
@@ -251,7 +260,7 @@ public class FiveFinanceLoanService extends BaseService {
             }
             variables.put("project", dto.getProjectName().length()!=0?true:false);
 
-            variables.put("deputy", selectEmployeeService.getOtherDeptChargeMan(model.getDeptId()));//副院长
+            variables.put("deputy", dto.getProjectChargeMan());//项目主管院长
             variables.put("bid", bid);
             variables.put("designViceManager", designViceManager);
             variables.put("projectViceManager", projectViceManager);
@@ -296,7 +305,7 @@ public class FiveFinanceLoanService extends BaseService {
             applyMoney= MyStringUtil.getNewAddMoney(applyMoney,detail.getApplyMoney());
         }
         dto.setTotalBudgetBalance(MyStringUtil.moneyToString(budgetBalance,6));
-        dto.setTotalApplyMoney(MyStringUtil.moneyToString(applyMoney,6));
+        dto.setTotalApplyMoney(MyStringUtil.moneyToString(applyMoney,2));
 
         dto.setRemainMoney(dto.getTotalApplyMoney());
 
@@ -340,16 +349,17 @@ public class FiveFinanceLoanService extends BaseService {
             dto.setRemainMoney(MyStringUtil.getNewSubMoney(dto.getRemainMoney(),transferAccounts.getTotalMoney()));
         }
 
-        dto.setRemainMoney(MyStringUtil.moneyToString(dto.getRemainMoney(),6));
-
+        dto.setRemainMoney(MyStringUtil.moneyToString(dto.getRemainMoney(),2));
 
         return dto;
     }
     public FiveFinanceLoanDetail getDetailDto(FiveFinanceLoanDetail item) {
         item.setControlBalance(MyStringUtil.moneyToString(item.getControlBalance(),6));
-        item.setApplyMoney(MyStringUtil.moneyToString(item.getApplyMoney(),6));
+//        item.setApplyMoney(MyStringUtil.moneyToString(item.getApplyMoney(),2));
         item.setBudgetBalance(MyStringUtil.moneyToString(item.getBudgetBalance(),6));
-        item.setApplyMoney(MyStringUtil.moneyToString(item.getApplyMoney(),6));
+
+        //万元 转换为 元
+        item.setApplyMoney(MyStringUtil.moneyToString(MyStringUtil.getMoneyY(item.getApplyMoney()),2));
         return item;
     }
 
@@ -365,6 +375,9 @@ public class FiveFinanceLoanService extends BaseService {
         }
         item.setCreator(hrEmployeeDto.getUserLogin());
         item.setCreatorName(hrEmployeeDto.getUserName());
+        item.setDeptId(selectEmployeeService.getHeadDeptId(hrEmployeeDto.getDeptId()));
+        item.setDeptName(selectEmployeeService.getHeadDeptName(hrEmployeeDto.getDeptId()));
+
         item.setApplicant(hrEmployeeDto.getUserLogin());
         item.setApplicantName(hrEmployeeDto.getUserName());
         item.setProjectType(commonCodeService.selectDefaultCodeValue(MccConst.APP_CODE,"五洲项目类型").toString());
@@ -446,8 +459,10 @@ public class FiveFinanceLoanService extends BaseService {
 
     public void updateDetail(FiveFinanceLoanDetail item){
         //如果申请金额 大于 预算剩余金额 提示
-        Assert.state(Double.valueOf(item.getApplyMoney())<=Double.valueOf(item.getBudgetBalance()),"申请金额 大于 预算剩余金额!");
+        Assert.state(Double.valueOf(MyStringUtil.getMoneyW(item.getApplyMoney()))<=Double.valueOf(item.getBudgetBalance()),"申请金额 大于 预算剩余金额!");
         if (item.getFlag()==1){
+            //元转为 万元
+            item.setApplyMoney(MyStringUtil.getMoneyW(item.getApplyMoney()));
             fiveFinanceLoanDetailMapper.insert(item);
         }else {
             FiveFinanceLoanDetail model = fiveFinanceLoanDetailMapper.selectByPrimaryKey(item.getId());
@@ -457,7 +472,9 @@ public class FiveFinanceLoanService extends BaseService {
             model.setBudgetDegree(item.getBudgetDegree());
             model.setControlBalance(item.getControlBalance());
             model.setBudgetBalance(item.getBudgetBalance());
-            model.setApplyMoney(MyStringUtil.moneyToString(item.getApplyMoney()));
+
+            //元 转换为 万元
+            model.setApplyMoney(MyStringUtil.moneyToString(MyStringUtil.getMoneyW(item.getApplyMoney())));
             model.setRemark(item.getRemark());
             fiveFinanceLoanDetailMapper.updateByPrimaryKey(model);
         }
@@ -486,6 +503,8 @@ public class FiveFinanceLoanService extends BaseService {
         if(Double.valueOf(item.getApplyMoney()).equals(0.0)){
             item.setApplyMoney("");
         }
+        //万元转为元
+        item.setApplyMoney(MyStringUtil.getMoneyY(item.getApplyMoney()));
         return item;
 
     }

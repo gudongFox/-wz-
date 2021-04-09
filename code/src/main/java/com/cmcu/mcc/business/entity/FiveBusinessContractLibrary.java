@@ -452,7 +452,7 @@ public class FiveBusinessContractLibrary {
     private String businessChargeLeaderName;
 
     @NotNull(message="关联发票不能为空!")
-    @Size(max=45, message="关联发票长度不能超过45")
+    @Size(max=450, message="关联发票长度不能超过450")
     private String invoiceIds;
 
     @NotNull(message="合同已开具发票额不能为空!")
@@ -484,4 +484,10 @@ public class FiveBusinessContractLibrary {
     @NotNull(message="内部协作合同不能为空!")
     @Max(value=999999999, message="内部协作合同必须为数字")
     private Integer cooperationContractId;
+
+    @Size(max=45, message="主管院长长度不能超过45")
+    private String projectChargeMan;
+
+    @Size(max=45, message="projectChargeManName长度不能超过45")
+    private String projectChargeManName;
 }

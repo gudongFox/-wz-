@@ -205,8 +205,8 @@ public class FiveOaInformationEquipmentProcurementService  extends BaseService {
         model.setEquipmentType(item.getEquipmentType());
         model.setUseType(item.getUseType());
         model.setNumber(item.getNumber());
-        model.setPrice(item.getPrice());
-        model.setTotalPrice(item.getTotalPrice());
+        model.setPrice(MyStringUtil.moneyToString(item.getPrice(),2));
+        model.setTotalPrice(MyStringUtil.moneyToString(item.getTotalPrice(),2));
         model.setEquipmentModel(item.getEquipmentModel());
         model.setRemark(item.getRemark());
         fiveOaInformationEquipmentProcurementDetailMapper.updateByPrimaryKey(model);

@@ -147,6 +147,9 @@ public class FiveBusinessContractLibraryService extends BaseService {
         model.setProjectManager(dto.getProjectManager());
         model.setProjectManagerName(dto.getProjectManagerName());
 
+        model.setProjectChargeMan(dto.getProjectChargeMan());
+        model.setProjectChargeManName(dto.getProjectChargeManName());
+
         model.setBusinessChargeLeader(dto.getBusinessChargeLeader());
         model.setBusinessChargeLeaderName(dto.getBusinessChargeLeaderName());
         model.setRecordProjectName(dto.getRecordProjectName());

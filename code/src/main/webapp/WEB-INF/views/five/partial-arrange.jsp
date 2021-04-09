@@ -7,7 +7,7 @@
         </div>
         <div class="actions">
             <a href="javascript:;" class="btn btn-sm btn-default" ng-click="vm.loadData();">
-                <i class="fa fa-refresh"></i> 刷新1 </a>
+                <i class="fa fa-refresh"></i> 刷新 </a>
             <a href="javascript:;" class="btn btn-sm btn-default" ng-click="vm.newData();">
                 <i class="fa fa-plus"></i> 创建 </a>
             <a href="javascript:;" class="btn btn-sm btn-default" ng-click="back();">

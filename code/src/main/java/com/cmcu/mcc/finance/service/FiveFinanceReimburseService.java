@@ -306,9 +306,11 @@ public class FiveFinanceReimburseService {
                 totalRefund = MyStringUtil.getNewAddMoney(totalRefund,detail.getRelevanceMoney());
             }
         }
-        dto.setLoanRemainMoney(loanRemain);
         String deductionMoney = MyStringUtil.getNewSubMoney(totalLoan, totalRefund);
         dto.setDeductionMoney(deductionMoney);
+        //金额 转为元  借款中计算剩余金额
+        dto.setLoanRemainMoney(loanRemain);
+
         String shouldRefundMoney = MyStringUtil.getNewSubMoney(deductionMoney,dto.getTotalApplyMoney());
         dto.setShouldRefundMoney(shouldRefundMoney);
         if(Double.valueOf(shouldRefundMoney)>=0.0){
@@ -317,13 +319,16 @@ public class FiveFinanceReimburseService {
         }else {
             dto.setGreaterThan(true);
         }
-        dto.setTotalApplyMoney(MyStringUtil.moneyToString(dto.getTotalApplyMoney(),6));
+
+        dto.setTotalApplyMoney(MyStringUtil.moneyToString(dto.getTotalApplyMoney(),2));
         dto.setTotalConfirmMoney(MyStringUtil.moneyToString(dto.getTotalConfirmMoney(),6));
         dto.setDeductionMoney(MyStringUtil.moneyToString(dto.getDeductionMoney(),6));
         return dto;
     }
     public FiveFinanceReimburseDetail getDetailDto(FiveFinanceReimburseDetail item) {
-        item.setApplyMoney(MyStringUtil.moneyToString(item.getApplyMoney(),6));
+
+        //万元 转化为 元
+        item.setApplyMoney(MyStringUtil.getMoneyY(item.getApplyMoney()));
         item.setConfirmMoney(MyStringUtil.moneyToString(item.getConfirmMoney(),6));
         return item;
     }
@@ -340,6 +345,9 @@ public class FiveFinanceReimburseService {
         }
         item.setCreator(hrEmployeeDto.getUserLogin());
         item.setCreatorName(hrEmployeeDto.getUserName());
+        item.setDeptId(selectEmployeeService.getHeadDeptId(hrEmployeeDto.getDeptId()));
+        item.setDeptName(selectEmployeeService.getHeadDeptName(hrEmployeeDto.getDeptId()));
+
         item.setApplicant(hrEmployeeDto.getUserLogin());
         item.setApplicantName(hrEmployeeDto.getUserName());
         item.setProjectType(commonCodeService.selectDefaultCodeValue(MccConst.APP_CODE,"五洲项目类型").toString());
@@ -424,7 +432,7 @@ public class FiveFinanceReimburseService {
 
     public void updateDetail(FiveFinanceReimburseDetail item){
         //如果申请金额 大于 预算剩余金额 提示
-        Assert.state(Double.valueOf(item.getApplyMoney())<=Double.valueOf(item.getBudgetBalance()),"申请金额 大于 预算剩余金额!");
+        Assert.state(Double.valueOf(MyStringUtil.getMoneyW(item.getApplyMoney()))<=Double.valueOf(item.getBudgetBalance()),"申请金额 大于 预算剩余金额!");
         if (item.getFlag() == 1){
             fiveFinanceReimburseDetailMapper.insert(item);
         }
@@ -434,7 +442,9 @@ public class FiveFinanceReimburseService {
         model.setDeptId(item.getDeptId());
         model.setDeptName(item.getDeptName());
         model.setProject(item.getProject());
-        model.setApplyMoney(MyStringUtil.moneyToString(item.getApplyMoney()));
+
+        //元 转换为 万元
+        model.setApplyMoney(MyStringUtil.getMoneyW(item.getApplyMoney()));
         model.setConfirmMoney(MyStringUtil.moneyToString(item.getConfirmMoney()));
         model.setCount(MyStringUtil.moneyToString(item.getCount()));
         model.setAccountSubject(item.getAccountSubject());
@@ -500,7 +510,9 @@ public class FiveFinanceReimburseService {
         params.put("reimburseId",id);//小写
         List<FiveFinanceReimburseDeduction> list = fiveFinanceReimburseDeductionMapper.selectAll(params);
         for(FiveFinanceReimburseDeduction deduction:list){
-            deduction.setRelevanceMoney(MyStringUtil.moneyToString(deduction.getRelevanceMoney(),6));
+            //转为 元
+            deduction.setRelevanceMoney(MyStringUtil.getMoneyY(deduction.getRelevanceMoney()));
+            deduction.setRelevanceRemainMoney(MyStringUtil.getMoneyY(deduction.getRelevanceRemainMoney()));
         }
         return list;
     }
@@ -551,10 +563,12 @@ public class FiveFinanceReimburseService {
                 deduction.setRelevanceId(loan.getId());
                 deduction.setRelevanceName(loan.getTitle()+":"+loan.getCreatorName());
                 deduction.setRelevanceType("loan");
-                deduction.setRelevanceMoney(loan.getLoanMoney());
+                //万元存储
+                deduction.setRelevanceMoney(MyStringUtil.getMoneyW(loan.getLoanMoney()));
+                deduction.setRelevanceRemainMoney(MyStringUtil.getMoneyW(loan.getRemainMoney()));
+
                 deduction.setRelevanceTime(loan.getApplicantTime());
                 deduction.setRelevanceRemark(loan.getLoanReason());
-                deduction.setRelevanceRemainMoney(loan.getRemainMoney());
                 deduction.setDeptId(loan.getDeptId());
                 deduction.setDeptName(loan.getDeptName());
                 deduction.setCreator(reimburseDto.getCreator());
@@ -573,10 +587,12 @@ public class FiveFinanceReimburseService {
                 deduction.setRelevanceBusinessKey(loan.getBusinessKey());
                 deduction.setRelevanceName(loan.getTitle()+":"+loan.getCreatorName());
                 deduction.setRelevanceType("loan");
-                deduction.setRelevanceMoney(loan.getLoanMoney());
+                //万元存储
+                deduction.setRelevanceMoney(MyStringUtil.getMoneyW(loan.getLoanMoney()));
+                deduction.setRelevanceRemainMoney(MyStringUtil.getMoneyW(loan.getRemainMoney()));
+
                 deduction.setRelevanceTime(loan.getApplicantTime());
                 deduction.setRelevanceRemark(loan.getLoanReason());
-                deduction.setRelevanceRemainMoney(loan.getRemainMoney());
                 deduction.setDeptId(loan.getDeptId());
                 deduction.setDeptName(loan.getDeptName());
                 deduction.setCreator(reimburseDto.getCreator());

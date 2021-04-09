@@ -26,8 +26,7 @@ public class FiveFinanceLoan {
     @Max(value=999999999, message="deptId必须为数字")
     private Integer deptId;
 
-    @NotNull(message="部门不能为空!")
-    @Size(max=145, message="部门长度不能超过145")
+    @Size(max=145, message="deptName长度不能超过145")
     private String deptName;
 
     @NotNull(message="单位不能为空!")
@@ -99,7 +98,7 @@ public class FiveFinanceLoan {
     private Integer projectId;
 
     @NotNull(message="项目号不能为空!")
-    @Size(max=45, message="项目号长度不能超过45")
+    @Size(max=450, message="项目号长度不能超过450")
     private String projectName;
 
     @NotNull(message="项目类别不能为空!")
@@ -161,4 +160,10 @@ public class FiveFinanceLoan {
     @NotNull(message="差旅费报销不能为空!")
     @Max(value=999999999, message="差旅费报销必须为数字")
     private Integer travelId;
+
+    @Size(max=45, message="主管院长长度不能超过45")
+    private String projectChargeMan;
+
+    @Size(max=45, message="projectChargeManName长度不能超过45")
+    private String projectChargeManName;
 }

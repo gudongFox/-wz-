@@ -127,7 +127,8 @@ public class FiveFinanceTransferAccountsService {
         model.setReceiveName(dto.getReceiveName());
         model.setReceiveDeptName(dto.getReceiveDeptName());
         model.setApplicantTime(dto.getApplicantTime());
-        model.setTotalMoney(dto.getTotalMoney());
+        //元转为万元
+        model.setTotalMoney(MyStringUtil.getMoneyW(dto.getTotalMoney()));
         model.setDeptId(dto.getDeptId());
         model.setDeptName(dto.getDeptName());
         model.setRemark(dto.getRemark());
@@ -159,7 +160,7 @@ public class FiveFinanceTransferAccountsService {
         variables.put("generalManager", hrEmployeeService.selectUserByPositionName("总经理"));
         variables.put("financialAccount", selectEmployeeService.getDeptFinanceMan(model.getDeptId()));//财务核算
 
-        String title = "费用申请" + model.getDeptName();
+        String title = "费用退款" + model.getDeptName();
         variables.put("processDescription", title);
 
         myActService.setVariables(model.getProcessInstanceId(), variables);
@@ -193,15 +194,18 @@ public class FiveFinanceTransferAccountsService {
             for (FiveFinanceTransferAccountsDetailDto detail : detailList) {
                 applyMoney = MyStringUtil.getNewAddMoney(applyMoney, detail.getApplyMoney());
             }
-            dto.setTotalMoney(MyStringUtil.moneyToString(applyMoney,6));
+            //万元 转为 元
+            dto.setTotalMoney(MyStringUtil.moneyToString(applyMoney,2));
         }
 
         return dto;
     }
 
     public FiveFinanceTransferAccountsDetailDto getDetailDto(FiveFinanceTransferAccountsDetail item) {
+        // 万元 转为 元
+        item.setApplyMoney(MyStringUtil.moneyToString(MyStringUtil.getMoneyY(item.getApplyMoney()),2));
         FiveFinanceTransferAccountsDetailDto dto = FiveFinanceTransferAccountsDetailDto.adapt(item);
-        dto.setApplyMoney(MyStringUtil.moneyToString(dto.getApplyMoney(),6));
+
         return dto;
     }
 
@@ -217,6 +221,8 @@ public class FiveFinanceTransferAccountsService {
         }
         item.setCreator(hrEmployeeDto.getUserLogin());
         item.setCreatorName(hrEmployeeDto.getUserName());
+        item.setDeptId(selectEmployeeService.getHeadDeptId(hrEmployeeDto.getDeptId()));
+        item.setDeptName(selectEmployeeService.getHeadDeptName(hrEmployeeDto.getDeptId()));
         item.setApplicant(hrEmployeeDto.getUserLogin());
         item.setApplicantName(hrEmployeeDto.getUserName());
         item.setLoan(false);
@@ -234,23 +240,23 @@ public class FiveFinanceTransferAccountsService {
         variables.put("userLogin", userLogin);
         variables.put("deptChargeMan", selectEmployeeService.getDeptChargeMen(hrEmployeeDto.getDeptId()));
 
-        String title = "费用申请:"+item.getDeptName();
+        String title = "费用退款:"+item.getDeptName();
         if (uiSref.indexOf("Red") != -1) {
             String businessKey = EdConst.FIVE_FINANCE_TRANSFER_ACCOUNTS_RED + "_" + item.getId();
-            title = "费用申请(红河):" + item.getDeptName();
+            title = "费用退款(红河):" + item.getDeptName();
             variables.put("processDescription", title);
             String processInstanceId = taskHandleService.startProcess(EdConst.FIVE_FINANCE_TRANSFER_ACCOUNTS_RED, businessKey, variables, MccConst.APP_CODE);
             item.setProcessInstanceId(processInstanceId);
             item.setBusinessKey(businessKey);
         } else if (uiSref.indexOf("Build") != -1) {
             String businessKey = EdConst.FIVE_FINANCE_TRANSFER_ACCOUNTS_BUILD + "_" + item.getId();
-            title = "费用申请(建研院):" + item.getDeptName();
+            title = "费用退款(建研院):" + item.getDeptName();
             variables.put("processDescription", title);
             String processInstanceId = taskHandleService.startProcess(EdConst.FIVE_FINANCE_TRANSFER_ACCOUNTS_BUILD, businessKey, variables, MccConst.APP_CODE);
             item.setProcessInstanceId(processInstanceId);
             item.setBusinessKey(businessKey);
         } else if (uiSref.indexOf("Fee") != -1) {
-            // title = "费用申请(财务):" + item.getDeptName();
+            // title = "费用退款(财务):" + item.getDeptName();
             variables.put("processDescription", title);
             String businessKey = EdConst.FIVE_FINANCE_TRANSFER_FEE + "_" + item.getId();
             String processInstanceId = taskHandleService.startProcess(EdConst.FIVE_FINANCE_TRANSFER_FEE, businessKey, variables, MccConst.APP_CODE);
@@ -258,14 +264,14 @@ public class FiveFinanceTransferAccountsService {
             item.setBusinessKey(businessKey);
         } else {
             if (item.getDeptId().equals(36)) {
-                title = "费用申请(财务):" + item.getDeptName();
+                title = "费用退款(财务):" + item.getDeptName();
                 variables.put("processDescription", title);
                 String businessKey = EdConst.FIVE_FINANCE_TRANSFER_ACCOUNTS_FINANCE + "_" + item.getId();
                 String processInstanceId = taskHandleService.startProcess(EdConst.FIVE_FINANCE_TRANSFER_ACCOUNTS_FINANCE, businessKey, variables, MccConst.APP_CODE);
                 item.setProcessInstanceId(processInstanceId);
                 item.setBusinessKey(businessKey);
             } else {
-                title = "费用申请(生产单位):" + item.getDeptName();
+                title = "费用退款(生产单位):" + item.getDeptName();
                 variables.put("processDescription", title);
                 String businessKey = EdConst.FIVE_FINANCE_TRANSFER_ACCOUNTS_COMMON + "_" + item.getId();
                 String processInstanceId = taskHandleService.startProcess(EdConst.FIVE_FINANCE_TRANSFER_ACCOUNTS_COMMON, businessKey, variables, MccConst.APP_CODE);
@@ -319,6 +325,8 @@ public class FiveFinanceTransferAccountsService {
 
     public void updateDetail(FiveFinanceTransferAccountsDetail item) {
         if (item.getFlag()==1){
+            //元 转为 万元
+            item.setApplyMoney(MyStringUtil.moneyToString(MyStringUtil.getMoneyW(item.getApplyMoney())));
             fiveFinanceTransferAccountsDetailMapper.insert(item);
         }
         FiveFinanceTransferAccountsDetail model = fiveFinanceTransferAccountsDetailMapper.selectByPrimaryKey(item.getId());
@@ -327,7 +335,8 @@ public class FiveFinanceTransferAccountsService {
         model.setChargePlan(item.getChargePlan());
         model.setChargeProject(item.getChargeProject());
         model.setItem(item.getItem());
-        model.setApplyMoney(MyStringUtil.moneyToString(item.getApplyMoney()));
+        //元 转为 万元
+        model.setApplyMoney(MyStringUtil.moneyToString(MyStringUtil.getMoneyW(item.getApplyMoney())));
         model.setRemark(item.getRemark());
         model.setChargeAgainst(item.getChargeAgainst());
         model.setDeduction(item.getDeduction());
@@ -400,7 +409,7 @@ public class FiveFinanceTransferAccountsService {
      借款 01
      费用报销 02
      差旅费报销 03
-     退款（费用申请）04
+     退款（费用退款）04
 
      职能单位Z
      生产单位S

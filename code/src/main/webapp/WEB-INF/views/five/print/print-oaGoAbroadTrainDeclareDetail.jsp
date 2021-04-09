@@ -14,9 +14,10 @@
     }
 </style>
 
-
-<div id="print_area" hidden>
+<div id="page_index" hidden>
     <p>表单编号：{{vm.printData.tableNo}}</p>
+</div>
+<div id="print_area" hidden>
     <h3 style="text-align: center;">出国培训申请表</h3>
     <table class="print_table">
         <tr>

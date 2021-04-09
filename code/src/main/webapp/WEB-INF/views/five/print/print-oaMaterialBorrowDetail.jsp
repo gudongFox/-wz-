@@ -17,9 +17,10 @@
     }
 </style>
 
-
-<div id="print_area" hidden>
+<div id="page_index" hidden>
     <p>表单编号：{{vm.printData.tableNo}}</p>
+</div>
+<div id="print_area" hidden>
     <h3 style="text-align: center;">档案资料借阅/电子复制申请表</h3>
     <P style="float: right;padding-right: 15px;"></P>
     <table class="print_table">

@@ -4,7 +4,6 @@
     .controller("OaNoticeController", function ($state,$stateParams,$scope, oaNoticeService,sysRoleService) {
         var vm = this;
         var paramType= $stateParams.type;
-        console.log("1");
         vm.init=function(){
             vm.keyParamMap=new Map();
             vm.keyParamMap.set("noticeMessage",{type:"通知公告",modelName:"通知公告",uiSref:"oa.noticeMessage"});

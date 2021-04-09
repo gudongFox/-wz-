@@ -337,6 +337,17 @@
                                          </span>
                                     </div>
                                 </div>
+                                <label class="col-md-2 control-label required">项目主管院长</label>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input  type="text" class="form-control" ng-model="vm.item.projectChargeManName" name="projectChargeManName"  required="true" readonly/>
+                                        <span class="input-group-btn" >
+                                            <button class="btn default" type="button" ng-click="vm.showUserModel('projectCharge');" ng-disabled="!processInstance.firstTask"><i class="fa fa-user"></i></button>
+                                         </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-md-2 control-label required">项目经理</label>
                                 <div class="col-md-4">
                                     <div class="input-group">

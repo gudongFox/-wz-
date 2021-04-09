@@ -17,7 +17,9 @@
     }
 </style>
 
-
+<div id="page_index" hidden>
+    <p>表单编号：{{vm.printData.tableNo}}</p>
+</div>
 <div id="print_area" hidden>
     <h3 style="text-align: center;">个人非密信息导出审批单</h3>
     <p style="float:right" ng-bind="'申请日期:'+vm.printData.gmtCreate|date:'yyyy-MM-dd'"></p>

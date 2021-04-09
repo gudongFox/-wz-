@@ -30,9 +30,10 @@
     }
 </style>
 
-
-<div id="print_area2" hidden>
+<div id="page_index" hidden>
     <p>表单编号：{{vm.printData.tableNo}}</p>
+</div>
+<div id="print_area2" hidden>
     <h2 style="text-align: center; color: red;font-size: 26px;font-family:'宋体',sans-serif;">中国五洲工程设计集团有限公司</h2>
     <h1 style="text-align: center; color: red;font-size: 36px;font-family:'宋体',sans-serif;letter-spacing: 2px;" ng-bind="vm.printData.meetingType"></h1>
     <h1 style="font-size: 36px"></h1>

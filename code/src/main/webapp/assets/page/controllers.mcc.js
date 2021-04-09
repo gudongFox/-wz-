@@ -142,7 +142,6 @@
                 pageNum: 1,
                 pageSize: 5,
                 userLogin: user.userLogin},config);
-            debugger;
             //获取个人网银
             fiveFinanceSelfBankService.selectAllWithSuccess($rootScope.bankParams).then(function (value) {
                 if (value.data.ret) {
@@ -2984,7 +2983,6 @@
         $rootScope.loadTableName=function(uiSref){
             sysAclService.listAclByModules(1,uiSref).then(function (value) {
                 let acls = value.data.data;
-                console.log(acls)
                 var i = 0;
                 if(acls.length>1){
                     for(element of acls){
@@ -3216,7 +3214,6 @@
         //判断是否超时
         vm.jugeOutTime=function(timeStamp){
             if (timeStamp==undefined || timeStamp==''){
-                debugger;
                 return 0;
             }
             var yellow=60*60*24*3;//2天后变为黄色
@@ -3268,9 +3265,8 @@
             actTaskQueryService.listPagedCcTask(pa).then(function (value) {
                 if (value.data.ret) {
                     vm.ccTaskList = value.data.data.list;
-                    debugger;
                     vm.ccTaskList.forEach(function (item) {
-                        item.outTime = vm.jugeOutTime(item.createTime);
+                        item.outTime = vm.jugeOutTime(item.startTime);
                     })
                     vm.ccTaskPageInfo = value.data.data;
                 }
@@ -3748,7 +3744,6 @@
                      vm.pageInfo=value.data.data.pageInfo;
                      vm.heads=value.data.data.heads;
                      vm.template=value.data.data.template;
-                     debugger;
                  }
             })
         }

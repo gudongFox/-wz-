@@ -1,5 +1,7 @@
 ﻿<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
-
+<div id="page_index" hidden>
+    <p>表单编号：{{vm.printData.tableNo}}</p>
+</div>
 <div class="portlet  box blue">
     <div class="portlet-title plot-hidden" >
         <div class="caption" >

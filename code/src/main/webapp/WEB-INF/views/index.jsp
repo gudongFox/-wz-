@@ -794,7 +794,7 @@
 
 </script>
 <script charset="utf-8" src="/m/lodop/LodopFuncs.js"></script>
-<script charset="utf-8" src="/assets/js/angular.js"></script>
+<script charset="utf-8" src="/assets/js/angular.min.js"></script>
 <script charset="utf-8" src="/assets/js/angular-ui-router.min.js"></script>
 <script charset="utf-8" src="/assets/js/stateEvents.js"></script>
 <script charset="utf-8" src="/assets/js/my-directives.js"></script>

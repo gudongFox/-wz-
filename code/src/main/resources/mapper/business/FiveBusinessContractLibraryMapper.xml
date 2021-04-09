@@ -135,6 +135,8 @@
     <result column="is_open_stamp" jdbcType="BIT" property="openStamp" />
     <result column="insert_type" jdbcType="INTEGER" property="insertType" />
     <result column="cooperation_contract_id" jdbcType="INTEGER" property="cooperationContractId" />
+    <result column="project_charge_man" jdbcType="VARCHAR" property="projectChargeMan" />
+    <result column="project_charge_man_name" jdbcType="VARCHAR" property="projectChargeManName" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from five_business_contract_library
@@ -187,8 +189,8 @@
       business_charge_leader_name, invoice_ids, contract_invoice_money, 
       pre_contract_money, should_contract_money, 
       project_budget_ids, is_open, stamp_tax_id, 
-      is_open_stamp, insert_type, cooperation_contract_id
-      )
+      is_open_stamp, insert_type, cooperation_contract_id, 
+      project_charge_man, project_charge_man_name)
     values (#{businessKey,jdbcType=VARCHAR}, #{contractPreId,jdbcType=INTEGER}, #{contractReviewId,jdbcType=INTEGER}, 
       #{contractId,jdbcType=INTEGER}, #{customerId,jdbcType=INTEGER}, #{customerName,jdbcType=VARCHAR}, 
       #{customerCode,jdbcType=VARCHAR}, #{linkMan,jdbcType=VARCHAR}, #{linkTel,jdbcType=VARCHAR}, 
@@ -232,8 +234,8 @@
       #{businessChargeLeaderName,jdbcType=VARCHAR}, #{invoiceIds,jdbcType=VARCHAR}, #{contractInvoiceMoney,jdbcType=VARCHAR}, 
       #{preContractMoney,jdbcType=VARCHAR}, #{shouldContractMoney,jdbcType=VARCHAR}, 
       #{projectBudgetIds,jdbcType=VARCHAR}, #{open,jdbcType=BIT}, #{stampTaxId,jdbcType=INTEGER}, 
-      #{openStamp,jdbcType=BIT}, #{insertType,jdbcType=INTEGER}, #{cooperationContractId,jdbcType=INTEGER}
-      )
+      #{openStamp,jdbcType=BIT}, #{insertType,jdbcType=INTEGER}, #{cooperationContractId,jdbcType=INTEGER}, 
+      #{projectChargeMan,jdbcType=VARCHAR}, #{projectChargeManName,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.business.entity.FiveBusinessContractLibrary">
     update five_business_contract_library
@@ -368,7 +370,9 @@
       stamp_tax_id = #{stampTaxId,jdbcType=INTEGER},
       is_open_stamp = #{openStamp,jdbcType=BIT},
       insert_type = #{insertType,jdbcType=INTEGER},
-      cooperation_contract_id = #{cooperationContractId,jdbcType=INTEGER}
+      cooperation_contract_id = #{cooperationContractId,jdbcType=INTEGER},
+      project_charge_man = #{projectChargeMan,jdbcType=VARCHAR},
+      project_charge_man_name = #{projectChargeManName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -394,7 +398,7 @@
     main_contract_library_no, project_manager, project_manager_name, project_name, business_charge_leader, 
     business_charge_leader_name, invoice_ids, contract_invoice_money, pre_contract_money, 
     should_contract_money, project_budget_ids, is_open, stamp_tax_id, is_open_stamp, 
-    insert_type, cooperation_contract_id
+    insert_type, cooperation_contract_id, project_charge_man, project_charge_man_name
     from five_business_contract_library
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -421,11 +425,11 @@
     main_contract_library_no, project_manager, project_manager_name, project_name, business_charge_leader, 
     business_charge_leader_name, invoice_ids, contract_invoice_money, pre_contract_money, 
     should_contract_money, project_budget_ids, is_open, stamp_tax_id, is_open_stamp, 
-    insert_type, cooperation_contract_id
+    insert_type, cooperation_contract_id, project_charge_man, project_charge_man_name
     from five_business_contract_library
     <include refid="Base_Where_List" />
     <include refid="Base_Where_List1" />
-     order by sign_time desc
+     order by id desc
   </select>
   <sql id="Base_Where_List">
     <where>
@@ -828,6 +832,12 @@
       <if test="cooperationContractId != null and isLikeSelect==null">
          AND cooperation_contract_id = #{cooperationContractId}
       </if>
+      <if test="projectChargeMan != null and isLikeSelect==null and projectChargeMan != ''">
+         AND project_charge_man = #{projectChargeMan}
+      </if>
+      <if test="projectChargeManName != null and isLikeSelect==null and projectChargeManName != ''">
+         AND project_charge_man_name = #{projectChargeManName}
+      </if>
       <if test="q != null and q != '' and isLikeSelect==null">
         AND (
         project_no like CONCAT('%',#{q},'%') or
@@ -1139,26 +1149,17 @@
       <if test="projectBudgetIds != null and isLikeSelect!= null and projectBudgetIds != '' ">
          AND project_budget_ids like  CONCAT('%',#{projectBudgetIds},'%')
       </if>
+      <if test="projectChargeMan != null and isLikeSelect!= null and projectChargeMan != '' ">
+         AND project_charge_man like  CONCAT('%',#{projectChargeMan},'%')
+      </if>
+      <if test="projectChargeManName != null and isLikeSelect!= null and projectChargeManName != '' ">
+         AND project_charge_man_name like  CONCAT('%',#{projectChargeManName},'%')
+      </if>
       <if test="deleted != null and isLikeSelect!=null">
          AND is_deleted = #{deleted}
       </if>
       <if test="deptId != null and isLikeSelect!=null">
          AND dept_id = #{deptId}
-      </if>
-      <if test="open != null and isLikeSelect!=null">
-        AND is_open = #{open}
-      </if>
-      <if test="stampTaxId != null and isLikeSelect!=null">
-        AND stamp_tax_id = #{stampTaxId}
-      </if>
-      <if test="openStamp != null and isLikeSelect!=null">
-        AND is_open_stamp = #{openStamp}
-      </if>
-      <if test="insertType != null and isLikeSelect!=null">
-        AND insert_type = #{insertType}
-      </if>
-      <if test="cooperationContractId != null and isLikeSelect!=null">
-        AND cooperation_contract_id = #{cooperationContractId}
       </if>
       <if test="q != null and q != '' and isLikeSelect!=null">
         AND (

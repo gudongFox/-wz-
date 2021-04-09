@@ -296,6 +296,9 @@
       <if test="travelPlaceType != null and isLikeSelect==null and travelPlaceType != ''">
          AND travel_place_type = #{travelPlaceType}
       </if>
+        <if test="qBusinessKey != null and isLikeSelect==null and qBusinessKey != ''">
+            AND business_key like CONCAT(#{qBusinessKey},'%')
+        </if>
     </where>
   </sql>
   <sql id="Base_Where_List1">

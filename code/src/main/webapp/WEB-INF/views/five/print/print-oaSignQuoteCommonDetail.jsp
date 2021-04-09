@@ -22,7 +22,9 @@
     }
 
 </style>
-
+<div id="page_index" hidden>
+    <p>表单编号：{{vm.printData.tableNo}}</p>
+</div>
 <%--通用会签单 打印模板--%>
 <div id="print_area_common" hidden>
     <h3 style="text-align: center; color: red">中 国 五 洲 工 程 设 计 集 团</h3>

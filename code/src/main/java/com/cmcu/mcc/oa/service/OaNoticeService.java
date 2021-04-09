@@ -638,16 +638,16 @@ public class OaNoticeService  {
 
     /**
      * 首页 通过部门板块 公告信息 总共6条
-     * @param deptName
+     * @param deptId
      * @return
      */
-    public List<OaNoticeDto> listDateByDeptName(String deptName,String enLogin){
+    public List<OaNoticeDto> listDateByDeptName(int deptId,String enLogin){
         HrEmployeeDto hrEmployeeSys = selectEmployeeService.selectByUserLogin(enLogin);
         int number=6;
         Map map = new HashMap();
         map.put("deleted",false);
         map.put("publish",true);
-        map.put("deptName", deptName);
+        map.put("deptId", deptId);
         map.put("top",true);
         map.put("noticeType","部门空间");
         List<OaNotice> oaNotices = oaNoticeMapper.selectAll(map);
@@ -680,6 +680,32 @@ public class OaNoticeService  {
         }
         return list;
     }
+
+    public Map  listDateByDeptName(String enLogin){
+        HrEmployeeDto hrEmployeeDto = selectEmployeeService.selectByUserLogin(enLogin);
+
+        Map result=Maps.newHashMap();
+        result.put("partyOfficeList",listDateByDeptName(59,enLogin));//公司办公室
+        result.put("partyBuildingList",listDateByDeptName(100,enLogin));//保密办公室
+        result.put("newsBusinessList",listDateByDeptName(72,enLogin));//党群工作部
+        result.put("newsMessageList",listDateByDeptName(48,enLogin));//经营发展部
+        result.put("newsSecrecyList",listDateByDeptName(11,enLogin));//信息化建设与管理部
+        result.put("newsFinanceList",listDateByDeptName(18,enLogin));//财务金融部
+        result.put("newsPoliticsList",listDateByDeptName(38,enLogin));//人力资源部
+        result.put("newsLogisticsList",listDateByDeptName(29,enLogin));//工程管理部
+        result.put("newsTrainList",listDateByDeptName(9,enLogin));//纪检工作部、审计与风险管理部
+        result.put("laborUnionList",listDateByDeptName(67,enLogin));//行政事务部
+        result.put("laborScientificList",listDateByDeptName(101,enLogin));//科研与技术质量部
+        //登录人所属部门所属设计单位
+        HrDeptDto deptDto = hrDeptService.getModelById(hrEmployeeDto.getDeptId());
+        if (deptDto.getDeptType().equals("设计")){
+            result.put("designNoticeList",listDateByDeptName(deptDto.getId(),enLogin));//设计单位
+        }
+
+        return result;
+    }
+
+
 
     //信息中心 公司新闻 文件简报 通知公告
     public PageInfo<Object> listPagedDataByType(Map<String,Object> params, String type, String enLogin, int pageNum, int pageSize) {

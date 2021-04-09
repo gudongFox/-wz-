@@ -188,7 +188,7 @@ public class FiveOaInformationPlanService extends BaseService {
         model.setSoftwareUseWay(fiveOaInventPaymentDetail.getSoftwareUseWay());
         model.setUseMajor(fiveOaInventPaymentDetail.getUseMajor());
         model.setSoftwareNumber(fiveOaInventPaymentDetail.getSoftwareNumber());
-        model.setSoftwarePrice(fiveOaInventPaymentDetail.getSoftwarePrice());
+        model.setSoftwarePrice(MyStringUtil.moneyToString(fiveOaInventPaymentDetail.getSoftwarePrice(),2));
         model.setSoftwareTotal(fiveOaInventPaymentDetail.getSoftwareTotal());
         model.setRemark(fiveOaInventPaymentDetail.getRemark());
         model.setGmtModified(new Date());

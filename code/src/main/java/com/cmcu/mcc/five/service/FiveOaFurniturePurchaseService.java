@@ -62,7 +62,7 @@ public class FiveOaFurniturePurchaseService extends BaseService {
         FiveOaFurniturePurchase model = fiveOaFurniturePurchaseMapper.selectByPrimaryKey(item.getId());
         model.setDeptId(item.getDeptId());
         model.setDeptName(item.getDeptName());
-        model.setTotalPrice(item.getTotalPrice());
+        model.setTotalPrice(MyStringUtil.moneyToString(item.getTotalPrice(),2));
         model.setPurchaseReason(item.getPurchaseReason());
         model.setGmtModified(new Date());
         model.setRemark(item.getRemark());
@@ -250,9 +250,9 @@ public class FiveOaFurniturePurchaseService extends BaseService {
         model.setRemark(item.getRemark());
         model.setFurnitureName(item.getFurnitureName());
         model.setNumber(item.getNumber());
-        model.setPrice(item.getPrice());
+        model.setPrice(MyStringUtil.moneyToString(item.getPrice(),2));
         model.setAssetCode(item.getAssetCode());
-        model.setTotalPrice(item.getTotalPrice());//MyStringUtil.getNewMultiplyMoney(model.getPrice(),model.getNumber())
+        model.setTotalPrice(MyStringUtil.moneyToString(item.getTotalPrice(),2));//MyStringUtil.getNewMultiplyMoney(model.getPrice(),model.getNumber())
         fiveOaFurniturePurchaseDetailMapper.updateByPrimaryKey(model);
     }
 

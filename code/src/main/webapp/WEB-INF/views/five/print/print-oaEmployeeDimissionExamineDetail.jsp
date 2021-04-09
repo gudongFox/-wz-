@@ -17,7 +17,9 @@
 
 </style>
 
-
+<div id="page_index" hidden>
+    <p>表单编号：{{vm.printData.tableNo}}</p>
+</div>
 <div id="print_area" hidden>
     <h2 style="text-align: center;">职工离职通知单</h2>
     <p style="text-align: center;font-size: 18px;"><u ng-bind="vm.item.name"></u>同志（职工号：<span ng-bind="vm.item.login"></span>)自<u ng-bind="vm.item.entryTime|date:'yyyy年MM月dd日'"></u>由</p>

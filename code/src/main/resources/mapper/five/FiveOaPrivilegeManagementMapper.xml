@@ -23,6 +23,8 @@
     <result column="delegation_man_name" jdbcType="VARCHAR" property="delegationManName" />
     <result column="delegation_privilege" jdbcType="VARCHAR" property="delegationPrivilege" />
     <result column="delegation_time" jdbcType="VARCHAR" property="delegationTime" />
+    <result column="management_dept_id" jdbcType="INTEGER" property="managementDeptId" />
+    <result column="management_dept_name" jdbcType="VARCHAR" property="managementDeptName" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from five_oa_privilege_management
@@ -38,14 +40,16 @@
       is_process_end, dept_id, dept_name, 
       application_man, application_man_name, application_time, 
       flow, delegation_man, delegation_man_name, 
-      delegation_privilege, delegation_time)
+      delegation_privilege, delegation_time, management_dept_id, 
+      management_dept_name)
     values (#{businessKey,jdbcType=VARCHAR}, #{formNo,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
       #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, 
       #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{processInstanceId,jdbcType=VARCHAR}, 
       #{processEnd,jdbcType=BIT}, #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, 
       #{applicationMan,jdbcType=VARCHAR}, #{applicationManName,jdbcType=VARCHAR}, #{applicationTime,jdbcType=VARCHAR}, 
       #{flow,jdbcType=VARCHAR}, #{delegationMan,jdbcType=VARCHAR}, #{delegationManName,jdbcType=VARCHAR}, 
-      #{delegationPrivilege,jdbcType=VARCHAR}, #{delegationTime,jdbcType=VARCHAR})
+      #{delegationPrivilege,jdbcType=VARCHAR}, #{delegationTime,jdbcType=VARCHAR}, #{managementDeptId,jdbcType=INTEGER}, 
+      #{managementDeptName,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveOaPrivilegeManagement">
     update five_oa_privilege_management
@@ -68,14 +72,16 @@
       delegation_man = #{delegationMan,jdbcType=VARCHAR},
       delegation_man_name = #{delegationManName,jdbcType=VARCHAR},
       delegation_privilege = #{delegationPrivilege,jdbcType=VARCHAR},
-      delegation_time = #{delegationTime,jdbcType=VARCHAR}
+      delegation_time = #{delegationTime,jdbcType=VARCHAR},
+      management_dept_id = #{managementDeptId,jdbcType=INTEGER},
+      management_dept_name = #{managementDeptName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select id, business_key, form_no, remark, creator, creator_name, is_deleted, gmt_create, 
     gmt_modified, process_instance_id, is_process_end, dept_id, dept_name, application_man, 
     application_man_name, application_time, flow, delegation_man, delegation_man_name, 
-    delegation_privilege, delegation_time
+    delegation_privilege, delegation_time, management_dept_id, management_dept_name
     from five_oa_privilege_management
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -83,7 +89,7 @@
     select id, business_key, form_no, remark, creator, creator_name, is_deleted, gmt_create, 
     gmt_modified, process_instance_id, is_process_end, dept_id, dept_name, application_man, 
     application_man_name, application_time, flow, delegation_man, delegation_man_name, 
-    delegation_privilege, delegation_time
+    delegation_privilege, delegation_time, management_dept_id, management_dept_name
     from five_oa_privilege_management
     <include refid="Base_Where_List" />
     <include refid="Base_Where_List1" />
@@ -154,6 +160,12 @@
       <if test="delegationTime != null and isLikeSelect==null and delegationTime != ''">
          AND delegation_time = #{delegationTime}
       </if>
+      <if test="managementDeptId != null and isLikeSelect==null">
+         AND management_dept_id = #{managementDeptId}
+      </if>
+      <if test="managementDeptName != null and isLikeSelect==null and managementDeptName != ''">
+         AND management_dept_name = #{managementDeptName}
+      </if>
         <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect==null">
             AND (
             dept_id in
@@ -212,6 +224,9 @@
       </if>
       <if test="delegationTime != null and isLikeSelect!= null and delegationTime != '' ">
          AND delegation_time like  CONCAT('%',#{delegationTime},'%')
+      </if>
+      <if test="managementDeptName != null and isLikeSelect!= null and managementDeptName != '' ">
+         AND management_dept_name like  CONCAT('%',#{managementDeptName},'%')
       </if>
       <if test="deleted != null and isLikeSelect!=null">
          AND is_deleted = #{deleted}

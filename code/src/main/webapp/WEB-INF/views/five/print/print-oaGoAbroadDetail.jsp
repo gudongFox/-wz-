@@ -22,7 +22,9 @@
     }
 </style>
 
-
+<div id="page_index" hidden>
+    <p>表单编号：{{vm.printData.tableNo}}</p>
+</div>
 <div id="print_area" hidden>
     <h2 style="text-align: center;color:red;">因公出国内部审批文单</h2>
         <table class="print_table">

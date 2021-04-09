@@ -238,9 +238,9 @@ public class FiveOaInformationEquipmentApplyService extends BaseService {
         model.setNumber(item.getNumber());
         model.setNetType(item.getNetType());
         model.setOtherRequirement(item.getOtherRequirement());
-        model.setTotalPrice(item.getTotalPrice());
+        model.setTotalPrice(MyStringUtil.moneyToString(item.getTotalPrice(),2));
         model.setRemark(item.getRemark());
-        model.setPrice(item.getPrice());
+        model.setPrice(MyStringUtil.moneyToString(item.getPrice(),2));
         fiveOaInformationEquipmentApplyDetailMapper.updateByPrimaryKey(model);
     }
 

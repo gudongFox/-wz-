@@ -20,7 +20,9 @@
     }
 </style>
 
-
+<div id="page_index" hidden>
+    <p>表单编号：{{vm.printData.tableNo}}</p>
+</div>
 <div id="print_area" hidden>
     <p>表单编号：{{vm.printData.tableNo}}</p>
     <h3 style="text-align: center;">对外发表科技论文审查单</h3>

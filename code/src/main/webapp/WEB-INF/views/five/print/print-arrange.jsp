@@ -1,4 +1,7 @@
 ﻿
+<div id="page_index" hidden>
+    <p>表单编号：{{vm.printData.tableNo}}</p>
+</div>
 <div id="print_area" hidden>
     <h2 style="text-align: center;">中国五洲工程设计集团有限公司</h2>
     <h3 style="text-align: center;">人员安排表</h3>

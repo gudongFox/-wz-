@@ -24,9 +24,10 @@
 
 </style>
 
-
-<div id="print_area" hidden>
+<div id="page_index" hidden>
     <p>表单编号：{{vm.printData.tableNo}}</p>
+</div>
+<div id="print_area" hidden>
     <h1 style="text-align: center; color: red;font-size: 36px">中国五洲工程设计集团有限公司</h1>
 
     <h2 style="text-align: center; " ng-bind="vm.printData.item">（2020年第一届董事会第10次）</h2>

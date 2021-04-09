@@ -174,7 +174,7 @@
                                         <td ng-click="vm.showTaskProcess(task);" class="no-wrap">
                                             <strong ng-bind="task.name"></strong>
                                         </td>
-                                        <td ng-bind="task.createTime|date:'yyyy-MM-dd HH:mm'"></td>
+                                        <td ng-bind="task.startTime|date:'yyyy-MM-dd HH:mm'"></td>
                                         <td ng-bind="task.initiatorName"></td>
                                         <td>
                                             <i class="fa fa-pencil margin-right-5" title="立即办理"
@@ -251,6 +251,7 @@
                             <my-pager data-page-info="vm.myPageInfo"
                                       on-load="vm.loadMyProcess()"></my-pager>
                         </div>
+
                         <div class="tab-pane" id="tab_15_3"
                              style="min-height: 400px;overflow-y: auto;overflow-x: hidden;">
                             <div class="row">

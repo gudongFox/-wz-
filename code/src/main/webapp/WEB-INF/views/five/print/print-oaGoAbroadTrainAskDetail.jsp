@@ -12,9 +12,10 @@
         text-align: center;
     }
 </style>
-
-<div id="print_area" hidden>
+<div id="page_index" hidden>
     <p>表单编号：{{vm.printData.tableNo}}</p>
+</div>
+<div id="print_area" hidden>
     <h3 style="text-align: center;">参加出国培训的请示</h3>
     <p style="text-align:right;padding-right:25px;" ng-bind="'年度:'+vm.printData.applyTime|date:'yyyy'"></p>
     <table class="print_table">

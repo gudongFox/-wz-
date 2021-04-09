@@ -15,9 +15,10 @@
     }
 </style>
 
-
-<div id="print_area" hidden>
+<div id="page_index" hidden>
     <p>表单编号：{{vm.printData.tableNo}}</p>
+</div>
+<div id="print_area" hidden>
     <h3 style="text-align: center;">专利申请登记表</h3>
     <p style="float:left;"></p>
     <table class="print_table">

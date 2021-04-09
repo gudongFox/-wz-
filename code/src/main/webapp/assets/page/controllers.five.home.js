@@ -149,27 +149,7 @@
             })
         };
 
-        /**
-         * 加载参与任务
-         */
-        vm.loadDoneTask=function () {
-            var pa={pageNum:vm.params.pageNum,pageSize:vm.params.pageSize,involvedUser:user.userLogin}
-            actProcessQueryService.listPagedProcessInstance(pa).then(function (value) {
-                if(value.data.ret){
-                    var data=value.data.data;
-                    vm.taskDoneList=data.list;
-                    vm.taskDoneList.forEach(function (item) {
-                        item.convertTime=vm.convertTime(item.initiatorTime,"yyyy/MM/dd");
-                        item.outTime=vm.jugeOutTime(item.initiatorTime);
-                    })
-                }
-            })
 
-        };
-
-        vm.loadCopyTask=function(){
-            vm.copyTaskList="";
-        }
 
         vm.loadSuperviseTask=function () {
             fiveSuperviseService.listPageTask(user.userLogin).then(function (value){
@@ -257,150 +237,35 @@
                 }
             })
         }
-        /**
-         * 公司办工作
-         */
-        vm.loadOffice=function(){
-            fiveHomeService.listDateByDeptName("公司办公室(董事会办公室）",user.userLogin).then(function (value) {
+
+        vm.loadNoticeByDept=function() {
+            fiveHomeService.listDateByDeptName(user.enLogin).then(function (value) {
                 if (value.data.ret) {
-                    vm.partyOfficeList = value.data.data;
-                    vm.partyOfficeList.forEach(function (item) {
-                        item.convertTime=vm.convertTime(item.gmtModified,"yyMMdd")
-                    })
-                }
-            })
-        }
-        /**
-         * 保密办公室
-         */
-        vm.loadPartyBuilding=function(){
-            fiveHomeService.listDateByDeptName("保密办公室",user.userLogin).then(function (value) {
-                if (value.data.ret) {
-                    vm.partyBuildingList = value.data.data;
-                    vm.partyBuildingList.forEach(function (item) {
-                        item.convertTime=vm.convertTime(item.gmtModified,"yyMMdd")
-                    })
-                }
-            })
-        }
-        /**
-         * 党群工作部
-         */
-        vm.loadBusiness=function(){
-            fiveHomeService.listDateByDeptName("党群工作部",user.userLogin).then(function (value) {
-                if(value.data.ret){
-                    vm.newsBusinessList=value.data.data;
-                    vm.newsBusinessList.forEach(function (item) {
-                        item.convertTime=vm.convertTime(item.gmtModified,"yyMMdd")
-                    })
-                }
-            })
-        }
-        /**
-         * 经营发展部
-         */
-        vm.loadMessage=function(){
-            fiveHomeService.listDateByDeptName("经营发展部",user.userLogin).then(function (value) {
-                if(value.data.ret){
-                    vm.newsMessageList=value.data.data;
-                    vm.newsMessageList.forEach(function (item) {
-                        item.convertTime=vm.convertTime(item.gmtModified,"yyMMdd")
-                    })
-                }
-            })
-        }
-        /**
-         * 信息化建设与管理部
-         */
-        vm.loadSecrecy=function(){
-            fiveHomeService.listDateByDeptName("信息化建设与管理部",user.userLogin).then(function (value) {
-                if(value.data.ret){
-                    vm.newsSecrecyList=value.data.data;
-                    vm.newsSecrecyList.forEach(function (item) {
-                        item.convertTime=vm.convertTime(item.gmtModified,"yyMMdd")
-                    })
-                }
-            })
-        }
-        /**
-         * 财务金融部
-         */
-        vm.loadFinance=function(){
-            fiveHomeService.listDateByDeptName("财务金融部",user.userLogin).then(function (value) {
-                if(value.data.ret){
-                    vm.newsFinanceList=value.data.data;
-                    vm.newsFinanceList.forEach(function (item) {
-                        item.convertTime=vm.convertTime(item.gmtModified,"yyMMdd");
-                    })
-                }
-            })
-        }
-        /**
-         * 人力资源
-         */
-        vm.loadPolitics=function(){
-            fiveHomeService.listDateByDeptName("人力资源部",user.userLogin).then(function (value) {
-                if(value.data.ret){
-                    vm.newsPoliticsList=value.data.data;
-                    vm.newsPoliticsList.forEach(function (item) {
-                        item.convertTime=vm.convertTime(item.gmtModified,"yyMMdd");
-                    })
-                }
-            })
-        }
-        /**
-         * 工程管理部
-         */
-        vm.loadLogistics=function(){
-            fiveHomeService.listDateByDeptName("工程管理部",user.userLogin).then(function (value) {
-                if(value.data.ret){
-                    vm.newsLogisticsList=value.data.data;
-                    vm.newsLogisticsList.forEach(function (item) {
-                        item.convertTime=vm.convertTime(item.gmtModified,"yyMMdd");
-                    })
-                }
-            })
-        }
-        /**
-         * 纪检工作部、审计与风险管理部
-         */
-        vm.loadTrain=function(){
-            fiveHomeService.listDateByDeptName("纪检工作部、审计与风险管理部",user.userLogin).then(function (value) {
-                if(value.data.ret){
-                    vm.newsTrainList=value.data.data;
-                    vm.newsTrainList.forEach(function (item) {
-                        item.convertTime=vm.convertTime(item.gmtModified,"yyMMdd")
-                    })
+                    vm.partyOfficeList = value.data.data.partyOfficeList;
+                    vm.partyBuildingList = value.data.data.partyBuildingList;
+                    vm.newsBusinessList = value.data.data.newsBusinessList;
+                    vm.newsMessageList = value.data.data.newsMessageList;
+                    vm.newsSecrecyList = value.data.data.newsSecrecyList;
+                    vm.newsFinanceList = value.data.data.newsFinanceList;
+                    vm.newsPoliticsList = value.data.data.newsPoliticsList;
+                    vm.newsLogisticsList = value.data.data.newsLogisticsList;
+                    vm.newsTrainList = value.data.data.newsTrainList;
+                    vm.laborUnionList = value.data.data.laborUnionList;
+                    vm.laborScientificList = value.data.data.laborScientificList;
+
+                    vm.designNoticeList = value.data.data.designNoticeList;
+                    if (vm.designNoticeList) {
+                        hrDeptService.getDefaultDept(user.deptId).then(function (value) {
+                            if (value.data.ret) {
+                                vm.showDept = value.data.data;
+                            }
+                        })
+                    }
                 }
             })
         }
 
-        /**
-         * 行政事务部
-         */
-        vm.loadLaborUnion=function(){
-            fiveHomeService.listDateByDeptName("行政事务部",user.userLogin).then(function (value) {
-                if (value.data.ret) {
-                    vm.laborUnionList = value.data.data;
-                    vm.laborUnionList.forEach(function (item) {
-                        item.convertTime=vm.convertTime(item.gmtModified,"yyMMdd");
-                    })
-                }
-            })
-        }
-        /**
-         * 科研与技术质量部
-         */
-        vm.laborScientific=function(){
-            fiveHomeService.listDateByDeptName("科研与技术质量部",user.userLogin).then(function (value) {
-                if (value.data.ret) {
-                    vm.laborScientificList = value.data.data;
-                    vm.laborScientificList.forEach(function (item) {
-                        item.convertTime=vm.convertTime(item.gmtModified,"yyMMdd");
-                    })
-                }
-            })
-        }
+
         /**
          * 图片新闻
          * @constructor
@@ -413,6 +278,8 @@
                  }
            })
         }
+
+
 
         vm.loadDesignNotice=function(){
             hrDeptService.getDefaultDept(user.deptId).then(function (value) {
@@ -431,8 +298,6 @@
                      }
                 }
             })
-
-
 
         }
         /*友情链接*/
@@ -491,27 +356,16 @@
 
         vm.init=function () {
             vm.loadTask();
-            vm.loadDoneTask();
             vm.loadDownLoad();
-            //vm.loadNotice();
-            vm.loadPartyBuilding();
+            vm.loadNoticeByDept();
             vm.loadRegulatory();
-            vm.loadLaborUnion();
             vm.getNoticeType();
             vm.LoadNewsPhoto();
-            vm.loadTrain();
-            vm.loadLogistics();
-            vm.loadPolitics();
-            vm.loadFinance();
-            vm.loadSecrecy();
-            vm.loadMessage();
-            vm.loadBusiness();
-            vm.laborScientific();
             vm.loadNoticeCompany();
             vm.loadSuperviseTask();
             vm.loadLink();
             vm.loadDesignNotice();
-            vm.loadOffice();
+
         };
 
 

@@ -14,8 +14,11 @@
         word-break:break-all;
     }
 </style>
-<div id="print_area" hidden >
+
+<div id="page_index" hidden>
     <p>表单编号：{{vm.printData.tableNo}}</p>
+</div>
+<div id="print_area" hidden >
     <h2 style="text-align: center;">中国五洲工程设计集团有限公司</h2>
     <h3 style="text-align: center;" ng-bind="vm.printData.tableName"></h3>
 <%--表单信息--%>
@@ -34,14 +37,31 @@
            </tr>
        </tbody>
     </table>
+    <%--子表 表格打印形式--%>
+    <div ng-repeat="group in vm.printData.groupDetailList" ng-if="vm.printData.childTableType==1">
+        <table  class="print_table" >
+            <tr>
+                <td  style="width: 100%;font-size: 16px;color: black;font-weight: bold;border-bottom: 0px;border-top: 0px" ng-bind="group.name">子项信息</td>
+            </tr>
+        </table>
+        <table  class="print_table" >
+            <thead>
+                <tr>
+                    <td style="width: 35px;" >#</td>
+                    <td ng-repeat="item in group.list[0]" ng-bind="item.name"></td>
+                </tr>
+            </thead>
+                <tbody ng-repeat="kv in group.list">
+                   <tr>
+                       <td style="width: 35px;" ng-bind="$index +1"></td>
+                       <td ng-repeat="sk in kv" ng-bind="sk.code"></td>
+                   </tr>
+                </tbody>
+        </table>
+    </div>
 
-    <table  class="print_table" ng-if="vm.printData.detailList.length>0">
-        <tr>
-            <td  style="width: 100%;font-size: 16px;color: black;font-weight: bold;border-bottom: 0px;border-top: 0px" >子项信息</td>
-        </tr>
-    </table>
-
-    <div ng-repeat="group in vm.printData.groupDetailList">
+    <%--通用子表默认打印方式--%>
+    <div ng-repeat="group in vm.printData.groupDetailList" ng-if="vm.printData.childTableType==2">
         <table  class="print_table" ng-repeat="item in group.list">
             <thead>
                 <tr>
@@ -87,20 +107,3 @@
         </tbody>
     </table>
 </div>
-
-
-<%--
-  <tr  ng-repeat="node in vm.printData.nodes" ng-if="($index%2)===0">
-            <td style="width: 20%;border-top: none" ng-bind="node.name"></td>
-            <td style="width: 30%;border-top: none">
-                <span ng-bind="node.assigneeName" style="margin-right: 10px;"></span>
-                <span ng-bind="node.endTime|date:'yyyy-MM-dd'"></span>
-            </td>
-            <td style="width: 20%;border-top: none" ng-bind="vm.printData.nodes[$index+1].name"></td>
-            <td style=" width: 30%;border-top: none">
-                <span ng-bind="vm.printData.nodes[$index+1].assigneeName" style="margin-right: 10px;"></span>
-                <span ng-bind="vm.printData.nodes[$index+1].endTime|date:'yyyy-MM-dd'"></span>
-            </td>
-        </tr>
-
---%>

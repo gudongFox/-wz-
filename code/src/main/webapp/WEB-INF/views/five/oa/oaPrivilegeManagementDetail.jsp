@@ -70,9 +70,9 @@
                                 <label class="col-md-2 control-label required">申请部门</label>
                                 <div class="col-md-4">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" ng-model="vm.item.deptName" name="deptName" required="true"   ng-disabled="!processInstance.firstTask"/>
+                                        <input type="text" class="form-control" ng-model="vm.item.deptName" name="deptName" required="true"   readonly/>
                                         <span class="input-group-btn" >
-                                            <button class="btn default" type="button" ng-click="vm.showDeptModal();" ng-disabled="!processInstance.firstTask"><i class="fa fa-cog"></i></button>
+                                            <button class="btn default" type="button" ng-click="vm.showDeptModal('dept');" ng-disabled="!processInstance.firstTask"><i class="fa fa-cog"></i></button>
                                          </span>
                                     </div>
                                 </div>
@@ -107,7 +107,7 @@
                                 <label class="col-md-2 control-label required">委托人</label>
                                 <div class="col-md-4">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" ng-model="vm.item.delegationManName" name="delegationManName"  required="true" ng-disabled="!processInstance.firstTask" />
+                                        <input type="text" class="form-control" ng-model="vm.item.delegationManName" name="delegationManName"  required="true" readonly/>
                                         <span class="input-group-btn" >
                                             <button class="btn default" type="button" ng-click="vm.showUserModel('delegationMan');" ng-disabled="!processInstance.firstTask"><i class="fa fa-user"></i></button>
                                          </span>
@@ -118,6 +118,15 @@
                                 <label class="col-md-2 control-label required">委托权限</label>
                                 <div class="col-md-4">
                                     <input type="text" required="true" class="form-control" ng-model="vm.item.delegationPrivilege" name="delegationPrivilege"  ng-disabled="!processInstance.firstTask"/>
+                                </div>
+                                <label class="col-md-2 control-label required">权限负责部门</label>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" ng-model="vm.item.managementDeptName" name="managementDeptName" required="true"   readonly/>
+                                        <span class="input-group-btn" >
+                                            <button class="btn default" type="button" ng-click="vm.showDeptModal('managementDept');" ng-disabled="!processInstance.firstTask"><i class="fa fa-cog"></i></button>
+                                         </span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">

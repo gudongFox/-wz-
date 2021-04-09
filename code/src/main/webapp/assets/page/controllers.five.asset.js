@@ -250,7 +250,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -628,7 +633,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -925,7 +935,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -1154,7 +1169,6 @@
                 vm.item.operateUserLogin = user.userLogin;
                 vm.loadDetails();
                 for(var i=0;i<vm.details.length;i++){
-                    console.log(vm.details[i].uploadfile);
                     if (!vm.details[i].uploadfile){
                         flag=false;
                         toastr.warning("设备编号:"+vm.details[i].deviceNo+'  请上传对应实物图附件!');
@@ -1315,7 +1329,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }
@@ -1632,7 +1651,12 @@
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                            lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
                     }, 500);
                 }

@@ -179,6 +179,7 @@ public class FiveFinanceTravelExpenseService {
         variables.put("humanDeptChargeMan", selectEmployeeService.getDeptChargeMen(38));//人力负责人
         variables.put("financeChargeMan", selectEmployeeService.getDeptChargeMen(18));//财务负责人
         variables.put("financeDeputy", selectEmployeeService.getOtherDeptChargeMan(18));//财务主管副总
+        variables.put("deputy", selectEmployeeService.getOtherDeptChargeMan(model.getDeptId()));//副院长
         variables.put("chiefAccountant", hrEmployeeService.selectUserByPositionName("总会计师"));//总会计师
         variables.put("generalManager", hrEmployeeService.selectUserByPositionName("总经理"));//总经理
         variables.put("financialAccount", selectEmployeeService.getDeptFinanceMan(model.getDeptId()));//财务核算
@@ -277,7 +278,7 @@ public class FiveFinanceTravelExpenseService {
             variables.put("middleLeader", middleLeader);//中层以上
             variables.put("positiveDept", positiveDept);//中层正职
             variables.put("approval", approval);//特批
-            variables.put("project", dto.getProjectName().length()>0?true:false);
+            variables.put("project", dto.getProjectName().length()>0?1:0);
             variables.put("overproof", dto.getExceedStandard().contains("需要")?true:false);//超标审批
             variables.put("deptDean", selectEmployeeService.getDeptChargeMen(model.getDeptId()));//院长
             variables.put("positiveDeptDean", selectEmployeeService.getOtherDeptChargeMan(model.getDeptId()));//正院长
@@ -347,20 +348,24 @@ public class FiveFinanceTravelExpenseService {
                 totalRefund = MyStringUtil.getNewAddMoney(totalRefund,detail.getRelevanceMoney());
             }
         }
-        dto.setLoanRemainMoney(loanRemain);
         String deductionMoney = MyStringUtil.getNewSubMoney(totalLoan, totalRefund);
         dto.setDeductionMoney(deductionMoney);
 
+        //金额 转为元  借款中计算剩余金额
+        dto.setLoanRemainMoney(MyStringUtil.getMoneyY(loanRemain));
 
-        dto.setTotalApplyMoney(MyStringUtil.moneyToString(dto.getTotalApplyMoney(),6));
-        dto.setTotalOnRoadSubsidy(MyStringUtil.moneyToString(dto.getTotalOnRoadSubsidy(),6));
-        dto.setTotalCount(MyStringUtil.moneyToString(dto.getCountTotal(),6));
+
+
+        dto.setTotalApplyMoney(MyStringUtil.moneyToString(dto.getTotalApplyMoney(),2));
+        dto.setTotalOnRoadSubsidy(MyStringUtil.moneyToString(dto.getTotalOnRoadSubsidy(),2));
+        dto.setTotalCount(MyStringUtil.moneyToString(dto.getCountTotal(),2));
         return dto;
     }
     public FiveFinanceTravelExpenseDetail getDetailDto(FiveFinanceTravelExpenseDetail item) {
-        item.setApplyMoney(MyStringUtil.moneyToString(item.getApplyMoney(),6));
-        item.setOnRoadSubsidy(MyStringUtil.moneyToString(item.getOnRoadSubsidy(),6));
-        item.setCount(MyStringUtil.moneyToString(item.getCount(),6));
+        //万元 转换为 元
+        item.setApplyMoney(MyStringUtil.moneyToString(MyStringUtil.getMoneyY(item.getApplyMoney()),2));
+        item.setOnRoadSubsidy(MyStringUtil.moneyToString(MyStringUtil.getMoneyY(item.getOnRoadSubsidy()),2));
+        item.setCount(MyStringUtil.moneyToString(MyStringUtil.getMoneyY(item.getCount()),2));
         if(Double.valueOf(item.getApplyMoney()).equals(0.0)){
             item.setApplyMoney("");
         }
@@ -370,6 +375,7 @@ public class FiveFinanceTravelExpenseService {
         if(Double.valueOf(item.getCount()).equals(0.0)){
             item.setCount("");
         }
+
         return item;
     }
 
@@ -385,6 +391,9 @@ public class FiveFinanceTravelExpenseService {
         }
         item.setCreator(hrEmployeeDto.getUserLogin());
         item.setCreatorName(hrEmployeeDto.getUserName());
+        item.setDeptId(selectEmployeeService.getHeadDeptId(hrEmployeeDto.getDeptId()));
+        item.setDeptName(selectEmployeeService.getHeadDeptName(hrEmployeeDto.getDeptId()));
+
         item.setApplicant(hrEmployeeDto.getUserLogin());
         item.setApplicantName(hrEmployeeDto.getUserName());
         item.setProjectType(commonCodeService.selectDefaultCodeValue(MccConst.APP_CODE,"财务项目类别").toString());
@@ -481,9 +490,14 @@ public class FiveFinanceTravelExpenseService {
 
 
     public void updateDetail(FiveFinanceTravelExpenseDetail item){
+        // 元 转为 万元
+        item.setOnRoadSubsidy(MyStringUtil.getMoneyW(item.getOnRoadSubsidy()));
+        item.setCount(MyStringUtil.getMoneyW(item.getCount()));
         //如果申请金额 大于 预算剩余金额 提示
-        Assert.state(Double.valueOf(item.getApplyMoney())<=Double.valueOf(item.getBudgetBalance()),"申请金额 大于 预算剩余金额!");
+        Assert.state(Double.valueOf(MyStringUtil.getMoneyW(item.getApplyMoney()))<=Double.valueOf(item.getBudgetBalance()),"申请金额 大于 预算剩余金额!");
         if (item.getFlag()==1){
+            //元转为 万元
+            item.setApplyMoney(MyStringUtil.getMoneyW(item.getApplyMoney()));
             fiveFinanceTravelExpenseDetailMapper.insert(item);
         }
         FiveFinanceTravelExpenseDetail model = fiveFinanceTravelExpenseDetailMapper.selectByPrimaryKey(item.getId());
@@ -493,8 +507,9 @@ public class FiveFinanceTravelExpenseService {
         model.setTravelExpenseDays(item.getTravelExpenseDays());
         model.setOnRoadTime(item.getOnRoadTime());
         model.setApplyStandard(item.getApplyStandard());
-        model.setApplyMoney(MyStringUtil.moneyToString(item.getApplyMoney()));
-        model.setOnRoadSubsidy(MyStringUtil.moneyToString(item.getOnRoadSubsidy()));
+        model.setOnRoadSubsidy(item.getOnRoadSubsidy());
+        //元 转换为 万元
+        model.setApplyMoney(MyStringUtil.moneyToString(MyStringUtil.getMoneyW(item.getApplyMoney())));
         model.setCount(MyStringUtil.getNewAddMoney(model.getApplyMoney(),model.getOnRoadSubsidy(),8));//金额小计
         model.setFinancialConfirmation(item.getFinancialConfirmation());
         model.setAccountSubject(item.getAccountSubject());
@@ -587,7 +602,9 @@ public class FiveFinanceTravelExpenseService {
         params.put("travelId",id);//小写
         List<FiveFinanceTravelDeduction> list = fiveFinanceTravelDeductionMapper.selectAll(params);
         for(FiveFinanceTravelDeduction deduction:list){
-            deduction.setRelevanceMoney(MyStringUtil.moneyToString(deduction.getRelevanceMoney(),6));
+            //转为 元
+            deduction.setRelevanceMoney(MyStringUtil.getMoneyY(deduction.getRelevanceMoney()));
+            deduction.setRelevanceRemainMoney(MyStringUtil.getMoneyY(deduction.getRelevanceRemainMoney()));
         }
         return list;
     }
@@ -642,9 +659,11 @@ public class FiveFinanceTravelExpenseService {
                 deduction.setRelevanseBusinessKey(loan.getBusinessKey());
                 deduction.setRelevanceName(loan.getTitle()+":"+loan.getCreatorName());
                 deduction.setRelevanceType("loan");
-                deduction.setRelevanceMoney(loan.getLoanMoney());
+                //万元存储
+                deduction.setRelevanceMoney(MyStringUtil.getMoneyW(loan.getLoanMoney()));
+                deduction.setRelevanceRemainMoney(MyStringUtil.getMoneyW(loan.getRemainMoney()));
                 deduction.setRelevanceTime(loan.getApplicantTime());
-                deduction.setRelevanceRemainMoney(loan.getRemainMoney());
+
                 deduction.setRelevanceRemark(loan.getLoanReason());
                 deduction.setDeptId(loan.getDeptId());
                 deduction.setDeptName(loan.getDeptName());
@@ -664,9 +683,11 @@ public class FiveFinanceTravelExpenseService {
                 deduction.setRelevanseBusinessKey(loan.getBusinessKey());
                 deduction.setRelevanceName(loan.getTitle()+":"+loan.getCreatorName());
                 deduction.setRelevanceType("loan");
-                deduction.setRelevanceMoney(loan.getLoanMoney());
+                //万元存储
+                deduction.setRelevanceMoney(MyStringUtil.getMoneyW(loan.getLoanMoney()));
+                deduction.setRelevanceRemainMoney(MyStringUtil.getMoneyW(loan.getRemainMoney()));
+
                 deduction.setRelevanceTime(loan.getApplicantTime());
-                deduction.setRelevanceRemainMoney(loan.getRemainMoney());
                 deduction.setRelevanceRemark(loan.getLoanReason());
                 deduction.setDeptId(loan.getDeptId());
                 deduction.setDeptName(loan.getDeptName());

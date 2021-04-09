@@ -419,7 +419,6 @@ public class BusinessIncomeService extends BaseService {
         variables.put("businessDevelopmentUser",selectEmployeeService.getUserListByRoleName("经营发展部人员(合同)"));//经营发展部人员（合同）
         String processInstanceId = taskHandleService.startProcess(processKey, businessKey, variables, MccConst.APP_CODE);
 
-
         FiveFinanceIncomeConfirm incomeConfirm = fiveFinanceIncomeConfirmMapper.selectByPrimaryKey(incomeConfirmId);
 
         //收入直接认领完
@@ -429,8 +428,6 @@ public class BusinessIncomeService extends BaseService {
         item.setBusinessKey(businessKey);
         item.setProcessInstanceId(processInstanceId);
         businessIncomeMapper.updateByPrimaryKey(item);
-
-
 
         //关联合同库
         library.setIncomeIds(library.getIncomeIds()+","+item.getId());

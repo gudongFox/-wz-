@@ -230,9 +230,9 @@ public class FiveOaNonSecretEquipmentScrapService extends BaseService {
         model.setCustodyMan(item.getCustodyMan());
         model.setCustodyManName(item.getCustodyManName());
         model.setAssetsNo(item.getAssetsNo());
-        model.setPrice(item.getPrice());
+        model.setPrice(MyStringUtil.moneyToString(item.getPrice(),2));
         model.setDepreciationYear(item.getDepreciationYear());
-        model.setDepreciationPrice(item.getDepreciationPrice());
+        model.setDepreciationPrice(MyStringUtil.moneyToString(item.getDepreciationPrice(),2));
         model.setNetWorth(item.getNetWorth());
 
         model.setRemark(item.getRemark());

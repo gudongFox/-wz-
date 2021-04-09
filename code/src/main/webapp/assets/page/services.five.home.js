@@ -77,13 +77,12 @@ angular.module('services.five.home', [])
             return deferred.promise;
         }
 
-        var listDateByDeptName=function (deptName,userLogin) {
+        var listDateByDeptName=function (userLogin) {
             var deferred = $q.defer();
             return $http({
                 method: 'POST',
                 url:'/oa/notice/listDateByDeptName.json',
                 params: {
-                    deptName:deptName,
                     userLogin:userLogin,
                 }
             }).success(function (data) {
@@ -121,8 +120,8 @@ angular.module('services.five.home', [])
         }
 
         return {
-            listDateByDeptName:function (deptName,userLogin) {
-                return listDateByDeptName(deptName,userLogin);
+            listDateByDeptName:function (userLogin) {
+                return listDateByDeptName(userLogin);
             },
             listFirmDateByType:function (type,userLogin) {
                 return listFirmDateByType(type,userLogin);

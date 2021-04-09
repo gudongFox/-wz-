@@ -8,6 +8,7 @@ import com.cmcu.common.service.CommonCodeService;
 import com.cmcu.common.util.BeanValidator;
 import com.cmcu.common.util.ModelUtil;
 import com.cmcu.common.util.MyDateUtil;
+import com.cmcu.common.util.MyStringUtil;
 import com.cmcu.mcc.act.service.MyActService;
 import com.cmcu.mcc.comm.EdConst;
 import com.cmcu.mcc.comm.MccConst;
@@ -86,7 +87,7 @@ public class FiveOaSoftwareService extends BaseService {
         model.setSoftwareCompanyUrl(fiveOaSoftwareDto.getSoftwareCompanyUrl());
         model.setSoftwareLicenceCount(fiveOaSoftwareDto.getSoftwareLicenceCount());
         model.setSoftwareOffer(fiveOaSoftwareDto.getSoftwareOffer());
-        model.setSoftwarePrice(fiveOaSoftwareDto.getSoftwarePrice());
+        model.setSoftwarePrice(MyStringUtil.moneyToString(fiveOaSoftwareDto.getSoftwarePrice(),6));
         model.setSoftwareLink(fiveOaSoftwareDto.getSoftwareLink());
         model.setSoftwarePhone(fiveOaSoftwareDto.getSoftwarePhone());
         model.setSoftwareUseMajor(fiveOaSoftwareDto.getSoftwareUseMajor());

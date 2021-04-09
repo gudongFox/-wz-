@@ -263,7 +263,7 @@ public class FiveOaInformationEquipmentExamineListService extends BaseService {
         model.setUsbType(item.getUsbType());
         model.setStartTime(item.getStartTime());
         model.setUseCondition(item.getUseCondition());
-        model.setCheckPrice(item.getCheckPrice());
+        model.setCheckPrice(MyStringUtil.moneyToString(item.getCheckPrice(),2));
         model.setFixedAssetNo(item.getFixedAssetNo());
         model.setExamineMan(item.getExamineMan());
         model.setExamineManName(item.getExamineManName());

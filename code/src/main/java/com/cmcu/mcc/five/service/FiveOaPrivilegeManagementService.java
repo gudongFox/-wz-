@@ -75,6 +75,8 @@ public class FiveOaPrivilegeManagementService extends BaseService {
         model.setFormNo(item.getFormNo());
         model.setDeptName(item.getDeptName());
         model.setDeptId(item.getDeptId());
+        model.setManagementDeptId(item.getManagementDeptId());
+        model.setManagementDeptName(item.getManagementDeptName());
         model.setApplicationManName(item.getApplicationManName());
         model.setApplicationMan(item.getApplicationMan());
         model.setApplicationTime(item.getApplicationTime());
@@ -92,6 +94,9 @@ public class FiveOaPrivilegeManagementService extends BaseService {
         Map variables = Maps.newHashMap();
         if (item.getDeptId() != 0) {
             variables.put("deptChargeMan", selectEmployeeService.getDeptChargeMen(item.getDeptId()));//发起者部门领导
+        }
+        if (item.getManagementDeptId() != 0) {
+            variables.put("managementDeptChargeMan", selectEmployeeService.getDeptChargeMen(item.getManagementDeptId()));//权限负责部门领导
         }
         variables.put("delegationMan", MyStringUtil.getStringList(model.getDelegationMan()));
 

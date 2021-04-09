@@ -62,7 +62,7 @@
                                     <div class="input-group">
                                         <input type="text" class="form-control" ng-model="vm.item.projectName" name="projectName"  required="true" readonly />
                                         <span class="input-group-btn" >
-                                            <button class="btn default" type="button" ng-click="vm.selectFee();" ng-disabled="!processInstance.firstTask"><i class="fa fa-user"></i></button>
+                                            <button class="btn default" type="button" ng-click="vm.selectFee();" ng-disabled="!processInstance.firstTask"><i class="fa fa-cog"></i></button>
                                         </span>
                                     </div>
                                 </div>
@@ -359,26 +359,28 @@
                 <h4 class="modal-title margin-right-10">预算项目</h4>
             </div>
             <div class="modal-body">
-
-                <div class="row">
-                    <div class="col-md-4">
-                        <input type="text" class="form-control input-sm" placeholder="关键字"
-                               ng-model="vm.qFee"/>
-                    </div>
-                </div>
                 <div class="table-scrollable" style="max-height: 400px;overflow-y: auto">
                     <table class="table table-striped table-hover table-bordered table-advance no-footer">
                         <thead>
                         <tr>
-                            <th style="width: 50px;">序号</th>
+                            <th style="width: 50px;">#</th>
                             <th style="width: 160px;">项目名</th>
                             <th style="width: 160px;">部门名称</th>
                             <th style="width: 160px;">预算年份</th>
-                            <th style="width: 180px;">预算总金额</th>
+                            <th style="width: 180px;">预算总金额(万元)</th>
                             <th>备注</th>
                         </tr>
                         </thead>
                         <tbody>
+                        <tr>
+                            <td class="dt-right"><i class="fa fa-search" title="查询全数据" style="color: black;width: 26px"
+                                                    ng-click="vm.searchData()"></i></td>
+                            <td><input ng-model="vm.searchParams.title" type="text" style="height: 26px" class="form-control"></td>
+                            <td><input ng-model="vm.searchParams.deptName" type="text" style="height: 26px"class="form-control"></td>
+                            <td><input ng-model="vm.searchParams.budgetYear" type="text" style="height: 26px" class="form-control"></td>
+                            <td><input ng-model="vm.searchParams.budgetTotalMoney" type="text" style="height: 26px"class="form-control"></td>
+                            <td></td>
+                        </tr>
                         <tr ng-repeat="c in vm.fees">
                             <td>
                                 <input type="checkbox" ng-checked="vm.item.projectNo==c.id" class="cb_fee" data-name="{{c}}" style="width: 15px;height: 15px;"/>
@@ -392,7 +394,7 @@
                         </tbody>
                     </table>
                 </div>
-
+                <my-pager data-page-info="vm.pageInfo" on-load="vm.selectFee()"></my-pager>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn default" data-dismiss="modal">关闭</button>

@@ -221,6 +221,13 @@ taskApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $loc
             },
             controller: 'TaskStampOfficeDetailController as vm'
         })
+        .state('task.businessAdvance', {
+            url: "/businessAdvance?businessKey",
+            templateUrl: function () {
+                return "/h5/task/businessAdvance.html";
+            },
+            controller: 'TaskBusinessAdvanceController as vm'
+        })
 });
 
 

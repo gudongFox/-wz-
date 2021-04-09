@@ -16,9 +16,10 @@
     }
 </style>
 
-
-<div id="print_area" hidden>
+<div id="page_index" hidden>
     <p>表单编号：{{vm.printData.tableNo}}</p>
+</div>
+<div id="print_area" hidden>
     <h3 style="text-align: center;">外部专家申请表</h3>
     <p style="text-align:right;padding-right:25px;" ng-bind="'日期:'+vm.printData.submitTime"></p>
     <table class="print_table">

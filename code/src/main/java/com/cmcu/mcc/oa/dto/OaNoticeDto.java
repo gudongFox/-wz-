@@ -19,6 +19,8 @@ public class OaNoticeDto extends OaNotice {
 
     private boolean latest;
 
+
+
     public static OaNoticeDto adapt(OaNotice item) {
         OaNoticeDto dto=new OaNoticeDto();
         BeanUtils.copyProperties(item,dto);

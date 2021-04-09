@@ -16,9 +16,10 @@
     }
 </style>
 
-
-<div id="print_area" hidden>
+<div id="page_index" hidden>
     <p>表单编号：{{vm.printData.tableNo}}</p>
+</div>
+<div id="print_area" hidden>
     <h3 style="text-align: center;">信息化设备验收审批表</h3>
     <p><span style="text-align: left;" ng-bind="'验收日期:'+vm.printData.acceptTime"></span></p>
     <table class="print_table">

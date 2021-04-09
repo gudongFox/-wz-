@@ -23,7 +23,9 @@
     }
 
 </style>
-
+<div id="page_index" hidden>
+    <p>表单编号：{{vm.printData.tableNo}}</p>
+</div>
 <div id="print_area3" hidden>
     <h2 style="text-align: center; color: red;font-size: 50px">中共中国五洲工程设计集团</h2>
     <h1 style="text-align: center; color: red;font-size: 50px"><span>委员会会议纪要</span></h1>

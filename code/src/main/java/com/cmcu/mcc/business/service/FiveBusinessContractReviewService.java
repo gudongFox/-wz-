@@ -283,6 +283,9 @@ public class FiveBusinessContractReviewService extends BaseService {
         model.setBusinessChargeLeader(dto.getBusinessChargeLeader());
         model.setBusinessChargeLeaderName(dto.getBusinessChargeLeaderName());
 
+        model.setProjectChargeMan(dto.getProjectChargeMan());
+        model.setProjectChargeManName(dto.getProjectChargeManName());
+
         model.setPlanSignTime(dto.getPlanSignTime());
         model.setContractAttachUrl(dto.getContractAttachUrl());
         model.setTaxType(dto.getTaxType());
@@ -765,6 +768,10 @@ public class FiveBusinessContractReviewService extends BaseService {
 
                 library.setBusinessChargeLeader(review.getBusinessChargeLeader());
                 library.setBusinessChargeLeaderName(review.getBusinessChargeLeaderName());
+
+                library.setProjectChargeMan(review.getProjectChargeMan());
+                library.setProjectChargeManName(review.getProjectChargeManName());
+
                 library.setOpen(review.getOpen());
                 library.setOpenStamp(review.getOpenStamp());
                 ModelUtil.setNotNullFields(library);
@@ -849,6 +856,10 @@ public class FiveBusinessContractReviewService extends BaseService {
 
                 library.setBusinessChargeLeader(review.getBusinessChargeLeader());
                 library.setBusinessChargeLeaderName(review.getBusinessChargeLeaderName());
+
+                library.setProjectChargeMan(review.getProjectChargeMan());
+                library.setProjectChargeManName(review.getProjectChargeManName());
+
                 library.setOpen(review.getOpen());
                 library.setOpenStamp(review.getOpenStamp());
 

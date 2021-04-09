@@ -13,9 +13,10 @@
     }
 </style>
 
-
-<div id="print_area" hidden>
+<div id="page_index" hidden>
     <p>表单编号：{{vm.printData.tableNo}}</p>
+</div>
+<div id="print_area" hidden>
     <h3 style="text-align: center;">协会信息变更流程</h3>
     <p style="text-align:right;padding-right:25px;" ng-bind="'日期:'+vm.printData.gmtCreate"></p>
     <table class="print_table">

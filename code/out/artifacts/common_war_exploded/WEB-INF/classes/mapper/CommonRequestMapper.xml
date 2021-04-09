@@ -121,6 +121,12 @@
             <if test="remark != null and remark != ''">
                 AND remark = #{remark}
             </if>
+            <if test="startTime1 != null and startTime1 !='' ">
+                AND gmt_create  &gt;= CONCAT('','${startTime1}',' ')
+            </if>
+            <if test="endTime1 != null and endTime1 !='' ">
+                AND gmt_create  &lt;= CONCAT('','${endTime1}',' ')
+            </if>
             <if test="q != null and q != ''">
                 AND  (request_url like CONCAT('%',#{q},'%') or request_login like  CONCAT('%',#{q},'%') or request_ip like  CONCAT('%',#{q},'%'))
             </if>

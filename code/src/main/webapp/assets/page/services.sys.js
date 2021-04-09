@@ -2371,7 +2371,6 @@ angular.module('services.sys', [])
         };
         var downloadContent =function (businessKey) {
             var deferred = $q.defer();
-            console.log(1)
             return $http({
                 method: 'POST',
                 /*url: head + '/downloadContent/{businessKey}',*/
@@ -2381,10 +2380,8 @@ angular.module('services.sys', [])
                     businessKey: businessKey
                 }
             }).success(function (data) {
-                console.log(2)
                 deferred.resolve(data);
             }).error(function (error) {
-                console.log(3)
                 deferred.reject(error);
             });
             return deferred.promise;

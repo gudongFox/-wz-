@@ -50,7 +50,6 @@ public class FiveOaPrivilegeManagement {
     @Max(value=999999999, message="deptId必须为数字")
     private Integer deptId;
 
-     @NotNull(message="deptName不能为空!")
     @Size(max=145, message="deptName长度不能超过145")
     private String deptName;
 
@@ -85,4 +84,10 @@ public class FiveOaPrivilegeManagement {
     @NotNull(message="delegationTime不能为空!")
     @Size(max=45, message="delegationTime长度不能超过45")
     private String delegationTime;
+
+    @Max(value=999999999, message="managementDeptId必须为数字")
+    private Integer managementDeptId;
+
+    @Size(max=145, message="managementDeptName长度不能超过145")
+    private String managementDeptName;
 }

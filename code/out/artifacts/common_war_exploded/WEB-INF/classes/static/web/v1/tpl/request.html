@@ -37,10 +37,15 @@
                                        ng-model="params.requestIp"/>
                             </label>
                             <label>
-                                <select ng-options="s.code as s.name for s in requestNames"
-                                        ng-model="params.requestName" class="form-control">
-                                </select>
+                                <input type="text" class="form-control" placeholder="地址"
+                                       ng-model="params.requestUrl"/>
                             </label>
+                            <!--<label style="margin-right: 10px;">起始时间：
+                                <input type="search" class="form-control input-inline input-sm date-picker" id="startTime1"
+                                       ng-model="params.startTime1" value="{{params.startTime1|date:'yyyy-MM-dd'}}"></label>
+                            <label style="margin-right: 10px;">结束时间：
+                                <input type="search"  class="form-control input-inline input-sm date-picker" id="endTime1"
+                                       ng-model="params.endTime1" value="{{params.endTime1|date:'yyyy-MM-dd'}}"></label>-->
                             <a class="btn green" ng-click="queryData();"><i class="fa fa-search"></i> 查询 </a>
                         </div>
                     </div>

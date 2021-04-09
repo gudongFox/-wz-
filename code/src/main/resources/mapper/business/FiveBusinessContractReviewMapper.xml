@@ -80,6 +80,8 @@
     <result column="tax_num" jdbcType="VARCHAR" property="taxNum" />
     <result column="stamp_tax_money" jdbcType="VARCHAR" property="stampTaxMoney" />
     <result column="is_open_stamp" jdbcType="BIT" property="openStamp" />
+    <result column="project_charge_man" jdbcType="VARCHAR" property="projectChargeMan" />
+    <result column="project_charge_man_name" jdbcType="VARCHAR" property="projectChargeManName" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from five_business_contract_review
@@ -115,7 +117,8 @@
       project_manager_name, contract_name, dept_review_user, 
       dept_review_user_name, is_open, plan_sign_time, 
       contract_attach_url, tax_type, tax_num, 
-      stamp_tax_money, is_open_stamp)
+      stamp_tax_money, is_open_stamp, project_charge_man, 
+      project_charge_man_name)
     values (#{businessKey,jdbcType=VARCHAR}, #{contractLibraryId,jdbcType=INTEGER}, #{contractId,jdbcType=INTEGER}, 
       #{recordId,jdbcType=INTEGER}, #{preContractId,jdbcType=INTEGER}, #{projectName,jdbcType=VARCHAR}, 
       #{businessChargeLeader,jdbcType=VARCHAR}, #{businessChargeLeaderName,jdbcType=VARCHAR}, 
@@ -142,7 +145,8 @@
       #{projectManagerName,jdbcType=VARCHAR}, #{contractName,jdbcType=VARCHAR}, #{deptReviewUser,jdbcType=VARCHAR}, 
       #{deptReviewUserName,jdbcType=VARCHAR}, #{open,jdbcType=BIT}, #{planSignTime,jdbcType=VARCHAR}, 
       #{contractAttachUrl,jdbcType=VARCHAR}, #{taxType,jdbcType=VARCHAR}, #{taxNum,jdbcType=VARCHAR}, 
-      #{stampTaxMoney,jdbcType=VARCHAR}, #{openStamp,jdbcType=BIT})
+      #{stampTaxMoney,jdbcType=VARCHAR}, #{openStamp,jdbcType=BIT}, #{projectChargeMan,jdbcType=VARCHAR}, 
+      #{projectChargeManName,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.business.entity.FiveBusinessContractReview">
     update five_business_contract_review
@@ -222,7 +226,9 @@
       tax_type = #{taxType,jdbcType=VARCHAR},
       tax_num = #{taxNum,jdbcType=VARCHAR},
       stamp_tax_money = #{stampTaxMoney,jdbcType=VARCHAR},
-      is_open_stamp = #{openStamp,jdbcType=BIT}
+      is_open_stamp = #{openStamp,jdbcType=BIT},
+      project_charge_man = #{projectChargeMan,jdbcType=VARCHAR},
+      project_charge_man_name = #{projectChargeManName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -239,7 +245,8 @@
     review_user_name, project_no, is_main, is_backletter, backletter_money, subpackage_id, 
     main_contract_library_id, main_contract_library_name, main_contract_library_no, project_manager, 
     project_manager_name, contract_name, dept_review_user, dept_review_user_name, is_open, 
-    plan_sign_time, contract_attach_url, tax_type, tax_num, stamp_tax_money, is_open_stamp
+    plan_sign_time, contract_attach_url, tax_type, tax_num, stamp_tax_money, is_open_stamp, 
+    project_charge_man, project_charge_man_name
     from five_business_contract_review
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -257,7 +264,8 @@
     review_user_name, project_no, is_main, is_backletter, backletter_money, subpackage_id, 
     main_contract_library_id, main_contract_library_name, main_contract_library_no, project_manager, 
     project_manager_name, contract_name, dept_review_user, dept_review_user_name, is_open, 
-    plan_sign_time, contract_attach_url, tax_type, tax_num, stamp_tax_money, is_open_stamp
+    plan_sign_time, contract_attach_url, tax_type, tax_num, stamp_tax_money, is_open_stamp, 
+    project_charge_man, project_charge_man_name
     from five_business_contract_review
     <include refid="Base_Where_List" />
     <include refid="Base_Where_List1" />
@@ -499,6 +507,12 @@
       <if test="openStamp != null and isLikeSelect==null">
          AND is_open_stamp = #{openStamp}
       </if>
+      <if test="projectChargeMan != null and isLikeSelect==null and projectChargeMan != ''">
+         AND project_charge_man = #{projectChargeMan}
+      </if>
+      <if test="projectChargeManName != null and isLikeSelect==null and projectChargeManName != ''">
+         AND project_charge_man_name = #{projectChargeManName}
+      </if>
       <if test="q != null and q != ''and isLikeSelect==null">
         AND (
         project_name like CONCAT('%',#{q},'%') or
@@ -683,23 +697,29 @@
       <if test="stampTaxMoney != null and isLikeSelect!= null and stampTaxMoney != '' ">
          AND stamp_tax_money like  CONCAT('%',#{stampTaxMoney},'%')
       </if>
-      <if test="deleted != null and isLikeSelect !=null">
-        AND is_deleted = #{deleted}
+      <if test="projectChargeMan != null and isLikeSelect!= null and projectChargeMan != '' ">
+         AND project_charge_man like  CONCAT('%',#{projectChargeMan},'%')
       </if>
-      <if test="q != null and q != '' and isLikeSelect !=null">
+      <if test="projectChargeManName != null and isLikeSelect!= null and projectChargeManName != '' ">
+         AND project_charge_man_name like  CONCAT('%',#{projectChargeManName},'%')
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="deptId != null and isLikeSelect!=null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="q != null and q != ''and isLikeSelect!=null">
         AND (
         project_name like CONCAT('%',#{q},'%') or
         contract_no like CONCAT('%',#{q},'%')
         )
       </if>
-      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect !=null">
+      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect!=null">
         AND dept_id in
         <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
           #{deptId}
         </foreach>
-      </if>
-      <if test="deptId != null and isLikeSelect!=null">
-        AND dept_id = #{deptId}
       </if>
     </where>
   </sql>

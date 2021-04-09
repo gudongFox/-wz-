@@ -18,7 +18,9 @@
     }
 </style>
 
-
+<div id="page_index" hidden>
+    <p>表单编号：{{vm.printData.tableNo}}</p>
+</div>
 <div id="print_area" hidden>
     <h3 style="text-align: center;">业务合同签发单</h3>
     <p style="float:right" ng-bind="vm.printData.signTime"></p>

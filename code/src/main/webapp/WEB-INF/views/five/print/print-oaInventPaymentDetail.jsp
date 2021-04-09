@@ -17,9 +17,10 @@
     }
 </style>
 
-
-<div id="print_area" hidden>
+<div id="page_index" hidden>
     <p>表单编号：{{vm.printData.tableNo}}</p>
+</div>
+<div id="print_area" hidden>
     <h3 style="text-align: center;">专利项目交费申请</h3>
     <p style="float:right" ng-bind="'日期'+vm.printData.paymentTime"></p>
     <table class="print_table">

@@ -2322,6 +2322,7 @@
     .factory('commonRequestService', function ($q, $http) {
 
         var listPagedData = function (params) {
+            //console.log(params);
             var deferred = $q.defer();
             return $http({
                 method: 'POST',

@@ -69,7 +69,7 @@
                             if (data.action === "select_node" || data.action === 'ready') {
                                 var node = data.instance.get_node(data.selected[0]).data;
                                 edProjectTreeService.rememberNodeState(node.id, true, 'selected', user.enLogin);
-                                debugger;
+
                                 $state.go(node.nodeUrl, {nodeId: node.id});
                             }
                         }
@@ -132,7 +132,7 @@
                             }
                             var node = data.instance.get_node(data.selected[0]).data;
                             if (redirectUrl) {
-                                debugger;
+
                                 edProjectTreeService.rememberNodeState(node.id, true, 'selected', user.userLogin);
                                 $state.go(node.nodeUrl, {nodeId: node.id});
                             }

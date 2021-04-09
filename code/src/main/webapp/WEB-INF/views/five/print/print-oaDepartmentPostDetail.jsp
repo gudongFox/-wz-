@@ -22,9 +22,10 @@
     }
 </style>
 
-
+<div id="page_index" hidden>
+    <p>表单编号：{{vm.printData.tableNo}}</p>
+</div>
 <div id="print_area" hidden>
-    <p style="color: red">表单编号：{{vm.printData.tableNo}}</p>
     <h3 style="text-align: center;color:red;">部门发文稿纸</h3>
     <table class="print_table">
         <tr>

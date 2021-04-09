@@ -17,7 +17,9 @@
     }
 </style>
 
-
+<div id="page_index" hidden>
+    <p>表单编号：{{vm.printData.tableNo}}</p>
+</div>
 <div id="print_area" hidden>
     <p>表单编号：{{vm.printData.tableNo}}</p>
     <h3 style="text-align: center;">科研课题费用申请</h3>

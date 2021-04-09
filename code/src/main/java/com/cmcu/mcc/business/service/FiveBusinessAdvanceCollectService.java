@@ -124,8 +124,12 @@ public class FiveBusinessAdvanceCollectService extends BaseService {
         item.setCreatorName(hrEmployeeDto.getUserName());
         item.setDeptId(hrEmployeeDto.getDeptId());
         item.setDeptName(hrEmployeeDto.getDeptName());
+        if(MyDateUtil.getMonth()<10){
+            item.setCollectMonth(MyDateUtil.getYear()+"-0"+MyDateUtil.getMonth());
+        }else{
+            item.setCollectMonth(MyDateUtil.getYear()+"-"+MyDateUtil.getMonth());
+        }
 
-        item.setCollectMonth(MyDateUtil.getYear()+"-"+MyDateUtil.getMonth());
         item.setCollectYear(MyDateUtil.getYear()+"");
 
         item.setDeleted(false);
@@ -182,7 +186,7 @@ public class FiveBusinessAdvanceCollectService extends BaseService {
         FiveBusinessAdvanceCollectDto advanceCollectDto = getModelById(collectId);
         Map params = new HashMap();
         params.put("deleted",false);
-        //params.put("processEnd",true);
+        params.put("processEnd",true);
         if(advanceCollectDto.getDeclareType().equals("预支绩效工资")){
             params.put("month",advanceCollectDto.getCollectMonth().trim());
             params.put("declareType","预支绩效工资");
@@ -380,7 +384,7 @@ public class FiveBusinessAdvanceCollectService extends BaseService {
         IOUtils.toByteArray(is);
         return workbook;
     }
-    //得到预支明细表中的 某单位 已完成的 最新的数据
+    //得到预支明细表中的 某单位  已完成的 最新的数据
     private Double getCollectByDeptId(List<FiveBusinessAdvance> fiveBusinessAdvances, int deptId) {
         for(FiveBusinessAdvance advance:fiveBusinessAdvances){
             if(advance.getDeptId().equals(deptId)){

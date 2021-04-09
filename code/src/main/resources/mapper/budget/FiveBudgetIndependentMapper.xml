@@ -125,8 +125,11 @@
       <if test="budgetYear != null and isLikeSelect==null and budgetYear != ''">
          AND budget_year = #{budgetYear}
       </if>
-      <if test="qBusinessKey != null and isLikeSelect==null and qBusinessKey != ''">
+      <if test="qBusinessKey != null and isLikeSelect==null and qBusinessKey != '' and qBusinessKey1 == null">
         AND business_key like CONCAT(#{qBusinessKey},'%')
+      </if>
+      <if test="qBusinessKey != null and isLikeSelect==null and qBusinessKey != '' and qBusinessKey1 != '' and qBusinessKey1 != null">
+        AND ((business_key like CONCAT(#{qBusinessKey},'%')) OR (business_key like CONCAT(#{qBusinessKey1},'%')))
       </if>
     </where>
   </sql>
@@ -162,11 +165,14 @@
       <if test="budgetYear != null and isLikeSelect!= null and budgetYear != '' ">
          AND budget_year like  CONCAT('%',#{budgetYear},'%')
       </if>
-      <if test="qBusinessKey != null and isLikeSelect!= null and qBusinessKey != ''">
+      <if test="qBusinessKey != null and isLikeSelect!= null and qBusinessKey != '' and qBusinessKey1 == null">
         AND business_key like CONCAT(#{qBusinessKey},'%')
       </if>
       <if test="deleted != null and isLikeSelect!=null">
         AND is_deleted = #{deleted}
+      </if>
+      <if test="qBusinessKey != null and isLikeSelect!=null and qBusinessKey != '' and qBusinessKey1 != '' and qBusinessKey1 != null">
+        AND ((business_key like CONCAT(#{qBusinessKey},'%')) OR (business_key like CONCAT(#{qBusinessKey1},'%')))
       </if>
     </where>
   </sql>

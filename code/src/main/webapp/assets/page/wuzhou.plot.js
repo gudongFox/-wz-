@@ -3480,7 +3480,7 @@ mccApp.run(function ($rootScope, $state, $location,actProcessQueryService, actPr
     var id=$location.search().id;
     var names=$location.search().name;
     var sss={[names]:id};
-     debugger;
+
     $state.go(url, sss);
 
 });

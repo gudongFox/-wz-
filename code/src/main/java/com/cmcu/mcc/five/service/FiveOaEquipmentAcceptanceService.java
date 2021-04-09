@@ -196,6 +196,7 @@ public class FiveOaEquipmentAcceptanceService extends BaseService {
 
     public void updateDetail(FiveOaEquipmentAcceptanceDetail item){
         item.setGmtModified(new Date());
+        item.setPrice(MyStringUtil.moneyToString(item.getPrice(),2));
 
 
        if( commonFileService.listData(item.getBusinessKey(),0,"").size()>0){
@@ -203,6 +204,8 @@ public class FiveOaEquipmentAcceptanceService extends BaseService {
        }else {
            item.setUploadfile(false);
        }
+       item.setPrice(MyStringUtil.moneyToString(item.getPrice(),2));
+       item.setTotalPrice(MyStringUtil.moneyToString(item.getTotalPrice(),2));
         fiveOaEquipmentAcceptanceDetailMapper.updateByPrimaryKey(item);
     }
 

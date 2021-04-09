@@ -1952,39 +1952,49 @@
     .controller('CommonRequestController',function ($state,$stateParams,$scope,commonRequestService){
 
 
+
         $scope.init=function(){
             commonRequestService.listRequestName(user.enLogin).then(function (value) {
                 $scope.requestNames=value.data.data;
             });
 
             $scope.queryData();
+            $scope.basicInit("");
         }
 
 
         $scope.params = getNgParam($state, {
-            requestName: "",
+            requestUrl: "",
             requestLogin: "",
-            requestIp:""
+            requestIp:"",
+            startTime1:'',
+            endTime1:''
         });
 
         $scope.pageInfo = {pageNum: 1, pageSize: pageSize};
 
         $scope.queryData = function () {
+            console.log(' $scope.queryData');
             $scope.pageInfo.pageNum = 1;
-            $scope.params.qRequestName = $scope.params.requestName;
+            $scope.params.qRequestUrl = $scope.params.requestUrl;
             $scope.params.qRequestLogin = $scope.params.requestLogin;
             $scope.params.qRequestIp = $scope.params.requestIp;
+            $scope.params.qStartTime1 = $scope.params.startTime1;
+            $scope.params.qEndTime1 = $scope.params.endTime1;
+
+
+            $scope.loadRightData(user.userLogin);
             $scope.loadPagedData();
+
         };
 
         $scope.loadPagedData = function () {
-            var params = {
-                requestName: $scope.params.qRequestName,
-                requestLogin: $scope.params.qRequestLogin,
-                enLogin: user.enLogin,
-                pageNum: $scope.pageInfo.pageNum,
-                pageSize: $scope.pageInfo.pageSize
+            console.log(' $scope.loadPagedData');
+            var params = {requestIp: $scope.params.qRequestIp, requestLogin: $scope.params.qRequestLogin,requestUrl: $scope.params.qRequestUrl,
+                            startTime1:$scope.params.qStartTime1, endTime1:$scope.params.qEndTime1,
+                enLogin: user.enLogin, pageNum: $scope.pageInfo.pageNum,pageSize: $scope.pageInfo.pageSize,
             };
+            console.log(params);
             commonRequestService.listPagedData(params).then(function (value) {
                 if (value.data.ret) {
                     $scope.pageInfo = value.data.data;

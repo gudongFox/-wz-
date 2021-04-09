@@ -96,7 +96,8 @@ public class FiveBusinessAdvanceSevice extends BaseService {
         fiveBusinessAdvanceMapper.updateByPrimaryKey(model);
 
         Map variables = Maps.newHashMap();
-        variables.put("deptChargeMen",selectEmployeeService.getParentDeptChargeMen(model.getDeptId(),3,true));
+        variables.put("deptChargeMen",selectEmployeeService.getParentDeptChargeMen(model.getDeptId(),1,true));
+        variables.put("businessLeader", selectEmployeeService.getDeptChargeMen(48));//经营发展部第一负责人
 
         myActService.setVariables(model.getProcessInstanceId(),variables);
     }
@@ -140,8 +141,8 @@ public class FiveBusinessAdvanceSevice extends BaseService {
 
         item.setCreator(hrEmployeeDto.getUserLogin());
         item.setCreatorName(hrEmployeeDto.getUserName());
-        item.setDeptId(hrEmployeeDto.getDeptId());
-        item.setDeptName(hrEmployeeDto.getDeptName());
+        item.setDeptId(selectEmployeeService.getHeadDeptId(hrEmployeeDto.getDeptId()));
+        item.setDeptName(selectEmployeeService.getHeadDeptName(hrEmployeeDto.getDeptId()));
 
         Date currentTime = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -165,7 +166,10 @@ public class FiveBusinessAdvanceSevice extends BaseService {
         variables.put("userLogin", userLogin);
         variables.put("processDescription", "预支明细表："+item.getCreatorName());
         variables.put("deptChargeMen",selectEmployeeService.getParentDeptChargeMen(item.getDeptId(),3,true));
-        variables.put("managePerfMan", hrEmployeeService.selectUserByRoleNames("经营发展部(绩效岗)"));//经营发展部(绩效岗)
+
+        List<String> managePerfMan = hrEmployeeService.selectUserByRoleNames("经营发展部(绩效岗)");
+       // managePerfMan.addAll(selectEmployeeService.getDeptChargeMen(48));//经营发展部第一负责人
+        variables.put("managePerfMan", managePerfMan);//经营发展部(绩效岗)
 
         String copyMan = MyStringUtil.listToString(hrEmployeeService.selectUserByRoleNames("人力资源部(工资岗)"))+""
                 +MyStringUtil.listToString(selectEmployeeService.getDeptChargeMen(38))+

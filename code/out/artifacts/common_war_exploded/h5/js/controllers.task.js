@@ -461,6 +461,14 @@
             $("#contentFormDept").css("display", "none");
         }
 
+        vm.backUrl = function () {
+            if (window.localStorage.getItem("back-url")) {
+                window.location.replace(window.localStorage.getItem("back-url"));
+            } else {
+                window.location.replace("/h5/index.html");
+            }
+        }
+
         vm.init();
     })
     //公司发文
@@ -496,7 +504,6 @@
         vm.loadRead();
     }
 
-
     vm.save = function () {
         vm.item.operateUserLogin = enLogin;
 
@@ -526,7 +533,6 @@
                 }
             })
         };
-
 
     vm.openRead=function(id){
         var url = "/wuzhou/file/preview/" + id;
@@ -568,7 +574,6 @@
             return false;
         }
     }
-
 
     vm.showUserModal=function(type,dataSource,multiple,selects) {
         vm.userType =type;
@@ -630,7 +635,6 @@
         vm.saveSelectUser(users);
     }
 
-
     /**
      * 选择部门
      * @param inputCode 字段表示
@@ -683,12 +687,19 @@
         }
     }
 
-
     vm.backMain=function(){
         $("#contentForm").css("display", "block");
         $("#contentFormUser").css("display", "none");
         $("#contentFormDept").css("display", "none");
     }
+
+    vm.backUrl = function () {
+            if (window.localStorage.getItem("back-url")) {
+                window.location.replace(window.localStorage.getItem("back-url"));
+            } else {
+                window.location.replace("/h5/index.html");
+            }
+        }
 
     vm.init();
 })
@@ -910,6 +921,14 @@
             $("#contentFormDept").css("display", "none");
         }
 
+        vm.backUrl = function () {
+            if (window.localStorage.getItem("back-url")) {
+                window.location.replace(window.localStorage.getItem("back-url"));
+            } else {
+                window.location.replace("/h5/index.html");
+            }
+        }
+
         vm.init();
     })
     //公司收文
@@ -1129,7 +1148,13 @@
             $("#contentFormUser").css("display", "none");
             $("#contentFormDept").css("display", "none");
         }
-
+        vm.backUrl = function () {
+            if (window.localStorage.getItem("back-url")) {
+                window.location.replace(window.localStorage.getItem("back-url"));
+            } else {
+                window.location.replace("/h5/index.html");
+            }
+        }
         vm.init();
     })
     //报告文单
@@ -1350,7 +1375,6 @@
 
         }
 
-
         vm.loadData = function (loadProcess) {
             businessCustomerService2.getModelById(id).then(function (value) {
                 if (value.data.ret) {
@@ -1403,6 +1427,14 @@
             }else {
                 mui.alert("请准确填客户信息!");
                 return false;
+            }
+        }
+
+        vm.backUrl = function () {
+            if (window.localStorage.getItem("back-url")) {
+                window.location.replace(window.localStorage.getItem("back-url"));
+            } else {
+                window.location.replace("/h5/index.html");
             }
         }
 
@@ -1734,8 +1766,6 @@
             }
         }
 
-
-
         /**
          * 选择部门
          * @param inputCode 字段表示
@@ -1765,7 +1795,6 @@
                     });
             });
         }
-
         /**
          * 保存部门
          */
@@ -1784,11 +1813,18 @@
             }
         }
 
-
         vm.backMain=function(){
             $("#contentForm").css("display", "block");
             $("#contentFormUser").css("display", "none");
             $("#contentFormDept").css("display", "none");
+        }
+
+        vm.backUrl = function () {
+            if (window.localStorage.getItem("back-url")) {
+                window.location.replace(window.localStorage.getItem("back-url"));
+            } else {
+                window.location.replace("/h5/index.html");
+            }
         }
 
         vm.init();
@@ -3508,8 +3544,6 @@
             }
         }
 
-
-
         /**
          * 选择部门
          * @param inputCode 字段表示
@@ -3558,11 +3592,18 @@
             }
         }
 
-
         vm.backMain=function(){
             $("#contentForm").css("display", "block");
             $("#contentFormUser").css("display", "none");
             $("#contentFormDept").css("display", "none");
+        }
+
+        vm.backUrl = function () {
+            if (window.localStorage.getItem("back-url")) {
+                window.location.replace(window.localStorage.getItem("back-url"));
+            } else {
+                window.location.replace("/h5/index.html");
+            }
         }
 
         vm.init();
@@ -3949,12 +3990,20 @@
             }
             vm.saveSelectUser(users);
         }
+
         vm.backMain=function(){
             $("#contentForm").css("display", "block");
             $("#contentFormUser").css("display", "none");
             $("#contentFormDept").css("display", "none");
         }
 
+        vm.backUrl = function () {
+            if (window.localStorage.getItem("back-url")) {
+                window.location.replace(window.localStorage.getItem("back-url"));
+            } else {
+                window.location.replace("/h5/index.html");
+            }
+        }
         vm.init();
     })
     //财务资金余额上报
@@ -4067,7 +4116,13 @@
             $("#contentFormUser").css("display", "none");
             $("#contentFormDept").css("display", "none");
         }
-
+        vm.backUrl = function () {
+            if (window.localStorage.getItem("back-url")) {
+                window.location.replace(window.localStorage.getItem("back-url"));
+            } else {
+                window.location.replace("/h5/index.html");
+            }
+        }
         vm.init();
     })
     //项目启动
@@ -4159,6 +4214,35 @@
             $("#contentForm").css("display", "block");
             $("#contentFormUser").css("display", "none");
             $("#contentFormDept").css("display", "none");
+        }
+
+        vm.remove=function(){
+            mui.confirm("确定要删除该流程吗?", function (result) {
+                if (result.index > 0) {
+                    $http({
+                        method: 'POST',
+                        url: '/business/contract/remove.json',
+                        params: {
+                            id:id,
+                            userLogin:enLogin
+                        }
+                    }).then(function (value) {
+                        if (value.data.ret){
+                            mui.toast('删除成功');
+                            vm.backUrl();
+                        }
+                    })
+                }
+            });
+
+        }
+
+        vm.backUrl = function () {
+            if (window.localStorage.getItem("back-url")) {
+                window.location.replace(window.localStorage.getItem("back-url"));
+            } else {
+                window.location.replace("/h5/index.html");
+            }
         }
 
         vm.init();
@@ -4862,6 +4946,14 @@
             $("#contentFormDept").css("display", "none");
         }
 
+        vm.backUrl = function () {
+            if (window.localStorage.getItem("back-url")) {
+                window.location.replace(window.localStorage.getItem("back-url"));
+            } else {
+                window.location.replace("/h5/index.html");
+            }
+        }
+
         vm.init();
     })
      //用印申请
@@ -5010,6 +5102,7 @@
                     });
             });
         }
+
         /**
          * 保存部门
          */
@@ -5036,6 +5129,234 @@
             $("#contentFormUser").css("display", "none");
             $("#contentFormDept").css("display", "none");
         }
+
+        vm.remove=function(){
+            mui.confirm("确定要删除该流程吗?", function (result) {
+                if (result.index > 0) {
+                    fiveOaStampApplyOfficeService2.remove(applyId,enLogin).then(function (value) {
+                        if (value.data.ret){
+                            mui.toast('删除成功');
+                            vm.backUrl();
+                        }
+                    })
+                }
+            });
+
+        }
+
+        vm.backUrl = function () {
+            if (window.localStorage.getItem("back-url")) {
+                window.location.replace(window.localStorage.getItem("back-url"));
+            } else {
+                window.location.replace("/h5/index.html");
+            }
+        }
+
         vm.init();
         return vm;
+    })
+    //经营管理 月度预支绩效工资上报
+    .controller('TaskBusinessAdvanceController', function ($scope, $rootScope,$http,$stateParams,commonFormDataService,actProcessHandleService) {
+        var vm=this;
+        var businessKey=$stateParams.businessKey;
+        var advanceId=businessKey.split('_')[1];
+
+        vm.init=function() {
+
+            $scope.initTopTab();
+
+            commonFormDataService.getModelByBusinessKey(businessKey, enLogin).then(function (value) {
+                if(value.data.ret) {
+                    $scope.data = value.data.data.data;
+                    $scope.groupList = value.data.data.groupList;
+                    $rootScope.initWebControl();
+                }else{
+                    mui.alert("未找到数据("+value.data.msg+")");
+                    window.location.href="/h5/index.html";
+                }
+            });
+
+            $scope.loadProcessInstance(businessKey,enLogin);
+
+            vm.loadDetail();
+        }
+
+        vm.loadDetail=function(){
+            $http({
+                method: 'POST',
+                url: '/business/advance/listDetail.json',
+                params: {
+                    advanceId:advanceId,
+                }
+            }).then(function (response) {
+                vm.detailList = response.data.data;
+            });
+        }
+
+        vm.backUrl = function () {
+            if (window.localStorage.getItem("back-url")) {
+                window.location.replace(window.localStorage.getItem("back-url"));
+            } else {
+                window.location.replace("/h5/index.html");
+            }
+        }
+
+        vm.showLink=function(businessKey){
+            window.location.href="/h5/taskDetail.html?businessKey="+businessKey+"&enLogin="+enLogin;
+        }
+
+
+        vm.toggleStar = function () {
+            actProcessHandleService.toggleStar($scope.processInstance.instance.id, enLogin).then(function (value) {
+                if (value.data.ret) {
+                    mui.toast($scope.processInstance.stared?'取消关注!':'关注成功!');
+                    $scope.loadProcessInstance(businessKey,enLogin);
+                } else {
+                    mui.alert(value.data.msg);
+                }
+            })
+        }
+
+        vm.backMain=function(){
+            $("#contentForm").css("display", "block");
+            $("#contentFormUser").css("display", "none");
+        }
+
+        vm.showUserModal=function(item,group) {
+            document.activeElement.blur();
+            $("#contentFormUser_q").unbind('keydown').bind('keydown',function () {
+                if (event.keyCode === 13)  //回车键的键值为13
+                    vm.loadUser();
+            })
+
+            $("#contentForm").css("display", "none");
+            $("#contentFormUser").css("display", "block");
+            vm.config = vm.getUserRequestConfig(item, group);
+            vm.config.q="";
+            vm.loadUser();
+        }
+
+        vm.loadUser=function() {
+            var config=$.extend({loginItem:{},item:{}},vm.config);
+            $http({
+                method: 'POST',
+                url: '/common/user/listFormUserData.json',
+                params: config
+            }).then(function (response) {
+                vm.users = response.data.data;
+            });
+        }
+
+        vm.getUserRequestConfig=function(item,group) {
+            if (!item.commonFormDetail.editable) return;
+
+            var key = item.commonFormDetail.inputCode.replace('Name', '');
+            var loginItem = {};
+            var majorName = '';
+            var buildName = "";
+            for (var j = 0; j < group.items.length; j++) {
+                var currentItem = group.items[j];
+                var code = currentItem.commonFormDetail.inputCode;
+                if (code === key) {
+                    loginItem = currentItem;
+                } else if (code === 'majorName') {
+                    majorName = currentItem.inputValue;
+                } else if (code == "buildNameList") {
+                    buildName = currentItem.inputValue.join(",");
+                } else if (code == "buildName") {
+                    buildName = currentItem.inputValue;
+                }
+            }
+            var selects = loginItem.inputValue;
+            if (loginItem.inputValue.constructor === Array) {
+                selects = loginItem.inputValue.join(',');
+            }
+
+            var config = {
+                title: item.commonFormDetail.inputText,
+                enLogin: enLogin,
+                multiple: item.commonFormDetail.multiple,
+                selects: selects,
+                formDataId: group.formDataId,
+                roleCode: key.replace('Man', '').replace('Men', ''),
+                majorName: majorName,
+                buildName: buildName,
+                dataSource: item.commonFormDetail.dataSource,
+                loginItem:loginItem,
+                item:item,
+            };
+            return config;
+        }
+
+        vm.saveSelectUser=function(user) {
+            vm.backMain();
+            if (!$.isArray(user)) {
+                vm.config.loginItem.inputValue = user.enLogin;
+                vm.config.item.inputValue = user.cnName;
+            } else {
+                var enLoginList = [];
+                var cnNameList = [];
+                for (var i = 0; i < user.length; i++) {
+                    var selectedUser = user[i];
+                    enLoginList.push(selectedUser.enLogin);
+                    cnNameList.push(selectedUser.cnName);
+                }
+                vm.config.loginItem.inputValue = enLoginList.join(',');
+                vm.config.item.inputValue = cnNameList.join(',');
+            }
+        }
+
+        vm.saveSelectUsers=function(){
+
+            var users=[];
+            for(var i=0;i<vm.users.length;i++) {
+                if (vm.users[i].selected) {
+                    users.push(vm.users[i]);
+                }
+            }
+            vm.saveSelectUser(users);
+        }
+
+        vm.toggleMultipleModal=function(detail){
+            vm.detail=detail;
+            if(vm.detail.inputValue.length>0){
+                for(var i=0;i<vm.detail.dataSource.length;i++){
+                    var code=vm.detail.dataSource[i];
+                    for(var j=0;j<vm.detail.inputValue.length;j++){
+                        if(vm.detail.inputValue[j]==code.name){
+                            code.selected=true;
+                            break;
+                        }
+                    }
+                }
+            }
+            document.activeElement.blur();
+            mui('#multipleSheet').popover('toggle');
+        }
+
+        vm.saveMultiple=function() {
+            mui('#multipleSheet').popover('toggle');
+            var inputValue = [];
+            for (var i = 0; i < vm.detail.dataSource.length; i++) {
+                var code = vm.detail.dataSource[i];
+                if (code.selected) {
+                    inputValue.push(code.name);
+                }
+            }
+            vm.detail.inputValue = inputValue;
+        }
+
+        $rootScope.save=function(){
+            var data=$scope.getFormData($scope.data.id,$scope.groupList);
+            data["autoSubmit"]=false;
+            commonFormDataService.save(data).then(function (value) {
+                if(value.data.ret){
+                    mui.alert('保存成功!')
+                }else{
+                    mui.alert(value.data.msg);
+                }
+            });
+        }
+
+        vm.init();
     })

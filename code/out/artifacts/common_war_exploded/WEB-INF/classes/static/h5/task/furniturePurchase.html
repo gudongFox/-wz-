@@ -23,9 +23,10 @@
                                 <span style="line-height: 30px;margin-left: 10px;font-weight: bold;" ng-bind="decision.furnitureName"></span>
                            </a>
                            <ul class="mui-table-view mui-table-view-chevron">
-                          <!--  <li class="mui-table-view-cell"><span ng-bind="'单价（元）：'+decision.price"></span></li>-->
+                                <li class="mui-table-view-cell"><span ng-bind="'资产编号：'+decision.assetCode"></span></li>
+                            <li class="mui-table-view-cell"><span ng-bind="'单价（元）：'+decision.price"></span></li>
                             <li class="mui-table-view-cell"><span ng-bind="'数量：'+decision.number"></span></li>
-                          <!--  <li class="mui-table-view-cell"><span ng-bind="'总价（元）：'+decision.totalPrice"></span></li>-->
+                            <li class="mui-table-view-cell"><span ng-bind="'总价（元）：'+decision.totalPrice"></span></li>
                             <li class="mui-table-view-cell"><span ng-bind="'备注：'+decision.remark"></span></li>
                         </ul>
                        </li>

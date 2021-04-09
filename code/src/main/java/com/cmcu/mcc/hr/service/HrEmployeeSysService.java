@@ -78,7 +78,7 @@ public class HrEmployeeSysService {
         //是否有针对用户的单独配置
         Map sysUserAcl = sysRoleAclService.getAclInfoByUserLogin(userLogin, uiSref);
         if (sysUserAcl != null) {
-            return MyStringUtil.getIntList(sysUserAcl.get("selectDepts").toString());
+            return MyStringUtil.getIntList(sysUserAcl.getOrDefault("selectDepts","").toString());
         }
         return Lists.newArrayList();
     }
@@ -135,7 +135,7 @@ public class HrEmployeeSysService {
                     return Lists.newArrayList();
                 }
             }else {
-                return MyStringUtil.getIntList(sysUserAcl.get("selectDepts").toString());
+                return MyStringUtil.getIntList(sysUserAcl.getOrDefault("selectDepts","").toString());
             }
 
         }

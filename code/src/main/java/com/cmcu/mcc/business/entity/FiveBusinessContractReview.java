@@ -46,8 +46,7 @@ public class FiveBusinessContractReview {
     @Max(value=999999999, message="单位名称必须为数字")
     private Integer deptId;
 
-    @NotNull(message="承办部门不能为空!")
-    @Size(max=45, message="承办部门长度不能超过45")
+    @Size(max=145, message="deptName长度不能超过145")
     private String deptName;
 
     @NotNull(message="是否招投标不能为空!")
@@ -144,7 +143,7 @@ public class FiveBusinessContractReview {
     private Boolean attach;
 
     @NotNull(message="remark不能为空!")
-    @Size(max=450, message="remark长度不能超过45")
+    @Size(max=450, message="remark长度不能超过450")
     private String remark;
 
     @NotNull(message="creator不能为空!")
@@ -249,7 +248,7 @@ public class FiveBusinessContractReview {
     private Integer mainContractLibraryId;
 
     @NotNull(message="mainContractLibraryName不能为空!")
-    @Size(max=450, message="mainContractLibraryName长度不能超过45")
+    @Size(max=450, message="mainContractLibraryName长度不能超过450")
     private String mainContractLibraryName;
 
     @NotNull(message="mainContractLibraryNo不能为空!")
@@ -301,4 +300,10 @@ public class FiveBusinessContractReview {
 
     @NotNull(message="是否开票不能为空!")
     private Boolean openStamp;
+
+    @Size(max=45, message="主管院长长度不能超过45")
+    private String projectChargeMan;
+
+    @Size(max=45, message="projectChargeManName长度不能超过45")
+    private String projectChargeManName;
 }

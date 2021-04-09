@@ -1,6 +1,8 @@
 ﻿<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-
+<div id="page_index" hidden>
+	<p>表单编号：{{vm.printData.tableNo}}</p>
+</div>
 
 <div id="print_area" style="display: none;">
     <h3 style="text-align: center;">工程设计回访记录</h3>

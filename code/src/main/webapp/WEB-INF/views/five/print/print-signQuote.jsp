@@ -21,6 +21,9 @@
         border-bottom: solid #E6110D 1px;height: 30px;color: #000;text-align: center;
     }
 </style>
+<div id="page_index" hidden>
+    <p>表单编号：{{vm.printData.tableNo}}</p>
+</div>
 <div id="print_area">
     <h3 style="height: 40px"></h3>
     <h3  style=" text-align: center;letter-spacing:8px;color: red;">中国五洲工程设计集团有限公司</h3>

@@ -75,8 +75,8 @@ public class OaNoticeController {
     }
 
     @PostMapping("/listDateByDeptName.json")
-    public JsonData listDateByDeptName(String deptName,String userLogin){
-        return JsonData.success(oaNoticeService.listDateByDeptName(deptName,userLogin));
+    public JsonData listDateByDeptName(String userLogin){
+        return JsonData.success(oaNoticeService.listDateByDeptName(userLogin));
     }
 
     @PostMapping("/remove.json")

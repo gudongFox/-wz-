@@ -30,7 +30,9 @@
         word-break:break-all;
     }
 </style>
-
+<div id="page_index" hidden>
+    <p>表单编号：{{vm.printData.tableNo}}</p>
+</div>
 
 <div id="print_area" hidden>
     <h3 style="text-align: center;"><span ng-bind="vm.printData.year"></span><span>专业图纸验收清单</span></h3>

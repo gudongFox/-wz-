@@ -26,7 +26,9 @@
 
 </style>
 
-
+<div id="page_index" hidden>
+    <p>表单编号：{{vm.printData.tableNo}}</p>
+</div>
 <div id="print_area" hidden>
     <h3 style="text-align: center; color: #0bb20c">中 国 五 洲 工 程 设 计 集 团</h3>
     <h2 style="text-align: center; color: #0bb20c">报&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;告</h2>
