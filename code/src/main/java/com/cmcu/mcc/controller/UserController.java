@@ -6,6 +6,8 @@ import com.cmcu.common.service.CommonConfigService;
 import com.cmcu.common.service.CommonUserService;
 import com.cmcu.common.util.*;
 import com.cmcu.mcc.comm.MccConst;
+import com.cmcu.mcc.hr.dao.HrEmployeeMapper;
+import com.cmcu.mcc.hr.dto.HrEmployeeDto;
 import com.cmcu.mcc.hr.dto.HrEmployeeSysDto;
 import com.cmcu.mcc.hr.entity.HrEmployee;
 import com.cmcu.mcc.hr.service.HrEmployeeSysService;
@@ -46,8 +48,6 @@ public class UserController {
     @Resource
     HrEmployeeSysService hrEmployeeSysService;
 
-    @Resource
-    CommonUserService commonUserService;
 
     @ResponseBody
     @PostMapping("/listSystemMenu.json")

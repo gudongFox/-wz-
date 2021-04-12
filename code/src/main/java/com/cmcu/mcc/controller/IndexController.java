@@ -158,8 +158,9 @@ public class IndexController {
         if (StringUtils.isEmpty(enLogin)) {
             enLogin = CookieSessionUtils.getSession(MccConst.EN_LOGIN);
         } else {
-            CookieSessionUtils.addSession(MccConst.EN_LOGIN, enLogin);
-            CookieSessionUtils.addSession(MccConst.CN_NAME, selectEmployeeService.getNameByUserLogin(enLogin));
+            UserDto userDto = userDataService.selectByEnLogin(enLogin);
+            CookieSessionUtils.addSession(MccConst.EN_LOGIN, userDto.getEnLogin());
+            CookieSessionUtils.addSession(MccConst.CN_NAME, userDto.getCnName());
         }
         if (StringUtils.isEmpty(enLogin)) {
             return new ModelAndView("redirect:/login");
@@ -320,8 +321,6 @@ public class IndexController {
 
         request.setAttribute("error", errorMsg);
         if (StringUtils.isEmpty(errorMsg)) {
-            request.setAttribute("enLogin", enLogin);
-            request.getSession().setAttribute(MccConst.EN_LOGIN, userDto.getEnLogin());
             if (CryptionUtil.stringToMd5Base64(password).equals("HDazSj6HQF6ToVYlCHTS1Q==")||!checkPassword(password)){
                 CookieSessionUtils.addCookie(MccConst.EN_LOGIN, userDto.getEnLogin());
                 CookieSessionUtils.addCookie(MccConst.CN_NAME, userDto.getCnName());
@@ -336,11 +335,9 @@ public class IndexController {
                 return;
             } else {
                 request.getSession().setAttribute(MccConst.CN_NAME, userDto.getCnName());
-                if (remember != null && remember) {
-                    CookieSessionUtils.addCookie(MccConst.EN_LOGIN, userDto.getEnLogin());
-                    CookieSessionUtils.addCookie(MccConst.CN_NAME, userDto.getCnName());
-                    CookieSessionUtils.addCookie(MccConst.USER_PWD, password);
-                }
+                request.setAttribute(MccConst.EN_LOGIN, userDto.getEnLogin());
+
+                CookieSessionUtils.addSession(MccConst.EN_LOGIN, userDto.getEnLogin());
                 if (StringUtils.isNotBlank(ret)) {
                     //response.sendRedirect(ret);
                     request.getRequestDispatcher(ret).forward(request, response);

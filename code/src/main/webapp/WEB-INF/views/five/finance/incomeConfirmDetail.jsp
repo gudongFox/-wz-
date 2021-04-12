@@ -141,7 +141,7 @@
                             <div class="form-group">
                                 <label class="col-md-2 control-label required">是否退款</label>
                                 <div class="col-md-4">
-                                    <select ng-options="s.codeValue as s.name for s in commonCodes | filter:{codeCatalog:'是否'}:true"
+                                    <select ng-options="s.codeValue as s.name for s in sysCodes | filter:{codeCatalog:'是否'}:true"
                                             ng-model="vm.item.refund" class="form-control form-control-sm"></select>
                                 </div>
                                 <label class="col-md-2 control-label ">收入备注</label>

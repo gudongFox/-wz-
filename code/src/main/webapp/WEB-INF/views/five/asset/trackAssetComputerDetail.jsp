@@ -21,6 +21,8 @@
     <div class="portlet-title">
         <div class="caption">
             <i class="icon-note"></i><span ng-bind="tableName">公司非密计算机及信息化设备台帐(补录)</span>
+            <small ng-if="!processInstance.myRunningTaskName" ng-bind="processInstance.currentTaskName"></small>
+            <small ng-if="processInstance.myRunningTaskName" ng-bind="processInstance.myRunningTaskName" style="color: #35e0e1;"></small>
         </div>
         <div class="actions">
             <jsp:include page="../../common/common-actAction.jsp"/>

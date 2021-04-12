@@ -201,9 +201,10 @@ public class FiveFinanceReimburseService {
         variables.put("phone", phone);
         variables.put("attributeList", attributeList);//归口负责人
         variables.put("train", train);
-        variables.put("flag", Double.valueOf(dto.getTotalConfirmMoney())>=1.0?true:false);//2021-01-07HNZ 报错临时修改 确认合计
-        variables.put("flag1", Double.valueOf(dto.getTotalConfirmMoney())>=3.0?true:false);
-        variables.put("flag2", Double.valueOf(dto.getTotalConfirmMoney())>=5.0?true:false);
+        //totalApplyMoney 字段未存数据库，需判断的单位为元
+        variables.put("flag", Double.valueOf(dto.getTotalApplyMoney())>=10000.00?true:false);
+        variables.put("flag1", Double.valueOf(dto.getTotalApplyMoney())>=30000.00?true:false);
+        variables.put("flag2", Double.valueOf(dto.getTotalApplyMoney())>=50000.00?true:false);
         variables.put("attribute", attribute);
         variables.put("dept", dept);//发起人是否部门负责人
         variables.put("financeConfirm", selectEmployeeService.getDeptFinanceMan(model.getDeptId()));//财务确认

@@ -582,6 +582,7 @@
         commonCodeService.selectAll().then(function (value) {
             if(value.data.ret){
                 $rootScope.sysCodes=value.data.data;
+                $rootScope.commonCodes=value.data.data;
             }
         });
 
@@ -3172,8 +3173,6 @@
         vm.showTable=function(tableName){
             vm.taskCondition.tableName=tableName;
         }
-        
-
 
         vm.showNoticeDetail = function (id,attachId) {
             if (attachId){
@@ -3206,11 +3205,6 @@
                 }
             })
         }
-
-
-
-
-
         //判断是否超时
         vm.jugeOutTime=function(timeStamp){
             if (timeStamp==undefined || timeStamp==''){
@@ -3229,7 +3223,6 @@
             else
                 return 3;
         }
-
 
         vm.reloadTask=function() {
             vm.taskPageInfo.pageNum = 1;
@@ -3260,7 +3253,7 @@
                 qInitiator: vm.ccTaskParams.qInitiator,
                 processDescription: vm.ccTaskParams.qDescription,
                 modelCategory: vm.modelCategory,
-                processDefinitionKey: vm.processDefinitionKey
+                processDefinitionKey: vm.processDefinitionKey,
             }
             actTaskQueryService.listPagedCcTask(pa).then(function (value) {
                 if (value.data.ret) {
@@ -3274,7 +3267,6 @@
         }
 
 
-
         vm.showTaskProcess=function(task) {
             vm.task = task;
             $rootScope.loadNewProcessInstance(task.processInstanceId);
@@ -3285,7 +3277,9 @@
         vm.loadDoneTask=function () {
             var pa= {
                 pageNum: vm.taskDonePageInfo.pageNum,
-                pageSize: vm.taskDonePageInfo.pageSize, involvedUser: user.userLogin,
+                pageSize: vm.taskDonePageInfo.pageSize,
+                enLogin:user.userLogin,
+                involvedUser: user.userLogin,
                 processDescription: vm.dDescription,
                 qInitiator: vm.dInitiator,
                 myProcessDefinitionName: vm.dProcessDefinitionName,
@@ -3301,9 +3295,7 @@
             })
 
         }
-
-
-
+        
         vm.reloadDoneTask=function(){
             vm.taskDonePageInfo.pageNum=1;
             vm.dProcessDefinitionName= vm.doneParams.processDefinitionName;
@@ -3311,9 +3303,6 @@
             vm.dInitiator=vm.doneParams.initiator;
             vm.loadDoneTask();
         }
-
-
-
 
         vm.reloadMyProcess=function(){
             vm.myPageInfo.pageNum=1;
@@ -3353,7 +3342,6 @@
             })
         }
 
-
         vm.removeProcess=function(processInstanceId,enLogin){
             bootbox.confirm("您确认要永久删除流程及对应数据吗?", function (result) {
                 if (result) {
@@ -3385,7 +3373,6 @@
 
 
         }
-
 
         vm.saveUser = function () {
             bootbox.confirm("您确认要保存数据吗?", function (result) {

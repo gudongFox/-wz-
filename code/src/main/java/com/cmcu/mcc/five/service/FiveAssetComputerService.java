@@ -216,7 +216,7 @@ public class FiveAssetComputerService extends BaseService {
         item.setDeptName(hrEmployeeDto.getDeptName());
         item.setCreator(hrEmployeeDto.getUserLogin());
         item.setCreatorName(hrEmployeeDto.getUserName());
-        item.setUseTime(MyDateUtil.getStringToday());
+        //item.setUseTime(MyDateUtil.getStringToday());
         item.setOperatingSystemTime(MyDateUtil.getStringToday());
 
         item.setDeleted(false);

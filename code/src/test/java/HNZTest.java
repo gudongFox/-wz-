@@ -1265,9 +1265,11 @@ public class HNZTest {
     }
     @Resource
     FiveOaStampApplyOfficeService fiveOaStampApplyOfficeService;
+    @Resource
+    GuavaCacheService guavaCacheService;
     @Test
     public void test(){
-        fiveOaStampApplyOfficeService.listDateByFormKey();
+        guavaCacheService.invalidate("COMMON_BLACK_ALL");
     }
 
 

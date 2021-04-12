@@ -169,9 +169,10 @@ public class FiveFinanceTravelExpenseService {
         selectEmployeeService.getCompanyLeaders();
 
         Map variables = Maps.newHashMap();
-        variables.put("flag", Double.valueOf(dto.getTotalApplyMoney())>=1.0?true:false);
-        variables.put("flag1", Double.valueOf(dto.getTotalApplyMoney())>=3.0?true:false);
-        variables.put("flag2", Double.valueOf(dto.getTotalApplyMoney())>=5.0?true:false);
+        //totalApplyMoney 字段未存数据库，需判断的单位为元
+        variables.put("flag", Double.valueOf(dto.getTotalApplyMoney())>=10000.00?true:false);
+        variables.put("flag1", Double.valueOf(dto.getTotalApplyMoney())>=30000.00?true:false);
+        variables.put("flag2", Double.valueOf(dto.getTotalApplyMoney())>=50000.00?true:false);
         variables.put("financeConfirm", selectEmployeeService.getDeptFinanceMan(model.getDeptId()));//财务确认
         variables.put("deptChargeMan", selectEmployeeService.getDeptChargeMen(model.getDeptId()));//部门领导
         variables.put("scientific", dto.getScientific().contains("是")?true:false);//科研项目
