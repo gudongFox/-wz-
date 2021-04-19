@@ -131,6 +131,20 @@ var mccApp = angular.module(appName, ['ui.router', 'ui.router.state.events', 'ui
                 controller: 'FiveFinanceTravelExpenseBuildDetailController as vm'
             })
 
+            .state('finance.subpackagePayment', {
+                url: "/finance/subpackagePayment",
+                templateUrl: function () {
+                    return "/finance/subpackagePayment";
+                },
+                controller: 'FiveFinanceSubpackagePaymentController as vm'
+            })
+            .state('finance.subpackagePaymentDetail', {
+                url: "/finance/subpackagePaymentDetail?subpackagePaymentId",
+                templateUrl: function () {
+                    return "/finance/subpackagePaymentDetail";
+                },
+                controller: 'FiveFinanceSubpackagePaymentDetailController as vm'
+            })
 
             .state('finance.reimburse', {
                 url: "/finance/reimburse",

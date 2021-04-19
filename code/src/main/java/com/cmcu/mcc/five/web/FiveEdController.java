@@ -1,6 +1,6 @@
 package com.cmcu.mcc.five.web;
 
-import com.cmcu.common.JsonData;
+import com.common.model.JsonData;
 import com.cmcu.common.util.ModelUtil;
 import com.cmcu.mcc.five.service.FiveEdService;
 import org.springframework.stereotype.Controller;

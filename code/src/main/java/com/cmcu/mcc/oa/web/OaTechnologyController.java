@@ -1,6 +1,6 @@
 package com.cmcu.mcc.oa.web;
 
-import com.cmcu.common.JsonData;
+import com.common.model.JsonData;
 import com.cmcu.common.util.WebUtil;
 import com.cmcu.mcc.oa.dto.OaNoticeDto;
 import com.cmcu.mcc.oa.dto.OaTechnologyDto;

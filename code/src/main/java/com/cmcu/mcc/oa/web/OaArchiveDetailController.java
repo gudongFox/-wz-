@@ -1,6 +1,6 @@
 package com.cmcu.mcc.oa.web;
 
-import com.cmcu.common.JsonData;
+import com.common.model.JsonData;
 import com.cmcu.common.util.JsonMapper;
 import com.cmcu.common.web.RequestHolder;
 import com.cmcu.mcc.oa.entity.OaArchiveDetail;

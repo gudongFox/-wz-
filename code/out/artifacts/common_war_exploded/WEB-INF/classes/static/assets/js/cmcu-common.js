@@ -716,7 +716,11 @@ function setCacheParams(key, params, pageInfo) {
                             } else if (text.indexOf("办理人") >= 0) {
                                 $(childs[1]).val(task.assigneeName);
                             } else if (text.indexOf("办理意见") >= 0) {
-                                $(childs[1]).val(options.comment);
+                                if (task.currentComment!=''){
+                                    $(childs[1]).val(task.currentComment);
+                                }else {
+                                    $(childs[1]).val(options.comment);
+                                }
                             }
                         }
                     });
@@ -928,7 +932,12 @@ function setCacheParams(key, params, pageInfo) {
                             } else if (text.indexOf("办理人") >= 0) {
                                 $(childs[1]).val(task.assigneeName);
                             } else if (text.indexOf("办理意见") >= 0) {
-                                $(childs[1]).val(options.comment);
+                                if (task.currentComment!=''){
+                                    $(childs[1]).val(task.currentComment);
+                                }else {
+                                    $(childs[1]).val(options.comment);
+                                }
+
                             }
                         }
                     });
@@ -1076,7 +1085,11 @@ function setCacheParams(key, params, pageInfo) {
                             } else if (text.indexOf("办理人") >= 0) {
                                 $(childs[1]).val(task.assigneeName);
                             } else if (text.indexOf("办理意见") >= 0) {
-                                $(childs[1]).val(options.comment);
+                                if (task.currentComment!=''){
+                                    $(childs[1]).val(task.currentComment);
+                                }else {
+                                    $(childs[1]).val(options.comment);
+                                }
                             }
                         }
                     });
@@ -1225,7 +1238,11 @@ function setCacheParams(key, params, pageInfo) {
                             } else if (text.indexOf("办理人") >= 0) {
                                 $(childs[1]).val(task.assigneeName);
                             } else if (text.indexOf("办理意见") >= 0) {
-                                $(childs[1]).val(options.comment);
+                                if (task.currentComment!=''){
+                                    $(childs[1]).val(task.currentComment);
+                                }else {
+                                    $(childs[1]).val(options.comment);
+                                }
                             }
                         }
                     });

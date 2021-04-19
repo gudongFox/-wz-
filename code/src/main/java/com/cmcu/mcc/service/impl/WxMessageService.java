@@ -3,6 +3,7 @@ package com.cmcu.mcc.service.impl;
 import com.cmcu.act.dto.CustomProcessInstance;
 import com.cmcu.act.service.ProcessQueryService;
 import com.cmcu.common.dao.CommonWxMessageMapper;
+import com.cmcu.common.dto.FastUserDto;
 import com.cmcu.common.dto.UserDto;
 import com.cmcu.common.entity.CommonWxMessage;
 import com.cmcu.common.service.CommonFormDataService;
@@ -40,9 +41,9 @@ public class WxMessageService implements IWxMessageService {
     TaskExecutor taskExecutor;
 
     @Override
-    public void sendCommonFormDataMessage(String businessKey, List<UserDto> receivers) {
+    public void sendCommonFormDataMessage(String businessKey, List<FastUserDto> receivers) {
         if(StringUtils.isNotEmpty(businessKey)) {
-            log.error("businessKey=" + businessKey + ",receivers=" +StringUtils.join(receivers.stream().map(UserDto::getEnLogin).distinct().collect(Collectors.toList()),","));
+            log.error("businessKey=" + businessKey + ",receivers=" +StringUtils.join(receivers.stream().map(FastUserDto::getEnLogin).distinct().collect(Collectors.toList()),","));
             try {
                 Thread.sleep(500);
                 Map keyMap = commonFormDataService.getFormKeyMap(businessKey);
@@ -50,7 +51,7 @@ public class WxMessageService implements IWxMessageService {
                     log.error(businessKey + "表单配置存在问题!");
                 }
                 int seq = 1;
-                for (UserDto user : receivers.stream().distinct().collect(Collectors.toList())) {
+                for (FastUserDto user : receivers.stream().distinct().collect(Collectors.toList())) {
                     keyMap.put("enLogin",user.getEnLogin());
                     CustomProcessInstance customProcessInstance = processQueryService.getCustomProcessInstance("", businessKey, user.getEnLogin());
                     String taskStatusName = customProcessInstance.getInstance().getProcessDefinitionName();

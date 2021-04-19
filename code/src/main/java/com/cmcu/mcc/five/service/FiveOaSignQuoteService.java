@@ -392,6 +392,11 @@ public class FiveOaSignQuoteService extends BaseService {
 
 
         for (ActHistoryDto dto:actHistoryDtos){
+            //替换 pc^ 图标问题
+            if(dto.getComment()!=null){
+                dto.setComment(dto.getComment().replace("pc^",""));
+            }
+
             if (dto.getActivityName()==null){
                 break;
             }

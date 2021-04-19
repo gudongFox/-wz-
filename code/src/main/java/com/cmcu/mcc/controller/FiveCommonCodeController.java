@@ -1,6 +1,6 @@
 package com.cmcu.mcc.controller;
 
-import com.cmcu.common.JsonData;
+import com.common.model.JsonData;
 import com.cmcu.mcc.service.impl.FiveCommonCodeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -359,30 +359,31 @@
                     vm.printData=value.data.data;
                     lodop=getLodop();
                     lodop.PRINT_INIT("中国五洲工程设计集团有限公司发文单");
+
                     if (vm.printData.flag=='不会签'){
                         var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                         setTimeout(function () {
                             var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
                             lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
-                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
-                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
-                        lodop.NewPageA();
+                            lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                            lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                            lodop.NewPageA();
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
-                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
+                            lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                             lodop.PREVIEW();
-                        }, 500);
+                        }, 2000);
                     }else if (vm.printData.flag=='通用会签'){
                         var strBodyStyle = "<style>" + document.getElementById("print_style_common").innerHTML + "</style>";
                         setTimeout(function () {
-                            var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area_common").innerHTML + "</body>";
-                            lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
-                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
-                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
-                        lodop.NewPageA();
+                            var strFormHtml = strBodyStyle + "<body>" + document.getElementById("print_area_common").innerHTML + "</body>";
+                            lodop.ADD_PRINT_HTM(0, '1%', "94%", '25mm', document.getElementById("page_index").innerHTML);
+                            lodop.SET_PRINT_STYLEA(0, "ItemType", 1);
+                            lodop.SET_PRINT_STYLEA(0, "LinkedItem", 1);
+                            lodop.NewPageA();
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
-                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
+                            lodop.SET_PRINT_STYLEA(0, "Vorient", 3);
                             lodop.PREVIEW();
-                        }, 500);
+                        }, 2000);
                     }else if (vm.printData.flag=='制度会签'){
                         var strBodyStyle = "<style>" + document.getElementById("print_area_system").innerHTML + "</style>";
                         setTimeout(function () {
@@ -394,7 +395,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                             lodop.PREVIEW();
-                        }, 500);
+                        }, 2000);
                     }
 
                 }
@@ -739,7 +740,7 @@
                 if(value.data.ret){
                     lodop=getLodop();
                     vm.printData=value.data.data;
-                    lodop.PRINT_INIT("中国五洲工程设计集团有限公司发文单");
+                    lodop.PRINT_INIT("中国五洲工程设计集团有限公司收文单");
                     var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
                     setTimeout(function () {
                         var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
@@ -750,7 +751,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 500);
                 }
             })
         }
@@ -1011,7 +1012,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         }
@@ -1144,7 +1145,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         };
@@ -1608,7 +1609,7 @@
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.SET_PRINT_STYLEA(0,"HtmWaitMilSecs",500);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         }
@@ -1995,7 +1996,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         }
@@ -2338,7 +2339,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         };
@@ -2943,7 +2944,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         };
@@ -3110,7 +3111,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         };
@@ -3573,7 +3574,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         }
@@ -3958,7 +3959,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         };
@@ -4304,7 +4305,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         }
@@ -4530,7 +4531,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         }
@@ -4701,7 +4702,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         };
@@ -4962,7 +4963,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         };
@@ -5252,7 +5253,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         };
@@ -5570,7 +5571,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         };
@@ -6024,7 +6025,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         };
@@ -6323,7 +6324,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         };
@@ -6584,7 +6585,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         }
@@ -6936,7 +6937,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         }
@@ -7071,7 +7072,6 @@
         var uiSref="five.oaNonSecretEquipmentScrap";
         var nonSecretEquipmentScrapId = $stateParams.nonSecretEquipmentScrapId;
         var tableName = $rootScope.loadTableName(uiSref);
-
         vm.init=function(){
             $scope.loadRightData(user.userLogin,uiSref);
             vm.loadData(true);
@@ -7087,7 +7087,6 @@
                         $scope.basicInit(vm.item.businessKey);
                     }
                     $("#applyTime").datepicker('setDate', vm.item.applyTime);
-                    $("#startTime").datepicker('setDate', vm.item.startTime);
                 }
             })
 
@@ -7127,7 +7126,7 @@
 
         //发送流程验证
         $scope.showSendTask=function(send){
-            if ($("#detail_form").validate().form()) {
+            if (vm.item.equipmentNo && $("#detail_form").validate().form()) {
                 vm.item.operateUserLogin = user.userLogin;
                 //验证是否上传附件内容
                /* commonFileService.listData(vm.item.businessKey,0).then(function(value){
@@ -7233,11 +7232,13 @@
         }
 
         vm.saveComputer = function (computer) {
+            vm.item.equipmentType = computer.equipmentType; //设备类型
             vm.item.equipmentNo=computer.computerNo;//设备编号
             vm.item.equipmentName=computer.computerName;//设备名称
             vm.item.equipmentSerial=computer.equipmentNo;
-            vm.item.hardNo=computer.hardNo;
+            vm.item.hardNo=computer.hardDiskNo;
             vm.item.assetsNo= computer.fixedAssetNo;//固定资产编号
+            vm.item.startTime = computer.useTime;
             $("#selectComputerModal").modal("hide");
            // vm.save();
         }
@@ -7262,7 +7263,7 @@
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.SET_PRINT_PAGESIZE(2,0,0,"A4");
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         };
@@ -7498,7 +7499,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         }
@@ -7752,7 +7753,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         }
@@ -7971,7 +7972,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         };
@@ -8231,7 +8232,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         };
@@ -8493,7 +8494,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         };
@@ -8711,7 +8712,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         };
@@ -8983,7 +8984,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         };
@@ -9219,7 +9220,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         };
@@ -9515,7 +9516,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         };
@@ -9732,7 +9733,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         };
@@ -9991,7 +9992,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         };
@@ -10200,7 +10201,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         }
@@ -10444,7 +10445,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         }
@@ -10673,7 +10674,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         }
@@ -10882,7 +10883,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         };
@@ -11145,7 +11146,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         };
@@ -11376,7 +11377,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         };
@@ -11578,7 +11579,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         }
@@ -11786,7 +11787,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         };
@@ -11994,7 +11995,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         };
@@ -12202,7 +12203,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         };
@@ -12437,7 +12438,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         };
@@ -12647,7 +12648,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         };
@@ -12879,7 +12880,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         };
@@ -13114,7 +13115,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         };
@@ -13369,7 +13370,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         };
@@ -13571,7 +13572,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         };
@@ -13819,7 +13820,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         };
@@ -14032,7 +14033,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         }
@@ -14352,7 +14353,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         };
@@ -14565,7 +14566,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         }
@@ -14850,7 +14851,7 @@
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.SET_PRINT_PAGESIZE(2,0,0,"A4");
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         };
@@ -15125,7 +15126,7 @@
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.SET_PRINT_PAGESIZE(2,0,0,"A4");
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         };
@@ -15490,7 +15491,7 @@
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.SET_PRINT_PAGESIZE(2,0,0,"A4");
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         };
@@ -15747,7 +15748,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         };
@@ -15903,7 +15904,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         }
@@ -16045,7 +16046,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         }
@@ -16212,7 +16213,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         }
@@ -16477,7 +16478,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         };
@@ -16671,7 +16672,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         };
@@ -16889,7 +16890,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         }
@@ -17066,7 +17067,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         }
@@ -17242,7 +17243,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         }
@@ -17417,7 +17418,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         }
@@ -18058,7 +18059,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         }
@@ -18317,7 +18318,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         }
@@ -18865,7 +18866,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                }, 2000);
                 }
             })
         }

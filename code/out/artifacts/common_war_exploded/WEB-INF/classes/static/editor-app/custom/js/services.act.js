@@ -295,12 +295,13 @@
             return deferred.promise;
         };
 
-        var listProcessCategoryTree = function (enLogin) {
+        var listProcessCategoryTree = function (tenetId,enLogin) {
             var deferred = $q.defer();
             return $http({
                 method: 'POST',
                 url: '/act/processQuery/listProcessCategoryTree.json',
                 params:{
+                    tenetId:tenetId,
                     enLogin:enLogin
                 }
             }).success(function (data) {
@@ -339,8 +340,8 @@
             getNgDirectUrl:function (businessKey) {
                 return getNgDirectUrl(businessKey);
             },
-            listProcessCategoryTree:function (enLogin) {
-                return listProcessCategoryTree(enLogin);
+            listProcessCategoryTree:function (tenetId,enLogin) {
+                return listProcessCategoryTree(tenetId,enLogin);
             }
         }
     })

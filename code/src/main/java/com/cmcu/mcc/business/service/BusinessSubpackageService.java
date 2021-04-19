@@ -753,7 +753,8 @@ public class BusinessSubpackageService extends BaseService {
                 //判断顺序代码最大值
                 if (!businessSubpackages.isEmpty()){
                     for (BusinessSubpackage businessSubpackage:businessSubpackages){
-                        if(!Strings.isNullOrEmpty(businessSubpackage.getSubContractNo())) {
+                        //排除 补充合同
+                        if(businessSubpackage.getMainContractLibraryId()==0&&!Strings.isNullOrEmpty(businessSubpackage.getSubContractNo())) {
                             String subContractNo = businessSubpackage.getSubContractNo();
                             //如果存在 H  去除 H
                             if (subContractNo.startsWith("H")) {

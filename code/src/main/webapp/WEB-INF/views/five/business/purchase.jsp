@@ -59,7 +59,7 @@
                                 <th>主合同名称</th>
                                 <th style="width: 100px">合同金额</th>
                                <%-- <th style="width: 30px;">印花税状态</th>--%>
-                                <th style="width: 60px">经办人</th>
+                                <th style="width: 60px">发起人</th>
                                 <th style="width: 100px;">创建时间</th>
                                 <th style="width: 150px">流程状态</th>
                                 <th style="width: 55px">操作</th>

@@ -1,7 +1,7 @@
 package com.cmcu.mcc.sys.web;
 
 
-import com.cmcu.common.JsonData;
+import com.common.model.JsonData;
 import com.cmcu.common.entity.CommonConfig;
 import com.cmcu.common.service.CommonConfigService;
 import org.springframework.web.bind.annotation.*;

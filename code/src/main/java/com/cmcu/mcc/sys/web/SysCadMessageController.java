@@ -1,6 +1,6 @@
 package com.cmcu.mcc.sys.web;
 
-import com.cmcu.common.JsonData;
+import com.common.model.JsonData;
 import com.cmcu.mcc.sys.service.SysCadMessageService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

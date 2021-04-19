@@ -1004,5 +1004,19 @@ public class SelectEmployeeService {
         });
     }
 
+    //查询是否为部门的正副职
+    public int getDeptIdByChargeMan(String enLogin){
+        int deptId = 0;
+        List<HrDeptDto> hrDeptDtos = hrDeptService.selectAll();
+        for(HrDeptDto dto:hrDeptDtos){
+            List<String> firstLeader = MyStringUtil.getStringList(dto.getDeptFirstLeader());
+            List<String> secondLeader = MyStringUtil.getStringList(dto.getDeptSecondLeader());
+            if (firstLeader.contains(enLogin)||secondLeader.contains(enLogin)){
+                deptId =dto.getId();
+            }
+        }
+        return deptId;
+    }
+
 
 }

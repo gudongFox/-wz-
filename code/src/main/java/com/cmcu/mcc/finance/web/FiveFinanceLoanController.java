@@ -1,6 +1,6 @@
 package com.cmcu.mcc.finance.web;
 
-import com.cmcu.common.JsonData;
+import com.common.model.JsonData;
 import com.cmcu.common.util.WebUtil;
 import com.cmcu.mcc.finance.dto.FiveFinanceLoanDto;
 import com.cmcu.mcc.finance.entity.FiveFinanceLoanDetail;

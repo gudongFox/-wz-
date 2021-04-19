@@ -215,7 +215,7 @@ public class FiveBusinessAdvanceSevice extends BaseService {
         model.setCreatorName(item.getCreatorName());
         model.setGmtCreate(new Date());
         model.setSeq(item.getSeq());
-        model.setProjectBonus(item.getProjectBonus());
+        model.setProjectBonus(MyStringUtil.moneyToString(item.getProjectBonus(),2));
         model.setPersonnelCategory(item.getPersonnelCategory());
         fiveBusinessAdvanceDetailMapper.updateByPrimaryKey(model);
 
@@ -248,7 +248,7 @@ public class FiveBusinessAdvanceSevice extends BaseService {
         params.put("deleted",false);
         params.put("advanceId",advanceId);//小写
         List<FiveBusinessAdvanceDetail> list = fiveBusinessAdvanceDetailMapper.selectAll(params).stream()
-                .sorted(Comparator.comparing(FiveBusinessAdvanceDetail::getSeq)).collect(Collectors.toList());
+                .sorted(Comparator.comparing(FiveBusinessAdvanceDetail::getId)).collect(Collectors.toList());
         return list;
     }
 
@@ -301,6 +301,15 @@ public class FiveBusinessAdvanceSevice extends BaseService {
         Assert.state(data.size() > 1,"数据为空、数据填写异常，请准确按照模板填写!");
         Date now = new Date();
         //Assert.state(data.get(0).size()>=9,"每行数据应为12列(请严格按照模板填写数据)!");
+        //删除原子表数据
+        Map<String, Object> params = Maps.newHashMap();
+        params.put("advanceId", advanceId);
+        params.put("deleted",false);
+        List<FiveBusinessAdvanceDetail> fiveBusinessAdvanceDetails = fiveBusinessAdvanceDetailMapper.selectAll(params);
+        for(FiveBusinessAdvanceDetail detail:fiveBusinessAdvanceDetails){
+            detail.setDeleted(true);
+            fiveBusinessAdvanceDetailMapper.updateByPrimaryKey(detail);
+        }
 
         if (data.size() > 0) {
             for (int i = 1; i < data.size(); i++) {
@@ -308,14 +317,8 @@ public class FiveBusinessAdvanceSevice extends BaseService {
                     Map map = data.get(i);
                     Assert.state(!map.get(1).toString().equals(""),"请准确填写职工号");
 
-                    Map<String, Object> params = Maps.newHashMap();
-                    params.put("advanceId", advanceId);
-                    params.put("personNo", map.get(1).toString());
                     FiveBusinessAdvanceDetail detail = new FiveBusinessAdvanceDetail();
-                    if (fiveBusinessAdvanceDetailMapper.selectAll(params).size() > 0) {
-                        //判断是否跟新已填写的数据
-                        detail=fiveBusinessAdvanceDetailMapper.selectAll(params).get(0);
-                    }
+
                     detail.setAdvanceId(advanceId);
                     detail.setPersonNo(map.get(1).toString().replace(".0",""));
                     detail.setPersonName(map.get(2).toString());
@@ -331,7 +334,7 @@ public class FiveBusinessAdvanceSevice extends BaseService {
 
 
                     detail.setPersonnelCategory(map.get(4).toString());
-                    detail.setProjectBonus(map.get(5).toString());
+                    detail.setProjectBonus(MyStringUtil.moneyToString(map.get(5).toString(),2));
                     detail.setRemark(map.get(6).toString());
                     if (detail.getId() == null || detail.getId() == 0) {
                         detail.setGmtCreate(new Date());
@@ -350,5 +353,7 @@ public class FiveBusinessAdvanceSevice extends BaseService {
             }
         }
     }
+
+
 
 }

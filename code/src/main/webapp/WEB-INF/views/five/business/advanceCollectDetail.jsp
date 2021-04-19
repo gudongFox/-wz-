@@ -96,11 +96,13 @@
                                     <select ng-options="s.codeValue as s.name for s in sysCodes | filter:{codeCatalog:'申报类型'}:true"
                                             ng-model="vm.item.declareType" class="form-control" ng-disabled="!processInstance.firstTask"></select>
                                 </div>
-                                <label class="col-md-2 control-label " style="font-weight: bold; color: red" ng-show="processInstance.firstTask">导出已上报数据统计表</label>
+                                <label class="col-md-2 control-label " style="font-weight: bold; color: red" ng-show="processInstance.firstTask">导出已上报数据</label>
                                 <div class="col-md-4">
                                     <a href="javascript:;" class="  btn btn-sm default" ng-show="processInstance.firstTask"
                                        ng-click="vm.downCollect();" >
-                                        <i class="fa fa-cloud-download"></i> 下载 </a>
+                                        <i class="fa fa-cloud-download"></i> 数据统计 </a>
+                                    <a class="btn btn-sm green" ng-click="vm.downTotalData()" target="_blank">
+                                        <i class="fa fa-cloud-download"></i> 数据汇总</a>
                                 </div>
                             </div>
 
@@ -159,6 +161,41 @@
     </div>
 </div>
 
+<%--子表详情--%>
+<div class="portlet light">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-file"></i>明细
+            <a href="javascript:;" class="btn btn-sm btn-default" ng-click="vm.showDetailModel();"  style="font-size: 14px;line-height: 1.6">
+                <i class="fa fa-refresh"></i> 刷新 </a>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="table-scrollable" style="max-height: 500px;overflow-y: auto;">
+            <table class="table table-striped table-hover table-bordered table-advance no-footer">
+                <thead>
+                <tr>
+                    <th style="width: 35px;">序号</th>
+                    <th >单位名称</th>
+                    <th>申请额度（万元）</th>
+                    <th>公司核定额度（万元）</th>
+                    <th>实际发放额度（万元）</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="detail in vm.details">
+                    <td class="dt-right" ng-bind="$index+1" >
+                    </td>
+                    <td ng-bind="detail.deptName"></td>
+                    <td ng-bind="detail.applyMoney"></td>
+                    <td ng-bind="detail.companyMoney"></td>
+                    <td ng-bind="detail.realMoney"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 <div ng-include="'/web/v1/tpl/cloudDirAndFile.html'"  ng-init="fileTplTitle='业务附件'"></div>
 
 <jsp:include page="../print/print.jsp"/>

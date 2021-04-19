@@ -1,6 +1,6 @@
 package com.cmcu.mcc.sys.web;
 
-import com.cmcu.common.JsonData;
+import com.common.model.JsonData;
 import com.cmcu.common.entity.CommonAttach;
 import com.cmcu.common.service.CommonAttachService;
 import com.cmcu.common.util.JsonMapper;

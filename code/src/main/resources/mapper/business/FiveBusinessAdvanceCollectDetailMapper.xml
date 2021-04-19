@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.mcc.business.dao.FiveBusinessAdvanceCollectDetailMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.business.entity.FiveBusinessAdvanceCollectDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="collect_id" jdbcType="INTEGER" property="collectId" />
+    <result column="dept_id" jdbcType="VARCHAR" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="apply_money" jdbcType="VARCHAR" property="applyMoney" />
+    <result column="company_money" jdbcType="VARCHAR" property="companyMoney" />
+    <result column="real_money" jdbcType="VARCHAR" property="realMoney" />
+    <result column="seq" jdbcType="INTEGER" property="seq" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="advance_id" jdbcType="INTEGER" property="advanceId" />
+    <result column="declare_type" jdbcType="VARCHAR" property="declareType" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from five_business_advance_collect_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.mcc.business.entity.FiveBusinessAdvanceCollectDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into five_business_advance_collect_detail (collect_id, dept_id, dept_name, 
+      apply_money, company_money, real_money, 
+      seq, creator, creator_name, 
+      is_deleted, gmt_create, gmt_modified, 
+      remark, advance_id, declare_type
+      )
+    values (#{collectId,jdbcType=INTEGER}, #{deptId,jdbcType=VARCHAR}, #{deptName,jdbcType=VARCHAR}, 
+      #{applyMoney,jdbcType=VARCHAR}, #{companyMoney,jdbcType=VARCHAR}, #{realMoney,jdbcType=VARCHAR}, 
+      #{seq,jdbcType=INTEGER}, #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR}, #{advanceId,jdbcType=INTEGER}, #{declareType,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.business.entity.FiveBusinessAdvanceCollectDetail">
+    update five_business_advance_collect_detail
+    set collect_id = #{collectId,jdbcType=INTEGER},
+      dept_id = #{deptId,jdbcType=VARCHAR},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      apply_money = #{applyMoney,jdbcType=VARCHAR},
+      company_money = #{companyMoney,jdbcType=VARCHAR},
+      real_money = #{realMoney,jdbcType=VARCHAR},
+      seq = #{seq,jdbcType=INTEGER},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      advance_id = #{advanceId,jdbcType=INTEGER},
+      declare_type = #{declareType,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, collect_id, dept_id, dept_name, apply_money, company_money, real_money, 
+    seq, creator, creator_name, is_deleted, gmt_create, gmt_modified, remark, advance_id, 
+    declare_type
+    from five_business_advance_collect_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, collect_id, dept_id, dept_name, apply_money, company_money, real_money, 
+    seq, creator, creator_name, is_deleted, gmt_create, gmt_modified, remark, advance_id, 
+    declare_type
+    from five_business_advance_collect_detail
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="collectId != null and isLikeSelect==null">
+         AND collect_id = #{collectId}
+      </if>
+      <if test="deptId != null and isLikeSelect==null and deptId != ''">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and isLikeSelect==null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="applyMoney != null and isLikeSelect==null and applyMoney != ''">
+         AND apply_money = #{applyMoney}
+      </if>
+      <if test="companyMoney != null and isLikeSelect==null and companyMoney != ''">
+         AND company_money = #{companyMoney}
+      </if>
+      <if test="realMoney != null and isLikeSelect==null and realMoney != ''">
+         AND real_money = #{realMoney}
+      </if>
+      <if test="seq != null and isLikeSelect==null">
+         AND seq = #{seq}
+      </if>
+      <if test="creator != null and isLikeSelect==null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deleted != null and isLikeSelect==null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="remark != null and isLikeSelect==null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="advanceId != null and isLikeSelect==null">
+         AND advance_id = #{advanceId}
+      </if>
+      <if test="declareType != null and isLikeSelect==null and declareType != ''">
+         AND declare_type = #{declareType}
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="deptId != null and isLikeSelect!= null and deptId != '' ">
+         AND dept_id like  CONCAT('%',#{deptId},'%')
+      </if>
+      <if test="deptName != null and isLikeSelect!= null and deptName != '' ">
+         AND dept_name like  CONCAT('%',#{deptName},'%')
+      </if>
+      <if test="applyMoney != null and isLikeSelect!= null and applyMoney != '' ">
+         AND apply_money like  CONCAT('%',#{applyMoney},'%')
+      </if>
+      <if test="companyMoney != null and isLikeSelect!= null and companyMoney != '' ">
+         AND company_money like  CONCAT('%',#{companyMoney},'%')
+      </if>
+      <if test="realMoney != null and isLikeSelect!= null and realMoney != '' ">
+         AND real_money like  CONCAT('%',#{realMoney},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="declareType != null and isLikeSelect!= null and declareType != '' ">
+         AND declare_type like  CONCAT('%',#{declareType},'%')
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="deptId != null and isLikeSelect!=null">
+         AND dept_id = #{deptId}
+      </if>
+    </where>
+  </sql>
+</mapper>

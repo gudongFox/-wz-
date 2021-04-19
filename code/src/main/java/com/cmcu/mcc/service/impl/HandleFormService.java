@@ -6,10 +6,7 @@ import com.cmcu.act.service.ProcessQueryService;
 import com.cmcu.common.dao.CommonFormDataMapper;
 import com.cmcu.common.dao.CommonFormDetailMapper;
 import com.cmcu.common.dao.CommonFormMapper;
-import com.cmcu.common.dto.CommonCodeDto;
-import com.cmcu.common.dto.DeptDto;
-import com.cmcu.common.dto.TplConfigDto;
-import com.cmcu.common.dto.UserDto;
+import com.cmcu.common.dto.*;
 import com.cmcu.common.entity.CommonCode;
 import com.cmcu.common.entity.CommonForm;
 import com.cmcu.common.entity.CommonFormData;
@@ -29,6 +26,7 @@ import com.cmcu.mcc.business.entity.BusinessCustomer;
 import com.cmcu.mcc.business.entity.BusinessSubpackage;
 import com.cmcu.common.service.IHandleFormService;
 import com.cmcu.mcc.business.service.BusinessContractService;
+import com.cmcu.mcc.business.service.FiveBusinessAdvanceCollectService;
 import com.cmcu.mcc.business.service.FiveBusinessAdvanceSevice;
 import com.cmcu.mcc.business.service.FiveBusinessContractReviewService;
 import com.cmcu.mcc.ed.dao.EdProjectTreeMapper;
@@ -134,6 +132,8 @@ public class HandleFormService implements IHandleFormService {
     BusinessContractService businessContractService;
     @Resource
     FiveBusinessTenderDocumentReviewMapper fiveBusinessTenderDocumentReviewMapper;
+    @Resource
+    FiveFinanceSubpackagePaymentMapper fiveFinanceSubpackagePaymentMapper;
 
 
 
@@ -1322,6 +1322,14 @@ public class HandleFormService implements IHandleFormService {
                     fiveOaStampApplyOfficeMapper.updateByPrimaryKey(p);
                 });
             }
+            else if (businessKey.startsWith("fiveFinanceSubpackagePayment")) {//分包工程付款
+                List<FiveFinanceSubpackagePayment> list = fiveFinanceSubpackagePaymentMapper.selectAll(params);
+                list.forEach(p -> {
+                    p.setDeleted(true);
+                    p.setGmtModified(new Date());
+                    fiveFinanceSubpackagePaymentMapper.updateByPrimaryKey(p);
+                });
+            }
 
 
         }
@@ -1347,7 +1355,7 @@ public class HandleFormService implements IHandleFormService {
     }
 
     private List<String> listDeptChargeMen(String enLogin) {
-        UserDto userDto = commonUserService.selectByEnLogin(enLogin);
+        FastUserDto userDto = commonUserService.getFastByEnLogin(enLogin);
         Optional<DeptDto> deptDto = commonUserService.selectAllDept(userDto.getTenetId()).stream().filter(p -> p.getId()==userDto.getDeptId()).findFirst();
         if (deptDto.isPresent()) {
             List<String> deptChargeMen = deptDto.get().getDeptChargeMen();
@@ -1989,6 +1997,8 @@ public class HandleFormService implements IHandleFormService {
     FiveOaMeetingRoomMapper fiveOaMeetingRoomMapper;
     @Resource
     FiveBusinessAdvanceSevice fiveBusinessAdvanceSevice;
+    @Resource
+    FiveBusinessAdvanceCollectService fiveBusinessAdvanceCollectService;
 
 
 
@@ -2569,7 +2579,12 @@ public class HandleFormService implements IHandleFormService {
         }
         else if (businessKey.startsWith("fiveBusinessContractLibrarySubpackage_")) {//信息化设备验收(多台)审批
             List<FiveBusinessContractLibrarySubpackage> list = fiveBusinessContractLibrarySubpackageMapper.selectAll(params);
-            if (list.size() > 0) item = list.get(0);        }
+            if (list.size() > 0) item = list.get(0);
+        }
+        else if (businessKey.startsWith("fiveFinanceSubpackagePayment_")) {//分包工程付款
+            List<FiveFinanceSubpackagePayment> list = fiveFinanceSubpackagePaymentMapper.selectAll(params);
+            if (list.size() > 0) item = list.get(0);
+        }
 
         if (item != null) {
             return JsonMapper.string2Map(JsonMapper.obj2String(item));
@@ -2793,6 +2808,21 @@ public class HandleFormService implements IHandleFormService {
                 item.add(new CommonCode(detail.getPersonnelCategory(),"人员类别",6));
                 item.add(new CommonCode(detail.getProjectBonus(),"金额（元）",6));
                 item.add(new CommonCode(detail.getRemark(),"备注",6));
+                list1.add(item);
+            }
+            result.add(item1);
+        }else if (businessKey.contains("fiveBusinessAdvanceCollect_")){
+            List<List<CommonCode>> list1 = Lists.newArrayList();
+            Map item1=Maps.newHashMap();
+            item1.put("name","预支详情");
+            item1.put("list",list1);
+            List<FiveBusinessAdvanceCollectDetail> detailList1 = fiveBusinessAdvanceCollectService.listDetail(Integer.parseInt(businessKey.split("_")[1]));
+            for (FiveBusinessAdvanceCollectDetail detail:detailList1){
+                List<CommonCode> item=Lists.newArrayList();
+                item.add(new CommonCode(detail.getDeptName(),"单位名称",6));
+                item.add(new CommonCode(detail.getApplyMoney(),"申请金额（万元）",6));
+                item.add(new CommonCode(detail.getCompanyMoney(),"公司核定额度（万元）",6));
+                item.add(new CommonCode(detail.getRealMoney(),"实际发放额度（万元）",6));
                 list1.add(item);
             }
             result.add(item1);

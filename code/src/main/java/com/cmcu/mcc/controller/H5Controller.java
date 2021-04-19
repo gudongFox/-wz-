@@ -1,6 +1,6 @@
 package com.cmcu.mcc.controller;
 
-import com.cmcu.common.JsonData;
+import com.common.model.JsonData;
 import com.cmcu.mcc.service.H5Service;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;

@@ -1,6 +1,6 @@
 package com.cmcu.mcc.supervise.web;
 
-import com.cmcu.common.JsonData;
+import com.common.model.JsonData;
 import com.cmcu.common.util.WebUtil;
 import com.cmcu.mcc.supervise.dto.FiveOaSuperviseFileDto;
 import com.cmcu.mcc.supervise.service.FiveOaSuperviseFileService;

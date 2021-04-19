@@ -289,7 +289,8 @@ public class ActService {
            else {
                 List<Comment> comments = taskService.getTaskComments(item.getTaskId());
                 if (comments.size() > 0) {
-                    actHistoryDto.setComment(((CommentEntityImpl)comments.get(0)).getMessage());//默认第一条评论
+                    String message = ((CommentEntityImpl) comments.get(0)).getMessage();
+                    actHistoryDto.setComment(message);//默认第一条评论
                 }
 
                 boolean passed = true;

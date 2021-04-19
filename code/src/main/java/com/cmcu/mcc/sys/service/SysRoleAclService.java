@@ -6,6 +6,7 @@ import com.cmcu.mcc.hr.dao.HrEmployeeMapper;
 import com.cmcu.mcc.hr.dao.HrPositionMapper;
 import com.cmcu.mcc.hr.dto.HrEmployeeDto;
 import com.cmcu.mcc.hr.entity.HrPosition;
+import com.cmcu.mcc.hr.service.SelectEmployeeService;
 import com.cmcu.mcc.sys.dao.*;
 import com.cmcu.mcc.sys.dto.SysAclDto;
 import com.cmcu.mcc.sys.dto.SysRoleAclDto;
@@ -47,6 +48,8 @@ public class SysRoleAclService {
 
     @Resource
     HrPositionMapper hrPositionMapper;
+    @Resource
+    SelectEmployeeService selectEmployeeService;
 
     public List<SysRoleAclDto> listAclByRoleId(String q,int roleId) {
         Map<String, Object> params = Maps.newHashMap();
@@ -530,6 +533,13 @@ public class SysRoleAclService {
             List<Map> list = Lists.newArrayList();
             //得到用户的功能列表Id
             List<Integer> aclIds = listMyAclByUserLogin(enLogin).stream().map(p -> Integer.parseInt(p.get("aclId").toString())).distinct().collect(Collectors.toList());
+
+            //21.4.14 xxin 额外添加 部门正副值 拥有合同库权限
+            if(selectEmployeeService.getDeptIdByChargeMan(enLogin)!=0){
+                aclIds.add(227);//签入合同库
+                aclIds.add(248);//分包丶采购合同库
+                aclIds.add(247);//合同收费
+            }
             if (aclIds.size() > 0) {
                 //得到用户的菜单功能列表
                 Map aclMapParams = Maps.newHashMap();
@@ -548,6 +558,7 @@ public class SysRoleAclService {
                 }
                 list.sort(Comparator.comparing(p -> Integer.parseInt(p.get("seq").toString())));
             }
+
             return Optional.ofNullable(list);
         });
         return menus;

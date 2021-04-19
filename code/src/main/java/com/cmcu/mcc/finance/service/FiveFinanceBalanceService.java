@@ -1,6 +1,7 @@
 package com.cmcu.mcc.finance.service;
 
 import com.cmcu.act.dto.CustomProcessInstance;
+import com.cmcu.act.dto.CustomSimpleProcessInstance;
 import com.cmcu.act.service.TaskHandleService;
 import com.cmcu.common.service.BaseService;
 import com.cmcu.common.service.CommonCodeService;
@@ -140,7 +141,7 @@ public class FiveFinanceBalanceService extends BaseService {
         dto.setProcessName("已完成");
 
         if(StringUtils.isNotEmpty(dto.getProcessInstanceId())){
-            CustomProcessInstance customProcessInstance = processQueryService.getCustomProcessInstance(dto.getProcessInstanceId
+            CustomSimpleProcessInstance customProcessInstance = processQueryService.getCustomSimpleProcessInstance(dto.getProcessInstanceId
                     (), "", "");
             //MyProcessInstance processInstanceDto = myHistoryService.getMyProcessInstance(model.getProcessInstanceId(),"");
             dto.setProcessName(customProcessInstance.getCurrentTaskName());

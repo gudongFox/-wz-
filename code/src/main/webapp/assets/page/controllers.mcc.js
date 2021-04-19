@@ -882,6 +882,12 @@
                 language: 'zh-CN',
                 startDate:new Date()
             });
+            $('.date-picker-before-now').datepicker({
+                orientation: "auto",
+                autoclose: true,
+                language: 'zh-CN',
+                endDate:new Date()
+            });
 
             $('.form_datetime').datetimepicker({
                 autoclose: true,
@@ -3012,20 +3018,38 @@
     .controller("FiveDashboardController", function ($state, $scope,$rootScope,sysUserService,actService,myActService,actProcessQueryService,edFileService,oaNoticeService,hrDeptService,hrEmployeeService,actTaskQueryService, actTaskHandleService,actProcessQueryService,actProcessHandleService, commonCodeService) {
         var vm = this;
 
-        vm.taskPageInfo = {pageNum: 1, pageSize: $scope.pageSize,total: $scope.pageSize};
-        vm.taskParams={processDefinitionName:"",description:""};
 
-        vm.ccTaskPageInfo = {pageNum: 1, pageSize: $scope.pageSize,total: 0};
-        vm.ccTaskParams={initiator:"",description:"",qInitiator:"",qDescription:""};
 
-        vm.taskDonePageInfo = {pageNum: 1, pageSize: $scope.pageSize,total: $scope.pageSize};
-        vm.doneParams={processDefinitionName:"",description:"",initiator:""};
-
-        vm.myPageInfo = {pageNum: 1, pageSize: $scope.pageSize,total: $scope.pageSize};
-        vm.myParams={processDefinitionName:"",description:"",finish:""};
-
-        vm.taskCondition={modelCategory:"",selectText:"全部",tableName:"待办任务"};
         vm.init=function() {
+
+
+
+            var cacheParams = getNgParam($state, {modelCategory: "", processDefinitionKey: ""});
+            vm.modelCategory=cacheParams.modelCategory;
+            vm.processDefinitionKey=cacheParams.processDefinitionKey;
+            vm.taskPageInfo = {pageNum: 1, pageSize: $scope.pageSize,total: $scope.pageSize};
+            vm.taskParams={processDefinitionName:"",description:""};
+
+            vm.ccTaskPageInfo = {pageNum: 1, pageSize: $scope.pageSize,total: 0};
+            vm.ccTaskParams={initiator:"",description:"",qInitiator:"",qDescription:""};
+
+            vm.taskDonePageInfo = {pageNum: 1, pageSize: $scope.pageSize,total: $scope.pageSize};
+            vm.doneParams={processDefinitionName:"",description:"",initiator:""};
+
+            vm.myPageInfo = {pageNum: 1, pageSize: $scope.pageSize,total: $scope.pageSize};
+            vm.myParams={processDefinitionName:"",description:"",finish:""};
+
+            vm.taskCondition={modelCategory:"",selectText:"全部",tableName:"待办任务"};
+
+            vm.loadTree();
+
+            vm.reloadTask();
+            vm.reloadCcTask();
+            vm.reloadDoneTask();
+            vm.reloadMyProcess();
+
+            //vm.loadTaskType(); 这是做什么的?ld删除
+
 
             $("#btnUploadHead").fileupload({
                 maxNumberOfFiles: 1,
@@ -3076,29 +3100,26 @@
                 }
             });
 
-            vm.reloadTask();
-            vm.reloadCcTask();
-            vm.reloadDoneTask();
-            vm.reloadMyProcess();
-
-            vm.loadTaskType();
-            vm.loadTree();
             $scope.basicInit();
         }
         //树形结构类型
         vm.loadTree=function(refresh) {
-            var cacheParams = getNgParam($state, {modelCategory: "", processDefinitionKey: ""});
-            if(refresh) {
-                cacheParams.modelCategory = "";
-                cacheParams.processDefinitionKey = "";
+
+            if (refresh) {
+                //加载全部
+                vm.modelCategory = "";
+                vm.processDefinitionKey = "";
+                $("#js_tree").jstree('deselect_all', true).vm.reloadAllTask();
+                return;
             }
-            actProcessQueryService.listProcessCategoryTree(user.enLogin).then(function (value) {
+
+            actProcessQueryService.listProcessCategoryTree(user.tenetId, user.enLogin).then(function (value) {
                 vm.processCategoryList = value.data.data;
-                if (cacheParams.processDefinitionKey) {
+                if (vm.processDefinitionKey) {
                     var parentId = "";
                     for (var i = 0; i < vm.processCategoryList.length; i++) {
                         var nodeData = vm.processCategoryList[i];
-                        if (nodeData.data == cacheParams.processDefinitionKey) {
+                        if (nodeData.data == vm.processDefinitionKey) {
                             nodeData.state.selected = true;
                             parentId = nodeData.parent;
                             break;
@@ -3111,48 +3132,54 @@
                             break;
                         }
                     }
-                } else if (cacheParams.modelCategory) {
+                } else if (vm.modelCategory) {
                     for (var i = 0; i < vm.processCategoryList.length; i++) {
                         var nodeData = vm.processCategoryList[i];
-                        if (nodeData.id ==cacheParams.modelCategory) {
+                        if (nodeData.id == vm.modelCategory) {
                             nodeData.state.opened = true;
-                            nodeData.state.selected=true;
+                            nodeData.state.selected = true;
                             break;
                         }
                     }
                 }
 
-                vm.modelCategory = "";
-                vm.processDefinitionKey = "";
+
                 $('#js_tree').jstree("destroy");
                 $('#js_tree')
                     .on('changed.jstree', function (e, data) {
                         var node = data.instance.get_node(data.selected[0]);
+                        var newCategory = "";
+                        var newKey = "";
                         if (node.data) {
-                            vm.modelCategory = "";
-                            vm.processDefinitionKey = node.data;
+                            newKey = node.data;
                         } else {
-                            vm.modelCategory = node.id;
-                            vm.processDefinitionKey = "";
+                            newCategory = node.id;
                         }
-                        setNgCache($state, {
-                            modelCategory: vm.modelCategory,
-                            processDefinitionKey: vm.processDefinitionKey
-                        });
-                        vm.reloadAllTask();
+
+                        if (vm.modelCategory != newCategory || vm.processDefinitionKey != newKey) {
+                            vm.modelCategory = newCategory;
+                            vm.processDefinitionKey = newKey;
+                            vm.reloadAllTask();
+                        }
                     })
                     .jstree({
                         'core': {
                             'data': vm.processCategoryList
                         }
                     });
-
-                vm.reloadAllTask();
             });
         }
 
+
+
         //查询调度方法
         vm.reloadAllTask=function() {
+
+            setNgCache($state, {
+                modelCategory: vm.modelCategory,
+                processDefinitionKey: vm.processDefinitionKey
+            });
+
             if (vm.taskCondition.tableName == "待办任务") {
                 vm.reloadTask();
             } else if (vm.taskCondition.tableName == "抄送我的") {
@@ -3683,6 +3710,7 @@
             toastr.success("刷新成功!");
             $rootScope.loadContentFiles(businessKey,false);
         }
+
 
     })
 

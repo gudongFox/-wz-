@@ -355,7 +355,7 @@ public class FiveOaBidApplyService {
         List<Integer> deptIdList=hrEmployeeSysService.getMyDeptList(userLogin,"five.businessRecord");
         params.put("deptIdList",deptIdList);
         params.put("processEnd",true);
-        businessRecords.addAll(businessRecordMapper.selectAll(params).stream().filter(p ->p.getBidApplyId()==0).collect(Collectors.toList()));
+        businessRecords.addAll(businessRecordMapper.selectAll(params));
 
         return businessRecords;
     }

@@ -1,5 +1,5 @@
 package com.cmcu.mcc.ed.web;
-import com.cmcu.common.JsonData;
+import com.common.model.JsonData;
 import com.cmcu.mcc.ed.service.EdProjectTreeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

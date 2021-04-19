@@ -257,7 +257,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                    }, 2000);
                 }
             })
         };
@@ -640,7 +640,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                    }, 2000);
                 }
             })
         };
@@ -942,7 +942,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                    }, 2000);
                 }
             })
         };
@@ -1336,7 +1336,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                    }, 2000);
                 }
             })
         };
@@ -1658,7 +1658,7 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                    }, 2000);
                 }
             })
         };

@@ -1,6 +1,6 @@
 package com.cmcu.mcc.sys.web;
 
-import com.cmcu.common.JsonData;
+import com.common.model.JsonData;
 import com.cmcu.mcc.sys.dto.SysAclDto;
 import com.cmcu.mcc.sys.service.SysAclModuleService;
 import com.cmcu.mcc.sys.service.SysAclService;

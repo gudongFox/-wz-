@@ -290,6 +290,8 @@ public class FiveBusinessContractLibraryService extends BaseService {
     }
 
     public PageInfo<Object> listPagedDataCommon(String uiSref,Map<String,Object> params, int pageNum, int pageSize) {
+        //权限 都取签入合同库的权限
+        uiSref = "five.businessContractLibrary";
         params.put("deleted",false);
         String userLogin = params.get("userLogin").toString();
         HrEmployeeSysDto hrEmployeeSysDto = hrEmployeeSysService.getModelByUserLogin(userLogin);

@@ -1,6 +1,6 @@
 package com.cmcu.mcc.oa.web;
 
-import com.cmcu.common.JsonData;
+import com.common.model.JsonData;
 import com.cmcu.common.dto.CommonFileDto;
 import com.cmcu.common.entity.CommonAttach;
 import com.cmcu.common.service.CommonAttachService;

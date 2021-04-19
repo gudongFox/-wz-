@@ -1,7 +1,7 @@
 package com.cmcu.mcc.controller;
 
 
-import com.cmcu.common.JsonData;
+import com.common.model.JsonData;
 import com.cmcu.common.act.dto.UserTaskDto;
 import com.cmcu.common.util.CookieSessionUtils;
 import com.cmcu.common.util.WebUtil;

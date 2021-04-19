@@ -6182,6 +6182,11 @@
                     4: {colName: 'deptName', placeholder: '请输入采购部门名称..'},
                     5: {colName: 'contractName', placeholder: '请输入主合同名称..'},
                     6: {colName: 'subContractMoney', placeholder: '请输入合同金额..'},
+                    7: {colName: 'creatorName', placeholder: '请输入发起人..'},
+                    8:{type:"input",colName:'gmtCreate'},
+                    9:{type:"select",colName:'processEnd',placeholder:'流程状态..',option:[{title:"全部",value:""},{title:"运行中",value:0},{title:"已完成",value:1}]}
+                    //注：当type为select时 会根据option创建下拉列表 option中
+
                 }, handleColumn: 10
             };
             tablefilter.queryFunction = vm.refreshPagedData;
@@ -7073,6 +7078,7 @@
             })
         };
 
+
         $scope.$on('ngRepeatFinished', function( ngRepeatFinishedEvent ) {
             var option={filterColumns:{
                     1:{type:"input",colName:'deptName',placeholder:'部门'},
@@ -7088,6 +7094,8 @@
             tablefilter.params=vm.params;
             tablefilter.initializeFilter(option);
         });
+
+
 
         vm.queryData();
 
@@ -7189,7 +7197,7 @@
         vm.showDeptModal=function(id) {
 
             $scope.showOaSelectEmployeeModal_({title:"请选择部门",type:"选部门", deptIdList: vm.item.deptId+"",
-                multiple:false,deptIds:"1",parentDeptId:2, bigDept:true
+                multiple:false,deptIds:"1",parentDeptId:2,
             });
 
         };
@@ -7772,7 +7780,7 @@
         return vm;
 
     })
-    .controller("FiveBusinessAdvanceCollectDetailController", function ($state,$stateParams,$rootScope,$scope,fiveBusinessAdvanceCollectService,commonPrintTableService) {
+    .controller("FiveBusinessAdvanceCollectDetailController", function ($state,$stateParams,$rootScope,$scope,fiveContentFileService,fiveBusinessAdvanceCollectService,commonPrintTableService) {
         var vm = this;
         var uiSref="five.businessAdvanceCollect";
         var tableName = $rootScope.loadTableName(uiSref);
@@ -7783,6 +7791,7 @@
         vm.init=function(){
             $scope.loadRightData(user.userLogin,uiSref);
             vm.loadData(true);
+            vm.loadDetail();
         }
         /*加载 红头文件和文档*/
         vm.loadDoc=function(){
@@ -7837,7 +7846,9 @@
                     if (loadProcess) {
                         $scope.loadProcessInstance(vm.item.processInstanceId);
                         $scope.basicInit(vm.item.businessKey);
+                        $rootScope.loadContentFiles(vm.item.businessKey,true);
                     }
+                    vm.loadDoc();
                 }
             })
         };
@@ -7851,7 +7862,7 @@
                 }
             })
         }
-
+        //数据统计
         vm.downCollect = function () {
             vm.item.operateUserLogin = user.userLogin;
             fiveBusinessAdvanceCollectService.downCollect(vm.item.id,vm.item.collectMonth).then(function (response) {
@@ -7880,7 +7891,48 @@
                 }
             })
         }
+        //导出汇总excel
+        vm.downTotalData = function () {
+            fiveBusinessAdvanceCollectService.downData(vm.item.id,user.userLogin).then(function (response) {
+                var blob = new Blob([response.data.data], {type: response.data.data.type});
+                if (response.data.data.type === "application/json") {
+                    var reader = new FileReader();
+                    reader.readAsText(blob, 'utf-8');
+                    reader.onload = function (e) {
+                        var result = jQuery.parseJSON(reader.result);
+                        toastr.error(result.msg);
+                    }
+                    return;
+                }
+                var objectUrl = URL.createObjectURL(blob);
+                var contentDisposition = response.data.headers['content-disposition'];
+                var fileName = contentDisposition.substring(contentDisposition.indexOf("=")).replace("=", "");
+                if ('msSaveOrOpenBlob' in navigator) {
+                    //ie使用的下载方式
+                    window.navigator.msSaveOrOpenBlob(blob, fileName);
+                } else {
+                    var a = document.createElement("a");
+                    document.body.appendChild(a);
+                    a.download = decodeURI(fileName);
+                    a.href = objectUrl;
+                    a.click();
+                }
+            })
+        }
 
+        vm.loadDetail=function(){
+            fiveBusinessAdvanceCollectService.listDetail(advanceCollectId).then(function (value) {
+                if (value.data.ret) {
+                    vm.details = value.data.data;
+                }
+            })
+        };
+
+        vm.showDetailModel = function (){
+            fiveBusinessAdvanceCollectService.getNewModelDetail(advanceCollectId).then(function (value) {
+                setTimeout(vm.loadDetail(),1000);
+            })
+        }
 
         //发送流程验证
         $scope.showSendTask=function(send){
@@ -7909,6 +7961,7 @@
 
         vm.print=function () {
             commonPrintTableService.getPrintDate(vm.item.businessKey,user.userLogin).then(function (value) {
+                debugger;
                 if(value.data.ret){
                     lodop=getLodop();
                     vm.printData=value.data.data;
@@ -7924,16 +7977,21 @@
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
                         lodop.SET_PRINT_STYLEA(0,"Vorient",3);
                         lodop.PREVIEW();
-                    }, 500);
+                    }, 2000);
                 }
             })
         };
+
 
         vm.init();
 
         $scope.refresh=function(){
             vm.loadData(true);
         };
+
+
+
+
         return vm;
 
     })
@@ -8232,7 +8290,34 @@
                     });
                 }
             })
-        }
+        };
+
+        vm.fuzzySearch = function () {
+            var params = $.extend(tablefilter.params, {
+                qName:vm.params.qName,pageNum: vm.pageInfo.pageNum, pageSize: vm.pageInfo.pageSize,userLogin:user.userLogin,uiSref:uiSref
+            });
+            fiveOaBidApplyService.listPagedData(params).then(function (value) {
+                if (value.data.ret) {
+                    vm.pageInfo = value.data.data;
+                }
+            })
+        };
+
+        $scope.$on('ngRepeatFinished', function( ngRepeatFinishedEvent ) {
+            var option={filterColumns:{
+                    1:{type:"input",colName:'projectName',placeholder:'项目名称'},
+                    2:{type:"input",colName:'bidManName',placeholder:'投标申请人'},
+                    3:{type:"input",colName:'bidder',placeholder:'招标方'},
+                    4:{type:"input",colName:'projectType',placeholder:'类型'},
+                    5:{type:"input",colName:'bidTime',placeholder:'日期'},
+                    6:{type:"input",colName:'gmtCreate'},
+                    7:{type:"select",colName:'processEnd',placeholder:'流程状态..',option:[{title:"全部",value:""},{title:"运行中",value:0},{title:"已完成",value:1}]}
+                    //注：当type为select时 会根据option创建下拉列表 option中
+                },handleColumn:8};
+            tablefilter.queryFunction=vm.fuzzySearch;
+            tablefilter.params=vm.params;
+            tablefilter.initializeFilter(option);
+        });
 
         vm.queryData();
 

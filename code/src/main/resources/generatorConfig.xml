@@ -36,12 +36,12 @@
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
 
-        <table tableName="five_finance_travel_expense_detail">
+        <table tableName="five_finance_subpackage_payment_detail">
             <generatedKey column="id" sqlStatement="mysql" identity="true"/>
         </table>
     </context>-->
 
-       <!--<context id="business" targetRuntime="MyBatis3Simple">
+       <context id="business" targetRuntime="MyBatis3Simple">
     <plugin type="com.cmcu.mybatis.MyGeneratorPlugin" />
     <commentGenerator type="com.cmcu.mybatis.MyCommentGenerator">
         <property name="suppressAllComments" value="true"/>
@@ -70,12 +70,12 @@
         <property name="enableSubPackages" value="false"/>
     </javaClientGenerator>
 
-    <table tableName="five_business_advance_collect">
+    <table tableName="five_business_advance_collect_detail">
         <generatedKey column="id" sqlStatement="mysql" identity="true"/>
     </table>
-</context>-->
+</context>
 
-     <context id="budget" targetRuntime="MyBatis3Simple"  defaultModelType="flat">
+     <!--<context id="budget" targetRuntime="MyBatis3Simple"  defaultModelType="flat">
         <plugin type="com.cmcu.mybatis.MyGeneratorPlugin" />
         <commentGenerator type="com.cmcu.mybatis.MyCommentGenerator">
             <property name="suppressAllComments" value="true"/>
@@ -107,7 +107,7 @@
         <table tableName="five_budget_fee_change">
             <generatedKey column="id" sqlStatement="mysql" identity="true"/>
         </table>
-    </context>
+    </context>-->
 
     <!--            <context id="hr" targetRuntime="MyBatis3Simple"  defaultModelType="flat">
         <plugin type="com.cmcu.mybatis.MyGeneratorPlugin" />
@@ -179,7 +179,7 @@
 -->
 
 
-<!--    <context id="five" targetRuntime="MyBatis3Simple"  defaultModelType="flat">
+    <!--<context id="five" targetRuntime="MyBatis3Simple"  defaultModelType="flat">
         <plugin type="com.cmcu.mybatis.MyGeneratorPlugin1" />
         <commentGenerator type="com.cmcu.mybatis.MyCommentGenerator">
             <property name="suppressAllComments" value="true"/>
@@ -209,7 +209,7 @@
         </javaClientGenerator>
 
 
-        <table tableName="five_oa_furniture_purchase_detail">
+        <table tableName="five_oa_non_secret_equipment_scrap">
             <generatedKey column="id" sqlStatement="mysql" identity="true"/>
         </table>
     </context>-->

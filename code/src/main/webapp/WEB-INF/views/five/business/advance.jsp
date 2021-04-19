@@ -45,6 +45,7 @@
                                                                            ng-model="vm.params.qName"></label>
                             <a class="btn green btn-sm defaultBtn" ng-click="vm.loadPagedData();"><i class="fa fa-search"></i> 查询 </a>
 
+
 <%--                            <a class="btn btn-sm green" ng-click="vm.downTempleXml()" target="_blank">
                                 <i class="fa fa-cloud-download"></i> 下载模板 </a>--%>
 <%--                            <span id="btnUpload" class="btn btn-sm blue fileinput-button"  ng-show="rightData.selectOpts.indexOf('修改')>=0">

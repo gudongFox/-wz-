@@ -1,7 +1,7 @@
 package com.cmcu.mcc.controller;
 
 
-import com.cmcu.common.JsonData;
+import com.common.model.JsonData;
 import com.cmcu.common.dto.UserDto;
 import com.cmcu.common.service.CommonBlackService;
 import com.cmcu.common.service.CommonConfigService;

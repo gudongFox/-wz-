@@ -8,12 +8,16 @@ import com.cmcu.common.service.BaseService;
 import com.cmcu.common.util.*;
 import com.cmcu.mcc.act.service.MyActService;
 
+import com.cmcu.mcc.business.dao.FiveBusinessAdvanceCollectDetailMapper;
 import com.cmcu.mcc.business.dao.FiveBusinessAdvanceCollectMapper;
 import com.cmcu.mcc.business.dao.FiveBusinessAdvanceMapper;
 import com.cmcu.mcc.business.dto.FiveBusinessAdvanceCollectDto;
+import com.cmcu.mcc.business.dto.FiveBusinessAdvanceDto;
 import com.cmcu.mcc.business.entity.FiveBusinessAdvance;
 import com.cmcu.mcc.business.entity.FiveBusinessAdvanceCollect;
 
+import com.cmcu.mcc.business.entity.FiveBusinessAdvanceCollectDetail;
+import com.cmcu.mcc.business.entity.FiveBusinessAdvanceDetail;
 import com.cmcu.mcc.comm.EdConst;
 import com.cmcu.mcc.comm.MccConst;
 import com.cmcu.mcc.five.entity.FiveOaMeetingRoom;
@@ -36,17 +40,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
+import javax.xml.crypto.Data;
 import java.io.*;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class FiveBusinessAdvanceCollectService extends BaseService {
 
     @Resource
     FiveBusinessAdvanceCollectMapper fiveBusinessAdvanceCollectMapper;
+    @Resource
+    FiveBusinessAdvanceCollectDetailMapper fiveBusinessAdvanceCollectDetailMapper;
     @Resource
     HrEmployeeMapper hrEmployeeMapper;
     @Autowired
@@ -65,6 +70,8 @@ public class FiveBusinessAdvanceCollectService extends BaseService {
     HandleFormService handleFormService;
     @Resource
     FiveBusinessAdvanceMapper fiveBusinessAdvanceMapper;
+    @Resource
+    FiveBusinessAdvanceSevice fiveBusinessAdvanceSevice;
 
     public void remove(int id,String userLogin){
         FiveBusinessAdvanceCollect item = fiveBusinessAdvanceCollectMapper.selectByPrimaryKey(id);
@@ -151,6 +158,10 @@ public class FiveBusinessAdvanceCollectService extends BaseService {
         variables.put("totalManger", hrEmployeeService.selectUserByPositionName("总经理"));//总经理
         variables.put("totalAccount", hrEmployeeService.selectUserByPositionName("总会计师"));//总会计师
 
+        variables.put("businessPerf", selectEmployeeService.getUserListByRoleName("经营发展部(绩效岗)"));//经营发展部(绩效岗)
+        variables.put("copyMan", MyStringUtil.listToString(selectEmployeeService.getUserListByRoleName("财务金融部(工资岗)")));//财务金融部(工资岗)
+
+
         variables.put("processDescription", "预支明细表："+item.getCreatorName());
 
         item.setBusinessKey(businessKey);
@@ -190,13 +201,16 @@ public class FiveBusinessAdvanceCollectService extends BaseService {
         if(advanceCollectDto.getDeclareType().equals("预支绩效工资")){
             params.put("month",advanceCollectDto.getCollectMonth().trim());
             params.put("declareType","预支绩效工资");
-        }else{
+        }else if(advanceCollectDto.getDeclareType().equals("年终奖")){
             params.put("searchYear",advanceCollectDto.getCollectMonth().split("-")[0]);
             params.put("declareType","年终奖");
+        }else{
+            params.put("month",advanceCollectDto.getCollectMonth().trim());
+            params.put("declareType","其他");
         }
 
-
         List<FiveBusinessAdvance> fiveBusinessAdvances = fiveBusinessAdvanceMapper.selectAll(params);
+
 
         String classpath = this.getClass().getResource("/").getPath().replaceFirst("/", "");
         String webappRoot = classpath.replaceAll("WEB-INF/classes/", "");
@@ -393,4 +407,108 @@ public class FiveBusinessAdvanceCollectService extends BaseService {
         }
         return 0.0;
     }
+
+
+    //Map("deptName",list)
+    public List<Map> downData(int collectId,String userLogin) {
+        List<Map> list = Lists.newArrayList();
+
+        FiveBusinessAdvanceCollectDto advanceCollectDto = getModelById(collectId);
+        Map params = new HashMap();
+        params.put("deleted",false);
+        params.put("processEnd",true);
+        if(advanceCollectDto.getDeclareType().equals("预支绩效工资")){
+            params.put("month",advanceCollectDto.getCollectMonth().trim());
+            params.put("declareType","预支绩效工资");
+        }else if(advanceCollectDto.getDeclareType().equals("年终奖")){
+            params.put("searchYear",advanceCollectDto.getCollectMonth().split("-")[0]);
+            params.put("declareType","年终奖");
+        }else{
+            params.put("month",advanceCollectDto.getCollectMonth().trim());
+            params.put("declareType","其他");
+        }
+        List<FiveBusinessAdvance> fiveBusinessAdvances = fiveBusinessAdvanceMapper.selectAll(params);
+
+        for(FiveBusinessAdvance fiveBusinessAdvance :fiveBusinessAdvances){
+            //相同部门 取最新的一条记录
+            boolean flag =false;
+            for(Map map:list){
+                if(map.getOrDefault("deptName","").equals(fiveBusinessAdvance.getDeptName())){
+                    flag=true;
+                }
+            }
+            if(flag){
+                break;
+            }
+            HashMap data = Maps.newHashMap();
+            data.put("deptName",fiveBusinessAdvance.getDeptName());
+            List<FiveBusinessAdvanceDetail> details = fiveBusinessAdvanceSevice.listDetail(fiveBusinessAdvance.getId());
+            List<Map> detailLists = new ArrayList<>();
+            for(FiveBusinessAdvanceDetail detail:details){
+                Map map=new LinkedHashMap();
+                map.put("人员编号",detail.getPersonNo());
+                map.put("姓名",detail.getPersonName());
+                map.put("部门",detail.getDeptName());
+                map.put("人员类别",detail.getPersonnelCategory());
+                map.put("金额",detail.getProjectBonus() );
+                map.put("备注",detail.getRemark() );
+                detailLists.add(map);
+            }
+            data.put("list",detailLists);
+            list.add(data);
+        }
+
+        return list;
+    }
+
+
+    //detail
+    public void getNewModelDetail(int collectId){
+        FiveBusinessAdvanceCollectDetail item = new FiveBusinessAdvanceCollectDetail();
+        FiveBusinessAdvanceCollectDto advanceCollectDto = getModelById(collectId);
+        Map params = new HashMap();
+        params.put("deleted",false);
+        params.put("processEnd",true);
+        params.put("month",advanceCollectDto.getCollectMonth().trim());
+        List<FiveBusinessAdvance> fiveBusinessAdvances = fiveBusinessAdvanceMapper.selectAll(params);
+        for(FiveBusinessAdvance advance:fiveBusinessAdvances){
+            item.setCollectId(advanceCollectDto.getId());
+            item.setAdvanceId(advance.getId());
+            item.setDeleted(false);
+            item.setGmtModified(new Date());
+            item.setGmtCreate(new Date());
+            item.setDeptId(String.valueOf(advance.getDeptId()));
+            item.setDeptName(advance.getDeptName());
+            item.setApplyMoney(MyStringUtil.getMoneyW(advance.getTotalPrice()));
+            item.setCompanyMoney(MyStringUtil.getMoneyW(advance.getTotalPrice()));
+            item.setRealMoney(MyStringUtil.getMoneyW(advance.getTotalPrice()));
+            item.setDeclareType(advance.getDeclareType());
+            Map param = new HashMap();
+            param.put("advanceId",item.getAdvanceId());
+            List<FiveBusinessAdvanceCollectDetail> result=fiveBusinessAdvanceCollectDetailMapper.selectAll(param);
+            if (result.size() != 0){
+                continue;
+            }else {
+                fiveBusinessAdvanceCollectDetailMapper.insert(item);
+            }
+        }
+
+    }
+
+    public List<FiveBusinessAdvanceCollectDetail> listDetail(int collectId){
+        FiveBusinessAdvanceCollectDto advanceCollectDto = getModelById(collectId);
+        Map <String,Object> params=Maps.newHashMap();
+        params.put("deleted",false);
+        params.put("collectId",collectId);//小写
+        params.put("declareType",advanceCollectDto.getDeclareType());
+        List<FiveBusinessAdvanceCollectDetail> list = fiveBusinessAdvanceCollectDetailMapper.selectAll(params).stream()
+                .sorted(Comparator.comparing(FiveBusinessAdvanceCollectDetail::getId)).collect(Collectors.toList());
+        for (FiveBusinessAdvanceCollectDetail each:list) {
+            each.setRealMoney(MyStringUtil.moneyToString(each.getRealMoney(),6));
+            each.setApplyMoney(MyStringUtil.moneyToString(each.getApplyMoney(),6));
+            each.setCompanyMoney(MyStringUtil.moneyToString(each.getCompanyMoney(),6));
+        }
+        return list;
+    }
+
 }

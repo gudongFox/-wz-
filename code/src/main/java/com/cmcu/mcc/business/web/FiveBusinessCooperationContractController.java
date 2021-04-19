@@ -1,6 +1,6 @@
 package com.cmcu.mcc.business.web;
 
-import com.cmcu.common.JsonData;
+import com.common.model.JsonData;
 import com.cmcu.common.util.FileUtil;
 import com.cmcu.common.util.MyPoiUtil;
 import com.cmcu.common.util.WebUtil;

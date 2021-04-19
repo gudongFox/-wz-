@@ -150,7 +150,7 @@ public class FiveFinanceLoanService extends BaseService {
         for (FiveFinanceLoanDetail detail:detailList){
             loanMoney= MyStringUtil.getNewAddMoney(loanMoney,detail.getApplyMoney());
         }
-        model.setLoanMoney(loanMoney);
+        model.setLoanMoney(MyStringUtil.getMoneyW(loanMoney));
 
         fiveFinanceLoanMapper.updateByPrimaryKey(model);
 
@@ -162,40 +162,45 @@ public class FiveFinanceLoanService extends BaseService {
         for(FiveFinanceLoanDetail modelDetail:modelDetailList){
             if(modelDetail.getBudgetNo().contains("培训")) {
                 attribute = 1;
-                attributeList.add("2767");
+                attributeList.add(selectEmployeeService.getDeptChargeMen(38).get(0));//人力
                 if(modelDetail.getBudgetNo().contains("咨询劳务")){
-                    attributeList.add("2169");
+                    attributeList.add(selectEmployeeService.getDeptChargeMen(48).get(0));//经营发展部
                 } else if(modelDetail.getBudgetNo().contains("股权投资")){
-                    attributeList.add("2169");
+                    attributeList.add(selectEmployeeService.getDeptChargeMen(48).get(0));//经营发展部
                 } else if(modelDetail.getBudgetNo().contains("软件")){
-                    attributeList.add("2887");
+                    attributeList.add(selectEmployeeService.getDeptChargeMen(11).get(0));//信息化
                 } else if(modelDetail.getBudgetNo().contains("会议费")){
                     attributeList.add("2887");
                 } else if(modelDetail.getBudgetNo().contains("图书资料费")){
-                    attributeList.add("1543");
-                } else if(modelDetail.getBudgetNo().contains("固定资产")){
-                    attributeList.add("2275");
+                    attributeList.add(selectEmployeeService.getUserListByRoleName("借款-图书资料费").get(0));//角色
+                } else if((modelDetail.getBudgetNo().contains("办公自动化设备购置")||modelDetail.getBudgetNo().contains("软件购置")
+                ||modelDetail.getBudgetNo().contains("车辆购置")||modelDetail.getBudgetNo().contains("办公家具"))
+                        &&MyStringUtil.compareMoney(modelDetail.getApplyMoney(),"5000")>-1){
+                    attributeList.add(selectEmployeeService.getDeptChargeMen(67).get(0));//行政
                 }
             }
             if(!modelDetail.getBudgetNo().contains("培训")) {
                 if(modelDetail.getBudgetNo().contains("咨询劳务")){
-                    attributeList.add("2169");
+                    attributeList.add(selectEmployeeService.getDeptChargeMen(48).get(0));//经营发展部
                     attribute = 2;
                 } else if(modelDetail.getBudgetNo().contains("股权投资")){
-                    attributeList.add("2169");
+                    attributeList.add(selectEmployeeService.getDeptChargeMen(48).get(0));//经营发展部
                     attribute = 2;
                 } else if(modelDetail.getBudgetNo().contains("软件")){
-                    attributeList.add("2887");
+                    attributeList.add(selectEmployeeService.getDeptChargeMen(11).get(0));//信息化
                     attribute = 2;
                 } else if(modelDetail.getBudgetNo().contains("会议费")){
                     attributeList.add("2887");
                     attribute = 2;
                 } else if(modelDetail.getBudgetNo().contains("图书资料费")){
-                    attributeList.add("1543");
+                    attributeList.add(selectEmployeeService.getUserListByRoleName("借款-图书资料费").get(0));//角色
                     attribute = 2;
-                } else if(modelDetail.getBudgetNo().contains("固定资产")){
-                    attributeList.add("2275");
+                } else if((modelDetail.getBudgetNo().contains("办公自动化")||modelDetail.getBudgetNo().contains("软件购置")
+                        ||modelDetail.getBudgetNo().contains("车辆购置")||modelDetail.getBudgetNo().contains("办公家具"))
+                        &&MyStringUtil.compareMoney(modelDetail.getApplyMoney(),"5000")>-1){
+                    attributeList.add(selectEmployeeService.getDeptChargeMen(67).get(0));//行政
                     attribute = 2;
+                    
                 }
             }
         }
@@ -207,8 +212,10 @@ public class FiveFinanceLoanService extends BaseService {
         variables.put("flag2", Double.valueOf(dto.getTotalApplyMoney())>=50000.00?true:false);
         variables.put("attribute", attribute);
         variables.put("human", human);//人力审核
+
         variables.put("financeConfirm", selectEmployeeService.getDeptFinanceMan(model.getDeptId()));//财务确认
         variables.put("deptChargeMan", selectEmployeeService.getDeptChargeMen(model.getDeptId()));//部门领导
+        variables.put("deptLeader",selectEmployeeService.getOtherDeptChargeMan(model.getDeptId()));//分管领导
         variables.put("financeChargeMan", selectEmployeeService.getDeptChargeMen(18));//财务负责人
         variables.put("financeDeputy", selectEmployeeService.getDeptChargeMen(model.getDeptId()));//申请部门正副职
         variables.put("chiefAccountant", hrEmployeeService.selectUserByPositionName("总会计师"));//总会计师
@@ -217,9 +224,11 @@ public class FiveFinanceLoanService extends BaseService {
 
         if (model.getBusinessKey().indexOf("Red") != -1) {
             variables.put("businessManager", dto.getBusinessManager());
-        } else if (model.getBusinessKey().indexOf("Build") != -1) {
+        }
+        else if (model.getBusinessKey().indexOf("Build") != -1) {
             variables.put("scientific", dto.getScientific().contains("是")?true:false);
-        } else if (model.getBusinessKey().indexOf("Function") != -1) {//职能部门
+        }
+        else if (model.getBusinessKey().indexOf("Function") != -1) {//职能部门
             HrEmployeeSysDto modelByUserLogin = hrEmployeeSysService.getModelByUserLogin(dto.getCreator());
             int record=0;
             int dept=0;
@@ -233,19 +242,22 @@ public class FiveFinanceLoanService extends BaseService {
             variables.put("dept", dept);
             variables.put("scientific", dto.getScientific().contains("是")?true:false);
 
-        } else if(model.getBusinessKey().indexOf("Common") != -1){//生产部门
+        }
+        else if(model.getBusinessKey().indexOf("Common") != -1){//生产部门
             //是否投标保证金
             int bid=0;
             List<String> businessMen = selectEmployeeService.getBusinessMenByDeptId(model.getDeptId());
             if(businessMen.size()!=0){
                 variables.put("businessMen",selectEmployeeService.getBusinessMenByDeptId(model.getDeptId()));//部门经营人员
             }else{
+                //没有经营人员
                 bid = 2;
             }
             if(dto.getBid().contains("否")){
                 bid = 1;
                 if (selectEmployeeService.getDeptChargeMen(dto.getDeptId()).contains(dto.getCreator())) {
-                    bid = 2;
+                    //部门负责人创建
+                    bid = 3;
                 }
             }
             HrEmployeeSysDto modelByUserLogin = hrEmployeeSysService.getModelByUserLogin(dto.getCreator());

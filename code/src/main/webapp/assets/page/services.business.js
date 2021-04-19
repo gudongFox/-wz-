@@ -4931,6 +4931,7 @@ angular.module('services.business', [])
         };
 
 
+
         return {
 
             update: function (item) {
@@ -4966,6 +4967,7 @@ angular.module('services.business', [])
             listDetail: function (advanceId) {
                 return listDetail(advanceId);
             },
+
         }
     })
     
@@ -5102,7 +5104,7 @@ angular.module('services.business', [])
                 method: 'POST',
                 url: head + '/getNewModelDetail.json',
                 params: {
-                    AdvanceCollectId:AdvanceCollectId,
+                    collectId:AdvanceCollectId,
                 }
             }).success(function (data) {
                 deferred.resolve(data);
@@ -5164,7 +5166,7 @@ angular.module('services.business', [])
                 method: 'POST',
                 url: head + '/listDetail.json',
                 params: {
-                    AdvanceCollectId: AdvanceCollectId,
+                    collectId: AdvanceCollectId,
                 }
             }).success(function (data) {
                 deferred.resolve(data);
@@ -5173,6 +5175,30 @@ angular.module('services.business', [])
             });
             return deferred.promise;
         };
+        var downData = function (collectId,userLogin) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url:head+'/downData.json',
+                responseType: "blob",
+                transformResponse: function(data, headers,cc){
+                    var response = {};
+                    response.data = data;
+                    response.headers = headers();
+                    return response;
+                },
+                params: {
+                    collectId:collectId,
+                    userLogin:userLogin,
+                }
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
 
 
         return {
@@ -5213,6 +5239,10 @@ angular.module('services.business', [])
             listDetail: function (AdvanceCollectId) {
                 return listDetail(AdvanceCollectId);
             },
+            downData: function (collectId,userLogin) {
+                return downData(collectId,userLogin);
+            },
+
         }
     })
 

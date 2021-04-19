@@ -1,6 +1,6 @@
 package com.cmcu.mcc.controller;
 
-import com.cmcu.common.JsonData;
+import com.common.model.JsonData;
 import com.cmcu.common.dao.CommonCodeMapper;
 import com.cmcu.common.dao.CommonFileMapper;
 import com.cmcu.common.dao.CommonFormDetailMapper;
@@ -43,6 +43,9 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.history.HistoricTaskInstance;
+import org.activiti.engine.history.HistoricTaskInstanceQuery;
+import org.activiti.engine.task.DelegationState;
 import org.activiti.engine.task.Task;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
@@ -54,10 +57,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.io.FileInputStream;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/test")
@@ -77,23 +77,23 @@ public class TestController {
 
     @RequestMapping("/meeting.json")
     public JsonData TestMeeting() {
-        return JsonData.success( MeetingRoomService.listData());
+        return JsonData.success(MeetingRoomService.listData());
     }
 
     @RequestMapping("/getToken.json")
     public JsonData getAccessToken() {
-        return JsonData.success( BaseService.getAccessToken());
+        return JsonData.success(BaseService.getAccessToken());
     }
 
 
     @RequestMapping("/do")
     public void JustTest() {
-        Map params=Maps.newHashMap();
-        params.put("inputCode","projectName");
-        List<CommonFormDetail> details=commonFormDetailMapper.selectAll(params);
-        for(CommonFormDetail detail:details){
-            InputConfigDto inputConfigDto=InputConfigDto.getInstance(detail.getInputConfig());
-            if(!inputConfigDto.isKeyInfo()) {
+        Map params = Maps.newHashMap();
+        params.put("inputCode", "projectName");
+        List<CommonFormDetail> details = commonFormDetailMapper.selectAll(params);
+        for (CommonFormDetail detail : details) {
+            InputConfigDto inputConfigDto = InputConfigDto.getInstance(detail.getInputConfig());
+            if (!inputConfigDto.isKeyInfo()) {
                 inputConfigDto.setKeyInfo(true);
                 detail.setInputConfig(JsonMapper.obj2String(inputConfigDto));
                 commonFormDetailMapper.updateByPrimaryKey(detail);
@@ -101,8 +101,9 @@ public class TestController {
         }
         System.out.println("done");
     }
+
     @RequestMapping("/addHrBasic")
-    public void addHrBasic(){
+    public void addHrBasic() {
         tempFormService.addHrBasic();
     }
 
@@ -228,15 +229,14 @@ public class TestController {
     BusinessSubpackageMapper businessSubpackageMapper;
 
 
-
-
     @Resource
     TaskService taskService;
 
     @RequestMapping("/updateAssignee")
-    public void test2(String taskId,String userLogin){
-        taskService.setAssignee(taskId,userLogin);
+    public void test2(String taskId, String userLogin) {
+        taskService.setAssignee(taskId, userLogin);
     }
+
     @Resource
     BusinessRecordMapper businessRecordMapper;
     @Resource
@@ -245,20 +245,21 @@ public class TestController {
     MyActService myActService;
     @Autowired
     SelectEmployeeService selectEmployeeService;
+
     @RequestMapping("/updateAllProjectNo")
     public JsonData updateAllProjectNo() {
         Map map = new HashMap();
-        map.put("deleted",false);
+        map.put("deleted", false);
         List<BusinessRecord> businessRecords = businessRecordMapper.selectAll(map);
-        for(BusinessRecord record:businessRecords){
+        for (BusinessRecord record : businessRecords) {
             record.setProjectNo("");
             businessRecordMapper.updateByPrimaryKey(record);
         }
-        for(BusinessRecord record:businessRecords){
-            String projectNo ="";
-            try{
+        for (BusinessRecord record : businessRecords) {
+            String projectNo = "";
+            try {
                 projectNo = businessRecordService.getProjectNo(record.getId());
-            }catch (Exception e){
+            } catch (Exception e) {
                 record.setProjectNo(projectNo);
                 businessRecordMapper.updateByPrimaryKey(record);
             }
@@ -268,27 +269,28 @@ public class TestController {
         }
         return JsonData.success();
     }
+
     @Resource
     FiveBusinessContractReviewMapper fiveBusinessContractReviewMapper;
 
     @Resource
-
     FiveBusinessContractReviewService fiveBusinessContractReviewService;
+
     @RequestMapping("/updateAllContractNo")
     public JsonData updateAllContractNo() {
         Map map = new HashMap();
-        map.put("deleted",false);
+        map.put("deleted", false);
         List<FiveBusinessContractReview> contractReviews = fiveBusinessContractReviewMapper.selectAll(map);
         //先清空所有
-        for(FiveBusinessContractReview review:contractReviews){
+        for (FiveBusinessContractReview review : contractReviews) {
             review.setContractNo("");
             fiveBusinessContractReviewMapper.updateByPrimaryKey(review);
         }
-        for(FiveBusinessContractReview review:contractReviews){
-            String contractNo ="";
-            try{
+        for (FiveBusinessContractReview review : contractReviews) {
+            String contractNo = "";
+            try {
                 contractNo = fiveBusinessContractReviewService.getContractNo(review.getId());
-            }catch (Exception e){
+            } catch (Exception e) {
                 review.setContractNo(contractNo);
                 fiveBusinessContractReviewMapper.updateByPrimaryKey(review);
             }
@@ -300,27 +302,28 @@ public class TestController {
 
     @RequestMapping("/updateProcessVariables")
     public JsonData updateProcessVariables() {
-        int i =0;
-        try{
+        int i = 0;
+        try {
             Map map = new HashMap();
-            map.put("deleted",false);
+            map.put("deleted", false);
             List<FiveBusinessContractReview> contractReviews = fiveBusinessContractReviewMapper.selectAll(map);
-            for(FiveBusinessContractReview contractReview:contractReviews){
+            for (FiveBusinessContractReview contractReview : contractReviews) {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 Date date = sdf.parse("2020-11-30");
-                if(contractReview.getGmtCreate().before(date)){
+                if (contractReview.getGmtCreate().before(date)) {
                     i++;
-                    Map variables=Maps.newHashMap();
-                    variables.put("flag",contractReview.getReviewLevel());
-                    myActService.setVariables(contractReview.getProcessInstanceId(),variables);
+                    Map variables = Maps.newHashMap();
+                    variables.put("flag", contractReview.getReviewLevel());
+                    myActService.setVariables(contractReview.getProcessInstanceId(), variables);
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(i);
         }
 
         return JsonData.success(i);
     }
+
     @Autowired
     FiveFinanceStampTaxMapper fiveFinanceStampTaxMapper;
     @Autowired
@@ -329,18 +332,21 @@ public class TestController {
     FiveBusinessContractLibrarySubpackageMapper fiveBusinessContractLibrarySubpackageMapper;
     @Autowired
     CommonFileService commonFileService;
+    @Autowired
+    HistoryService historyService;
+
     //计算 印花税的合同承接部门
     @RequestMapping("/updateStampTaxDept")
     public JsonData updateStampTaxDept() {
         Map map = new HashMap();
-        map.put("deleted",false);
+        map.put("deleted", false);
         List<FiveFinanceStampTax> fiveFinanceStampTaxes = fiveFinanceStampTaxMapper.selectAll(map);
-        for(FiveFinanceStampTax stampTax:fiveFinanceStampTaxes){
-            if(stampTax.getContractId()!=0){
+        for (FiveFinanceStampTax stampTax : fiveFinanceStampTaxes) {
+            if (stampTax.getContractId() != 0) {
                 FiveBusinessContractLibrary library = fiveBusinessContractLibraryMapper.selectByPrimaryKey(stampTax.getContractId());
                 stampTax.setContractDeptId(library.getDeptId());
                 stampTax.setContractDeptName(library.getDeptName());
-            }else if(stampTax.getContractSubpackageId()!=0){
+            } else if (stampTax.getContractSubpackageId() != 0) {
                 FiveBusinessContractLibrary library = fiveBusinessContractLibraryMapper.selectByPrimaryKey(stampTax.getContractSubpackageId());
                 stampTax.setContractDeptId(library.getDeptId());
                 stampTax.setContractDeptName(library.getDeptName());
@@ -351,8 +357,9 @@ public class TestController {
 
     @Resource
     CommonPrintTableService commonPrintTableService;
+
     @RequestMapping("/printData")
-    public JsonData printData(){
+    public JsonData printData() {
 
         Map luodong = commonPrintTableService.getPrintDate("oaStampApplyOffice_1751", "luodong");
         return JsonData.success(luodong);
@@ -360,25 +367,26 @@ public class TestController {
 
 
     @RequestMapping("/getProcessVariable")
-    public JsonData insertStampTask(String taskId){
+    public JsonData insertStampTask(String taskId) {
         Map<String, Object> variables = taskService.getVariables(taskId);
         return JsonData.success(variables);
     }
 
     @Resource
     CommonBlackService commonBlackService;
+
     @RequestMapping("/blackUsr")
-    public JsonData test20(){
-        int update=0;
+    public JsonData test20() {
+        int update = 0;
         Map params = Maps.newHashMap();
         params.put("deleted", false);
         List<HrEmployeeDto> list = hrEmployeeMapper.selectAll(params);
-        String userlongs="";
-        for( HrEmployeeDto dto:list){
+        String userlongs = "";
+        for (HrEmployeeDto dto : list) {
             HrEmployeeSys hrEmployeeSys = hrEmployeeSysMapper.selectByUserLogin(dto.getUserLogin());
             String twoDay = MyDateUtil.getTwoDay(MyDateUtil.dateToStr(hrEmployeeSys.getGmtModified()), "2021-01-01");
-            if (hrEmployeeSys.getPassword().equals("HDazSj6HQF6ToVYlCHTS1Q==")&&Integer.parseInt(twoDay)<0){
-                CommonBlack black=new CommonBlack();
+            if (hrEmployeeSys.getPassword().equals("HDazSj6HQF6ToVYlCHTS1Q==") && Integer.parseInt(twoDay) < 0) {
+                CommonBlack black = new CommonBlack();
                 black.setTargetIp("*");
                 black.setTenetId("wuzhou");
                 black.setGmtCreate(new Date());
@@ -389,19 +397,46 @@ public class TestController {
                 black.setForbidden(true);
                 commonBlackService.save(black);
                 update++;
-                userlongs+=black.getTargetUser()+"-"+hrEmployeeMapper.selectByUserLoginOrNo(black.getTargetUser()).getUserName();
-                }
-
+                userlongs += black.getTargetUser() + "-" + hrEmployeeMapper.selectByUserLoginOrNo(black.getTargetUser()).getUserName();
             }
-        return JsonData.success("修改数量："+update+"人员："+userlongs);
 
         }
+        return JsonData.success("修改数量：" + update + "人员：" + userlongs);
+
+    }
 
     @Resource
     FiveOaStampApplyOfficeService fiveOaStampApplyOfficeService;
+
     @RequestMapping("/listDateByFormKey.json")
-    public JsonData listDateByFormKey(){
+    public JsonData listDateByFormKey() {
         fiveOaStampApplyOfficeService.listDateByFormKey();
         return JsonData.success();
     }
+
+    @RequestMapping("/addCopy")
+    public void addCopy(String taskId) {
+        //被抄送任务id
+        //String taskId = "10901069";
+        //抄送人
+        List<String> users = new ArrayList<>();
+        users.add("4048");//李佳珊
+        users.add("2877");//黄涛
+        users.add("4047");//陈琦
+
+        HistoricTaskInstance task = historyService.createHistoricTaskInstanceQuery().taskId(taskId).singleResult();
+        for (String user : users) {
+            Task ccTask = taskService.newTask();
+            ccTask.setDescription(task.getDescription());
+            ccTask.setTenantId(task.getTenantId());
+            ccTask.setOwner(user);
+            ccTask.setAssignee(user);
+            ccTask.setCategory(task.getCategory());
+            ccTask.setDelegationState(DelegationState.RESOLVED);
+            ccTask.setName("[抄送]" + task.getName());
+            ccTask.setParentTaskId(task.getId());//父任务id
+            taskService.saveTask(ccTask);
+        }
+
     }
+}

@@ -265,7 +265,7 @@
                                         <div class="panel-heading">
                                              <span href="#panelCompanyBank" class="panel-toggle" data-toggle="collapse"
                                                    data-parent="#detail_form">
-                                                    付款单位信息
+                                                    付款信息
                                              </span>
                                         </div>
                                         <div class="panel-body" id="panelCompanyBank"
@@ -311,7 +311,7 @@
                                         <div class="panel-heading">
                                               <span href="#panelPersonalBank" class="panel-toggle"
                                                     data-toggle="collapse" data-parent="#detail_form">
-                                                    收款单位信息
+                                                    收款信息
                                              </span>
                                         </div>
                                         <div class="panel-body" id="panelPersonalBank"

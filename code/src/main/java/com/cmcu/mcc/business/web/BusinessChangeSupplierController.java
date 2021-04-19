@@ -1,6 +1,6 @@
 package com.cmcu.mcc.business.web;
 
-import com.cmcu.common.JsonData;
+import com.common.model.JsonData;
 import com.cmcu.common.util.WebUtil;
 import com.cmcu.mcc.business.dto.BusinessChangeSupplierDto;
 import com.cmcu.mcc.business.service.BusinessChangeSupplierService;

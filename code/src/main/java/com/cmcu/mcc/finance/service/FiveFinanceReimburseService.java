@@ -165,6 +165,7 @@ public class FiveFinanceReimburseService {
         int dept=0;
         int phone=0;
         int train=0;
+        // 如果发起人是部门负责人
         if (selectEmployeeService.getDeptChargeMen(dto.getDeptId()).contains(dto.getCreator())) {
             dept=1;
         }
@@ -209,6 +210,7 @@ public class FiveFinanceReimburseService {
         variables.put("dept", dept);//发起人是否部门负责人
         variables.put("financeConfirm", selectEmployeeService.getDeptFinanceMan(model.getDeptId()));//财务确认
         variables.put("deptChargeMan", selectEmployeeService.getDeptChargeMen(model.getDeptId()));//部门领导
+        variables.put("deptLeader",selectEmployeeService.getOtherDeptChargeMan(model.getDeptId()));//分管领导
         variables.put("financeChargeMan", selectEmployeeService.getDeptChargeMen(18));//财务负责人
         variables.put("financeDeputy", selectEmployeeService.getOtherDeptChargeMan(18));//主管副职领导
         variables.put("chiefAccountant", hrEmployeeService.selectUserByPositionName("总会计师"));//总会计师
@@ -220,7 +222,8 @@ public class FiveFinanceReimburseService {
 
             variables.put("businessManager", dto.getBusinessManager());//项目主管副总？？
 
-        } else if (model.getBusinessKey().indexOf("Build") != -1) {//建研院
+        }
+        else if (model.getBusinessKey().indexOf("Build") != -1) {//建研院
             //中层正职
             int middleLeader=0;
             if(selectEmployeeService.getOtherDeptChargeMan(model.getDeptId()).contains(dto.getCreator())){
@@ -231,7 +234,8 @@ public class FiveFinanceReimburseService {
             variables.put("scientific", dto.getScientific().contains("是")?true:false);//科研项目
             variables.put("vicePresident", selectEmployeeService.getOtherDeptChargeMan(model.getDeptId()));//主管副总
 
-        } else if (model.getBusinessKey().indexOf("Function") != -1) {//职能部门
+        }
+        else if (model.getBusinessKey().indexOf("Function") != -1) {//职能部门
             HrEmployeeSysDto modelByUserLogin = hrEmployeeSysService.getModelByUserLogin(dto.getCreator());
             int record=0;
             if(modelByUserLogin.getDeptCode().equals("58")||modelByUserLogin.getDeptCode().equals("67")){
@@ -240,7 +244,8 @@ public class FiveFinanceReimburseService {
             variables.put("record", record);
             variables.put("scientific", dto.getScientific().contains("是")?true:false);//科研项目
 
-        } else if(model.getBusinessKey().indexOf("Common") != -1){//生产部门
+        }
+        else if(model.getBusinessKey().indexOf("Common") != -1){//生产部门
             int project=0;
             if(model.getProjectName().length()==0){
                 if(selectEmployeeService.getDeptChargeMen(dto.getDeptId()).contains(dto.getCreator())){

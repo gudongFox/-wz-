@@ -1,7 +1,7 @@
 package com.cmcu.mcc.sys.web;
 
 
-import com.cmcu.common.JsonData;
+import com.common.model.JsonData;
 import com.cmcu.common.util.WebUtil;
 import com.cmcu.mcc.sys.entity.SysPlugin;
 import com.cmcu.mcc.sys.service.SysPluginService;

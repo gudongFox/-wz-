@@ -65,58 +65,11 @@
                                             </div>
                                         </div>
                                         <div class="panel-body" id="panelFormInfo" class="panel-collapse collapse in">
-                                            <div class="form-group">
-                                                <label class="col-md-2 control-label required">报销人</label>
-                                                <div class="col-md-4">
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control" ng-model="vm.item.applicantName" name="applicantName"  required="true" readonly />
-                                                        <span class="input-group-btn" >
-                                                <button class="btn default" type="button" ng-click="vm.showUserModel('applicant');" ng-disabled="!(processInstance.firstTask||processInstance.myRunningTaskName.indexOf('财务核算')>=0||processInstance.myRunningTaskName.indexOf('财务确认')>=0)"><i class="fa fa-user"></i></button>
-                                             </span>
-                                                    </div>
-                                                </div>
-                                                <label class="col-md-2 control-label required">报销部门</label>
-                                                <div class="col-md-4">
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control" ng-model="vm.item.deptName" name="deptName" required="true"   readonly/>
-                                                        <span class="input-group-btn" >
-                                                <button class="btn default" type="button" ng-click="vm.showDeptModal(0);" ng-disabled="!(processInstance.firstTask||processInstance.myRunningTaskName.indexOf('财务核算')>=0||processInstance.myRunningTaskName.indexOf('财务确认')>=0)"><i class="fa fa-cog"></i></button>
-                                             </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-md-2 control-label required">报销时间</label>
-                                                <div class="col-md-4">
-                                                    <div class="input-group date date-picker" id="applyRefundTime">
-                                                        <input type="text" class="form-control"
-                                                               ng-model="vm.item.applyRefundTime" name="applyRefundTime" required="true" ng-disabled="!(processInstance.firstTask||processInstance.myRunningTaskName.indexOf('财务核算')>=0||processInstance.myRunningTaskName.indexOf('财务确认')>=0)"  >
-                                                        <span class="input-group-btn">
-                                                   <button class="btn default" type="button" ng-disabled="!(processInstance.firstTask||processInstance.myRunningTaskName.indexOf('财务核算')>=0||processInstance.myRunningTaskName.indexOf('财务确认')>=0)"><i class="fa fa-calendar"></i></button>
-                                            </span>
-                                                    </div>
-                                                </div>
-                                                <label class="col-md-2 control-label required">单据号</label>
-                                                <div class="col-md-4">
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control" ng-model="vm.item.receiptsNumber" readonly
-                                                               name="receiptsNumber" required="true" maxlength="20" placeholder="单据号" disabled/>
-                                                        <span class="input-group-btn">
-                                                          <button class="btn default" type="button"
-                                                                  ng-disabled="!(processInstance.firstTask||processInstance.myRunningTaskName.indexOf('财务核算')>=0||processInstance.myRunningTaskName.indexOf('财务确认')>=0)"
-                                                                  ng-click="vm.getReceiptsNumber();">
-                                                            <i class="fa fa-refresh"></i></button>
 
-                                                        </span>
-                                                    </div>
-                                                </div>
-
-
-                                            </div>
                                             <div class="form-group">
                                                 <label class="col-md-2 control-label required">出差开始日期</label>
                                                 <div class="col-md-4">
-                                                    <div class="input-group date date-picker" id="startTime">
+                                                    <div class="input-group date date-picker-before-now" id="startTime">
                                                         <input type="text" class="form-control"
                                                                ng-model="vm.item.startTime" name="startTime" required="true" ng-disabled="!(processInstance.firstTask||processInstance.myRunningTaskName.indexOf('财务核算')>=0||processInstance.myRunningTaskName.indexOf('财务确认')>=0)"  >
                                                         <span class="input-group-btn">
@@ -126,7 +79,7 @@
                                                 </div>
                                                 <label class="col-md-2 control-label required">出差结束日期</label>
                                                 <div class="col-md-4">
-                                                    <div class="input-group date date-picker" id="endTime">
+                                                    <div class="input-group date date-picker-before-now" id="endTime">
                                                         <input type="text" class="form-control"
                                                                ng-model="vm.item.endTime" name="endTime" required="true" ng-disabled="!(processInstance.firstTask||processInstance.myRunningTaskName.indexOf('财务核算')>=0||processInstance.myRunningTaskName.indexOf('财务确认')>=0)"  >
                                                         <span class="input-group-btn">
@@ -148,20 +101,28 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
+                                                <label class="col-md-2 control-label required">是否含培训费</label>
+                                                <div class="col-md-4">
+                                                    <select ng-options="s.name as s.name for s in sysCodes | filter:{codeCatalog:'是否'}:true"
+                                                            ng-model="vm.item.travelExpense" class="form-control" ng-disabled="!(processInstance.firstTask||processInstance.myRunningTaskName.indexOf('财务核算')>=0||processInstance.myRunningTaskName.indexOf('财务确认')>=0)"></select>
+                                                </div>
+                                                <label class="col-md-2 control-label required">是否特批</label>
+                                                <div class="col-md-4">
+                                                    <select ng-options="s.name as s.name for s in sysCodes | filter:{codeCatalog:'是否'}:true"
+                                                            ng-model="vm.item.extraApprove" class="form-control" ng-disabled="!(processInstance.firstTask||processInstance.myRunningTaskName.indexOf('财务核算')>=0||processInstance.myRunningTaskName.indexOf('财务确认')>=0)"></select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
                                                 <label class="col-md-2 control-label required">是否存在项目</label>
                                                 <div class="col-md-4">
                                                     <select ng-options="s.codeValue as s.name for s in sysCodes | filter:{codeCatalog:'是否'}:true"
                                                             ng-model="vm.item.isProject" class="form-control" ng-disabled="!(processInstance.firstTask||processInstance.myRunningTaskName.indexOf('财务核算')>=0||processInstance.myRunningTaskName.indexOf('财务确认')>=0)"></select>
                                                 </div>
-                                                <label class="col-md-2 control-label required" ng-if="vm.item.isProject">是否科研项目</label>
-                                                <div class="col-md-4" ng-if="vm.item.isProject">
-                                                    <select ng-options="s.name as s.name for s in sysCodes | filter:{codeCatalog:'是否'}:true"
-                                                            ng-model="vm.item.scientific" class="form-control" ng-disabled="!(processInstance.firstTask||processInstance.myRunningTaskName.indexOf('财务核算')>=0||processInstance.myRunningTaskName.indexOf('财务确认')>=0)"></select>
-                                                </div>
+
                                             </div>
-                                            <div class="form-group" ng-if="vm.item.isProject">
-                                                <label class="col-md-2 control-label">报销项目</label>
-                                                <div class="col-md-10">
+                                            <div class="form-group" style="background-color: #e5f2ff" ng-if="vm.item.isProject">
+                                                <label class="col-md-2 control-label">项目名称</label>
+                                                <div class="col-md-4 control-label">
                                                     <div class="input-group">
                                                         <input type="text" class="form-control"
                                                                ng-model="vm.item.projectName" name="projectName"
@@ -175,15 +136,20 @@
                                                         </span>
                                                     </div>
                                                 </div>
+                                                <label class="col-md-2 control-label required" n>是否科研项目</label>
+                                                <div class="col-md-4 control-label" >
+                                                    <select ng-options="s.name as s.name for s in sysCodes | filter:{codeCatalog:'是否'}:true"
+                                                            ng-model="vm.item.scientific" class="form-control" ng-disabled="!(processInstance.firstTask||processInstance.myRunningTaskName.indexOf('财务核算')>=0||processInstance.myRunningTaskName.indexOf('财务确认')>=0)"></select>
+                                                </div>
                                             </div>
-                                            <div class="form-group" ng-if="vm.item.isProject">
+                                            <div class="form-group" style="background-color: #e5f2ff" ng-if="vm.item.isProject">
                                                 <label class="col-md-2 control-label">项目类别</label>
-                                                <div class="col-md-4">
+                                                <div class="col-md-4 control-label">
                                                     <select ng-options="s.name as s.name for s in sysCodes | filter:{codeCatalog:'五洲项目类型'}:true"
                                                             ng-model="vm.item.projectType" class="form-control" ng-disabled="!(processInstance.firstTask||processInstance.myRunningTaskName.indexOf('财务核算')>=0||processInstance.myRunningTaskName.indexOf('财务确认')>=0)"></select>
                                                 </div>
                                                 <label class="col-md-2 control-label">项目负责人</label>
-                                                <div class="col-md-4">
+                                                <div class="col-md-4 control-label">
                                                     <div class="input-group">
                                                         <input type="text" class="form-control"
                                                                ng-model="vm.item.bussineManagerName" name="bussineManagerName" disabled/>
@@ -193,50 +159,19 @@
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div class="form-group">
-                                                <label class="col-md-2 control-label required">是否含培训费</label>
-                                                <div class="col-md-4">
-                                                    <select ng-options="s.name as s.name for s in sysCodes | filter:{codeCatalog:'是否'}:true"
-                                                            ng-model="vm.item.travelExpense" class="form-control" ng-disabled="!(processInstance.firstTask||processInstance.myRunningTaskName.indexOf('财务核算')>=0||processInstance.myRunningTaskName.indexOf('财务确认')>=0)"></select>
+                                                <label class="col-md-2 control-label ">备注</label>
+                                                <div class="col-md-10">
+                                                    <input type="text" class="form-control" ng-model="vm.item.remark" name="remark" ng-disabled="!(processInstance.firstTask||processInstance.myRunningTaskName.indexOf('财务核算')>=0||processInstance.myRunningTaskName.indexOf('财务确认')>=0)"/>
                                                 </div>
-                                                <label class="col-md-2 control-label required">是否特批</label>
-                                                 <div class="col-md-4">
-                                                     <select ng-options="s.name as s.name for s in sysCodes | filter:{codeCatalog:'是否'}:true"
-                                                             ng-model="vm.item.extraApprove" class="form-control" ng-disabled="!(processInstance.firstTask||processInstance.myRunningTaskName.indexOf('财务核算')>=0||processInstance.myRunningTaskName.indexOf('财务确认')>=0)"></select>
-                                             </div>
                                             </div>
 <%--                                            <div class="form-group">
-                                                <label class="col-md-2 control-label ">超标项目</label>
-                                                <div class="col-md-10">
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control"
-                                                               ng-model="vm.item.exceedProjectName" name="exceedProjectName"
-                                                               ng-disabled="vm.item.contractLibraryId==0||!(processInstance.firstTask||processInstance.myRunningTaskName.indexOf('财务核算')>=0||processInstance.myRunningTaskName.indexOf('财务确认')>=0)"/>
-                                                        <span class="input-group-btn">
-                                                            <button class="btn default" type="button"
-                                                                    ng-click="vm.showSelectPreOrReviewModal('exceedProjectId')"
-                                                                    ng-disabled="!(processInstance.firstTask||processInstance.myRunningTaskName.indexOf('财务核算')>=0||processInstance.myRunningTaskName.indexOf('财务确认')>=0)"><i
-                                                                    class="fa fa-cog"></i>
-                                                            </button>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>--%>
-                                            <div class="form-group">
-                                                <label class="col-md-2 control-label required">是否需要超标审批</label>
-                                                <div class="col-md-4">
-                                                    <select ng-options="s.name as s.name for s in sysCodes | filter:{codeCatalog:'是否需要超标审批'}:true"
-                                                            ng-model="vm.item.exceedStandard" class="form-control" ng-disabled="!(processInstance.firstTask||processInstance.myRunningTaskName.indexOf('财务核算')>=0||processInstance.myRunningTaskName.indexOf('财务确认')>=0)"></select>
-                                                </div>
-
-                                            </div>
-
-                                            <div class="form-group">
                                                 <label class="col-md-2 control-label required">退补金额</label>
                                                 <div class="col-md-4">
                                                     <div class="input-group">
                                                         <span class="input-group-addon">￥</span>
-                                                        <input type="text" class="form-control" ng-model="vm.item.refundAmount" ng-disabled="!(processInstance.firstTask||processInstance.myRunningTaskName.indexOf('财务核算')>=0||processInstance.myRunningTaskName.indexOf('财务确认')>=0)"
+                                                        <input type="text" class="form-control" ng-model="vm.item.refundAmount" ng-disabled="true"
                                                                name="refundAmount" required="true">
                                                         <span class="input-group-addon">万元</span>
                                                     </div>
@@ -250,19 +185,33 @@
                                                         <span class="input-group-addon">元</span>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div>--%>
                                             <div class="form-group">
-                                                <label class="col-md-2 control-label">流程标题</label>
+                                                <label class="col-md-2 control-label required">报销部门</label>
                                                 <div class="col-md-4">
-                                                    <input type="text" class="form-control" ng-model="vm.item.title" name="title" ng-disabled="!(processInstance.firstTask||processInstance.myRunningTaskName.indexOf('财务核算')>=0||processInstance.myRunningTaskName.indexOf('财务确认')>=0)"/>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" ng-model="vm.item.deptName" name="deptName" required="true"   readonly/>
+                                                        <span class="input-group-btn" >
+                                                <button class="btn default" type="button" ng-click="vm.showDeptModal(0);" ng-disabled="!(processInstance.firstTask||processInstance.myRunningTaskName.indexOf('财务核算')>=0||processInstance.myRunningTaskName.indexOf('财务确认')>=0)"><i class="fa fa-cog"></i></button>
+                                             </span>
+                                                    </div>
+                                                </div>
+                                                <label class="col-md-2 control-label required">单据号</label>
+                                                <div class="col-md-4">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" ng-model="vm.item.receiptsNumber" readonly
+                                                               name="receiptsNumber" required="true" maxlength="20" placeholder="单据号" disabled/>
+                                                        <span class="input-group-btn">
+                                                          <button class="btn default" type="button"
+                                                                  ng-disabled="!(processInstance.firstTask||processInstance.myRunningTaskName.indexOf('财务核算')>=0||processInstance.myRunningTaskName.indexOf('财务确认')>=0)"
+                                                                  ng-click="vm.getReceiptsNumber();">
+                                                            <i class="fa fa-refresh"></i></button>
+
+                                                        </span>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label class="col-md-2 control-label ">备注</label>
-                                                <div class="col-md-10">
-                                                    <input type="text" class="form-control" ng-model="vm.item.remark" name="remark" ng-disabled="!(processInstance.firstTask||processInstance.myRunningTaskName.indexOf('财务核算')>=0||processInstance.myRunningTaskName.indexOf('财务确认')>=0)"/>
-                                                </div>
-                                            </div>
+
                                             <div class="form-group">
                                                 <label class="col-md-2 control-label">创建人</label>
                                                 <div class="col-md-4">
@@ -361,7 +310,6 @@
                                             <%--     <div class="form-group">
                                                      <button type="button" class="btn btn-default  pull-right" ng-click="vm.showDetailModel(0);"><i class="fa fa-plus"></i> 新增</button>
                                                  </div>--%>
-                                            <div class="form-group">
                                                 <table class="table table-striped table-hover table-bordered table-advance no-footer">
                                                     <thead>
                                                     <tr>
@@ -413,18 +361,17 @@
                                                     </tr>
                                                     </tbody>
                                                 </table>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+<%--                            <div class="row">
                                 <div class="col-md-12 col-xl-12">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
                                              <span href="#panelCompanyBank" class="panel-toggle" data-toggle="collapse"
                                                    data-parent="#detail_form">
-                                                    付款单位信息
+                                                    付款信息
                                              </span>
                                         </div>
                                         <div class="panel-body" id="panelCompanyBank"
@@ -464,7 +411,7 @@
                                         <div class="panel-heading">
                                               <span href="#panelPersonalBank" class="panel-toggle"
                                                     data-toggle="collapse" data-parent="#detail_form">
-                                                    收款单位信息
+                                                    收款信息
                                              </span>
                                         </div>
                                         <div class="panel-body" id="panelPersonalBank"
@@ -499,7 +446,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>--%>
                         </div>
                     </form>
 

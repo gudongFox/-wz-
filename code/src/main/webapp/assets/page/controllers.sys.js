@@ -421,7 +421,6 @@
             vm.sysDept.chargeMan = logins[0];
             vm.sysDept.chargeName = names[0];
 
-
             $("#deptUserModal").modal("hide");
         }
 

@@ -22,7 +22,6 @@ public class FiveOaNonSecretEquipmentScrap {
     @Max(value=999999999, message="设备所属单位必须为数字")
     private Integer deptId;
 
-     @NotNull(message="deptName不能为空!")
     @Size(max=145, message="deptName长度不能超过145")
     private String deptName;
 
@@ -49,6 +48,10 @@ public class FiveOaNonSecretEquipmentScrap {
     @NotNull(message="设备编号不能为空!")
     @Size(max=450, message="设备编号长度不能超过450")
     private String equipmentNo;
+
+    @NotNull(message="设备类型不能为空!")
+    @Size(max=45, message="设备类型长度不能超过45")
+    private String equipmentType;
 
     @NotNull(message="设备序列号不能为空!")
     @Size(max=450, message="设备序列号长度不能超过450")
@@ -91,26 +94,6 @@ public class FiveOaNonSecretEquipmentScrap {
     @Size(max=45, message="secretOtherNo长度不能超过45")
     private String secretOtherNo;
 
-    @NotNull(message="启用时间不能为空!")
-    @Size(max=45, message="启用时间长度不能超过45")
-    private String startTime;
-
-    @NotNull(message="原值不能为空!")
-    @Size(max=45, message="原值长度不能超过45")
-    private String originalValue;
-
-    @NotNull(message="折旧年限不能为空!")
-    @Size(max=45, message="折旧年限长度不能超过45")
-    private String depreciationYear;
-
-    @NotNull(message="已提折旧不能为空!")
-    @Size(max=45, message="已提折旧长度不能超过45")
-    private String depreciationAlready;
-
-    @NotNull(message="净值不能为空!")
-    @Size(max=45, message="净值长度不能超过45")
-    private String netWorth;
-
     @NotNull(message="creator不能为空!")
     @Size(max=45, message="creator长度不能超过45")
     private String creator;
@@ -135,6 +118,22 @@ public class FiveOaNonSecretEquipmentScrap {
     @NotNull(message="isProcessEnd不能为空!")
     private Boolean processEnd;
 
-    @NotNull(message="台账是否处理不能为空!")
+    @NotNull(message="启用时间不能为空!")
+    @Size(max=45, message="启用时间长度不能超过45")
+    private String startTime;
+
+    @Size(max=45, message="原值长度不能超过45")
+    private String originalValue;
+
+    @Size(max=45, message="折旧年限长度不能超过45")
+    private String depreciationYear;
+
+    @Size(max=45, message="已提折旧长度不能超过45")
+    private String depreciationAlready;
+
+    @Size(max=45, message="净值长度不能超过45")
+    private String netWorth;
+
+    @NotNull(message="isDisposeAsset不能为空!")
     private Boolean disposeAsset;
 }

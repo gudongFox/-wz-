@@ -268,6 +268,7 @@ public class EdConst {
     public static final String FIVE_FINANCE_TRAVEL_EXPENSE_FUNCTION = "fiveFinanceTravelExpenseFunction";//差旅费报销-职能
     public static final String FIVE_FINANCE_TRAVEL_EXPENSE_RED = "fiveFinanceTravelExpenseRed";//差旅费报销-红河
     public static final String FIVE_FINANCE_TRAVEL_EXPENSE_BUILD = "fiveFinanceTravelExpenseBuild";//差旅费报销-建研院
+    public static final String FIVE_FINANCE_SUBPACKAGE_PAYMENT = "fiveFinanceSubpackagePayment";//分包工程付款
     public static final String FIVE_FINANCE_INCOME = "fiveFinanceIncome";//收入管理
     public static final String FIVE_FINANCE_INCOME_CONFIRM = "fiveFinanceIncomeConfirm";//收入确认
     public static final String FIVE_FINANCE_INVOICE = "fiveFinanceInvoice";//发票申请

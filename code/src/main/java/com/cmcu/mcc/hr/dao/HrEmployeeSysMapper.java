@@ -18,4 +18,6 @@ public interface HrEmployeeSysMapper {
     HrEmployeeSys selectLastOne();
 
     HrEmployeeSys selectByUserLogin(String userLogin);
+
+    Map getKeyInfoByEnLogin(String enLogin);
 }

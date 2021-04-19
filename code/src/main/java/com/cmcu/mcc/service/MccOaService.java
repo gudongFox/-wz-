@@ -1,6 +1,6 @@
 package com.cmcu.mcc.service;
 
-import com.cmcu.common.JsonData;
+import com.common.model.JsonData;
 import org.apache.axis.client.Call;
 import org.apache.axis.client.Service;
 import org.apache.commons.lang3.StringUtils;

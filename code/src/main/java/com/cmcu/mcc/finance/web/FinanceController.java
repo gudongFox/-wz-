@@ -298,4 +298,15 @@ public class FinanceController {
         ModelAndView modelAndView=new ModelAndView("/five/finance/transferFeeDetail");
         return modelAndView;
     }
+
+    @RequestMapping("/subpackagePayment")
+    public ModelAndView subpackagePayment(){
+        ModelAndView modelAndView=new ModelAndView("/five/finance/subpackagePayment");
+        return modelAndView;
+    }
+    @RequestMapping("/subpackagePaymentDetail")
+    public ModelAndView subpackagePaymentDetail(){
+        ModelAndView modelAndView=new ModelAndView("/five/finance/subpackagePaymentDetail");
+        return modelAndView;
+    }
 }

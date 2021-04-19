@@ -1,6 +1,6 @@
 package com.cmcu.mcc.controller;
 
-import com.cmcu.common.JsonData;
+import com.common.model.JsonData;
 import com.cmcu.common.service.CommonUserService;
 import com.cmcu.common.util.CookieSessionUtils;
 import com.cmcu.common.util.JsonMapper;
@@ -37,6 +37,21 @@ public class CadController {
     CommonUserService commonUserService;
     @Resource
     HandleFormService handleFormService;
+
+    @RequestMapping("/redirect")
+    public ModelAndView redirect(String jwt) {
+        String result = JwtUtil.decodeJwtToken(jwt);
+        if (StringUtils.isNotEmpty(result)) {
+            Map data = com.common.util.JsonMapper.string2Map(result);
+            if (data.containsKey(MccConst.EN_LOGIN)) {
+                CookieSessionUtils.addSession(MccConst.EN_LOGIN, data.get(MccConst.EN_LOGIN));
+                return new ModelAndView("redirect:/index");
+            }
+        }
+        return new ModelAndView("redirect:/login");
+    }
+
+
 
     @RequestMapping("/home")
     public ModelAndView home(String enLogin) {

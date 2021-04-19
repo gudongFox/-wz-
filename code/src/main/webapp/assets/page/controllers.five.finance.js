@@ -11744,3 +11744,363 @@
         return vm;
 
     })
+
+    //分包工程付款
+    .controller("FiveFinanceSubpackagePaymentController", function ($state, $scope, $rootScope, fiveFinanceSubpackagePaymentService) {
+        var vm = this;
+        var key = $state.current.name + "_" + user.userLogin;
+        vm.params = getCacheParams(key, {
+            qDeptName: "",
+            pageNum: 1,
+            pageSize: $scope.pageSize,
+            total: 0
+        });
+        vm.pageInfo = {
+            q: vm.params.qName,
+            pageNum: vm.params.pageNum,
+            pageSize: vm.params.pageSize,
+            total: vm.params.total
+        };
+        var uiSref = "finance.subpackagePayment";
+        var tableName = $rootScope.loadTableName(uiSref);
+
+        vm.queryData = function () {
+            vm.pageInfo.pageNum = 1;
+
+            vm.loadPagedData();
+        };
+
+        vm.loadPagedData = function () {
+            var params = {
+                pageNum: vm.pageInfo.pageNum,
+                pageSize: vm.pageInfo.pageSize,
+                userLogin: user.userLogin,
+                uiSref: uiSref
+            };
+            fiveFinanceSubpackagePaymentService.listPagedData(params).then(function (value) {
+                if (value.data.ret) {
+                    vm.pageInfo = value.data.data;
+                    setCacheParams(key, vm.params, vm.pageInfo);
+                }
+            })
+            $scope.loadRightData(user.userLogin, uiSref);
+        };
+
+        vm.show = function (id) {
+            $state.go("finance.subpackagePaymentDetail", {subpackagePaymentId: id});
+        }
+
+        vm.add = function () {
+            fiveFinanceSubpackagePaymentService.getNewModel(user.userLogin,uiSref).then(function (value) {
+                if (value.data.ret) {
+                    vm.show(value.data.data);
+                }
+            })
+        }
+
+        vm.remove = function (id) {
+            bootbox.confirm("您确定要删除吗?无法恢复,请谨慎操作!", function (result) {
+                if (result) {
+                    fiveFinanceSubpackagePaymentService.remove(id, user.userLogin).then(function (value) {
+                        if (value.data.ret) {
+                            toastr.success("删除成功!")
+                            vm.queryData();
+                        }
+                    });
+                }
+            })
+        }
+
+        vm.loadPagedData();
+
+        return vm;
+
+    })
+    .controller("FiveFinanceSubpackagePaymentDetailController", function ($sce, $state, $stateParams, $rootScope, $scope,actService, fiveFinanceRefundService,fiveFinanceLoanService, hrEmployeeService, fiveFinanceSubpackagePaymentService, hrDeptService,commonPrintTableService) {
+        var vm = this;
+        var uiSref = "finance.subpackagePayment";
+        var subpackagePaymentId = $stateParams.subpackagePaymentId;
+        var tableName = $rootScope.loadTableName(uiSref);
+        vm.kinds = ["分包工程款、设备款","分包设计费","科研支出","其他"];
+
+        vm.init = function () {
+            $scope.loadRightData(user.userLogin, uiSref);
+            vm.loadData(true);
+        }
+
+
+        vm.loadData = function (loadProcess) {
+            fiveFinanceSubpackagePaymentService.getModelById(subpackagePaymentId).then(function (value) {
+                if (value.data.ret) {
+                    vm.item = value.data.data;
+                    console.log(vm.item)
+                    if (loadProcess) {
+                        $scope.loadProcessInstance(vm.item.processInstanceId);
+                        $scope.basicInit(vm.item.businessKey);
+                    }
+
+                }
+            })
+            console.log(subpackagePaymentId);
+            fiveFinanceSubpackagePaymentService.listDetail(subpackagePaymentId).then(function (value) {
+                if (value.data.ret) {
+                    vm.details = value.data.data;
+                    console.log(vm.details);
+                }
+            })
+        };
+
+        vm.save = function () {
+            vm.item.operateUserLogin = user.userLogin;
+            fiveFinanceSubpackagePaymentService.update(vm.item).then(function (value) {
+                if (value.data.ret) {
+                    toastr.success("保存成功!")
+                    vm.loadData(true);
+                }
+            })
+        }
+
+        vm.showUserModel = function (status) {
+            vm.status = status;
+            if (vm.status == 'applicant') {
+                $scope.showOaSelectEmployeeModal_({
+                    title: "请选择申请人",
+                    type: "部门",
+                    deptIds: "1",
+                    userLoginList: vm.item.applicant,
+                    multiple: true
+                });
+            }
+            if (vm.status == 'bussineManager') {
+                $scope.showOaSelectEmployeeModal_({
+                    title: "请选择项目负责人",
+                    type: "部门",
+                    deptIds: "1",
+                    userLoginList: vm.item.bussineManager,
+                    multiple: true
+                });
+            }
+            if (vm.status == 'creatorName') {
+                $scope.showOaSelectEmployeeModal_({
+                    title: "请选择支列人",
+                    type: "部门",
+                    deptIds: "1",
+                    userLoginList: vm.detail.applicant,
+                    multiple: true
+                });
+            }
+
+        }
+
+        $rootScope.saveSelectEmployee_ = function () {
+            $scope.closeOaSelectEmployeeModal_();
+            if (vm.status == 'applicant') {
+                vm.item.applicant = $scope.selectedOaUserLogins_;
+                vm.item.applicantName = $scope.selectedOaUserNames_;
+                /*                hrEmployeeService.getModelByUserLogin(vm.item.applicantMan).then(function (value) {
+                                    var user = value.data.data;
+                                    vm.item.applicantNo = user.userLogin;
+                                    vm.item.applicantTel=user.mobile;
+                                })*/
+            }
+            if (vm.status == 'bussineManager') {
+                vm.item.bussineManager = $scope.selectedOaUserLogins_;
+                vm.item.bussineManagerName = $scope.selectedOaUserNames_;
+                /*                hrEmployeeService.getModelByUserLogin(vm.item.applicantMan).then(function (value) {
+                                    var user = value.data.data;
+                                    vm.item.applicantNo = user.userLogin;
+                                    vm.item.applicantTel=user.mobile;
+                                })*/
+            }
+            if (vm.status == 'creatorName') {
+                vm.detail.creator = $scope.selectedOaUserLogins_;
+                vm.detail.creatorName = $scope.selectedOaUserNames_;
+            }
+        };
+
+        vm.getReceiptsNumber=function(){
+            vm.item.operateUserLogin=user.userLogin;
+            fiveFinanceSubpackagePaymentService.update(vm.item).then(function(value){
+                if (value.data.ret) {
+                    fiveFinanceSubpackagePaymentService.getReceiptsNumber(vm.item.id).then(function (value) {
+                        if (value.data.ret) {
+                            vm.loadData();
+                            toastr.success("单据号已更新!");
+                        }
+                    })
+                }
+            })
+        }
+
+        //发送流程验证
+        $scope.showSendTask = function (send) {
+            if ($("#detail_form").validate().form()) {
+                vm.item.operateUserLogin = user.userLogin;
+                fiveFinanceSubpackagePaymentService.update(vm.item).then(function (value) {
+                    if (value.data.ret) {
+                        jQuery.showActHandleModal({
+                            taskId: $scope.processInstance.taskId,
+                            send: send,
+                            enLogin: user.enLogin
+                        }, function () {
+                            return true;
+                        }, function (processInstanceId) {
+                            $scope.refresh();
+                        });
+                    }
+                })
+            } else {
+                toastr.warning("请准确填写数据!")
+                return false;
+            }
+
+        }
+
+        //选部门
+        vm.showDeptModal = function (id) {
+            if (id == 0){
+                $scope.showOaSelectEmployeeModal_({
+                    title: "请选择部门", type: "选部门", deptIdList: vm.item.deptId + "",
+                    multiple: false, deptIds: "1", parentDeptId: 2, bigDept: true
+                });
+            }
+
+            if (id == 1){
+                $scope.showOaSelectEmployeeModal_({
+                    title: "请选择部门", type: "选部门", deptIdList: vm.detail.deptId + "",
+                    multiple: false, deptIds: "1", parentDeptId: 2
+                });
+            }
+
+        }
+        //保存选部门
+        $rootScope.saveSelectDept_ = function () {
+            if (id == 0){
+                $scope.closeOaSelectEmployeeModal_();
+                vm.item.deptName = $scope.selectedOaDeptNames_;
+                vm.item.deptId = Number($scope.selectedOaDeptIds_);
+            }
+            if (id == 1){
+                $scope.closeOaSelectEmployeeModal_();
+                vm.detail.deptName = $scope.selectedOaDeptNames_;
+                vm.detail.deptId = Number($scope.selectedOaDeptIds_);
+            }
+
+        }
+
+        //新增
+        vm.showDetailModel = function (id) {
+            if (id === 0) {
+                fiveFinanceSubpackagePaymentService.getNewModelDetail(subpackagePaymentId, user.userLogin).then(function (value) {
+                    if (value.data.ret) {
+                        vm.detail = value.data.data;
+                        $("#detailModal").modal("show");
+                    }
+                })
+                //修改
+            } else {
+                fiveFinanceSubpackagePaymentService.getModelDetailById(id).then(function (value) {
+                    if (value.data.ret) {
+                        vm.detail = value.data.data;
+                        $("#detailModal").modal("show");
+                        vm.loadData(true);
+                    }
+                })
+            }
+        }
+        //删除
+        vm.removeDetail = function (id) {
+            bootbox.confirm("确定要删除该数据吗?", function (result) {
+                if (result) {
+                    fiveFinanceSubpackagePaymentService.removeDetail(id, user.userLogin).then(function (value) {
+                        if (value.data.ret) {
+                            toastr.success("删除成功");
+                            vm.loadData(true);
+                        }
+                    })
+                }
+            });
+        };
+        //保存
+        vm.saveDetail = function () {
+            if ($("#detail_form1").validate().form()){
+            fiveFinanceSubpackagePaymentService.updateDetail(vm.detail).then(function (value) {
+                if (value.data.ret) {
+                    $("#detailModal").modal("hide");
+                    vm.save();
+                    vm.loadData(true);
+                }
+            })
+            }
+            else {
+                toastr.warning("请准确填写数据!")
+                return false;
+            }
+
+        };
+
+        //打印
+        vm.print=function () {
+            commonPrintTableService.getPrintDate(vm.item.businessKey,user.userLogin).then(function (value) {
+                if(value.data.ret){
+                    lodop=getLodop();
+                    vm.printData=value.data.data;
+                    lodop.PRINT_INIT("分包工程付款 ");
+                    var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
+                    setTimeout(function () {
+                        var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
+                        lodop.PREVIEW();
+                    }, 500);
+                }
+            })
+        };
+
+
+        vm.showBankSelect = function (id) {
+            vm.id=id;
+            if(id==1){
+                $scope.showBankSelectModal_({
+                    userLogin: "",
+                    uiSref:uiSref,
+                    userBankNo:vm.item.outBankAccount
+                });
+            }
+            if(id==0){
+                $scope.showBankSelectModal_({
+                    userLogin: "",
+                    uiSref:uiSref,
+                    userBankNo:vm.item.inBankAccount
+                });
+            }
+        }
+
+        $rootScope.saveSelectBank_ = function () {
+            if(vm.id==1){
+                var v1 = $rootScope.selectBank.type ;
+                vm.item.payName = $rootScope.selectBank.userName ;
+                vm.item.payAccount = $rootScope.selectBank.bankNo ;
+                vm.item.payBank = $rootScope.selectBank.bankName ;
+                $scope.closeBankSelectModal_();
+            }
+            if(vm.id==0){
+                var v2 = $rootScope.selectBank.type ;
+                vm.item.receiveName = $rootScope.selectBank.userName ;
+                vm.item.receiveAccount = $rootScope.selectBank.bankNo ;
+                vm.item.receiveBank = $rootScope.selectBank.bankName ;
+                $scope.closeBankSelectModal_();
+            }
+        }
+
+        vm.init();
+        $scope.refresh = function () {
+            vm.loadData(true);
+        }
+        return vm;
+
+    })

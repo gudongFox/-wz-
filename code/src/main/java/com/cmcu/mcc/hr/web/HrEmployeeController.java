@@ -1,6 +1,6 @@
 package com.cmcu.mcc.hr.web;
 
-import com.cmcu.common.JsonData;
+import com.common.model.JsonData;
 import com.cmcu.common.service.CommonAttachService;
 import com.cmcu.common.util.WebUtil;
 import com.cmcu.mcc.hr.dto.HrEmployeeDto;

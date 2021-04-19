@@ -81,6 +81,7 @@ public class FiveOaNonSecretEquipmentScrapService extends BaseService {
         model.setEquipmentName(item.getEquipmentName());
         model.setEquipmentNo(item.getEquipmentNo());
         model.setEquipmentSerial(item.getEquipmentSerial());
+        model.setEquipmentType(item.getEquipmentType());
         model.setHardNo(item.getHardNo());
         model.setAssetsNo(item.getAssetsNo());
         model.setScrapReason(item.getScrapReason());

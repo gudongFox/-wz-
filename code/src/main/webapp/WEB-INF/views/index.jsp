@@ -155,6 +155,7 @@
                                 </li>
                             </ul>
                         </li>
+                       //留存问题 模块 与 菜单 显示顺序 一致
                         <li ng-repeat="acl in menu.aclList">
                             <a ui-sref="{{acl.uiSref}}" ng-if="acl.uiSref.length>0">
                                 <span style="margin-left:10px" ng-bind="acl.name"></span>

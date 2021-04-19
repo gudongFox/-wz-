@@ -1,6 +1,6 @@
 package com.cmcu.mcc.five.web;
 
-import com.cmcu.common.JsonData;
+import com.common.model.JsonData;
 import com.cmcu.mcc.five.dto.FiveEdDesignDrawingCheckDto;
 import com.cmcu.mcc.five.service.FiveEdDesignDrawingCheckService;
 import org.apache.commons.lang3.StringUtils;

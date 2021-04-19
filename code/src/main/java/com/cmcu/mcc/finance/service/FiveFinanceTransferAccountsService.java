@@ -154,6 +154,7 @@ public class FiveFinanceTransferAccountsService {
         variables.put("financeConfirm", selectEmployeeService.getDeptFinanceMan(model.getDeptId()));//财务确认
         variables.put("projectManager",dto.getBusinessManager());//项目经理
         variables.put("deptChargeMan", selectEmployeeService.getDeptChargeMen(model.getDeptId()));//部门负责人
+        variables.put("deptLeader",selectEmployeeService.getOtherDeptChargeMan(model.getDeptId()));//分管领导
         variables.put("financeChargeMan", selectEmployeeService.getDeptChargeMen(18));//财务负责人
         variables.put("financeDeputy", selectEmployeeService.getOtherDeptChargeMan(18));//主管副职领导
         variables.put("chiefAccountant", hrEmployeeService.selectUserByPositionName("总会计师"));

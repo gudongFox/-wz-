@@ -76,43 +76,6 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-2 control-label required">申请人</label>
-                                <div class="col-md-4">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" ng-model="vm.item.applyManName" name="applyManName" required="true"   ng-disabled="!processInstance.firstTask" />
-                                        <span class="input-group-btn" >
-                                            <button class="btn default" type="button" ng-click="vm.showUserModel('applyMan');" ng-disabled="!processInstance.firstTask" ><i class="fa fa-user"></i></button>
-                                         </span>
-                                    </div>
-                                </div>
-
-                                <label class="col-md-2 control-label required">开始时间</label>
-                                <div class="col-md-4">
-                                    <div class="input-group date date-picker" id="startTime">
-                                        <input type="text" class="form-control"
-                                               ng-model="vm.item.startTime" name="startTime" required="true" ng-disabled="!processInstance.firstTask"  >
-                                        <span class="input-group-btn">
-                                                   <button class="btn default" type="button" ng-disabled="!processInstance.firstTask"><i class="fa fa-calendar"></i></button>
-                                            </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-2 control-label required">资产编号</label>
-                                <div class="col-md-4">
-                                    <input type="text" class="form-control" ng-model="vm.item.assetsNo"
-                                           name="equipmentName" required="true"
-                                           ng-disabled="!processInstance.firstTask"/>
-                                </div>
-                                <label class="col-md-2 control-label required">设备名称</label>
-                                <div class="col-md-4">
-                                    <input type="text" class="form-control" ng-model="vm.item.equipmentName"
-                                           name="equipmentName" required="true"
-                                           ng-disabled="!processInstance.firstTask"/>
-                                </div>
-
-                            </div>
-                            <div class="form-group">
                                 <label class="col-md-2 control-label required">信息化设备编号</label>
                                 <div class="col-md-4">
                                     <div class="input-group">
@@ -121,19 +84,55 @@
                                             <button class="btn default" type="button" ng-click="vm.showComputer();"  ng-disabled="!processInstance.firstTask" ><i class="fa fa-cog"></i></button>
                                          </span>
                                     </div>
-                                    <div style="color: red;font-size:10px;">请选择计算机设备编号</div>
+                                    <div style="color: red;font-size:10px;" ng-if="!vm.item.equipmentNo">请选择计算机设备编号</div>
                                 </div>
                                 <label class="col-md-2 control-label required">设备序列号</label>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control" ng-model="vm.item.equipmentSerial" name="equipmentSerial" required="true"   ng-disabled="!processInstance.firstTask" />
+                                    <input type="text" class="form-control" ng-model="vm.item.equipmentSerial" name="equipmentSerial" required="true" disabled />
                                 </div>
 
                             </div>
                             <div class="form-group">
                                 <label class="col-md-2 control-label required">硬盘序列号</label>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control" ng-model="vm.item.hardNo" name="hardNo"
-                                           required="true" ng-disabled="!processInstance.firstTask"/>
+                                    <input type="text" class="form-control" ng-model="vm.item.hardNo" name="hardNo" disabled
+                                           required="true"/>
+                                </div>
+                                <label class="col-md-2 control-label required">设备名称</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="vm.item.equipmentName"
+                                           name="equipmentName" required="true" disabled/>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label required">申请人</label>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" ng-model="vm.item.applyManName" name="applyManName" required="true" disabled  />
+                                        <span class="input-group-btn" >
+                                            <button class="btn default" type="button" ng-click="vm.showUserModel('applyMan');" ng-disabled="!processInstance.firstTask" ><i class="fa fa-user"></i></button>
+                                         </span>
+                                    </div>
+                                </div>
+
+                                <label class="col-md-2 control-label required">开始时间</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" disabled
+                                           ng-model="vm.item.startTime" name="startTime" required="true"  >
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label required">资产编号</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="vm.item.assetsNo"
+                                           name="equipmentName" required="true" disabled/>
+                                </div>
+                                <label class="col-md-2 control-label required">设备类型</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="vm.item.equipmentType"
+                                           name="equipmentType" required="true" disabled/>
                                 </div>
                             </div>
 

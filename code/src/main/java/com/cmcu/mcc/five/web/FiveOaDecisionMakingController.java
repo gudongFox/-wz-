@@ -1,6 +1,6 @@
 package com.cmcu.mcc.five.web;
 
-import com.cmcu.common.JsonData;
+import com.common.model.JsonData;
 import com.cmcu.common.util.WebUtil;
 import com.cmcu.mcc.comm.exportDoc.ExportUtils;
 import com.cmcu.mcc.five.dto.FiveOaDecisionMakingDto;

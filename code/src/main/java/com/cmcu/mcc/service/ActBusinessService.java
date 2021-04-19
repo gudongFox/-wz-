@@ -1313,6 +1313,10 @@ public class ActBusinessService {
                     result.put("url", "finance.travelExpenseDetail");
                     params.put("travelExpenseId", projectId);
                     break;
+                case EdConst.FIVE_FINANCE_SUBPACKAGE_PAYMENT://分包工程付款
+                    result.put("url", "finance.subpackagePaymentDetail");
+                    params.put("subpackagePaymentId", projectId);
+                    break;
                 case EdConst.FIVE_FINANCE_TRAVEL_EXPENSE_FUNCTION:
                     result.put("url", "finance.travelExpenseFunctionDetail");
                     params.put("travelExpenseId", projectId);

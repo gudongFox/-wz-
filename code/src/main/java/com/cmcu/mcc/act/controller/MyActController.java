@@ -1,7 +1,7 @@
 package com.cmcu.mcc.act.controller;
 
 import com.cmcu.act.service.ProcessQueryService;
-import com.cmcu.common.JsonData;
+import com.common.model.JsonData;
 import com.cmcu.common.act.dto.UserTaskDto;
 import com.cmcu.common.util.FileUtil;
 import com.cmcu.common.util.JsonMapper;

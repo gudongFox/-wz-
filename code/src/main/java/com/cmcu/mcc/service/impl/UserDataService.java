@@ -188,6 +188,17 @@ public class UserDataService implements IUserDataService {
         return userDto;
     }
 
+
+
+
+
+
+
+
+
+
+
+
     @Override
     public void updateProperty(String enLogin, Map property) {
         if(property!=null&&property.keySet().size()>0) {
@@ -250,6 +261,20 @@ public class UserDataService implements IUserDataService {
     @Override
     public List<Integer> getMyDeptList(String enLogin, String uiSref) {
         return hrEmployeeSysService.getMyDeptList(enLogin,uiSref);
+    }
+
+    @Override
+    public Map getKeyInfoByEnLogin(String enLogin) {
+        Map map= hrEmployeeSysMapper.getKeyInfoByEnLogin(enLogin);
+        if(map!=null){
+            map.put("tenetId",MccConst.APP_CODE);
+        }
+        return map;
+    }
+
+    @Override
+    public String getTenetId(String enLogin) {
+        return MccConst.APP_CODE;
     }
 
 

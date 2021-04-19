@@ -47,7 +47,7 @@
                         </div>
                     </div>
                     <div class="table-scrollable">
-                        <table class="table table-striped table-hover table-bordered table-advance no-footer">
+                        <table filter class="table table-striped table-hover table-bordered table-advance no-footer">
                             <thead>
                             <tr>
                                 <th style="width: 35px;">#</th>
@@ -62,7 +62,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="item in vm.pageInfo.list">
+                            <tr ng-repeat="item in vm.pageInfo.list" on-finish-render="">
                                 <td class="dt-right" ng-bind="$index+vm.pageInfo.startRow"></td>
                                 <td ng-bind="item.projectName"  class="data_title"  ng-click="vm.show(item.id);"><strong ></strong>
                                 </td>

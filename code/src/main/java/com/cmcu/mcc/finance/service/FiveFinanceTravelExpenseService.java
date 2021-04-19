@@ -142,6 +142,8 @@ public class FiveFinanceTravelExpenseService {
             model.setProjectName("");
             model.setBussineManager("");
             model.setBussineManagerName("");
+            model.setScientific("否");
+            model.setProjectType("");
         }
 
         model.setApplicant(dto.getApplicant());
@@ -161,10 +163,7 @@ public class FiveFinanceTravelExpenseService {
         model.setRemark(dto.getRemark());
         model.setGmtModified(new Date());
 
-
-
         fiveFinanceTravelExpenseMapper.updateByPrimaryKey(model);
-
 
         selectEmployeeService.getCompanyLeaders();
 
@@ -175,6 +174,7 @@ public class FiveFinanceTravelExpenseService {
         variables.put("flag2", Double.valueOf(dto.getTotalApplyMoney())>=50000.00?true:false);
         variables.put("financeConfirm", selectEmployeeService.getDeptFinanceMan(model.getDeptId()));//财务确认
         variables.put("deptChargeMan", selectEmployeeService.getDeptChargeMen(model.getDeptId()));//部门领导
+        variables.put("deptLeader",selectEmployeeService.getOtherDeptChargeMan(model.getDeptId()));//分管领导
         variables.put("scientific", dto.getScientific().contains("是")?true:false);//科研项目
         variables.put("train", dto.getTravelExpense().contains("是")?true:false);//培训费
         variables.put("humanDeptChargeMan", selectEmployeeService.getDeptChargeMen(38));//人力负责人
@@ -198,7 +198,8 @@ public class FiveFinanceTravelExpenseService {
             variables.put("leader", leader);//判断是否公司领导
             variables.put("approval", approval);//判断是否特批
             variables.put("businessManager", dto.getBussineManager());//项目主管副总
-        } else if (model.getBusinessKey().indexOf("Build") != -1) {//建研院
+        }
+        else if (model.getBusinessKey().indexOf("Build") != -1) {//建研院
             int positiveDept=0;
             int leader=0;
             int approval=0;
@@ -216,7 +217,8 @@ public class FiveFinanceTravelExpenseService {
             variables.put("leader", leader);//判断是否公司领导
             variables.put("approval", approval);//判断是否特批
 
-        } else if (model.getBusinessKey().indexOf("Function") != -1) {//职能部门
+        }
+        else if (model.getBusinessKey().indexOf("Function") != -1) {//职能部门
             HrEmployeeSysDto modelByUserLogin = hrEmployeeSysService.getModelByUserLogin(dto.getCreator());
             int record=0;
             int positiveDept=0;
@@ -245,7 +247,8 @@ public class FiveFinanceTravelExpenseService {
             variables.put("train", model.getTravelExpense().contains("是")?true:false);//培训费*/
             variables.put("leader", leader);//判断是否公司领导
 
-        } else if(model.getBusinessKey().indexOf("Common") != -1){//生产部门
+        }
+        else if(model.getBusinessKey().indexOf("Common") != -1){//生产部门
             HrEmployeeSysDto commonUserLogin = hrEmployeeSysService.getModelByUserLogin(dto.getCreator());
             int middleLeader=0;
             int dept=0;
@@ -253,6 +256,7 @@ public class FiveFinanceTravelExpenseService {
             int leader=0;
             int approval=0;
             int approvalTwo=0;
+            int project = 1;
             if(selectEmployeeService.getCompanyLeaders().contains(model.getCreator())){//中层以上
                 middleLeader=1;
             }
@@ -274,12 +278,18 @@ public class FiveFinanceTravelExpenseService {
             if(approval>0&&selectEmployeeService.getOtherDeptChargeMan(model.getDeptId()).contains(dto.getCreator())){
                 approvalTwo=1;
             }
+            if (dto.getProjectName().trim().length()==0) {
+                project = 0;
+                if (selectEmployeeService.getDeptChargeMen(dto.getDeptId()).contains(dto.getCreator())){
+                    project = 2;
+                }
+            }
 
             variables.put("dept", dept);
             variables.put("middleLeader", middleLeader);//中层以上
             variables.put("positiveDept", positiveDept);//中层正职
             variables.put("approval", approval);//特批
-            variables.put("project", dto.getProjectName().length()>0?1:0);
+            variables.put("project", project);
             variables.put("overproof", dto.getExceedStandard().contains("需要")?true:false);//超标审批
             variables.put("deptDean", selectEmployeeService.getDeptChargeMen(model.getDeptId()));//院长
             variables.put("positiveDeptDean", selectEmployeeService.getOtherDeptChargeMan(model.getDeptId()));//正院长
@@ -331,6 +341,7 @@ public class FiveFinanceTravelExpenseService {
         dto.setTotalApplyMoney(totalApplyMoney);//总报销金额
         dto.setTotalOnRoadSubsidy(totalOnRoadSubsidy);//总在途补助
         dto.setTotalCount(totalCount);//总金额小计
+
 
 
         //2021-01-07HNZ
@@ -577,6 +588,7 @@ public class FiveFinanceTravelExpenseService {
         if(Double.valueOf(item.getCount()).equals(0.0)){
             item.setCount("");
         }
+
         return item;
     }
 

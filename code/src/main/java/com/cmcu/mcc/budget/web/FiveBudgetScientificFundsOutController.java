@@ -1,6 +1,6 @@
 package com.cmcu.mcc.budget.web;
 
-import com.cmcu.common.JsonData;
+import com.common.model.JsonData;
 import com.cmcu.common.util.WebUtil;
 import com.cmcu.mcc.budget.dto.FiveBudgetIndependentDto;
 import com.cmcu.mcc.budget.dto.FiveBudgetScientificFundsOutDto;

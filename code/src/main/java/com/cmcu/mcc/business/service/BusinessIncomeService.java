@@ -28,6 +28,7 @@ import com.cmcu.mcc.finance.entity.FiveFinanceIncomeConfirm;
 import com.cmcu.mcc.finance.entity.FiveFinanceInvoice;
 import com.cmcu.mcc.finance.service.FiveFinanceIncomeConfirmService;
 import com.cmcu.mcc.hr.dto.HrEmployeeDto;
+import com.cmcu.mcc.hr.dto.HrEmployeeSysDto;
 import com.cmcu.mcc.hr.entity.HrDept;
 import com.cmcu.mcc.hr.service.HrDeptService;
 import com.cmcu.mcc.hr.service.HrEmployeeService;
@@ -50,6 +51,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class BusinessIncomeService extends BaseService {
@@ -279,11 +281,26 @@ public class BusinessIncomeService extends BaseService {
         params.put("deleted",false);
 
         //如果有数据权限判断数据权限  myDeptData true查看当前部门 false查看创建人
-        Map map =new HashMap();
+/*        Map map =new HashMap();
         map.put("myDeptData",true);
         map.put("uiSref",uiSref);
         map.put("enLogin",userLogin);
-        params.putAll(getDefaultRightParams(map));
+        params.putAll(getDefaultRightParams(map));*/
+        HrEmployeeSysDto hrEmployeeSysDto = hrEmployeeSysService.getModelByUserLogin(userLogin);
+
+        List<Integer> deptIdList=hrEmployeeSysService.getMyDeptList(userLogin,uiSref);
+        if (deptIdList.size()==0){
+            //获取事业部的deptIds
+            int headDeptId = selectEmployeeService.getHeadDeptId(hrEmployeeSysDto.getDeptId());
+            List<Integer> deptIds = hrDeptService.listChild(headDeptId).stream().map(HrDept::getId).collect(Collectors.toList());
+            deptIds.add(headDeptId);
+            params.put("deptIdList",deptIds);
+        }else {
+            if(deptIdList.contains(1)){
+                deptIdList.add(0);
+            }
+            params.put("deptIdList",deptIdList);
+        }
 
         params.put("isLikeSelect","true");
 

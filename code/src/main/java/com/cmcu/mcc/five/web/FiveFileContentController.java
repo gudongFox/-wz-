@@ -1,6 +1,6 @@
 package com.cmcu.mcc.five.web;
 
-import com.cmcu.common.JsonData;
+import com.common.model.JsonData;
 import com.cmcu.common.dto.CommonFileDto;
 import com.cmcu.common.dto.UserDto;
 import com.cmcu.common.entity.CommonConfig;
@@ -180,10 +180,17 @@ public class FiveFileContentController {
             //判断文件类型是否为 doc docx
             String fileName=singleUpload.getOriginalFilename();
             String ext = fileName.substring(fileName.lastIndexOf("."));
-            
-            if (!".doc,.docx,.pdf".contains(ext)){
-              return  JsonData.fail("请上传正确的doc,docx，pdf类型文档");
-            }
+                //月度预支签发单
+                if(businessKey.startsWith("fiveBusinessAdvanceCollect_")){
+                    if (!".xls,.xlsx".contains(ext)) {
+                        return JsonData.fail("请上传正确的.xls,.xlsx类型文档");
+                    }
+                }else{
+                    if (!".doc,.docx,.pdf".contains(ext)) {
+                        return JsonData.fail("请上传正确的doc,docx，pdf类型文档");
+                    }
+                }
+
             /** 在文件上传的时候，MultipartFile中的transferTo(dest)方法只能使用一次;
                  并且使用transferTo方法之后不可以在使用getInputStream()方法;
                 否则再使用getInputStream()方法会报异常java.lang.IllegalStateException: File has been moved - cannot be read again;

@@ -1,7 +1,7 @@
 package com.cmcu.mcc.five.web;
 
 
-import com.cmcu.common.JsonData;
+import com.common.model.JsonData;
 import com.cmcu.common.util.WebUtil;
 import com.cmcu.mcc.five.dto.FiveEdStampDto;
 import com.cmcu.mcc.five.dto.FiveHrQualifyChiefDto;
