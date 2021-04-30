@@ -127,8 +127,9 @@ public class FiveOaEmployeeEntryExamineService {
                 String userLogin = item.getLogin();
                 String userName = item.getName();
                 int deptId = item.getEntryDeptId();
+                String mobile = "";
                 String userType = (String) commonCodeService.selectDefaultCodeValue(MccConst.APP_CODE,"员工类型");
-                hrEmployeeSysService.insert(userLogin,userName,deptId,userType);
+                hrEmployeeSysService.insert(userLogin,userName,deptId,userType,mobile);
 
             }
             if(customProcessInstance!=null && StringUtils.isNotEmpty(customProcessInstance.getCurrentTaskName())){

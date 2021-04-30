@@ -74,7 +74,8 @@
             <td colspan="3" style="color: black;height:240px;border-right: solid red 1px;border-bottom: solid red 2px;vertical-align: top;">
                 <P ng-bind="vm.printData.companyOffice.comment"></P>
                 <P ng-bind="vm.printData.companyOffice.userName"></P>
-                <p ng-if="vm.printData.companyOffice.userName.length>0"><img style="width: 90px;height: 35px;" ng-src="{{'/sys/attach/downloadPic/'+vm.printData.companyOffice.userLogin}}"></p>
+                <p ng-if="vm.printData.companyOffice.userName.length>0">
+                <img style="width: 90px;height: 35px;" ng-src="{{'/sys/attach/downloadPic/'+vm.printData.companyOffice.userLogin}}"></p>
                 <P ng-bind="vm.printData.companyOffice.end|date:'yyyy-MM-dd'"></P>
             </td>
         </tr>

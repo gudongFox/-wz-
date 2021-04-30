@@ -4,10 +4,7 @@ import com.cmcu.act.dto.CustomSimpleProcessInstance;
 import com.cmcu.common.dao.CommonFormDataMapper;
 import com.cmcu.common.entity.CommonFormData;
 import com.cmcu.common.service.BaseService;
-import com.cmcu.common.util.BeanValidator;
-import com.cmcu.common.util.JsonMapper;
-import com.cmcu.common.util.ModelUtil;
-import com.cmcu.common.util.MyDateUtil;
+import com.cmcu.common.util.*;
 import com.cmcu.mcc.act.service.MyActService;
 import com.cmcu.mcc.comm.EdConst;
 import com.cmcu.mcc.comm.MccConst;
@@ -138,7 +135,6 @@ public class FiveOaStampApplyOfficeService extends BaseService {
         HrEmployeeDto hrEmployeeDto = hrEmployeeMapper.selectByUserLoginOrNo(userLogin);
         item.setDeptId(hrEmployeeDto.getDeptId());
         item.setDeptName(hrEmployeeDto.getDeptName());
-
         item.setDeleted(false);
         item.setProcessEnd(false);
         item.setCreator(userLogin);

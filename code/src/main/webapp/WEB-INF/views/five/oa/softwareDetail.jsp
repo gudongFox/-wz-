@@ -224,7 +224,7 @@
                         <label class="col-md-3 control-label required">软件使用单位名称</label>
                         <div class="col-md-9">
                             <div class="input-group">
-                            <input type="text" class="form-control" ng-model="vm.detail.softwareUserName" name="softwareUserName"   ng-disabled="!processInstance.firstTask"/>
+                            <input type="text" class="form-control" ng-model="vm.detail.softwareUserName" name="softwareUserName"   disabled/>
                             <span class="input-group-btn" >
                                         <button class="btn default" type="button" ng-click="vm.showDeptModal();" ng-disabled="!processInstance.firstTask"><i class="fa fa-cog"></i></button>
                                      </span>

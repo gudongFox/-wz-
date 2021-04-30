@@ -7,8 +7,6 @@ import com.cmcu.mcc.act.service.MyHistoryService;
 import com.cmcu.mcc.comm.EdConst;
 import com.cmcu.mcc.dto.ActHistoryDto;
 import com.cmcu.mcc.dto.ProcessInstanceDto;
-import com.cmcu.mcc.five.dao.FiveEdHouseReferMapper;
-import com.cmcu.mcc.five.dao.FiveEdHouseValidateMapper;
 import com.cmcu.mcc.hr.dao.HrEmployeeMapper;
 import com.cmcu.mcc.sys.dao.SysCadMessageMapper;
 import com.cmcu.mcc.sys.entity.SysCadMessage;
@@ -30,7 +28,6 @@ import org.activiti.engine.task.TaskInfo;
 import org.activiti.engine.task.TaskQuery;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -44,7 +41,7 @@ import java.util.stream.Collectors;
 public class ActService {
 
 
-    @Autowired
+    @Resource
     MyHistoryService myHistoryService;
 
     @Resource
@@ -66,15 +63,10 @@ public class ActService {
     @Resource
     HrEmployeeMapper hrEmployeeMapper;
 
-    @Autowired
+    @Resource
     JdbcTemplate actJdbcTemplate;
 
 
-    @Resource
-    FiveEdHouseReferMapper fiveEdHouseReferMapper;
-
-    @Resource
-    FiveEdHouseValidateMapper fiveEdHouseValidateMapper;
 
 
     /**
@@ -290,7 +282,8 @@ public class ActService {
                 List<Comment> comments = taskService.getTaskComments(item.getTaskId());
                 if (comments.size() > 0) {
                     String message = ((CommentEntityImpl) comments.get(0)).getMessage();
-                    actHistoryDto.setComment(message);//默认第一条评论
+                    String replace = message.replace("pc^", "").replace("cad^", "").replace("h5^", "");
+                    actHistoryDto.setComment(replace);//默认第一条评论
                 }
 
                 boolean passed = true;
@@ -1115,19 +1108,7 @@ public class ActService {
             }
 
             int id=Integer.parseInt(StringUtils.split(processInstance.getBusinessKey(),"_")[2]);
-            /*if(processInstance.getBusinessKey().contains(EdConst.PROCESS_ED_HOUSE_REFER)){
-                item.put("model",edHouseReferMapper.selectByPrimaryKey(id));
-            }else if(processInstance.getBusinessKey().contains(EdConst.PROCESS_ED_HOUSE_VALIDATE)) {
-                item.put("model", edHouseValidateMapper.selectByPrimaryKey(id));
-            }else if(processInstance.getBusinessKey().contains(EdConst.PROCESS_ED_VALIDATE_BATCH)){
-                item.put("model", edValidateBatchMapper.selectByPrimaryKey(id));
-            }else if(processInstance.getBusinessKey().contains(EdConst.EXPLORE_VALIDATE)){
-                item.put("model",exploreValidateMapper.selectByPrimaryKey(id));
-            }*/ if(processInstance.getBusinessKey().contains(EdConst.FIVE_ED_HOUSE_REFER)){
-                item.put("model",fiveEdHouseReferMapper.selectByPrimaryKey(id));
-            }else if(processInstance.getBusinessKey().contains(EdConst.FIVE_ED_VALIDATE)){
-                item.put("model",fiveEdHouseValidateMapper.selectByPrimaryKey(id));
-            }
+
             item.put("done",false);
             list.add(item);
         }
@@ -1167,19 +1148,7 @@ public class ActService {
                 item.put("done", true);
                 item.put("preHandleTime", processInstanceDto.getPreHandleTime());
                 int id = Integer.parseInt(StringUtils.split(processInstanceDto.getBusinessKey(), "_")[2]);
-               /* if (processInstanceDto.getBusinessKey().contains(EdConst.PROCESS_ED_HOUSE_REFER)) {
-                    item.put("model", edHouseReferMapper.selectByPrimaryKey(id));
-                } else if (processInstanceDto.getBusinessKey().contains(EdConst.PROCESS_ED_HOUSE_VALIDATE)) {
-                    item.put("model", edHouseValidateMapper.selectByPrimaryKey(id));
-                } else if (processInstanceDto.getBusinessKey().contains(EdConst.PROCESS_ED_VALIDATE_BATCH)) {
-                    item.put("model", edValidateBatchMapper.selectByPrimaryKey(id));
-                } else if (processInstanceDto.getBusinessKey().contains(EdConst.EXPLORE_VALIDATE)) {
-                    item.put("model", exploreValidateMapper.selectByPrimaryKey(id));
-                }*/  if (processInstanceDto.getBusinessKey().contains(EdConst.FIVE_ED_HOUSE_REFER)) {
-                    item.put("model", fiveEdHouseReferMapper.selectByPrimaryKey(id));
-                } else if (processInstanceDto.getBusinessKey().contains(EdConst.FIVE_ED_VALIDATE)) {
-                    item.put("model", fiveEdHouseValidateMapper.selectByPrimaryKey(id));
-                }
+
                 list.add(item);
             }
         }

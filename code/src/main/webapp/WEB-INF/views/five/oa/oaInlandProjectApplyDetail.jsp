@@ -168,53 +168,53 @@
                             <div class="form-group">
                                 <label class="col-md-2 control-label required">合计</label>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control" ng-model="vm.item.totalPrice" name="totalPrice"  required="true" disabled />
+                                    <input type="text" class="form-control" ng-model="vm.item.totalPrice" name="totalPrice"  required="true" ng-disabled="true" />
                                 </div>
                                 <label class="col-md-2 control-label required">材料费</label>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control" ng-model="vm.item.materialsCost" ng-change=" vm.countTotalPrice();" name="materialsCost"  required="true" ng-disabled="!processInstance.firstTask"  />
+                                    <input type="text" class="form-control" ng-model="vm.item.materialsCost" ng-change=" vm.countTotalPrice('materialsCost');" name="materialsCost" ng-blur="vm.burl('materialsCost')" required="true" ng-disabled="!processInstance.firstTask"  />
                                 </div>
 
                             </div>
                             <div class="form-group">
                                 <label class="col-md-2 control-label required">专用费</label>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control" ng-model="vm.item.appropriativeCost" name="appropriativeCost"  ng-change=" vm.countTotalPrice();" required="true" ng-disabled="!processInstance.firstTask" />
+                                    <input type="text" class="form-control" ng-model="vm.item.appropriativeCost" name="appropriativeCost"  ng-change=" vm.countTotalPrice('appropriativeCost');" ng-blur="vm.burl('appropriativeCost')" required="true" ng-disabled="!processInstance.firstTask" />
                                 </div>
                                 <label class="col-md-2 control-label required">外协费</label>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control" ng-model="vm.item.outsourceCost" name="outsourceCost" ng-change=" vm.countTotalPrice();" required="true" ng-disabled="!processInstance.firstTask"  />
+                                    <input type="text" class="form-control" ng-model="vm.item.outsourceCost" name="outsourceCost" ng-change=" vm.countTotalPrice('outsourceCost');" ng-blur="vm.burl('outsourceCost')" required="true" ng-disabled="!processInstance.firstTask"  />
                                 </div>
 
                             </div>
                             <div class="form-group">
                                 <label class="col-md-2 control-label required">事务费-会议费</label>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control" ng-model="vm.item.meetingCost" name="meetingCost" ng-change=" vm.countTotalPrice();" required="true" ng-disabled="!processInstance.firstTask" />
+                                    <input type="text" class="form-control" ng-model="vm.item.meetingCost" name="meetingCost" ng-change=" vm.countTotalPrice('meetingCost');" ng-blur="vm.burl('meetingCost')" required="true" ng-disabled="!processInstance.firstTask" />
                                 </div>
                                 <label class="col-md-2 control-label required">事务费-差旅费</label>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control" ng-model="vm.item.travelCost" name="travelCost" ng-change=" vm.countTotalPrice();" required="true" ng-disabled="!processInstance.firstTask"  />
+                                    <input type="text" class="form-control" ng-model="vm.item.travelCost" name="travelCost" ng-change=" vm.countTotalPrice('travelCost');" ng-blur="vm.burl('travelCost')" required="true" ng-disabled="!processInstance.firstTask"  />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-2 control-label required">事务费-专家咨询费</label>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control" ng-model="vm.item.specialistCost" name="specialistCost" ng-change=" vm.countTotalPrice();" required="true" ng-disabled="!processInstance.firstTask" />
+                                    <input type="text" class="form-control" ng-model="vm.item.specialistCost" name="specialistCost" ng-change=" vm.countTotalPrice('specialistCost');" ng-blur="vm.burl('specialistCost')" required="true" ng-disabled="!processInstance.firstTask" />
                                 </div>
                                 <label class="col-md-2 control-label required">固定资产折旧费</label>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control" ng-model="vm.item.fixeAssetDepreciationCost" name="fixeAssetDepreciationCost" ng-change=" vm.countTotalPrice();" required="true" ng-disabled="!processInstance.firstTask"  />
+                                    <input type="text" class="form-control" ng-model="vm.item.fixeAssetDepreciationCost" name="fixeAssetDepreciationCost" ng-change=" vm.countTotalPrice('fixeAssetDepreciationCost');" ng-blur="vm.burl('fixeAssetDepreciationCost')" required="true" ng-disabled="!processInstance.firstTask"  />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-2 control-label required">燃料动力费</label>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control" ng-model="vm.item.fuelPowerCost" name="fuelPowerCost" ng-change=" vm.countTotalPrice();" required="true" ng-disabled="!processInstance.firstTask" />
+                                    <input type="text" class="form-control" ng-model="vm.item.fuelPowerCost" name="fuelPowerCost" ng-change=" vm.countTotalPrice('fuelPowerCost');" ng-blur="vm.burl('fuelPowerCost')" required="true" ng-disabled="!processInstance.firstTask" />
                                 </div>
                                 <label class="col-md-2 control-label required">工资及劳务费</label>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control" ng-model="vm.item.salaryServiceCost" name="salaryServiceCost" ng-change=" vm.countTotalPrice();" required="true" ng-disabled="!processInstance.firstTask"  />
+                                    <input type="text" class="form-control" ng-model="vm.item.salaryServiceCost" name="salaryServiceCost" ng-change=" vm.countTotalPrice('salaryServiceCost');" ng-blur="vm.burl('salaryServiceCost')" required="true" ng-disabled="!processInstance.firstTask"  />
                                 </div>
                             </div>
                             <div class="form-group">

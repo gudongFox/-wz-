@@ -12,7 +12,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span>固定资产报废</span>
+            <span ng-bind="tableName">固定资产报废</span>
         </li>
     </ul>
 </div>
@@ -20,7 +20,7 @@
 <div class="portlet  box blue">
     <div class="portlet-title">
         <div class="caption">
-            <i class="icon-note"></i><span >固定资产报废</span>
+            <i class="icon-note"></i><span ng-bind="tableName">固定资产报废</span>
               <small ng-if="!processInstance.myRunningTaskName" ng-bind="processInstance.currentTaskName"></small>
             <small ng-if="processInstance.myRunningTaskName" ng-bind="processInstance.myRunningTaskName" style="color: #35e0e1;"></small>
 
@@ -97,6 +97,16 @@
                                 <div class="col-md-10">
                                     <textarea rows="3" class="form-control" ng-model="vm.item.applicantReason" name="applicantReason" required placeholder="" ng-disabled="!processInstance.firstTask"></textarea>
                                 </div>
+                            </div>
+                            <div  class="form-group">
+                                <label class="col-md-2 control-label required">是否固定资产</label>
+                                <div class="col-md-4">
+                                    <select ng-options="s.codeValue as s.name for s in sysCodes | filter:{codeCatalog:'是否'}:true"
+                                            ng-model="vm.item.disposeAsset" name="disposeAsset" class="form-control"
+                                            ng-disabled="!processInstance.firstTask"></select>
+                                    <span style="color: red">请选择是否为固定资产</span>
+                                </div>
+
                             </div>
 
                             <div class="form-group">

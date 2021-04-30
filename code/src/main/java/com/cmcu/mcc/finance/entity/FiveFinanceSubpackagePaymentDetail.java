@@ -60,6 +60,5 @@ public class FiveFinanceSubpackagePaymentDetail {
     @Size(max=45, message="批复金额长度不能超过45")
     private String replayMoney;
 
-    private Integer flag = 0;//新建item的标志，在保存时判断，若为1则插入，为0则update
 
 }

@@ -25,6 +25,7 @@
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     </servlet>
 
+
     <session-config>
         <session-timeout>480</session-timeout>
     </session-config>

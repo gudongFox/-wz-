@@ -17,8 +17,8 @@
   </resultMap>
 
   <resultMap id="ExtendResultMap" extends="BaseResultMap" type="com.cmcu.mcc.sys.dto.SysAclDto">
-    <result column="acl_module_name" jdbcType="VARCHAR" property="aclModuleName"/>
-  </resultMap>
+  <result column="acl_module_name" jdbcType="VARCHAR" property="aclModuleName"/>
+</resultMap>
 
   <sql id="Base_Where_List">
     <where>

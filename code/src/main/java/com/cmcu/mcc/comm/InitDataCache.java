@@ -21,7 +21,7 @@ public class InitDataCache {
 
     @PostConstruct
     public void init() {
-        CommonConfig commonConfig = commonConfigService.getConfig();
+/*        CommonConfig commonConfig = commonConfigService.getConfig();
         MccConst.DEFAULT_URL = commonConfig.getDefaultUrl();
         MccConst.APP_CODE = commonConfig.getAppCode();
         BaseService.CORPID = commonConfig.getWxCorpId();
@@ -32,7 +32,7 @@ public class InitDataCache {
         MessageService.ENABLE = commonConfig.getEnableWx();
         MessageService.NoticeAgentId = commonConfig.getNoticeAgentId();
         MessageService.NoticeSecret = commonConfig.getNoticeSecret();
-        CommonAttachService.BASE_PATH=commonConfig.getDirPath();
+        CommonAttachService.BASE_PATH=commonConfig.getDirPath();*/
     }
 
     @PreDestroy

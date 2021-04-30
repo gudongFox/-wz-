@@ -47,6 +47,9 @@
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="extra_approve" jdbcType="VARCHAR" property="extraApprove" />
     <result column="travel_place_type" jdbcType="VARCHAR" property="travelPlaceType" />
+    <result column="extra_approve_reason" jdbcType="VARCHAR" property="extraApproveReason" />
+    <result column="project_deputy" jdbcType="VARCHAR" property="projectDeputy" />
+    <result column="project_deputy_name" jdbcType="VARCHAR" property="projectDeputyName" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from five_finance_travel_expense
@@ -70,7 +73,8 @@
       pay_name, pay_bank, pay_account, 
       receive_name, receive_bank, receive_account, 
       bussine_manager, bussine_manager_name, title, 
-      extra_approve, travel_place_type)
+      extra_approve, travel_place_type, extra_approve_reason, 
+      project_deputy, project_deputy_name)
     values (#{businessKey,jdbcType=VARCHAR}, #{formNo,jdbcType=VARCHAR}, #{startTime,jdbcType=VARCHAR}, 
       #{endTime,jdbcType=VARCHAR}, #{travelPlace,jdbcType=VARCHAR}, #{travelExpense,jdbcType=VARCHAR}, 
       #{projectId,jdbcType=INTEGER}, #{projectName,jdbcType=VARCHAR}, #{projectType,jdbcType=VARCHAR}, 
@@ -85,7 +89,8 @@
       #{payName,jdbcType=VARCHAR}, #{payBank,jdbcType=VARCHAR}, #{payAccount,jdbcType=VARCHAR}, 
       #{receiveName,jdbcType=VARCHAR}, #{receiveBank,jdbcType=VARCHAR}, #{receiveAccount,jdbcType=VARCHAR}, 
       #{bussineManager,jdbcType=VARCHAR}, #{bussineManagerName,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
-      #{extraApprove,jdbcType=VARCHAR}, #{travelPlaceType,jdbcType=VARCHAR})
+      #{extraApprove,jdbcType=VARCHAR}, #{travelPlaceType,jdbcType=VARCHAR}, #{extraApproveReason,jdbcType=VARCHAR}, 
+      #{projectDeputy,jdbcType=VARCHAR}, #{projectDeputyName,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.finance.entity.FiveFinanceTravelExpense">
     update five_finance_travel_expense
@@ -132,7 +137,10 @@
       bussine_manager_name = #{bussineManagerName,jdbcType=VARCHAR},
       title = #{title,jdbcType=VARCHAR},
       extra_approve = #{extraApprove,jdbcType=VARCHAR},
-      travel_place_type = #{travelPlaceType,jdbcType=VARCHAR}
+      travel_place_type = #{travelPlaceType,jdbcType=VARCHAR},
+      extra_approve_reason = #{extraApproveReason,jdbcType=VARCHAR},
+      project_deputy = #{projectDeputy,jdbcType=VARCHAR},
+      project_deputy_name = #{projectDeputyName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -142,7 +150,8 @@
     total_count, receipts_number, apply_refund_time, dept_id, dept_name, applicant, applicant_name, 
     remark, creator, creator_name, is_deleted, gmt_create, gmt_modified, is_process_end, 
     process_instance_id, pay_name, pay_bank, pay_account, receive_name, receive_bank, 
-    receive_account, bussine_manager, bussine_manager_name, title, extra_approve, travel_place_type
+    receive_account, bussine_manager, bussine_manager_name, title, extra_approve, travel_place_type, 
+    extra_approve_reason, project_deputy, project_deputy_name
     from five_finance_travel_expense
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -153,7 +162,8 @@
     total_count, receipts_number, apply_refund_time, dept_id, dept_name, applicant, applicant_name, 
     remark, creator, creator_name, is_deleted, gmt_create, gmt_modified, is_process_end, 
     process_instance_id, pay_name, pay_bank, pay_account, receive_name, receive_bank, 
-    receive_account, bussine_manager, bussine_manager_name, title, extra_approve, travel_place_type
+    receive_account, bussine_manager, bussine_manager_name, title, extra_approve, travel_place_type, 
+    extra_approve_reason, project_deputy, project_deputy_name
     from five_finance_travel_expense
     <include refid="Base_Where_List" />
     <include refid="Base_Where_List1" />
@@ -296,6 +306,15 @@
       <if test="travelPlaceType != null and isLikeSelect==null and travelPlaceType != ''">
          AND travel_place_type = #{travelPlaceType}
       </if>
+      <if test="extraApproveReason != null and isLikeSelect==null and extraApproveReason != ''">
+         AND extra_approve_reason = #{extraApproveReason}
+      </if>
+      <if test="projectDeputy != null and isLikeSelect==null and projectDeputy != ''">
+         AND project_deputy = #{projectDeputy}
+      </if>
+      <if test="projectDeputyName != null and isLikeSelect==null and projectDeputyName != ''">
+         AND project_deputy_name = #{projectDeputyName}
+      </if>
         <if test="qBusinessKey != null and isLikeSelect==null and qBusinessKey != ''">
             AND business_key like CONCAT(#{qBusinessKey},'%')
         </if>
@@ -413,6 +432,15 @@
       </if>
       <if test="travelPlaceType != null and isLikeSelect!= null and travelPlaceType != '' ">
          AND travel_place_type like  CONCAT('%',#{travelPlaceType},'%')
+      </if>
+      <if test="extraApproveReason != null and isLikeSelect!= null and extraApproveReason != '' ">
+         AND extra_approve_reason like  CONCAT('%',#{extraApproveReason},'%')
+      </if>
+      <if test="projectDeputy != null and isLikeSelect!= null and projectDeputy != '' ">
+         AND project_deputy like  CONCAT('%',#{projectDeputy},'%')
+      </if>
+      <if test="projectDeputyName != null and isLikeSelect!= null and projectDeputyName != '' ">
+         AND project_deputy_name like  CONCAT('%',#{projectDeputyName},'%')
       </if>
       <if test="deleted != null and isLikeSelect!=null">
          AND is_deleted = #{deleted}

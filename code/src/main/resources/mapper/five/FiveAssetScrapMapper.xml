@@ -21,6 +21,7 @@
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
     <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
     <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+    <result column="is_dispose_asset" jdbcType="BIT" property="disposeAsset" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from five_asset_scrap
@@ -35,15 +36,15 @@
       dept_name, applicant_reason, applicant_dept_opinion, 
       handle_opinion, remark, creator, 
       creator_name, is_deleted, gmt_create, 
-      gmt_modified, process_instance_id, is_process_end
-      )
+      gmt_modified, process_instance_id, is_process_end, 
+      is_dispose_asset)
     values (#{businessKey,jdbcType=VARCHAR}, #{formNo,jdbcType=VARCHAR}, #{applicant,jdbcType=VARCHAR}, 
       #{applicantName,jdbcType=VARCHAR}, #{applicantTime,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, 
       #{deptName,jdbcType=VARCHAR}, #{applicantReason,jdbcType=VARCHAR}, #{applicantDeptOpinion,jdbcType=VARCHAR}, 
       #{handleOpinion,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
       #{creatorName,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
-      #{gmtModified,jdbcType=TIMESTAMP}, #{processInstanceId,jdbcType=VARCHAR}, #{processEnd,jdbcType=BIT}
-      )
+      #{gmtModified,jdbcType=TIMESTAMP}, #{processInstanceId,jdbcType=VARCHAR}, #{processEnd,jdbcType=BIT}, 
+      #{disposeAsset,jdbcType=BIT})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveAssetScrap">
     update five_asset_scrap
@@ -64,20 +65,23 @@
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
       process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
-      is_process_end = #{processEnd,jdbcType=BIT}
+      is_process_end = #{processEnd,jdbcType=BIT},
+      is_dispose_asset = #{disposeAsset,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select id, business_key, form_no, applicant, applicant_name, applicant_time, dept_id, 
     dept_name, applicant_reason, applicant_dept_opinion, handle_opinion, remark, creator, 
-    creator_name, is_deleted, gmt_create, gmt_modified, process_instance_id, is_process_end
+    creator_name, is_deleted, gmt_create, gmt_modified, process_instance_id, is_process_end, 
+    is_dispose_asset
     from five_asset_scrap
     where id = #{id,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
     select id, business_key, form_no, applicant, applicant_name, applicant_time, dept_id, 
     dept_name, applicant_reason, applicant_dept_opinion, handle_opinion, remark, creator, 
-    creator_name, is_deleted, gmt_create, gmt_modified, process_instance_id, is_process_end
+    creator_name, is_deleted, gmt_create, gmt_modified, process_instance_id, is_process_end, 
+    is_dispose_asset
     from five_asset_scrap
     <include refid="Base_Where_List" />
     <include refid="Base_Where_List1" />
@@ -142,6 +146,10 @@
       <if test="processEnd != null and isLikeSelect==null">
          AND is_process_end = #{processEnd}
       </if>
+      <if test="disposeAsset != null and isLikeSelect==null">
+         AND is_dispose_asset = #{disposeAsset}
+      </if>
+
       <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect==null">
         AND (
         dept_id in
@@ -200,7 +208,7 @@
          AND is_deleted = #{deleted}
       </if>
       <if test="deptId != null and isLikeSelect!=null">
-        AND dept_id = #{deptId}
+         AND dept_id = #{deptId}
       </if>
       <if test="processEnd != null and isLikeSelect!=null">
         AND is_process_end = #{processEnd}
@@ -214,17 +222,6 @@
       </if>
       <if test="endTime1 != null and endTime1 !='' and isLikeSelect!=null">
         AND gmt_create  &lt;= CONCAT('','${endTime1}',' 23:59:59')
-      </if>
-      <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect!=null">
-        AND (
-        dept_id in
-        <foreach collection="deptIdList" open="(" close=")" separator="," item="deptId" index="i">
-          #{deptId}
-        </foreach>
-        <if test="initiator != null and initiator != ''">
-          or creator = #{initiator}
-        </if>
-        )
       </if>
     </where>
   </sql>

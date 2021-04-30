@@ -38,6 +38,7 @@
     <result column="continue_date" jdbcType="VARCHAR" property="continueDate" />
     <result column="continue_date_end" jdbcType="VARCHAR" property="continueDateEnd" />
     <result column="continue_month" jdbcType="VARCHAR" property="continueMonth" />
+    <result column="poundage" jdbcType="VARCHAR" property="poundage" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from five_finance_back_letter
@@ -58,7 +59,8 @@
       assure_date, assure_date_end, assure_month, 
       back_letter_no, back_contract_no, assure_bank, 
       back_letter_date, cancel_date, continue_date, 
-      continue_date_end, continue_month)
+      continue_date_end, continue_month, poundage
+      )
     values (#{businessKey,jdbcType=VARCHAR}, #{formNo,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
       #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, 
       #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{processInstanceId,jdbcType=VARCHAR}, 
@@ -70,7 +72,8 @@
       #{assureDate,jdbcType=VARCHAR}, #{assureDateEnd,jdbcType=VARCHAR}, #{assureMonth,jdbcType=VARCHAR}, 
       #{backLetterNo,jdbcType=VARCHAR}, #{backContractNo,jdbcType=VARCHAR}, #{assureBank,jdbcType=VARCHAR}, 
       #{backLetterDate,jdbcType=VARCHAR}, #{cancelDate,jdbcType=VARCHAR}, #{continueDate,jdbcType=VARCHAR}, 
-      #{continueDateEnd,jdbcType=VARCHAR}, #{continueMonth,jdbcType=VARCHAR})
+      #{continueDateEnd,jdbcType=VARCHAR}, #{continueMonth,jdbcType=VARCHAR}, #{poundage,jdbcType=VARCHAR}
+      )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.finance.entity.FiveFinanceBackLetter">
     update five_finance_back_letter
@@ -108,7 +111,8 @@
       cancel_date = #{cancelDate,jdbcType=VARCHAR},
       continue_date = #{continueDate,jdbcType=VARCHAR},
       continue_date_end = #{continueDateEnd,jdbcType=VARCHAR},
-      continue_month = #{continueMonth,jdbcType=VARCHAR}
+      continue_month = #{continueMonth,jdbcType=VARCHAR},
+      poundage = #{poundage,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -117,7 +121,7 @@
     relate_type, project_name, project_no, contract_name, contract_no, bid_no, combo, 
     combo_name, back_letter_type, cash, assure_date, assure_date_end, assure_month, back_letter_no, 
     back_contract_no, assure_bank, back_letter_date, cancel_date, continue_date, continue_date_end, 
-    continue_month
+    continue_month, poundage
     from five_finance_back_letter
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -127,120 +131,227 @@
     relate_type, project_name, project_no, contract_name, contract_no, bid_no, combo, 
     combo_name, back_letter_type, cash, assure_date, assure_date_end, assure_month, back_letter_no, 
     back_contract_no, assure_bank, back_letter_date, cancel_date, continue_date, continue_date_end, 
-    continue_month
+    continue_month, poundage
     from five_finance_back_letter
     <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
      order by id desc
   </select>
   <sql id="Base_Where_List">
     <where>
-      <if test="id != null">
+      <if test="id != null and isLikeSelect==null">
          AND id = #{id}
       </if>
-      <if test="businessKey != null and businessKey != ''">
+      <if test="businessKey != null and isLikeSelect==null and businessKey != ''">
          AND business_key = #{businessKey}
       </if>
-      <if test="formNo != null and formNo != ''">
+      <if test="formNo != null and isLikeSelect==null and formNo != ''">
          AND form_no = #{formNo}
       </if>
-      <if test="remark != null and remark != ''">
+      <if test="remark != null and isLikeSelect==null and remark != ''">
          AND remark = #{remark}
       </if>
-      <if test="creator != null and creator != ''">
+      <if test="creator != null and isLikeSelect==null and creator != ''">
          AND creator = #{creator}
       </if>
-      <if test="creatorName != null and creatorName != ''">
+      <if test="creatorName != null and isLikeSelect==null and creatorName != ''">
          AND creator_name = #{creatorName}
       </if>
-      <if test="deleted != null">
+      <if test="deleted != null and isLikeSelect==null">
          AND is_deleted = #{deleted}
       </if>
-      <if test="gmtCreate != null">
+      <if test="gmtCreate != null and isLikeSelect==null">
          AND gmt_create = #{gmtCreate}
       </if>
-      <if test="gmtModified != null">
+      <if test="gmtModified != null and isLikeSelect==null">
          AND gmt_modified = #{gmtModified}
       </if>
-      <if test="processInstanceId != null and processInstanceId != ''">
+      <if test="processInstanceId != null and isLikeSelect==null and processInstanceId != ''">
          AND process_instance_id = #{processInstanceId}
       </if>
-      <if test="processEnd != null">
+      <if test="processEnd != null and isLikeSelect==null">
          AND is_process_end = #{processEnd}
       </if>
-      <if test="deptId != null">
+      <if test="deptId != null and isLikeSelect==null">
          AND dept_id = #{deptId}
       </if>
-      <if test="deptName != null and deptName != ''">
+      <if test="deptName != null and isLikeSelect==null and deptName != ''">
          AND dept_name = #{deptName}
       </if>
-      <if test="user != null and user != ''">
+      <if test="user != null and isLikeSelect==null and user != ''">
          AND user = #{user}
       </if>
-      <if test="userName != null and userName != ''">
+      <if test="userName != null and isLikeSelect==null and userName != ''">
          AND user_name = #{userName}
       </if>
-      <if test="relateType != null and relateType != ''">
+      <if test="relateType != null and isLikeSelect==null and relateType != ''">
          AND relate_type = #{relateType}
       </if>
-      <if test="projectName != null and projectName != ''">
+      <if test="projectName != null and isLikeSelect==null and projectName != ''">
          AND project_name = #{projectName}
       </if>
-      <if test="projectNo != null and projectNo != ''">
+      <if test="projectNo != null and isLikeSelect==null and projectNo != ''">
          AND project_no = #{projectNo}
       </if>
-      <if test="contractName != null and contractName != ''">
+      <if test="contractName != null and isLikeSelect==null and contractName != ''">
          AND contract_name = #{contractName}
       </if>
-      <if test="contractNo != null and contractNo != ''">
+      <if test="contractNo != null and isLikeSelect==null and contractNo != ''">
          AND contract_no = #{contractNo}
       </if>
-      <if test="bidNo != null and bidNo != ''">
+      <if test="bidNo != null and isLikeSelect==null and bidNo != ''">
          AND bid_no = #{bidNo}
       </if>
-      <if test="combo != null and combo != ''">
+      <if test="combo != null and isLikeSelect==null and combo != ''">
          AND combo = #{combo}
       </if>
-      <if test="comboName != null and comboName != ''">
+      <if test="comboName != null and isLikeSelect==null and comboName != ''">
          AND combo_name = #{comboName}
       </if>
-      <if test="backLetterType != null and backLetterType != ''">
+      <if test="backLetterType != null and isLikeSelect==null and backLetterType != ''">
          AND back_letter_type = #{backLetterType}
       </if>
-      <if test="cash != null and cash != ''">
+      <if test="cash != null and isLikeSelect==null and cash != ''">
          AND cash = #{cash}
       </if>
-      <if test="assureDate != null and assureDate != ''">
+      <if test="assureDate != null and isLikeSelect==null and assureDate != ''">
          AND assure_date = #{assureDate}
       </if>
-      <if test="assureDateEnd != null and assureDateEnd != ''">
+      <if test="assureDateEnd != null and isLikeSelect==null and assureDateEnd != ''">
          AND assure_date_end = #{assureDateEnd}
       </if>
-      <if test="assureMonth != null and assureMonth != ''">
+      <if test="assureMonth != null and isLikeSelect==null and assureMonth != ''">
          AND assure_month = #{assureMonth}
       </if>
-      <if test="backLetterNo != null and backLetterNo != ''">
+      <if test="backLetterNo != null and isLikeSelect==null and backLetterNo != ''">
          AND back_letter_no = #{backLetterNo}
       </if>
-      <if test="backContractNo != null and backContractNo != ''">
+      <if test="backContractNo != null and isLikeSelect==null and backContractNo != ''">
          AND back_contract_no = #{backContractNo}
       </if>
-      <if test="assureBank != null and assureBank != ''">
+      <if test="assureBank != null and isLikeSelect==null and assureBank != ''">
          AND assure_bank = #{assureBank}
       </if>
-      <if test="backLetterDate != null and backLetterDate != ''">
+      <if test="backLetterDate != null and isLikeSelect==null and backLetterDate != ''">
          AND back_letter_date = #{backLetterDate}
       </if>
-      <if test="cancelDate != null and cancelDate != ''">
+      <if test="cancelDate != null and isLikeSelect==null and cancelDate != ''">
          AND cancel_date = #{cancelDate}
       </if>
-      <if test="continueDate != null and continueDate != ''">
+      <if test="continueDate != null and isLikeSelect==null and continueDate != ''">
          AND continue_date = #{continueDate}
       </if>
-      <if test="continueDateEnd != null and continueDateEnd != ''">
+      <if test="continueDateEnd != null and isLikeSelect==null and continueDateEnd != ''">
          AND continue_date_end = #{continueDateEnd}
       </if>
-      <if test="continueMonth != null and continueMonth != ''">
+      <if test="continueMonth != null and isLikeSelect==null and continueMonth != ''">
          AND continue_month = #{continueMonth}
+      </if>
+      <if test="poundage != null and isLikeSelect==null and poundage != ''">
+         AND poundage = #{poundage}
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="businessKey != null and isLikeSelect!= null and businessKey != '' ">
+         AND business_key like  CONCAT('%',#{businessKey},'%')
+      </if>
+      <if test="formNo != null and isLikeSelect!= null and formNo != '' ">
+         AND form_no like  CONCAT('%',#{formNo},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="creator != null and isLikeSelect!= null and creator != '' ">
+         AND creator like  CONCAT('%',#{creator},'%')
+      </if>
+      <if test="creatorName != null and isLikeSelect!= null and creatorName != '' ">
+         AND creator_name like  CONCAT('%',#{creatorName},'%')
+      </if>
+      <if test="processInstanceId != null and isLikeSelect!= null and processInstanceId != '' ">
+         AND process_instance_id like  CONCAT('%',#{processInstanceId},'%')
+      </if>
+      <if test="deptName != null and isLikeSelect!= null and deptName != '' ">
+         AND dept_name like  CONCAT('%',#{deptName},'%')
+      </if>
+      <if test="user != null and isLikeSelect!= null and user != '' ">
+         AND user like  CONCAT('%',#{user},'%')
+      </if>
+      <if test="userName != null and isLikeSelect!= null and userName != '' ">
+         AND user_name like  CONCAT('%',#{userName},'%')
+      </if>
+      <if test="relateType != null and isLikeSelect!= null and relateType != '' ">
+         AND relate_type like  CONCAT('%',#{relateType},'%')
+      </if>
+      <if test="projectName != null and isLikeSelect!= null and projectName != '' ">
+         AND project_name like  CONCAT('%',#{projectName},'%')
+      </if>
+      <if test="projectNo != null and isLikeSelect!= null and projectNo != '' ">
+         AND project_no like  CONCAT('%',#{projectNo},'%')
+      </if>
+      <if test="contractName != null and isLikeSelect!= null and contractName != '' ">
+         AND contract_name like  CONCAT('%',#{contractName},'%')
+      </if>
+      <if test="contractNo != null and isLikeSelect!= null and contractNo != '' ">
+         AND contract_no like  CONCAT('%',#{contractNo},'%')
+      </if>
+      <if test="bidNo != null and isLikeSelect!= null and bidNo != '' ">
+         AND bid_no like  CONCAT('%',#{bidNo},'%')
+      </if>
+      <if test="combo != null and isLikeSelect!= null and combo != '' ">
+         AND combo like  CONCAT('%',#{combo},'%')
+      </if>
+      <if test="comboName != null and isLikeSelect!= null and comboName != '' ">
+         AND combo_name like  CONCAT('%',#{comboName},'%')
+      </if>
+      <if test="backLetterType != null and isLikeSelect!= null and backLetterType != '' ">
+         AND back_letter_type like  CONCAT('%',#{backLetterType},'%')
+      </if>
+      <if test="cash != null and isLikeSelect!= null and cash != '' ">
+         AND cash like  CONCAT('%',#{cash},'%')
+      </if>
+      <if test="assureDate != null and isLikeSelect!= null and assureDate != '' ">
+         AND assure_date like  CONCAT('%',#{assureDate},'%')
+      </if>
+      <if test="assureDateEnd != null and isLikeSelect!= null and assureDateEnd != '' ">
+         AND assure_date_end like  CONCAT('%',#{assureDateEnd},'%')
+      </if>
+      <if test="assureMonth != null and isLikeSelect!= null and assureMonth != '' ">
+         AND assure_month like  CONCAT('%',#{assureMonth},'%')
+      </if>
+      <if test="backLetterNo != null and isLikeSelect!= null and backLetterNo != '' ">
+         AND back_letter_no like  CONCAT('%',#{backLetterNo},'%')
+      </if>
+      <if test="backContractNo != null and isLikeSelect!= null and backContractNo != '' ">
+         AND back_contract_no like  CONCAT('%',#{backContractNo},'%')
+      </if>
+      <if test="assureBank != null and isLikeSelect!= null and assureBank != '' ">
+         AND assure_bank like  CONCAT('%',#{assureBank},'%')
+      </if>
+      <if test="backLetterDate != null and isLikeSelect!= null and backLetterDate != '' ">
+         AND back_letter_date like  CONCAT('%',#{backLetterDate},'%')
+      </if>
+      <if test="cancelDate != null and isLikeSelect!= null and cancelDate != '' ">
+         AND cancel_date like  CONCAT('%',#{cancelDate},'%')
+      </if>
+      <if test="continueDate != null and isLikeSelect!= null and continueDate != '' ">
+         AND continue_date like  CONCAT('%',#{continueDate},'%')
+      </if>
+      <if test="continueDateEnd != null and isLikeSelect!= null and continueDateEnd != '' ">
+         AND continue_date_end like  CONCAT('%',#{continueDateEnd},'%')
+      </if>
+      <if test="continueMonth != null and isLikeSelect!= null and continueMonth != '' ">
+         AND continue_month like  CONCAT('%',#{continueMonth},'%')
+      </if>
+      <if test="poundage != null and isLikeSelect!= null and poundage != '' ">
+         AND poundage like  CONCAT('%',#{poundage},'%')
+      </if>
+      <if test="deleted != null and isLikeSelect!=null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="deptId != null and isLikeSelect!=null">
+         AND dept_id = #{deptId}
       </if>
     </where>
   </sql>

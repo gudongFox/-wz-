@@ -256,7 +256,7 @@ public class FiveFinanceSubpackagePaymentService {
     }
 
     public void updateDetail(FiveFinanceSubpackagePaymentDetail item){
-        if (item.getFlag()==1){
+        if (item.getId()==null||item.getId()==0){
             //元转为 万元
             item.setApplyMoney(MyStringUtil.getMoneyW(item.getApplyMoney()));
             item.setReplayMoney(MyStringUtil.getMoneyW(item.getReplayMoney()));
@@ -292,7 +292,6 @@ public class FiveFinanceSubpackagePaymentService {
         item.setDeleted(false);
         item.setApplyMoney(MyStringUtil.moneyToString("0",2));//申请金额
         item.setReplayMoney(MyStringUtil.moneyToString("0",2));//批复金额
-        item.setFlag(1);  //新建item的标志，在保存时判断，若为1则插入，为0则update
 
         return item;
     }

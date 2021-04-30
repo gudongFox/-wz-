@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cmcu.mcc.five.dao.FiveEdMajorDrawingCheckDetailMapper">
-  <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveEdMajorDrawingCheckDetail">
+<mapper namespace="com.cmcu.mcc.ed.dao.FiveEdMajorDrawingCheckDetailMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.mcc.ed.entity.FiveEdMajorDrawingCheckDetail">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="check_id" jdbcType="INTEGER" property="checkId" />
     <result column="step_id" jdbcType="INTEGER" property="stepId" />
@@ -31,7 +31,7 @@
     delete from five_ed_major_drawing_check_detail
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.cmcu.mcc.five.entity.FiveEdMajorDrawingCheckDetail">
+  <insert id="insert" parameterType="com.cmcu.mcc.ed.entity.FiveEdMajorDrawingCheckDetail">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -52,7 +52,7 @@
       #{deleted,jdbcType=BIT}, #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, 
       #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveEdMajorDrawingCheckDetail">
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.ed.entity.FiveEdMajorDrawingCheckDetail">
     update five_ed_major_drawing_check_detail
     set check_id = #{checkId,jdbcType=INTEGER},
       step_id = #{stepId,jdbcType=INTEGER},

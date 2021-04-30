@@ -10,10 +10,6 @@ public class FiveBusinessStatistics {
     @Max(value=999999999, message="id必须为数字")
     private Integer id;
 
-    @NotNull(message="businessKey不能为空!")
-    @Size(max=45, message="businessKey长度不能超过45")
-    private String businessKey;
-
     @NotNull(message="deptId不能为空!")
     @Max(value=999999999, message="deptId必须为数字")
     private Integer deptId;
@@ -49,11 +45,18 @@ public class FiveBusinessStatistics {
     @NotNull(message="修改时间不能为空!")
     private Date gmtModified;
 
-    @NotNull(message="processInstanceId不能为空!")
-    @Size(max=45, message="processInstanceId长度不能超过45")
-    private String processInstanceId;
+    @Size(max=45, message="target长度不能超过45")
+    private String target;
 
-    private Date startTime;
+    @Size(max=45, message="completeCount长度不能超过45")
+    private String completeCount;
 
-    private Date endTime;
+    @Size(max=45, message="lastYear长度不能超过45")
+    private String lastYear;
+
+    @Size(max=45, message="increase长度不能超过45")
+    private String increase;
+
+    @Size(max=45, message="completeErcent长度不能超过45")
+    private String completeErcent;
 }

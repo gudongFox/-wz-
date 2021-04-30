@@ -12,7 +12,7 @@
 <div class="portlet light"  >
     <div class="portlet-title " style="border-bottom:1px solid #eee;">
         <div class="caption">
-            <i class="fa fa-file"></i>
+            <i class="fa fa-comments"></i>
             <span class="caption-subject" >处理意见</span>
         </div>
     </div>

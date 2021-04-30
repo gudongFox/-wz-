@@ -10,6 +10,7 @@ import com.cmcu.common.util.MyDateUtil;
 import com.cmcu.common.util.MyStringUtil;
 import com.cmcu.mcc.act.service.MyActService;
 import com.cmcu.mcc.act.service.MyHistoryService;
+import com.cmcu.mcc.business.service.FiveBusinessContractLibraryService;
 import com.cmcu.mcc.comm.EdConst;
 import com.cmcu.mcc.comm.MccConst;
 import com.cmcu.mcc.finance.dao.*;
@@ -76,6 +77,8 @@ public class FiveFinanceReimburseService {
     ActService actService;
     @Resource
     HandleFormService handleFormService;
+    @Autowired
+    FiveBusinessContractLibraryService fiveBusinessContractLibraryService;
 
     public void remove(int id,String userLogin){
         FiveFinanceReimburse item = fiveFinanceReimburseMapper.selectByPrimaryKey(id);
@@ -171,29 +174,31 @@ public class FiveFinanceReimburseService {
         }
         List<String> attributeList=new ArrayList<>();
         for(FiveFinanceReimburseDetail modelDetail:modelDetailList){
-            if(modelDetail.getCostProject().contains("咨询劳务")){
-                attributeList.add("2169");
+            if(modelDetail.getBudgetNo().contains("咨询劳务")){
+                attributeList.add(selectEmployeeService.getDeptChargeMen(48).get(0));//经营发展部
                 attribute = 1;
-            } else if(modelDetail.getCostProject().contains("股权投资")){
-                attributeList.add("2169");
+            } else if(modelDetail.getBudgetNo().contains("股权投资")){
+                attributeList.add(selectEmployeeService.getDeptChargeMen(48).get(0));//经营发展部
                 attribute = 1;
-            } else if(modelDetail.getCostProject().contains("软件")){
-                attributeList.add("2887");
+            } else if(modelDetail.getBudgetNo().contains("软件")){
+                attributeList.add(selectEmployeeService.getDeptChargeMen(11).get(0));//信息化
                 attribute = 1;
-            } else if(modelDetail.getCostProject().contains("团体会费")){
-                attributeList.add("2887");
+            } else if(modelDetail.getBudgetNo().contains("会议费")){
+                attributeList.add(selectEmployeeService.getDeptChargeMen(101).get(0));//科研
                 attribute = 1;
-            } else if(modelDetail.getCostProject().contains("图书资料费")){
-                attributeList.add("1543");
+            } else if(modelDetail.getBudgetNo().contains("图书资料费")){
+                attributeList.add(selectEmployeeService.getUserListByRoleName("借款-图书资料费").get(0));//角色
                 attribute = 1;
-            } else if(modelDetail.getCostProject().contains("固定资产")){
-                attributeList.add("2275");
+            } else if((modelDetail.getBudgetNo().contains("办公自动化设备购置")||modelDetail.getBudgetNo().contains("软件购置")
+                    ||modelDetail.getBudgetNo().contains("车辆购置")||modelDetail.getBudgetNo().contains("办公家具"))
+                    &&MyStringUtil.compareMoney(modelDetail.getApplyMoney(),"5000")>-1){
+                attributeList.add(selectEmployeeService.getDeptChargeMen(67).get(0));//行政
                 attribute = 1;
-            } else if(modelDetail.getCostProject().contains("培训")) {
-                attributeList.add("2767");
+            }else if(modelDetail.getBudgetNo().contains("培训")) {
+                attributeList.add(selectEmployeeService.getDeptChargeMen(38).get(0));//人力
                 train=1;
             }
-            if(modelDetail.getCostProject().contains("通讯费")){
+            if(modelDetail.getBudgetNo().contains("通讯费")){
                 phone=1;
             }
         }
@@ -241,6 +246,10 @@ public class FiveFinanceReimburseService {
             if(modelByUserLogin.getDeptCode().equals("58")||modelByUserLogin.getDeptCode().equals("67")){
                 record=1;
             }
+            //totalApplyMoney 字段未存数据库，需判断的单位为元
+            variables.put("flag", Double.valueOf(dto.getTotalApplyMoney())>=5000.00?true:false);
+            variables.put("flag1", Double.valueOf(dto.getTotalApplyMoney())>=30000.00?true:false);
+            variables.put("flag2", Double.valueOf(dto.getTotalApplyMoney())>=50000.00?true:false);
             variables.put("record", record);
             variables.put("scientific", dto.getScientific().contains("是")?true:false);//科研项目
 
@@ -273,6 +282,10 @@ public class FiveFinanceReimburseService {
         FiveFinanceReimburseDto dto=FiveFinanceReimburseDto.adapt(item);
         if(dto.getProjectId()!=0){
             dto.setIsProject(true);
+        }
+        //合同信息
+        if(item.getProjectId()!=0){
+            dto.setProjectNo(fiveBusinessContractLibraryService.getModelById(item.getProjectId()).getProjectNo());
         }
 
         CustomSimpleProcessInstance customSimpleProcessInstance = processQueryService.getCustomSimpleProcessInstance(dto.getProcessInstanceId(), "", "");
@@ -335,7 +348,7 @@ public class FiveFinanceReimburseService {
 
         //万元 转化为 元
         item.setApplyMoney(MyStringUtil.getMoneyY(item.getApplyMoney()));
-        item.setConfirmMoney(MyStringUtil.moneyToString(item.getConfirmMoney(),6));
+        item.setConfirmMoney(MyStringUtil.getMoneyY(item.getConfirmMoney()));
         return item;
     }
 
@@ -439,7 +452,7 @@ public class FiveFinanceReimburseService {
     public void updateDetail(FiveFinanceReimburseDetail item){
         //如果申请金额 大于 预算剩余金额 提示
         Assert.state(Double.valueOf(MyStringUtil.getMoneyW(item.getApplyMoney()))<=Double.valueOf(item.getBudgetBalance()),"申请金额 大于 预算剩余金额!");
-        if (item.getFlag() == 1){
+        if (item.getId()==null||item.getId()==0){
             fiveFinanceReimburseDetailMapper.insert(item);
         }
         FiveFinanceReimburseDetail model = fiveFinanceReimburseDetailMapper.selectByPrimaryKey(item.getId());
@@ -451,7 +464,7 @@ public class FiveFinanceReimburseService {
 
         //元 转换为 万元
         model.setApplyMoney(MyStringUtil.getMoneyW(item.getApplyMoney()));
-        model.setConfirmMoney(MyStringUtil.moneyToString(item.getConfirmMoney()));
+        model.setConfirmMoney(MyStringUtil.getMoneyW(item.getConfirmMoney()));
         model.setCount(MyStringUtil.moneyToString(item.getCount()));
         model.setAccountSubject(item.getAccountSubject());
         model.setApplicant(item.getApplicant());
@@ -483,7 +496,6 @@ public class FiveFinanceReimburseService {
         item.setConfirmMoney(MyStringUtil.moneyToString("0"));
         item.setApplyMoney(MyStringUtil.moneyToString("0"));
         item.setCount(MyStringUtil.moneyToString("0"));
-        item.setFlag(1);
         ModelUtil.setNotNullFields(item);
         return getDetailDto(item);
     }
@@ -570,7 +582,7 @@ public class FiveFinanceReimburseService {
                 deduction.setRelevanceName(loan.getTitle()+":"+loan.getCreatorName());
                 deduction.setRelevanceType("loan");
                 //万元存储
-                deduction.setRelevanceMoney(MyStringUtil.getMoneyW(loan.getLoanMoney()));
+                deduction.setRelevanceMoney(MyStringUtil.getMoneyW(loan.getTotalApplyMoney()));
                 deduction.setRelevanceRemainMoney(MyStringUtil.getMoneyW(loan.getRemainMoney()));
 
                 deduction.setRelevanceTime(loan.getApplicantTime());
@@ -594,7 +606,7 @@ public class FiveFinanceReimburseService {
                 deduction.setRelevanceName(loan.getTitle()+":"+loan.getCreatorName());
                 deduction.setRelevanceType("loan");
                 //万元存储
-                deduction.setRelevanceMoney(MyStringUtil.getMoneyW(loan.getLoanMoney()));
+                deduction.setRelevanceMoney(MyStringUtil.getMoneyW(loan.getTotalApplyMoney()));
                 deduction.setRelevanceRemainMoney(MyStringUtil.getMoneyW(loan.getRemainMoney()));
 
                 deduction.setRelevanceTime(loan.getApplicantTime());
@@ -774,7 +786,7 @@ public class FiveFinanceReimburseService {
 
             String format=String.format("%03d", size);//format为顺序号限定10进制补零
             //部门+时间+类型+编号
-            newReceiptsNumber=newReceiptsNumber+deptCode+date+"02"+format;
+            newReceiptsNumber=newReceiptsNumber+deptCode+date+"-02-"+format;
             reimburseDto.setReceiptsNumber(newReceiptsNumber);
             update(reimburseDto);
             return newReceiptsNumber;

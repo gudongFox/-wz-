@@ -326,8 +326,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -825,8 +829,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -1161,8 +1169,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -1596,8 +1608,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -1834,8 +1850,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -2055,8 +2075,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -2294,8 +2318,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -2491,8 +2519,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -2692,8 +2724,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        },function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -2898,8 +2934,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -3328,8 +3368,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -3549,8 +3593,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -3815,8 +3863,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -4337,8 +4389,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -4621,8 +4677,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -4820,8 +4880,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -5075,8 +5139,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -5409,6 +5477,14 @@
                     userLoginList: vm.item.businessManager,
                     multiple: true
                 });
+            }else if(opt=='projectCharge'){
+                $scope.showOaSelectEmployeeModal_({
+                    title: "请选择项目主管院长",
+                    type: '部门',
+                    deptIds: 1,
+                    userLoginList: vm.item.projectChargeMan,
+                    multiple: true
+                });
             }
 
 
@@ -5422,6 +5498,10 @@
             }else if(vm.opt=='businessManager'){
                 vm.item.businessManagerName = $scope.selectedOaUserNames_;
                 vm.item.businessManager = $scope.selectedOaUserLogins_;
+            }
+            else if(vm.opt=='projectCharge'){
+                vm.item.projectChargeManName = $scope.selectedOaUserNames_;
+                vm.item.projectChargeMan = $scope.selectedOaUserLogins_;
             }
         };
 
@@ -5452,8 +5532,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -5803,8 +5887,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -6143,8 +6231,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -6443,7 +6535,7 @@
                     type: "部门",
                     deptIds: "1",
                     userLoginList: vm.detail.applicant,
-                    multiple: true
+                    multiple: false
                 });
             }
 
@@ -6496,8 +6588,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -6919,7 +7015,7 @@
                     type: "部门",
                     deptIds: "1",
                     userLoginList: vm.detail.applicant,
-                    multiple: true
+                    multiple: false
                 });
             }
 
@@ -6972,8 +7068,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -7316,58 +7416,48 @@
         var tableName = $rootScope.loadTableName(uiSref);
 
         vm.init = function () {
+
             $scope.loadRightData(user.userLogin, uiSref);
             vm.loadData(true);
+
+            var now=new Date().valueOf();
+            Date.prototype.format = function (fmt) {
+                var o = {
+                    "M+": this.getMonth() + 1, //月份
+                    "d+": this.getDate(), //日
+                    "h+": this.getHours(), //小时
+                    "m+": this.getMinutes(), //分
+                    "s+": this.getSeconds(), //秒
+                    "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+                    "S": this.getMilliseconds() //毫秒
+                };
+                if (/(y+)/.test(fmt)) {
+                    fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+                }
+                for (var k in o) {
+                    if (new RegExp("(" + k + ")").test(fmt)) {
+                        fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+                    }
+                }
+                return fmt;
+            }
+            $('.date-range-picker').daterangepicker({
+                    opens: (Metronic.isRTL() ? 'left' : 'right'),
+                    format: 'DD/MM/YYYY',
+                    separator: ' to ',
+                    startDate: moment().subtract('days', 29),
+                    endDate: moment(),
+                    minDate: '01/01/2019',
+                    maxDate: new Date(now).format("dd/MM/yyyy"),
+                    /* maxDate:'01/01/2025',*/
+                },
+                function (start, end) {
+                    vm.detail.travelDuringDate = start.format('YYYY/MM/DD') + '-' + end.format('YYYY/MM/DD');
+                    $scope.$apply();
+                }
+            );
         }
 
-        vm.countAllowance = function(isChecked,name){
-            var count = 0;
-            // vm.detail.onRoadSubsidy = vm.detail.onRoadSubsidy==null? 0 : parseFloat(vm.detail.onRoadSubsidy);
-
-            if(name == "住宿费补助" && isChecked){
-                vm.detail.accommodationAllowance = true
-            }
-            if(name == "出差补助" && isChecked){
-                vm.detail.travelAllowance = true
-            }
-            if(name == "夜间伙补" && isChecked){
-                vm.detail.dinnerAllowance = true
-            }
-            if(name == "工地补贴" && isChecked){
-                vm.detail.siteAllowance = true
-            }
-            if (vm.detail.accommodationAllowance){
-                count = count + 50
-            }
-            if (vm.detail.travelAllowance){
-                count = count + 150
-            }
-            if (vm.detail.dinnerAllowance){
-                count = count + 100
-            }
-            if (vm.detail.siteAllowance){
-                count = count + 50
-            }
-            var bonus = vm.detail.travelExpenseDays;
-            //确保输入的是数字
-            bonus = bonus.replace(/[^\d\.]/g, '');
-            //确保第一个输入的是数字
-            bonus = bonus.replace(/^\./g,'');
-            //确保不能输入两个小数点
-            bonus = bonus.replace(/\.{2,}/g,'.');
-            //保证小数点只出现一次，而不能出现两次以上
-            bonus = bonus.replace('.','$#$').replace(/\./g,'').replace('$#$','.');
-            //确保只能输入两位小数
-            bonus = bonus.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');
-            if (bonus == null){
-                vm.detail.travelExpenseDays = 0;
-            }else {
-                vm.detail.travelExpenseDays = bonus.toString();
-            }
-            count = (count * vm.detail.travelExpenseDays).toFixed(2)
-            vm.detail.onRoadSubsidy = count.toString();
-            vm.coutFinalPrice();
-        }
 
         vm.loadData = function (loadProcess) {
             fiveFinanceTravelExpenseService.getModelById(travelExpenseId).then(function (value) {
@@ -7386,6 +7476,11 @@
             fiveFinanceTravelExpenseService.listDetail(travelExpenseId).then(function (value) {
                 if (value.data.ret) {
                     vm.details = value.data.data;
+                }
+            })
+            fiveFinanceTravelExpenseService.listUserDetail(travelExpenseId).then(function (value) {
+                if (value.data.ret) {
+                    vm.userDetails = value.data.data;
                 }
             })
             fiveFinanceTravelExpenseService.listDeduction(travelExpenseId).then(function (value) {
@@ -7422,7 +7517,16 @@
                     type: "部门",
                     deptIds: "1",
                     userLoginList: vm.item.bussineManager,
-                    multiple: true
+                    multiple: false
+                });
+            }
+            if (vm.status == 'projectDeputy') {
+                $scope.showOaSelectEmployeeModal_({
+                    title: "请选择项目主管院长",
+                    type: "部门",
+                    deptIds: "1",
+                    userLoginList: vm.item.projectDeputy,
+                    multiple: false
                 });
             }
             if (vm.status == 'applicantName') {
@@ -7431,7 +7535,16 @@
                     type: "部门",
                     deptIds: "1",
                     userLoginList: vm.detail.applicant,
-                    multiple: true
+                    multiple: false
+                });
+            }
+            if (vm.status == 'userName') {
+                $scope.showOaSelectEmployeeModal_({
+                    title: "请选择支列人",
+                    type: "部门",
+                    deptIds: "1",
+                    userLoginList: vm.userDetail.user,
+                    multiple: false
                 });
             }
 
@@ -7457,9 +7570,17 @@
                                     vm.item.applicantTel=user.mobile;
                                 })*/
             }
+            if (vm.status == 'projectDeputy') {
+                vm.item.projectDeputy = $scope.selectedOaUserLogins_;
+                vm.item.projectDeputyName = $scope.selectedOaUserNames_;
+            }
             if (vm.status == 'applicantName') {
                 vm.detail.applicant = $scope.selectedOaUserLogins_;
                 vm.detail.applicantName = $scope.selectedOaUserNames_;
+            }
+            if (vm.status == 'userName') {
+                vm.userDetail.user = $scope.selectedOaUserLogins_;
+                vm.userDetail.userName = $scope.selectedOaUserNames_;
             }
         };
 
@@ -7489,8 +7610,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -7517,6 +7642,13 @@
                 });
             }
 
+            if (id == 2){
+                $scope.showOaSelectEmployeeModal_({
+                    title: "请选择部门", type: "选部门", deptIdList: vm.userDetail.deptId + "",
+                    multiple: false, deptIds: "1", parentDeptId: 2
+                });
+            }
+
         }
         //保存选部门
         $rootScope.saveSelectDept_ = function () {
@@ -7530,16 +7662,38 @@
                 vm.detail.deptName = $scope.selectedOaDeptNames_;
                 vm.detail.deptId = Number($scope.selectedOaDeptIds_);
             }
+            if (id == 2){
+                $scope.closeOaSelectEmployeeModal_();
+                vm.userDetail.deptName = $scope.selectedOaDeptNames_;
+                vm.userDetail.deptId = Number($scope.selectedOaDeptIds_);
+            }
 
         }
 
         //新增
-        vm.showDetailModel = function (id) {
+        vm.showDetailModel = function (id,expenseType) {
+            $('#txt_city').jcity({
+                urlOrData: '/assets/jquery-city-master/js/citydata.json',
+                animate: { showClass: 'animated flipInX', hideClass: 'animated flipOutX' },  // 需要第一步引用的animate.min.css文件，也可以自己定义动画
+                onChoice: function (data) {
+                    console.log(data);
+                    //vm.detail.travelPlace =data.provinceName+"-"+data.cityName+"-"+data.areaName;
+                    vm.detail.travelPlace =data.provinceName+"-"+data.cityName;
+                    $scope.$apply();
+                    vm.getTravelPlaceType();
+                }
+            });
             if (id === 0) {
-                fiveFinanceTravelExpenseService.getNewModelDetail(travelExpenseId, user.userLogin).then(function (value) {
+                vm.item.operateUserLogin = user.userLogin;
+                fiveFinanceTravelExpenseService.update(vm.item).then(function (value) {
                     if (value.data.ret) {
-                        vm.detail = value.data.data;
-                        $("#detailModal").modal("show");
+                        fiveFinanceTravelExpenseService.getNewModelDetail(travelExpenseId, user.userLogin).then(function (value) {
+                            if (value.data.ret) {
+                                vm.detail = value.data.data;
+                                vm.detail.expenseType = expenseType;
+                                $("#detailModal").modal("show");
+                            }
+                        })
                     }
                 })
                 //修改
@@ -7575,11 +7729,105 @@
                     vm.loadData(true);
                 }
             })
+        };
+
+        //获取报销标准
+        vm.getApplyStandard=function(){
+            fiveFinanceTravelExpenseService.getApplyStandard(vm.detail).then(function (value) {
+                if (value.data.ret) {
+                    vm.detail.applyStandard = value.data.data;
+
+                    //计算总额
+                    var bonus = vm.detail.travelExpenseDays;
+                    //确保输入的是数字
+                    bonus = bonus.replace(/[^\d\.]/g, '');
+                    //确保第一个输入的是数字
+                    bonus = bonus.replace(/^\./g,'');
+                    //确保不能输入两个小数点
+                    bonus = bonus.replace(/\.{2,}/g,'.');
+                    //保证小数点只出现一次，而不能出现两次以上
+                    bonus = bonus.replace('.','$#$').replace(/\./g,'').replace('$#$','.');
+                    //确保只能输入两位小数
+                    bonus = bonus.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');
+                    if (bonus == null){
+                        vm.detail.travelExpenseDays = 0;
+                    }else {
+                        vm.detail.travelExpenseDays = bonus.toString();
+                    }
+                    vm.detail.applyMoney = (vm.detail.applyStandard * vm.detail.travelExpenseDays).toFixed(2).toString();
+                }
+            })
+        };
+        //获取出差地点类型
+        vm.getTravelPlaceType=function(){
+            debugger;
+            if(vm.detail.travelPlace.indexOf("北京")>=0||
+                vm.detail.travelPlace.indexOf("上海")>=0||
+                vm.detail.travelPlace.indexOf("广州")>=0||
+                vm.detail.travelPlace.indexOf("深圳")>=0){
+                vm.detail.travelPlaceType="北上广深";
+            }else if(vm.detail.travelPlace.indexOf("北京")>=0||
+                vm.detail.travelPlace.indexOf("上海")>=0||
+                vm.detail.travelPlace.indexOf("杭州")>=0||
+                vm.detail.travelPlace.indexOf("广州")>=0||
+                vm.detail.travelPlace.indexOf("深圳")>=0||
+                vm.detail.travelPlace.indexOf("厦门")>=0||
+                vm.detail.travelPlace.indexOf("三亚")>=0||
+                vm.detail.travelPlace.indexOf("海口")>=0||
+                vm.detail.travelPlace.indexOf("重庆")>=0||
+                vm.detail.travelPlace.indexOf("成都")>=0){
+                vm.detail.travelPlaceType="特殊城市";
+            }else {
+                vm.detail.travelPlaceType="其他";
+            }
+            $scope.$apply();
+            vm.getApplyStandard();
 
         };
-        //金额小计=报销金额-在途补助
-        vm.coutFinalPrice=function(){
-            vm.detail.count = parseFloat(vm.detail.onRoadSubsidy) + parseFloat(vm.detail.applyMoney)
+
+        //新增user
+        vm.showUserDetailModel = function (id) {
+            if (id === 0) {
+                fiveFinanceTravelExpenseService.getNewModelUserDetail(travelExpenseId, user.userLogin).then(function (value) {
+                    if (value.data.ret) {
+                        vm.userDetail = value.data.data;
+                        $("#userDetailModal").modal("show");
+                    }
+                })
+                //修改
+            } else {
+                fiveFinanceTravelExpenseService.getModelUserDetailById(id).then(function (value) {
+                    if (value.data.ret) {
+                        vm.userDetail = value.data.data;
+                        $("#userDetailModal").modal("show");
+                        vm.loadData(true);
+                    }
+                })
+            }
+        }
+        //删除user
+        vm.removeUserDetail = function (id) {
+            bootbox.confirm("确定要删除该数据吗?", function (result) {
+                if (result) {
+                    fiveFinanceTravelExpenseService.removeUserDetail(id, user.userLogin).then(function (value) {
+                        if (value.data.ret) {
+                            toastr.success("删除成功");
+                            vm.loadData(true);
+                        }
+                    })
+                }
+            });
+        };
+        //保存user
+        vm.saveUserDetail = function () {
+            fiveFinanceTravelExpenseService.updateUserDetail(vm.userDetail).then(function (value) {
+                if (value.data.ret) {
+                    $("#userDetailModal").modal("hide");
+                    vm.save();
+                    vm.loadData(true);
+                }
+            })
+
         };
 
         vm.print = function () {
@@ -7607,6 +7855,8 @@
             })
         }
 
+
+
         //选择借款流程
         vm.showLoanModel = function () {
             fiveFinanceLoanService.listLoanByUserLogin(user.userLogin).then(function (value) {
@@ -7623,11 +7873,7 @@
                 fiveFinanceTravelExpenseService.saveSelectedDeduction(travelExpenseId,loan.id,"loan").then(function (value) {
                     if (value.data.ret) {
                         //刷新抵扣
-                        fiveFinanceTravelExpenseService.listDeduction(travelExpenseId).then(function (value) {
-                            if (value.data.ret) {
-                                vm.deductions = value.data.data;
-                            }
-                        })
+                        vm.loadData();
                     }
                 })
             }
@@ -7661,23 +7907,6 @@
             $("#selectRefundModal").modal("hide");
         }
 
-        vm.showPlanTypeModal = function () {
-            var year = vm.item.applicantTime.substring(0,4);
-            $scope.showBudgetSelectModal_({
-                deptId: vm.item.deptName,
-                budgetYear: year
-            });
-        }
-
-        $rootScope.saveSelectBudget_ = function () {
-            var selecteds = $('#budgetTreeTable').bootstrapTreeTable('getSelections');
-            $.each(selecteds, function (_i, _item) {
-                vm.detail.budgetId= _item.id;
-                vm.detail.controlBalance=_item.remainMoney;
-                vm.detail.costProject=_item.typeName;
-            });
-            $scope.closeBudgetSelectModal_();
-        }
 
         vm.removeDeduction = function (id) {
             bootbox.confirm("确定要删除该数据吗?", function (result) {
@@ -7734,8 +7963,14 @@
                 vm.item.projectId = $rootScope.selectedLibrary.id;
                 vm.item.projectName = $rootScope.selectedLibrary.projectName;
                 vm.item.projectType = $rootScope.selectedLibrary.projectNature;
-                vm.item.businessManager= $rootScope.selectedLibrary.projectManager;
-                vm.item.businessManagerName= $rootScope.selectedLibrary.projectManagerName;
+                //项目总师
+                vm.item.businessManager= $rootScope.selectedLibrary.totalDesigner;
+                vm.item.businessManagerName= $rootScope.selectedLibrary.totalDesignerName;
+                //项目主管院长
+                vm.item.projectDeputy= $rootScope.selectedLibrary.projectChargeMan;
+                vm.item.projectDeputyName= $rootScope.selectedLibrary.projectChargeManName;
+
+                vm.item.projectNo= $rootScope.selectedLibrary.projectNo;
                 /*                vm.detail.applyRefundProject = $rootScope.selectedLibrary.projectName;
                                 vm.detail.projectType = $rootScope.selectedLibrary.projectNature;*/
                 $scope.closeLibrarySelectModal_();
@@ -7892,55 +8127,6 @@
             vm.loadData(true);
         }
 
-        vm.countAllowance = function(isChecked,name){
-            console.log(name)
-            var count = 0;
-            // vm.detail.onRoadSubsidy = vm.detail.onRoadSubsidy==null? 0 : parseFloat(vm.detail.onRoadSubsidy);
-
-            if(name == "住宿费补助" && isChecked){
-                vm.detail.accommodationAllowance = true
-            }
-            if(name == "出差补助" && isChecked){
-                vm.detail.travelAllowance = true
-            }
-            if(name == "夜间伙补" && isChecked){
-                vm.detail.dinnerAllowance = true
-            }
-            if(name == "工地补贴" && isChecked){
-                vm.detail.siteAllowance = true
-            }
-            if (vm.detail.accommodationAllowance){
-                count = count + 50
-            }
-            if (vm.detail.travelAllowance){
-                count = count + 150
-            }
-            if (vm.detail.dinnerAllowance){
-                count = count + 100
-            }
-            if (vm.detail.siteAllowance){
-                count = count + 50
-            }
-            var bonus = vm.detail.travelExpenseDays;
-            //确保输入的是数字
-            bonus = bonus.replace(/[^\d\.]/g, '');
-            //确保第一个输入的是数字
-            bonus = bonus.replace(/^\./g,'');
-            //确保不能输入两个小数点
-            bonus = bonus.replace(/\.{2,}/g,'.');
-            //保证小数点只出现一次，而不能出现两次以上
-            bonus = bonus.replace('.','$#$').replace(/\./g,'').replace('$#$','.');
-            //确保只能输入两位小数
-            bonus = bonus.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');
-            if (bonus == null){
-                vm.detail.travelExpenseDays = 0;
-            }else {
-                vm.detail.travelExpenseDays = bonus.toString();
-            }
-            count = (count * vm.detail.travelExpenseDays).toFixed(2)
-            vm.detail.onRoadSubsidy = count.toString();
-            vm.coutFinalPrice();
-        }
 
         vm.loadData = function (loadProcess) {
             fiveFinanceTravelExpenseService.getModelById(travelExpenseId).then(function (value) {
@@ -8004,7 +8190,16 @@
                     type: "部门",
                     deptIds: "1",
                     userLoginList: vm.detail.applicant,
-                    multiple: true
+                    multiple: false
+                });
+            }
+            if (vm.status == 'userName') {
+                $scope.showOaSelectEmployeeModal_({
+                    title: "请选择支列人",
+                    type: "部门",
+                    deptIds: "1",
+                    userLoginList: vm.userDetail.user,
+                    multiple: false
                 });
             }
 
@@ -8034,6 +8229,10 @@
                 vm.detail.applicant = $scope.selectedOaUserLogins_;
                 vm.detail.applicantName = $scope.selectedOaUserNames_;
             }
+            if (vm.status == 'userName') {
+                vm.userDetail.user = $scope.selectedOaUserLogins_;
+                vm.userDetail.userName = $scope.selectedOaUserNames_;
+            }
         };
 
         vm.getReceiptsNumber=function(){
@@ -8062,8 +8261,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -8079,12 +8282,20 @@
             if (id == 0){
                 $scope.showOaSelectEmployeeModal_({
                     title: "请选择部门", type: "选部门", deptIdList: vm.item.deptId + "",
-                    multiple: false, deptIds: "1", parentDeptId: 2
+                    multiple: false, deptIds: "1", parentDeptId: 2, bigDept: true
                 });
             }
+
             if (id == 1){
                 $scope.showOaSelectEmployeeModal_({
                     title: "请选择部门", type: "选部门", deptIdList: vm.detail.deptId + "",
+                    multiple: false, deptIds: "1", parentDeptId: 2
+                });
+            }
+
+            if (id == 2){
+                $scope.showOaSelectEmployeeModal_({
+                    title: "请选择部门", type: "选部门", deptIdList: vm.userDetail.deptId + "",
                     multiple: false, deptIds: "1", parentDeptId: 2
                 });
             }
@@ -8102,19 +8313,41 @@
                 vm.detail.deptName = $scope.selectedOaDeptNames_;
                 vm.detail.deptId = Number($scope.selectedOaDeptIds_);
             }
+            if (id == 2){
+                $scope.closeOaSelectEmployeeModal_();
+                vm.userDetail.deptName = $scope.selectedOaDeptNames_;
+                vm.userDetail.deptId = Number($scope.selectedOaDeptIds_);
+            }
 
         }
 
         //新增
         vm.showDetailModel = function (id) {
+            $('#txt_city').jcity({
+                urlOrData: '/assets/jquery-city-master/js/citydata.json',
+                animate: { showClass: 'animated flipInX', hideClass: 'animated flipOutX' },  // 需要第一步引用的animate.min.css文件，也可以自己定义动画
+                onChoice: function (data) {
+                    console.log(data);
+                    //vm.detail.travelPlace =data.provinceName+"-"+data.cityName+"-"+data.areaName;
+                    vm.detail.travelPlace =data.provinceName+"-"+data.cityName;
+                    $scope.$apply();
+                    vm.getTravelPlaceType();
+                }
+            });
             if (id === 0) {
-                fiveFinanceTravelExpenseService.getNewModelDetail(travelExpenseId, user.userLogin).then(function (value) {
+                vm.item.operateUserLogin = user.userLogin;
+                fiveFinanceTravelExpenseService.update(vm.item).then(function (value) {
                     if (value.data.ret) {
-                        vm.detail = value.data.data;
-                        $("#detailModal").modal("show");
+                        fiveFinanceTravelExpenseService.getNewModelDetail(travelExpenseId, user.userLogin).then(function (value) {
+                            if (value.data.ret) {
+                                vm.detail = value.data.data;
+                                vm.detail.expenseType = expenseType;
+                                $("#detailModal").modal("show");
+                            }
+                        })
                     }
                 })
-                //修改
+               //修改
             } else {
                 fiveFinanceTravelExpenseService.getModelDetailById(id).then(function (value) {
                     if (value.data.ret) {
@@ -8149,9 +8382,106 @@
                 }
             })
         };
-        //金额小计=报销金额-在途补助
-        vm.coutFinalPrice=function(){
-            vm.detail.count=vm.detail.applyMoney+vm.detail.onRoadSubsidy;
+
+        //获取报销标准
+        vm.getApplyStandard=function(){
+            fiveFinanceTravelExpenseService.getApplyStandard(vm.detail).then(function (value) {
+                if (value.data.ret) {
+                    vm.detail.applyStandard = value.data.data;
+
+                    //计算总额
+                    var bonus = vm.detail.travelExpenseDays;
+                    //确保输入的是数字
+                    bonus = bonus.replace(/[^\d\.]/g, '');
+                    //确保第一个输入的是数字
+                    bonus = bonus.replace(/^\./g,'');
+                    //确保不能输入两个小数点
+                    bonus = bonus.replace(/\.{2,}/g,'.');
+                    //保证小数点只出现一次，而不能出现两次以上
+                    bonus = bonus.replace('.','$#$').replace(/\./g,'').replace('$#$','.');
+                    //确保只能输入两位小数
+                    bonus = bonus.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');
+                    if (bonus == null){
+                        vm.detail.travelExpenseDays = 0;
+                    }else {
+                        vm.detail.travelExpenseDays = bonus.toString();
+                    }
+                    vm.detail.applyMoney = (vm.detail.applyStandard * vm.detail.travelExpenseDays).toFixed(2).toString();
+                }
+            })
+
+        };
+
+        //获取出差地点类型
+        vm.getTravelPlaceType=function(){
+            if(vm.detail.travelPlace.indexOf("北京")>=0||
+                vm.detail.travelPlace.indexOf("上海")>=0||
+                vm.detail.travelPlace.indexOf("广州")>=0||
+                vm.detail.travelPlace.indexOf("深圳")>=0){
+                vm.detail.travelPlaceType="北上广深";
+            }else if(vm.detail.travelPlace.indexOf("北京")>=0||
+                vm.detail.travelPlace.indexOf("上海")>=0||
+                vm.detail.travelPlace.indexOf("杭州")>=0||
+                vm.detail.travelPlace.indexOf("广州")>=0||
+                vm.detail.travelPlace.indexOf("深圳")>=0||
+                vm.detail.travelPlace.indexOf("厦门")>=0||
+                vm.detail.travelPlace.indexOf("三亚")>=0||
+                vm.detail.travelPlace.indexOf("海口")>=0||
+                vm.detail.travelPlace.indexOf("重庆")>=0||
+                vm.detail.travelPlace.indexOf("成都")>=0){
+                vm.detail.travelPlaceType="特殊城市";
+            }else {
+                vm.detail.travelPlaceType="其他";
+            }
+            $scope.$apply();
+            vm.getApplyStandard();
+
+        };
+
+
+        //新增user
+        vm.showUserDetailModel = function (id) {
+            if (id === 0) {
+                fiveFinanceTravelExpenseService.getNewModelUserDetail(travelExpenseId, user.userLogin).then(function (value) {
+                    if (value.data.ret) {
+                        vm.userDetail = value.data.data;
+                        $("#userDetailModal").modal("show");
+                    }
+                })
+                //修改
+            } else {
+                fiveFinanceTravelExpenseService.getModelUserDetailById(id).then(function (value) {
+                    if (value.data.ret) {
+                        vm.userDetail = value.data.data;
+                        $("#userDetailModal").modal("show");
+                        vm.loadData(true);
+                    }
+                })
+            }
+        }
+        //删除user
+        vm.removeUserDetail = function (id) {
+            bootbox.confirm("确定要删除该数据吗?", function (result) {
+                if (result) {
+                    fiveFinanceTravelExpenseService.removeUserDetail(id, user.userLogin).then(function (value) {
+                        if (value.data.ret) {
+                            toastr.success("删除成功");
+                            vm.loadData(true);
+                        }
+                    })
+                }
+            });
+        };
+        //保存user
+        vm.saveUserDetail = function () {
+            fiveFinanceTravelExpenseService.updateUserDetail(vm.userDetail).then(function (value) {
+                if (value.data.ret) {
+                    $("#userDetailModal").modal("hide");
+                    vm.save();
+                    vm.loadData(true);
+                }
+            })
+
         };
 
         vm.print = function () {
@@ -8233,23 +8563,6 @@
             $("#selectRefundModal").modal("hide");
         }
 
-        vm.showPlanTypeModal = function () {
-            var year = vm.item.applicantTime.substring(0,4);
-            $scope.showBudgetSelectModal_({
-                deptId: vm.item.deptName,
-                budgetYear: year
-            });
-        }
-
-        $rootScope.saveSelectBudget_ = function () {
-            var selecteds = $('#budgetTreeTable').bootstrapTreeTable('getSelections');
-            $.each(selecteds, function (_i, _item) {
-                vm.detail.budgetId= _item.id;
-                vm.detail.controlBalance=_item.remainMoney;
-                vm.detail.costProject=_item.typeName;
-            });
-            $scope.closeBudgetSelectModal_();
-        }
 
         vm.removeDeduction = function (id) {
             bootbox.confirm("确定要删除该数据吗?", function (result) {
@@ -8307,6 +8620,8 @@
                 vm.item.projectType = $rootScope.selectedLibrary.projectNature;
                 vm.item.businessManager= $rootScope.selectedLibrary.projectManager;
                 vm.item.businessManagerName= $rootScope.selectedLibrary.projectManagerName;
+                vm.item.projectNo= $rootScope.selectedLibrary.projectNo;
+
                 /*                vm.detail.applyRefundProject = $rootScope.selectedLibrary.projectName;
                                 vm.detail.projectType = $rootScope.selectedLibrary.projectNature;*/
                 $scope.closeLibrarySelectModal_();
@@ -8560,8 +8875,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -8912,8 +9231,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -9227,7 +9550,7 @@
                     type: "部门",
                     deptIds: "1",
                     userLoginList: vm.detail.applicant,
-                    multiple: true
+                    multiple: false
                 });
             }
 
@@ -9285,8 +9608,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -9750,7 +10077,7 @@
                     type: "部门",
                     deptIds: "1",
                     userLoginList: vm.detail.applicant,
-                    multiple: true
+                    multiple: false
                 });
             }
 
@@ -9808,8 +10135,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -10271,7 +10602,7 @@
                     type: "部门",
                     deptIds: "1",
                     userLoginList: vm.detail.applicant,
-                    multiple: true
+                    multiple: false
                 });
             }
 
@@ -10324,8 +10655,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -10731,7 +11066,7 @@
                     type: "部门",
                     deptIds: "1",
                     userLoginList: vm.detail.applicant,
-                    multiple: true
+                    multiple: false
                 });
             }
 
@@ -10784,8 +11119,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -11222,8 +11561,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -11574,8 +11917,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -11886,7 +12233,7 @@
                     type: "部门",
                     deptIds: "1",
                     userLoginList: vm.detail.applicant,
-                    multiple: true
+                    multiple: false
                 });
             }
 
@@ -11944,8 +12291,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })

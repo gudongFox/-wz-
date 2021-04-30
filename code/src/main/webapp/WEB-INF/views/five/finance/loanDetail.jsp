@@ -68,6 +68,104 @@
                                             </div>
                                         </div>
                                         <div class="panel-body" id="panelFormInfo" class="panel-collapse collapse in">
+
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label required">用款事由</label>
+                                                <div class="col-md-4">
+                                                    <input type="text" class="form-control" ng-model="vm.item.item"
+                                                           name="item" required="true"
+                                                           ng-disabled="!(processInstance.firstTask||processInstance.myRunningTaskName.indexOf('财务核算')>=0||processInstance.myRunningTaskName.indexOf('财务确认')>=0)"/>
+                                                </div>
+                                                <label class="col-md-2 control-label">是否为投标保证金</label>
+                                                <div class="col-md-4">
+                                                    <select ng-options="s.name as s.name for s in sysCodes | filter:{codeCatalog:'是否'}:true"
+                                                            ng-model="vm.item.bid" class="form-control"
+                                                            ng-disabled="!(processInstance.firstTask||processInstance.myRunningTaskName.indexOf('财务核算')>=0||processInstance.myRunningTaskName.indexOf('财务确认')>=0)"></select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group" style="background-color: #e5f2ff">
+                                                <label class="col-md-2 control-label required">是否存在项目</label>
+                                                <div class="col-md-4 control-label">
+                                                    <select ng-options="s.codeValue as s.name for s in sysCodes | filter:{codeCatalog:'是否'}:true"
+                                                            ng-model="vm.item.isProject" class="form-control" ng-disabled="!(processInstance.firstTask||processInstance.myRunningTaskName.indexOf('财务核算')>=0||processInstance.myRunningTaskName.indexOf('财务确认')>=0)"></select>
+                                                </div>
+                                                <label class="col-md-2 control-label required" ng-if="vm.item.isProject">是否是科研项目</label>
+                                                <div class="col-md-4 control-label" ng-if="vm.item.isProject">
+                                                    <select ng-options="s.name as s.name for s in sysCodes | filter:{codeCatalog:'是否'}:true"
+                                                            ng-model="vm.item.scientific" class="form-control"
+                                                            ng-disabled="!processInstance.firstTask"></select>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group" style="background-color: #e5f2ff" ng-if="vm.item.isProject">
+
+                                                <label class="col-md-2 control-label required">项目名称</label>
+                                                <div class="col-md-4 control-label">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control"
+                                                               ng-model="vm.item.projectName" name="projectName"  required="true"
+                                                               ng-disabled="vm.item.contractLibraryId==0||!processInstance.firstTask"/>
+                                                        <span class="input-group-btn">
+                                                            <button class="btn default" type="button"
+                                                                    ng-click="vm.showSelectPreOrReviewModal()"
+                                                                    ng-disabled="!processInstance.firstTask"><i
+                                                                    class="fa fa-cog"></i>
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <label class="col-md-2 control-label required">项目类型</label>
+                                                <div class="col-md-4 control-label">
+                                                    <select ng-options="s.name as s.name for s in sysCodes | filter:{codeCatalog:'五洲项目类型'}:true"
+                                                            ng-model="vm.item.projectType" class="form-control"
+                                                            ng-disabled="!processInstance.firstTask"></select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group"style="background-color: #e5f2ff" ng-if="vm.item.isProject">
+                                                <label class="col-md-2 control-label required">项目主管院长</label>
+                                                <div class="col-md-4">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" required
+                                                               ng-model="vm.item.projectChargeManName" name="projectChargeManName" readonly/>
+                                                        <span class="input-group-btn">
+                                                            <button class="btn default" type="button" ng-click="vm.showUserModel('projectCharge');" ng-disabled="!processInstance.firstTask"><i class="fa fa-user"></i></button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <label class="col-md-2 control-label required">项目经理</label>
+                                                <div class="col-md-4">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" required
+                                                               ng-model="vm.item.businessManagerName" name="businessManagerName" readonly/>
+                                                        <span class="input-group-btn">
+                                                            <button class="btn default" type="button" ng-click="vm.showUserModel('businessManager');" ng-disabled="!processInstance.firstTask"><i class="fa fa-user"></i></button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label">借款用途</label>
+                                                <div class="col-md-10">
+                                                    <textarea rows="3" type="text" class="form-control"
+                                                              ng-model="vm.item.loanReason" name="loanReason"
+                                                              ng-disabled="!processInstance.firstTask"/>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label required">借款总金额</label>
+                                                <div class="col-md-4">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">￥</span>
+                                                        <input type="text" class="form-control"
+                                                               ng-model="vm.item.totalApplyMoney" name="totalApplyMoney"
+                                                              disabled/>
+                                                        <span class="input-group-addon">元</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
                                             <div class="form-group">
                                                 <label class="col-md-2 control-label required">借款人</label>
                                                 <div class="col-md-4">
@@ -129,110 +227,13 @@
                                                 </div>
 
                                             </div>
-                                            <div class="form-group">
-                                                <label class="col-md-2 control-label">是否为投标保证金</label>
-                                                <div class="col-md-4">
-                                                    <select ng-options="s.name as s.name for s in sysCodes | filter:{codeCatalog:'是否'}:true"
-                                                            ng-model="vm.item.bid" class="form-control"
-                                                            ng-disabled="!(processInstance.firstTask||processInstance.myRunningTaskName.indexOf('财务核算')>=0||processInstance.myRunningTaskName.indexOf('财务确认')>=0)"></select>
-                                                </div>
-                                                <label class="col-md-2 control-label required">是否存在项目</label>
-                                                <div class="col-md-4">
-                                                    <select ng-options="s.codeValue as s.name for s in sysCodes | filter:{codeCatalog:'是否'}:true"
-                                                            ng-model="vm.item.isProject" class="form-control" ng-disabled="!(processInstance.firstTask||processInstance.myRunningTaskName.indexOf('财务核算')>=0||processInstance.myRunningTaskName.indexOf('财务确认')>=0)"></select>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="form-group" ng-if="vm.item.isProject">
-                                                <label class="col-md-2 control-label required">项目名称</label>
-                                                <div class="col-md-10">
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control"
-                                                               ng-model="vm.item.projectName" name="projectName"  required="true"
-                                                               ng-disabled="vm.item.contractLibraryId==0||!processInstance.firstTask"/>
-                                                        <span class="input-group-btn">
-                                                            <button class="btn default" type="button"
-                                                                    ng-click="vm.showSelectPreOrReviewModal()"
-                                                                    ng-disabled="!processInstance.firstTask"><i
-                                                                    class="fa fa-cog"></i>
-                                                            </button>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group" ng-if="vm.item.isProject">
-                                                <label class="col-md-2 control-label required">项目主管院长</label>
-                                                <div class="col-md-4">
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control" required
-                                                               ng-model="vm.item.projectChargeManName" name="projectChargeManName" readonly/>
-                                                        <span class="input-group-btn">
-                                                            <button class="btn default" type="button" ng-click="vm.showUserModel('projectCharge');" ng-disabled="!processInstance.firstTask"><i class="fa fa-user"></i></button>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <label class="col-md-2 control-label required">项目经理</label>
-                                                <div class="col-md-4">
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control" required
-                                                               ng-model="vm.item.businessManagerName" name="businessManagerName" readonly/>
-                                                        <span class="input-group-btn">
-                                                            <button class="btn default" type="button" ng-click="vm.showUserModel('businessManager');" ng-disabled="!processInstance.firstTask"><i class="fa fa-user"></i></button>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group" ng-if="vm.item.isProject">
-                                                <label class="col-md-2 control-label required">项目类型</label>
-                                                <div class="col-md-4">
-                                                    <select ng-options="s.name as s.name for s in sysCodes | filter:{codeCatalog:'五洲项目类型'}:true"
-                                                            ng-model="vm.item.projectType" class="form-control"
-                                                            ng-disabled="!processInstance.firstTask"></select>
-                                                </div>
-                                                <label class="col-md-2 control-label required">是否是科研项目</label>
-                                                <div class="col-md-4">
-                                                    <select ng-options="s.name as s.name for s in sysCodes | filter:{codeCatalog:'是否'}:true"
-                                                            ng-model="vm.item.scientific" class="form-control"
-                                                            ng-disabled="!processInstance.firstTask"></select>
-                                                </div>
-
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-md-2 control-label required">借款总金额</label>
-                                                <div class="col-md-4">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon">￥</span>
-                                                        <input type="text" class="form-control"
-                                                               ng-model="vm.item.totalApplyMoney" name="totalApplyMoney"
-                                                              disabled/>
-                                                        <span class="input-group-addon">元</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="col-md-2 control-label required">用款事由</label>
-                                                <div class="col-md-10">
-                                                    <input type="text" class="form-control" ng-model="vm.item.item"
-                                                           name="item" required="true"
-                                                           ng-disabled="!(processInstance.firstTask||processInstance.myRunningTaskName.indexOf('财务核算')>=0||processInstance.myRunningTaskName.indexOf('财务确认')>=0)"/>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-md-2 control-label">借款用途</label>
-                                                <div class="col-md-10">
-                                                    <textarea rows="3" type="text" class="form-control"
-                                                              ng-model="vm.item.loanReason" name="loanReason"
-                                                              ng-disabled="!processInstance.firstTask"/>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
+                                            <%--<div class="form-group">
                                                 <label class="col-md-2 control-label required">流程标题</label>
                                                 <div class="col-md-10">
                                                     <input type="text" class="form-control" ng-model="vm.item.title"
                                                            name="title" ng-disabled="!(processInstance.firstTask||processInstance.myRunningTaskName.indexOf('财务核算')>=0||processInstance.myRunningTaskName.indexOf('财务确认')>=0)"/>
                                                 </div>
-                                            </div>
+                                            </div>--%>
                                             <div class="form-group">
                                                 <label class="col-md-2 control-label">创建人</label>
                                                 <div class="col-md-4">

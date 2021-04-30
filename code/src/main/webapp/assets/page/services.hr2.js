@@ -149,7 +149,6 @@ angular.module('services.hr2', [])
             return deferred.promise;
         };
 
-
         var getModelByUserLogin = function (userLogin) {
             var deferred = $q.defer();
             return $http({
@@ -165,9 +164,6 @@ angular.module('services.hr2', [])
             });
             return deferred.promise;
         };
-
-
-
 
         var listByUserLogin = function (userLogins) {
             var deferred = $q.defer();
@@ -242,7 +238,6 @@ angular.module('services.hr2', [])
             return deferred.promise;
         };
 
-
         var listSimplePagedData = function (params) {
             var deferred = $q.defer();
             return $http({
@@ -282,9 +277,6 @@ angular.module('services.hr2', [])
             });
             return deferred.promise;
         };
-
-
-
 
 
         var listEmployeeByDeptId = function (deptId,containChild) {
@@ -349,8 +341,6 @@ angular.module('services.hr2', [])
             });
             return deferred.promise;
         };
-
-
 
         var updatePositionIds = function (userLogin,positionIds) {
             var deferred = $q.defer();
@@ -453,16 +443,15 @@ angular.module('services.hr2', [])
             return deferred.promise;
         };
 
-
-
-        var resetPassword = function (userLogin,password) {
+        var resetPassword = function (userLogin,password,checkCode) {
             var deferred = $q.defer();
             return $http({
                 method: 'POST',
                 url: '/hr/employee/resetPassword.json',
                 params: {
                     userLogin: userLogin,
-                    password:password
+                    password:password,
+                    checkCode:checkCode
                 }
             }).success(function (data) {
                 deferred.resolve(data);
@@ -472,12 +461,7 @@ angular.module('services.hr2', [])
             return deferred.promise;
         };
 
-
-
-
-
-
-        var insert = function (userLogin,userName,deptId,userType) {
+        var insert = function (userLogin,userName,deptId,userType,mobile) {
             var deferred = $q.defer();
             return $http({
                 method: 'POST',
@@ -486,7 +470,8 @@ angular.module('services.hr2', [])
                     userLogin:userLogin,
                     userName:userName,
                     deptId:deptId,
-                    userType:userType
+                    userType:userType,
+                    mobile:mobile
                 }
             }).success(function (data) {
                 deferred.resolve(data);
@@ -495,7 +480,6 @@ angular.module('services.hr2', [])
             });
             return deferred.promise;
         };
-
 
         var selectAll = function () {
             var deferred = $q.defer();
@@ -509,7 +493,6 @@ angular.module('services.hr2', [])
             });
             return deferred.promise;
         };
-
 
         var listDataByUserLoginList = function (userLoginList) {
             var deferred = $q.defer();
@@ -526,6 +509,7 @@ angular.module('services.hr2', [])
             });
             return deferred.promise;
         };
+
         var selectByUserLoginList = function (userLoginList) {
             var deferred = $q.defer();
             return $http({
@@ -555,6 +539,7 @@ angular.module('services.hr2', [])
             });
             return deferred.promise;
         };
+
         var downloadModel = function (userLogin) {
             var deferred = $q.defer();
             return $http({
@@ -577,6 +562,24 @@ angular.module('services.hr2', [])
             });
             return deferred.promise;
         };
+
+        var updateMobile = function (enLogin,mobile) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: '/hr/employee/updateMobile.json',
+                params: {
+                    enLogin: enLogin,
+                    mobile:mobile,
+                }
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
 
         return {
             selectAllSimple: function () {
@@ -640,8 +643,8 @@ angular.module('services.hr2', [])
             resetPwd: function (userLogin) {
                 return resetPwd(userLogin);
             },
-            insert: function (userLogin,userName,deptId,userType) {
-                return insert(userLogin,userName,deptId,userType);
+            insert: function (userLogin,userName,deptId,userType,mobile) {
+                return insert(userLogin,userName,deptId,userType,mobile);
             },
             selectAll:function () {
                 return selectAll();
@@ -649,8 +652,8 @@ angular.module('services.hr2', [])
             selectSimpleAll: function (selectName) {
                 return selectSimpleAll(selectName);
             },
-            resetPassword: function (userLogin,password) {
-                return resetPassword(userLogin,password);
+            resetPassword: function (userLogin,password,checkCode) {
+                return resetPassword(userLogin,password,checkCode);
             },
             downloadModel: function (userLogin) {
                 return downloadModel(userLogin);
@@ -660,7 +663,10 @@ angular.module('services.hr2', [])
             },
             selectByUserLoginList:function (userLoginList) {
                 return selectByUserLoginList(userLoginList);
-            }
+            },
+            updateMobile: function (enLogin,mobile) {
+                return updateMobile(enLogin,mobile);
+            },
 
         }
 

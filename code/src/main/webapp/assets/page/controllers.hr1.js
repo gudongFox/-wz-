@@ -2868,10 +2868,18 @@
         };*/
 
         vm.insertEmployee=function(){
+            var isPhone = /^([0-9]{3,4}-)?[0-9]{7,8}$/;//手机号码-
+            var isMob= /^0?1[3|4|5|8][0-9]\d{8}$/;// 座机格式
+            if(!(isMob.test(vm.employee.mobile)||isPhone.test(vm.employee.mobile))){
+                vm.show = true
+                return false;
+            }else {
+                vm.show = false;
+            }
             if ($("#employee_form").validate().form()) {
                 bootbox.confirm("你确认要新增用户吗?", function (result) {
                     if (result) {
-                        hrEmployeeService.insert(vm.employee.userLogin, vm.employee.userName, vm.employee.deptId, vm.employee.userType).then(function (value) {
+                        hrEmployeeService.insert(vm.employee.userLogin, vm.employee.userName, vm.employee.deptId, vm.employee.userType,vm.employee.mobile).then(function (value) {
                             if (value.data.ret) {
                                 $("#addEmployeeModal").modal("hide");
                                 vm.loadPagedData();
@@ -2885,6 +2893,7 @@
         vm.addEmployee = function () {
             hrEmployeeService.getNewModel().then(function (value) {
                 vm.employee=value.data.data;
+                vm.show = false;
                 vm.selectAllDept(vm.employee.deptId)
             });
             $("#addEmployeeModal").modal("show");

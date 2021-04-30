@@ -50,8 +50,7 @@ public class FiveFinanceBackLetter {
     @Max(value=999999999, message="deptId必须为数字")
     private Integer deptId;
 
-    @NotNull(message="部门不能为空!")
-    @Size(max=145, message="部门长度不能超过145")
+    @Size(max=145, message="deptName长度不能超过145")
     private String deptName;
 
     @NotNull(message="user不能为空!")
@@ -98,8 +97,8 @@ public class FiveFinanceBackLetter {
     @Size(max=45, message="保函类型长度不能超过45")
     private String backLetterType;
 
-    @NotNull(message="去除保证金不能为空!")
-    @Size(max=45, message="去除保证金长度不能超过45")
+    @NotNull(message="保函金额不能为空!")
+    @Size(max=45, message="保函金额长度不能超过45")
     private String cash;
 
     @NotNull(message="担保日期不能为空!")
@@ -145,4 +144,8 @@ public class FiveFinanceBackLetter {
     @NotNull(message="续期月份不能为空!")
     @Size(max=45, message="续期月份长度不能超过45")
     private String continueMonth;
+
+    @NotNull(message="手续费不能为空!")
+    @Size(max=45, message="手续费长度不能超过45")
+    private String poundage;
 }

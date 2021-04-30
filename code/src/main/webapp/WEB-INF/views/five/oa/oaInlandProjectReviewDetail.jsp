@@ -28,7 +28,7 @@
         </div>
         <div class="actions">
             <jsp:include page="../../common/common-actAction.jsp"/>
-            <a href="javascript:;" class="btn btn-sm btn-default" ng-click="vm.print();">
+            <a href="javascript:;" class="btn btn-sm btn-default" ng-click="vm.print();" style="font-size: 14px;line-height: 1.6">
                 <i class="fa fa-print"></i> 打印 </a>
         </div>
     </div>
@@ -60,18 +60,18 @@
                             <div class="form-group" >
                                 <label class="col-md-2 control-label required">课题名称</label>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control" ng-model="vm.item.projectName" name="projectName" required="true"  ng-disabled="!processInstance.firstTask" />
+                                    <div class="input-group">
+                                    <input type="text" class="form-control" ng-model="vm.item.projectName" name="projectName" required="true"  disabled />
+                                    <span class="input-group-btn" >
+                                            <button class="btn default" type="button" ng-click="vm.selectFee();" ng-disabled="!processInstance.firstTask"><i class="fa fa-cog"></i></button>
+                                    </span>
+                                    </div>
                                 </div>
 
 
                                 <label class="col-md-2 control-label required">申请单位</label>
                                 <div class="col-md-4">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" ng-model="vm.item.deptName" name="deptName" required="true"   readonly/>
-                                        <span class="input-group-btn" >
-                                            <button class="btn default" type="button" ng-click="vm.showDeptModal(vm.opt='deptId');" ng-disabled="!processInstance.firstTask"><i class="fa fa-cog"></i></button>
-                                         </span>
-                                    </div>
+                                    <input type="text" class="form-control" ng-model="vm.item.deptName" name="deptName" required="true"   readonly/>
                                 </div>
                             </div>
 
@@ -121,32 +121,34 @@
                             <div class="form-group">
                                 <label class="col-md-2 control-label required">项目类别</label>
                                 <div class="col-md-4">
-                                    <select ng-model="vm.item.projectType" class="form-control"
-                                            ng-disabled="!processInstance.firstTask">
+                                    <select ng-model="vm.item.projectType" class="form-control" disabled>
                                         <option value="公司级">公司级</option>
                                         <option value="自主开发">自主开发</option>
                                     </select>
                                 </div>
-                                <label class="col-md-2 control-label required" ng-if="vm.item.projectType=='公司级'">专家委员会常委</label>
-                                <div class="col-md-4" ng-if="vm.item.projectType=='公司级'">
+                                <label class="col-md-2 control-label required" ng-if="vm.item.reviewType">专家委员会常委</label>
+                                <div class="col-md-4" ng-if="vm.item.reviewType">
                                     <div class="input-group">
                                         <input type="text" class="form-control" ng-model="vm.item.scientificFirstTrialName" name="scientificFirstTrialName"  required="true" ng-disabled="processInstance.myRunningTaskName.indexOf('初审人员')==-1"/>
                                         <span class="input-group-btn" >
-                                            <button class="btn default" type="button" ng-click="vm.showUserModel('scientificFirstTrial');"  ng-disabled="processInstance.myRunningTaskName.indexOf('初审人员')==-1" ><i class="fa fa-user"></i></button>
+                                            <button class="btn default" type="button" ng-click="vm.showUserModel('scientificFirstTrial');"  ng-disabled="!processInstance.firstTask" ><i class="fa fa-user"></i></button>
                                         </span>
                                     </div>
-                                   <%-- <span style="color: red" ng-show="processInstance.myRunningTaskName.indexOf('初审人员')>-1">请点击右侧<i style="color: black" class="fa fa-user"></i>选择专家委员会常委</span>--%>
-                                    <span style="color: red" >由科研与技术质量部填写</span>
                                 </div>
                             </div>
 
                             <div  class="form-group">
                                 <label class="col-md-2 control-label required" >是否脱密</label>
                                 <div class="col-md-4">
-                                    <select ng-model="vm.item.secret" name="secret" class="form-control"  ng-options="s.codeValue as s.name for s in sysCodes | filter:{codeCatalog:'是否脱密'}:true"
+                                    <select ng-model="vm.item.secret" name="secret" class="form-control"  ng-options="s.codeValue as s.name for s in sysCodes | filter:{codeCatalog:'是否脱密'}:true" disabled>
+                                    </select>
+                                </div>
+                                <label class="col-md-2 control-label required" >评审方式</label>
+                                <div class="col-md-4">
+                                    <select ng-model="vm.item.reviewType" name="reviewType" class="form-control"  ng-options="s.codeValue as s.name for s in sysCodes | filter:{codeCatalog:'评审方式'}:true"
                                             ng-disabled="!processInstance.firstTask">
                                     </select>
-                                    <span style="color: red" >请确保完成保密审查，经过脱密处理，没有涉密信息</span>
+                                    <span style="color: red" >请选择评审方式</span>
                                 </div>
 
                             </div>
@@ -168,53 +170,53 @@
                             <div class="form-group">
                                 <label class="col-md-2 control-label required">合计</label>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control" ng-model="vm.item.totalPrice" name="totalPrice"  required="true" disabled />
+                                    <input type="text" class="form-control" ng-model="vm.item.totalPrice" name="totalPrice"  required="true" ng-disabled="true" />
                                 </div>
                                 <label class="col-md-2 control-label required">材料费</label>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control" ng-model="vm.item.materialsCost" ng-change=" vm.countTotalPrice();" name="materialsCost"  required="true" ng-disabled="!processInstance.firstTask"  />
+                                    <input type="text" class="form-control" ng-model="vm.item.materialsCost" ng-change=" vm.countTotalPrice('materialsCost');" name="materialsCost" ng-blur="vm.burl('materialsCost')" required="true" ng-disabled="!processInstance.firstTask"  />
                                 </div>
 
                             </div>
                             <div class="form-group">
                                 <label class="col-md-2 control-label required">专用费</label>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control" ng-model="vm.item.appropriativeCost" name="appropriativeCost"  ng-change=" vm.countTotalPrice();" required="true" ng-disabled="!processInstance.firstTask" />
+                                    <input type="text" class="form-control" ng-model="vm.item.appropriativeCost" name="appropriativeCost"  ng-change=" vm.countTotalPrice('appropriativeCost');" ng-blur="vm.burl('appropriativeCost')" required="true" ng-disabled="!processInstance.firstTask" />
                                 </div>
                                 <label class="col-md-2 control-label required">外协费</label>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control" ng-model="vm.item.outsourceCost" name="outsourceCost" ng-change=" vm.countTotalPrice();" required="true" ng-disabled="!processInstance.firstTask"  />
+                                    <input type="text" class="form-control" ng-model="vm.item.outsourceCost" name="outsourceCost" ng-change=" vm.countTotalPrice('outsourceCost');" ng-blur="vm.burl('outsourceCost')" required="true" ng-disabled="!processInstance.firstTask"  />
                                 </div>
 
                             </div>
                             <div class="form-group">
                                 <label class="col-md-2 control-label required">事务费-会议费</label>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control" ng-model="vm.item.meetingCost" name="meetingCost" ng-change=" vm.countTotalPrice();" required="true" ng-disabled="!processInstance.firstTask" />
+                                    <input type="text" class="form-control" ng-model="vm.item.meetingCost" name="meetingCost" ng-change=" vm.countTotalPrice('meetingCost');" ng-blur="vm.burl('meetingCost')" required="true" ng-disabled="!processInstance.firstTask" />
                                 </div>
                                 <label class="col-md-2 control-label required">事务费-差旅费</label>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control" ng-model="vm.item.travelCost" name="travelCost" ng-change=" vm.countTotalPrice();" required="true" ng-disabled="!processInstance.firstTask"  />
+                                    <input type="text" class="form-control" ng-model="vm.item.travelCost" name="travelCost" ng-change=" vm.countTotalPrice('travelCost');" ng-blur="vm.burl('travelCost')" required="true" ng-disabled="!processInstance.firstTask"  />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-2 control-label required">事务费-专家咨询费</label>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control" ng-model="vm.item.specialistCost" name="specialistCost" ng-change=" vm.countTotalPrice();" required="true" ng-disabled="!processInstance.firstTask" />
+                                    <input type="text" class="form-control" ng-model="vm.item.specialistCost" name="specialistCost" ng-change=" vm.countTotalPrice('specialistCost');" ng-blur="vm.burl('specialistCost')" required="true" ng-disabled="!processInstance.firstTask" />
                                 </div>
                                 <label class="col-md-2 control-label required">固定资产折旧费</label>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control" ng-model="vm.item.fixeAssetDepreciationCost" name="fixeAssetDepreciationCost" ng-change=" vm.countTotalPrice();" required="true" ng-disabled="!processInstance.firstTask"  />
+                                    <input type="text" class="form-control" ng-model="vm.item.fixeAssetDepreciationCost" name="fixeAssetDepreciationCost" ng-change=" vm.countTotalPrice('fixeAssetDepreciationCost');" ng-blur="vm.burl('fixeAssetDepreciationCost')" required="true" ng-disabled="!processInstance.firstTask"  />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-2 control-label required">燃料动力费</label>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control" ng-model="vm.item.fuelPowerCost" name="fuelPowerCost" ng-change=" vm.countTotalPrice();" required="true" ng-disabled="!processInstance.firstTask" />
+                                    <input type="text" class="form-control" ng-model="vm.item.fuelPowerCost" name="fuelPowerCost" ng-change=" vm.countTotalPrice('fuelPowerCost');" ng-blur="vm.burl('fuelPowerCost')" required="true" ng-disabled="!processInstance.firstTask" />
                                 </div>
                                 <label class="col-md-2 control-label required">工资及劳务费</label>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control" ng-model="vm.item.salaryServiceCost" name="salaryServiceCost" ng-change=" vm.countTotalPrice();" required="true" ng-disabled="!processInstance.firstTask"  />
+                                    <input type="text" class="form-control" ng-model="vm.item.salaryServiceCost" name="salaryServiceCost" ng-change=" vm.countTotalPrice('salaryServiceCost');" ng-blur="vm.burl('salaryServiceCost')" required="true" ng-disabled="!processInstance.firstTask"  />
                                 </div>
                             </div>
                             <div class="form-group">
@@ -223,7 +225,6 @@
                                     <input type="text" class="form-control" ng-model="vm.item.remark"  name="remark" placeholder="" ng-disabled="!processInstance.firstTask"/>
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 <label class="col-md-2 control-label">创建人</label>
                                 <div class="col-md-4">
@@ -252,7 +253,58 @@
     </div>
 </div>
 
-
+<div class="modal fade" id="selectFeeModal" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title margin-right-10">内部项目</h4>
+            </div>
+            <div class="modal-body">
+                <div class="table-scrollable" style="max-height: 400px;overflow-y: auto">
+                    <table class="table table-striped table-hover table-bordered table-advance no-footer">
+                        <thead>
+                        <tr>
+                            <th style="width: 50px;">#</th>
+                            <th style="width: 160px;">课题名称</th>
+                            <th style="width: 160px;">项目类别</th>
+                            <th style="width: 160px;">申请单位</th>
+                            <th style="width: 180px;">投入经费(万元)</th>
+                            <th>备注</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class="dt-right"><i class="fa fa-search" title="查询全数据" style="color: black;width: 26px"
+                                                    ng-click="vm.searchData()"></i></td>
+                            <td><input ng-model="vm.searchParams.projectName" type="text" style="height: 26px" class="form-control"></td>
+                            <td><input ng-model="vm.searchParams.projectType" type="text" style="height: 26px"class="form-control"></td>
+                            <td><input ng-model="vm.searchParams.deptName" type="text" style="height: 26px" class="form-control"></td>
+                            <td><input ng-model="vm.searchParams.totalPrice" type="text" style="height: 26px"class="form-control"></td>
+                            <td></td>
+                        </tr>
+                        <tr ng-repeat="c in vm.fees">
+                            <td>
+                                <input type="checkbox" ng-checked="vm.item.projectNo==c.id" class="cb_fee" data-name="{{c}}" style="width: 15px;height: 15px;"/>
+                            </td>
+                            <td ng-bind="c.projectName"></td>
+                            <td ng-bind="c.projectType"></td>
+                            <td ng-bind="c.deptName"></td>
+                            <td ng-bind="c.totalPrice"></td>
+                            <td ng-bind="c.remark"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <my-pager data-page-info="vm.pageInfo" on-load="vm.selectFee()"></my-pager>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn blue" ng-click="vm.saveSelectFee();">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div ng-include="'/web/v1/tpl/cloudDirAndFile.html'"  ng-init="fileTplTitle='业务附件'"></div>
 
 <jsp:include page="../print/print.jsp"/>

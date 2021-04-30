@@ -1,20 +1,19 @@
 package com.cmcu.mcc.business.dto;
 
-import com.cmcu.mcc.business.entity.FiveBusinessAdvance;
-import com.cmcu.mcc.business.entity.FiveBusinessAdvanceCollect;
+import com.cmcu.mcc.business.entity.FiveBusinessStatistics;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.BeanUtils;
 
 @Setter
 @Getter
-public class FiveBusinessAdvanceCollectDto extends FiveBusinessAdvanceCollect {
+public class FiveBusinessStatisticsDto extends FiveBusinessStatistics {
     private String processName;
 
     private String operateUserLogin;
 
-    public static FiveBusinessAdvanceCollectDto adapt(FiveBusinessAdvanceCollect item) {
-        FiveBusinessAdvanceCollectDto dto = new FiveBusinessAdvanceCollectDto();
+    public static FiveBusinessStatisticsDto adapt(FiveBusinessStatistics item) {
+        FiveBusinessStatisticsDto dto = new FiveBusinessStatisticsDto();
         BeanUtils.copyProperties(item, dto);
         return dto;
     }

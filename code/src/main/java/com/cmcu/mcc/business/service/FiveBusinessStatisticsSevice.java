@@ -6,21 +6,17 @@ import com.cmcu.act.service.TaskHandleService;
 import com.cmcu.common.service.BaseService;
 import com.cmcu.common.util.BeanValidator;
 import com.cmcu.common.util.ModelUtil;
-import com.cmcu.common.util.MyDateUtil;
-import com.cmcu.common.util.MyStringUtil;
 import com.cmcu.mcc.act.service.MyActService;
-import com.cmcu.mcc.business.dao.FiveBusinessAdvanceDetailMapper;
-import com.cmcu.mcc.business.dao.FiveBusinessAdvanceMapper;
-import com.cmcu.mcc.business.dto.FiveBusinessAdvanceDto;
-import com.cmcu.mcc.business.entity.FiveBusinessAdvance;
+import com.cmcu.mcc.business.dao.FiveBusinessConsultingContractStatisticsMapper;
+import com.cmcu.mcc.business.dao.FiveBusinessContractLibraryMapper;
+import com.cmcu.mcc.business.dao.FiveBusinessStatisticsMapper;
+import com.cmcu.mcc.business.dto.FiveBusinessStatisticsDto;
 import com.cmcu.mcc.business.entity.FiveBusinessAdvanceDetail;
+import com.cmcu.mcc.business.entity.FiveBusinessConsultingContractStatistics;
+import com.cmcu.mcc.business.entity.FiveBusinessContractLibrary;
+import com.cmcu.mcc.business.entity.FiveBusinessStatistics;
 import com.cmcu.mcc.comm.EdConst;
-import com.cmcu.mcc.comm.MccConst;
-import com.cmcu.mcc.five.entity.FiveOaInformationPlanDetail;
-import com.cmcu.mcc.five.entity.FiveOaInlandProjectApply;
-import com.cmcu.mcc.five.entity.FiveOaProjectfundplanDetail;
 import com.cmcu.mcc.hr.dao.HrEmployeeMapper;
-import com.cmcu.mcc.hr.dto.HrDeptDto;
 import com.cmcu.mcc.hr.dto.HrEmployeeDto;
 import com.cmcu.mcc.hr.service.HrDeptService;
 import com.cmcu.mcc.hr.service.HrEmployeeService;
@@ -34,24 +30,24 @@ import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class FiveBusinessAdvanceSevice extends BaseService {
+public class FiveBusinessStatisticsSevice extends BaseService {
 
     @Resource
-    FiveBusinessAdvanceMapper fiveBusinessAdvanceMapper;
+    FiveBusinessStatisticsMapper fiveBusinessStatisticsMapper;
     @Resource
     HrEmployeeMapper hrEmployeeMapper;
     @Resource
-    FiveBusinessAdvanceDetailMapper fiveBusinessAdvanceDetailMapper;
+    FiveBusinessConsultingContractStatisticsMapper fiveBusinessConsultingContractStatisticsMapper;
+    @Resource
+    FiveBusinessContractLibraryMapper fiveBusinessContractLibraryMapper;
     @Autowired
     ProcessQueryService processQueryService;
     @Autowired
@@ -69,74 +65,59 @@ public class FiveBusinessAdvanceSevice extends BaseService {
     @Resource
     HrDeptService hrDeptService;
 
-    public void remove(int id,String userLogin){
-        FiveBusinessAdvance item = fiveBusinessAdvanceMapper.selectByPrimaryKey(id);
+    /*public void remove(int id,String userLogin){
+        FiveBusinessStatistics item = fiveBusinessStatisticsMapper.selectByPrimaryKey(id);
         Assert.state(item.getCreator().equals(userLogin),"该数据是用户"+item.getCreatorName()+"创建");
         //流程作废
         handleFormService.removeProcessInstance(item.getBusinessKey(),userLogin);
-    }
+    }*/
 
     //update
-    public void update(FiveBusinessAdvanceDto fiveBusinessAdvanceDto){
-        FiveBusinessAdvance model = fiveBusinessAdvanceMapper.selectByPrimaryKey(fiveBusinessAdvanceDto.getId());
-        model.setDeptId(fiveBusinessAdvanceDto.getDeptId());
-        model.setCreator(fiveBusinessAdvanceDto.getCreator());
-        model.setCreatorName(fiveBusinessAdvanceDto.getCreatorName());
-        model.setDeptName(fiveBusinessAdvanceDto.getDeptName());
-        model.setGmtCreate(fiveBusinessAdvanceDto.getGmtCreate());
-
-        model.setDeclareType(fiveBusinessAdvanceDto.getDeclareType());
-        model.setFormNo(fiveBusinessAdvanceDto.getFormNo());
-        model.setRemark(fiveBusinessAdvanceDto.getRemark());
-        model.setMonth(fiveBusinessAdvanceDto.getMonth());
-        model.setYear(fiveBusinessAdvanceDto.getYear());
-        model.setTotalPrice(fiveBusinessAdvanceDto.getTotalPrice());
-        model.setProjectName(fiveBusinessAdvanceDto.getProjectName());
+    /*public void update(FiveBusinessStatisticsDto fiveBusinessStatisticsDto){
+        FiveBusinessStatistics model = fiveBusinessStatisticsMapper.selectByPrimaryKey(fiveBusinessStatisticsDto.getId());
+        model.setDeptId(fiveBusinessStatisticsDto.getDeptId());
+        model.setCreator(fiveBusinessStatisticsDto.getCreator());
+        model.setCreatorName(fiveBusinessStatisticsDto.getCreatorName());
+        model.setDeptName(fiveBusinessStatisticsDto.getDeptName());
+        model.setGmtCreate(fiveBusinessStatisticsDto.getGmtCreate());
+        model.setFormNo(fiveBusinessStatisticsDto.getFormNo());
+        model.setRemark(fiveBusinessStatisticsDto.getRemark());
         model.setGmtModified(new Date());
-        fiveBusinessAdvanceMapper.updateByPrimaryKey(model);
+        model.setStartTime(fiveBusinessStatisticsDto.getStartTime());
+        model.setEndTime(fiveBusinessStatisticsDto.getEndTime());
+        fiveBusinessStatisticsMapper.updateByPrimaryKey(model);
 
         Map variables = Maps.newHashMap();
         variables.put("deptChargeMen",selectEmployeeService.getParentDeptChargeMen(model.getDeptId(),1,true));
         variables.put("businessLeader", selectEmployeeService.getDeptChargeMen(48));//经营发展部第一负责人
 
         myActService.setVariables(model.getProcessInstanceId(),variables);
-    }
+    }*/
 
-    public FiveBusinessAdvanceDto getModelById(int id){
-        return getDto(fiveBusinessAdvanceMapper.selectByPrimaryKey(id));
-    }
+    /*public FiveBusinessStatisticsDto getModelById(int id){
+        return getDto(fiveBusinessStatisticsMapper.selectByPrimaryKey(id));
+    }*/
 
-    public FiveBusinessAdvanceDto getDto(FiveBusinessAdvance item) {
-        FiveBusinessAdvanceDto dto= FiveBusinessAdvanceDto.adapt(item);
-        dto.setProcessName("已完成");
+    public FiveBusinessStatisticsDto getDto(FiveBusinessStatistics item) {
+        FiveBusinessStatisticsDto dto= FiveBusinessStatisticsDto.adapt(item);
+        /*dto.setProcessName("已完成");
         if (!dto.getProcessEnd()){
             CustomSimpleProcessInstance customProcessInstance = processQueryService.getCustomSimpleProcessInstance(dto.getProcessInstanceId(), dto.getBusinessKey(), "");
             if(customProcessInstance == null || customProcessInstance.isFinished()){
                 dto.setProcessEnd(true);
-                fiveBusinessAdvanceMapper.updateByPrimaryKey(dto);
+                fiveBusinessStatisticsMapper.updateByPrimaryKey(dto);
             }
             if(customProcessInstance != null && StringUtils.isNotEmpty(customProcessInstance.getCurrentTaskName())){
                 dto.setProcessName(customProcessInstance.getCurrentTaskName());
             }
-        }
-        List<FiveBusinessAdvanceDetail> fiveBusinessAdvanceDetails = listDetail(item.getId());
-        //总预支
-        String totalFinalPrice= MyStringUtil.moneyToString("0");
-        for (FiveBusinessAdvanceDetail detail:fiveBusinessAdvanceDetails){
-            totalFinalPrice = MyStringUtil.getNewAddMoney(totalFinalPrice, detail.getProjectBonus());
-        }
-        if (!item.getTotalPrice().equals(totalFinalPrice)){
-            item.setTotalPrice(totalFinalPrice);
-            fiveBusinessAdvanceMapper.updateByPrimaryKey(item);
-        }
-        dto.setTotalPrice(MyStringUtil.moneyToString(totalFinalPrice,2));
+        }*/
 
         return dto;
     }
 
     public int getNewModel(String userLogin){
 
-        FiveBusinessAdvance item=new FiveBusinessAdvance();
+        FiveBusinessStatistics item=new FiveBusinessStatistics();
         HrEmployeeDto hrEmployeeDto = hrEmployeeMapper.selectByUserLoginOrNo(userLogin);
 
         item.setCreator(hrEmployeeDto.getUserLogin());
@@ -148,37 +129,18 @@ public class FiveBusinessAdvanceSevice extends BaseService {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dateString = formatter.format(currentTime);
 
-        item.setMonth(dateString.substring(0,7));
-        //item.setYear(MyDateUtil.getYear()+"");
-
         item.setDeleted(false);
         item.setProcessEnd(false);
         item.setCreator(userLogin);
         item.setGmtModified(new Date());
         item.setGmtCreate(new Date());
-       
-        item.setDeclareType(commonCodeService.selectDefaultCodeValue(MccConst.APP_CODE,"申报类型").toString());
+
         ModelUtil.setNotNullFields(item);
 
-        fiveBusinessAdvanceMapper.insert(item);
-        String businessKey= EdConst.FIVE_BUSINESS_ADVANCE+ "_" + item.getId();
-        Map variables = Maps.newHashMap();
-        variables.put("userLogin", userLogin);
-        variables.put("processDescription", "预支明细表："+item.getCreatorName());
-        variables.put("deptChargeMen",selectEmployeeService.getParentDeptChargeMen(item.getDeptId(),3,true));
+        fiveBusinessStatisticsMapper.insert(item);
+        String businessKey= EdConst.FIVE_BUSINESS_STATISTICS+ "_" + item.getId();
 
-        List<String> managePerfMan = hrEmployeeService.selectUserByRoleNames("经营发展部(绩效岗)");
-       // managePerfMan.addAll(selectEmployeeService.getDeptChargeMen(48));//经营发展部第一负责人
-        variables.put("managePerfMan", managePerfMan);//经营发展部(绩效岗)
-
-        String copyMan = MyStringUtil.listToString(hrEmployeeService.selectUserByRoleNames("人力资源部(工资岗)"))+""
-                +MyStringUtil.listToString(selectEmployeeService.getDeptChargeMen(38))+
-                MyStringUtil.listToString(hrEmployeeService.selectUserByRoleNames("财务金融部(工资岗)"));
-        variables.put("copyMan", copyMan);//财务金融部(工资岗)
-        item.setBusinessKey(businessKey);
-        String processInstanceId = taskHandleService.startProcess(EdConst.FIVE_BUSINESS_ADVANCE,item.getBusinessKey(), variables, MccConst.APP_CODE);
-        item.setProcessInstanceId(processInstanceId);
-        fiveBusinessAdvanceMapper.updateByPrimaryKey(item);
+        fiveBusinessStatisticsMapper.updateByPrimaryKey(item);
         return item.getId();
     }
 
@@ -186,82 +148,78 @@ public class FiveBusinessAdvanceSevice extends BaseService {
         params.put("deleted",false);
         params.put("isLikeSelect",true);
 
-        //如果有数据权限判断数据权限  myDeptData true查看当前部门 false查看创建人
-        Map map =new HashMap();
-        map.put("myDeptData",false);
-        map.put("uiSref",uiSref);
-        map.put("enLogin",userLogin);
-        params.putAll(getDefaultRightParams(map));
-
-        PageInfo<Object> pageInfo = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> fiveBusinessAdvanceMapper.selectAll(params));
+        PageInfo<Object> pageInfo = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> fiveBusinessContractLibraryMapper.selectCount(params));
+//        PageInfo<Object> pageInfo = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> fiveBusinessStatisticsMapper.selectAll(params));
         List<Object> list = Lists.newArrayList();
         pageInfo.getList().forEach(p -> {
-            FiveBusinessAdvance item=(FiveBusinessAdvance) p;
+            FiveBusinessContractLibrary each = (FiveBusinessContractLibrary) p;
+            FiveBusinessStatistics item=new FiveBusinessStatistics();
+            item.setDeptName(each.getDeptName());
+            item.setCompleteCount(each.getCount());
+            item.setLastYear(each.getCount());
+            item.setIncrease(String.valueOf(Integer.valueOf(item.getCompleteCount())-Integer.valueOf(item.getLastYear())));
+            item.setCompleteErcent("0%");
             list.add(getDto(item));
         });
         pageInfo.setList(list);
         return pageInfo;
     }
 
-    public void updateDetail(FiveBusinessAdvanceDetail item){
-        FiveBusinessAdvanceDetail model = fiveBusinessAdvanceDetailMapper.selectByPrimaryKey(item.getId());
+
+    public void updateDetail(FiveBusinessConsultingContractStatistics item){
+        FiveBusinessConsultingContractStatistics model = fiveBusinessConsultingContractStatisticsMapper.selectByPrimaryKey(item.getId());
         model.setDeptId(item.getDeptId());
         model.setDeptName(item.getDeptName());
-        model.setPerson(item.getPerson());
-        model.setPersonName(item.getPersonName());
-        model.setPersonNo(item.getPersonNo());
-        model.setRemark(item.getRemark());
-        model.setCreator(item.getCreator());
-        model.setCreatorName(item.getCreatorName());
-        model.setGmtCreate(new Date());
-        model.setSeq(item.getSeq());
-        model.setProjectBonus(MyStringUtil.moneyToString(item.getProjectBonus(),2));
-        model.setPersonnelCategory(item.getPersonnelCategory());
-        fiveBusinessAdvanceDetailMapper.updateByPrimaryKey(model);
+        fiveBusinessConsultingContractStatisticsMapper.updateByPrimaryKey(model);
 
     }
 
-    public FiveBusinessAdvanceDetail getNewModelDetail(int advanceId){
-        FiveBusinessAdvanceDetail item=new FiveBusinessAdvanceDetail();
-        FiveBusinessAdvanceDto model = getModelById(advanceId);
-        int seq=listDetail(advanceId).size()+1;
-        item.setAdvanceId(advanceId);
-        item.setPersonnelCategory("在职");
-
-        item.setSeq(seq);
-        item.setProjectBonus("0");
-        item.setGmtModified(new Date());
-        item.setGmtCreate(new Date());
-        item.setDeleted(false);
+    /*public FiveBusinessConsultingContractStatistics getNewModelDetail(int statisticsId){
+        FiveBusinessConsultingContractStatistics item=new FiveBusinessConsultingContractStatistics();
+        FiveBusinessStatistics model = getModelById(statisticsId);
+        int seq=listDetail(statisticsId).size()+1;
+        item.setStatisticsId(statisticsId);
+        item.setConsultingContractTarget("0");
+        item.setLastYearComplete("0");
+        item.setConsultingContractComplete("0");
         ModelUtil.setNotNullFields(item);
-        fiveBusinessAdvanceDetailMapper.insert(item);
+//        fiveBusinessConsultingContractStatisticsMapper.insert(item);
         return item;
 
+    }*/
+
+    public FiveBusinessConsultingContractStatistics getModelDetailById(int id){
+        return fiveBusinessConsultingContractStatisticsMapper.selectByPrimaryKey(id);
     }
 
-    public FiveBusinessAdvanceDetail getModelDetailById(int id){
-        return fiveBusinessAdvanceDetailMapper.selectByPrimaryKey(id);
-    }
-
-    public List<FiveBusinessAdvanceDetail> listDetail(int advanceId){
+    public List<FiveBusinessConsultingContractStatistics> listDetail(int statisticsId){
         Map <String,Object> params=Maps.newHashMap();
         params.put("deleted",false);
-        params.put("advanceId",advanceId);//小写
-        List<FiveBusinessAdvanceDetail> list = fiveBusinessAdvanceDetailMapper.selectAll(params).stream()
-                .sorted(Comparator.comparing(FiveBusinessAdvanceDetail::getId)).collect(Collectors.toList());
+        params.put("statisticsId",statisticsId);//小写
+        List<FiveBusinessConsultingContractStatistics> list = fiveBusinessConsultingContractStatisticsMapper.selectAll(params).stream()
+                .sorted(Comparator.comparing(FiveBusinessConsultingContractStatistics::getId)).collect(Collectors.toList());
         return list;
     }
 
     public void removeDetail(int id){
-        FiveBusinessAdvanceDetail model = fiveBusinessAdvanceDetailMapper.selectByPrimaryKey(id);
+        FiveBusinessConsultingContractStatistics model = fiveBusinessConsultingContractStatisticsMapper.selectByPrimaryKey(id);
 
-        model.setDeleted(true);
-        model.setGmtModified(new Date());
+//        model.setDeleted(true);
+//        model.setGmtModified(new Date());
         BeanValidator.validateObject(model);
-        fiveBusinessAdvanceDetailMapper.updateByPrimaryKey(model);
+        fiveBusinessConsultingContractStatisticsMapper.updateByPrimaryKey(model);
     }
 
-    public List<Map> listMapData(Map<String,Object> params,  String uiSref,String userLogin,int advanceId){
+    public List<FiveBusinessConsultingContractStatistics> getReport(FiveBusinessStatistics fiveBusinessStatistics){
+        Map map = new HashMap();
+        map.put("projectNature","工程咨询");
+        map.put("deleted",false);
+        List<FiveBusinessContractLibrary> libraryList = fiveBusinessContractLibraryMapper.selectAll(map);
+        return null;
+
+    }
+
+/*    public List<Map> listMapData(Map<String,Object> params,  String uiSref,String userLogin,int advanceId){
         List<Map> list = new ArrayList<>();
         params.put("deleted",false);
         params.put("advanceId",advanceId);
@@ -289,13 +247,13 @@ public class FiveBusinessAdvanceSevice extends BaseService {
         return list;
     }
 
-    /**
+    *//**
      * 上传EXCL 导入数据 子表数据
      * @param data
      * @param advanceId
      * @param userLogin
      * @throws ParseException
-     */
+     *//*
     @Transactional
     public void uploadExcl(List<Map> data,int  advanceId,String userLogin) throws ParseException {
         Assert.state(data.size() > 1,"数据为空、数据填写异常，请准确按照模板填写!");
@@ -352,7 +310,7 @@ public class FiveBusinessAdvanceSevice extends BaseService {
 
             }
         }
-    }
+    }*/
 
 
 

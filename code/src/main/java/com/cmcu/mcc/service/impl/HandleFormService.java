@@ -1,6 +1,6 @@
 package com.cmcu.mcc.service.impl;
 
-import com.cmcu.act.dto.CustomProcessInstance;
+import com.cmcu.act.dto.CustomSimpleProcessInstance;
 import com.cmcu.act.service.ProcessHandleService;
 import com.cmcu.act.service.ProcessQueryService;
 import com.cmcu.common.dao.CommonFormDataMapper;
@@ -29,8 +29,10 @@ import com.cmcu.mcc.business.service.BusinessContractService;
 import com.cmcu.mcc.business.service.FiveBusinessAdvanceCollectService;
 import com.cmcu.mcc.business.service.FiveBusinessAdvanceSevice;
 import com.cmcu.mcc.business.service.FiveBusinessContractReviewService;
-import com.cmcu.mcc.ed.dao.EdProjectTreeMapper;
-import com.cmcu.mcc.ed.entity.EdProjectTree;
+import com.cmcu.mcc.ed.dao.*;
+import com.cmcu.mcc.ed.entity.*;
+import com.cmcu.mcc.ed.service.FiveEdDesignDrawingCheckService;
+import com.cmcu.mcc.ed.service.FiveEdMajorDrawingCheckService;
 import com.cmcu.mcc.finance.dao.*;
 import com.cmcu.mcc.finance.dao.FiveFinanceLoanMapper;
 import com.cmcu.mcc.finance.entity.*;
@@ -41,9 +43,7 @@ import com.cmcu.mcc.five.service.*;
 import com.cmcu.mcc.hr.dao.HrInventMapper;
 import com.cmcu.mcc.hr.entity.HrInvent;
 import com.cmcu.mcc.oa.dao.OaNoticeApplyMapper;
-import com.cmcu.mcc.oa.dao.OaStampApplyMapper;
 import com.cmcu.mcc.oa.entity.OaNoticeApply;
-import com.cmcu.mcc.oa.entity.OaStampApply;
 import com.cmcu.mcc.supervise.dao.FiveOaSuperviseDetailMapper;
 import com.cmcu.mcc.supervise.dao.FiveOaSuperviseFileMapper;
 import com.cmcu.mcc.supervise.dao.FiveOaSuperviseMapper;
@@ -168,30 +168,14 @@ public class HandleFormService implements IHandleFormService {
                 p.setGmtModified(new Date());
                 commonFormDataMapper.updateByPrimaryKey(p);
             });
-
-            if (businessKey.startsWith("fiveEdTask_")) {//设计任务书
-                fiveEdTaskMapper.selectAll(params).forEach(p -> {
-                    p.setDeleted(true);
-                    p.setGmtModified(new Date());
-                    fiveEdTaskMapper.updateByPrimaryKey(p);
-                });
-            } else if (businessKey.startsWith("fiveOaGoAbroadTrainAsk_")) { //出国培训申请
+            if (businessKey.startsWith("fiveOaGoAbroadTrainAsk_")) { //出国培训申请
                 List<FiveOaGoAbroadTrainAsk> list = fiveOaGoAbroadTrainAskMapper.selectAll(params);
                 list.forEach(p -> {
                     p.setDeleted(true);
                     p.setGmtModified(new Date());
                     fiveOaGoAbroadTrainAskMapper.updateByPrimaryKey(p);
                 });
-            }
-            else if (businessKey.startsWith("fiveEdReviewMajor_")) { //专业方案讨论
-                List<FiveEdReviewMajor> list = fiveEdReviewMajorMapper.selectAll(params);
-                list.forEach(p -> {
-                    p.setDeleted(true);
-                    p.setGmtModified(new Date());
-                    fiveEdReviewMajorMapper.updateByPrimaryKey(p);
-                });
-            }
-            else if (businessKey.startsWith("fiveOaMeetingRoomApply_")) { //会议室申请
+            } else if (businessKey.startsWith("fiveOaMeetingRoomApply_")) { //会议室申请
                 List<FiveOaMeetingRoomApply> list = fiveOaMeetingRoomApplyMapper.selectAll(params);
                 list.forEach(p -> {
                     p.setDeleted(true);
@@ -223,54 +207,6 @@ public class HandleFormService implements IHandleFormService {
                     businessSubpackageMapper.updateByPrimaryKey(p);
                 });
             }
-            else if (businessKey.startsWith("fiveEdQualityCheck_")) {//质量抽查审校记录单
-                List<FiveEdQualityCheck> list = fiveEdQualityCheckMapper.selectAll(params);
-                list.forEach(p -> {
-                    p.setDeleted(true);
-                    p.setGmtModified(new Date());
-                    fiveEdQualityCheckMapper.updateByPrimaryKey(p);
-                });
-            }
-            else if (businessKey.startsWith("fiveEdQualityAnalysis_")) {//设计质量问题剖析
-                List<FiveEdQualityAnalysis> list = fiveEdQualityAnalysisMapper.selectAll(params);
-                list.forEach(p -> {
-                    p.setDeleted(true);
-                    p.setGmtModified(new Date());
-                    fiveEdQualityAnalysisMapper.updateByPrimaryKey(p);
-                });
-            }
-            else if (businessKey.startsWith("fiveEdReturnVisit_")) {//工程设计回访记录
-                List<FiveEdReturnVisit> list = fiveEdReturnVisitMapper.selectAll(params);
-                list.forEach(p -> {
-                    p.setDeleted(true);
-                    p.setGmtModified(new Date());
-                    fiveEdReturnVisitMapper.updateByPrimaryKey(p);
-                });
-            }
-            else if (businessKey.startsWith("fiveEdStamp_")) {//设计成果用印申请
-                List<FiveEdStamp> list = fiveEdStampMapper.selectAll(params);
-                list.forEach(p -> {
-                    p.setDeleted(true);
-                    p.setGmtModified(new Date());
-                    fiveEdStampMapper.updateByPrimaryKey(p);
-                });
-            }
-            else if (businessKey.startsWith("fiveEdArrange_")) {//人员与计划安排
-                List<FiveEdArrange> list = fiveEdArrangeMapper.selectAll(params);
-                list.forEach(p -> {
-                    p.setDeleted(true);
-                    p.setGmtModified(new Date());
-                    fiveEdArrangeMapper.updateByPrimaryKey(p);
-                });
-            }
-            else if (businessKey.startsWith("fiveEdDesignRule_")) {//设计指导性文件
-                List<FiveEdDesignRule> list = fiveEdDesignRuleMapper.selectAll(params);
-                list.forEach(p -> {
-                    p.setDeleted(true);
-                    p.setGmtModified(new Date());
-                    fiveEdDesignRuleMapper.updateByPrimaryKey(p);
-                });
-            }
             else if (businessKey.startsWith("fiveEdDesignDrawingCheck_")) {//设计图纸资料交验
                 List<FiveEdDesignDrawingCheck> list = fiveEdDesignDrawingCheckMapper.selectAll(params);
                 list.forEach(p -> {
@@ -285,78 +221,6 @@ public class HandleFormService implements IHandleFormService {
                     p.setDeleted(true);
                     p.setGmtModified(new Date());
                     fiveEdMajorDrawingCheckMapper.updateByPrimaryKey(p);
-                });
-            }
-            else if (businessKey.startsWith("fiveEdReviewPlan_")) {//总体方案评审
-                List<FiveEdReviewPlan> list = fiveEdReviewPlanMapper.selectAll(params);
-                list.forEach(p -> {
-                    p.setDeleted(true);
-                    p.setGmtModified(new Date());
-                    fiveEdReviewPlanMapper.updateByPrimaryKey(p);
-                });
-            }
-            else if (businessKey.startsWith("fiveEdReviewSpecial_")) {//专项评审
-                List<FiveEdReviewSpecial> list = fiveEdReviewSpecialMapper.selectAll(params);
-                list.forEach(p -> {
-                    p.setDeleted(true);
-                    p.setGmtModified(new Date());
-                    fiveEdReviewSpecialMapper.updateByPrimaryKey(p);
-                });
-            }
-            else if (businessKey.startsWith("fiveEdHouseRefer_")) {//设计协作提资单
-                List<FiveEdHouseRefer> list = fiveEdHouseReferMapper.selectAll(params);
-                list.forEach(p -> {
-                    p.setDeleted(true);
-                    p.setGmtModified(new Date());
-                    fiveEdHouseReferMapper.updateByPrimaryKey(p);
-                });
-            }
-            else if (businessKey.startsWith("fiveEdValidate_")) {//设计文件校审单 fiveEdOutReview
-                List<FiveEdHouseValidate> list = fiveEdHouseValidateMapper.selectAll(params);
-                list.forEach(p -> {
-                    p.setDeleted(true);
-                    p.setGmtModified(new Date());
-                    fiveEdHouseValidateMapper.updateByPrimaryKey(p);
-                });
-            }
-            else if (businessKey.startsWith("fiveEdOutReview_")) {//外部设计评审
-                List<FiveEdOutReview> list = fiveEdOutReviewMapper.selectAll(params);
-                list.forEach(p -> {
-                    p.setDeleted(true);
-                    p.setGmtModified(new Date());
-                    fiveEdOutReviewMapper.updateByPrimaryKey(p);
-                });
-            }
-            else if (businessKey.startsWith("fiveEdServiceChange_")) {//设计变更通知单
-                List<FiveEdServiceChange> list = fiveEdServiceChangeMapper.selectAll(params);
-                list.forEach(p -> {
-                    p.setDeleted(true);
-                    p.setGmtModified(new Date());
-                    fiveEdServiceChangeMapper.updateByPrimaryKey(p);
-                });
-            }
-            else if (businessKey.startsWith("fiveEdServiceDiscuss_")) {//建工、施工单位变更设计洽商单
-                List<FiveEdServiceDiscuss> list = fiveEdServiceDiscussMapper.selectAll(params);
-                list.forEach(p -> {
-                    p.setDeleted(true);
-                    p.setGmtModified(new Date());
-                    fiveEdServiceDiscussMapper.updateByPrimaryKey(p);
-                });
-            }
-            else if (businessKey.startsWith("fiveEdServiceHandle_")) {//技术服务问题处理单
-                List<FiveEdServiceHandle> list = fiveEdServiceHandleMapper.selectAll(params);
-                list.forEach(p -> {
-                    p.setDeleted(true);
-                    p.setGmtModified(new Date());
-                    fiveEdServiceHandleMapper.updateByPrimaryKey(p);
-                });
-            }
-            else if (businessKey.startsWith("fiveEdPlotApply_")) {//出图申请单
-                List<FiveEdPlotApply> list = fiveEdPlotApplyMapper.selectAll(params);
-                list.forEach(p -> {
-                    p.setDeleted(true);
-                    p.setGmtModified(new Date());
-                    fiveEdPlotApplyMapper.updateByPrimaryKey(p);
                 });
             }
             else if (businessKey.startsWith("fiveOaSuperviseDetail_")) {//督办子项
@@ -747,6 +611,14 @@ public class HandleFormService implements IHandleFormService {
                     fiveOaInlandProjectApplyMapper.updateByPrimaryKey(p);
                 });
             }
+            else if (businessKey.startsWith("fiveOaInlandProjectReview_")) {//内部项目审核
+                List<FiveOaInlandProjectReview> list = fiveOaInlandProjectReviewMapper.selectAll(params);
+                list.forEach(p -> {
+                    p.setDeleted(true);
+                    p.setGmtModified(new Date());
+                    fiveOaInlandProjectReviewMapper.updateByPrimaryKey(p);
+                });
+            }
             else if (businessKey.startsWith("fiveOaAssociationApply_")) {//     入协会申请
                 List<FiveOaAssociationApply> list = fiveOaAssociationApplyMapper.selectAll(params);
                 list.forEach(p -> {
@@ -868,14 +740,7 @@ public class HandleFormService implements IHandleFormService {
                     p.setGmtModified(new Date());
                     fiveOaSignQuoteMapper.updateByPrimaryKey(p);
                 });
-            } else if (businessKey.startsWith("fiveEdQualityIssue_")) {//重大设计问题
-                List<FiveEdQualityIssue> list = fiveEdQualityIssueMapper.selectAll(params);
-                list.forEach(p -> {
-                    p.setDeleted(true);
-                    p.setGmtModified(new Date());
-                    fiveEdQualityIssueMapper.updateByPrimaryKey(p);
-                });
-            } else if (businessKey.startsWith("fiveFinanceTravelExpense")) {//差旅费报销
+            }else if (businessKey.startsWith("fiveFinanceTravelExpense")) {//差旅费报销
                 List<FiveFinanceTravelExpense> list = fiveFinanceTravelExpenseMapper.selectAll(params);
                 list.forEach(p -> {
                     p.setDeleted(true);
@@ -1367,7 +1232,10 @@ public class HandleFormService implements IHandleFormService {
     @Override
     public TplConfigDto getTplConfigDto(String processInstanceId,String businessKey, String enLogin) {
 
-        CustomProcessInstance customProcessInstance = processQueryService.getCustomProcessInstance(processInstanceId,businessKey,enLogin);
+        //CustomProcessInstance customProcessInstance = processQueryService.getCustomProcessInstance(processInstanceId,businessKey,enLogin);
+
+        CustomSimpleProcessInstance customProcessInstance=processQueryService.getCustomSimpleProcessInstance(processInstanceId,businessKey,enLogin);
+
         if (StringUtils.isEmpty(businessKey)&&customProcessInstance!=null) {
             businessKey = customProcessInstance.getInstance().getBusinessKey();
         }
@@ -1387,7 +1255,7 @@ public class HandleFormService implements IHandleFormService {
             commonForm.setFormKey(formKey);
             commonForm.setFormIcon("icon-note");
             commonForm.setFormDesc(customProcessInstance.getInstance().getProcessDefinitionName());
-            commonForm.setFormCategory(customProcessInstance.getProcessCategory());
+            commonForm.setFormCategory("综合办公");
             commonForm.setFormVersion(1);
             commonForm.setPublished(true);
             commonForm.setDeleted(false);
@@ -1725,12 +1593,10 @@ public class HandleFormService implements IHandleFormService {
         }
     }
 
-    @Resource
-    FiveEdTaskMapper fiveEdTaskMapper;
+
     @Resource
     FiveOaGoAbroadTrainAskMapper fiveOaGoAbroadTrainAskMapper;
-    @Resource
-    FiveEdReviewMajorMapper fiveEdReviewMajorMapper;
+
     @Resource
     FiveOaMeetingRoomApplyMapper fiveOaMeetingRoomApplyMapper;
     @Resource
@@ -1830,36 +1696,6 @@ public class HandleFormService implements IHandleFormService {
     @Resource
     BusinessSubpackageMapper businessSubpackageMapper;
     @Resource
-    FiveEdQualityCheckMapper fiveEdQualityCheckMapper;
-    @Resource
-    FiveEdQualityAnalysisMapper fiveEdQualityAnalysisMapper;
-    @Resource
-    FiveEdReturnVisitMapper fiveEdReturnVisitMapper;
-    @Resource
-    FiveEdStampMapper fiveEdStampMapper;
-    @Resource
-    FiveEdArrangeMapper fiveEdArrangeMapper;
-    @Resource
-    FiveEdDesignRuleMapper fiveEdDesignRuleMapper;
-    @Resource
-    FiveEdReviewPlanMapper fiveEdReviewPlanMapper;
-    @Resource
-    FiveEdReviewSpecialMapper fiveEdReviewSpecialMapper;
-    @Resource
-    FiveEdHouseReferMapper fiveEdHouseReferMapper;
-    @Resource
-    FiveEdHouseValidateMapper fiveEdHouseValidateMapper;
-    @Resource
-    FiveEdOutReviewMapper fiveEdOutReviewMapper;
-    @Resource
-    FiveEdServiceChangeMapper fiveEdServiceChangeMapper;
-    @Resource
-    FiveEdServiceDiscussMapper fiveEdServiceDiscussMapper;
-    @Resource
-    FiveEdServiceHandleMapper fiveEdServiceHandleMapper;
-    @Resource
-    FiveEdPlotApplyMapper fiveEdPlotApplyMapper;
-    @Resource
     FiveOaSuperviseDetailMapper fiveOaSuperviseDetailMapper;
     @Resource
     FiveOaSuperviseMapper fiveOaSuperviseMapper;
@@ -1879,8 +1715,7 @@ public class HandleFormService implements IHandleFormService {
     FiveOaContractLawExamineMapper fiveOaContractLawExamineMapper;
     @Resource
     FiveOaSignQuoteMapper fiveOaSignQuoteMapper;
-    @Resource
-    FiveEdQualityIssueMapper fiveEdQualityIssueMapper;
+
     @Resource
     FiveFinanceTravelExpenseMapper fiveFinanceTravelExpenseMapper;
     @Autowired
@@ -1982,6 +1817,8 @@ public class HandleFormService implements IHandleFormService {
     @Resource
     FiveOaInlandProjectApplyMapper fiveOaInlandProjectApplyMapper;
     @Resource
+    FiveOaInlandProjectReviewMapper fiveOaInlandProjectReviewMapper;
+    @Resource
     FiveOaEquipmentAcceptanceService fiveOaEquipmentAcceptanceService;
     @Resource
     FiveAssetScrapService fiveAssetScrapService;
@@ -2006,14 +1843,8 @@ public class HandleFormService implements IHandleFormService {
         Map params = Maps.newHashMap();
         params.put("businessKey", businessKey);
         Object item = null;
-        if (businessKey.startsWith("fiveEdTask")) {//设计任务书
-            List<FiveEdTask> list = fiveEdTaskMapper.selectAll(params);
-            if (list.size() > 0) item = list.get(0);
-        } else if (businessKey.startsWith("fiveOaGoAbroadTrainAsk")) { //出国培训申请
+        if (businessKey.startsWith("fiveOaGoAbroadTrainAsk")) { //出国培训申请
             List<FiveOaGoAbroadTrainAsk> list = fiveOaGoAbroadTrainAskMapper.selectAll(params);
-            if (list.size() > 0) item = list.get(0);
-        } else if (businessKey.startsWith("fiveEdReviewMajor")) { //专业方案讨论
-            List<FiveEdReviewMajor> list = fiveEdReviewMajorMapper.selectAll(params);
             if (list.size() > 0) item = list.get(0);
         } else if (businessKey.startsWith("fiveOaMeetingRoomApply")){ //会议室申请
             List<FiveOaMeetingRoomApply> list = fiveOaMeetingRoomApplyMapper.selectAll(params);
@@ -2028,56 +1859,11 @@ public class HandleFormService implements IHandleFormService {
         else if (businessKey.startsWith("fiveBusinessSubpackage")||businessKey.startsWith("fiveBusinessPurchase")) {//分包采购评审
             List<BusinessSubpackage> list = businessSubpackageMapper.selectAll(params);
             if (list.size() > 0) item = list.get(0);
-        }else if (businessKey.startsWith("fiveEdQualityCheck")) {//质量抽查审校记录单
-            List<FiveEdQualityCheck> list = fiveEdQualityCheckMapper.selectAll(params);
-            if (list.size() > 0) item = list.get(0);
-        }else if (businessKey.startsWith("fiveEdQualityAnalysis")) {//设计质量问题剖析
-            List<FiveEdQualityAnalysis> list = fiveEdQualityAnalysisMapper.selectAll(params);
-            if (list.size() > 0) item = list.get(0);
-        }else if (businessKey.startsWith("fiveEdReturnVisit")) {//工程设计回访记录
-            List<FiveEdReturnVisit> list = fiveEdReturnVisitMapper.selectAll(params);
-            if (list.size() > 0) item = list.get(0);
-        }else if (businessKey.startsWith("fiveEdStamp")) {//设计成果用印申请
-            List<FiveEdStamp> list = fiveEdStampMapper.selectAll(params);
-            if (list.size() > 0) item = list.get(0);
-        }else if (businessKey.startsWith("fiveEdArrange")) {//人员与计划安排
-            List<FiveEdArrange> list = fiveEdArrangeMapper.selectAll(params);
-            if (list.size() > 0) item = list.get(0);
-        }else if (businessKey.startsWith("fiveEdDesignRule")) {//设计指导性文件
-            List<FiveEdDesignRule> list = fiveEdDesignRuleMapper.selectAll(params);
-            if (list.size() > 0) item = list.get(0);
         }else if (businessKey.startsWith("fiveEdDesignDrawingCheck")) {//设计图纸资料交验
             List<FiveEdDesignDrawingCheck> list = fiveEdDesignDrawingCheckMapper.selectAll(params);
             if (list.size() > 0) item = list.get(0);
         }else if (businessKey.startsWith("fiveEdMajorDrawingCheck")) {//专业图纸验收清单
             List<FiveEdMajorDrawingCheck> list = fiveEdMajorDrawingCheckMapper.selectAll(params);
-            if (list.size() > 0) item = list.get(0);
-        } else if (businessKey.startsWith("fiveEdReviewPlan")) {//总体方案评审
-            List<FiveEdReviewPlan> list = fiveEdReviewPlanMapper.selectAll(params);
-            if (list.size() > 0) item = list.get(0);
-        }else if (businessKey.startsWith("fiveEdReviewSpecial")) {//专项评审
-            List<FiveEdReviewSpecial> list = fiveEdReviewSpecialMapper.selectAll(params);
-            if (list.size() > 0) item = list.get(0);
-        }else if (businessKey.startsWith("fiveEdHouseRefer")) {//设计协作提资单
-            List<FiveEdHouseRefer> list = fiveEdHouseReferMapper.selectAll(params);
-            if (list.size() > 0) item = list.get(0);
-        }else if (businessKey.startsWith("fiveEdValidate")) {//设计文件校审单 fiveEdOutReview
-            List<FiveEdHouseValidate> list = fiveEdHouseValidateMapper.selectAll(params);
-            if (list.size() > 0) item = list.get(0);
-        }else if (businessKey.startsWith("fiveEdOutReview")) {//外部设计评审
-            List<FiveEdOutReview> list = fiveEdOutReviewMapper.selectAll(params);
-            if (list.size() > 0) item = list.get(0);
-        }else if (businessKey.startsWith("fiveEdServiceChange")) {//设计变更通知单
-            List<FiveEdServiceChange> list = fiveEdServiceChangeMapper.selectAll(params);
-            if (list.size() > 0) item = list.get(0);
-        }else if (businessKey.startsWith("fiveEdServiceDiscuss")) {//建工、施工单位变更设计洽商单
-            List<FiveEdServiceDiscuss> list = fiveEdServiceDiscussMapper.selectAll(params);
-            if (list.size() > 0) item = list.get(0);
-        }else if (businessKey.startsWith("fiveEdServiceHandle")) {//技术服务问题处理单
-            List<FiveEdServiceHandle> list = fiveEdServiceHandleMapper.selectAll(params);
-            if (list.size() > 0) item = list.get(0);
-        }else if (businessKey.startsWith("fiveEdPlotApply")) {//出图申请单
-            List<FiveEdPlotApply> list = fiveEdPlotApplyMapper.selectAll(params);
             if (list.size() > 0) item = list.get(0);
         }else if (businessKey.startsWith("fiveOaSuperviseDetail")) {//督办子项
             List<FiveOaSuperviseDetail> list = fiveOaSuperviseDetailMapper.selectAll(params);
@@ -2264,6 +2050,10 @@ public class HandleFormService implements IHandleFormService {
             List<FiveOaInlandProjectApply> list = fiveOaInlandProjectApplyMapper.selectAll(params);
             if (list.size() > 0) item = list.get(0);
         }
+        else if (businessKey.startsWith("fiveOaInlandProjectReview_")) {// 内部项目审批
+            List<FiveOaInlandProjectReview> list = fiveOaInlandProjectReviewMapper.selectAll(params);
+            if (list.size() > 0) item = list.get(0);
+        }
         else if (businessKey.startsWith("fiveOaAssociationChange")) {//     协会信息变更
             List<FiveOaAssociationChange> list = fiveOaAssociationChangeMapper.selectAll(params);
             if (list.size() > 0) item = list.get(0);
@@ -2338,12 +2128,7 @@ public class HandleFormService implements IHandleFormService {
         else if (businessKey.startsWith("fiveOaSignQuote")) {//签报
             List<FiveOaSignQuote> list = fiveOaSignQuoteMapper.selectAll(params);
             if (list.size() > 0) item = list.get(0);
-        }
-        else if (businessKey.startsWith("fiveEdQualityIssue")) {//重大设计问题
-            List<FiveEdQualityIssue> list = fiveEdQualityIssueMapper.selectAll(params);
-            if (list.size() > 0) item = list.get(0);
-        }
-        else if (businessKey.startsWith("fiveFinanceTravelExpenseCommon")|businessKey.startsWith("fiveFinanceTravelExpenseFunction")||businessKey.startsWith("fiveFinanceTravelExpenseAccountsRed")||businessKey.startsWith("fiveFinanceTravelExpenseBuild")) {//差旅费报销
+        } else if (businessKey.startsWith("fiveFinanceTravelExpenseCommon")|businessKey.startsWith("fiveFinanceTravelExpenseFunction")||businessKey.startsWith("fiveFinanceTravelExpenseAccountsRed")||businessKey.startsWith("fiveFinanceTravelExpenseBuild")) {//差旅费报销
             List<FiveFinanceTravelExpense> list = fiveFinanceTravelExpenseMapper.selectAll(params);
             if (list.size() > 0) item = list.get(0);
         }

@@ -1,6 +1,5 @@
 package com.cmcu.mcc.five.dto;
 
-import com.cmcu.mcc.five.entity.FiveEdStamp;
 import com.cmcu.mcc.five.entity.FiveHrQualifyChief;
 import com.cmcu.mcc.hr.dto.HrEmployeeDto;
 import lombok.Getter;

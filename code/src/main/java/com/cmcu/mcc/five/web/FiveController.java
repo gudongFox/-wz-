@@ -1229,7 +1229,7 @@ public class FiveController {
         return modelAndView;
     }
 
-       @RequestMapping("/oa/inlandProjectApply")
+    @RequestMapping("/oa/inlandProjectApply")
     public ModelAndView inlandProjectApply(){
         ModelAndView modelAndView=new ModelAndView("/five/oa/oaInlandProjectApply");
         return modelAndView;
@@ -1240,6 +1240,19 @@ public class FiveController {
         ModelAndView modelAndView=new ModelAndView("/five/oa/oaInlandProjectApplyDetail");
         return modelAndView;
     }
+
+    @RequestMapping("/oa/inlandProjectReview")
+    public ModelAndView inlandProjectReview(){
+        ModelAndView modelAndView=new ModelAndView("/five/oa/oaInlandProjectReview");
+        return modelAndView;
+    }
+
+    @RequestMapping("/oa/inlandProjectReviewDetail")
+    public ModelAndView inlandProjectReviewDetail(){
+        ModelAndView modelAndView=new ModelAndView("/five/oa/oaInlandProjectReviewDetail");
+        return modelAndView;
+    }
+
     @RequestMapping("/oa/oaResearchProjectReview")
     public ModelAndView researchProjectReview(){
         ModelAndView modelAndView=new ModelAndView("/five/oa/oaResearchProjectReview");

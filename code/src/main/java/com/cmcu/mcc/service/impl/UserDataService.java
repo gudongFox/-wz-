@@ -76,6 +76,7 @@ public class UserDataService implements IUserDataService {
             List<UserDto> oList = Lists.newArrayList();
             Map userParams = Maps.newHashMap();
             userParams.put("deleted",false);
+            userParams.put("userStatus","在职");
             List<HrEmployeeDto> hrEmployeeList = hrEmployeeMapper.selectAll(userParams);
             for (HrEmployeeDto employee : hrEmployeeList) {
                 oList.add(getUserDto(employee));
@@ -188,15 +189,10 @@ public class UserDataService implements IUserDataService {
         return userDto;
     }
 
-
-
-
-
-
-
-
-
-
+    @Override
+    public String getNameByEnLogin(String enLogin) {
+        return hrEmployeeMapper.getNameByUserLogin(enLogin);
+    }
 
 
     @Override
@@ -288,8 +284,10 @@ public class UserDataService implements IUserDataService {
         userDto.setUserNo(employee.getUserNo());
         userDto.setDeptId(employee.getDeptId());
         userDto.setDeptName(employee.getDeptName());
+        userDto.setCnMobile(employee.getMobile());
         userDto.setRoleIdList(MyStringUtil.getStringList(employee.getRoleIds()));
         userDto.setPositionIdList(MyStringUtil.getStringList(employee.getPositionIds()));
+        userDto.setDeleted(employee.getDeleted());
         if(StringUtils.isNotEmpty(employee.getHeadAttachId())){
             userDto.setAvatar("/common/attach/download/" + employee.getHeadAttachId());
         }else if(StringUtils.isNotEmpty(employee.getAvatar())&&employee.getAvatar().startsWith("http")){

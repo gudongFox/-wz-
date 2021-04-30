@@ -54,11 +54,7 @@ public class FiveBusinessAdvanceCollectDetail {
     @Size(max=450, message="remark长度不能超过450")
     private String remark;
 
-    @NotNull(message="advanceId不能为空!")
-    @Max(value=999999999, message="advanceId必须为数字")
-    private Integer advanceId;
-
-    @NotNull(message="申报类型不能为空!")
-    @Size(max=45, message="申报类型长度不能超过45")
+    @NotNull(message="declareType不能为空!")
+    @Size(max=45, message="declareType长度不能超过45")
     private String declareType;
 }

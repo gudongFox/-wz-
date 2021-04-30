@@ -284,9 +284,15 @@ public class FiveOaSignQuoteService extends BaseService {
 
        item.setDeptId(hrEmployeeDto.getDeptId());
        item.setDeptName(hrEmployeeDto.getDeptName());
-       //部门负责人
-       item.setDeptChargeMan(deptDto.getDeptFirstLeader());
-       item.setDeptChargeManName(deptDto.getDeptFirstLeaderName());
+       //部门负责人 无正值 取副职
+        if(deptDto.getDeptFirstLeader().equals("")){
+            item.setDeptChargeMan(deptDto.getDeptSecondLeader());
+            item.setDeptChargeManName(deptDto.getDeptSecondLeaderName());
+        }else {
+            item.setDeptChargeMan(deptDto.getDeptFirstLeader());
+            item.setDeptChargeManName(deptDto.getDeptFirstLeaderName());
+        }
+
        //经办人
        item.setAgent(hrEmployeeDto.getUserLogin());
        item.setAgentName(hrEmployeeDto.getUserName());

@@ -6,6 +6,7 @@ import com.cmcu.act.service.TaskHandleService;
 import com.cmcu.common.service.CommonCodeService;
 import com.cmcu.common.util.ModelUtil;
 import com.cmcu.common.util.MyDateUtil;
+import com.cmcu.common.util.MyStringUtil;
 import com.cmcu.mcc.act.model.MyProcessInstance;
 import com.cmcu.mcc.act.service.MyActService;
 import com.cmcu.mcc.act.service.MyHistoryService;
@@ -87,7 +88,6 @@ public class FiveFinanceBackLetterService {
         model.setCombo(fiveFinanceBackLetterDto.getCombo());
         model.setComboName(fiveFinanceBackLetterDto.getComboName());
         model.setBackLetterType(fiveFinanceBackLetterDto.getBackLetterType());
-        model.setCash(fiveFinanceBackLetterDto.getCash());
         model.setAssureDate(fiveFinanceBackLetterDto.getAssureDate());
         model.setAssureDateEnd(fiveFinanceBackLetterDto.getAssureDateEnd());
         model.setAssureMonth(fiveFinanceBackLetterDto.getAssureMonth());
@@ -101,6 +101,10 @@ public class FiveFinanceBackLetterService {
         model.setContinueMonth(fiveFinanceBackLetterDto.getContinueMonth());
         model.setRemark(fiveFinanceBackLetterDto.getRemark());
         model.setGmtModified(new Date());
+        //元转万元
+        model.setPoundage(MyStringUtil.getMoneyW(fiveFinanceBackLetterDto.getPoundage()));
+        model.setCash(MyStringUtil.getMoneyW(fiveFinanceBackLetterDto.getCash()));
+
         fiveFinanceBackLetterMapper.updateByPrimaryKey(model);
 
         Map variables = Maps.newHashMap();
@@ -125,6 +129,9 @@ public class FiveFinanceBackLetterService {
 
     public FiveFinanceBackLetterDto getDto(FiveFinanceBackLetter item) {
         FiveFinanceBackLetterDto dto=FiveFinanceBackLetterDto.adapt(item);
+        //万元转为元
+        dto.setPoundage(MyStringUtil.getMoneyY(dto.getPoundage()));
+        dto.setCash(MyStringUtil.getMoneyY(dto.getCash()));
         dto.setProcessName("已完成");
         //MyProcessInstance processInstanceDto=myHistoryService.getMyProcessInstance(dto.getProcessInstanceId(),"");
         CustomProcessInstance customProcessInstance = processQueryService.getCustomProcessInstance(dto.getProcessInstanceId

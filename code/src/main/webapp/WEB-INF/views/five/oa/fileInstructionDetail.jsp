@@ -69,7 +69,7 @@
                                 <div class="form-group">
                                     <label class="col-md-2 control-label " style="font-weight: bold;font-size: 18px"><strong>发文正文</strong></label>
                                     <div class="col-md-10">
-                                        <a href="#" ng-click="rh.readDocOnly(redheadFile.id,redheadFile.fileName)" ng-bind="redheadFile.fileName">红头文件.doc</a>&nbsp;&nbsp;
+                                        <a href="#" ng-click="rh.readDocOnly(vm.item.businessKey)" ng-bind="redheadFile.fileName">红头文件.doc</a>&nbsp;&nbsp;
                                         <span id="btnUpload0" class="btn btn-sm default fileinput-button" ng-show="processInstance.firstTask">
                                         <i class="fa fa-cloud-upload" ></i><span>上传</span>
                                         <input id="redHead" type="file" name="singleUpload" accept=".doc,.docx,.pdf"></span>
@@ -222,15 +222,15 @@
                                 <span class="caption-subject" >处理意见</span>
                             </div>
                         </div>
-                        <div class="portlet-body ">
+                        <div class="portlet-body " >
                             <form class="form-horizontal" role="form">
-                                <div class="form-body">
+                                <div class="form-body" >
                                     <div class="col-md-12" >
-                                        <div class="col-md-7" style="text-align:center;border-right: 1px red solid">
-                                            <div style="padding-bottom: 10px" ng-if="vm.optionlistLeader.length>0"><span style="color: red;font-size: 16px">领导节点意见</span></div>
-                                            <div class="form-group" ng-repeat="task in vm.optionlistLeader" ng-if="task.latestComment!=''">
+                                        <div class="col-md-12" style="text-align:center;background-color: #e5f2ff">
+                                            <div style="padding-bottom: 10px" ng-if="vm.optionlistLeader.length>0"><span style="color: red;font-size: 16px">领导意见</span></div>
+                                            <div class="form-group" style="background-color: #e5f2ff" ng-repeat="task in vm.optionlistLeader" ng-if="task.latestComment!=''">
                                                 <div class="col-md-12"  >
-                                                    <span class="col-md-4" style="text-align: right" ng-bind="task.name"></span>
+                                                    <span class="col-md-2" style="text-align: right" ng-bind="task.name"></span>
                                                     <span class="col-md-2" ng-bind="task.assigneeName"  style="cursor: pointer;"></span>
                                                     <img  class="col-md-1" style="width: 90px;height: 35px;margin-left: 20px;margin-right: 20px;"  ng-src="{{'/sys/attach/downloadPic/'+task.assignee}}">
                                                     <div>
@@ -242,7 +242,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-5" style="text-align:center;">
+                                       <%-- <div class="col-md-5" style="text-align:center;">
                                             <div style="padding-bottom: 10px" ng-if="vm.optionlistCountSign.length>0"><span style="color: red;font-size: 16px;">会签节点意见</span></div>
                                             <div class="form-group" ng-repeat="task in vm.optionlistCountSign" ng-if="task.latestComment!=''" >
                                                 <div class="col-md-12" >
@@ -257,7 +257,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>--%>
 
                                     </div>
                                 </div>

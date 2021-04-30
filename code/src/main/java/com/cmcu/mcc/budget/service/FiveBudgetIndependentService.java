@@ -944,4 +944,16 @@ public class FiveBudgetIndependentService {
         FiveBudgetIndependentDetailDto detailDto = getDetailDto(fiveBudgetIndependentDetailMapper.selectByPrimaryKey(id));
         return detailDto;
     }
+    //根据预算类型名字 选取部门当年的预算
+    public FiveBudgetIndependentDetailDto getDetailByTypeName(int deptId,String budgetType,String budgetYear,String typeName) {
+        SelectBudgetDto selectBudgetDto = getBudgetIdByDeptId(budgetType, deptId, budgetYear);
+        List<FiveBudgetIndependentDetailDto> details = getDetailById(selectBudgetDto.getBudgetId());
+        for(FiveBudgetIndependentDetailDto detailDto:details){
+            if(detailDto.getTypeName().contains(typeName)){
+                return detailDto;
+            }
+        }
+        return null;
+    }
+
 }

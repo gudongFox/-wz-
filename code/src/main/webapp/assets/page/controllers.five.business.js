@@ -645,8 +645,12 @@
                                     enLogin: user.enLogin
                                 }, function () {
                                     return true;
-                                }, function (processInstanceId) {
-                                    $scope.refresh();
+                                }, function (processInstanceId,result) {
+                                    if (result.completeTask){
+                                        $scope.back();
+                                    }else {
+                                        $scope.refresh();
+                                    }
                                 });
                             }
                         })
@@ -944,8 +948,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -1368,8 +1376,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -1630,8 +1642,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -1965,8 +1981,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -3703,8 +3723,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function () {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -4232,8 +4256,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -4726,8 +4754,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -5161,8 +5193,12 @@
                                     enLogin: user.enLogin
                                 }, function () {
                                     return true;
-                                }, function (processInstanceId) {
-                                    $scope.refresh();
+                                }, function (processInstanceId,result) {
+                                    if (result.completeTask){
+                                        $scope.back();
+                                    }else {
+                                        $scope.refresh();
+                                    }
                                 });
                             }
                         })
@@ -5531,8 +5567,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -5816,8 +5856,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -6282,8 +6326,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -6858,8 +6906,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -7333,8 +7385,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
 
@@ -7614,8 +7671,12 @@
                                     enLogin: user.enLogin
                                 }, function () {
                                     return true;
-                                }, function (processInstanceId) {
-                                    $scope.refresh();
+                                }, function (processInstanceId,result) {
+                                    if (result.completeTask){
+                                        $scope.back();
+                                    }else {
+                                        $scope.refresh();
+                                    }
                                 });
                             }
                         })
@@ -7730,6 +7791,9 @@
         vm.add = function () {
             fiveBusinessAdvanceCollectService.getNewModel( user.userLogin).then(function (value) {
                 if (value.data.ret) {
+                    console.log(value.data.data)
+                    var id = value.data.data
+                    fiveBusinessAdvanceCollectService.getNewModelDetail(id);
                     vm.show(value.data.data);
                 }
             })
@@ -7787,9 +7851,70 @@
 
         var advanceCollectId = $stateParams.advanceCollectId;
 
-
         vm.init=function(){
             $scope.loadRightData(user.userLogin,uiSref);
+            $("#uploadFile1").fileupload({
+                dataType: 'json',
+                url:"/business/AdvanceCollect/updateExcl.json",
+                progress:function(e,data){
+                    var speed=(data.bitrate/(8*1024*1024)).toFixed(2)+"Mbit/s";
+                    var percent = parseInt(data.loaded / data.total * 100, 10);
+                    $("#uploadProgress").css('width', percent + "%");
+                    if(APP_VERSION){
+                        $(".loading-message.loading-message-boxed span").html(" "+speed+" "+percent+"%");
+                    }else{
+                        $(".blockui span:eq(0)").html(" "+speed+" "+percent+"%");
+                    }
+                },
+                send:function(e,data){
+                    if(APP_VERSION){
+                        Metronic.blockUI({
+                            boxed: true
+                        });
+                    }else {
+                        KTApp.block('body', {
+                            overlayColor: '#000000',
+                            type: 'v2',
+                            state: 'primary',
+                            message: 'Processing...'
+                        });
+                    }
+                },
+                add: function (e, data) {
+                    var file = data.files[0];
+                    if (file.size > 20 * 1024 * 1024) {
+                        toastr.error('文件大小超过最大限制20MB!');
+                        return false;
+                    }
+                    if(file.name.indexOf(".xls")!==file.name.length-4){
+                        toastr.error("只可以上传xls文件!");
+                        return ;
+                    }
+
+                    ;
+                    data.formData = {id: advanceCollectId,userLogin:user.enLogin};
+                    data.submit();
+                },
+                done: function (e, data) {
+
+                    if (refreshTimer) {
+                        clearTimeout(refreshTimer);
+                    }
+                    refreshTimer = setTimeout(function () {
+                        if(APP_VERSION){
+                            Metronic.unblockUI();
+                        }else {
+                            KTApp.unblock('body');
+                        }
+                        if (data.result.ret) {
+                            toastr.success("上传成功!");
+                            vm.loadDetail();
+                        } else {
+                            toastr.error(data.result.msg);
+                        }
+                    }, 2000);
+                }
+            });
             vm.loadData(true);
             vm.loadDetail();
         }
@@ -7928,10 +8053,56 @@
             })
         };
 
-        vm.showDetailModel = function (){
-            fiveBusinessAdvanceCollectService.getNewModelDetail(advanceCollectId).then(function (value) {
-                setTimeout(vm.loadDetail(),1000);
+        vm.showDetailModel = function (id){
+            if (id == 0){
+                if (vm.item.declareType == vm.details[0].declareType){
+                    vm.loadDetail();
+                }else {
+                    fiveBusinessAdvanceCollectService.getDetails(vm.item).then(function (value) {
+                        vm.loadDetail();
+                        vm.save();
+                    });
+                }
+
+            }else {
+                fiveBusinessAdvanceCollectService.getModelDetailById(id).then(function(value){
+                    if (value.data.ret){
+                        vm.detail = value.data.data;
+                    }
+                })
+                $("#detailModel").modal("show");
+            }
+
+        };
+        vm.saveDetail = function () {
+            fiveBusinessAdvanceCollectService.updateDetail(vm.detail).then(function (value) {
+                if (value.data.ret) {
+                    toastr.success("保存成功!");
+                    $("#detailModel").modal("hide");
+                    vm.loadDetail();
+                    vm.loadData();
+                }
+
             })
+        };
+
+        vm.removeDetail = function (id) {
+            bootbox.confirm("确定要删除该数据吗?", function (result) {
+                if (result) {
+                    fiveBusinessAdvanceCollectService.removeDetail(id, user.userLogin).then(function (value) {
+                        if (value.data.ret) {
+                            toastr.success("删除成功");
+                            vm.loadDetail();
+                            vm.loadData();
+                        }
+                    })
+                }
+            });
+
+        };
+
+        vm.uploadExcwl = function(fileName){
+
         }
 
         //发送流程验证
@@ -7946,8 +8117,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
 
@@ -8125,8 +8301,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -8388,15 +8568,19 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
                             setTimeout(function () {
                                 if ($rootScope.processInstance.finished) {
                                     fiveOaBidApplyService.updateRecord(applyId).then(function (value) {
                                         toastr.success("备案信息：" + value.data.data + " 投标状态已跟新");
                                     })
                                 }
-                            }, 500)
+                            }, 500);
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -8746,8 +8930,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -9065,8 +9253,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -9315,8 +9507,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -9449,4 +9645,387 @@
 
     })
 
+    //咨询合同报表
+    .controller("FiveBusinessStatisticsController", function ($state, $scope,$rootScope, fiveBusinessStatisticsService) {
+        var vm = this;
+        vm.params = { qName: "",pageNum: 1, pageSize: $scope.pageSize,total:0,startTime:'',endTime:''};
+        vm.pageInfo = {pageNum:  vm.params.pageNum, pageSize: vm.params.pageSize,total:vm.params.total};
+        var uiSref="five.businessStatistics";
+        var tableName = $rootScope.loadTableName(uiSref);
+
+        vm.downExcel=function(){
+            var params = $.extend(tablefilter.params, {
+                qName:vm.params.qName,pageNum: vm.pageInfo.pageNum, pageSize: vm.pageInfo.pageSize,userLogin:user.userLogin,uiSref:uiSref,startTime1:vm.params.startTime,endTime1:vm.params.endTime
+            });
+            fiveBusinessStatisticsService.downTempleXls(params).then(function (response) {
+
+                var objectUrl = URL.createObjectURL(new Blob([response.data.data], {type: response.data.data.type}));
+                var contentDisposition = response.data.headers['content-disposition'];
+                var fileName = contentDisposition.substring(contentDisposition.indexOf("=")).replace("=", "");
+                var a = document.createElement("a");
+                document.body.appendChild(a);
+                a.download = decodeURI(fileName);
+                a.href = objectUrl;
+                a.click();
+            })
+        }
+
+        vm.queryData = function () {
+            vm.pageInfo.pageNum = 1;
+            $scope.loadRightData(user.userLogin,uiSref);
+            vm.loadPagedData();
+            $scope.basicInit("");
+        };
+
+        vm.loadPagedData = function () {
+            var params = $.extend(tablefilter.params, {
+                qName:vm.params.qName,pageNum: vm.pageInfo.pageNum, pageSize: vm.pageInfo.pageSize,userLogin:user.userLogin,uiSref:uiSref,startTime1:vm.params.startTime1,endTime1:vm.params.endTime1
+            });
+            fiveBusinessStatisticsService.listPagedData(params).then(function (value) {
+                if (value.data.ret) {
+                    vm.pageInfo = value.data.data;
+                }
+            })
+        };
+
+        vm.show = function (id) {
+            $state.go("five.businessStatisticsDetail", {statisticsId: id});
+        }
+
+        vm.add = function () {
+            fiveBusinessStatisticsService.getNewModel( user.userLogin).then(function (value) {
+                if (value.data.ret) {
+                    vm.show(value.data.data);
+                }
+            })
+        }
+
+
+        vm.remove = function (id) {
+            bootbox.confirm("您确定要删除吗?无法恢复,请谨慎操作!", function (result) {
+                if (result) {
+                    fiveBusinessStatisticsService.remove(id, user.userLogin).then(function (value) {
+                        if(value.data.ret) {
+                            toastr.success("删除成功!")
+                            vm.queryData();
+                        }
+                    });
+                }
+            })
+        }
+
+        vm.fuzzySearch = function () {
+            var params = $.extend(tablefilter.params, {
+                qName:vm.params.qName,pageNum: vm.pageInfo.pageNum, pageSize: vm.pageInfo.pageSize,userLogin:user.userLogin,uiSref:uiSref
+            });
+            fiveBusinessStatisticsService.listPagedData(params).then(function (value) {
+                if (value.data.ret) {
+                    vm.pageInfo = value.data.data;
+                }
+            })
+        };
+
+
+        /*$scope.$on('ngRepeatFinished', function( ngRepeatFinishedEvent ) {
+            var option={filterColumns:{
+                    1:{type:"input",colName:'deptName',placeholder:'报表类型'},
+                    2:{type:"input",colName:'startTime',placeholder:'开始时间'},
+                    3:{type:"input",colName:'endTime',placeholder:'结束时间'},
+                    4:{type:"input",colName:'creatorName',placeholder:'创建人'},
+                    5:{type:"input",colName:'gmtCreate',placeholder:'创建时间'},
+                },handleColumn:6};
+            tablefilter.queryFunction=vm.fuzzySearch;
+            tablefilter.params=vm.params;
+            tablefilter.initializeFilter(option);
+        });*/
+
+        vm.queryData();
+
+        return vm;
+
+    })
+    .controller("FiveBusinessStatisticsDetailController", function ($state,$stateParams,$rootScope,$scope,fiveBusinessStatisticsService,commonPrintTableService) {
+        var vm = this;
+        vm.params = { qName: "",pageNum: 1, pageSize: $scope.pageSize,total:0};
+        vm.pageInfo = {pageNum:  vm.params.pageNum, pageSize: vm.params.pageSize,total:vm.params.total};
+        var uiSref="five.businessStatistics";
+        var tableName = $rootScope.loadTableName(uiSref);
+
+        var statisticsId = $stateParams.statisticsId;
+
+
+
+        vm.init=function(){
+            $scope.loadRightData(user.userLogin,uiSref);
+            vm.loadData(true);
+            vm.loadDetail();
+            $("#btnUpload").fileupload({
+                dataType: 'json',
+                url:"/business/statistics/updateExcl.json",
+                progress:function(e,data){
+                    var speed=(data.bitrate/(8*1024*1024)).toFixed(2)+"Mbit/s";
+                    var percent = parseInt(data.loaded / data.total * 100, 10);
+                    $("#uploadProgress").css('width', percent + "%");
+                    if(APP_VERSION){
+                        $(".loading-message.loading-message-boxed span").html(" "+speed+" "+percent+"%");
+                    }else{
+                        $(".blockui span:eq(0)").html(" "+speed+" "+percent+"%");
+                    }
+                },
+                send:function(e,data){
+                    if(APP_VERSION){
+                        Metronic.blockUI({
+                            boxed: true
+                        });
+                    }else {
+                        KTApp.block('body', {
+                            overlayColor: '#000000',
+                            type: 'v2',
+                            state: 'primary',
+                            message: 'Processing...'
+                        });
+                    }
+                },
+                add: function (e, data) {
+                    var file = data.files[0];
+                    if (file.size > 20 * 1024 * 1024) {
+                        toastr.error('文件大小超过最大限制20MB!');
+                        return false;
+                    }
+                    if(file.name.indexOf(".xls")!==file.name.length-4){
+                        toastr.error("只可以上传xls文件!");
+                        return ;
+                    };
+                    data.formData = {advanceId: advanceId,userLogin:user.enLogin};
+                    data.submit();
+                },
+                done: function (e, data) {
+                    if (refreshTimer) {
+                        clearTimeout(refreshTimer);
+                    }
+                    refreshTimer = setTimeout(function () {
+                        if(APP_VERSION){
+                            Metronic.unblockUI();
+                        }else {
+                            KTApp.unblock('body');
+                        }
+                        if (data.result.ret) {
+                            toastr.success("上传成功!");
+                            vm.loadDetail();
+                            vm.loadData();
+                        } else {
+                            toastr.error(data.result.msg);
+                        }
+                    }, 2000);
+                }
+            });
+        }
+        //选人模块
+        vm.showUserModel = function (status) {
+            vm.status=status;
+            if (vm.status=='personName'){
+                $scope.showOaSelectEmployeeModal_({title:"请选择人员",type:"部门",deptIds:vm.item.deptId, userLoginList: vm.detail.personName,multiple:false});
+            }
+        };
+        //保存选人的login和名字
+        $rootScope.saveSelectEmployee_ = function () {
+            $scope.closeOaSelectEmployeeModal_();
+            if ( vm.status=='personName'){
+                vm.detail.personNo = $scope.selectedOaUserLogins_;
+                vm.detail.personName = $scope.selectedOaUserNames_;
+            }
+        };
+        //选部门模块
+        vm.showDeptModal=function(id) {
+
+            $scope.showOaSelectEmployeeModal_({title:"请选择部门",type:"选部门", deptIdList: vm.item.deptId+"",
+                multiple:false,deptIds:"1",parentDeptId:2,
+            });
+
+        };
+
+        $rootScope.saveSelectDept_ =function() {
+            $scope.closeOaSelectEmployeeModal_();
+            vm.item.deptName = $scope.selectedOaDeptNames_;
+            vm.item.deptId = Number($scope.selectedOaDeptIds_);
+        };
+
+        //加载
+        vm.loadData = function (loadProcess) {
+            fiveBusinessStatisticsService.getModelById(statisticsId).then(function (value) {
+                if (value.data.ret) {
+                    vm.item = value.data.data;
+                    if (loadProcess) {
+                        $scope.loadProcessInstance(vm.item.processInstanceId);
+                        $scope.basicInit(vm.item.businessKey);
+                    }
+                }
+            })
+        };
+
+        vm.save = function () {
+            vm.item.operateUserLogin = user.userLogin;
+            fiveBusinessStatisticsService.update(vm.item).then(function (value) {
+                if (value.data.ret) {
+                    toastr.success("保存成功!")
+                    vm.loadData(true);
+                }
+            })
+        }
+
+        vm.loadDetail=function(){
+            fiveBusinessStatisticsService.listDetail(statisticsId).then(function (value) {
+                if (value.data.ret) {
+                    vm.details = value.data.data;
+                }
+            })
+        };
+
+        vm.showDetailModel = function (id) {
+            if (id === 0) {
+                fiveBusinessStatisticsService.getNewModelDetail(statisticsId).then(function (value) {
+                    if (value.data.ret) {
+                        vm.detail = value.data.data;
+                        $("#detailModel").modal("show");
+                        vm.loadDetail();
+                    }
+                })
+            } else {
+                fiveBusinessStatisticsService.getModelDetailById(id).then(function (value) {
+                    if (value.data.ret) {
+                        vm.detail = value.data.data;
+                        $("#detailModel").modal("show");
+                    }
+                })
+            }
+        };
+
+        vm.removeDetail = function (id) {
+            bootbox.confirm("确定要删除该数据吗?", function (result) {
+                if (result) {
+                    fiveBusinessStatisticsService.removeDetail(id, user.userLogin).then(function (value) {
+                        if (value.data.ret) {
+                            toastr.success("删除成功");
+                            vm.loadDetail();
+                            vm.loadData();
+                        }
+                    })
+                }
+            });
+
+        };
+
+        vm.saveDetail = function () {
+            fiveBusinessStatisticsService.updateDetail(vm.detail).then(function (value) {
+                if (value.data.ret) {
+                    toastr.success("保存成功!");
+                    $("#detailModel").modal("hide");
+                    vm.loadDetail();
+                    vm.loadData();
+                }
+
+            })
+        };
+
+        vm.countTotalPrice =function(){
+            var bonus = vm.detail.projectBonus;
+            //确保输入的是数字
+            bonus = bonus.replace(/[^\d\.]/g, '');
+            //确保第一个输入的是数字
+            bonus = bonus.replace(/^\./g,'');
+            //确保不能输入两个小数点
+            bonus = bonus.replace(/\.{2,}/g,'.');
+            //保证小数点只出现一次，而不能出现两次以上
+            bonus = bonus.replace('.','$#$').replace(/\./g,'').replace('$#$','.');
+            //确保只能输入两位小数
+            bonus = bonus.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');
+            if (bonus == ""){
+                vm.detail.projectBonus = 0;
+            }else {
+                vm.detail.projectBonus = bonus.toString();
+            }
+        };
+
+        vm.downExcel=function(){
+            var params =  {
+                statisticsId:statisticsId
+            };
+            fiveBusinessStatisticsService.downTempleXls(params).then(function (response) {
+                var objectUrl = URL.createObjectURL(new Blob([response.data.data], {type: response.data.data.type}));
+                var contentDisposition = response.data.headers['content-disposition'];
+                var fileName = contentDisposition.substring(contentDisposition.indexOf("=")).replace("=", "");
+                var a = document.createElement("a");
+                document.body.appendChild(a);
+                a.download = decodeURI(fileName);
+                a.href = objectUrl;
+                a.click();
+            })
+        }
+
+
+        //发送流程验证
+        $scope.showSendTask=function(send){
+            if ($("#detail_form").validate().form()) {
+                vm.item.operateUserLogin = user.userLogin;
+                fiveBusinessStatisticsService.update(vm.item).then(function (value) {
+                    if (value.data.ret) {
+                        jQuery.showActHandleModal({
+                            taskId: $scope.processInstance.taskId,
+                            send: send,
+                            enLogin: user.enLogin
+                        }, function () {
+                            return true;
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
+                    }
+                })
+
+            }else {
+                toastr.warning("请准确填写数据!")
+                return false;
+            }
+
+        }
+
+
+        vm.print=function () {
+            commonPrintTableService.getPrintDate(vm.item.businessKey,user.userLogin).then(function (value) {
+                if(value.data.ret){
+                    lodop=getLodop();
+                    vm.printData=value.data.data;
+                    lodop.PRINT_INIT("预支明细表");
+                    var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
+                    setTimeout(function () {
+                        var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
+                        // lodop.ADD_PRINT_HTM("282mm","48%","200mm",100,"<font color='#000'><span tdata='pageNO'>第##页</span>/<span tdata='pageCount'> 共##页</span></font>"); // 打印页码
+                        lodop.PREVIEW();
+                    }, 500);
+                }
+            })
+        };
+
+        vm.init();
+
+        $scope.refresh=function(){
+            vm.loadData(true);
+        };
+        return vm;
+
+    })
 

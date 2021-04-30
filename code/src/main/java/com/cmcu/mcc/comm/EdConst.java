@@ -133,6 +133,7 @@ public class EdConst {
     public static final String FIVE_BUSINESS_ADVANCE = "fiveBusinessAdvance"; //预支明细
     public static final String FIVE_BUSINESS_ADVANCE_COLLECT = "fiveBusinessAdvanceCollect"; //支出签发
     public static final String FIVE_BUSINESS_TENDER_DOCUMENT_REVIEW = "fiveBusinessTenderDocumentReview"; //工程项目承包招标文件评审
+    public static final String FIVE_BUSINESS_STATISTICS = "fiveBusinessStatistics"; //工程项目承包招标文件评审
 
     //five
     public static final String FIVE_ED_TASK = "fiveEdTask";//设计任务书
@@ -211,6 +212,7 @@ public class EdConst {
     public static final String FIVE_OA_ASSOCIATION_CHANGE = "fiveOaAssociationChange";//协会信息变更流程
     public static final String FIVE_OA_ASSOCIATION_PAYMENT = "fiveOaAssociationPayment";//协会缴费流程
     public static final String FIVE_OA_INLAND_PROJECT_APPLY = "fiveOaInlandProjectApply";//内部项目申请
+    public static final String FIVE_OA_INLAND_PROJECT_REVIEW = "fiveOaInlandProjectReview";//内部项目审批
     public static final String FIVE_OA_RESEARCH_PROJECT_REVIEW= "fiveOaResearchProjectReview";//科技开发费项目评审
     public static final String FIVE_OA_SOFTWARE = "fiveOaSoftware";//软件购置申请
     public static final String FIVE_OA_FILE_TRANSFER = "fiveOaFileTransfer";//非密网文件传送流程

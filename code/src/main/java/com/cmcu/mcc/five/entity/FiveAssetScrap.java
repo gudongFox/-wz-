@@ -34,7 +34,6 @@ public class FiveAssetScrap {
     @Max(value=999999999, message="deptId必须为数字")
     private Integer deptId;
 
-     @NotNull(message="deptName不能为空!")
     @Size(max=145, message="deptName长度不能超过145")
     private String deptName;
 
@@ -77,4 +76,7 @@ public class FiveAssetScrap {
 
     @NotNull(message="isProcessEnd不能为空!")
     private Boolean processEnd;
+
+    @NotNull(message="isDisposeAsset不能为空!")
+    private Boolean disposeAsset;
 }

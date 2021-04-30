@@ -1,7 +1,5 @@
 package com.cmcu.mcc.supervise.dto;
 
-import com.cmcu.mcc.five.dto.FiveEdReviewApplyDto;
-import com.cmcu.mcc.five.entity.FiveEdReviewApply;
 import com.cmcu.mcc.supervise.entity.FiveOaSupervise;
 import lombok.Getter;
 import lombok.Setter;

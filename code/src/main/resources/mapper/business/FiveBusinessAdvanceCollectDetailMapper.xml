@@ -16,7 +16,6 @@
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
-    <result column="advance_id" jdbcType="INTEGER" property="advanceId" />
     <result column="declare_type" jdbcType="VARCHAR" property="declareType" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
@@ -31,14 +30,12 @@
       apply_money, company_money, real_money, 
       seq, creator, creator_name, 
       is_deleted, gmt_create, gmt_modified, 
-      remark, advance_id, declare_type
-      )
+      remark, declare_type)
     values (#{collectId,jdbcType=INTEGER}, #{deptId,jdbcType=VARCHAR}, #{deptName,jdbcType=VARCHAR}, 
       #{applyMoney,jdbcType=VARCHAR}, #{companyMoney,jdbcType=VARCHAR}, #{realMoney,jdbcType=VARCHAR}, 
       #{seq,jdbcType=INTEGER}, #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, 
       #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
-      #{remark,jdbcType=VARCHAR}, #{advanceId,jdbcType=INTEGER}, #{declareType,jdbcType=VARCHAR}
-      )
+      #{remark,jdbcType=VARCHAR}, #{declareType,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.business.entity.FiveBusinessAdvanceCollectDetail">
     update five_business_advance_collect_detail
@@ -55,21 +52,18 @@
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
       remark = #{remark,jdbcType=VARCHAR},
-      advance_id = #{advanceId,jdbcType=INTEGER},
       declare_type = #{declareType,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select id, collect_id, dept_id, dept_name, apply_money, company_money, real_money, 
-    seq, creator, creator_name, is_deleted, gmt_create, gmt_modified, remark, advance_id, 
-    declare_type
+    seq, creator, creator_name, is_deleted, gmt_create, gmt_modified, remark, declare_type
     from five_business_advance_collect_detail
     where id = #{id,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
     select id, collect_id, dept_id, dept_name, apply_money, company_money, real_money, 
-    seq, creator, creator_name, is_deleted, gmt_create, gmt_modified, remark, advance_id, 
-    declare_type
+    seq, creator, creator_name, is_deleted, gmt_create, gmt_modified, remark, declare_type
     from five_business_advance_collect_detail
     <include refid="Base_Where_List" />
     <include refid="Base_Where_List1" />
@@ -118,9 +112,6 @@
       </if>
       <if test="remark != null and isLikeSelect==null and remark != ''">
          AND remark = #{remark}
-      </if>
-      <if test="advanceId != null and isLikeSelect==null">
-         AND advance_id = #{advanceId}
       </if>
       <if test="declareType != null and isLikeSelect==null and declareType != ''">
          AND declare_type = #{declareType}

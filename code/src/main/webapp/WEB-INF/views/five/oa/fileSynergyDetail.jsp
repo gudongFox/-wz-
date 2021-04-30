@@ -64,7 +64,7 @@
                                 <div class="form-group">
                                     <label class="col-md-2 control-label " style="font-weight: bold;font-size: 18px"><strong>正文</strong></label>
                                     <div class="col-md-10">
-                                        <a href="#" ng-click="rh.readDocOnly(redheadFile.id,redheadFile.fileName)" ng-bind="redheadFile.fileName"></a>&nbsp;&nbsp;
+                                        <a href="#" ng-click="rh.readDocOnly(vm.item.businessKey)" ng-bind="redheadFile.fileName"></a>&nbsp;&nbsp;
                                         <span id="btnUpload0" class="btn btn-sm default fileinput-button" ng-show="processInstance.firstTask">
                                         <i class="fa fa-cloud-upload" ></i><span>上传</span>
                                         <input id="redHead" type="file" name="singleUpload" accept=".doc,.docx,.pdf"></span>

@@ -1,5 +1,6 @@
 package com.cmcu.mcc.finance.web;
 
+import com.cmcu.mcc.finance.entity.FiveFinanceTravelExpenseUser;
 import com.common.model.JsonData;
 import com.cmcu.common.util.WebUtil;
 
@@ -57,26 +58,66 @@ public class FiveFinanceTravelExpenseController {
     public JsonData getNewModelDetail(int  id,String userLogin){
         return JsonData.success(fiveFinanceTravelExpenseService.getNewModelDetail(id,userLogin));
     }
+    @PostMapping(value = "/getNewModelUserDetail.json")
+    public JsonData getNewModelUserDetail(int  id,String userLogin){
+        return JsonData.success(fiveFinanceTravelExpenseService.getNewModelUserDetail(id,userLogin));
+    }
+
+
+
+
 
     @PostMapping("/getModelDetailById.json")
     public JsonData getModelDetailById(int  id){
         return JsonData.success(fiveFinanceTravelExpenseService.getModelDetailById(id));
     }
+
+    @PostMapping("/getModelUserDetailById.json")
+    public JsonData getModelUserDetailById(int  id){
+        return JsonData.success(fiveFinanceTravelExpenseService.getModelUserDetailById(id));
+    }
+
+
     @PostMapping("/removeDetail.json")
     public JsonData removeDetail(int  id){
         fiveFinanceTravelExpenseService.removeDetail(id);
         return JsonData.success();
     }
+    @PostMapping("/removeUserDetail.json")
+    public JsonData removeUserDetail(int  id){
+        fiveFinanceTravelExpenseService.removeUserDetail(id);
+        return JsonData.success();
+    }
+
     @PostMapping("/updateDetail.json")
     public JsonData updateDetail(@RequestBody FiveFinanceTravelExpenseDetail item){
         fiveFinanceTravelExpenseService.updateDetail(item);
         return JsonData.success();
     }
+    @PostMapping("/getApplyStandard.json")
+    public JsonData getApplyStandard(@RequestBody FiveFinanceTravelExpenseDetail  detail){
+        return JsonData.success(fiveFinanceTravelExpenseService.getApplyStandard(detail));
+    }
+
+
+    @PostMapping("/updateUserDetail.json")
+    public JsonData updateUserDetail(@RequestBody FiveFinanceTravelExpenseUser item){
+        fiveFinanceTravelExpenseService.updateUserDetail(item);
+        return JsonData.success();
+    }
+
+
 
     @PostMapping("/listDetail.json")
     public JsonData listDetail(int  id){
         return JsonData.success(fiveFinanceTravelExpenseService.listDetail(id));
     }
+    @PostMapping("/listUserDetail.json")
+    public JsonData listUserDetail(int  id){
+        return JsonData.success(fiveFinanceTravelExpenseService.listUserDetail(id));
+    }
+
+
     @PostMapping("/getPrintData.json")
     public JsonData getPrintData(int id){
         return JsonData.success(fiveFinanceTravelExpenseService.getPrintData(id));

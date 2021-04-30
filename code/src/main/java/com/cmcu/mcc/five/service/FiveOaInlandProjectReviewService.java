@@ -7,15 +7,16 @@ import com.cmcu.act.service.TaskHandleService;
 import com.cmcu.common.service.BaseService;
 import com.cmcu.common.util.BeanValidator;
 import com.cmcu.common.util.ModelUtil;
-import com.cmcu.common.util.MyDateUtil;
 import com.cmcu.common.util.MyStringUtil;
 import com.cmcu.mcc.act.service.MyActService;
 import com.cmcu.mcc.comm.EdConst;
 import com.cmcu.mcc.comm.MccConst;
 import com.cmcu.mcc.five.dao.FiveOaInlandProjectApplyMapper;
+import com.cmcu.mcc.five.dao.FiveOaInlandProjectReviewMapper;
 import com.cmcu.mcc.five.dto.FiveOaInlandProjectApplyDto;
-import com.cmcu.mcc.five.entity.FiveOaExternalResearchProjectApply;
+import com.cmcu.mcc.five.dto.FiveOaInlandProjectReviewDto;
 import com.cmcu.mcc.five.entity.FiveOaInlandProjectApply;
+import com.cmcu.mcc.five.entity.FiveOaInlandProjectReview;
 import com.cmcu.mcc.hr.dao.HrEmployeeMapper;
 import com.cmcu.mcc.hr.dto.HrEmployeeDto;
 import com.cmcu.mcc.hr.service.HrEmployeeSysService;
@@ -34,10 +35,10 @@ import javax.annotation.Resource;
 import java.util.*;
 
 @Service
-public class FiveOaInlandProjectApplyService extends BaseService {
+public class FiveOaInlandProjectReviewService extends BaseService {
 
     @Resource
-    FiveOaInlandProjectApplyMapper fiveOaInlandProjectApplyMapper;
+    FiveOaInlandProjectReviewMapper fiveOaInlandProjectReviewMapper;
     @Resource
     HrEmployeeMapper hrEmployeeMapper;
     @Autowired
@@ -52,11 +53,9 @@ public class FiveOaInlandProjectApplyService extends BaseService {
     TaskHandleService taskHandleService;
     @Resource
     HandleFormService handleFormService;
-    @Resource
-    FiveOaResearchProjectLibraryService fiveOaResearchProjectLibraryService;
 
     public void remove(int id,String userLogin){
-        FiveOaInlandProjectApply item = fiveOaInlandProjectApplyMapper.selectByPrimaryKey(id);
+        FiveOaInlandProjectReview item = fiveOaInlandProjectReviewMapper.selectByPrimaryKey(id);
         Assert.state(item.getCreator().equals(userLogin),"该数据是用户"+item.getCreatorName()+"创建");
 
         //流程作废
@@ -64,9 +63,9 @@ public class FiveOaInlandProjectApplyService extends BaseService {
 
     }
 
-    public void update(FiveOaInlandProjectApplyDto item){
+    public void update(FiveOaInlandProjectReviewDto item){
 
-        FiveOaInlandProjectApply model = fiveOaInlandProjectApplyMapper.selectByPrimaryKey(item.getId());
+        FiveOaInlandProjectReview model = fiveOaInlandProjectReviewMapper.selectByPrimaryKey(item.getId());
         model.setProjectName(item.getProjectName());
         model.setProjectContent(item.getProjectContent());
         model.setProjectType(item.getProjectType());
@@ -95,29 +94,33 @@ public class FiveOaInlandProjectApplyService extends BaseService {
         model.setGmtModified(new Date());
         model.setDeptName(item.getDeptName());
         model.setDeptId(item.getDeptId());
+        model.setProjectNo(item.getProjectNo());
+        model.setReviewType(item.getReviewType());
 
         BeanValidator.validateObject(model);
         ModelUtil.setNotNullFields(model);
         Map variables = Maps.newHashMap();
 
-        fiveOaInlandProjectApplyMapper.updateByPrimaryKey(model);
-        //获取部门总工 如果不存在 则选择部门正副或签
-        List<String> chiefEngineer = selectEmployeeService.listUserByPositionName("部门总工", item.getDeptId());
-        if (chiefEngineer.size()>0){
-            variables.put("chiefEngineer",chiefEngineer);//部门总工
-        }else {
-            variables.put("chiefEngineer",selectEmployeeService.getParentDeptChargeMen(item.getDeptId(),3,false));
+        fiveOaInlandProjectReviewMapper.updateByPrimaryKey(model);
+
+        List<String> list = new ArrayList<>();
+        list.add("2625");
+        list.add("2816");
+
+        variables.put("scientificMan",list);//取角色传入流程模型业务办理人
+
+        //线上或线下评审
+        variables.put("line",model.getReviewType());
+        if (model.getReviewType()){
+            variables.put("expertCommitteeList", MyStringUtil.getStringList(model.getScientificFirstTrial()));//公司专家委
         }
 
-        variables.put("processDescription","内部项目申请"+item.getProjectName());
+        variables.put("scientificDeptLeader",selectEmployeeService.getParentDeptChargeMen(101,1,false));// 科质部领导
 
-        variables.put("deptScientificMen", selectEmployeeService.getDeptRoleUser(model.getDeptId(),"各单位科研人员"));
-        //项目分类
-        variables.put("flag",false);
-        if (model.getProjectType().equals("公司级")){
-            variables.put("flag",true);
-            variables.put("expertCommitteeList", MyStringUtil.getStringList(model.getScientificFirstTrial()));//公司专家委初审
-        }
+        variables.put("scientificLeader",selectEmployeeService.getParentDeptChargeMen(101,4,false));// 公司主管科质部领导
+
+        variables.put("deptScientificMen", model.getChargeMen());
+
 
         BeanValidator.check(model);
         myActService.setVariables(model.getProcessInstanceId(),variables);
@@ -125,13 +128,22 @@ public class FiveOaInlandProjectApplyService extends BaseService {
 
     }
 
-    public FiveOaInlandProjectApplyDto getModelById(int id){
+    public FiveOaInlandProjectReviewDto getModelById(int id){
 
-        return getDto(fiveOaInlandProjectApplyMapper.selectByPrimaryKey(id));
+        return getDto(fiveOaInlandProjectReviewMapper.selectByPrimaryKey(id));
     }
 
-    public FiveOaInlandProjectApplyDto getDto(FiveOaInlandProjectApply item) {
-        FiveOaInlandProjectApplyDto dto=FiveOaInlandProjectApplyDto.adapt(item);
+    public FiveOaInlandProjectReviewDto getDto(FiveOaInlandProjectReview item) {
+        item.setMaterialsCost(MyStringUtil.moneyToString(item.getMaterialsCost(),6));
+        item.setAppropriativeCost(MyStringUtil.moneyToString(item.getAppropriativeCost(),6));
+        item.setOutsourceCost(MyStringUtil.moneyToString(item.getOutsourceCost(),6));
+        item.setMeetingCost(MyStringUtil.moneyToString(item.getMeetingCost(),6));
+        item.setTravelCost(MyStringUtil.moneyToString(item.getTravelCost(),6));
+        item.setSpecialistCost(MyStringUtil.moneyToString(item.getSpecialistCost(),6));
+        item.setFuelPowerCost(MyStringUtil.moneyToString(item.getFuelPowerCost(),6));
+        item.setFixeAssetDepreciationCost(MyStringUtil.moneyToString(item.getFixeAssetDepreciationCost(),6));
+        item.setSalaryServiceCost(MyStringUtil.moneyToString(item.getSalaryServiceCost(),6));
+        FiveOaInlandProjectReviewDto dto=FiveOaInlandProjectReviewDto.adapt(item);
         dto.setProcessName("已完成");
 
         if (!dto.getProcessEnd()){
@@ -139,8 +151,7 @@ public class FiveOaInlandProjectApplyService extends BaseService {
 
             if(customProcessInstance ==null || customProcessInstance.isFinished()){
                dto.setProcessEnd(true);
-               fiveOaInlandProjectApplyMapper.updateByPrimaryKey(dto);
-              fiveOaResearchProjectLibraryService.genLibraryByInlandProject(dto);
+                fiveOaInlandProjectReviewMapper.updateByPrimaryKey(dto);
            }
             if(customProcessInstance!=null && StringUtils.isNotEmpty(customProcessInstance.getCurrentTaskName())){
                dto.setProcessName(customProcessInstance.getCurrentTaskName());
@@ -151,7 +162,7 @@ public class FiveOaInlandProjectApplyService extends BaseService {
     }
 
     public int getNewModel(String userLogin){
-        FiveOaInlandProjectApply item=new FiveOaInlandProjectApply();
+        FiveOaInlandProjectReview item=new FiveOaInlandProjectReview();
         HrEmployeeDto hrEmployeeDto = hrEmployeeMapper.selectByUserLoginOrNo(userLogin);
 
         item.setDeptId(hrEmployeeDto.getDeptId());
@@ -189,20 +200,13 @@ public class FiveOaInlandProjectApplyService extends BaseService {
         Map variables = Maps.newHashMap();
         variables.put("userLogin", userLogin);
 
+        fiveOaInlandProjectReviewMapper.insert(item);
+        String businessKey= EdConst.FIVE_OA_INLAND_PROJECT_REVIEW+ "_" + item.getId();
 
-
-
-        variables.put("scientificMen",selectEmployeeService.getUserListByRoleName("科研与技术质量部(科研岗)"));//取角色传入流程模型业务办理人
-        variables.put("scientificFirstTrial",selectEmployeeService.getUserListByRoleName("科研与技术质量部(初审人员)"));//科研与技术质量部（初审人员)
-
-
-        fiveOaInlandProjectApplyMapper.insert(item);
-        String businessKey= EdConst.FIVE_OA_INLAND_PROJECT_APPLY+ "_" + item.getId();
-
-        String processInstanceId = taskHandleService.startProcess(EdConst.FIVE_OA_INLAND_PROJECT_APPLY,businessKey, variables, MccConst.APP_CODE);
+        String processInstanceId = taskHandleService.startProcess(EdConst.FIVE_OA_INLAND_PROJECT_REVIEW,businessKey, variables, MccConst.APP_CODE);
         item.setProcessInstanceId(processInstanceId);
         item.setBusinessKey(businessKey);
-        fiveOaInlandProjectApplyMapper.updateByPrimaryKey(item);
+        fiveOaInlandProjectReviewMapper.updateByPrimaryKey(item);
         return item.getId();
     }
 
@@ -216,10 +220,10 @@ public class FiveOaInlandProjectApplyService extends BaseService {
         map.put("enLogin",userLogin);
         params.putAll(getDefaultRightParams(map));
         
-        PageInfo<Object> pageInfo = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> fiveOaInlandProjectApplyMapper.selectAll(params));
+        PageInfo<Object> pageInfo = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> fiveOaInlandProjectReviewMapper.selectAll(params));
         List<Object> list = Lists.newArrayList();
         pageInfo.getList().forEach(p -> {
-            FiveOaInlandProjectApply item=(FiveOaInlandProjectApply)p;
+            FiveOaInlandProjectReview item=(FiveOaInlandProjectReview) p;
             list.add(getDto(item));
         });
         pageInfo.setList(list);
@@ -251,8 +255,8 @@ public class FiveOaInlandProjectApplyService extends BaseService {
         params.put("endTime1",endTime1);
 
 
-        List<FiveOaInlandProjectApply> fiveOaInlandProjectApplies=fiveOaInlandProjectApplyMapper.selectAll(params);
-        for (FiveOaInlandProjectApply dto:fiveOaInlandProjectApplies){
+        List<FiveOaInlandProjectReview> fiveOaInlandProjectReviews=fiveOaInlandProjectReviewMapper.selectAll(params);
+        for (FiveOaInlandProjectReview dto:fiveOaInlandProjectReviews){
             Map map1=new LinkedHashMap();
             map1.put("课题名称",dto.getProjectName());
             map1.put("申请单位",dto.getDeptName());

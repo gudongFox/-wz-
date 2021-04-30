@@ -124,9 +124,15 @@
                                     <select ng-options="s.name as s.name for s in sysCodes | filter:{codeCatalog:'保函类型'}:true"
                                             ng-model="vm.item.backLetterType" class="form-control" ng-disabled="!processInstance.firstTask"></select>
                                 </div>
-                                <label class="col-md-2 control-label required">去除保证金</label>
+                                <label class="col-md-2 control-label required">保函金额(元)</label>
                                 <div class="col-md-4">
                                     <input type="text" class="form-control" ng-model="vm.item.cash" name="cash" ng-disabled="!processInstance.firstTask"/>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-if="vm.item.relateType=='开具'">
+                                <label class="col-md-2 control-label required">手续费（元）</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="vm.item.poundage" name="poundage" ng-disabled="!processInstance.firstTask"/>
                                 </div>
                             </div>
                             <div class="form-group" ng-if="vm.item.relateType=='开具'">

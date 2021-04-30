@@ -494,6 +494,13 @@
                                        placeholder="唯一标识">
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">电话号码</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" ng-model="vm.employee.mobile" required="true">
+                                <span style="color: red" ng-if="vm.show">请输入正确的手机号码！</span>
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             <label class="col-md-3 control-label">部门名称</label>

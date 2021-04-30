@@ -601,7 +601,10 @@
             }
         }
 
+
+        //个人信息
         $rootScope.showResetInformation=function(){
+            $rootScope.phone=user.mobile;
             $rootScope.pwd1="";
             $rootScope.pwd2="";
             $("#personalInformationModal").modal("show");
@@ -632,30 +635,45 @@
                 }
             });
 
-
         }
 
         $rootScope.updateUserInformation=function() {
-            if ($rootScope.pwd1.length == 0) {
-                toastr.error("密码不能为空!");
-                return;
-            }
-            if ($rootScope.pwd1 != $rootScope.pwd2) {
-                $rootScope.pwd2 = "";
-                toastr.error("两次输入密码不一致!");
-                return;
-            }
-            if (checkPass($rootScope.pwd1) < 4) {
-                $rootScope.pwd2 = "";
-                toastr.error("新密码复杂度不够，请重新设置！需6-16位，且包含大小写字母和数字和特殊符号。");
-                return;
-            }
-            hrEmployeeService.resetPassword(user.userLogin, $rootScope.pwd1).then(function (value) {
-                if (value.data.ret) {
-                    toastr.success("密码修改成功!");
-                    $("#personalInformationModal").modal("hide");
+            if ($rootScope.phone!=user.mobile){
+                if (!(/^1[3|4|5|8][0-9]\d{8}$/.test($rootScope.phone))){
+                    toastr.error("填写手机号错误!");
+                    return;
+                }else {
+                    hrEmployeeService.updateMobile(user.enLogin, $rootScope.phone).then(function (value) {
+                        if (value.data.ret) {
+                            toastr.success("手机号修改成功!");
+
+                            $("#personalInformationModal").modal("hide");
+                        }
+                    })
                 }
-            })
+            }else {
+                if ($rootScope.pwd1.length == 0) {
+                    toastr.error("密码不能为空!");
+                    return;
+                }
+                if ($rootScope.pwd1 != $rootScope.pwd2) {
+                    $rootScope.pwd2 = "";
+                    toastr.error("两次输入密码不一致!");
+                    return;
+                }
+                if (checkPass($rootScope.pwd1) < 4) {
+                    $rootScope.pwd2 = "";
+                    toastr.error("新密码复杂度不够，请重新设置！需6-16位，且包含大小写字母和数字和特殊符号。");
+                    return;
+                }
+                hrEmployeeService.resetPassword(user.userLogin, $rootScope.pwd1,"cmcu99").then(function (value) {
+                    if (value.data.ret) {
+                        toastr.success("密码修改成功!");
+                        $("#personalInformationModal").modal("hide");
+                    }
+                })
+            }
+
         }
 
 
@@ -813,6 +831,7 @@
          * @param businessId
          */
         $rootScope.basicInit=function(businessId){
+
             $('.form-validate').validate({
                 errorElement: 'span', //default input error message container
                 errorClass: 'help-block',
@@ -888,6 +907,8 @@
                 language: 'zh-CN',
                 endDate:new Date()
             });
+
+
 
             $('.form_datetime').datetimepicker({
                 autoclose: true,
@@ -1026,46 +1047,56 @@
 
         /**
          * 加载流程情况 签名意见
-         * @param processInstanceId
          */
-        $rootScope.loadOpinionProcessInstance = function (processInstanceId) {
-            if (processInstanceId) {
-                //五洲待签名附件
-                actTaskQueryService.listHistoricTaskInstanceByInstanceId(processInstanceId, user.enLogin).then(function (value) {
-                    var list = value.data.data;
-                    list.reverse();//2020-12-19HNZ 倒序取最新意见
-                    var optionlist=[];
-                    for (var i=0,l=list.length;i<l;i++){
-                        for(var j = i + 1; j < l; j++){
-                            //去除重复数据，没有处理人或者是取回任务
-                            if (list[i].name == list[j].name&&list[i].assigneeName==list[j].assigneeName
-                                && list[j].assigneeName!=""&&list[j].latestComment.indexOf("取回")<0){
-                                ++i;
-                            }
-                        }
-                        optionlist.push(list[i]);
-                    }
-                    optionlist.reverse(); //倒序 顺序展示意见
-                    $rootScope.optionlist=optionlist;
+        $rootScope.loadOpinionProcessInstance = function () {
+            $rootScope.optionlistCountSign=[];
+            $rootScope.optionlistLeader=[];
+            $rootScope.optionlistOther=[];
 
-                    //流程意见分类 2020-12-19HNZ 使用去除重复后意见
-                    var optionlistCountSign=[];
-                    var optionlistLeader=[];
-                    var optionlistOther=[];
-                    for (var i=0,l=optionlist.length;i<l;i++){
-                            if(optionlist[i].name.indexOf("会签")>0){
-                                optionlistCountSign.push(optionlist[i])
-                            }else if(optionlist[i].name.indexOf("领导")>0&&optionlist[i].name.indexOf("机要秘书")<0){
-                                optionlistLeader.push(optionlist[i])
-                            }else {
-                                optionlistOther.push(optionlist[i])
-                            }
+            var clientWidth= document.body.clientWidth-950;
+            var size=5;
+            if (clientWidth>0){
+                size= size+ Math.ceil(clientWidth/65);
+            }else {
+                size=22;
+            }
+            try{
+                var list =  [].concat($scope.tasks);
+                list.reverse();//2020-12-19HNZ 倒序取最新意见
+                var optionlist=[];
+                for (var i=0,l=list.length-1;i<l;i++){
+                    for(var j = i + 1; j < l+1; j++){
+                        //去除重复数据，没有处理人或者是取回任务
+                        if (list[i].name == list[j].name&&list[i].assigneeName==list[j].assigneeName
+                            && list[i].assigneeName!=""&&list[i].latestComment&&list[i].latestComment!=""&&list[i].latestComment.indexOf("取回")<0){
+                            ++i;
+                        }
                     }
-                    $rootScope.optionlistCountSign=optionlistCountSign;
-                    $rootScope.optionlistLeader=optionlistLeader.reverse();
-                    $rootScope.optionlistOther=optionlistOther;
-                   // $scope.$apply();
-                });
+
+                    list[i].rows=Math.ceil(list[i].latestComment.length/size);
+                    optionlist.push(list[i]);
+                }
+                optionlist.reverse(); //倒序 顺序展示意见
+                $rootScope.optionlist=optionlist;
+
+                //流程意见分类 2020-12-19HNZ 使用去除重复后意见
+                var optionlistCountSign=[];
+                var optionlistLeader=[];
+                var optionlistOther=[];
+                for (var i=0,l=optionlist.length;i<l;i++){
+                    if(optionlist[i].name.indexOf("会签")>0){
+                        optionlistCountSign.push(optionlist[i])
+                    }else if(optionlist[i].name.indexOf("领导")>0&&optionlist[i].name.indexOf("机要秘书")<0){
+                        optionlistLeader.push(optionlist[i])
+                    }else {
+                        optionlistOther.push(optionlist[i])
+                    }
+                }
+                $rootScope.optionlistCountSign=optionlistCountSign;
+                $rootScope.optionlistLeader=optionlistLeader.reverse();
+                $rootScope.optionlistOther=optionlistOther;
+            }catch (e) {
+
             }
         };
 
@@ -3022,8 +3053,6 @@
 
         vm.init=function() {
 
-
-
             var cacheParams = getNgParam($state, {modelCategory: "", processDefinitionKey: ""});
             vm.modelCategory=cacheParams.modelCategory;
             vm.processDefinitionKey=cacheParams.processDefinitionKey;
@@ -3043,13 +3072,8 @@
 
             vm.loadTree();
 
-            vm.reloadTask();
-            vm.reloadCcTask();
-            vm.reloadDoneTask();
-            vm.reloadMyProcess();
 
-            //vm.loadTaskType(); 这是做什么的?ld删除
-
+            vm.reloadAllTask(true);
 
             $("#btnUploadHead").fileupload({
                 maxNumberOfFiles: 1,
@@ -3102,6 +3126,10 @@
 
             $scope.basicInit();
         }
+
+
+
+
         //树形结构类型
         vm.loadTree=function(refresh) {
 
@@ -3109,7 +3137,8 @@
                 //加载全部
                 vm.modelCategory = "";
                 vm.processDefinitionKey = "";
-                $("#js_tree").jstree('deselect_all', true).vm.reloadAllTask();
+                $("#js_tree").jstree('deselect_all', true);
+                vm.reloadAllTask();
                 return;
             }
 
@@ -3170,35 +3199,39 @@
             });
         }
 
-
-
         //查询调度方法
-        vm.reloadAllTask=function() {
+        vm.reloadAllTask=function(noTab) {
+
 
             setNgCache($state, {
                 modelCategory: vm.modelCategory,
                 processDefinitionKey: vm.processDefinitionKey
             });
 
-            if (vm.taskCondition.tableName == "待办任务") {
+            if (noTab) {
                 vm.reloadTask();
-            } else if (vm.taskCondition.tableName == "抄送我的") {
                 vm.reloadCcTask();
-            } else if (vm.taskCondition.tableName == "我审批的") {
+                vm.getCcTaskCount();
                 vm.reloadDoneTask();
-            } else if (vm.taskCondition.tableName == "我发起的") {
                 vm.reloadMyProcess();
+            } else {
+                if (vm.taskCondition.tableName == "待办任务") {
+                    vm.reloadTask();
+                } else if (vm.taskCondition.tableName == "抄送我的") {
+                    vm.reloadCcTask();
+                    vm.getCcTaskCount();
+                } else if (vm.taskCondition.tableName == "我审批的") {
+                    vm.reloadDoneTask();
+                } else if (vm.taskCondition.tableName == "我发起的") {
+                    vm.reloadMyProcess();
+                }
             }
         }
 
-        vm.loadTaskType=function(){
-            commonCodeService.listDataByCatalog(user.enLogin,"流程类别").then(function (value) {
-                vm.taskTypeList=value.data.data;
-            })
-        }
+
         //状态切换
-        vm.showTable=function(tableName){
-            vm.taskCondition.tableName=tableName;
+        vm.showTable=function(tableName) {
+            vm.taskCondition.tableName = tableName;
         }
 
         vm.showNoticeDetail = function (id,attachId) {
@@ -3262,15 +3295,19 @@
             })
         }
 
-
         vm.reloadCcTask=function() {
             vm.ccTaskPageInfo.pageNum = 1;
             vm.ccTaskParams.qDescription = vm.ccTaskParams.description;
             vm.loadCcTask();
-            actTaskQueryService.getCcTaskCount({enLogin:user.enLogin}).then(function (value){
-                vm.ccTaskTotal=value.data.data;
+            vm.getCcTaskCount();
+        }
+
+        vm.getCcTaskCount=function() {
+            actTaskQueryService.getCcTaskCount({enLogin: user.enLogin}).then(function (value) {
+                vm.ccTaskTotal = value.data.data;
             })
         }
+
 
         vm.loadCcTask=function () {
             var pa= {
@@ -3278,9 +3315,7 @@
                 pageSize: vm.ccTaskPageInfo.pageSize,
                 enLogin: user.enLogin,
                 qInitiator: vm.ccTaskParams.qInitiator,
-                processDescription: vm.ccTaskParams.qDescription,
-                modelCategory: vm.modelCategory,
-                processDefinitionKey: vm.processDefinitionKey,
+                processDescription: vm.ccTaskParams.qDescription
             }
             actTaskQueryService.listPagedCcTask(pa).then(function (value) {
                 if (value.data.ret) {
@@ -3369,13 +3404,31 @@
             })
         }
 
+
+        vm.finishCcTask=function (taskId){
+            bootbox.confirm("您确定要办结该抄送任务吗？", function (result) {
+                if (result) {
+                    actTaskHandleService.ccFinishTask(taskId,'办结任务。','pc').then(function (value){
+                        if(value.data.ret){
+                            toastr.success("已办结抄送任务");
+                            vm.loadCcTask();
+                            vm.getCcTaskCount();
+                        }
+                    })
+                }
+            })
+        }
+
+
+
+
         vm.removeProcess=function(processInstanceId,enLogin){
             bootbox.confirm("您确认要永久删除流程及对应数据吗?", function (result) {
                 if (result) {
                     actProcessHandleService.deleteProcessInstanceById(processInstanceId,enLogin,"no why").then(function(value){
                         if(value.data.ret) {
                             toastr.success("删除成功!");
-                            vm.init();
+                            vm.reloadAllTask();
                         }
                     });
                 }
@@ -3646,34 +3699,8 @@
             return redhead;
         }
         //只读 readOnly
-        vm.readDocOnly=function(id,fileName){
-            //套红插件只读
-          /*  var  path="/wuzhou/file/download/"+id;
-            if(fileName.toLocaleString().indexOf(".pdf")>0){
-                window.open(path);
-            } else {
-                var ntkoed=ntkoBrowser.ExtensionInstalled();
-                if(ntkoed){
-                    ntkoBrowser.openWindow("/nochange/rh-office-control/readonly.html?path=" + path);
-                } else{
-                    var iTop = ntkoBrowser.NtkoiTop();   //获得窗口的垂直位置;
-                    var iLeft = ntkoBrowser.NtkoiLeft();  //获得窗口的水平位置;
-                    window.open("/nochange/rh-office-control/exeindex.html","","height=200px,width=500px,top="+iTop+"px,left="+iLeft+"px,titlebar=no,toolbar=no,menubar=no,scrollbars=auto,resizeable=no,location=no,status=no");
-                }
-            }*/
-
-           /* var hrefOWA="https://owa.wuzhou.com.cn/op/embed.aspx?src="+
-                encodeURIComponent("https://co.wuzhou.com.cn/wuzhou/file/download/"+id);
-            window.open(hrefOWA);*/
-
-            //$state.go("oa.mainWordOWA",{id:id});
-
-           // window.open("/act/plotIndex#?id="+ id+"&&url=oa.mainWordOWA"+result.url+"&&name="+name);
-
-           // $sce.trustAsResourceUrl(vm.hrefOWA);
-
-
-            url = "/wuzhou/file/preview/" + id;
+        vm.readDocOnly=function(businessKey){
+            url = "/wuzhou/file/preview/" + businessKey;
             window.open(url, "_blank");
 
         }

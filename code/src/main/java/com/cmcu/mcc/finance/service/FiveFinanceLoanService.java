@@ -170,7 +170,7 @@ public class FiveFinanceLoanService extends BaseService {
                 } else if(modelDetail.getBudgetNo().contains("软件")){
                     attributeList.add(selectEmployeeService.getDeptChargeMen(11).get(0));//信息化
                 } else if(modelDetail.getBudgetNo().contains("会议费")){
-                    attributeList.add("2887");
+                    attributeList.add(selectEmployeeService.getDeptChargeMen(101).get(0));//科研
                 } else if(modelDetail.getBudgetNo().contains("图书资料费")){
                     attributeList.add(selectEmployeeService.getUserListByRoleName("借款-图书资料费").get(0));//角色
                 } else if((modelDetail.getBudgetNo().contains("办公自动化设备购置")||modelDetail.getBudgetNo().contains("软件购置")
@@ -190,7 +190,7 @@ public class FiveFinanceLoanService extends BaseService {
                     attributeList.add(selectEmployeeService.getDeptChargeMen(11).get(0));//信息化
                     attribute = 2;
                 } else if(modelDetail.getBudgetNo().contains("会议费")){
-                    attributeList.add("2887");
+                    attributeList.add(selectEmployeeService.getDeptChargeMen(101).get(0));//科研
                     attribute = 2;
                 } else if(modelDetail.getBudgetNo().contains("图书资料费")){
                     attributeList.add(selectEmployeeService.getUserListByRoleName("借款-图书资料费").get(0));//角色
@@ -217,7 +217,7 @@ public class FiveFinanceLoanService extends BaseService {
         variables.put("deptChargeMan", selectEmployeeService.getDeptChargeMen(model.getDeptId()));//部门领导
         variables.put("deptLeader",selectEmployeeService.getOtherDeptChargeMan(model.getDeptId()));//分管领导
         variables.put("financeChargeMan", selectEmployeeService.getDeptChargeMen(18));//财务负责人
-        variables.put("financeDeputy", selectEmployeeService.getDeptChargeMen(model.getDeptId()));//申请部门正副职
+        variables.put("financeDeputy", selectEmployeeService.getOtherDeptChargeMan(model.getDeptId()));//申请部门主管领导
         variables.put("chiefAccountant", hrEmployeeService.selectUserByPositionName("总会计师"));//总会计师
         variables.put("generalManager", hrEmployeeService.selectUserByPositionName("总经理"));//总经理
         variables.put("financialAccount", selectEmployeeService.getDeptFinanceMan(model.getDeptId()));//财务核算
@@ -238,6 +238,10 @@ public class FiveFinanceLoanService extends BaseService {
             if (selectEmployeeService.getDeptChargeMen(dto.getDeptId()).contains(dto.getCreator())) {
                 dept=1;
             }
+            //totalApplyMoney 字段未存数据库，需判断的单位为元
+            variables.put("flag", Double.valueOf(dto.getTotalApplyMoney())>=5000.00?true:false);
+            variables.put("flag1", Double.valueOf(dto.getTotalApplyMoney())>=30000.00?true:false);
+
             variables.put("record", record);
             variables.put("dept", dept);
             variables.put("scientific", dto.getScientific().contains("是")?true:false);
@@ -473,7 +477,7 @@ public class FiveFinanceLoanService extends BaseService {
     public void updateDetail(FiveFinanceLoanDetail item){
         //如果申请金额 大于 预算剩余金额 提示
         Assert.state(Double.valueOf(MyStringUtil.getMoneyW(item.getApplyMoney()))<=Double.valueOf(item.getBudgetBalance()),"申请金额 大于 预算剩余金额!");
-        if (item.getFlag()==1){
+        if (item.getId()==null||item.getId()==0){
             //元转为 万元
             item.setApplyMoney(MyStringUtil.getMoneyW(item.getApplyMoney()));
             fiveFinanceLoanDetailMapper.insert(item);
@@ -502,7 +506,6 @@ public class FiveFinanceLoanService extends BaseService {
         item.setControlBalance(MyStringUtil.moneyToString("0"));
         item.setBudgetBalance(MyStringUtil.moneyToString("0"));
         item.setApplyMoney(MyStringUtil.moneyToString("0"));
-        item.setFlag(1);
 
         ModelUtil.setNotNullFields(item);
         //BeanValidator.check(item);
@@ -651,7 +654,7 @@ public class FiveFinanceLoanService extends BaseService {
 
             String format=String.format("%03d", size);//format为顺序号限定10进制补零
             //部门+时间+类型+编号
-            newReceiptsNumber=newReceiptsNumber+deptCode+date+"01"+format;
+            newReceiptsNumber=newReceiptsNumber+deptCode+date+"-01-"+format;
             loanDto.setReceiptsNumber(newReceiptsNumber);
             update(loanDto);
             return newReceiptsNumber;

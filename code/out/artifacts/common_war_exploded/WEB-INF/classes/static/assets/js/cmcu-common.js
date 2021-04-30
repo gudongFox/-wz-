@@ -660,7 +660,8 @@ function setCacheParams(key, params, pageInfo) {
                             },
                             traditional: true,
                             success: function (data) {
-                                if (!data.ret) {
+                                if (data.ret) {
+                                    $("#comment_"+options.taskId).html(comment);
                                 }
                             }
                         });

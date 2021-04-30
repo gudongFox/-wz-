@@ -145,8 +145,12 @@ angular.module('controllers.five.technology', [])
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -277,8 +281,12 @@ angular.module('controllers.five.technology', [])
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function () {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -496,8 +504,12 @@ angular.module('controllers.five.technology', [])
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function () {
-                            $scope.refresh ();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -623,8 +635,12 @@ angular.module('controllers.five.technology', [])
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })

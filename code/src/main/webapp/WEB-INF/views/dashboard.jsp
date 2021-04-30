@@ -1,18 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%--<link rel="stylesheet" href="/assets/liMarquee/css/liMarquee.css">--%>
-<%--<div class="row" ng-show="vm.notices.length>0" ng-controller="RedHeaderController">--%>
-<%--    <div class="col-md-12" style="padding-bottom: 10px;">--%>
-<%--        <div id="noticeList" style="background: #fff;height: 40px;line-height: 40px;font-weight: bold;">--%>
-<%--            <a ng-click="vm.showNoticeDetail(notice.id,notice.attachId)" ng-repeat="notice in vm.notices" style="margin-left: 100px;">--%>
-<%--                <span ng-show="notice.top" style="color: red;">置顶</span>--%>
-<%--                <span ng-bind="'【'+notice.noticeType+'】'"></span>--%>
-<%--                <span ng-bind="notice.gmtCreate|date:'yyyy-MM-dd'"></span>--%>
-<%--                <span ng-bind="notice.noticeTitle"></span>--%>
-<%--            </a>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-<%--</div>--%>
-
 <div class="row ">
     <div class="col-md-2" style="padding-right: 0px;">
         <div class="portlet box blue">
@@ -55,15 +41,15 @@
                                 待办任务 <span class="badge badge-success" ng-bind="vm.taskTotal" ng-if="vm.taskTotal>0"></span> </a>
                         </li>
                         <li>
-                            <a href="#tab_15_1_2" data-toggle="tab" aria-expanded="true" ng-click="vm.showTable('抄送我的');">
+                            <a href="#tab_15_2" data-toggle="tab" aria-expanded="true" ng-click="vm.showTable('抄送我的');">
                                 抄送我的 <span class="badge badge-success" ng-bind="vm.ccTaskTotal" ng-if="vm.ccTaskTotal>0"></span> </a>
                         </li>
                         <li>
-                            <a href="#tab_15_2" data-toggle="tab" aria-expanded="true"  ng-click="vm.showTable('我发起的');">
+                            <a href="#tab_15_3" data-toggle="tab" aria-expanded="true"  ng-click="vm.showTable('我发起的');">
                                 我发起的 </a>
                         </li>
                         <li class="">
-                            <a href="#tab_15_3" data-toggle="tab" aria-expanded="false"  ng-click="vm.showTable('我审批的');">
+                            <a href="#tab_15_4" data-toggle="tab" aria-expanded="false"  ng-click="vm.showTable('我审批的');">
                                 我审批的 </a>
                         </li>
                     </ul>
@@ -101,9 +87,9 @@
                                     </thead>
                                     <tbody>
                                     <tr ng-repeat="task in vm.taskList">
-                                        <td class="dt-right" ng-bind="$index+vm.taskPageInfo.startRow"></td>
+                                        <td ng-bind="$index+vm.taskPageInfo.startRow"></td>
                                         <td ng-click="vm.showDetail(task.businessKey);">
-                                            <span ng-bind="task.processDefinitionName" ng-style="{'color':'{{task.firstNewTask?'grey':'blue'}}'}"></span>
+                                            <span ng-bind="task.processDefinitionName" style="cursor: pointer;color: {{task.firstNewTask?'':'blue'}}" ></span>
                                             <span ng-show="task.ccTask"  class="label label-sm label-default ">抄送</span>
                                             <span ng-hide="task.outTime!=3"  class="label label-sm label-danger ">超期</span>
                                         </td>
@@ -130,8 +116,7 @@
                                       on-load="vm.loadTask()"></my-pager>
                         </div>
 
-
-                        <div class="tab-pane " id="tab_15_1_2">
+                        <div class="tab-pane " id="tab_15_2">
 
                             <div class="row">
                                 <div class="col-md-12">
@@ -164,10 +149,10 @@
                                     </thead>
                                     <tbody>
                                     <tr ng-repeat="task in vm.ccTaskList">
-                                        <td class="dt-right" ng-bind="$index+vm.taskPageInfo.startRow"></td>
+                                        <td class="dt-right" ng-bind="$index+vm.ccTaskPageInfo.startRow"></td>
                                         <td ng-click="vm.showDetail(task.businessKey);">
-                                            <span ng-bind="task.processDefinitionName" ng-style="{'color':'{{task.firstNewTask?'grey':'blue'}}'}"></span>
-                                            <span ng-hide="task.outTime!=3"  class="label label-sm label-danger ">超期</span>
+                                            <span ng-bind="task.processDefinitionName" style="cursor: pointer;color: {{task.endTime?'':'blue'}}"></span>
+                                            <span ng-if="task.outTime!=3 && task.endTime==''"  class="label label-sm label-danger ">超期</span>
                                         </td>
                                         <td ng-bind="task.processDescription"></td>
 
@@ -177,8 +162,12 @@
                                         <td ng-bind="task.startTime|date:'yyyy-MM-dd HH:mm'"></td>
                                         <td ng-bind="task.initiatorName"></td>
                                         <td>
-                                            <i class="fa fa-pencil margin-right-5" title="立即办理"
+
+                                            <i class="fa fa-pencil margin-right-5" title="查看详情"
                                                ng-click="vm.showDetail(task.businessKey);"></i>
+
+                                            <i class="fa fa-check-square-o" title="立即办理" ng-if="!task.endTime"
+                                               ng-click="vm.finishCcTask(task.id);"></i>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -188,7 +177,7 @@
                                       on-load="vm.loadCcTask()"></my-pager>
                         </div>
 
-                        <div class="tab-pane" id="tab_15_2"
+                        <div class="tab-pane" id="tab_15_3"
                              style="min-height: 400px;overflow-y: auto;overflow-x: hidden;">
                             <div class="row">
                                 <div class="col-md-12">
@@ -228,20 +217,18 @@
                                     </thead>
                                     <tbody>
                                     <tr ng-repeat="process in vm.myProcessList">
-                                        <td class="dt-right" ng-bind="$index+vm.myPageInfo.startRow"></td>
-                                        <td class="data_title" ng-bind="process.instance.processDefinitionName"
-                                            ng-click="vm.showDetail(process.instance.businessKey);"></td>
+                                        <td ng-bind="$index+vm.myPageInfo.startRow"></td>
+                                        <td style="cursor: pointer;color: {{process.myTask?'blue':''}}" ng-bind="process.processDefinitionName"
+                                            ng-click="vm.showDetail(process.businessKey);"></td>
                                         <td ng-bind="process.processDescription"></td>
-                                        <td ng-click="vm.showTaskProcess(process.instance);" style="cursor: pointer;">
-                                            <strong ng-bind="process.currentTaskName"></strong>
-                                        </td>
-                                        <td ng-bind="process.initiatorTime|date:'yyyy-MM-dd HH:mm'"></td>
+                                        <td  style="color: {{process.endTime?'green':''}}" ng-bind="process.processName"></td>
+                                        <td ng-bind="process.startTime|date:'yyyy-MM-dd HH:mm'"></td>
                                         <td>
                                             <i class="fa fa-pencil margin-right-5" title="查看详情"
-                                               ng-click="vm.showDetail(process.instance.businessKey);"></i>
+                                               ng-click="vm.showDetail(process.businessKey);"></i>
 
                                             <i class="fa fa-trash" title="删除流程" ng-if="process.firstTask"
-                                               ng-click="vm.removeProcess(process.instance.id);"></i>
+                                               ng-click="vm.removeProcess(process.id);"></i>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -252,7 +239,7 @@
                                       on-load="vm.loadMyProcess()"></my-pager>
                         </div>
 
-                        <div class="tab-pane" id="tab_15_3"
+                        <div class="tab-pane" id="tab_15_4"
                              style="min-height: 400px;overflow-y: auto;overflow-x: hidden;">
                             <div class="row">
                                 <div class="col-md-12">
@@ -277,25 +264,24 @@
                                         <th style="width: 35px;">#</th>
                                         <th><i class="fa fa-tasks"></i> 流程名称</th>
                                         <th style="width: 35%;"><i class="fa fa-tasks"></i> 流程描述</th>
-                                        <th ><i class="fa fa-clock-o"></i> 当前状态</th>
+                                        <th><i class="fa fa-clock-o"></i> 当前状态</th>
                                         <th style="width: 140px;"><i class="fa fa-clock-o"></i> 指派时间</th>
                                         <th style="width:100px;"><i class="fa fa-user"></i> 发起人</th>
                                         <th style="width: 30px;">操作</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr ng-repeat="task in vm.taskDoneList">
-                                        <td class="dt-right" ng-bind="$index+vm.taskDonePageInfo.startRow"></td>
-                                        <td class="highlight" ng-bind="task.instance.processDefinitionName"
-                                            ng-click="vm.showDetail(task.instance.businessKey);"
-                                            style="font-weight: bold;cursor: pointer;"></td>
-                                        <td ng-bind="task.processDescription"></td>
-                                        <td ng-bind="task.currentTaskName"></td>
-                                        <td ng-bind="task.initiatorTime|date:'yyyy-MM-dd HH:mm'"></td>
-                                        <td ng-bind="task.initiatorName"></td>
+                                    <tr ng-repeat="process in vm.taskDoneList">
+                                        <td ng-bind="$index+vm.taskDonePageInfo.startRow"></td>
+                                        <td style="cursor: pointer;color: {{process.myTask?'blue':''}}" ng-bind="process.processDefinitionName"
+                                            ng-click="vm.showDetail(process.businessKey);"></td>
+                                        <td ng-bind="process.processDescription"></td>
+                                        <td ng-bind="process.processName" style="color: {{process.endTime?'green':''}}"></td>
+                                        <td ng-bind="process.startTime|date:'yyyy-MM-dd HH:mm'"></td>
+                                        <td ng-bind="process.initiatorName"></td>
                                         <td>
                                             <i class="fa fa-pencil margin-right-5" title="立即办理"
-                                               ng-click="vm.showDetail(task.instance.businessKey);"></i>
+                                               ng-click="vm.showDetail(process.businessKey);"></i>
                                         </td>
                                     </tr>
 

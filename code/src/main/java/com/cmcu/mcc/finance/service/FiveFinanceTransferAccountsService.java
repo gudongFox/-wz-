@@ -161,7 +161,7 @@ public class FiveFinanceTransferAccountsService {
         variables.put("generalManager", hrEmployeeService.selectUserByPositionName("总经理"));
         variables.put("financialAccount", selectEmployeeService.getDeptFinanceMan(model.getDeptId()));//财务核算
 
-        String title = "费用退款" + model.getDeptName();
+        String title = "费用退款:" + model.getDeptName();
         variables.put("processDescription", title);
 
         myActService.setVariables(model.getProcessInstanceId(), variables);
@@ -466,7 +466,7 @@ public class FiveFinanceTransferAccountsService {
 
             String format=String.format("%03d", size);//format为顺序号限定10进制补零
             //部门+时间+类型+编号
-            newAccountNumber=newAccountNumber+deptCode+date+"04"+format;
+            newAccountNumber=newAccountNumber+deptCode+date+"-04-"+format;
             transferAccountsDto.setAccountNumber(newAccountNumber);
             update(transferAccountsDto);
             return newAccountNumber;

@@ -97,6 +97,22 @@ angular.module('services.five.finance', [])
             });
             return deferred.promise;
         };
+        var getModelUserDetailById = function (id) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/getModelUserDetailById.json',
+                params: {
+                    id: id
+                }
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
 
         var updateDetail = function (item) {
             var deferred = $q.defer();
@@ -111,6 +127,33 @@ angular.module('services.five.finance', [])
             });
             return deferred.promise;
         };
+        var getApplyStandard = function (detail) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/getApplyStandard.json',
+                data: detail
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+        var updateUserDetail = function (item) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/updateUserDetail.json',
+                data: item
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
 
         var removeDetail = function (id) {
             var deferred = $q.defer();
@@ -127,6 +170,24 @@ angular.module('services.five.finance', [])
             });
             return deferred.promise;
         };
+        var removeUserDetail = function (id) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/removeUserDetail.json',
+                params: {
+                    id: id,
+                }
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+
+
 
         var listDetail = function (id) {
             var deferred = $q.defer();
@@ -143,6 +204,22 @@ angular.module('services.five.finance', [])
             });
             return deferred.promise;
         };
+        var listUserDetail = function (id) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/listUserDetail.json',
+                params: {
+                    id: id,
+                }
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
 
         var getNewModelDetail = function (id,userLogin) {
             var deferred = $q.defer();
@@ -160,6 +237,26 @@ angular.module('services.five.finance', [])
             });
             return deferred.promise;
         };
+
+
+
+        var getNewModelUserDetail = function (id,userLogin) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/getNewModelUserDetail.json',
+                params: {
+                    id:id,
+                    userLogin:userLogin,
+                }
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
 
         var getPrintData = function (id) {
             var deferred = $q.defer();
@@ -251,17 +348,40 @@ angular.module('services.five.finance', [])
             getModelDetailById:function (id) {
                 return getModelDetailById(id);
             },
+            getModelUserDetailById:function (id) {
+                return getModelUserDetailById(id);
+            },
+
             updateDetail: function (item) {
                 return updateDetail(item);
             },
+            getApplyStandard: function (detail) {
+                return getApplyStandard(detail);
+            },
+            updateUserDetail: function (item) {
+                return updateUserDetail(item);
+            },
+
             removeDetail: function (id,userLogin) {
                 return removeDetail(id,userLogin);
             },
+            removeUserDetail: function (id,userLogin) {
+                return removeUserDetail(id,userLogin);
+            },
+
             listDetail: function (id) {
                 return listDetail(id);
             },
+            listUserDetail: function (id) {
+                return listUserDetail(id);
+            },
+
             getNewModelDetail: function (id,userLogin) {
                 return getNewModelDetail(id,userLogin);
+            },
+
+            getNewModelUserDetail: function (id,userLogin) {
+                return getNewModelUserDetail(id,userLogin);
             },
 
             getNewModel: function (userLogin,uiSref) {

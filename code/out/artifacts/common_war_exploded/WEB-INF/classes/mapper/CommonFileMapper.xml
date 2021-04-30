@@ -117,6 +117,12 @@
       <if test="businessKey != null and businessKey != ''">
          AND business_key = #{businessKey}
       </if>
+      <if test="businessKeyList != null and businessKeyList.size() >0">
+        AND business_key in
+        <foreach collection="businessKeyList" open="(" close=")" separator="," item="businessKey" index="i">
+          #{businessKey}
+        </foreach>
+      </if>
       <if test="dirId != null">
          AND dir_id = #{dirId}
       </if>

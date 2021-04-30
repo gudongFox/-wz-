@@ -4,6 +4,8 @@ import com.cmcu.act.dto.CustomSimpleProcessInstance;
 import com.cmcu.act.service.ProcessQueryService;
 import com.cmcu.act.service.TaskHandleService;
 import com.cmcu.common.service.BaseService;
+import com.cmcu.common.service.CommonDirService;
+import com.cmcu.common.service.CommonFileService;
 import com.cmcu.common.util.*;
 import com.cmcu.mcc.act.service.MyActService;
 import com.cmcu.mcc.comm.EdConst;
@@ -68,6 +70,8 @@ public class FiveAssetComputerService extends BaseService {
     HandleFormService handleFormService;
     @Autowired
     HrDeptService hrDeptService ;
+    @Resource
+    CommonFileService commonFileService;
 
 
     public List<FiveAssetComputer> listDate(String userLogin) {
@@ -81,6 +85,11 @@ public class FiveAssetComputerService extends BaseService {
         map1.put("uiSref", "five.oaAssetComputer");
         map1.put("enLogin", userLogin);
         map.putAll(getDefaultRightParams(map1));
+
+        //xxin 2021.04.27修改 是否有权限都要  同时查看到责任人 与使用人是自己的
+        map.put("isLikeSelect",true);
+        map.put("chargeOrUser",userLogin);
+
 
         List<FiveAssetComputer> fiveAssetComputers = fiveAssetComputerMapper.selectAll(map).stream().filter(p -> !Strings.isNullOrEmpty(p.getComputerNo()))
                 .collect(Collectors.toList());
@@ -263,9 +272,13 @@ public class FiveAssetComputerService extends BaseService {
 
         params.remove("userLogin");//字段中含有userLogin 排除干扰因素
         //如果只查看自己的权限 查询看所有台账、普通员工查看责任人或者使用人是自己的
-        if (params.containsKey("creator")){
+       /* if (params.containsKey("creator")){
             params.put("chargeOrUser",userLogin);
-        }
+        }*/
+
+        //xxin 2021.04.27修改 是否有权限都要  同时查看到责任人 与使用人是自己的
+        params.put("chargeOrUser",userLogin);
+
         //流程相关
         if (!params.containsKey("flag")){
             params.put("processEnd",true);
@@ -288,6 +301,7 @@ public class FiveAssetComputerService extends BaseService {
     //验收单 创建新的台账
     public int getModelByEquipmentExamine(int equpmentId,boolean type){
         FiveAssetComputer item=new FiveAssetComputer();
+
         if (type){
             FiveOaInformationEquipmentExamineDto equipmentExamineDto = fiveOaInformationEquipmentExamineService.getModelById(equpmentId);
             item.setEquipmentNo(equipmentExamineDto.getEquipmentNo());//设备序列号
@@ -358,10 +372,14 @@ public class FiveAssetComputerService extends BaseService {
 
         item.setProcessEnd(true);//不走流程直接完成
         ModelUtil.setNotNullFields(item);
-       fiveAssetComputerMapper.insert(item);
-       item.setBusinessKey(EdConst.FIVE_OA_ASSET_COMPUTER+"_"+item.getId());
-       fiveAssetComputerMapper.updateByPrimaryKey(item);
-
+        fiveAssetComputerMapper.insert(item);
+        item.setBusinessKey(EdConst.FIVE_OA_ASSET_COMPUTER+"_"+item.getId());
+        fiveAssetComputerMapper.updateByPrimaryKey(item);
+        //如果是单独设备验收 获取上传的附件文件夹(发票 实物照片)
+        if (type){
+            FiveOaInformationEquipmentExamineDto equipmentExamineDto = fiveOaInformationEquipmentExamineService.getModelById(equpmentId);
+            commonFileService.copyFileByBusinessKey(equipmentExamineDto.getBusinessKey(),item.getBusinessKey(),-1);
+        }
         return item.getId();
     }
 

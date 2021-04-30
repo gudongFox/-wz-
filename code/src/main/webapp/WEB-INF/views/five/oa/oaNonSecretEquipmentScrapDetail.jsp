@@ -135,6 +135,16 @@
                                            name="equipmentType" required="true" disabled/>
                                 </div>
                             </div>
+                            <div  class="form-group">
+                                <label class="col-md-2 control-label required">是否固定资产</label>
+                                <div class="col-md-4">
+                                    <select ng-options="s.codeValue as s.name for s in sysCodes | filter:{codeCatalog:'是否'}:true"
+                                            ng-model="vm.item.disposeAsset" name="disposeAsset" class="form-control"
+                                            ng-disabled="!processInstance.firstTask"></select>
+                                    <span style="color: red">请选择是否为固定资产</span>
+                                </div>
+
+                            </div>
 
                             <div class="form-group">
                                 <label class="col-md-2 control-label required">报废原因</label>
@@ -179,8 +189,8 @@
                                     <input type="text" class="form-control" ng-model="vm.item.secretOtherNo" name="secretOtherNo"    ng-disabled="processInstance.myRunningTaskName.indexOf('网络运维中心-安全')==-1" />
                                 </div>
                             </div>
-                            <p style="color: red">财务金融部-固定资产岗</p>
-                            <div class="form-group">
+                            <p  ng-show="vm.item.disposeAsset" style="color: red">财务金融部-固定资产岗</p>
+                            <div ng-show="vm.item.disposeAsset" class="form-group">
                                 <label class="col-md-2 control-label ">原值</label>
                                 <div class="col-md-4">
                                     <input type="text" class="form-control" ng-model="vm.item.originalValue"
@@ -195,7 +205,7 @@
                                 </div>
 
                             </div>
-                            <div class="form-group">
+                            <div ng-show="vm.item.disposeAsset" class="form-group">
                                 <label class="col-md-2 control-label ">已提折旧</label>
                                 <div class="col-md-4">
                                     <input type="text" class="form-control" ng-model="vm.item.depreciationAlready" name="depreciationAlready"  ng-disabled="processInstance.myRunningTaskName.indexOf('财务金融部（固定资产岗）')==-1" />
@@ -206,7 +216,7 @@
                                 </div>
 
                             </div>
-                            <div class="form-group">
+                            <div ng-show="vm.item.disposeAsset" class="form-group">
                                 <label class="col-md-2 control-label ">台账是否处理</label>
                                 <div class="col-md-4">
                                     <select ng-options="s.name as s.name for s in sysCodes | filter:{codeCatalog:'是否'}:true"

@@ -1,5 +1,6 @@
 package com.cmcu.mcc.business.web;
 
+import com.cmcu.mcc.business.entity.FiveBusinessAdvanceCollectDetail;
 import com.common.model.JsonData;
 import com.cmcu.common.util.MyPoiUtil;
 import com.cmcu.common.util.MyStringUtil;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedOutputStream;
@@ -26,6 +28,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -100,4 +103,32 @@ public class FiveBusinessAdvanceCollectController {
         return JsonData.success(fiveOaAdvanceCollectSevice.listDetail(collectId));
     }
 
+    @PostMapping("/updateDetails.json")
+    public  JsonData updateDetails(@RequestBody FiveBusinessAdvanceCollectDto item){
+        fiveOaAdvanceCollectSevice.updateDetails(item);
+        return JsonData.success();
+    }
+
+    @PostMapping("/updateDetail.json")
+    public  JsonData updateDetail(@RequestBody FiveBusinessAdvanceCollectDetail detail){
+        fiveOaAdvanceCollectSevice.updateDetail(detail);
+        return JsonData.success();
+    }
+
+    @PostMapping("/getModelDetailById.json")
+    public JsonData getModelDetailById(int id){
+        return JsonData.success(fiveOaAdvanceCollectSevice.getModelDetailById(id));
+    }
+    @PostMapping("/removeDetail.json")
+    public JsonData removeDetail(int  id){
+        fiveOaAdvanceCollectSevice.removeDetail(id);
+        return JsonData.success();
+    }
+
+    @PostMapping("/updateExcl.json")
+    public JsonData updateExcl(MultipartFile file, int id, String userLogin) throws IOException, ParseException {
+        List<Map> data = MyPoiUtil.listTableData(file.getInputStream(), 0, 0, true);
+        fiveOaAdvanceCollectSevice.uploadExcl(data,id,userLogin);
+        return JsonData.success();
+    }
 }

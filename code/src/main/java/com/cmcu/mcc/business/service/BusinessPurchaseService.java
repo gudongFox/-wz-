@@ -528,7 +528,7 @@ public class BusinessPurchaseService extends BaseService {
             item.setBusinessKey(EdConst.FIVE_BUSINESSCONTRACTLIBRARYSUBPACKAGE+"_"+item.getId());
             fiveBusinessContractLibrarySubpackageMapper.updateByPrimaryKey(item);
             //转附件
-            commonFileService.copyFileByBusinessKey(subpackage.getBusinessKey(),item.getBusinessKey());
+            commonFileService.copyFileByBusinessKey(subpackage.getBusinessKey(),item.getBusinessKey(),0);
             return "项目： "+subpackage.getSubContractName()+"  成功录入分包合同库";
         }
     }

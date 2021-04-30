@@ -96,13 +96,6 @@ public class FiveContentFileService extends BaseService {
         return fiveContentFileMapper.selectByPrimaryKey(id);
     }
 
-    public List<FiveContentFile> GetFilesByKey(String tableName,int tableKey){
-        Map params= Maps.newHashMap();
-        params.put("tableName",tableName);
-        params.put("tableKey",tableKey);
-        List<FiveContentFile> orderedList=fiveContentFileMapper.selectAll(params).stream().sorted(Comparator.comparing(FiveContentFile::getSeq).reversed()).collect(Collectors.toList());;
-        return  orderedList;
-    }
 
     //通过业务表名 表Id 获取顺序号
     public int GetSeqByKey(String tableName,int tableKey){
@@ -130,7 +123,6 @@ public class FiveContentFileService extends BaseService {
             return new FiveContentFileDto();
         }
     }
-
 
     public Map<String,Object> getModelByBusinessKey(String businessKey){
         Map<String,Object> model=Maps.newHashMap();

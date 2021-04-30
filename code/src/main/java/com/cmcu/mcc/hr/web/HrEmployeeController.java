@@ -41,6 +41,11 @@ public class HrEmployeeController {
         }
         return JsonData.success( hrEmployeeService.update(item));
     }
+    @PostMapping("/updateMobile.json")
+    public JsonData updateMobile( String enLogin,String mobile){
+        hrEmployeeService.updateMobile(enLogin,mobile);
+        return JsonData.success( );
+    }
 
     @PostMapping("/getModelByUserLogin.json")
     public JsonData getModelByUserLogin(String userLogin){
@@ -168,9 +173,8 @@ public class HrEmployeeController {
 
     @ResponseBody
     @PostMapping("/resetPassword.json")
-    public JsonData resetPassword(String userLogin,String password){
-        hrEmployeeSysService.resetPassword(userLogin,password);
-        return JsonData.success();
+    public JsonData resetPassword(String userLogin,String password,String checkCode){
+        return JsonData.success(hrEmployeeSysService.resetPassword(userLogin,password,checkCode));
     }
 
 
@@ -189,8 +193,8 @@ public class HrEmployeeController {
 
     @ResponseBody
     @PostMapping("/insert.json")
-    public JsonData insert(String userLogin,String userName,int deptId,String userType){
-        hrEmployeeSysService.insert(userLogin,userName,deptId,userType);
+    public JsonData insert(String userLogin,String userName,int deptId,String userType,String mobile){
+        hrEmployeeSysService.insert(userLogin,userName,deptId,userType,mobile);
         return JsonData.success();
     }
     @ResponseBody
@@ -201,11 +205,16 @@ public class HrEmployeeController {
     }
 
     @ResponseBody
+    @PostMapping("/getMobile.json")
+    public JsonData getMobile(String enLogin){
+        return JsonData.success( hrEmployeeSysService.getMobile(enLogin));
+    }
+
+    @ResponseBody
     @PostMapping("/selectAll.json")
     public JsonData selectAll(){
         return JsonData.success( hrEmployeeService.selectAll());
     }
-
 
 
     @RequestMapping("/downloadModel.json")

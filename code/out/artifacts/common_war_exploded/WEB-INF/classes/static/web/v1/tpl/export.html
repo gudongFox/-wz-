@@ -11,7 +11,7 @@
                 <i class="fa fa-angle-right"></i>
             </li>
             <li>
-                <span>通用导出管理1</span>
+                <span>通用导出管理</span>
             </li>
         </ul>
     </div>
@@ -126,7 +126,7 @@
                             <label class="col-md-3 control-label required">编码</label>
                             <div class="col-md-9">
                                 <textarea rows="3" class="form-control" ng-model="item.sqlText" required="true"
-                                       maxlength="6000" name="sqlText" placeholder="">
+                                          maxlength="6000" name="sqlText" placeholder=""></textarea>
                             </div>
                         </div>
 
@@ -141,6 +141,13 @@
                             <div class="col-md-9">
                                 <textarea id="maxlength_textarea" ng-model="item.remark" name="remark"  class="form-control" maxlength="225" rows="1" placeholder="">
                                 </textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label required" >是否生效</label>
+                            <div class="col-md-9">
+                                <select ng-model="item.deleted" name="deleted" class="form-control"  ng-options="!s.codeValue as s.name for s in sysCodes | filter:{codeCatalog:'是否'}:true">
+                                </select>
                             </div>
                         </div>
 

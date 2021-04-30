@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.cmcu.mcc.five.entity.FiveOaInlandProjectReview">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="project_no" jdbcType="INTEGER" property="projectNo" />
     <result column="project_name" jdbcType="VARCHAR" property="projectName" />
     <result column="project_content" jdbcType="VARCHAR" property="projectContent" />
     <result column="project_type" jdbcType="VARCHAR" property="projectType" />
@@ -37,7 +38,7 @@
     <result column="is_process_end" jdbcType="BIT" property="processEnd" />
     <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
     <result column="is_secret" jdbcType="BIT" property="secret" />
-    <result column="review_type" jdbcType="VARCHAR" property="reviewType" />
+    <result column="review_type" jdbcType="BIT" property="reviewType" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from five_oa_inland_project_review
@@ -47,34 +48,37 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into five_oa_inland_project_review (business_key, project_name, project_content, 
-      project_type, achievement, dept_id, 
-      dept_name, start_time, end_time, 
-      charge_men, charge_men_name, attender, 
-      attender_name, total_price, materials_cost, 
-      appropriative_cost, outsource_cost, meeting_cost, 
-      travel_cost, specialist_cost, fixe_asset_depreciation_cost, 
-      fuel_power_cost, salary_service_cost, scientific_first_trial, 
+    insert into five_oa_inland_project_review (business_key, project_no, project_name, 
+      project_content, project_type, achievement, 
+      dept_id, dept_name, start_time, 
+      end_time, charge_men, charge_men_name, 
+      attender, attender_name, total_price, 
+      materials_cost, appropriative_cost, outsource_cost, 
+      meeting_cost, travel_cost, specialist_cost, 
+      fixe_asset_depreciation_cost, fuel_power_cost, 
+      salary_service_cost, scientific_first_trial, 
       scientific_first_trial_name, remark, creator, 
       creator_name, gmt_create, gmt_modified, 
       is_deleted, is_process_end, process_instance_id, 
       is_secret, review_type)
-    values (#{businessKey,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR}, #{projectContent,jdbcType=VARCHAR}, 
-      #{projectType,jdbcType=VARCHAR}, #{achievement,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, 
-      #{deptName,jdbcType=VARCHAR}, #{startTime,jdbcType=VARCHAR}, #{endTime,jdbcType=VARCHAR}, 
-      #{chargeMen,jdbcType=VARCHAR}, #{chargeMenName,jdbcType=VARCHAR}, #{attender,jdbcType=VARCHAR}, 
-      #{attenderName,jdbcType=VARCHAR}, #{totalPrice,jdbcType=VARCHAR}, #{materialsCost,jdbcType=VARCHAR}, 
-      #{appropriativeCost,jdbcType=VARCHAR}, #{outsourceCost,jdbcType=VARCHAR}, #{meetingCost,jdbcType=VARCHAR}, 
-      #{travelCost,jdbcType=VARCHAR}, #{specialistCost,jdbcType=VARCHAR}, #{fixeAssetDepreciationCost,jdbcType=VARCHAR}, 
-      #{fuelPowerCost,jdbcType=VARCHAR}, #{salaryServiceCost,jdbcType=VARCHAR}, #{scientificFirstTrial,jdbcType=VARCHAR}, 
+    values (#{businessKey,jdbcType=VARCHAR}, #{projectNo,jdbcType=INTEGER}, #{projectName,jdbcType=VARCHAR}, 
+      #{projectContent,jdbcType=VARCHAR}, #{projectType,jdbcType=VARCHAR}, #{achievement,jdbcType=VARCHAR}, 
+      #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, #{startTime,jdbcType=VARCHAR}, 
+      #{endTime,jdbcType=VARCHAR}, #{chargeMen,jdbcType=VARCHAR}, #{chargeMenName,jdbcType=VARCHAR}, 
+      #{attender,jdbcType=VARCHAR}, #{attenderName,jdbcType=VARCHAR}, #{totalPrice,jdbcType=VARCHAR}, 
+      #{materialsCost,jdbcType=VARCHAR}, #{appropriativeCost,jdbcType=VARCHAR}, #{outsourceCost,jdbcType=VARCHAR}, 
+      #{meetingCost,jdbcType=VARCHAR}, #{travelCost,jdbcType=VARCHAR}, #{specialistCost,jdbcType=VARCHAR}, 
+      #{fixeAssetDepreciationCost,jdbcType=VARCHAR}, #{fuelPowerCost,jdbcType=VARCHAR}, 
+      #{salaryServiceCost,jdbcType=VARCHAR}, #{scientificFirstTrial,jdbcType=VARCHAR}, 
       #{scientificFirstTrialName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
       #{creatorName,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
       #{deleted,jdbcType=BIT}, #{processEnd,jdbcType=BIT}, #{processInstanceId,jdbcType=VARCHAR}, 
-      #{secret,jdbcType=BIT}, #{reviewType,jdbcType=VARCHAR})
+      #{secret,jdbcType=BIT}, #{reviewType,jdbcType=BIT})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.five.entity.FiveOaInlandProjectReview">
     update five_oa_inland_project_review
     set business_key = #{businessKey,jdbcType=VARCHAR},
+      project_no = #{projectNo,jdbcType=INTEGER},
       project_name = #{projectName,jdbcType=VARCHAR},
       project_content = #{projectContent,jdbcType=VARCHAR},
       project_type = #{projectType,jdbcType=VARCHAR},
@@ -108,28 +112,28 @@
       is_process_end = #{processEnd,jdbcType=BIT},
       process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
       is_secret = #{secret,jdbcType=BIT},
-      review_type = #{reviewType,jdbcType=VARCHAR}
+      review_type = #{reviewType,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select id, business_key, project_name, project_content, project_type, achievement, 
-    dept_id, dept_name, start_time, end_time, charge_men, charge_men_name, attender, 
-    attender_name, total_price, materials_cost, appropriative_cost, outsource_cost, meeting_cost, 
-    travel_cost, specialist_cost, fixe_asset_depreciation_cost, fuel_power_cost, salary_service_cost, 
-    scientific_first_trial, scientific_first_trial_name, remark, creator, creator_name, 
-    gmt_create, gmt_modified, is_deleted, is_process_end, process_instance_id, is_secret, 
-    review_type
+    select id, business_key, project_no, project_name, project_content, project_type, 
+    achievement, dept_id, dept_name, start_time, end_time, charge_men, charge_men_name, 
+    attender, attender_name, total_price, materials_cost, appropriative_cost, outsource_cost, 
+    meeting_cost, travel_cost, specialist_cost, fixe_asset_depreciation_cost, fuel_power_cost, 
+    salary_service_cost, scientific_first_trial, scientific_first_trial_name, remark, 
+    creator, creator_name, gmt_create, gmt_modified, is_deleted, is_process_end, process_instance_id, 
+    is_secret, review_type
     from five_oa_inland_project_review
     where id = #{id,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select id, business_key, project_name, project_content, project_type, achievement, 
-    dept_id, dept_name, start_time, end_time, charge_men, charge_men_name, attender, 
-    attender_name, total_price, materials_cost, appropriative_cost, outsource_cost, meeting_cost, 
-    travel_cost, specialist_cost, fixe_asset_depreciation_cost, fuel_power_cost, salary_service_cost, 
-    scientific_first_trial, scientific_first_trial_name, remark, creator, creator_name, 
-    gmt_create, gmt_modified, is_deleted, is_process_end, process_instance_id, is_secret, 
-    review_type
+    select id, business_key, project_no, project_name, project_content, project_type, 
+    achievement, dept_id, dept_name, start_time, end_time, charge_men, charge_men_name, 
+    attender, attender_name, total_price, materials_cost, appropriative_cost, outsource_cost, 
+    meeting_cost, travel_cost, specialist_cost, fixe_asset_depreciation_cost, fuel_power_cost, 
+    salary_service_cost, scientific_first_trial, scientific_first_trial_name, remark, 
+    creator, creator_name, gmt_create, gmt_modified, is_deleted, is_process_end, process_instance_id, 
+    is_secret, review_type
     from five_oa_inland_project_review
     <include refid="Base_Where_List" />
     <include refid="Base_Where_List1" />
@@ -142,6 +146,9 @@
       </if>
       <if test="businessKey != null and isLikeSelect==null and businessKey != ''">
          AND business_key = #{businessKey}
+      </if>
+      <if test="projectNo != null and isLikeSelect==null">
+         AND project_no = #{projectNo}
       </if>
       <if test="projectName != null and isLikeSelect==null and projectName != ''">
          AND project_name = #{projectName}
@@ -242,7 +249,7 @@
       <if test="secret != null and isLikeSelect==null">
          AND is_secret = #{secret}
       </if>
-      <if test="reviewType != null and isLikeSelect==null and reviewType != ''">
+      <if test="reviewType != null and isLikeSelect==null">
          AND review_type = #{reviewType}
       </if>
     </where>
@@ -332,9 +339,6 @@
       </if>
       <if test="processInstanceId != null and isLikeSelect!= null and processInstanceId != '' ">
          AND process_instance_id like  CONCAT('%',#{processInstanceId},'%')
-      </if>
-      <if test="reviewType != null and isLikeSelect!= null and reviewType != '' ">
-         AND review_type like  CONCAT('%',#{reviewType},'%')
       </if>
       <if test="deleted != null and isLikeSelect!=null">
          AND is_deleted = #{deleted}

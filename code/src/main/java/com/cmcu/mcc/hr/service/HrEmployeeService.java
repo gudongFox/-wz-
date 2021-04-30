@@ -56,6 +56,7 @@ public class HrEmployeeService {
         data.put("userLogin","");
         data.put("userName","");
         data.put("deptId",1);
+        data.put("mobile","");
 
         HrEmployeeSys hrEmployeeSys=hrEmployeeSysMapper.selectLastOne();
         if(hrEmployeeSys!=null) {
@@ -632,5 +633,11 @@ public class HrEmployeeService {
             }
         }
         return list;
+    }
+
+    public void updateMobile(String enLogin,String mobile){
+        HrEmployeeDto hrEmployeeDto = hrEmployeeMapper.selectByUserLoginOrNo(enLogin);
+        hrEmployeeDto.setMobile(mobile);
+        hrEmployeeMapper.updateByPrimaryKey(hrEmployeeDto);
     }
 }

@@ -37,8 +37,8 @@
                                                               <span ng-if="!task.passed"
                                                                     style="color: red;font-weight: bold;">打回 | </span>
                                                         </span>
-                <span ng-bind="task.latestComment" style="cursor: pointer;" ></span>
-                <span class="label label-sm label-info" ng-show="task.comments.length>1" ng-bind="task.comments.length"></span>
+                <span id="{{'comment_'+task.taskId}}" ng-bind="task.latestComment" style="cursor: pointer;" ></span>
+                <span class="label label-sm label-info"  ng-show="task.comments.length>1" ng-bind="task.comments.length"></span>
             </td>
         </tr>
         </tbody>

@@ -65,19 +65,30 @@
                                 <label class="col-md-2 control-label required">设备序列号</label>
                                 <div class="col-md-4">
                                     <input type="text" class="form-control" ng-model="vm.item.equipmentNo" name="equipmentNo" required="true"   ng-disabled="!processInstance.firstTask"/>
+                                    <span  style="color: red">设备序列号为: SN（Serial No.）码</span>
                                 </div>
                             </div>
-                             <div class="form-group">
-                                 <label class="col-md-2 control-label required">设备编号</label>
-                                 <div class="col-md-4">
-                                     <div class="input-group">
-                                         <input type="text" class="form-control" ng-model="vm.item.formNo" name="formNo" required="true" ng-disabled="processInstance.myRunningTaskName.indexOf('信息化建设与管理部')==-1"/><%----%>
-                                         <span class="input-group-btn" >
-                                            <button class="btn default" type="button" ng-click="vm.getEquipmentNo();" ng-disabled="processInstance.myRunningTaskName.indexOf('信息化建设与管理部')==-1"><i class="fa fa-refresh"></i></button>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label required">采购审批编号</label>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" ng-model="vm.item.diskNo" name="diskNo" required="true" ng-disabled="!processInstance.firstTask" />
+                                        <span class="input-group-btn" >
+                                            <button class="btn default" type="button" ng-click="vm.showEquipmentApply();" ng-disabled="!processInstance.firstTask"><i class="fa fa-cog"></i></button>
                                          </span>
-                                     </div>
-                                 </div>
-                             </div>
+                                        <span class="input-group-btn" >
+                                            <button class="btn default" type="button" ng-click="vm.showDetailApply();" ng-disabled="vm.item.equipmentApply==null" ><i class="fa fa-star"></i></button>
+                                         </span>
+                                    </div>
+                                    <span style="color: red">点击<i style="color: black" class="fa fa-cog"></i>选择采购审批单,点击<i style="color: black" class="fa fa-star"></i>显示所选择的审批单详情</span>
+                                </div>
+                                <label class="col-md-2 control-label required">验收价格（元）</label>
+                                <div class="col-md-4">
+                                    <input  type="text" class="form-control" ng-model="vm.item.checkPrice" name="checkPrice" required="true"  ng-disabled="!processInstance.firstTask"/>
+                                    <span style="color: red;font-size:12px">不含税价格</span>
+                                </div>
+                            </div>
+
                             <div class="form-group">
                                 <label class="col-md-2 control-label required">所属单位</label>
                                 <div class="col-md-4">
@@ -176,41 +187,28 @@
                                             ng-disabled="!processInstance.firstTask"></select>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-md-2 control-label required">采购审批编号</label>
-                                <div class="col-md-4">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" ng-model="vm.item.diskNo" name="diskNo" required="true" ng-disabled="!processInstance.firstTask" />
-                                        <span class="input-group-btn" >
-                                            <button class="btn default" type="button" ng-click="vm.showEquipmentApply();" ng-disabled="!processInstance.firstTask"><i class="fa fa-cog"></i></button>
-                                         </span>
-                                        <span class="input-group-btn" >
-                                            <button class="btn default" type="button" ng-click="vm.showDetailApply();" ng-disabled="vm.item.equipmentApply==null" ><i class="fa fa-star"></i></button>
-                                         </span>
-                                    </div>
-                                </div>
-                                <label class="col-md-2 control-label required">验收价格（元）</label>
-                                <div class="col-md-4">
-                                    <input  type="text" class="form-control" ng-model="vm.item.checkPrice" name="checkPrice" required="true"  ng-disabled="!processInstance.firstTask"/>
-                                </div>
-                              <%--  <label class="col-md-2 control-label required">验收日期</label>
-                                <div class="col-md-4">
-                                    <div class="input-group date date-picker" id="acceptTime">
-                                        <input type="text"  class="form-control" required="true" name="acceptTime"
-                                               ng-disabled="!processInstance.firstTask"
-                                               ng-model="vm.item.acceptTime" placeholder="验收日期">
-                                        <span class="input-group-btn">
-												<button class="btn default" type="button"ng-disabled="!processInstance.firstTask"><i class="fa fa-calendar"></i></button>
-												</span>
-                                    </div>
-                                </div>--%>
-                            </div>
+
                             <div class="form-group">
                                 <label class="col-md-2 control-label ">备注</label>
                                 <div class="col-md-10">
                                     <input  type="text" class="form-control" ng-model="vm.item.macAddress" name="macAddress"    ng-disabled="!processInstance.firstTask"/>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="col-md-2" style="color: red;text-align: right">信息化建设与管理部填写:</label>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label required">设备编号</label>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" ng-model="vm.item.formNo" name="formNo" required="true" ng-disabled="processInstance.myRunningTaskName.indexOf('信息化建设与管理部')==-1"/><%----%>
+                                        <span class="input-group-btn" >
+                                            <button class="btn default" type="button" ng-click="vm.getEquipmentNo();" ng-disabled="processInstance.myRunningTaskName.indexOf('信息化建设与管理部')==-1"><i class="fa fa-refresh"></i></button>
+                                         </span>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="form-group">
                                 <label class="col-md-2" style="color: red;text-align: right">行政事务部人员填写:</label>
                             </div>

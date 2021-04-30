@@ -112,14 +112,15 @@
 
                                 <label class="col-md-2 control-label " style="font-weight: bold;font-size: 18px"><strong>上报内容</strong></label>
                                 <div class="col-md-4">
-                                    <%--原内容 <a href="#" ng-click="rh.readDocOnly(redheadFile.id,redheadFile.fileName)" ng-bind="redheadFile.fileName"></a>--%>&nbsp;&nbsp;
-                                    <a href="#"   ng-click="rh.readDocOnly(redheadFile.id,redheadFile.fileName)" ng-bind="redheadFile.fileName"></a>&nbsp;&nbsp;
-
-                                        <span id="btnUpload0" class="btn btn-sm default fileinput-button" ng-show="processInstance.firstTask">
-                                    <i class="fa fa-cloud-upload" ></i><span>上传</span>
-                                    <input id="redHead" type="file" name="singleUpload" ></span>
-
-                                    <span class='btn btn-sm default fileinput-button' ng-click=" rh.remove(vm.item.businessKey,redheadFile.id)" ng-if="redheadFile!=undefined&&processInstance.firstTask"><i class='fa fa-trash'></i><span>删除</span></span>
+                                    <span id="btnUpload" class="btn btn-sm btn-default fileinput-button yellow-stripe">
+                            <i class="fa fa-upload"></i>
+                            <span>上传</span>
+                            <input type="file" name="file" id="uploadFile1"
+                                   multiple accept="application/vnd.ms-excel">
+                </span>
+                                    <a href="/assets/doc/导出模板/月度预支奖金签发单.xls" class="btn btn-sm btn-default yellow-stripe"
+                                       ng-show="processInstance.firstTask">
+                                        <i class="fa fa-download"></i> 模板下载 </a>
                                 </div>
                             </div>
                         </div>
@@ -166,7 +167,10 @@
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-file"></i>明细
-            <a href="javascript:;" class="btn btn-sm btn-default" ng-click="vm.showDetailModel();"  style="font-size: 14px;line-height: 1.6">
+        </div>
+
+        <div class="actions">
+            <a id="addBtn"  class="btn btn-sm btn-default" ng-click="vm.showDetailModel(0);">
                 <i class="fa fa-refresh"></i> 刷新 </a>
         </div>
     </div>
@@ -180,6 +184,7 @@
                     <th>申请额度（万元）</th>
                     <th>公司核定额度（万元）</th>
                     <th>实际发放额度（万元）</th>
+                    <th style="width: 55px;">操作</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -190,12 +195,74 @@
                     <td ng-bind="detail.applyMoney"></td>
                     <td ng-bind="detail.companyMoney"></td>
                     <td ng-bind="detail.realMoney"></td>
+                    <td>
+                        <i class="fa fa-edit margin-right-5" ng-click="vm.showDetailModel(detail.id);"
+                           title="详情"></i>
+                    </td>
                 </tr>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+<div class="modal fade" id="detailModel" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title margin-right-10">预支详情</h4>
+
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form" style="padding-right: 30px;" id="detailForm">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label required">单位名称</label>
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="vm.detail.deptName" name="deptName"  required="true" readonly/>
+                                <span class="input-group-btn" >
+                                            <button class="btn default" type="button" ng-click="vm.showUserModel('personName');" ng-disabled="!processInstance.firstTask"><i class="fa fa-user"></i></button>
+                                         </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label required">申请额度（万元）</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" ng-model="vm.detail.applyMoney" ng-disabled="!processInstance.firstTask"
+                                   name="applyMoney" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label required" >公司核定额度（万元）</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" ng-model="vm.detail.companyMoney" name="companyMoney" ng-disabled="!processInstance.firstTask">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label required">实际发放额度（万元）</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" ng-model="vm.detail.realMoney" name="realMoney" ng-disabled="!processInstance.firstTask">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">备注</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" ng-model="vm.detail.remark" name="remark" ng-disabled="!processInstance.firstTask">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn default" ng-click="" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn blue" ng-click="vm.saveDetail();" ng-show="processInstance.firstTask">保存</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
 <div ng-include="'/web/v1/tpl/cloudDirAndFile.html'"  ng-init="fileTplTitle='业务附件'"></div>
 
 <jsp:include page="../print/print.jsp"/>

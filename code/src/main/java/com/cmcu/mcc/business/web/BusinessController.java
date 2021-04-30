@@ -217,5 +217,16 @@ public class BusinessController {
         return modelAndView;
     }
 
+    @RequestMapping("/statistics")
+    public ModelAndView statistics(){
+        ModelAndView modelAndView=new ModelAndView("/five/business/statistics");
+        return modelAndView;
+    }
+    @RequestMapping("/statisticsDetail")
+    public ModelAndView statisticsDetail(){
+        ModelAndView modelAndView=new ModelAndView("/five/business/statisticsDetail");
+        return modelAndView;
+    }
+
 }
 

@@ -11,7 +11,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span>固定资产调拨</span>
+            <span ng-bind="tableName">固定资产调拨</span>
         </li>
     </ul>
 </div>
@@ -21,7 +21,7 @@
         <div class="portlet blue box">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="icon-note"></i> <span >固定资产调拨</span>
+                    <i class="icon-note"></i> <span ng-bind="tableName">固定资产调拨</span>
                 </div>
                 <div class="actions">
                     <a href="javascript:;" class="btn btn-sm btn-default" ng-click="vm.loadPagedData();">

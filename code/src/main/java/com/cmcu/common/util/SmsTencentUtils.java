@@ -37,9 +37,9 @@ public class SmsTencentUtils {
 	public static final String SDK_APPID = "1400475098";//1302806556
 
 	// 密钥ID；
-	public static final String SECRET_ID = "AKIDhaGdjYd0ILEsMansfRv8eaFelfHhsNhm";
+	public static final String SECRET_ID = "AKIDqcBWcRZQEUgfZKnO6fORO8eEhwFAMk82";
     //密钥KEY
-	public static final String SECRET_KEY = "yJI59xUmlWFj3B91cYFix3fPXR4Wji02";
+	public static final String SECRET_KEY = "3qp54oa9HCpHaKo9RWLuhFYcavR5fz4u";
 	//发送模板
 	public static final String TEMPLETE_ID="847207";//密码重置 847217  新设备登录 847207  审批通过847193
 
@@ -80,7 +80,7 @@ public class SmsTencentUtils {
 			System.out.println("发送状态:"+sendStatusSet.getCode());
 			return true;
 		} catch (Exception   e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			System.out.println("发送短信异常!");
 			return false;
 		}

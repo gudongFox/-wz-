@@ -227,6 +227,7 @@ public class HrQualifyService {
         params.put("checkYear",checkYear);
        List<String> majorNames= commonCodeService.listDataByCatalog(MccConst.APP_CODE,"设计专业").stream().map(CommonCode::getName).collect(Collectors.toList());
         //系统用户
+        params.put("userStatus","在职");
         List<HrEmployeeDto> employees=hrEmployeeMapper.selectAll(params);
         //设计资格
         List<HrQualify>  existList=hrQualifyMapper.selectAll(params);

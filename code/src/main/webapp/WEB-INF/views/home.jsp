@@ -7,6 +7,16 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
+    .fontSpan {
+        max-width: 90%;
+        display: inline-block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+        white-space:nowrap;
+        vertical-align:middle;
+    }
+
     .cssTask
     {
         font-size: 16px;
@@ -51,11 +61,12 @@
                             <li ng-repeat=" notice in vm.noticeList">
                                 <a href="javascript:;">
                                     <div class="col1" >
-                                        <div class="cssFont desc" style="line-height: 2;vertical-align:bottom"  >
-                                            <span ng-bind="notice.noticeTitle" ng-click="vm.showNoticeDetail(notice.id,notice.attachId,notice.businessKey)"></span>
-                                            <span ng-show="notice.top"  class="label label-sm label-danger ">置顶</span>
-                                            <span ng-show="notice.latest" class="label label-sm label-danger"> 新 </span>
+                                        <div class="cssFont desc" style="line-height: 2;vertical-align:bottom;display: inline-block"  >
+                                            <span class="fontSpan" ng-bind="notice.noticeTitle" ng-click="vm.showNoticeDetail(notice.id,notice.attachId,notice.businessKey)"></span>
+                                            <span ng-show="notice.top" style="vertical-align:middle"  class="label label-sm label-danger ">置顶</span>
+                                            <span ng-show="notice.latest" style="vertical-align:middle"  class="label label-sm label-danger"> 新 </span>
                                         </div>
+
                                     </div>
                                     <div class="col2">
                                         <div class="cssDate date" ng-bind="notice.gmtCreate|date:'yyyy/MM/dd'"></div>
@@ -91,14 +102,14 @@
             <div class="carousel-inner">
                 <div class="item active " ng-repeat="newphoto in vm.newsPhotoList" ng-if="$index==0" ng-click="vm.showNoticeDetail(newphoto.id)">
                     <img style="height: 410px;width:100%"  class="img-responsive" ng-src="{{'/sys/attach/download/'+newphoto.photoAttachId}}" alt="First slide">
-                    <div class="cssFont carousel-caption" style="margin-right: 0px;" ng-bind="newphoto.noticeTitle">
-
+                    <div class=" carousel-caption" style="margin-right: 0px;text-align: center" >
+                        <span class="fontSpan" ng-bind="newphoto.noticeTitle"></span>
                     </div>
                 </div>
                 <div class="item text-center " ng-repeat="newphoto in vm.newsPhotoList" ng-if="$index!=0" ng-click="vm.showNoticeDetail(newphoto.id)">
                     <img style="height: 410px;width:100%"  class="img-responsive" ng-src="{{'/sys/attach/download/'+newphoto.photoAttachId}}" alt="First slide">
-                    <div class="cssFont carousel-caption" style="margin-right: 0px;" ng-bind="newphoto.noticeTitle">
-
+                    <div class=" carousel-caption" style="margin-right: 0px;text-align: center" >
+                         <span class="fontSpan" ng-bind="newphoto.noticeTitle"></span>
                     </div>
                 </div>
             </div>
@@ -147,16 +158,16 @@
                                 <li ng-repeat="task in vm.tasks" repeat-finish="initMetronic()">
                                     <a  href="javascript:;"  ng-click="vm.showDetail(task.businessKey);">
                                         <div class="col1" >
-                                            <div class="cssFont desc" style="line-height: 2;vertical-align:bottom">
+                                            <div class=" cssFont desc" style="line-height: 2;vertical-align:bottom">
                                                 <div ng-if="task.processDescription!=''">
-                                                    <span ng-bind="task.processDescription"></span>
-                                                    <span ng-show="task.ccTask"  class="label label-sm label-default ">抄送</span>
-                                                    <span ng-hide="task.outTime" class="label label-sm label-danger ">超期</span>
+                                                    <span class="fontSpan"   ng-bind="task.processDescription"></span>
+                                                    <span ng-show="task.ccTask" style="vertical-align:middle;" class="label label-sm label-default ">抄送</span>
+                                                    <span ng-hide="task.outTime" style="vertical-align:middle;" class="label label-sm label-danger ">超期</span>
                                                 </div>
-                                                <div ng-if="task.processDescription==''">
-                                                    <span ng-bind="task.processDefinitionName"></span>
-                                                     <span ng-show="task.ccTask"  class="label label-sm label-default ">抄送</span>
-                                                    <span ng-hide="task.outTime" class="label label-sm label-danger ">超期</span>
+                                                <div class=" cssFont desc" style="line-height: 2;vertical-align:bottom" ng-if="task.processDescription==''">
+                                                    <span class="fontSpan" ng-bind="task.processDefinitionName"></span>
+                                                     <span ng-show="task.ccTask" style="vertical-align:middle;"  class="label label-sm label-default ">抄送</span>
+                                                    <span ng-hide="task.outTime" style="vertical-align:middle;" class="label label-sm label-danger ">超期</span>
                                                 </div>
                                             </div>
                                         </div>

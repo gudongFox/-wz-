@@ -36,7 +36,7 @@
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
 
-        <table tableName="five_finance_subpackage_payment_detail">
+        <table tableName="five_finance_back_letter">
             <generatedKey column="id" sqlStatement="mysql" identity="true"/>
         </table>
     </context>-->
@@ -70,7 +70,7 @@
         <property name="enableSubPackages" value="false"/>
     </javaClientGenerator>
 
-    <table tableName="five_business_advance_collect_detail">
+    <table tableName="five_business_statistics">
         <generatedKey column="id" sqlStatement="mysql" identity="true"/>
     </table>
 </context>
@@ -209,7 +209,7 @@
         </javaClientGenerator>
 
 
-        <table tableName="five_oa_non_secret_equipment_scrap">
+        <table tableName="five_oa_inland_project_review">
             <generatedKey column="id" sqlStatement="mysql" identity="true"/>
         </table>
     </context>-->

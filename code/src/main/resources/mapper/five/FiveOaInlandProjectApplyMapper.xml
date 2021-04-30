@@ -339,6 +339,9 @@
       <if test="deleted != null and isLikeSelect!=null">
          AND is_deleted = #{deleted}
       </if>
+      <if test="processEnd != null and isLikeSelect!=null">
+        AND is_process_end = #{processEnd}
+      </if>
       <if test="deptId != null and isLikeSelect!=null">
          AND dept_id = #{deptId}
       </if>

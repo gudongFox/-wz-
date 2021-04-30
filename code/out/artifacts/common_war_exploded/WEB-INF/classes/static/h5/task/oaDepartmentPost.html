@@ -25,7 +25,7 @@
                             </div>
                           <div class="mui-input-row">
                                 <label style="color: black">正文</label>
-                                <a style="text-align: center;line-height:100%" ng-href="/wuzhou/file/downloadRedHead/{{vm.item.businessKey}}" ng-bind="vm.redheadFile.redhead.fileName"></a>
+                                <a style="text-align: center;line-height:100%" ng-click="vm.openRead(vm.redheadFile.redhead.id);" ng-bind="vm.redheadFile.redhead.fileName"></a>
                             </div>
                          <div class="mui-input-row">
                                 <label style="color: black">发文</label>

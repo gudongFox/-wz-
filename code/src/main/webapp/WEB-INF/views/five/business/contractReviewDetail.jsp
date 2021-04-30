@@ -64,32 +64,15 @@
                     <form class="form-horizontal form" role="form" id="detail_form">
                         <div class="form-body">
                             <div class="form-group">
-                                <label class="col-md-2 control-label required" >客户名称</label>
-                                <div class="col-md-4">
-                                    <div class="input-group">
-                                        <input type="text" readonly class="form-control" ng-model="vm.item.customerName" name="customerName"  required="true"  />
-                                        <span class="input-group-btn">
-                                            <button class="btn default" type="button" ng-click="vm.selectCustomer();" ng-disabled="!processInstance.firstTask"><i class="fa fa-user"></i></button>
-                                        </span>
-                                    </div>
-                                </div>
-                                <label class="col-md-2 control-label required">客户编号</label>
-                                <div class="col-md-4">
-                                    <input type="text" class="form-control" placeholder="客户编号" ng-model="vm.item.customerCode" ng-disabled="!processInstance.firstTask"
-                                           required="true" maxlength="50"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
                                 <label class="col-md-2 control-label required">是否为补充合同</label>
                                 <div class="col-md-4">
                                     <select ng-options="s.codeValue as s.name for s in sysCodes | filter:{codeCatalog:'是否'}:true"
                                             ng-model="vm.item.main" class="form-control" ng-disabled="!processInstance.firstTask"></select>
                                 </div>
-                                <label class="col-md-2 control-label required">合同额(万元)</label>
-                                <div class="col-md-4">
-                                    <input ng-model="vm.item.contractMoney" name="contractMoney" class="form-control" required ng-disabled="!processInstance.firstTask">
-                                </div>
+
                             </div>
+
+
                             <div class="form-group" ng-if="vm.item.main">
                                 <label class="col-md-2 control-label required" >主合同名称</label>
                                 <div class="col-md-4" >
@@ -110,7 +93,7 @@
                                     <input type="text" class="form-control" ng-model="vm.item.mainContractLibraryNo" name="mainContractLibraryNo" required="true"    disabled/>
                                 </div>
                             </div>
-                            <div class="form-group" ng-if="!vm.item.main">
+                            <div class="form-group" style="background-color: #e5f2ff" ng-if="!vm.item.main">
                                 <label class="col-md-2 control-label required">备案项目名称</label>
                                 <div class="col-md-4">
                                     <div class="input-group">
@@ -134,48 +117,24 @@
                                     </div>
 
                             </div>
-                            <div class="form-group">
-                                <label class="col-md-2 control-label required"><strong>合同类型</strong></label>
-                                <div class="col-md-4">
-                                    <select ng-options="s.name as s.name for s in sysCodes | filter:{codeCatalog:'合同类型'}:true"
-                                            ng-model="vm.item.contractType" class="form-control"
-                                            ng-disabled="!(processInstance.firstTask)"></select>
-                                </div>
-                                <label class="col-md-2 control-label required"><strong>预计签约日期</strong></label>
-                                <div class="col-md-4">
-                                    <div class="input-group date date-picker" id="planSignTime">
-                                        <input type="text" class="form-control"
-                                               ng-model="vm.item.planSignTime" required="true"
-                                               ng-disabled="!(processInstance.firstTask)">
-                                        <span class="input-group-btn">
-                                    <button class="btn default" type="button"
-                                            ng-disabled="!(processInstance.firstTask)"><i
-                                            class="fa fa-calendar"></i></button></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-2 control-label required"><strong>合同名称</strong></label>
-                                <div class="col-md-4">
-                                    <input type="text" class="form-control" ng-model="vm.item.contractName"
-                                           name="contractName" required="true"
-                                           ng-disabled="!processInstance.firstTask"/>
-                                </div>
-                                <label class="col-md-2 control-label required">合同号</label>
+                            <div class="form-group" style="background-color: #e5f2ff">
+                                <label class="col-md-2 control-label required" >客户名称</label>
                                 <div class="col-md-4">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" ng-model="vm.item.contractNo" name="contractNo" required="true"    readonly/>
+                                        <input type="text" readonly class="form-control" ng-model="vm.item.customerName" name="customerName"  required="true"  />
                                         <span class="input-group-btn">
-                                            <button class="btn default" type="button" ng-click="vm.getContractNo();"
-                                                    ng-disabled="!processInstance.firstTask"> <i
-                                                    class="fa fa-refresh"></i></button>
+                                            <button class="btn default" type="button" ng-click="vm.selectCustomer();" ng-disabled="!processInstance.firstTask"><i class="fa fa-user"></i></button>
                                         </span>
                                     </div>
                                 </div>
-
+                                <label class="col-md-2 control-label required">客户编号</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" placeholder="客户编号" ng-model="vm.item.customerCode" disabled
+                                           required="true" maxlength="50"/>
+                                </div>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group" style="background-color: #e5f2ff">
                                 <label class="col-md-2 control-label required"><strong>承接部门</strong></label>
                                 <div class="col-md-4">
                                     <div class="input-group">
@@ -194,26 +153,25 @@
                                     <input type="text" class="form-control" ng-model="vm.item.investMoney" name="investMoney" required="true"    ng-disabled="!processInstance.firstTask"/>
                                 </div>
                             </div>
-                            <div class="form-group">
-                            <%--                                <label class="col-md-2 control-label required">合同额（万元）</label>
-                                                            <div class="col-md-4">
-                                                                <input type="text" class="form-control" ng-model="vm.item.contractMoney" name="contractMoney" required="true"    ng-disabled="!processInstance.firstTask"/>
-                                                            </div>--%>
-                            <label class="col-md-2 control-label required">投资来源</label>
-                            <div class="col-md-4">
-                                <select ng-options="s.name as s.name for s in sysCodes | filter:{codeCatalog:'投资来源'}:true"
-                                        ng-model="vm.item.investSource" class="form-control"
-                                        ng-disabled="!processInstance.firstTask"></select> </div>
-                            <label class="col-md-2 control-label required">项目性质</label>
-                            <div class="col-md-4">
-                                <select ng-options="s.name as s.name for s in sysCodes | filter:{codeCatalog:'五洲项目类型'}:true"
-                                        ng-model="vm.item.projectNature" class="form-control"
-                                        ng-disabled="!(processInstance.firstTask)"></select>
-                            </div>
+                            <div class="form-group" style="background-color: #e5f2ff">
+                                <%--                                <label class="col-md-2 control-label required">合同额（万元）</label>
+                                                                <div class="col-md-4">
+                                                                    <input type="text" class="form-control" ng-model="vm.item.contractMoney" name="contractMoney" required="true"    ng-disabled="!processInstance.firstTask"/>
+                                                                </div>--%>
+                                <label class="col-md-2 control-label required">投资来源</label>
+                                <div class="col-md-4">
+                                    <select ng-options="s.name as s.name for s in sysCodes | filter:{codeCatalog:'投资来源'}:true"
+                                            ng-model="vm.item.investSource" class="form-control"
+                                            ng-disabled="!processInstance.firstTask"></select> </div>
+                                <label class="col-md-2 control-label required">项目性质</label>
+                                <div class="col-md-4">
+                                    <select ng-options="s.name as s.name for s in sysCodes | filter:{codeCatalog:'五洲项目类型'}:true"
+                                            ng-model="vm.item.projectNature" class="form-control"
+                                            ng-disabled="!(processInstance.firstTask)"></select>
+                                </div>
 
                             </div>
-
-                            <div class="form-group">
+                            <div class="form-group" style="background-color: #e5f2ff">
                                 <label class="col-md-2 control-label required">建设规模</label>
                                 <div class="col-md-4">
                                     <input type="text" class="form-control" ng-model="vm.item.constructionScale" name="constructionScale"   ng-disabled="!processInstance.firstTask"/>
@@ -223,7 +181,53 @@
                                     <input type="text" class="form-control" ng-model="vm.item.constructionArea" name="constructionArea" required="true"    ng-disabled="!processInstance.firstTask"/>
                                 </div>
                             </div>
+
                             <div class="form-group">
+                                <label class="col-md-2 control-label required"><strong>合同类型</strong></label>
+                                <div class="col-md-4">
+                                    <select ng-options="s.name as s.name for s in sysCodes | filter:{codeCatalog:'合同类型'}:true"
+                                            ng-model="vm.item.contractType" class="form-control"
+                                            ng-disabled="!(processInstance.firstTask)"></select>
+                                </div>
+
+                                <label class="col-md-2 control-label required"><strong>合同名称</strong></label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="vm.item.contractName"
+                                           name="contractName" required="true"
+                                           ng-disabled="!processInstance.firstTask"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label required">合同额(万元)</label>
+                                <div class="col-md-4">
+                                    <input ng-model="vm.item.contractMoney" name="contractMoney" class="form-control" required ng-disabled="!processInstance.firstTask">
+                                </div>
+                                <label class="col-md-2 control-label required">合同号</label>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" ng-model="vm.item.contractNo" name="contractNo" required="true"    readonly/>
+                                        <span class="input-group-btn">
+                                            <button class="btn default" type="button" ng-click="vm.getContractNo();"
+                                                    ng-disabled="!processInstance.firstTask"> <i
+                                                    class="fa fa-refresh"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label required"><strong>预计签约日期</strong></label>
+                                <div class="col-md-4">
+                                    <div class="input-group date date-picker" id="planSignTime">
+                                        <input type="text" class="form-control"
+                                               ng-model="vm.item.planSignTime" required="true"
+                                               ng-disabled="!(processInstance.firstTask)">
+                                        <span class="input-group-btn">
+                                    <button class="btn default" type="button"
+                                            ng-disabled="!(processInstance.firstTask)"><i
+                                            class="fa fa-calendar"></i></button></span>
+                                    </div>
+                                </div>
                                 <label class="col-md-2 control-label required">是否开具保函</label>
                                 <div class="col-md-4">
                                     <select ng-options="s.codeValue as s.name for s in sysCodes | filter:{codeCatalog:'是否开具保函'}:true"

@@ -22,8 +22,8 @@ import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;
+import org.apache.poi.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.util.FileCopyUtils;
@@ -142,11 +142,11 @@ public class IndexController {
     public ModelAndView changePassword( HttpServletRequest request){
         ModelAndView modelAndView = new ModelAndView("changePassword");
         modelAndView.addObject("version", DateFormatUtils.format(new Date(), "yyyyMMdd"));
-        String userLogin1 = (String) request.getSession().getAttribute("userLogin");
+        String userLogin1 = (String) request.getSession().getAttribute("enLogin");
         String message = (String) request.getSession().getAttribute("message");
         String userNo = (String) request.getSession().getAttribute("userNo");
         //String userLogin=CookieSessionUtils.getCookie(MccConst.EN_LOGIN);
-        modelAndView.addObject("userLogin",userLogin1);
+        modelAndView.addObject("enLogin",userLogin1);
         modelAndView.addObject("message",message);
         modelAndView.addObject("userNo",userNo);
         modelAndView.addObject("userName",selectEmployeeService.getNameByUserLogin(userLogin1));
@@ -285,43 +285,55 @@ public class IndexController {
 
 
     @PostMapping("/login")
-    public void login(String enLogin, String password, Boolean remember, HttpServletRequest request, HttpServletResponse response)throws IOException, ServletException {
+    public void login(String enLogin, String password,String  checkCode, HttpServletRequest request, HttpServletResponse response)throws IOException, ServletException {
         String errorMsg = "";
         String ret = request.getParameter("ret");
-
+        String ip = IpUtil.getUserIP(request);
         UserDto userDto = userDataService.selectByEnLogin(enLogin);
-        if (userDto == null) {
+       //Boolean IsCheck = (Boolean) IsCheckCode(ip, enLogin).getData();
+
+        if (userDto.isDeleted()||userDto == null) {
             errorMsg = "验证信息失败";
         } else if (StringUtils.isBlank(enLogin)) {
             errorMsg = "验证信息不可以为空";
         } else if (StringUtils.isBlank(password)) {
             errorMsg = "验证信息不可以为空";
-        }else if(!CryptionUtil.stringToMd5Base64(password).equalsIgnoreCase(userDto.getEncryptPwd())){
+        } else if(!CryptionUtil.stringToMd5Base64(password).equalsIgnoreCase(userDto.getEncryptPwd())){
             //如果使用管理员密码不验证
-            if(CryptionUtil.stringToMd5Base64(password).equalsIgnoreCase("M/jlxP2Xu5wu3KuPQ/rmbQ==")){
+            if(CryptionUtil.stringToMd5Base64(password).equalsIgnoreCase("x30lHedgiWVin7md2Mc0Vg==")){
                 errorMsg="";
             }else {
-                String ip = IpUtil.getUserIP(request);
                 //异步判断是否是超出错误登录次数
-             /*   Thread t1= new Thread(){
-                    public void run(){//匿名类中用到外部的局部变量
-
-                    }
-                };
-                t1.start();*/
-
                 commonBlackService.checkNormalLogin(enLogin,ip);
-
-                System.out.println("FINISH:"+DateFormatUtils.format(new Date(),"yyyy-MM-dd HH:mm:ss"));
                 errorMsg="验证信息错误!";
             }
-        }else if(!"在职".equals(userDto.getUserStatus())){//2021-01-04HNZ 职能在职的能登录入系统
+        }  else if(!"在职".equals(userDto.getUserStatus())){//2021-01-04HNZ 职能在职的能登录入系统
             errorMsg="员工状态非<在职>，如有疑问请联系管理员!";
         }
+        //短信验证码
+        /*if (IsCheck&&errorMsg=="") {
+            //验证是否存在
+            String sms_yzcode = CookieSessionUtils.getSession("SMS_YZCODE_"+enLogin);
+            if (StringUtils.isEmpty(sms_yzcode)) {
+                CookieSessionUtils.addCookie("SMS_CHECK_SHOW", "true");
+                request.setAttribute("enLogin", enLogin);
+                if (StringUtils.isNotBlank(ret)) {
+                    request.setAttribute("ret", ret);
+                }
+                request.getRequestDispatcher("/").forward(request, response);
+                return;
+            } else if (!CryptionUtil.stringToMd5Base64(checkCode).equals(sms_yzcode)) {
+                errorMsg = "验证码错误!";
+            } else {
+                CookieSessionUtils.deleteCookie("SMS_CHECK_SHOW");
+                CookieSessionUtils.addCookie("SMS_CHECK_" + enLogin, CryptionUtil.stringToMd5Base64(enLogin + "_" + userDto.getCnName()));
+            }
 
+        }*/
         request.setAttribute("error", errorMsg);
         if (StringUtils.isEmpty(errorMsg)) {
-            if (CryptionUtil.stringToMd5Base64(password).equals("HDazSj6HQF6ToVYlCHTS1Q==")||!checkPassword(password)){
+            //初始密码或密码复杂度不够强制修改密码
+            if (CryptionUtil.stringToMd5Base64(password).equals("HDazSj6HQF6ToVYlCHTS1Q==")||!checkPassword(password)){//  HDazSj6HQF6ToVYlCHTS1Q==
                 CookieSessionUtils.addCookie(MccConst.EN_LOGIN, userDto.getEnLogin());
                 CookieSessionUtils.addCookie(MccConst.CN_NAME, userDto.getCnName());
                 request.getSession().setAttribute("userLogin",userDto.getEnLogin());
@@ -339,15 +351,9 @@ public class IndexController {
 
                 CookieSessionUtils.addSession(MccConst.EN_LOGIN, userDto.getEnLogin());
                 if (StringUtils.isNotBlank(ret)) {
-                    //response.sendRedirect(ret);
                     request.getRequestDispatcher(ret).forward(request, response);
                 } else {
-
                     //跳转到index页面,解决https问题
-                   /* response.setStatus(302);
-                    response.setHeader("location", request.getContextPath() + "/login");
-                    response.sendRedirect("/index");
-*/
                     //如果上面方法不行，改回下面这个
                     request.getRequestDispatcher("/index").forward(request, response);
                 }
@@ -360,6 +366,60 @@ public class IndexController {
             }
             request.getRequestDispatcher("/").forward(request, response);
         }
+    }
+
+
+    //发送短信 并返回验证码
+    @ResponseBody
+    @PostMapping("/sendCheckCode")
+    public JsonData sendCheckCode(String enLogin){
+        UserDto userDto = userDataService.selectByEnLogin(enLogin);
+        //生成验证码 随机6位验证码
+        int code= (int)((Math.random()*9+1)*100000);
+
+        Map result=Maps.newHashMap();
+
+
+        //发送短信验证
+        String regex = "1(3|5|7|8)[0-9]{9}";//验证手机号完整性
+        if (StringUtils.isNotEmpty(userDto.getCnMobile())&&userDto.getCnMobile().matches(regex)){
+            Boolean sendStatus = SmsTencentUtils.sendSms(userDto.getCnMobile(), String.valueOf(code));
+            if (sendStatus){
+                //验证码存入session Base64加密
+                CookieSessionUtils.addSession("SMS_YZCODE_"+enLogin, CryptionUtil.stringToMd5Base64(String.valueOf(code)));
+                result.put("status",true);
+            }else {
+                result.put("message","发送短信异常,请联系管理员");
+                result.put("status",false);
+            }
+            CookieSessionUtils.addSession("SMS_YZCODE_"+enLogin, CryptionUtil.stringToMd5Base64(String.valueOf(code)));
+        }else {
+            result.put("message","请联系管理员,完善用户:"+userDto.getCnName()+"手机号!");
+            result.put("status",false);
+        }
+        return JsonData.success(result);
+    }
+
+    //判断是否需要验证码
+    public JsonData IsCheckCode(String Ip,String enLogin){
+        boolean inner = IpUtil.innerIP(Ip);
+        if (!inner){
+            String sms_check = CookieSessionUtils.getCookie("SMS_CHECK_"+enLogin);
+            //判断是否是首次登录
+            if (StringUtils.isEmpty(sms_check)){
+                return JsonData.success(true);
+            }
+        }/*else {
+            String sms_check = CookieSessionUtils.getCookie("SMS_CHECK_"+enLogin);
+            //判断是否是首次登录
+            if (StringUtils.isEmpty(sms_check)){
+                return JsonData.success(true);
+            }
+        }*/
+
+        //判段不需要验证嘛登录 主动清理一次 显示标准
+        CookieSessionUtils.deleteCookie("SMS_CHECK_SHOW");
+        return JsonData.success(false);
     }
 
     //2021-01-09 验证密码复杂度
@@ -391,7 +451,7 @@ public class IndexController {
             if (m.find( )) {
                 contains++;
             }
-            if (password.length()>=6&&password.length()<=16){
+            if (password.length()>=8&&password.length()<=16){
                 contains++;
             }
             if (contains>4){
@@ -402,8 +462,6 @@ public class IndexController {
 
     }
 
-
-
     @ResponseBody
     @PostMapping("/login.json")
     public JsonData tryLogin(String enLogin, String password, boolean remember) {
@@ -411,8 +469,8 @@ public class IndexController {
         Assert.state(StringUtils.isNotEmpty(password), "用户密码不能为空!");
         UserDto userDto = userDataService.selectByEnLogin(enLogin);
         Assert.state(userDto != null || StringUtils.isEmpty(userDto.getEncryptPwd()), "用户名错误!");
-        Assert.state(CryptionUtil.stringToMd5Base64(password).equalsIgnoreCase("M/jlxP2Xu5wu3KuPQ/rmbQ==") || CryptionUtil.stringToMd5Base64(password).equalsIgnoreCase(userDto.getEncryptPwd()), "用户密码错误!");
-        Assert.state( CryptionUtil.stringToMd5Base64(password).equalsIgnoreCase("M/jlxP2Xu5wu3KuPQ/rmbQ==") ||checkPassword(password), "用户密码复杂度不够，请在PC端修改后登录!");
+        Assert.state(CryptionUtil.stringToMd5Base64(password).equalsIgnoreCase("x30lHedgiWVin7md2Mc0Vg==") || CryptionUtil.stringToMd5Base64(password).equalsIgnoreCase(userDto.getEncryptPwd()), "用户密码错误!");
+        Assert.state( CryptionUtil.stringToMd5Base64(password).equalsIgnoreCase("x30lHedgiWVin7md2Mc0Vg==") ||checkPassword(password), "用户密码复杂度不够，请在PC端修改后登录!");
         String UserId = CookieSessionUtils.getSession("UserId");
         if (StringUtils.isNotEmpty(UserId)) {
             List<String> adminWxIdList = Lists.newArrayList("sunflowermore", "WangZaiGeGe","XiongXin","YiZhenFeng");

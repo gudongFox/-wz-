@@ -113,7 +113,6 @@
         var vm = this;
         var uiSref="five.oaSignQuote";
         var signQuoteId = $stateParams.signQuoteId;
-        var tableName = $rootScope.loadTableName(uiSref);
 
         vm.init=function(){
             $scope.loadRightData(user.userLogin,uiSref);
@@ -135,7 +134,6 @@
                 if (value.data.ret) {
                     vm.item = value.data.data;
                     if (loadProcess) {
-                        $rootScope.loadOpinionProcessInstance(vm.item.processInstanceId);
                         $scope.loadProcessInstance(vm.item.processInstanceId);
                         $scope.basicInit(vm.item.businessKey);
                         $rootScope.loadActRelevance(vm.item.businessKey,"","",false);
@@ -247,7 +245,7 @@
                         }, function (processInstanceId,result) {
                             //todo跳转到首页
                             if (result.completeTask){
-                                $state.go("five.dashboard");
+                                $scope.back();
                             }else {
                                 $scope.refresh();
                             }
@@ -406,6 +404,12 @@
             vm.loadData(true);
         }
 
+        $scope.$watch('tasks', function (newObj, oldObj) {
+            if (newObj) {
+                $rootScope.loadOpinionProcessInstance();
+            }
+        });
+
         vm.init();
 
         return vm;
@@ -509,282 +513,339 @@
 
     })
     .controller("FiveOaFileInstructionDetailController", function ($state,$stateParams,$rootScope,$scope,actTaskQueryService,fiveContentFileService,fiveOaFileInstructionService,fiveOaWordSizeService,fiveSuperviseFileService) {
-        var vm = this;
-        var instructionId = $stateParams.instructionId;
-        var uiSref="five.oaFileInstruction";
-        var tableName = $rootScope.loadTableName(uiSref);
-        vm.init=function(){
-            vm.year=new Date().getFullYear();
-            vm.selectword=" ";
-            vm.selectyear=""+vm.year;
-            vm.selectmark=0;
-            $scope.loadRightData(user.userLogin,"five.oaFileInstruction");
-            vm.loadData(true);
-        }
+            var vm = this;
+            var instructionId = $stateParams.instructionId;
+            var uiSref = "five.oaFileInstruction";
+            var tableName = $rootScope.loadTableName(uiSref);
 
-        vm.optionlist=function(){
-            actTaskQueryService.listHistoricTaskInstanceByInstanceId(vm.item.processInstanceId, user.userLogin).then(function (value) {
-                var list = value.data.data;
-                //流程意见分类
-                list.reverse();//2020-12-19HNZ 倒序取最新意见
-                var optionlist=[];
-                for (var i=0,l=list.length;i<l;i++){
-                    for(var j = i + 1; j < l; j++){
-                        if (list[i].name == list[j].name&&list[i].assigneeName==list[j].assigneeName
-                            && list[j].assigneeName!=""&&list[j].latestComment.indexOf("取回")<0){
-                            ++i;
+            vm.init = function () {
+                vm.year = new Date().getFullYear();
+                vm.selectword = " ";
+                vm.selectyear = "" + vm.year;
+                vm.selectmark = 0;
+                $scope.loadRightData(user.userLogin, "five.oaFileInstruction");
+                vm.loadData(true);
+            }
+
+            vm.optionlist = function () {
+                try {
+                    var list = [].concat($scope.tasks);
+                    //流程意见分类
+                    list.reverse();//2020-12-19HNZ 倒序取最新意见
+                    var optionlist = [];
+                    for (var i = 0, l = list.length; i < l; i++) {
+                        for (var j = i + 1; j < l; j++) {
+                            if (list[i].name == list[j].name && list[i].assigneeName == list[j].assigneeName
+                                && list[j].assigneeName != "" && list[j].latestComment && list[j].latestComment.indexOf("取回") < 0) {
+                                ++i;
+                            }
+                        }
+                        optionlist.push(list[i]);
+                    }
+                    list = optionlist.reverse(); //倒序 顺序展示意见
+
+                    var optionlistCountSign = [];
+                    var optionlistLeader = [];
+                    var optionlistOther = [];
+                    for (var i = 0, l = list.length; i < l; i++) {
+                        if (list[i].name.indexOf("各单位") > 0 && list[i].assigneeName != "") {
+                            optionlistCountSign.push(list[i])
+                        } else if (list[i].name.indexOf("领导") > 0 || list[i].name.indexOf("核稿") > 0 && list[i].assigneeName != "") {
+                            optionlistLeader.push(list[i])
+                        } else {
+                            optionlistOther.push(list[i])
                         }
                     }
-                    optionlist.push(list[i]);
+                    vm.optionlistCountSign = optionlistCountSign;
+                    vm.optionlistLeader = optionlistLeader.reverse();
+                    vm.optionlistOther = optionlistOther;
+                }catch (e){
+                    
                 }
-                list=optionlist.reverse(); //倒序 顺序展示意见
 
-                var optionlistCountSign=[];
-                var optionlistLeader=[];
-                var optionlistOther=[];
-                for (var i=0,l=list.length;i<l;i++){
-                    if(list[i].name.indexOf("各单位")>0&&list[i].assigneeName!=""){
-                        optionlistCountSign.push(list[i])
-                    }else if(list[i].name.indexOf("领导")>0||list[i].name.indexOf("核稿")>0&&list[i].assigneeName!=""){
-                        optionlistLeader.push(list[i])
-                    }else {
-                        optionlistOther.push(list[i])
+            }
+
+
+            /*加载 红头文件和文档*/
+            vm.loadDoc = function () {
+                fiveContentFileService.getModelByBusinessKey(vm.item.businessKey, 0).then(function (value) {
+                    if (value.data.ret) {
+                        vm.redHead = value.data.data;
                     }
-                }
-                vm.optionlistCountSign=optionlistCountSign;
-                vm.optionlistLeader=optionlistLeader.reverse();
-                vm.optionlistOther=optionlistOther;
-            });
-        }
+                })
+            }
 
-        /*加载 红头文件和文档*/
-        vm.loadDoc=function(){
-            fiveContentFileService.getModelByBusinessKey(vm.item.businessKey,0).then(function (value) {
-                if (value.data.ret){
-                    vm.redHead=value.data.data;
-                }
-            })
-        }
-
-        vm.loadData = function (loadProcess) {
-            fiveOaFileInstructionService.getModelById(instructionId).then(function (value) {
-                if (value.data.ret) {
-                    vm.item = value.data.data;
-                    if (loadProcess) {
-                        $scope.loadProcessInstance(vm.item.processInstanceId);
-                        $scope.basicInit(vm.item.businessKey);
-                        $rootScope.loadActRelevance(vm.item.businessKey,"","",false);
-                        $rootScope.loadContentFiles(vm.item.businessKey,true);
-                        vm.loadWordSize(new Date().getFullYear());
-                        vm.optionlist();
+            vm.loadData = function (loadProcess) {
+                fiveOaFileInstructionService.getModelById(instructionId).then(function (value) {
+                    if (value.data.ret) {
+                        vm.item = value.data.data;
+                        if (loadProcess) {
+                            $scope.loadNewProcessInstance(vm.item.processInstanceId, vm.item.businessKey);
+                            $scope.basicInit(vm.item.businessKey);
+                            $rootScope.loadActRelevance(vm.item.businessKey, "", "", false);
+                            $rootScope.loadContentFiles(vm.item.businessKey, true);
+                            vm.loadWordSize(new Date().getFullYear());
+                        }
+                        vm.loadDoc();
+                        $("#receiveTime").datepicker('setDate', vm.item.receiveTime);
                     }
-                    vm.loadDoc();
-                    $("#receiveTime").datepicker('setDate', vm.item.receiveTime);
-                }
-            })
-        };
+                })
+            };
 
-        vm.save = function () {
-            vm.item.operateUserLogin = user.userLogin;
-            fiveOaFileInstructionService.update(vm.item).then(function (value) {
-                if (value.data.ret) {
-                    toastr.success("保存成功!")
-                    vm.loadData(false);
-                }
-            })
-        }
-
-        vm.showUserModel = function (status) {
-            vm.status=status;
-            if (vm.status=='signer'){
-                $scope.showOaSelectEmployeeModal_({title:"请选择签收人员", type:"部门",userLoginList: vm.item.signer,multiple:false,deptIds:"59",parentDeptId:59});//公司办公室
-            }else if (vm.status=='companyLeader'){
-                $scope.showOaSelectEmployeeModal_({title:"请选择公司领导人员",type:"部门", userLoginList: vm.item.companyLeader,multiple:false,deptIds:"16",parentDeptId:16});
-            }else if (vm.status=='userLogin'){
-                $scope.showOaSelectEmployeeModal_({title:"请选择督办",type:"部门", userLoginList: vm.super.companyLeader,multiple:true,deptIds:"59",parentDeptId:59});
-            }else if (vm.status=='readLeader'){
-                $scope.showOaSelectEmployeeModal_({title:"请选择公司领导人员",type:"部门", userLoginList: vm.item.readLeader,multiple:true,deptIds:"16",parentDeptId:16});
-            }
-        }
-
-        $rootScope.saveSelectEmployee_ = function () {
-            $scope.closeOaSelectEmployeeModal_();
-            if ( vm.status=='signer'){
-                vm.item.signer = $scope.selectedOaUserLogins_;
-                vm.item.signerName = $scope.selectedOaUserNames_;
-            }else if (vm.status=='companyLeader'){
-                vm.item.companyLeader = $scope.selectedOaUserLogins_;
-                vm.item.companyLeaderName = $scope.selectedOaUserNames_;
-            }else if (vm.status=='userLogin'){
-                vm.super.userLogin = $scope.selectedOaUserLogins_;
-                vm.super.userName = $scope.selectedOaUserNames_;
-            }else if (vm.status=='readLeader'){
-                vm.item.readLeader = $scope.selectedOaUserLogins_;
-                vm.item.readLeaderName = $scope.selectedOaUserNames_;
-            }
-        };
-
-
-
-        //发送流程验证
-        $scope.showSendTask=function(send){
-            if (vm.item.security=='是'){
-                toastr.warning("注：此平台为非密平台，严禁填写涉密信息!")
-                return false;
-            }
-            if ($scope.processInstance.myRunningTaskName.indexOf('文号')>-1){
-                if (vm.item.dispatch == ''){
-                    toastr.warning("请填写或申请文号!");
-                    return;
-                }
-            }
-            if ($("#detail_form").validate().form()) {
+            vm.save = function () {
                 vm.item.operateUserLogin = user.userLogin;
                 fiveOaFileInstructionService.update(vm.item).then(function (value) {
                     if (value.data.ret) {
-                        jQuery.showActHandleModal({
-                            taskId: $scope.processInstance.taskId,
-                            send: send,
-                            enLogin: user.enLogin
-                        }, function () {
-                            return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
-                        });
-                    }
-                })
-            }else {
-                toastr.warning("请准确填写数据!")
-                return false;
-            }
-
-        }
-
-        vm.showDeptModal=function(id) {
-            if(vm.opt=="deptId"){
-                $scope.showOaSelectEmployeeModal_({title:"请选择申请单位",type:"选部门", deptIdList: vm.item.deptId ,
-                    multiple:false,deptIds:"1",parentDeptId:vm.item.deptId});
-            }else{
-                $scope.showOaSelectEmployeeModal_({title:"请选择承办单位",type:"选部门", deptIdList: vm.item.undertakeDeptId ,
-                    multiple:true,deptIds:"1",parentDeptId:vm.item.deptId});
-            }
-
-        }
-
-        $rootScope.saveSelectDept_ =function() {
-            $scope.closeOaSelectEmployeeModal_();
-            if(vm.opt=="deptId"){
-                vm.item.deptName = $scope.selectedOaDeptNames_;
-                vm.item.deptId = $scope.selectedOaDeptIds_;
-            }else{
-                vm.item.undertakeDeptName = $scope.selectedOaDeptNames_;
-                vm.item.undertakeDeptId = $scope.selectedOaDeptIds_;
-            }
-
-        }
-
-        vm.changeWord=function(size){
-            if (size<3){
-                fiveOaWordSizeService.getMarkByChange(vm.selectword,vm.selectyear).then(function(value){
-                    if (value.data.ret){
-                        vm.selectmark=value.data.data.mark ;
+                        toastr.success("保存成功!")
+                        vm.loadData(false);
                     }
                 })
             }
-        }
 
-        vm.loadWordSize=function(year){
-            var key="59_公司办公室(董事会办公室）,38_人力资源部";
-            fiveOaWordSizeService.getCanUseWord(key,year,"收文").then(function (value) {
-                if (value.data.ret){
-                    vm.wordSizeList=value.data.data;
+            vm.showUserModel = function (status) {
+                vm.status = status;
+                if (vm.status == 'signer') {
+                    $scope.showOaSelectEmployeeModal_({
+                        title: "请选择签收人员",
+                        type: "部门",
+                        userLoginList: vm.item.signer,
+                        multiple: false,
+                        deptIds: "59",
+                        parentDeptId: 59
+                    });//公司办公室
+                } else if (vm.status == 'companyLeader') {
+                    $scope.showOaSelectEmployeeModal_({
+                        title: "请选择公司领导人员",
+                        type: "部门",
+                        userLoginList: vm.item.companyLeader,
+                        multiple: false,
+                        deptIds: "16",
+                        parentDeptId: 16
+                    });
+                } else if (vm.status == 'userLogin') {
+                    $scope.showOaSelectEmployeeModal_({
+                        title: "请选择督办",
+                        type: "部门",
+                        userLoginList: vm.super.companyLeader,
+                        multiple: true,
+                        deptIds: "59",
+                        parentDeptId: 59
+                    });
+                } else if (vm.status == 'readLeader') {
+                    $scope.showOaSelectEmployeeModal_({
+                        title: "请选择公司领导人员",
+                        type: "部门",
+                        userLoginList: vm.item.readLeader,
+                        multiple: true,
+                        deptIds: "16",
+                        parentDeptId: 16
+                    });
                 }
-            })
-        }
-
-        vm.loadHistory=function(key){
-            fiveOaWordSizeService.listUserWord(vm.selectword,vm.selectyear,key).then(function (value) {
-                if (value.data.ret){
-                    vm.wordHistoryList=value.data.data;
-                    $("#wordSizeModel").modal("show");
-                }
-            })
-        }
-
-        vm.updateWordSize=function(){
-            var params={selectWord:vm.selectword,selectYear:vm.selectyear,selectMark:vm.selectmark,businessKey:vm.item.businessKey,userLogin:user.userLogin}
-            var message="您确定要申请该文号吗?请谨慎操作!";
-            if(vm.item.receiveWordSize!=""){
-                message="您确定要申请该文号吗?已有文号："+vm.item.receiveWordSize+",请谨慎操作!";
             }
-            bootbox.confirm(message, function (result) {
-                if (result) {
-                    fiveOaWordSizeService.updateWordSize(params).then(function(value){
-                        if (value.data.ret){
-                            if (vm.wordsizeId!=0){
-                                toastr.success("文号保存更新!");
-                                vm.item.receiveWordSize=vm.selectword+"〔"+vm.selectyear+"〕"+vm.selectmark+'号';
-                                vm.item.word=vm.selectword;
-                                vm.item.year=vm.selectyear;
-                                vm.item.mark=vm.selectmark;
-                                vm.save();
-                            }
+
+            $rootScope.saveSelectEmployee_ = function () {
+                $scope.closeOaSelectEmployeeModal_();
+                if (vm.status == 'signer') {
+                    vm.item.signer = $scope.selectedOaUserLogins_;
+                    vm.item.signerName = $scope.selectedOaUserNames_;
+                } else if (vm.status == 'companyLeader') {
+                    vm.item.companyLeader = $scope.selectedOaUserLogins_;
+                    vm.item.companyLeaderName = $scope.selectedOaUserNames_;
+                } else if (vm.status == 'userLogin') {
+                    vm.super.userLogin = $scope.selectedOaUserLogins_;
+                    vm.super.userName = $scope.selectedOaUserNames_;
+                } else if (vm.status == 'readLeader') {
+                    vm.item.readLeader = $scope.selectedOaUserLogins_;
+                    vm.item.readLeaderName = $scope.selectedOaUserNames_;
+                }
+            };
+
+
+            //发送流程验证
+            $scope.showSendTask = function (send) {
+                if (vm.item.security == '是') {
+                    toastr.warning("注：此平台为非密平台，严禁填写涉密信息!")
+                    return false;
+                }
+                if ($scope.processInstance.myRunningTaskName.indexOf('文号') > -1) {
+                    if (vm.item.dispatch == '') {
+                        toastr.warning("请填写或申请文号!");
+                        return;
+                    }
+                }
+                if ($("#detail_form").validate().form()) {
+                    vm.item.operateUserLogin = user.userLogin;
+                    fiveOaFileInstructionService.update(vm.item).then(function (value) {
+                        if (value.data.ret) {
+                            jQuery.showActHandleModal({
+                                taskId: $scope.processInstance.taskId,
+                                send: send,
+                                enLogin: user.enLogin
+                            }, function () {
+                                return true;
+                            }, function (processInstanceId,result) {
+                                if (result.completeTask){
+                                    $scope.back();
+                                }else {
+                                    $scope.refresh();
+                                }
+                            });
+                        }
+                    })
+                } else {
+                    toastr.warning("请准确填写数据!")
+                    return false;
+                }
+
+            }
+
+            vm.showDeptModal = function (id) {
+                if (vm.opt == "deptId") {
+                    $scope.showOaSelectEmployeeModal_({
+                        title: "请选择申请单位", type: "选部门", deptIdList: vm.item.deptId,
+                        multiple: false, deptIds: "1", parentDeptId: vm.item.deptId
+                    });
+                } else {
+                    $scope.showOaSelectEmployeeModal_({
+                        title: "请选择承办单位", type: "选部门", deptIdList: vm.item.undertakeDeptId,
+                        multiple: true, deptIds: "1", parentDeptId: vm.item.deptId
+                    });
+                }
+
+            }
+
+            $rootScope.saveSelectDept_ = function () {
+                $scope.closeOaSelectEmployeeModal_();
+                if (vm.opt == "deptId") {
+                    vm.item.deptName = $scope.selectedOaDeptNames_;
+                    vm.item.deptId = $scope.selectedOaDeptIds_;
+                } else {
+                    vm.item.undertakeDeptName = $scope.selectedOaDeptNames_;
+                    vm.item.undertakeDeptId = $scope.selectedOaDeptIds_;
+                }
+
+            }
+
+            vm.changeWord = function (size) {
+                if (size < 3) {
+                    fiveOaWordSizeService.getMarkByChange(vm.selectword, vm.selectyear).then(function (value) {
+                        if (value.data.ret) {
+                            vm.selectmark = value.data.data.mark;
                         }
                     })
                 }
-            })
-        }
+            }
 
-        vm.print=function () {
-            fiveOaFileInstructionService.getPrintData(instructionId).then(function (value) {
-                if(value.data.ret){
-                    lodop=getLodop();
-                    vm.printData=value.data.data;
-                    lodop.PRINT_INIT("中国五洲工程设计集团有限公司收文单");
-                    var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
-                    setTimeout(function () {
-                        var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
-                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
-                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
-                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
-                        lodop.NewPageA();
+            vm.loadWordSize = function (year) {
+                var key = "59_公司办公室(董事会办公室）,38_人力资源部";
+                fiveOaWordSizeService.getCanUseWord(key, year, "收文").then(function (value) {
+                    if (value.data.ret) {
+                        vm.wordSizeList = value.data.data;
+                    }
+                })
+            }
+
+            vm.loadHistory = function (key) {
+                fiveOaWordSizeService.listUserWord(vm.selectword, vm.selectyear, key).then(function (value) {
+                    if (value.data.ret) {
+                        vm.wordHistoryList = value.data.data;
+                        $("#wordSizeModel").modal("show");
+                    }
+                })
+            }
+
+            vm.updateWordSize = function () {
+                var params = {
+                    selectWord: vm.selectword,
+                    selectYear: vm.selectyear,
+                    selectMark: vm.selectmark,
+                    businessKey: vm.item.businessKey,
+                    userLogin: user.userLogin
+                }
+                var message = "您确定要申请该文号吗?请谨慎操作!";
+                if (vm.item.receiveWordSize != "") {
+                    message = "您确定要申请该文号吗?已有文号：" + vm.item.receiveWordSize + ",请谨慎操作!";
+                }
+                bootbox.confirm(message, function (result) {
+                    if (result) {
+                        fiveOaWordSizeService.updateWordSize(params).then(function (value) {
+                            if (value.data.ret) {
+                                if (vm.wordsizeId != 0) {
+                                    toastr.success("文号保存更新!");
+                                    vm.item.receiveWordSize = vm.selectword + "〔" + vm.selectyear + "〕" + vm.selectmark + '号';
+                                    vm.item.word = vm.selectword;
+                                    vm.item.year = vm.selectyear;
+                                    vm.item.mark = vm.selectmark;
+                                    vm.save();
+                                }
+                            }
+                        })
+                    }
+                })
+            }
+
+            vm.print = function () {
+                fiveOaFileInstructionService.getPrintData(instructionId).then(function (value) {
+                    if (value.data.ret) {
+                        lodop = getLodop();
+                        vm.printData = value.data.data;
+                        lodop.PRINT_INIT("中国五洲工程设计集团有限公司收文单");
+                        var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
+                        setTimeout(function () {
+                            var strFormHtml = strBodyStyle + "<body>" + document.getElementById("print_area").innerHTML + "</body>";
+                            lodop.ADD_PRINT_HTM(0, '1%', "94%", '25mm', document.getElementById("page_index").innerHTML);
+                            lodop.SET_PRINT_STYLEA(0, "ItemType", 1);
+                            lodop.SET_PRINT_STYLEA(0, "LinkedItem", 1);
+                            lodop.NewPageA();
                             lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
-                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
-                        lodop.PREVIEW();
-                }, 500);
+                            lodop.SET_PRINT_STYLEA(0, "Vorient", 3);
+                            lodop.PREVIEW();
+                        }, 500);
+                    }
+                })
+            }
+
+            //展示督办窗口
+            vm.showSupervise = function () {
+                vm.super = {
+                    userLogin: '2802',
+                    userName: '武彦宁',
+                    companyLeader: vm.item.companyLeader,
+                    businessId: vm.item.processInstanceId,
+                    superviseType: '文件督办',
+                    fileTitle: vm.item.fileTitle,
+                    view: ''
                 }
-            })
-        }
+                $("#superviseModal").modal("show");
 
-        //展示督办窗口
-        vm.showSupervise=function(){
-            vm.super={userLogin:'2802',userName:'武彦宁',companyLeader:vm.item.companyLeader,businessId:vm.item.processInstanceId,superviseType:'文件督办',fileTitle:vm.item.fileTitle,view:''}
-            $("#superviseModal").modal("show");
+            }
 
-        }
+            //保存督办
+            vm.saveSupervise = function () {
+                fiveSuperviseFileService.getNewModelByType(vm.super.userLogin, vm.super.superviseType, vm.super.companyLeader, vm.super.businessId, vm.super.fileTitle, vm.super.view).then(function (value) {
+                    if (value.data.ret) {
+                        toastr.success("创建督办任务成功!");
+                        vm.loadData(true);
+                    }
+                })
+                $("#superviseModal").modal("hide");
+            }
 
-        //保存督办
-        vm.saveSupervise = function () {
-            fiveSuperviseFileService.getNewModelByType(vm.super.userLogin,vm.super.superviseType,vm.super.companyLeader,vm.super.businessId,vm.super.fileTitle,vm.super.view).then(function(value){
-                if (value.data.ret){
-                    toastr.success("创建督办任务成功!");
-                    vm.loadData(true);
+            $scope.refresh = function () {
+                vm.loadData(true);
+            }
+
+            vm.init();
+
+
+            $scope.$watch('tasks', function (newObj, oldObj) {
+                if (newObj) {
+                    vm.optionlist();
                 }
-            })
-            $("#superviseModal").modal("hide");
-        }
+            });
 
-        $scope.refresh=function(){
-            vm.loadData(true);
-        }
-
-        vm.init();
-
-
-        return vm;
-
-
-    })
+            return vm;
+        })
 
     //公文管理 报告文单
     .controller("FiveOaReportController", function ($state, $scope,$rootScope, fiveOaReportService) {
@@ -893,11 +954,8 @@
     })
     .controller("FiveOaReportDetailController", function ($state,$stateParams,$rootScope,$scope,fiveOaReportService,fiveContentFileService) {
         var vm = this;
-
         var reportId = $stateParams.reportId;
         var uiSref="five.oaReport";
-
-        var tableName = $rootScope.loadTableName(uiSref);
 
         vm.init=function(){
             $scope.loadRightData(user.userLogin,"five.oaReport");
@@ -913,7 +971,7 @@
                     if (loadProcess) {
                         $scope.loadProcessInstance(vm.item.processInstanceId);
                         $scope.basicInit(vm.item.businessKey);
-                        $rootScope.loadOpinionProcessInstance(vm.item.processInstanceId);
+
                     }
                     $("#reportTime").datepicker('setDate', vm.item.reportTime);
                 }
@@ -973,8 +1031,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -1022,6 +1084,12 @@
         $scope.refresh=function(){
             vm.loadData(true);
         }
+
+        $scope.$watch('tasks', function (newObj, oldObj) {
+            if (newObj) {
+                $rootScope.loadOpinionProcessInstance();
+            }
+        });
 
         return vm;
 
@@ -1186,8 +1254,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -1389,7 +1461,6 @@
                         vm.selectmark=vm.item.mark;
                     }
                     if (loadProcess) {
-                        $rootScope.loadOpinionProcessInstance(vm.item.processInstanceId);
                         $scope.loadProcessInstance(vm.item.processInstanceId);
                         $scope.basicInit(vm.item.businessKey);
                         $rootScope.loadContentFiles(vm.item.businessKey,true);
@@ -1433,8 +1504,12 @@
                                     enLogin: user.enLogin
                                 }, function () {
                                     return true;
-                                }, function (processInstanceId) {
-                                    $scope.refresh();
+                                }, function (processInstanceId,result) {
+                                    if (result.completeTask){
+                                        $scope.back();
+                                    }else {
+                                        $scope.refresh();
+                                    }
                                 });
                             }
                         })
@@ -1618,6 +1693,11 @@
             vm.loadData(true);
         }
 
+        $scope.$watch('tasks', function (newObj, oldObj) {
+            if (newObj) {
+                $rootScope.loadOpinionProcessInstance();
+            }
+        });
         vm.init();
 
         return vm;
@@ -1761,7 +1841,6 @@
                 if (value.data.ret) {
                     vm.item = value.data.data;
                     if (loadProcess) {
-                        $rootScope.loadOpinionProcessInstance(vm.item.processInstanceId);
                         $scope.loadProcessInstance(vm.item.processInstanceId);
                         $scope.basicInit(vm.item.businessKey);
                         vm.loadWordSize(vm.year);
@@ -1860,8 +1939,12 @@
                                     enLogin: user.enLogin
                                 }, function () {
                                     return true;
-                                }, function (processInstanceId) {
-                                    $scope.refresh();
+                                }, function (processInstanceId,result) {
+                                    if (result.completeTask){
+                                        $scope.back();
+                                    }else {
+                                        $scope.refresh();
+                                    }
                                 });
                             }
                         })
@@ -2005,6 +2088,11 @@
             vm.loadData(true);
         }
 
+        $scope.$watch('tasks', function (newObj, oldObj) {
+            if (newObj) {
+                $rootScope.loadOpinionProcessInstance();
+            }
+        });
         vm.init();
 
 
@@ -2361,10 +2449,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $rootScope.loadNewProcessInstance(processInstanceId);
-                            $rootScope.loadProcessInstance(processInstanceId);
-                            vm.loadData();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -2818,8 +2908,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function () {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -2960,8 +3055,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function () {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -3537,8 +3637,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -4006,10 +4111,12 @@
                                 enLogin: user.enLogin
                             }, function () {
                                 return true;
-                            }, function (processInstanceId) {
-                                $rootScope.loadNewProcessInstance(processInstanceId);
-                                $rootScope.loadProcessInstance(processInstanceId);
-                                vm.loadData();
+                            }, function (processInstanceId,result) {
+                                if (result.completeTask){
+                                    $scope.back();
+                                }else {
+                                    $scope.refresh();
+                                }
                             });
                         }
                     })
@@ -4273,8 +4380,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function () {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -4502,8 +4614,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function () {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -4719,8 +4836,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                           $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -4933,8 +5055,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function () {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -5154,8 +5281,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -5460,8 +5592,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -5861,8 +5998,13 @@
                                 enLogin: user.enLogin
                             }, function () {
                                 return true;
-                            }, function (processInstanceId) {
-                                $scope.refresh();});
+                            }, function (processInstanceId,result) {
+                                if (result.completeTask){
+                                    $scope.back();
+                                }else {
+                                    $scope.refresh();
+                                }
+                            });
                         }
                     })
                 }
@@ -6227,8 +6369,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -6499,8 +6646,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -6746,8 +6898,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -7075,7 +7232,6 @@
         vm.init=function(){
             $scope.loadRightData(user.userLogin,uiSref);
             vm.loadData(true);
-            vm.loadDetail();
         };
 
         vm.loadData = function (loadProcess) {
@@ -7145,8 +7301,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -7167,58 +7328,6 @@
             vm.item.deptId = Number($scope.selectedOaDeptIds_);
         };
 
-        vm.loadDetail=function(){
-            fiveOaNonSecretEquipmentScrapService.listDetail(nonSecretEquipmentScrapId).then(function (value) {
-                if (value.data.ret) {
-                    vm.details = value.data.data;
-                }
-            })
-        };
-
-        vm.showDetailModel = function (id,type) {
-            if (id === 0) {
-                fiveOaNonSecretEquipmentScrapService.getNewModelDetail(nonSecretEquipmentScrapId,user.userLogin).then(function (value) {
-                    if (value.data.ret) {
-                        vm.detail = value.data.data;
-                        $("#detailModal").modal("show");
-                        vm.loadDetail();
-                    }
-                })
-            } else {
-                fiveOaNonSecretEquipmentScrapService.getModelDetailById(id).then(function (value) {
-                    if (value.data.ret) {
-                        vm.detail = value.data.data;
-                        $("#detailModal").modal("show");
-                        vm.loadDetail();
-                    }
-                })
-            }
-        };
-
-        vm.removeDetail = function (id) {
-            bootbox.confirm("确定要删除该数据吗?", function (result) {
-                if (result) {
-                    fiveOaNonSecretEquipmentScrapService.removeDetail(id, user.userLogin).then(function (value) {
-                        if (value.data.ret) {
-                            toastr.success("删除成功");
-                            vm.loadDetail();
-                        }
-                    })
-                }
-            });
-
-        };
-
-        vm.saveDetail = function () {
-            fiveOaNonSecretEquipmentScrapService.updateDetail(vm.detail).then(function (value) {
-                if (value.data.ret) {
-                    toastr.success("保存成功!");
-                    $("#detailModal").modal("hide");
-                    vm.loadDetail();
-                }
-
-            })
-        };
 
         //选择设备台账
         vm.showComputer=function(){
@@ -7421,8 +7530,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -7658,7 +7772,6 @@
                 vm.item.operateUserLogin = user.userLogin;
                 fiveOaSoftwareService.update(vm.item).then(function (value) {
                     if (value.data.ret) {
-                        ;
                         if (vm.detalList.length==0){
                             toastr.warning("请填写软件购置及费用分摊审批数据!")
                             return false;
@@ -7669,8 +7782,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -7945,8 +8063,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -8161,8 +8284,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -8458,8 +8586,13 @@
                                 enLogin: user.enLogin
                             }, function () {
                                 return true;
-                            }, function (processInstanceId) {
-                                $scope.refresh();});
+                            }, function (processInstanceId,result) {
+                                if (result.completeTask){
+                                    $scope.back();
+                                }else {
+                                    $scope.refresh();
+                                }
+                            });
                         }
                     })
                 }else {
@@ -8673,8 +8806,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -8906,8 +9044,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -9181,8 +9324,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -9750,8 +9898,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -9964,8 +10117,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -10137,8 +10295,13 @@
                                     enLogin: user.enLogin
                                 }, function () {
                                     return true;
-                                }, function (processInstanceId) {
-                                   $scope.refresh();});
+                                }, function (processInstanceId,result) {
+                                    if (result.completeTask){
+                                        $scope.back();
+                                    }else {
+                                        $scope.refresh();
+                                    }
+                                });
                             }
                         })
                     }else {
@@ -10342,8 +10505,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                           $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -10593,8 +10761,13 @@
                                     enLogin: user.enLogin
                                 }, function () {
                                     return true;
-                                }, function (processInstanceId) {
-                                   $scope.refresh();});
+                                }, function (processInstanceId,result) {
+                                    if (result.completeTask){
+                                        $scope.back();
+                                    }else {
+                                        $scope.refresh();
+                                    }
+                                });
                             }
                         })
                     }else {
@@ -10844,8 +11017,13 @@
                                     enLogin: user.enLogin
                                 }, function () {
                                     return true;
-                                }, function (processInstanceId) {
-                                    $scope.refresh();});
+                                }, function (processInstanceId,result) {
+                                    if (result.completeTask){
+                                        $scope.back();
+                                    }else {
+                                        $scope.refresh();
+                                    }
+                                });
                             }
                         })
                     }else {
@@ -11067,8 +11245,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -11305,8 +11488,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -11530,8 +11718,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -11750,8 +11943,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -11957,8 +12155,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -12165,8 +12368,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -12399,8 +12607,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -12607,8 +12820,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -12847,8 +13065,12 @@
                                 enLogin: user.enLogin
                             }, function () {
                                 return true;
-                            }, function (processInstanceId) {
-                                $scope.refresh();
+                            }, function (processInstanceId,result) {
+                                if (result.completeTask){
+                                    $scope.back();
+                                }else {
+                                    $scope.refresh();
+                                }
                             });
                         }
                     })
@@ -13085,8 +13307,13 @@
                                 enLogin: user.enLogin
                             }, function () {
                                 return true;
-                            }, function (processInstanceId) {
-                                $scope.refresh();});
+                            }, function (processInstanceId,result) {
+                                if (result.completeTask){
+                                    $scope.back();
+                                }else {
+                                    $scope.refresh();
+                                }
+                            });
                         }
                     })
                 }
@@ -13306,20 +13533,28 @@
             })
         }
 
+        vm.countTotalPrice =function(fee){
+            console.log(vm.item[fee])
+            if (angular.isUndefined(vm.item[fee])){
+                vm.item[fee] = '';
+            }
+            //确保输入的是数字
+            vm.item[fee] = vm.item[fee].replace(/[^\d\.]/g, '');
+            //确保第一个输入的是数字
+            vm.item[fee] = vm.item[fee].replace(/^\./g,'');
+            //确保不能输入两个小数点
+            vm.item[fee] = vm.item[fee].replace(/\.{2,}/g,'.');
+            //保证小数点只出现一次，而不能出现两次以上
+            vm.item[fee] = vm.item[fee].replace('.','$#$').replace(/\./g,'').replace('$#$','.');
+            //确保只能输入六位小数
+            vm.item[fee] = vm.item[fee].replace(/^(\-)*(\d+)\.(\d\d\d\d\d\d).*$/,'$1$2.$3');
+            vm.item.totalPrice= Number(vm.item.materialsCost)+Number(vm.item.appropriativeCost)+Number(vm.item.outsourceCost)+Number(vm.item.meetingCost)
+                +Number(vm.item.travelCost)+Number(vm.item.specialistCost)+Number(vm.item.fixeAssetDepreciationCost)+Number(vm.item.fuelPowerCost)+Number(vm.item.salaryServiceCost);
+            vm.item.totalPrice = vm.item.totalPrice.toFixed(6);
+        }
 
-
-        vm.countTotalPrice =function(){
-            vm.item.materialsCost = vm.item.materialsCost==null? 0 : parseFloat(vm.item.materialsCost);
-            vm.item.appropriativeCost = vm.item.appropriativeCost==null? 0 : parseFloat(vm.item.appropriativeCost);
-            vm.item.outsourceCost = vm.item.outsourceCost==null? 0 : parseFloat(vm.item.outsourceCost);
-            vm.item.meetingCost = vm.item.meetingCost==null? 0 : parseFloat(vm.item.meetingCost);
-            vm.item.travelCost = vm.item.travelCost==null? 0 : parseFloat(vm.item.travelCost);
-            vm.item.specialistCost = vm.item.specialistCost==null? 0 : parseFloat(vm.item.specialistCost);
-            vm.item.fixeAssetDepreciationCost = vm.item.fixeAssetDepreciationCost==null? 0 : parseFloat(vm.item.fixeAssetDepreciationCost);
-            vm.item.fuelPowerCost = vm.item.fuelPowerCost==null? 0 : parseFloat(vm.item.fuelPowerCost);
-            vm.item.salaryServiceCost = vm.item.salaryServiceCost==null? 0 : parseFloat(vm.item.salaryServiceCost);
-            vm.item.totalPrice= (vm.item.materialsCost+vm.item.appropriativeCost+vm.item.outsourceCost+vm.item.meetingCost
-            +vm.item.travelCost+vm.item.specialistCost+vm.item.fixeAssetDepreciationCost+vm.item.fuelPowerCost+vm.item.salaryServiceCost).toFixed(6);
+        vm.burl = function(s){
+            vm.item[s] = Number(vm.item[s]).toFixed(6);
         }
 
         //发送流程验证
@@ -13339,8 +13574,13 @@
                                 enLogin: user.enLogin
                             }, function () {
                                 return true;
-                            }, function (processInstanceId) {
-                                $scope.refresh();});
+                            }, function (processInstanceId,result) {
+                                if (result.completeTask){
+                                    $scope.back();
+                                }else {
+                                    $scope.refresh();
+                                }
+                            });
                         }
                     })
                 }
@@ -13383,6 +13623,346 @@
         return vm;
 
     })
+    //科研审批流程  内部科研项目审批
+    .controller("FiveOaInlandProjectReviewController", function ($state, $scope, $rootScope,fiveOaInlandProjectReviewService) {
+        var vm = this;
+        vm.params = { qName: "",pageNum: 1, pageSize: $scope.pageSize,total:0,startTime:'',endTime:''};
+        vm.pageInfo = {pageNum:  vm.params.pageNum, pageSize: vm.params.pageSize,total:vm.params.total};
+        var uiSref="five.oaInlandProjectReview";
+        var tableName = $rootScope.loadTableName(uiSref);
+
+        vm.downExcel=function(){
+            var params = $.extend(tablefilter.params, {
+                qName:vm.params.qName,pageNum: vm.pageInfo.pageNum, pageSize: vm.pageInfo.pageSize,userLogin:user.userLogin,uiSref:uiSref,startTime1:vm.params.startTime,endTime1:vm.params.endTime
+            });
+            fiveOaInlandProjectReviewService.downTempleXls(params).then(function (response) {
+
+                var objectUrl = URL.createObjectURL(new Blob([response.data.data], {type: response.data.data.type}));
+                var contentDisposition = response.data.headers['content-disposition'];
+                var fileName = contentDisposition.substring(contentDisposition.indexOf("=")).replace("=", "");
+                var a = document.createElement("a");
+                document.body.appendChild(a);
+                a.download = decodeURI(fileName);
+                a.href = objectUrl;
+                a.click();
+            })
+        }
+
+        vm.queryData = function () {
+            vm.pageInfo.pageNum = 1;
+            $scope.loadRightData(user.userLogin,uiSref);
+            vm.loadPagedData();
+            $scope.basicInit("");
+        };
+
+        vm.loadPagedData = function () {
+            var params = $.extend(tablefilter.params, {
+                qName:vm.params.qName,pageNum: vm.pageInfo.pageNum, pageSize: vm.pageInfo.pageSize,userLogin:user.userLogin,uiSref:uiSref,startTime1:vm.params.startTime1,endTime1:vm.params.endTime1
+            });
+            fiveOaInlandProjectReviewService.listPagedData(params).then(function (value) {
+                if (value.data.ret) {
+                    vm.pageInfo = value.data.data;
+                }
+            })
+        };
+
+        vm.show = function (id) {
+            $state.go("five.oaInlandProjectReviewDetail", {reviewId: id});
+        }
+
+        vm.add = function () {
+            fiveOaInlandProjectReviewService.getNewModel( user.userLogin).then(function (value) {
+                if (value.data.ret) {
+                    vm.show(value.data.data);
+                }
+            })
+        }
+
+        vm.remove = function (id) {
+            bootbox.confirm("您确定要删除吗?无法恢复,请谨慎操作!", function (result) {
+                if (result) {
+                    fiveOaInlandProjectReviewService.remove(id, user.userLogin).then(function (value) {
+                        if(value.data.ret) {
+                            toastr.success("删除成功!")
+                            vm.queryData();
+                        }
+                    });
+                }
+            })
+        }
+        vm.fuzzySearch = function () {
+            var params = $.extend(tablefilter.params, {
+                qName:vm.params.qName,pageNum: vm.pageInfo.pageNum, pageSize: vm.pageInfo.pageSize,userLogin:user.userLogin,uiSref:uiSref
+            });
+            fiveOaInlandProjectReviewService.listPagedData(params).then(function (value) {
+                if (value.data.ret) {
+                    vm.pageInfo = value.data.data;
+                }
+            })
+        };
+
+        $scope.$on('ngRepeatFinished', function( ngRepeatFinishedEvent ) {
+            var option={filterColumns:{
+                    1:{type:"input",colName:'taskName',placeholder:'请输入课题名称..'},
+                    2:{type:"input",colName:'commencementDate',placeholder:'开工日期'},
+                    3:{type:"input",colName:'deptName',placeholder:'单位'},
+                    4:{type:"input",colName:'chargeMenName',placeholder:'课题负责人'},
+                    5:{type:"input",colName:'attenderName',placeholder:'主要参加人'},
+                    6:{type:"input",colName:'totalPrice',placeholder:'合计'},
+                    7:{type:"select",colName:'projectType',option:[{title:"全部",value:""},{title:"公司级",value:'公司级'},{title:"自主开发",value:'自主开发'}]},
+                    8:{type:"input",colName:'gmtCreate'},
+                    9:{type:"select",colName:'processEnd',placeholder:'流程状态..',option:[{title:"全部",value:""},{title:"运行中",value:0},{title:"已完成",value:1}]}
+                    //注：当type为select时 会根据option创建下拉列表 option中
+                },handleColumn:10};
+            tablefilter.queryFunction=vm.fuzzySearch;
+            tablefilter.params=vm.params;
+            tablefilter.initializeFilter(option);
+        });
+        vm.queryData();
+
+        return vm;
+
+    })
+    .controller("FiveOaInlandProjectReviewDetailController", function ($state,$stateParams,$rootScope,$scope,fiveOaInlandProjectReviewService,commonPrintTableService,fiveOaInlandProjectApplyService,fiveOaResearchProjectLibraryService) {
+        var vm = this;
+        var uiSref="five.oaInlandProjectReview";
+        var reviewId = $stateParams.reviewId;
+        var key = $state.current.name + "_" + user.userLogin;
+        var tableName = $rootScope.loadTableName(uiSref);
+        vm.params = getCacheParams(key, {qName: "", pageNum: 1, pageSize: $scope.pageSize, total: 0});
+        vm.pageInfo = {pageNum: vm.params.pageNum, pageSize: vm.params.pageSize, total: vm.params.total};
+        vm.searchParams = $.extend(tablefilter.params, {
+            q: vm.params.qName,
+            userLogin: user.userLogin,
+            pageNum: vm.pageInfo.pageNum,
+            pageSize: vm.pageInfo.pageSize,
+            uiSref:"five.oaInlandProjectApply",
+            processEnd:1,
+            projectName: '',
+            deptName: '',
+            projectType: '',
+            totalPrice: '',
+        });
+
+        vm.init=function(){
+            vm.loadData(true);
+        }
+        //选人模块
+        vm.showUserModel = function (status) {
+            vm.status=status;
+            if (vm.status=='chargeMen'){
+                $scope.showOaSelectEmployeeModal_({title:"课题负责人",type:"部门",deptIds:"1", userLoginList: vm.item.chargeMen,multiple:false});
+            } else if (vm.status=='attender'){
+                $scope.showOaSelectEmployeeModal_({title:"主要参加人",type:"部门",deptIds:"1", userLoginList: vm.item.attender,multiple:true});
+            }else if (vm.status=='scientificFirstTrial'){
+                $scope.showOaSelectEmployeeModal_({title:"专家委员会常委",type:"角色",roleIds:"50,51,132,149", userLoginList: vm.item.scientificFirstTrial,multiple:true,parentRoleId:'132'});
+            }
+        };
+        //保存选人的login和名字
+        $rootScope.saveSelectEmployee_ = function () {
+            $scope.closeOaSelectEmployeeModal_();
+            if ( vm.status=='chargeMen'){
+                vm.item.chargeMen = $scope.selectedOaUserLogins_;
+                vm.item.chargeMenName = $scope.selectedOaUserNames_;
+            }else if (vm.status=='attender'){
+                vm.item.attender = $scope.selectedOaUserLogins_;
+                vm.item.attenderName = $scope.selectedOaUserNames_;
+            }else if (vm.status=='scientificFirstTrial'){
+                vm.item.scientificFirstTrial = $scope.selectedOaUserLogins_;
+                vm.item.scientificFirstTrialName = $scope.selectedOaUserNames_;
+            }
+        };
+        //选部门模块
+        vm.showDeptModal=function(id) {
+
+            $scope.showOaSelectEmployeeModal_({title:"请选择部门",type:"选部门", deptIdList: vm.item.deptId+"",
+                multiple:false,deptIds:"1",parentDeptId:2});
+
+        };
+
+        $rootScope.saveSelectDept_ =function() {
+            $scope.closeOaSelectEmployeeModal_();
+            vm.item.deptName = $scope.selectedOaDeptNames_;
+            vm.item.deptId = Number($scope.selectedOaDeptIds_);
+        };
+
+        //加载
+        vm.loadData = function (loadProcess) {
+            fiveOaInlandProjectReviewService.getModelById(reviewId).then(function (value) {
+                if (value.data.ret) {
+                    vm.item = value.data.data;
+                    if (loadProcess) {
+                        $scope.loadProcessInstance(vm.item.processInstanceId);
+                        $scope.basicInit(vm.item.businessKey);
+                    }
+
+
+                    $("#commencementDate").datepicker('setDate',vm.item.commencementDate);
+                    $("#completionDate").datepicker('setDate', vm.item.completionDate);
+                }
+            })
+
+        };
+
+        vm.save = function () {
+            vm.item.operateUserLogin = user.userLogin;
+            fiveOaInlandProjectReviewService.update(vm.item).then(function (value) {
+                if (value.data.ret) {
+                    toastr.success("保存成功!")
+                    vm.loadData(true);
+                }
+            })
+        }
+
+        vm.countTotalPrice =function(fee){
+            if (angular.isUndefined(vm.item[fee])){
+                vm.item[fee] = '';
+            }
+            //确保输入的是数字
+            vm.item[fee] = vm.item[fee].replace(/[^\d\.]/g, '');
+            //确保第一个输入的是数字
+            vm.item[fee] = vm.item[fee].replace(/^\./g,'');
+            //确保不能输入两个小数点
+            vm.item[fee] = vm.item[fee].replace(/\.{2,}/g,'.');
+            //保证小数点只出现一次，而不能出现两次以上
+            vm.item[fee] = vm.item[fee].replace('.','$#$').replace(/\./g,'').replace('$#$','.');
+            //确保只能输入六位小数
+            vm.item[fee] = vm.item[fee].replace(/^(\-)*(\d+)\.(\d\d\d\d\d\d).*$/,'$1$2.$3');
+            vm.item.totalPrice= Number(vm.item.materialsCost)+Number(vm.item.appropriativeCost)+Number(vm.item.outsourceCost)+Number(vm.item.meetingCost)
+                +Number(vm.item.travelCost)+Number(vm.item.specialistCost)+Number(vm.item.fixeAssetDepreciationCost)+Number(vm.item.fuelPowerCost)+Number(vm.item.salaryServiceCost);
+            vm.item.totalPrice = vm.item.totalPrice.toFixed(6);
+        }
+
+        vm.burl = function(s){
+            vm.item[s] = Number(vm.item[s]).toFixed(6);
+        }
+
+        //发送流程验证
+        $scope.showSendTask=function(send){
+            if ($("#detail_form").validate().form()) {
+                vm.item.operateUserLogin = user.userLogin;
+
+                if (!vm.item.secret){
+                    toastr.warning("请确认项目是否脱密，本平台是非密平台！")
+
+                }else {
+                    fiveOaInlandProjectReviewService.update(vm.item).then(function (value) {
+                        if (value.data.ret) {
+                            jQuery.showActHandleModal({
+                                taskId: $scope.processInstance.taskId,
+                                send: send,
+                                enLogin: user.enLogin
+                            }, function () {
+                                return true;
+                            }, function (processInstanceId) {
+                                $scope.refresh();});
+                        }
+                    })
+                }
+
+            }else {
+                toastr.warning("请准确填写数据!")
+                return false;
+            }
+
+        }
+
+        //选择内部项目
+        vm.selectFee = function(){
+            vm.qFee = "";
+            var params = $.extend(tablefilter.params, {
+                qName:vm.params.qName,pageNum: vm.pageInfo.pageNum, pageSize: vm.pageInfo.pageSize,userLogin:user.userLogin,uiSref:"five.oaInlandProjectApply"
+            });
+            fiveOaInlandProjectApplyService.listPagedData(vm.searchParams).then(function (value) {
+                vm.pageInfo = value.data.data;
+                vm.fees = vm.pageInfo.list;
+                console.log(vm.fees)
+                setCacheParams(key, vm.params, vm.pageInfo);
+                singleCheckBox(".cb_fee", "data-name");
+            });
+            $("#selectFeeModal").modal("show");
+        };
+
+        vm.saveSelectFee = function(){
+            $("#selectFeeModal").modal("hide");
+            if ($(".cb_fee:checked").length > 0){
+                var fee = $.parseJSON($(".cb_fee:checked").first().attr("data-name"));
+                vm.item.projectName = fee.projectName;
+                vm.item.achievement = fee.achievement;
+                vm.item.attender = fee.attender;
+                vm.item.attenderName = fee.attenderName;
+                vm.item.chargeMen = fee.chargeMen;
+                vm.item.chargeMenName = fee.chargeMenName;
+                vm.item.commencementDate = fee.commencementDate;
+                vm.item.completionDate = fee.completionDate;
+                vm.item.deptId = fee.deptId;
+                vm.item.deptName = fee.deptName;
+                vm.item.fixeAssetDepreciationCost = fee.fixeAssetDepreciationCost;
+                vm.item.fuelPowerCost = fee.fuelPowerCost;
+                vm.item.materialsCost = fee.materialsCost;
+                vm.item.meetingCost = fee.meetingCost;
+                vm.item.outsidePayment = fee.outsidePayment;
+                vm.item.outsourceCost = fee.outsourceCost;
+                vm.item.projectContent = fee.projectContent;
+                vm.item.projectType = fee.projectType;
+                vm.item.remark = fee.remark;
+                vm.item.salaryServiceCost = fee.salaryServiceCost;
+                vm.item.scientificFirstTrial = fee.scientificFirstTrial;
+                vm.item.scientificFirstTrialName = fee.scientificFirstTrialName;
+                vm.item.secret = fee.secret;
+                vm.item.specialistCost = fee.specialistCost;
+                vm.item.totalPrice = fee.totalPrice;
+                vm.item.travelCost = fee.travelCost;
+                vm.item.yearExceptPayment = fee.yearExceptPayment;
+                vm.item.yearRepayment = fee.yearRepayment;
+                vm.item.startTime = fee.startTime;
+                vm.item.endTime = fee.endTime;
+                vm.item.projectNo = fee.id;
+
+            }
+            vm.save();
+        };
+
+        vm.searchData = function(){
+            fiveOaInlandProjectApplyService.listPagedData(vm.searchParams).then(function (value) {
+                vm.pageInfo = value.data.data;
+                vm.fees = vm.pageInfo.list;
+                setCacheParams(key, vm.params, vm.pageInfo);
+            });
+        }
+
+
+        vm.print=function () {
+            commonPrintTableService.getPrintDate(vm.item.businessKey,user.userLogin).then(function (value) {
+                if(value.data.ret){
+                    lodop=getLodop();
+                    vm.printData=value.data.data;
+
+                    lodop.PRINT_INIT("内部科研项目审批");
+                    var strBodyStyle = "<style>" + document.getElementById("print_style").innerHTML + "</style>";
+                    setTimeout(function () {
+                        var strFormHtml =strBodyStyle+ "<body>" + document.getElementById("print_area").innerHTML + "</body>";
+                        lodop.ADD_PRINT_HTM(0, '1%', "94%",'25mm',document.getElementById("page_index").innerHTML);
+                        lodop.SET_PRINT_STYLEA(0,"ItemType",1);
+                        lodop.SET_PRINT_STYLEA(0,"LinkedItem",1);
+                        lodop.NewPageA();
+                        lodop.ADD_PRINT_HTM(50, 25, "94%", "100%", strFormHtml);
+                        lodop.SET_PRINT_STYLEA(0,"Vorient",3);
+                        lodop.PREVIEW();
+                    }, 2000);
+                }
+            })
+        };
+
+        vm.init();
+
+        $scope.refresh=function(){
+            vm.loadData(true);
+        };
+        return vm;
+
+    })
+
     //科研审批流程  科研项目库
     .controller("FiveOaResearchProjectLibraryController", function ($state, $scope,$rootScope,fiveOaResearchProjectLibraryService) {
         var vm = this;
@@ -13838,8 +14418,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
 
@@ -13985,8 +14570,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -14219,8 +14809,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -14492,8 +15087,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -14754,8 +15354,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -15032,8 +15637,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -15318,7 +15928,7 @@
                 if (value.data.ret) {
                     vm.item = value.data.data;
                     if (loadProcess) {
-                        $scope.loadProcessInstance(vm.item.processInstanceId);
+                        $scope.loadNewProcessInstance(vm.item.processInstanceId,vm.item.businessKey);
                         $scope.basicInit(vm.item.businessKey);
                     }
                 }
@@ -15395,8 +16005,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -15710,8 +16325,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -15862,8 +16482,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                           $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -16018,8 +16643,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                           $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -16162,8 +16792,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                           $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -16381,8 +17016,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -16626,14 +17266,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                           /* $rootScope.loadNewProcessInstance(processInstanceId);
-                            $rootScope.loadProcessInstance(processInstanceId);*/
-                           setTimeout(function () {
-                               $scope.refresh();
-                           },2000);
-
-                            //vm.loadData(true);
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -16841,8 +17479,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                           $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -17008,8 +17651,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                           $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -17184,8 +17832,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                           $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -17360,8 +18013,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                           $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -17609,8 +18267,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -17845,8 +18508,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -18005,8 +18673,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -18203,10 +18876,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            setTimeout(function(){
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
                                 $scope.refresh();
-                            },2000)
+                            }
                         });
                     }
                 })
@@ -18465,8 +19140,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -18649,8 +19329,13 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();});
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
+                        });
                     }
                 })
             }else {
@@ -18827,8 +19512,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $scope.refresh();
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })

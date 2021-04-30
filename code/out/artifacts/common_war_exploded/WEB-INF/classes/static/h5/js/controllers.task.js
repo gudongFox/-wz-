@@ -450,8 +450,8 @@
 
         };
 
-        vm.openRead=function(id){
-           var url = "/wuzhou/file/preview/" + id;
+        vm.openRead=function(){
+           var url = "/wuzhou/file/preview/" + businessKey;
             window.location.href=url;
         };
 
@@ -535,7 +535,7 @@
         };
 
     vm.openRead=function(id){
-        var url = "/wuzhou/file/preview/" + id;
+        var url = "/wuzhou/file/preview/" + businessKey;
         window.location.href=url;
     };
     //发送流程验证 流程发送的时候 没有调用这个方法。
@@ -911,7 +911,7 @@
         };
 
         vm.openRead=function(id){
-            var url = "/wuzhou/file/preview/" + id;
+            var url = "/wuzhou/file/preview/" + businessKey;
             window.location.href=url;
         };
 
@@ -1140,7 +1140,7 @@
 
         };
         vm.openRead=function(id){
-            var url = "/wuzhou/file/preview/" + id;
+            var url = "/wuzhou/file/preview/" + businessKey;
             window.location.href=url;
         };
         vm.backMain=function(){
@@ -3883,7 +3883,7 @@
         };
 
         vm.openRead=function(id){
-            var url = "/wuzhou/file/preview/" + id;
+            var url = "/wuzhou/file/preview/" + businessKey;
             window.location.href=url;
         };
         //发送流程验证 流程发送的时候 没有调用这个方法。
@@ -4066,7 +4066,7 @@
         };
 
         vm.openRead=function(id){
-            var url = "/wuzhou/file/preview/" + id;
+            var url = "/wuzhou/file/preview/" + businessKey;
             window.location.href=url;
         };
         //发送流程验证 流程发送的时候 没有调用这个方法。

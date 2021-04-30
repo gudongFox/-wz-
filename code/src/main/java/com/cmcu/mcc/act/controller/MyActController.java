@@ -1,18 +1,13 @@
 package com.cmcu.mcc.act.controller;
 
-import com.cmcu.act.service.ProcessQueryService;
 import com.common.model.JsonData;
 import com.cmcu.common.act.dto.UserTaskDto;
-import com.cmcu.common.util.FileUtil;
-import com.cmcu.common.util.JsonMapper;
-import com.cmcu.mcc.act.model.MyHistoryTask;
 import com.cmcu.mcc.act.service.MyActService;
 import com.cmcu.mcc.act.service.MyDiagramService;
 import com.cmcu.mcc.act.service.MyHistoryService;
 import com.cmcu.mcc.act.service.MySendService;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import org.activiti.bpmn.model.UserTask;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.FileCopyUtils;
@@ -23,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLEncoder;

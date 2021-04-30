@@ -5130,12 +5130,26 @@ angular.module('services.business', [])
             return deferred.promise;
         };
 
-        var updateDetail = function (item) {
+        var getDetails = function (item) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/updateDetails.json',
+                data: item
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        var updateDetail = function (detail) {
             var deferred = $q.defer();
             return $http({
                 method: 'POST',
                 url: head + '/updateDetail.json',
-                data: item
+                data: detail
             }).success(function (data) {
                 deferred.resolve(data);
             }).error(function (error) {
@@ -5199,6 +5213,22 @@ angular.module('services.business', [])
             return deferred.promise;
         };
 
+        var uploadExcel = function (fileName) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/uploadExcel.json',
+                params: {
+                    fileName: fileName
+                }
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
 
 
         return {
@@ -5230,6 +5260,9 @@ angular.module('services.business', [])
             downTempleXls:function(params){
                 return downTempleXls(params);
             },
+            getDetails: function (item) {
+                return getDetails(item);
+            },
             updateDetail: function (item) {
                 return updateDetail(item);
             },
@@ -5241,6 +5274,9 @@ angular.module('services.business', [])
             },
             downData: function (collectId,userLogin) {
                 return downData(collectId,userLogin);
+            },
+            uploadExcel: function (fileName) {
+                return uploadExcel(fileName);
             },
 
         }
@@ -6664,4 +6700,221 @@ angular.module('services.business', [])
         }
     })
 
+    .factory('fiveBusinessStatisticsService', function ($q, $http) {
 
+        var head = "/business/statistics";
+
+        var getModelById = function (id) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/getModelById.json',
+                params: {
+                    id: id
+                }
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        var update = function (item) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/update.json',
+                data: item
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        var getNewModel = function (userLogin) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/getNewModel.json',
+                params: {
+                    userLogin: userLogin,
+                }
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        var remove = function (id, userLogin) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/remove.json',
+                params: {
+                    id: id,
+                    userLogin: userLogin
+                }
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        var downTempleXls = function (params) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/downTempleXls.json',
+                responseType: "blob",
+                transformResponse: function(data, headers){
+                    var response = {};
+                    response.data = data;
+                    response.headers = headers();
+                    return response;
+                },
+                params: params
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        var listPagedData = function (params) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/listPagedData.json',
+                params: params
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        var getNewModelDetail = function (advanceId) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/getNewModelDetail.json',
+                params: {
+                    advanceId:advanceId,
+                }
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        var getModelDetailById = function (id) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/getModelDetailById.json',
+                params: {
+                    id: id
+                }
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        var updateDetail = function (item) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/updateDetail.json',
+                data: item
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        var removeDetail = function (id) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/removeDetail.json',
+                params: {
+                    id: id,
+                }
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        var listDetail = function (advanceId) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: head + '/listDetail.json',
+                params: {
+                    advanceId: advanceId,
+                }
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        return {
+
+            update: function (item) {
+                return update(item);
+            },
+            getModelById: function (id) {
+                return getModelById(id);
+            },
+            getNewModel: function (userLogin) {
+                return getNewModel(userLogin);
+            },
+            getNewModelDetail: function (advanceId) {
+                return getNewModelDetail(advanceId);
+            },
+            getModelDetailById:function (id) {
+                return getModelDetailById(id);
+            },
+            remove: function (id, userLogin) {
+                return remove(id, userLogin);
+            },
+            listPagedData: function (params) {
+                return listPagedData(params);
+            },
+            downTempleXls:function(params){
+                return downTempleXls(params);
+            },
+            updateDetail: function (item) {
+                return updateDetail(item);
+            },
+            removeDetail: function (id) {
+                return removeDetail(id);
+            },
+            listDetail: function (advanceId) {
+                return listDetail(advanceId);
+            },
+
+        }
+    })

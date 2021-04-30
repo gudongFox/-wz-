@@ -293,8 +293,8 @@ public class FiveFileContentController {
     }
 
 
-    @RequestMapping("/preview/{fileId}")
-    public ModelAndView previewFile(@PathVariable("fileId") int fileId) {
+    @RequestMapping("/preview/{businessKey}")
+    public ModelAndView previewFile(@PathVariable("businessKey") String businessKey) {
         ModelAndView modelAndView = new ModelAndView("common/previewFile");
         String enLogin = CookieSessionUtils.getSession("enLogin");
         if (StringUtils.isEmpty(enLogin)) {
@@ -303,9 +303,13 @@ public class FiveFileContentController {
 
         CommonConfig commonConfig=commonConfigService.getConfig();
         UserDto userDto = commonUserService.selectByEnLogin(enLogin);
-        FiveContentFile file = fiveContentFileService.getModelById(fileId);
+
+        FiveContentFile file = fiveContentFileService.getModelByBusinessKey(businessKey,0);
+
+
+
         modelAndView.addObject("fileName", file.getFileName());
-        modelAndView.addObject("src", commonConfig.getOwaServer() + "/wuzhou/file/download/" + fileId);
+        modelAndView.addObject("src", commonConfig.getOwaServer() + "/wuzhou/file/download/" + file.getId());
         modelAndView.addObject("sec", userDto.getCnName() + " " + enLogin);
         return modelAndView;
     }

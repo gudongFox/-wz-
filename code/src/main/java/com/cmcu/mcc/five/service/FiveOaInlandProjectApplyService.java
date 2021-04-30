@@ -131,6 +131,17 @@ public class FiveOaInlandProjectApplyService extends BaseService {
     }
 
     public FiveOaInlandProjectApplyDto getDto(FiveOaInlandProjectApply item) {
+
+        item.setMaterialsCost(MyStringUtil.moneyToString(item.getMaterialsCost(),6));
+        item.setAppropriativeCost(MyStringUtil.moneyToString(item.getAppropriativeCost(),6));
+        item.setOutsourceCost(MyStringUtil.moneyToString(item.getOutsourceCost(),6));
+        item.setMeetingCost(MyStringUtil.moneyToString(item.getMeetingCost(),6));
+        item.setTravelCost(MyStringUtil.moneyToString(item.getTravelCost(),6));
+        item.setSpecialistCost(MyStringUtil.moneyToString(item.getSpecialistCost(),6));
+        item.setFuelPowerCost(MyStringUtil.moneyToString(item.getFuelPowerCost(),6));
+        item.setFixeAssetDepreciationCost(MyStringUtil.moneyToString(item.getFixeAssetDepreciationCost(),6));
+        item.setSalaryServiceCost(MyStringUtil.moneyToString(item.getSalaryServiceCost(),6));
+
         FiveOaInlandProjectApplyDto dto=FiveOaInlandProjectApplyDto.adapt(item);
         dto.setProcessName("已完成");
 

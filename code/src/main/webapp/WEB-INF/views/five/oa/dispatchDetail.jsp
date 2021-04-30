@@ -29,7 +29,7 @@
             <jsp:include page="../../common/common-actAction.jsp" />
             <%----%>
 
-            <a href="javascript:;" class="btn btn-sm btn-default" ng-click="vm.print();" <%--ng-show="vm.item.processEnd&&user.userLogin==vm.item.creator"--%>>
+            <a href="javascript:;" class="btn btn-sm btn-default" ng-click="vm.print();"  style="font-size: 14px;line-height: 1.6">
                 <i class="fa fa-print"></i> 打印 </a>
             <a href="javascript:;" class="btn btn-sm btn-default" ng-click="vm.goNotice();" style="font-size: 14px;line-height: 1.6"  ng-show="vm.item.processEnd">
                 <i class="fa fa-print"></i> 转文件简报 </a>
@@ -70,7 +70,7 @@
                                 <div class="form-group">
                                     <label class="col-md-2 control-label " style="font-weight: bold;font-size: 18px"><strong>发文正文</strong></label>
                                     <div class="col-md-10">
-                                        <a href="#" ng-click="rh.readDocOnly(redheadFile.id,redheadFile.fileName)" ng-bind="redheadFile.fileName">红头文件.doc</a>&nbsp;&nbsp;
+                                        <a href="#" ng-click="rh.readDocOnly(vm.item.businessKey)" ng-bind="redheadFile.fileName">红头文件.doc</a>&nbsp;&nbsp;
                                         <span id="btnUpload0" class="btn btn-sm default fileinput-button" ng-show="processInstance.firstTask">
                                         <i class="fa fa-cloud-upload" ></i><span>上传</span>
                                         <input id="redHead" type="file" name="singleUpload" accept=".doc,.docx"></span>
@@ -186,8 +186,10 @@
                                             <button class="btn default" style="height: 74px;" type="button" ng-click="vm.showDeptModal('realSendMan');" ng-disabled="!processInstance.firstTask"><i class="fa fa-cog"></i></button>
                                          </span>
                                     </div>
+                                    <p class="help-block" style="color: red">
+                                        发起人确认节点,选择需要抄送的领导人员
+                                    </p>
                                 </div>
-                                <span style="color: red">发起人确认节点,选择需要抄送的领导人员</span>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-2 control-label ">抄送</label>

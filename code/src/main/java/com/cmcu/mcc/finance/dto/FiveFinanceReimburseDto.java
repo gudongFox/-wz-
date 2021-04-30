@@ -34,6 +34,8 @@ public class FiveFinanceReimburseDto extends FiveFinanceReimburse {
     private String shouldRefundMoney;
     //是否存在项目
     private Boolean isProject;
+    //合同信息
+    public String projectNo;
 
     public static FiveFinanceReimburseDto adapt(FiveFinanceReimburse item) {
         FiveFinanceReimburseDto dto = new FiveFinanceReimburseDto();

@@ -57,7 +57,7 @@
   </select>
 
   <select id="getKeyInfoByEnLogin" parameterType="java.lang.String" resultType="java.util.Map">
-    SELECT a.user_login as enLogin,a.wx_id as wxId,b.avatar,b.head_attach_id as headAttachId,b.user_name as cnName,c.name as deptName,c.id as deptId,a.role_ids as roleIds,a.position_ids as positionIds FROM hr_employee_sys a
+    SELECT a.user_login as enLogin,a.wx_id as wxId,b.avatar,b.head_attach_id as headAttachId,b.sign_pic_attach_id as signPicAttachId,b.user_name as cnName,c.name as deptName,c.id as deptId,a.role_ids as roleIds,a.position_ids as positionIds FROM hr_employee_sys a
     left join hr_employee b on a.user_login=b.user_login
     left join hr_dept c on a.dept_id=c.id
     where  a.user_login=#{enLogin,jdbcType=VARCHAR}
@@ -67,7 +67,7 @@
 
 
 
-  <select id="selectLastOne"  resultMap="BaseResultMap">
+  <select id="selectLastOne" resultMap="BaseResultMap">
     select *
     from hr_employee_sys
     order by id desc

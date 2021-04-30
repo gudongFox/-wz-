@@ -167,12 +167,15 @@ public class FiveBusinessContractReviewService extends BaseService {
         model.setProjectName(dto.getProjectName());
         model.setStageName(dto.getStageName());
         model.setContractNo(dto.getContractNo());
-
         if(StringUtils.isEmpty(dto.getContractMoney())){
+            model.setContractMoney(MyStringUtil.moneyToString("0"));
+        }
+
+        /*if(StringUtils.isEmpty(dto.getContractMoney())){
             model.setContractMoney(MyStringUtil.moneyToString(dto.getInvestMoney()));
         }else{
             model.setContractMoney(MyStringUtil.moneyToString(dto.getContractMoney()));
-        }
+        }*/
         model.setContractType(dto.getContractType());
         model.setSignTime(dto.getSignTime());
         model.setBid(dto.getBid());
@@ -783,7 +786,7 @@ public class FiveBusinessContractReviewService extends BaseService {
                 review.setContractLibraryId(library.getId());
                 fiveBusinessContractReviewMapper.updateByPrimaryKey(review);
                 //转附件
-                commonFileService.copyFileByBusinessKey(review.getBusinessKey(),library.getBusinessKey());
+                commonFileService.copyFileByBusinessKey(review.getBusinessKey(),library.getBusinessKey(),0);
                 return "项目： "+review.getProjectName()+"  成功录入合同库";
             }else {
                 Map map1 =new HashMap();
@@ -869,7 +872,7 @@ public class FiveBusinessContractReviewService extends BaseService {
                 review.setContractLibraryId(library.getId());
                 fiveBusinessContractReviewMapper.updateByPrimaryKey(review);
                 //转附件
-                commonFileService.copyFileByBusinessKey(review.getBusinessKey(),library.getBusinessKey());
+                commonFileService.copyFileByBusinessKey(review.getBusinessKey(),library.getBusinessKey(),0);
                 return "项目： "+review.getProjectName()+"  成功补录入 合同库";
             }
         }

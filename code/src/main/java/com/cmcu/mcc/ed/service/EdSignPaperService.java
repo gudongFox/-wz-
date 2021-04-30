@@ -1,11 +1,9 @@
 package com.cmcu.mcc.ed.service;
 
-import com.cmcu.act.dto.CustomProcessInstance;
 import com.cmcu.act.service.ProcessQueryService;
 import com.cmcu.common.dao.CommonDirMapper;
 import com.cmcu.common.dao.CommonFileMapper;
 import com.cmcu.common.dao.CommonFormDataMapper;
-import com.cmcu.common.dto.CommonDirDto;
 import com.cmcu.common.dto.CommonEdArrangeUserDto;
 import com.cmcu.common.dto.UserDto;
 import com.cmcu.common.entity.CommonDir;
@@ -16,38 +14,23 @@ import com.cmcu.common.service.CommonEdArrangeUserService;
 import com.cmcu.common.service.CommonUserService;
 import com.cmcu.common.util.JsonMapper;
 import com.cmcu.common.util.MyStringUtil;
-import com.cmcu.mcc.act.model.MyHistoryTask;
-import com.cmcu.mcc.act.model.MyProcessInstance;
 import com.cmcu.mcc.act.service.MyHistoryService;
 import com.cmcu.mcc.business.dao.BusinessContractMapper;
 import com.cmcu.mcc.business.dto.BusinessContractDto;
-import com.cmcu.mcc.business.entity.BusinessContract;
 import com.cmcu.mcc.business.service.BusinessContractService;
 import com.cmcu.mcc.ed.dao.*;
-import com.cmcu.mcc.ed.dto.EdStepBuildDto;
 import com.cmcu.mcc.ed.entity.*;
-import com.cmcu.mcc.five.dao.FiveEdHouseValidateMapper;
-import com.cmcu.mcc.five.entity.FiveEdArrange;
-import com.cmcu.mcc.five.entity.FiveEdArrangeUser;
 
 import com.cmcu.mcc.hr.dto.HrEmployeeDto;
 import com.cmcu.mcc.hr.service.SelectEmployeeService;
 import com.cmcu.mcc.service.impl.HandleFormService;
-import com.cmcu.mcc.sys.entity.SysConfig;
 import com.cmcu.mcc.sys.service.SysConfigService;
-import com.github.pagehelper.PageHelper;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.activiti.engine.HistoryService;
-import org.activiti.engine.history.HistoricProcessInstance;
-import org.activiti.engine.history.HistoricProcessInstanceQuery;
-import org.activiti.engine.impl.util.json.JSONException;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateFormatUtils;
-import org.apache.struts2.json.JSONUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -72,18 +55,11 @@ public class EdSignPaperService {
     @Autowired
     SysConfigService sysConfigService;
 
-    @Resource
-    BusinessContractMapper businessContractMapper;
-
     @Autowired
     BusinessContractService businessContractService;
 
     @Autowired
     EdStepBuildService edStepBuildService;
-
-
-    @Autowired
-    FiveEdHouseValidateMapper fiveEdHouseValidateMapper;
 
     @Autowired
     CommonFileMapper commonFileMapper;

@@ -174,6 +174,7 @@ public class FiveOaSoftwareService extends BaseService {
         variables.put("userLogin", userLogin);
         variables.put("processDescription", "软件购置申请："+item.getDeptName());
 
+        variables.put("generalManger",hrEmployeeService.selectUserByPositionName("总经理"));//总经理
         variables.put("companyLeader",business);//公司领导
 
         item.setBusinessKey(businessKey);

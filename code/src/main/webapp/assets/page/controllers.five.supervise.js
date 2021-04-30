@@ -143,9 +143,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $rootScope.loadNewProcessInstance(processInstanceId);
-                            $rootScope.loadProcessInstance(processInstanceId);
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -326,9 +329,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $rootScope.loadNewProcessInstance(processInstanceId);
-                            $rootScope.loadProcessInstance(processInstanceId);
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -535,9 +541,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $rootScope.loadNewProcessInstance(processInstanceId);
-                            $rootScope.loadProcessInstance(processInstanceId);
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })
@@ -730,9 +739,12 @@
                             enLogin: user.enLogin
                         }, function () {
                             return true;
-                        }, function (processInstanceId) {
-                            $rootScope.loadNewProcessInstance(processInstanceId);
-                            $rootScope.loadProcessInstance(processInstanceId);
+                        }, function (processInstanceId,result) {
+                            if (result.completeTask){
+                                $scope.back();
+                            }else {
+                                $scope.refresh();
+                            }
                         });
                     }
                 })

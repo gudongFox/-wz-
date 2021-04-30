@@ -386,12 +386,12 @@
         <if test="processEnd != null and isLikeSelect!=null">
             AND is_process_end = #{processEnd}
         </if>
-        <if test="chargeOrUser != null and isLikeSelect!=null and chargeOrUser != ''">
+        <!--<if test="chargeOrUser != null and isLikeSelect!=null and chargeOrUser != ''">
             AND (
             use_login = #{chargeOrUser} or
             charge_man = #{chargeOrUser}
             )
-        </if>
+        </if>-->
     <if test="flag != null and isLikeSelect!=null">
         AND process_instance_id != ''
     </if>
@@ -400,7 +400,10 @@
       </if>
 
         <if test="deptId != null and isLikeSelect!=null">
-            AND dept_id = #{deptId}
+            AND dept_id = #{deptId} OR (
+            use_login = #{chargeOrUser} or
+            charge_man = #{chargeOrUser}
+            )
         </if>
 
         <if test="deptIdList != null and deptIdList.size()>0 and isLikeSelect!=null">
@@ -412,6 +415,10 @@
             <if test="initiator != null and initiator != ''">
                 or creator = #{initiator}
             </if>
+            )
+            OR (
+            use_login = #{chargeOrUser} or
+            charge_man = #{chargeOrUser}
             )
         </if>
     </where>

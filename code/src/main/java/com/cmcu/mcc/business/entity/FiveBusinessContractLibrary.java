@@ -490,4 +490,6 @@ public class FiveBusinessContractLibrary {
 
     @Size(max=45, message="projectChargeManName长度不能超过45")
     private String projectChargeManName;
+
+    private String count;
 }

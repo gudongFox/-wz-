@@ -90,7 +90,8 @@
                                 <td>
                                     <i class="fa fa-pencil margin-right-5" ng-click="vm.show(item.id);" title="详情"></i>
                                     <i class="fa fa-trash-o margin-right-5" ng-click="vm.remove(item.id);" title="删除"
-                                       ng-show="item.creator==user.userLogin&&!item.processEnd&&rightData.selectOpts.indexOf('删除')>=0"></i>
+                                       ng-show="(item.creator==user.userLogin&&!item.processEnd&&rightData.selectOpts.indexOf('删除')>=0)
+||rightData.selectOpts.indexOf('管理员删除')>=0"></i>
                                 </td>
                             </tr>
                             </tbody>

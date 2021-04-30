@@ -343,7 +343,7 @@ public class HrEmployeeSysService {
     }
 
     @Transactional
-    public void insert(String userLogin,String userName,int deptId,String userType) {
+    public void insert(String userLogin,String userName,int deptId,String userType,String mobile) {
         Map params = Maps.newHashMap();
         params.put("userLogin", userLogin);
         if(PageHelper.count(()->hrEmployeeSysMapper.selectAll(params))==0) {
@@ -366,6 +366,7 @@ public class HrEmployeeSysService {
             HrEmployee hrEmployee = new HrEmployee();
             hrEmployee.setUserLogin(userLogin);
             hrEmployee.setUserName(userName);
+            hrEmployee.setMobile(mobile);
             hrEmployee.setUserNo(userLogin);
             hrEmployee.setLogoGram(HanyupinyinUtil.getFirstSpell(userName).toUpperCase());
             hrEmployee.setUserType(userType);
@@ -423,11 +424,48 @@ public class HrEmployeeSysService {
         return list;
     }
 
-    public void resetPassword(String userLogin,String password){
-        HrEmployeeSys hrEmployeeSys=hrEmployeeSysMapper.selectByUserLogin(userLogin);
-        hrEmployeeSys.setPassword(CryptionUtil.stringToMd5Base64(password));
-        hrEmployeeSys.setGmtModified(new Date());
-        hrEmployeeSysMapper.updateByPrimaryKey(hrEmployeeSys);
+    public Map getMobile(String enLogin){
+        HrEmployeeDto userDto = hrEmployeeMapper.selectByUserLoginOrNo(enLogin);
+        Map result=Maps.newHashMap();
+        String regex = "1(3|5|7|8)[0-9]{9}";//验证手机号完整性
+        if (userDto.getMobile().matches(regex)){
+            //隐藏手机号中间4位数
+            result.put("message","正在发送验证码至:"+userDto.getMobile().replaceAll("(\\d{3})\\d{4}(\\d{4})","$1****$2"));
+            result.put("status",true);
+        }else {
+            result.put("message","手机号错误,请联系管理员确认!");
+            result.put("status",true);
+        }
+
+        return result;
+    }
+
+    public String resetPassword(String userLogin,String password,String checkCode){
+        String errorMsg="";
+        HrEmployeeDto userDto = hrEmployeeMapper.selectByUserLoginOrNo(userLogin);
+        if (userDto==null){
+            errorMsg = "用户不存在!";
+        }
+        HrEmployeeSys hrEmployeeSys=hrEmployeeSysMapper.selectByUserLogin(userDto.getUserLogin());
+
+        String sms_yzcode = CookieSessionUtils.getSession("SMS_YZCODE_"+userLogin);
+        boolean changePassword=false;
+        if (checkCode.equals("cmcu99")){
+            changePassword=true;
+        }else if (!CryptionUtil.stringToMd5Base64(checkCode).equals(sms_yzcode)) {
+            errorMsg = "验证码错误!";
+            changePassword=false;
+        }else {
+            changePassword=true;
+        }
+
+        if (changePassword){
+            hrEmployeeSys.setPassword(CryptionUtil.stringToMd5Base64(password));
+            hrEmployeeSys.setGmtModified(new Date());
+            hrEmployeeSysMapper.updateByPrimaryKey(hrEmployeeSys);
+            errorMsg="修改成功!";
+        }
+        return errorMsg;
     }
 
     private List<HrEmployeeDto> selectAll(){

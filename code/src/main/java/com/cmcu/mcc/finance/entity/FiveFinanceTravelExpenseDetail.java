@@ -118,5 +118,19 @@ public class FiveFinanceTravelExpenseDetail {
     @NotNull(message="工地补贴不能为空!")
     private Boolean siteAllowance;
 
-    private Integer flag = 0;//新建item的标志，在保存时判断，若为1则插入，为0则update
+    @NotNull(message="报销类型不能为空!")
+    @Size(max=145, message="报销类型长度不能超过145")
+    private String expenseType;
+
+    @Size(max=145, message="realType长度不能超过145")
+    private String realType;
+
+    @Size(max=450, message="出差地点长度不能超过450")
+    private String travelPlace;
+
+    @Size(max=45, message="出差地点类型长度不能超过45")
+    private String travelPlaceType;
+
+    @Size(max=145, message="travelDuringDate长度不能超过145")
+    private String travelDuringDate;
 }

@@ -9,6 +9,7 @@ import com.cmcu.common.service.CommonFileService;
 import com.cmcu.common.util.BeanValidator;
 import com.cmcu.common.util.ModelUtil;
 import com.cmcu.common.util.MyDateUtil;
+import com.cmcu.common.util.MyStringUtil;
 import com.cmcu.mcc.act.service.MyActService;
 import com.cmcu.mcc.comm.EdConst;
 import com.cmcu.mcc.comm.MccConst;
@@ -96,6 +97,7 @@ public class FiveAssetScrapService extends BaseService {
         model.setApplicantReason(item.getApplicantReason());
         model.setApplicantDeptOpinion(item.getApplicantDeptOpinion());
         model.setHandleOpinion(item.getHandleOpinion());
+        model.setDisposeAsset(item.getDisposeAsset());
         model.setRemark(item.getRemark());
         model.setGmtModified(new Date());
         ModelUtil.setNotNullFields(model);
@@ -103,6 +105,15 @@ public class FiveAssetScrapService extends BaseService {
         Map variables = Maps.newHashMap();
         if(item.getDeptId()!=0) {
             variables.put("deptChargeMan", selectEmployeeService.getDeptChargeMen(item.getDeptId()));//发起者部门领导
+        }
+        //是否为固定资产
+        if (model.getDisposeAsset()){
+            //copyFinanceMan 抄送各单位财务
+            variables.put("sign", true);
+            variables.put("copyFinanceMan", MyStringUtil.listToString(selectEmployeeService.getDeptFinanceMan(item.getDeptId())));
+        }else {
+            variables.put("sign", false);
+            variables.put("deptFinanceMan",selectEmployeeService.getDeptFinanceMan(item.getDeptId()));
         }
         variables.put("processDescription","固定资产报废(办公家具)："+item.getApplicantName());
         BeanValidator.check(model);

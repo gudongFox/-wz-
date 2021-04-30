@@ -39,7 +39,7 @@ public class FiveFinanceTravelExpense {
     private Integer projectId;
 
     @NotNull(message="projectName不能为空!")
-    @Size(max=45, message="projectName长度不能超过45")
+    @Size(max=450, message="projectName长度不能超过450")
     private String projectName;
 
     @NotNull(message="项目类别不能为空!")
@@ -180,4 +180,16 @@ public class FiveFinanceTravelExpense {
     @NotNull(message="出差地点类型不能为空!")
     @Size(max=45, message="出差地点类型长度不能超过45")
     private String travelPlaceType;
+
+    @NotNull(message="extraApproveReason不能为空!")
+    @Size(max=450, message="extraApproveReason长度不能超过450")
+    private String extraApproveReason;
+
+    @NotNull(message="projectDeputy不能为空!")
+    @Size(max=45, message="projectDeputy长度不能超过45")
+    private String projectDeputy;
+
+    @NotNull(message="projectDeputyName不能为空!")
+    @Size(max=45, message="projectDeputyName长度不能超过45")
+    private String projectDeputyName;
 }

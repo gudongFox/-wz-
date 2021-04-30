@@ -579,6 +579,10 @@ public class ActBusinessService {
                     result.put("url", "five.oaInlandProjectApplyDetail");
                     params.put("applyId", projectId);
                     break;
+                case EdConst.FIVE_OA_INLAND_PROJECT_REVIEW://内部项目审批
+                    result.put("url", "five.oaInlandProjectReviewDetail");
+                    params.put("reviewId", projectId);
+                    break;
                 case EdConst.FIVE_OA_RESEARCH_PROJECT_REVIEW://科技开发费项目评审
                     result.put("url", "five.oaResearchProjectReviewDetail");
                     params.put("projectId", projectId);
@@ -1110,6 +1114,10 @@ public class ActBusinessService {
                 case EdConst.FIVE_BUSINESS_TENDER_DOCUMENT_REVIEW://工程项目承包招标文件评审
                     result.put("url", "five.businessTenderDocumentReviewDetail");
                     params.put("tenderId", projectId);
+                    break;
+                case EdConst.FIVE_BUSINESS_STATISTICS://经营统计明细
+                    result.put("url", "five.businessStatisticsDetail");
+                    params.put("statisticsId", projectId);
                     break;
                     //财务管理
                 case EdConst.FIVE_FINANCE_INCOME://收入管理

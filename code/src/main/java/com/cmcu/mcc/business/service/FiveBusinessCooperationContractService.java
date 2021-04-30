@@ -343,7 +343,7 @@ public class FiveBusinessCooperationContractService  extends BaseService {
                 cooperationContract.setContractLibraryId(library.getId());
                 fiveBusinessCooperationContractMapper.updateByPrimaryKey(cooperationContract);
                 //转附件
-                commonFileService.copyFileByBusinessKey(cooperationContract.getBusinessKey(),library.getBusinessKey());
+                commonFileService.copyFileByBusinessKey(cooperationContract.getBusinessKey(),library.getBusinessKey(),0);
                 return "项目： "+cooperationContract.getContractName()+"  成功录入合同库";
         }
     }

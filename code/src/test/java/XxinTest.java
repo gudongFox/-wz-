@@ -2,6 +2,7 @@
 import com.cmcu.common.service.CommonCodeService;
 import com.cmcu.common.util.MyPoiUtil;
 
+import com.cmcu.common.util.SmsTencentUtils;
 import com.cmcu.mcc.business.dao.BusinessRecordMapper;
 import com.cmcu.mcc.business.service.BusinessContractService;
 import com.cmcu.mcc.business.service.BusinessInputContractService;
@@ -111,16 +112,17 @@ public class XxinTest {
     @Test
     public void addCopy(){
         //被抄送任务id
-        String taskId="10901069";
+        String taskId="11069236";
         //抄送人
         List<String> users = new ArrayList<>();
-        users.add("4048");//李佳珊
+       /* users.add("4048");//李佳珊
         users.add("2877");//黄涛
-        users.add("4047");//陈琦
+        users.add("4047");//陈琦*/
+        users.add("4047");
 
         HistoricTaskInstanceQuery taskQuery = historyService.createHistoricTaskInstanceQuery()
                 .includeProcessVariables().taskId(taskId);
-        List<HistoricTaskInstance> oList = taskQuery.orderByHistoricTaskInstanceStartTime().list();
+        List<HistoricTaskInstance> oList = taskQuery.list();
         HistoricTaskInstance task = oList.get(0);
         for(String user:users){
             Task ccTask = taskService.newTask();
@@ -135,6 +137,11 @@ public class XxinTest {
             taskService.saveTask(ccTask);
         }
 
+    }
+
+    @Test
+    public void sengMss(){
+        SmsTencentUtils.sendSms("电话号码","123456");
     }
 
 }

@@ -14,6 +14,10 @@ public class FiveOaInlandProjectReview {
     @Size(max=45, message="businessKey长度不能超过45")
     private String businessKey;
 
+    @NotNull(message="projectNo不能为空!")
+    @Max(value=999999999, message="projectNo必须为数字")
+    private Integer projectNo;
+
     @NotNull(message="课题名称不能为空!")
     @Size(max=145, message="课题名称长度不能超过145")
     private String projectName;
@@ -142,6 +146,5 @@ public class FiveOaInlandProjectReview {
     private Boolean secret;
 
     @NotNull(message="reviewType不能为空!")
-    @Size(max=45, message="reviewType长度不能超过45")
-    private String reviewType;
+    private Boolean reviewType;
 }

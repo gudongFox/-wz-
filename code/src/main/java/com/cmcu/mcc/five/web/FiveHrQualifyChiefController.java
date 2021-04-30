@@ -3,9 +3,7 @@ package com.cmcu.mcc.five.web;
 
 import com.common.model.JsonData;
 import com.cmcu.common.util.WebUtil;
-import com.cmcu.mcc.five.dto.FiveEdStampDto;
 import com.cmcu.mcc.five.dto.FiveHrQualifyChiefDto;
-import com.cmcu.mcc.five.entity.FiveHrQualifyChief;
 import com.cmcu.mcc.five.service.FiveHrQualifyChiefService;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;

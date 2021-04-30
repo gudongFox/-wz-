@@ -137,6 +137,7 @@
     <result column="cooperation_contract_id" jdbcType="INTEGER" property="cooperationContractId" />
     <result column="project_charge_man" jdbcType="VARCHAR" property="projectChargeMan" />
     <result column="project_charge_man_name" jdbcType="VARCHAR" property="projectChargeManName" />
+    <result column="count(*)" jdbcType="VARCHAR" property="count" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from five_business_contract_library
@@ -425,7 +426,7 @@
     main_contract_library_no, project_manager, project_manager_name, project_name, business_charge_leader, 
     business_charge_leader_name, invoice_ids, contract_invoice_money, pre_contract_money, 
     should_contract_money, project_budget_ids, is_open, stamp_tax_id, is_open_stamp, 
-    insert_type, cooperation_contract_id, project_charge_man, project_charge_man_name
+    insert_type, cooperation_contract_id, project_charge_man, project_charge_man_name, count(1) num
     from five_business_contract_library
     <include refid="Base_Where_List" />
     <include refid="Base_Where_List1" />
@@ -1179,4 +1180,10 @@
       </if>
     </where>
   </sql>
+  <select id="selectCount"  resultMap="BaseResultMap">
+    select dept_name,project_nature,count(*) from five_business_contract_library
+    <where>
+      is_deleted != 0 group by dept_name,project_nature
+    </where>
+  </select>
 </mapper>

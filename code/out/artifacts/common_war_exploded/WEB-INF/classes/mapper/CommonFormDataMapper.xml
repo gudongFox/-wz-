@@ -96,6 +96,15 @@
     <include refid="Base_Where_List" />
      order by gmt_create desc
   </select>
+
+  <select id="selectBusinessKey" resultType="java.lang.String">
+    select  business_key
+    from common_form_data
+    <include refid="Base_Where_List" />
+    order by gmt_create desc
+  </select>
+
+
   <sql id="Base_Where_List">
     <where>
       <if test="id != null">

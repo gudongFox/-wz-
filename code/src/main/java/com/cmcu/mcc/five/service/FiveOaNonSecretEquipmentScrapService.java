@@ -15,10 +15,7 @@ import com.cmcu.mcc.dto.ActHistoryDto;
 import com.cmcu.mcc.five.dao.FiveOaNonSecretEquipmentScrapDetailMapper;
 import com.cmcu.mcc.five.dao.FiveOaNonSecretEquipmentScrapMapper;
 import com.cmcu.mcc.five.dto.FiveOaNonSecretEquipmentScrapDto;
-import com.cmcu.mcc.five.entity.FiveOaFurniturePurchase;
-import com.cmcu.mcc.five.entity.FiveOaFurniturePurchaseDetail;
-import com.cmcu.mcc.five.entity.FiveOaNonSecretEquipmentScrap;
-import com.cmcu.mcc.five.entity.FiveOaNonSecretEquipmentScrapDetail;
+import com.cmcu.mcc.five.entity.*;
 import com.cmcu.mcc.hr.dao.HrEmployeeMapper;
 import com.cmcu.mcc.hr.dto.HrEmployeeDto;
 import com.cmcu.mcc.hr.service.HrEmployeeService;
@@ -42,8 +39,7 @@ import java.util.*;
 public class FiveOaNonSecretEquipmentScrapService extends BaseService {
     @Resource
     FiveOaNonSecretEquipmentScrapMapper fiveOaNonSecretEquipmentScrapMapper;
-    @Resource
-    FiveOaNonSecretEquipmentScrapDetailMapper fiveOaNonSecretEquipmentScrapDetailMapper;
+
     @Resource
     HrEmployeeMapper hrEmployeeMapper;
     @Autowired
@@ -62,6 +58,8 @@ public class FiveOaNonSecretEquipmentScrapService extends BaseService {
     ActService actService;
     @Resource
     HandleFormService handleFormService;
+    @Autowired
+    FiveAssetComputerService fiveAssetComputerService;
 
     public void remove(int id, String userLogin) {
         FiveOaNonSecretEquipmentScrap item = fiveOaNonSecretEquipmentScrapMapper.selectByPrimaryKey(id);
@@ -106,8 +104,19 @@ public class FiveOaNonSecretEquipmentScrapService extends BaseService {
         variables.put("processDescription", "非密计算机及外设报废申请:" + model.getDeptName());
         variables.put("deptChargeMenList", MyStringUtil.getStringList(model.getDeptChargeMen()));//发起者部门领导
         variables.put("administrative", selectEmployeeService.getUserListByRoleName("行政事务部人员(设备台帐)"));//行政事务部（固定资产岗）
-//        variables.put("financialAssets", selectEmployeeService.getUserListByRoleName("财务部门(内部调整)"));//财务金融部（固定资产岗）
         variables.put("chiefAccountant", hrEmployeeService.selectUserByPositionName("总会计师"));//总会计师
+
+
+
+        //是否为固定资产
+        if (model.getDisposeAsset()){
+            //copyFinanceMan 抄送各单位财务
+            variables.put("sign", true);
+            variables.put("copyFinanceMan",MyStringUtil.listToString(selectEmployeeService.getDeptFinanceMan(item.getDeptId())));
+        }else {
+            variables.put("sign", false);
+            variables.put("deptFinanceMan",selectEmployeeService.getDeptFinanceMan(item.getDeptId()));
+        }
         myActService.setVariables(model.getProcessInstanceId(), variables);
         BeanValidator.check(model);
         fiveOaNonSecretEquipmentScrapMapper.updateByPrimaryKey(model);
@@ -156,6 +165,7 @@ public class FiveOaNonSecretEquipmentScrapService extends BaseService {
         item.setSecretHard(false);
         item.setSecretOther(false);
         item.setSecretMemory(false);
+        item.setDisposeAsset(false);
         item.setStartTime(MyDateUtil.getStringToday());
         item.setDeleted(false);
         item.setProcessEnd(false);
@@ -205,64 +215,6 @@ public class FiveOaNonSecretEquipmentScrapService extends BaseService {
         return pageInfo;
     }
 
-    public void removeDetail(int id) {
-        FiveOaNonSecretEquipmentScrapDetail model = fiveOaNonSecretEquipmentScrapDetailMapper.selectByPrimaryKey(id);
-
-        model.setDeleted(true);
-        model.setGmtModified(new Date());
-        BeanValidator.validateObject(model);
-        fiveOaNonSecretEquipmentScrapDetailMapper.updateByPrimaryKey(model);
-    }
-
-    public void updateDetail(FiveOaNonSecretEquipmentScrapDetail item) {
-        FiveOaNonSecretEquipmentScrapDetail model = fiveOaNonSecretEquipmentScrapDetailMapper.selectByPrimaryKey(item.getId());
-        model.setDeptId(item.getDeptId());
-        model.setDeptName(item.getDeptName());
-
-        model.setType(item.getType());
-        model.setEquipmentNo(item.getEquipmentNo());
-        model.setBank(item.getBank());
-        model.setSecretRank(item.getSecretRank());
-        model.setChargeMan(item.getChargeMan());
-        model.setChargeManName(item.getChargeManName());
-        model.setDiskNo(item.getDiskNo());
-        model.setStartTime(item.getStartTime());
-        model.setScrapType(item.getScrapType());
-        model.setCustodyMan(item.getCustodyMan());
-        model.setCustodyManName(item.getCustodyManName());
-        model.setAssetsNo(item.getAssetsNo());
-        model.setPrice(MyStringUtil.moneyToString(item.getPrice(),2));
-        model.setDepreciationYear(item.getDepreciationYear());
-        model.setDepreciationPrice(MyStringUtil.moneyToString(item.getDepreciationPrice(),2));
-        model.setNetWorth(item.getNetWorth());
-
-        model.setRemark(item.getRemark());
-        fiveOaNonSecretEquipmentScrapDetailMapper.updateByPrimaryKey(model);
-    }
-
-    public FiveOaNonSecretEquipmentScrapDetail getNewModelDetail(int id) {
-        FiveOaNonSecretEquipmentScrapDetail item = new FiveOaNonSecretEquipmentScrapDetail();
-        item.setNonsecretEquipmentScrapId(id + "");
-        item.setGmtModified(new Date());
-        item.setGmtCreate(new Date());
-        item.setDeleted(false);
-        ModelUtil.setNotNullFields(item);
-        fiveOaNonSecretEquipmentScrapDetailMapper.insert(item);
-        return item;
-
-    }
-
-    public FiveOaNonSecretEquipmentScrapDetail getModelDetailById(int id) {
-        return fiveOaNonSecretEquipmentScrapDetailMapper.selectByPrimaryKey(id);
-    }
-
-    public List<FiveOaNonSecretEquipmentScrapDetail> listDetail(int id) {
-        Map<String, Object> params = Maps.newHashMap();
-        params.put("deleted", false);
-        params.put("nonsecretEquipmentScrapId", id);
-        List<FiveOaNonSecretEquipmentScrapDetail> list = fiveOaNonSecretEquipmentScrapDetailMapper.selectAll(params);
-        return list;
-    }
 
     // 需要修改打印页
     public Map getPrintData(int id) {

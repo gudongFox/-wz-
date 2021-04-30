@@ -70,8 +70,7 @@
         <h3 class="form-title">系统登录</h3>
         <div class="alert alert-danger display-hide">
             <button class="close" data-close="alert"></button>
-            <span>
-			请输入您的用户名和密码. </span>
+            <span>请输入您的用户名和密码. </span>
         </div>
         <div class="form-group" style="margin-bottom: 20px;">
             <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
@@ -90,25 +89,38 @@
                        autocomplete="off" data-max-length="50" placeholder="您的密码" name="password"/>
             </div>
         </div>
+       <%-- <div class="form-group" id="check" style="display: none">
+            <label class="control-label visible-ie8 visible-ie9">验证码</label>
+            <div class="input-icon">
+                <div class="input-group">
+                    <input class="form-control placeholder-no-fix" type="text"
+                           autocomplete="off"  maxlength="6" minlength="6" placeholder="请输入6位验证码" name="checkCode"/>
+                    <span class="input-group-btn"  >
+                        <button class="btn default" type="button" onclick="sendCode();" id="checkCodeBtn" style="color: #0b94ea" >发送验证码</button>
+                    </span>
+                </div>
+            </div>
+        </div>--%>
         <div class="form-actions">
-            <%--<input type="checkbox" name="remember" />
-            <label class="checkbox">
-               记住我 </label>--%>
+           <%-- <label class="checkbox"><a href="/changePassword">忘记密码</a></label>--%>
             <button type="submit" class="btn blue pull-right">
                 登录 <i class="m-icon-swapright m-icon-white"></i>
             </button>
         </div>
+
+        <div id="QRCode"></div>
         <%--<div class="login-options">
             <h4>设计管理 协同设计</h4>
         </div>--%>
         <div class="create-account">
             <p style="text-align: right;padding-right: 10px;">
-              <%--  <a href="/nochange/${code}_协同设计.exe" style="color:blue;"  target="_blank">协同设计软件包</a>
-                <a href="/nochange/${code}_操作说明.doc" style="color:blue;"  target="_blank">操作手册</a>
-                <a href="/nochange/${code}_培训视频.mp4" style="color:blue;"  target="_blank">培训视频</a>--%>
+                <%--  <a href="/nochange/${code}_协同设计.exe" style="color:blue;"  target="_blank">协同设计软件包</a>
+                  <a href="/nochange/${code}_操作说明.doc" style="color:blue;"  target="_blank">操作手册</a>
+                  <a href="/nochange/${code}_培训视频.mp4" style="color:blue;"  target="_blank">培训视频</a>--%>
             </p>
         </div>
     </form>
+
     <!-- END LOGIN FORM -->
 </div>
 <!-- END LOGIN -->
@@ -133,11 +145,13 @@
 <script src="/m/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
 <script src="/m/global/plugins/jquery-validation/js/localization/messages_zh.js"></script>
 <script src="/m/global/plugins/backstretch/jquery.backstretch.min.js"></script>
+<script src="/assets/js/jquery.cookie.js"></script>
 <!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script src="/m/global/scripts/metronic.js"></script>
 <script src="/m/admin/layout/scripts/layout.js"></script>
 <script src="/m/admin/pages/scripts/login-soft.js"></script>
+<script src="/assets/js/wwLogin-1.0.0.js"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 <script>
 
@@ -163,6 +177,17 @@
             $(".alert-danger span").html(error);
         }
     });
+
+
+    /*window.WwLogin({
+        "id" : "QRCode",  //显示二维码的容器id
+        "appid" : "ww9a29cc2a4f707781",
+        "agentid" : "1000031",  //企业微信的cropID，在 企业微信管理端->我的企业 中查看
+        "redirect_uri" :"https%3A%2F%2Fco.wuzhou.com.cn%2Fwx%2Fauth",   //重定向地址，需要进行UrlEncode
+        "state" : "login_PC",   //用于保持请求和回调的状态，授权请求后原样带回给企业。该参数可用于防止csrf攻击（跨站请求伪造攻击），建议企业带上该参数
+        "href" : "",    //自定义样式链接，企业可根据实际需求覆盖默认样式。详见文档底部FAQ
+
+    });*/
 </script>
 <!-- END JAVASCRIPTS -->
 </body>

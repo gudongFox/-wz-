@@ -56,30 +56,6 @@ public class FiveOaNonSecretEquipmentScrapController {
         return JsonData.success(pageInfo);
     }
 
-
-    @PostMapping(value = "/getNewModelDetail.json")
-    public JsonData getNewModelDetail(int  id){
-        return JsonData.success(fiveOaNonSecretEquipmentScrapService.getNewModelDetail(id));
-    }
-
-    @PostMapping("/getModelDetailById.json")
-    public JsonData getModelDetailById(int  id){
-        return JsonData.success(fiveOaNonSecretEquipmentScrapService.getModelDetailById(id));
-    }
-    @PostMapping("/removeDetail.json")
-    public JsonData removeDetail(int  id){
-        fiveOaNonSecretEquipmentScrapService.removeDetail(id);
-        return JsonData.success();
-    }
-    @PostMapping("/updateDetail.json")
-    public JsonData updateDetail(@RequestBody FiveOaNonSecretEquipmentScrapDetail item){
-        fiveOaNonSecretEquipmentScrapService.updateDetail(item);
-        return JsonData.success();
-    }
-    @PostMapping("/listDetail.json")
-    public JsonData listDetail(int  id){
-        return JsonData.success(fiveOaNonSecretEquipmentScrapService.listDetail(id));
-    }
     @PostMapping("/getPrintData.json")
     public JsonData getPrintData(int id){
         return JsonData.success(fiveOaNonSecretEquipmentScrapService.getPrintData(id));

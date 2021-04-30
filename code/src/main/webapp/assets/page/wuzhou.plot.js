@@ -1453,7 +1453,20 @@ var mccApp = angular.module(appName, ['ui.router', 'ui.router.state.events', 'ui
                 controller: 'FiveBusinessPreContractDetailController as vm'
             })
 
-
+            .state('five.businessStatistics', {
+                url: "/statistics",
+                templateUrl: function () {
+                    return "/business/statistics";
+                },
+                controller: 'FiveBusinessStatisticsController as vm'
+            })
+            .state('five.businessStatisticsDetail', {
+                url: "/statisticsDetail?statisticsId",
+                templateUrl: function () {
+                    return "/business/statisticsDetail";
+                },
+                controller: 'FiveBusinessStatisticsDetailController as vm'
+            })
             .state('five.businessAdvance', {
                 url: "/advance",
                 templateUrl: function () {
@@ -2496,6 +2509,22 @@ var mccApp = angular.module(appName, ['ui.router', 'ui.router.state.events', 'ui
                 },
                 controller:'FiveOaInlandProjectApplyDetailController as vm'
 
+            })
+            //内部项目审批
+            .state('five.oaInlandProjectReview',{
+                url:"/oa/oaInlandProjectReview",
+                templateUrl:function () {
+                    return"/five/oa/inlandProjectReview";
+                },
+                controller:'FiveOaInlandProjectReviewController as vm'
+
+            })
+            .state('five.oaInlandProjectReviewDetail',{
+                url:"/oa/oaInlandProjectReviewDetail?reviewId",
+                templateUrl:function () {
+                    return"/five/oa/inlandProjectReviewDetail";
+                },
+                controller:'FiveOaInlandProjectReviewDetailController as vm'
             })
             //科技开发费项目评审
             .state('five.oaResearchProjectReview',{

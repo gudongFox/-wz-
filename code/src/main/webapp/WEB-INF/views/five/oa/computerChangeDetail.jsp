@@ -229,7 +229,7 @@
             <div class="portlet light">
                 <div class="portlet-title">
                     <div class="caption">
-                        <i class="fa fa-file"></i> 变更后信息
+                        <i class="fa fa-file"></i> 变更后信息<span style="font-size: 12px;color: red;margin-left: 5px;">仅填写需变更信息</span>
                     </div>
                 </div>
                 <div class="portlet-body">

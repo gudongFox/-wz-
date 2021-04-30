@@ -124,7 +124,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-md-2 control-label required">是否借款退款</label>
+                                                <label class="col-md-2 control-label required">是否借款还款</label>
                                                 <div class="col-md-4">
                                                     <select ng-options="s.codeValue as s.name for s in sysCodes | filter:{codeCatalog:'是否'}:true"
                                                             ng-model="vm.item.loan" class="form-control" ng-disabled="!(processInstance.firstTask||processInstance.myRunningTaskName.indexOf('财务核算')>=0||processInstance.myRunningTaskName.indexOf('财务确认')>=0)"></select>

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<div ng-controller="ActRelevanceController as act">
+<%--21.04.21 xxin流程发起或者有关联流程才显示--%>
+<div ng-controller="ActRelevanceController as act" ng-show="processInstance.firstTask||act.actRelevanceList.length>0">
     <div class="portlet light" >
         <div class="portlet-title">
             <div class="caption">

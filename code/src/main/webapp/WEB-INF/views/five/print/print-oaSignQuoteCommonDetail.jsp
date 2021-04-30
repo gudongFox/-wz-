@@ -110,7 +110,7 @@
             </tr>
             <tr>
                 <td colspan="2" style="height:550px;text-align:left;vertical-align:top;padding-top:15px;padding-left:37px;padding-right:15px;border-right: solid 1px;border-bottom: solid red 2px;">
-                    <div ng-repeat="design in vm.printData.functionList">
+                    <div ng-repeat="design in vm.printData.functionList" on-finish-render>
                         <p ng-bind="design.deptName"></p>
                         <span ng-bind="design.actHistory.comment"></span>
                         <span ng-bind="design.actHistory.userName"></span>

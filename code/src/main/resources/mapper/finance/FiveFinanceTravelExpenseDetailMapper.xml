@@ -32,6 +32,11 @@
     <result column="travel_allowance" jdbcType="BIT" property="travelAllowance" />
     <result column="dinner_allowance" jdbcType="BIT" property="dinnerAllowance" />
     <result column="site_allowance" jdbcType="BIT" property="siteAllowance" />
+    <result column="expense_type" jdbcType="VARCHAR" property="expenseType" />
+    <result column="real_type" jdbcType="VARCHAR" property="realType" />
+    <result column="travel_place" jdbcType="VARCHAR" property="travelPlace" />
+    <result column="travel_place_type" jdbcType="VARCHAR" property="travelPlaceType" />
+    <result column="travel_during_date" jdbcType="VARCHAR" property="travelDuringDate" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from five_finance_travel_expense_detail
@@ -50,7 +55,9 @@
       is_deleted, gmt_create, gmt_modified, 
       budget_type, budget_id, budget_no, 
       budget_balance, accommodation_allowance, travel_allowance, 
-      dinner_allowance, site_allowance)
+      dinner_allowance, site_allowance, expense_type, 
+      real_type, travel_place, travel_place_type, 
+      travel_during_date)
     values (#{travelExpenseId,jdbcType=INTEGER}, #{projectType,jdbcType=VARCHAR}, #{applyRefundProject,jdbcType=VARCHAR}, 
       #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, #{applicant,jdbcType=VARCHAR}, 
       #{applicantName,jdbcType=VARCHAR}, #{travelExpenseDays,jdbcType=VARCHAR}, #{onRoadTime,jdbcType=VARCHAR}, 
@@ -60,7 +67,9 @@
       #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
       #{budgetType,jdbcType=VARCHAR}, #{budgetId,jdbcType=INTEGER}, #{budgetNo,jdbcType=VARCHAR}, 
       #{budgetBalance,jdbcType=VARCHAR}, #{accommodationAllowance,jdbcType=BIT}, #{travelAllowance,jdbcType=BIT}, 
-      #{dinnerAllowance,jdbcType=BIT}, #{siteAllowance,jdbcType=BIT})
+      #{dinnerAllowance,jdbcType=BIT}, #{siteAllowance,jdbcType=BIT}, #{expenseType,jdbcType=VARCHAR}, 
+      #{realType,jdbcType=VARCHAR}, #{travelPlace,jdbcType=VARCHAR}, #{travelPlaceType,jdbcType=VARCHAR}, 
+      #{travelDuringDate,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.cmcu.mcc.finance.entity.FiveFinanceTravelExpenseDetail">
     update five_finance_travel_expense_detail
@@ -92,7 +101,12 @@
       accommodation_allowance = #{accommodationAllowance,jdbcType=BIT},
       travel_allowance = #{travelAllowance,jdbcType=BIT},
       dinner_allowance = #{dinnerAllowance,jdbcType=BIT},
-      site_allowance = #{siteAllowance,jdbcType=BIT}
+      site_allowance = #{siteAllowance,jdbcType=BIT},
+      expense_type = #{expenseType,jdbcType=VARCHAR},
+      real_type = #{realType,jdbcType=VARCHAR},
+      travel_place = #{travelPlace,jdbcType=VARCHAR},
+      travel_place_type = #{travelPlaceType,jdbcType=VARCHAR},
+      travel_during_date = #{travelDuringDate,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -100,7 +114,8 @@
     applicant, applicant_name, travel_expense_days, on_road_time, apply_standard, apply_money, 
     on_road_subsidy, count, financial_confirmation, account_subject, remark, creator, 
     creator_name, is_deleted, gmt_create, gmt_modified, budget_type, budget_id, budget_no, 
-    budget_balance, accommodation_allowance, travel_allowance, dinner_allowance, site_allowance
+    budget_balance, accommodation_allowance, travel_allowance, dinner_allowance, site_allowance, 
+    expense_type, real_type, travel_place, travel_place_type, travel_during_date
     from five_finance_travel_expense_detail
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -109,7 +124,8 @@
     applicant, applicant_name, travel_expense_days, on_road_time, apply_standard, apply_money, 
     on_road_subsidy, count, financial_confirmation, account_subject, remark, creator, 
     creator_name, is_deleted, gmt_create, gmt_modified, budget_type, budget_id, budget_no, 
-    budget_balance, accommodation_allowance, travel_allowance, dinner_allowance, site_allowance
+    budget_balance, accommodation_allowance, travel_allowance, dinner_allowance, site_allowance, 
+    expense_type, real_type, travel_place, travel_place_type, travel_during_date
     from five_finance_travel_expense_detail
     <include refid="Base_Where_List" />
     <include refid="Base_Where_List1" />
@@ -207,6 +223,21 @@
       <if test="siteAllowance != null and isLikeSelect==null">
          AND site_allowance = #{siteAllowance}
       </if>
+      <if test="expenseType != null and isLikeSelect==null and expenseType != ''">
+         AND expense_type = #{expenseType}
+      </if>
+      <if test="realType != null and isLikeSelect==null and realType != ''">
+         AND real_type = #{realType}
+      </if>
+      <if test="travelPlace != null and isLikeSelect==null and travelPlace != ''">
+         AND travel_place = #{travelPlace}
+      </if>
+      <if test="travelPlaceType != null and isLikeSelect==null and travelPlaceType != ''">
+         AND travel_place_type = #{travelPlaceType}
+      </if>
+      <if test="travelDuringDate != null and isLikeSelect==null and travelDuringDate != ''">
+         AND travel_during_date = #{travelDuringDate}
+      </if>
     </where>
   </sql>
   <sql id="Base_Where_List1">
@@ -267,6 +298,21 @@
       </if>
       <if test="budgetBalance != null and isLikeSelect!= null and budgetBalance != '' ">
          AND budget_balance like  CONCAT('%',#{budgetBalance},'%')
+      </if>
+      <if test="expenseType != null and isLikeSelect!= null and expenseType != '' ">
+         AND expense_type like  CONCAT('%',#{expenseType},'%')
+      </if>
+      <if test="realType != null and isLikeSelect!= null and realType != '' ">
+         AND real_type like  CONCAT('%',#{realType},'%')
+      </if>
+      <if test="travelPlace != null and isLikeSelect!= null and travelPlace != '' ">
+         AND travel_place like  CONCAT('%',#{travelPlace},'%')
+      </if>
+      <if test="travelPlaceType != null and isLikeSelect!= null and travelPlaceType != '' ">
+         AND travel_place_type like  CONCAT('%',#{travelPlaceType},'%')
+      </if>
+      <if test="travelDuringDate != null and isLikeSelect!= null and travelDuringDate != '' ">
+         AND travel_during_date like  CONCAT('%',#{travelDuringDate},'%')
       </if>
       <if test="deleted != null and isLikeSelect!=null">
          AND is_deleted = #{deleted}

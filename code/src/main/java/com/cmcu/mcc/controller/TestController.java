@@ -384,7 +384,7 @@ public class TestController {
         String userlongs = "";
         for (HrEmployeeDto dto : list) {
             HrEmployeeSys hrEmployeeSys = hrEmployeeSysMapper.selectByUserLogin(dto.getUserLogin());
-            String twoDay = MyDateUtil.getTwoDay(MyDateUtil.dateToStr(hrEmployeeSys.getGmtModified()), "2021-01-01");
+            String twoDay = MyDateUtil.getTwoDay(MyDateUtil.dateToStr(hrEmployeeSys.getGmtModified()), "2021-04-22");
             if (hrEmployeeSys.getPassword().equals("HDazSj6HQF6ToVYlCHTS1Q==") && Integer.parseInt(twoDay) < 0) {
                 CommonBlack black = new CommonBlack();
                 black.setTargetIp("*");
@@ -395,6 +395,7 @@ public class TestController {
                 black.setId(0);
                 black.setTargetUser(hrEmployeeSys.getUserLogin());
                 black.setForbidden(true);
+                black.setRemark("初始账号停用，系统统一设置！");
                 commonBlackService.save(black);
                 update++;
                 userlongs += black.getTargetUser() + "-" + hrEmployeeMapper.selectByUserLoginOrNo(black.getTargetUser()).getUserName();

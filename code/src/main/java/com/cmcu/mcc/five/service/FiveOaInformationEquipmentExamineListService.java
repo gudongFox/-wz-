@@ -77,10 +77,8 @@ public class FiveOaInformationEquipmentExamineListService extends BaseService {
     public void remove(int id,String userLogin){
         FiveOaInformationEquipmentExamineList item = fiveOaInformationEquipmentExamineListMapper.selectByPrimaryKey(id);
         Assert.state(item.getCreator().equals(userLogin),"该数据是用户"+item.getCreatorName()+"创建");
-
         //流程作废
         handleFormService.removeProcessInstance(item.getBusinessKey(),userLogin);
-
     }
 
     public void update(FiveOaInformationEquipmentExamineListDto item){

@@ -63,5 +63,4 @@ public class FiveFinanceLoanDetail {
     @NotNull(message="修改时间不能为空!")
     private Date gmtModified;
 
-    private Integer flag=0;//新建item的标志，在保存时判断，若为1则插入，为0则update
 }

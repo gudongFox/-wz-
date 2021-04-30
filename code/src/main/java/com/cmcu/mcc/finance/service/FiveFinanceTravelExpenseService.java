@@ -10,6 +10,9 @@ import com.cmcu.common.util.MyDateUtil;
 import com.cmcu.common.util.MyStringUtil;
 import com.cmcu.mcc.act.service.MyActService;
 import com.cmcu.mcc.act.service.MyHistoryService;
+import com.cmcu.mcc.budget.dto.FiveBudgetIndependentDetailDto;
+import com.cmcu.mcc.budget.service.FiveBudgetIndependentService;
+import com.cmcu.mcc.business.service.FiveBusinessContractLibraryService;
 import com.cmcu.mcc.comm.EdConst;
 import com.cmcu.mcc.comm.MccConst;
 import com.cmcu.mcc.finance.dao.*;
@@ -29,6 +32,7 @@ import com.cmcu.mcc.service.ActService;
 import com.cmcu.mcc.service.impl.HandleFormService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
@@ -77,6 +81,12 @@ public class FiveFinanceTravelExpenseService {
     ActService actService;
     @Resource
     HandleFormService handleFormService;
+    @Autowired
+    FiveFinanceTravelExpenseUserMapper fiveFinanceTravelExpenseUserMapper;
+    @Autowired
+    FiveBudgetIndependentService fiveBudgetIndependentService;
+    @Autowired
+    FiveBusinessContractLibraryService fiveBusinessContractLibraryService;
 
     public void remove(int id,String userLogin){
         FiveFinanceTravelExpense item = fiveFinanceTravelExpenseMapper.selectByPrimaryKey(id);
@@ -137,11 +147,15 @@ public class FiveFinanceTravelExpenseService {
             model.setProjectName(dto.getProjectName());
             model.setBussineManager(dto.getBussineManager());
             model.setBussineManagerName(dto.getBussineManagerName());
+            model.setProjectDeputy(dto.getProjectDeputy());
+            model.setProjectDeputyName(dto.getProjectDeputyName());
         }else{
             model.setProjectId(0);
             model.setProjectName("");
             model.setBussineManager("");
             model.setBussineManagerName("");
+            model.setProjectDeputy("");
+            model.setProjectDeputyName("");
             model.setScientific("否");
             model.setProjectType("");
         }
@@ -154,6 +168,7 @@ public class FiveFinanceTravelExpenseService {
         model.setReceiveName(dto.getReceiveName());
         model.setReceiveBank(dto.getReceiveBank());
         model.setReceiveAccount(dto.getReceiveAccount());
+        model.setExtraApproveReason(dto.getExtraApproveReason());
 
         model.setTitle(dto.getTitle());
         model.setApproval(dto.getApproval());
@@ -175,12 +190,16 @@ public class FiveFinanceTravelExpenseService {
         variables.put("financeConfirm", selectEmployeeService.getDeptFinanceMan(model.getDeptId()));//财务确认
         variables.put("deptChargeMan", selectEmployeeService.getDeptChargeMen(model.getDeptId()));//部门领导
         variables.put("deptLeader",selectEmployeeService.getOtherDeptChargeMan(model.getDeptId()));//分管领导
+        variables.put("projectManager",model.getBussineManager());//项目总师
+        variables.put("projectDeputy",model.getProjectDeputy());//项目主管院长
+
+
         variables.put("scientific", dto.getScientific().contains("是")?true:false);//科研项目
         variables.put("train", dto.getTravelExpense().contains("是")?true:false);//培训费
         variables.put("humanDeptChargeMan", selectEmployeeService.getDeptChargeMen(38));//人力负责人
         variables.put("financeChargeMan", selectEmployeeService.getDeptChargeMen(18));//财务负责人
-        variables.put("financeDeputy", selectEmployeeService.getOtherDeptChargeMan(18));//财务主管副总
-        variables.put("deputy", selectEmployeeService.getOtherDeptChargeMan(model.getDeptId()));//副院长
+        variables.put("financeDeputy", selectEmployeeService.getOtherDeptChargeMan(dto.getDeptId()));//发起部门 分管领导
+        variables.put("deputy", selectEmployeeService.getDeptChargeMen(model.getDeptId()));//副院长
         variables.put("chiefAccountant", hrEmployeeService.selectUserByPositionName("总会计师"));//总会计师
         variables.put("generalManager", hrEmployeeService.selectUserByPositionName("总经理"));//总经理
         variables.put("financialAccount", selectEmployeeService.getDeptFinanceMan(model.getDeptId()));//财务核算
@@ -234,7 +253,7 @@ public class FiveFinanceTravelExpenseService {
             if(hrEmployeeService.selectUserByPositionName("公司领导").contains(dto.getCreator())){
                 leader=1;
             }
-            if(model.getExtraApprove().contains("是")&&selectEmployeeService.getDeptChargeMen(model.getDeptId()).contains(dto.getCreator())){//中层领导
+            if(model.getExtraApprove().contains("是")||selectEmployeeService.getParentDeptChargeMen(model.getDeptId(),1,false).contains(dto.getCreator())){//中层领导
                 approval=1;
             }
 
@@ -242,9 +261,7 @@ public class FiveFinanceTravelExpenseService {
             variables.put("deptAuditor", selectEmployeeService.getDeptChargeMen(model.getDeptId()));//部门审核
             variables.put("positiveDept", positiveDept);
             variables.put("deptChargeMan", selectEmployeeService.getDeptChargeMen(model.getDeptId()));//部门审核
-            variables.put("approval", approval);//判断是否特批
-/*            variables.put("scientific", model.getScientific().contains("是")?true:false);//科研项目
-            variables.put("train", model.getTravelExpense().contains("是")?true:false);//培训费*/
+            variables.put("approvalTwo", approval);//判断是否特批
             variables.put("leader", leader);//判断是否公司领导
 
         }
@@ -255,7 +272,6 @@ public class FiveFinanceTravelExpenseService {
             int positiveDept=0;
             int leader=0;
             int approval=0;
-            int approvalTwo=0;
             int project = 1;
             if(selectEmployeeService.getCompanyLeaders().contains(model.getCreator())){//中层以上
                 middleLeader=1;
@@ -263,21 +279,19 @@ public class FiveFinanceTravelExpenseService {
             if(commonUserLogin.getDeptCode().equals("20")){
                 dept=1;
             }
-            if(commonUserLogin.getDeptCode().equals("53")){
-                dept=2;
-            }
             if(selectEmployeeService.getOtherDeptChargeMan(model.getDeptId()).contains(model.getCreator())){//中层正职
                 positiveDept=1;
             }
-            if(model.getExtraApprove().contains("是")&&selectEmployeeService.getDeptChargeMen(model.getDeptId()).contains(dto.getCreator())){//中层领导
-                approval=1;
+            if(model.getExtraApprove().contains("是")){
+                approval=1;//特批
+            }
+            if(model.getExtraApprove().contains("是")&&selectEmployeeService.getParentDeptChargeMen(model.getDeptId(),2,false).contains(dto.getCreator())){//中层领导
+                approval=2;//特批且是副职
             }
             if(hrEmployeeService.selectUserByPositionName("公司领导").contains(dto.getCreator())){
                 leader=1;
             }
-            if(approval>0&&selectEmployeeService.getOtherDeptChargeMan(model.getDeptId()).contains(dto.getCreator())){
-                approvalTwo=1;
-            }
+
             if (dto.getProjectName().trim().length()==0) {
                 project = 0;
                 if (selectEmployeeService.getDeptChargeMen(dto.getDeptId()).contains(dto.getCreator())){
@@ -288,15 +302,17 @@ public class FiveFinanceTravelExpenseService {
             variables.put("dept", dept);
             variables.put("middleLeader", middleLeader);//中层以上
             variables.put("positiveDept", positiveDept);//中层正职
-            variables.put("approval", approval);//特批
+            variables.put("approval", approval); //特批 且是副职 1
             variables.put("project", project);
-            variables.put("overproof", dto.getExceedStandard().contains("需要")?true:false);//超标审批
+           /* variables.put("overproof", dto.getExceedStandard().contains("需要")?true:false);//超标审批*/
+             variables.put("overproof","");//超标审批
+            //variables.put("dean53",selectEmployeeService.getParentDeptChargeMen(53,2,false));//石化院副职
+            variables.put("dean20",selectEmployeeService.getOtherDeptChargeMan(20));//钢结构
             variables.put("deptDean", selectEmployeeService.getDeptChargeMen(model.getDeptId()));//院长
             variables.put("positiveDeptDean", selectEmployeeService.getOtherDeptChargeMan(model.getDeptId()));//正院长
-/*            variables.put("scientific", dto.getScientific().contains("是")?true:false);//科研项目
-            variables.put("train", dto.getTravelExpense().contains("是")?true:false);//培训费*/
+
             variables.put("leader", leader);//判断是否公司领导
-            variables.put("approvalTwo", approvalTwo);//二次特批
+
         }
 
         myActService.setVariables(model.getProcessInstanceId(),variables);
@@ -305,7 +321,6 @@ public class FiveFinanceTravelExpenseService {
 
 
     public FiveFinanceTravelExpenseDto getModelById(int id){
-
         return getDto(fiveFinanceTravelExpenseMapper.selectByPrimaryKey(id));
     }
 
@@ -313,6 +328,10 @@ public class FiveFinanceTravelExpenseService {
         FiveFinanceTravelExpenseDto dto=FiveFinanceTravelExpenseDto.adapt(item);
         if(dto.getProjectId()!=0){
             dto.setIsProject(true);
+        }
+        //合同信息
+        if(item.getProjectId()!=0){
+            dto.setProjectNo(fiveBusinessContractLibraryService.getModelById(item.getProjectId()).getProjectNo());
         }
 
         CustomSimpleProcessInstance customSimpleProcessInstance = processQueryService.getCustomSimpleProcessInstance(dto.getProcessInstanceId(), "", "");
@@ -328,64 +347,47 @@ public class FiveFinanceTravelExpenseService {
         //统计数据
         //报销金额
         String totalApplyMoney="0";
-        //在途补助
-        String totalOnRoadSubsidy="0";
-        //金额小计
+        //补助金额
+        String totalSubsidyMoney="0";
+
+        //金额合计
         String totalCount="0";
         List<FiveFinanceTravelExpenseDetail> detailList=listDetail(item.getId());
         for (FiveFinanceTravelExpenseDetail detail:detailList){
-            totalApplyMoney=MyStringUtil.getNewAddMoney(totalApplyMoney,detail.getApplyMoney());
-            totalOnRoadSubsidy=MyStringUtil.getNewAddMoney(totalOnRoadSubsidy,detail.getOnRoadSubsidy());
-            totalCount=MyStringUtil.getNewAddMoney(totalCount,detail.getCount());
+            if(detail.getExpenseType().equals("报销")){
+                totalApplyMoney=MyStringUtil.getNewAddMoney(totalApplyMoney,detail.getApplyMoney());
+            } else if(detail.getExpenseType().equals("补助")){
+                totalSubsidyMoney=MyStringUtil.getNewAddMoney(totalSubsidyMoney,detail.getApplyMoney());
+            }
+            totalCount=MyStringUtil.getNewAddMoney(totalCount,detail.getApplyMoney());
         }
-        dto.setTotalApplyMoney(totalApplyMoney);//总报销金额
-        dto.setTotalOnRoadSubsidy(totalOnRoadSubsidy);//总在途补助
+        dto.setTotalApplyMoney(totalApplyMoney);//报销合计
+        dto.setTotalSubsidyMoney(totalSubsidyMoney);//补助合计
         dto.setTotalCount(totalCount);//总金额小计
 
 
-
-        //2021-01-07HNZ
-        //计算抵扣金额
+        String loanRemainMoney = "0";
         List<FiveFinanceTravelDeduction> details = listDeduction(item.getId());
-        String totalLoan ="0";
-        String totalRefund ="0";
-        String totalDeduction ="0";
-        String loanRemain ="0";
         for(FiveFinanceTravelDeduction detail:details){
             if(detail.getRelevanceType().equals("loan")){
-                totalLoan = MyStringUtil.getNewAddMoney(totalLoan,detail.getRelevanceMoney());
-                loanRemain = MyStringUtil.getNewAddMoney(loanRemain,detail.getRelevanceRemainMoney());
-            }
-            if(detail.getRelevanceType().equals("refund")){
-                totalRefund = MyStringUtil.getNewAddMoney(totalRefund,detail.getRelevanceMoney());
+                loanRemainMoney =detail.getRelevanceRemainMoney();
             }
         }
-        String deductionMoney = MyStringUtil.getNewSubMoney(totalLoan, totalRefund);
-        dto.setDeductionMoney(deductionMoney);
-
-        //金额 转为元  借款中计算剩余金额
-        dto.setLoanRemainMoney(MyStringUtil.getMoneyY(loanRemain));
+        dto.setLoanRemainMoney(loanRemainMoney);
 
 
-
+        //实际报销金额 报销金额 + 补助金额 - 借款金额剩余金额
+        dto.setRealMoney(MyStringUtil.getNewSubMoney(dto.getTotalCount(),loanRemainMoney,2));
         dto.setTotalApplyMoney(MyStringUtil.moneyToString(dto.getTotalApplyMoney(),2));
-        dto.setTotalOnRoadSubsidy(MyStringUtil.moneyToString(dto.getTotalOnRoadSubsidy(),2));
-        dto.setTotalCount(MyStringUtil.moneyToString(dto.getCountTotal(),2));
+        dto.setTotalSubsidyMoney(MyStringUtil.moneyToString(dto.getTotalSubsidyMoney(),2));
+
         return dto;
     }
     public FiveFinanceTravelExpenseDetail getDetailDto(FiveFinanceTravelExpenseDetail item) {
         //万元 转换为 元
-        item.setApplyMoney(MyStringUtil.moneyToString(MyStringUtil.getMoneyY(item.getApplyMoney()),2));
-        item.setOnRoadSubsidy(MyStringUtil.moneyToString(MyStringUtil.getMoneyY(item.getOnRoadSubsidy()),2));
-        item.setCount(MyStringUtil.moneyToString(MyStringUtil.getMoneyY(item.getCount()),2));
+        item.setApplyMoney(MyStringUtil.getMoneyY(item.getApplyMoney()));
         if(Double.valueOf(item.getApplyMoney()).equals(0.0)){
             item.setApplyMoney("");
-        }
-        if(Double.valueOf(item.getOnRoadSubsidy()).equals(0.0)){
-            item.setOnRoadSubsidy("");
-        }
-        if(Double.valueOf(item.getCount()).equals(0.0)){
-            item.setCount("");
         }
 
         return item;
@@ -502,14 +504,12 @@ public class FiveFinanceTravelExpenseService {
 
 
     public void updateDetail(FiveFinanceTravelExpenseDetail item){
-        // 元 转为 万元
-        item.setOnRoadSubsidy(MyStringUtil.getMoneyW(item.getOnRoadSubsidy()));
-        item.setCount(MyStringUtil.getMoneyW(item.getCount()));
+
+        //元转为 万元
+        item.setApplyMoney(MyStringUtil.getMoneyW(item.getApplyMoney()));
         //如果申请金额 大于 预算剩余金额 提示
-        Assert.state(Double.valueOf(MyStringUtil.getMoneyW(item.getApplyMoney()))<=Double.valueOf(item.getBudgetBalance()),"申请金额 大于 预算剩余金额!");
-        if (item.getFlag()==1){
-            //元转为 万元
-            item.setApplyMoney(MyStringUtil.getMoneyW(item.getApplyMoney()));
+        Assert.state(MyStringUtil.compareMoney(item.getBudgetBalance(),item.getApplyMoney())!=-1,"申请金额 大于 预算剩余金额!");
+        if (item.getId()==null||item.getId()==0){
             fiveFinanceTravelExpenseDetailMapper.insert(item);
         }
         FiveFinanceTravelExpenseDetail model = fiveFinanceTravelExpenseDetailMapper.selectByPrimaryKey(item.getId());
@@ -517,21 +517,24 @@ public class FiveFinanceTravelExpenseService {
         model.setDeptId(item.getDeptId());
         model.setDeptName(item.getDeptName());
         model.setTravelExpenseDays(item.getTravelExpenseDays());
+        model.setTravelDuringDate(item.getTravelDuringDate());
         model.setOnRoadTime(item.getOnRoadTime());
         model.setApplyStandard(item.getApplyStandard());
-        model.setOnRoadSubsidy(item.getOnRoadSubsidy());
+
         //元 转换为 万元
-        model.setApplyMoney(MyStringUtil.moneyToString(MyStringUtil.getMoneyW(item.getApplyMoney())));
-        model.setCount(MyStringUtil.getNewAddMoney(model.getApplyMoney(),model.getOnRoadSubsidy(),8));//金额小计
+        model.setApplyMoney(item.getApplyMoney());
         model.setFinancialConfirmation(item.getFinancialConfirmation());
+
         model.setAccountSubject(item.getAccountSubject());
         model.setApplicantName(item.getApplicantName());
         model.setApplicant(item.getApplicant());
         model.setRemark(item.getRemark());
-        model.setSiteAllowance(item.getSiteAllowance());
-        model.setTravelAllowance(item.getTravelAllowance());
-        model.setDinnerAllowance(item.getDinnerAllowance());
-        model.setAccommodationAllowance(item.getAccommodationAllowance());
+
+        model.setExpenseType(item.getExpenseType());
+        model.setRealType(item.getRealType());
+        model.setTravelPlace(item.getTravelPlace());
+        model.setTravelPlaceType(item.getTravelPlaceType());
+        model.setApplyStandard(item.getApplyStandard());
 
         model.setBudgetId(item.getBudgetId());
         model.setBudgetBalance(item.getBudgetBalance());
@@ -541,12 +544,45 @@ public class FiveFinanceTravelExpenseService {
         
     }
 
+    public void updateUserDetail(FiveFinanceTravelExpenseUser item){
+
+        //如果填写金额 总额大于 报销金额 提示
+        FiveFinanceTravelExpenseDto fiveFinanceTravelExpenseDto = getModelById(item.getTravelExpenseId());
+
+        String remainMoney = MyStringUtil.compareMoney(fiveFinanceTravelExpenseDto.getRealMoney(),"0")>=0?fiveFinanceTravelExpenseDto.getRealMoney():"0";
+        List<FiveFinanceTravelExpenseUser> users = listUserDetail(item.getTravelExpenseId());
+        for(FiveFinanceTravelExpenseUser user:users){
+            //排除本id之前的数据
+            if(user.getId()!=item.getId()){
+                remainMoney=MyStringUtil.getNewSubMoney(remainMoney,user.getMoney());
+            }
+        }
+        //加上这次的
+        remainMoney=MyStringUtil.getNewSubMoney(remainMoney,item.getMoney());
+        Assert.state(MyStringUtil.compareMoney(remainMoney,"0")!=-1,"分配金额 大于 总金额!");
+        // 元 转为 万元
+        item.setMoney(MyStringUtil.getMoneyW(item.getMoney()));
+        if (item.getId()==null){
+            ModelUtil.setNotNullFields(item);
+            fiveFinanceTravelExpenseUserMapper.insert(item);
+        }else{
+            fiveFinanceTravelExpenseUserMapper.updateByPrimaryKey(item);
+        }
+
+    }
+
+
+
     public FiveFinanceTravelExpenseDetail getNewModelDetail(int  id,String userLogin){
         FiveFinanceTravelExpense fiveFinanceTravelExpense = fiveFinanceTravelExpenseMapper.selectByPrimaryKey(id);
         FiveFinanceTravelExpenseDetail item=new FiveFinanceTravelExpenseDetail();
         HrEmployeeDto hrEmployeeDto = hrEmployeeMapper.selectByUserLoginOrNo(userLogin);
+
+        item.setApplicant(userLogin);
         item.setApplicantName(hrEmployeeDto.getUserName());
+        item.setDeptId(hrEmployeeDto.getDeptId());
         item.setDeptName(hrEmployeeDto.getDeptName());
+
         item.setTravelExpenseId(id);
         item.setGmtModified(new Date());
         item.setGmtCreate(new Date());
@@ -558,26 +594,25 @@ public class FiveFinanceTravelExpenseService {
         item.setApplyMoney(MyStringUtil.moneyToString("0"));//报销金额
         item.setOnRoadSubsidy(MyStringUtil.moneyToString("0"));//在途补助
         item.setCount(MyStringUtil.moneyToString("0"));//金额小计
-        item.setFlag(1);  //新建item的标志，在保存时判断，若为1则插入，为0则update
 
-        //获取申请人的报销标准
-        String applyStandard = "0";
-        HrEmployeeSysDto hrEmployeeSysDto = hrEmployeeSysService.getModelByUserLogin(fiveFinanceTravelExpense.getApplicant());
-        if(hrEmployeeSysDto.getPositionNames().contains("首席")||hrEmployeeSysDto.getPositionNames().contains("科技带头")
-                ||hrEmployeeSysDto.getDeptId().equals(16)){
-            if(fiveFinanceTravelExpense.getTravelPlaceType().equals("北上广深")) {
-                applyStandard = "1000";
-            }else{
-                applyStandard = "600";
-            }
-        }else{
-            if(fiveFinanceTravelExpense.getTravelPlaceType().equals("特殊城市")) {
-                applyStandard = "400";
-            }else{
-                applyStandard = "300";
-            }
+        item.setExpenseType("报销");
+        if(!Strings.isNullOrEmpty(fiveFinanceTravelExpense.getStartTime())&&
+                !Strings.isNullOrEmpty(fiveFinanceTravelExpense.getEndTime())){
+            //计算报销天数
+            long days = MyDateUtil.getDays(fiveFinanceTravelExpense.getEndTime(),fiveFinanceTravelExpense.getStartTime());
+            item.setTravelExpenseDays(days+"");
         }
-        item.setApplyStandard(applyStandard);
+
+
+
+        //默认扣减预算为 申请部门的 差旅费
+        FiveBudgetIndependentDetailDto independentDetailDto = fiveBudgetIndependentService.getDetailByTypeName(fiveFinanceTravelExpense.getDeptId(), EdConst.FIVE_BUDGET_INDEPENDENT
+                , fiveFinanceTravelExpense.getApplyRefundTime().substring(0, 4), "差旅费");
+        item.setBudgetBalance(independentDetailDto.getRemainMoney());
+        item.setBudgetNo(independentDetailDto.getTypeName());
+        item.setBudgetId(independentDetailDto.getId());
+
+
         ModelUtil.setNotNullFields(item);
         if(Double.valueOf(item.getApplyMoney()).equals(0.0)){
             item.setApplyMoney("");
@@ -592,10 +627,84 @@ public class FiveFinanceTravelExpenseService {
         return item;
     }
 
+    //获取申请人的报销-补助标准
+    public String getApplyStandard(FiveFinanceTravelExpenseDetail detail){
+        String applyStandard = "0";
+
+        HrEmployeeSysDto hrEmployeeSysDto = hrEmployeeSysService.getModelByUserLogin(detail.getApplicant());
+        if(detail.getRealType().equals("住宿费报销")){
+            Assert.state(!Strings.isNullOrEmpty(detail.getTravelPlaceType()),"请先填写出差地点信息！");
+            if(hrEmployeeSysDto.getPositionNames().contains("首席")||hrEmployeeSysDto.getPositionNames().contains("科技带头")
+                    ||hrEmployeeSysDto.getDeptId().equals(16)){
+                if(detail.getTravelPlaceType().equals("北上广深")) {
+                    applyStandard = "1000";
+                }else{
+                    applyStandard = "600";
+                }
+            }else{
+                if(detail.getTravelPlaceType().equals("特殊城市")||detail.getTravelPlaceType().equals("北上广深")) {
+                    applyStandard = "400";
+                }else{
+                    applyStandard = "300";
+                }
+            }
+        }else if(detail.getRealType().equals("住宿费补助")){
+            applyStandard ="50.00";
+        }else if(detail.getRealType().equals("出差补助")){
+            applyStandard ="150.00";
+        }else if(detail.getRealType().equals("夜间伙补")){
+            applyStandard ="100.00";
+        }else if(detail.getRealType().equals("工地补贴")){
+            applyStandard ="50.00";
+        }
+        detail.setApplyStandard(applyStandard);
+
+
+        return applyStandard;
+    }
+
+    public FiveFinanceTravelExpenseUser getNewModelUserDetail(int  id,String userLogin){
+        FiveFinanceTravelExpenseDto fiveFinanceTravelExpenseDto = getModelById(id);
+
+        FiveFinanceTravelExpenseUser item=new FiveFinanceTravelExpenseUser();
+        HrEmployeeDto hrEmployeeDto = hrEmployeeMapper.selectByUserLoginOrNo(userLogin);
+        item.setUser(userLogin);
+        item.setUserName(hrEmployeeDto.getUserName());
+        item.setDeptId(hrEmployeeDto.getDeptId());
+        item.setDeptName(hrEmployeeDto.getDeptName());
+
+        item.setTravelExpenseId(id);
+        
+        //获取当前剩余金额
+        String remainMoney = MyStringUtil.compareMoney(fiveFinanceTravelExpenseDto.getRealMoney(),"0")>=0?fiveFinanceTravelExpenseDto.getRealMoney():"0";
+        List<FiveFinanceTravelExpenseUser> users = listUserDetail(id);
+        for(FiveFinanceTravelExpenseUser user:users){
+            remainMoney=MyStringUtil.getNewSubMoney(remainMoney,user.getMoney());
+        }
+        item.setMoney(MyStringUtil.moneyToString(remainMoney,2));
+        
+
+        item.setGmtModified(new Date());
+        item.setGmtCreate(new Date());
+        item.setDeleted(false);
+
+
+        return item;
+    }
+
+
+
     public FiveFinanceTravelExpenseDetail getModelDetailById(int id){
         FiveFinanceTravelExpenseDetail detail = fiveFinanceTravelExpenseDetailMapper.selectByPrimaryKey(id);
         return getDetailDto(detail);
     }
+    public FiveFinanceTravelExpenseUser getModelUserDetailById(int id){
+        FiveFinanceTravelExpenseUser user = fiveFinanceTravelExpenseUserMapper.selectByPrimaryKey(id);
+        //金额 显示元
+        user.setMoney(MyStringUtil.getMoneyY(user.getMoney()));
+        return user;
+    }
+    
 
     public List<FiveFinanceTravelExpenseDetail> listDetail(int id){
         Map <String,Object> params=Maps.newHashMap();
@@ -608,6 +717,18 @@ public class FiveFinanceTravelExpenseService {
         }
         return list;
     }
+    public List<FiveFinanceTravelExpenseUser> listUserDetail(int id){
+        Map <String,Object> params=Maps.newHashMap();
+        params.put("deleted",false);
+        params.put("travelExpenseId",id);//小写
+        List<FiveFinanceTravelExpenseUser> oList = fiveFinanceTravelExpenseUserMapper.selectAll(params);
+        for(FiveFinanceTravelExpenseUser user:oList){
+            //显示为 元
+            user.setMoney(MyStringUtil.getMoneyY(user.getMoney()));
+        }
+        return oList;
+    }
+
 
     public List<FiveFinanceTravelDeduction> listDeduction(int id){
         Map <String,Object> params=Maps.newHashMap();
@@ -629,6 +750,14 @@ public class FiveFinanceTravelExpenseService {
         BeanValidator.validateObject(model);
         fiveFinanceTravelExpenseDetailMapper.updateByPrimaryKey(model);
     }
+    public void removeUserDetail(int id){
+        FiveFinanceTravelExpenseUser model = fiveFinanceTravelExpenseUserMapper.selectByPrimaryKey(id);
+        model.setDeleted(true);
+        model.setGmtModified(new Date());
+        BeanValidator.validateObject(model);
+        fiveFinanceTravelExpenseUserMapper.updateByPrimaryKey(model);
+    }
+
 
     public  Map getPrintData(int id) {
         Map data = Maps.newHashMap();
@@ -673,7 +802,7 @@ public class FiveFinanceTravelExpenseService {
                 deduction.setRelevanceName(loan.getTitle()+":"+loan.getCreatorName());
                 deduction.setRelevanceType("loan");
                 //万元存储
-                deduction.setRelevanceMoney(MyStringUtil.getMoneyW(loan.getLoanMoney()));
+                deduction.setRelevanceMoney(MyStringUtil.getMoneyW(loan.getTotalApplyMoney()));
                 deduction.setRelevanceRemainMoney(MyStringUtil.getMoneyW(loan.getRemainMoney()));
                 deduction.setRelevanceTime(loan.getApplicantTime());
 
@@ -697,7 +826,7 @@ public class FiveFinanceTravelExpenseService {
                 deduction.setRelevanceName(loan.getTitle()+":"+loan.getCreatorName());
                 deduction.setRelevanceType("loan");
                 //万元存储
-                deduction.setRelevanceMoney(MyStringUtil.getMoneyW(loan.getLoanMoney()));
+                deduction.setRelevanceMoney(MyStringUtil.getMoneyW(loan.getTotalApplyMoney()));
                 deduction.setRelevanceRemainMoney(MyStringUtil.getMoneyW(loan.getRemainMoney()));
 
                 deduction.setRelevanceTime(loan.getApplicantTime());
@@ -826,7 +955,7 @@ public class FiveFinanceTravelExpenseService {
 
             String format=String.format("%03d", size);//format为顺序号限定10进制补零
             //部门+时间+类型+编号
-            newReceiptsNumber=newReceiptsNumber+deptCode+date+"03"+format;
+            newReceiptsNumber=newReceiptsNumber+deptCode+date+"-03-"+format;
             travelExpenseDto.setReceiptsNumber(newReceiptsNumber);
             update(travelExpenseDto);
             return newReceiptsNumber;

@@ -21,6 +21,8 @@
     <link href="/m/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
     <link href="/m/global/plugins/bootstrap-toastr/toastr.min.css" rel="stylesheet" type="text/css"/>
     <link href="/m/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet"/>
+    <link href="/m/global/plugins/bootstrap-daterangepicker/daterangepicker-bs2.css" rel="stylesheet"/>
+    <link href="/m/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet"/>
 
     <link href="/m/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="/m/global/plugins/bootstrap-select/bootstrap-select.min.css"/>
@@ -47,6 +49,9 @@
     <%--fancybox图片预览控件--%>
     <link href="/assets/fancybox/source/jquery.fancybox.css" rel="stylesheet"  media="screen" type="text/css" >
     <link rel="stylesheet" type="text/css" href="/assets/fancybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5" />
+    <%--选择city控件--%>
+    <link rel="stylesheet" type="text/css" href="/assets/jquery-city-master/css/jquery.city.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/assets/jquery-city-master/css/animate.min.css">
 
 
     <style>
@@ -449,10 +454,8 @@
 </div>
 <!-- END CONTAINER -->
 <!-- BEGIN FOOTER -->
-<span ng-controller="FootController">
-    <span ng-controller="CommonBaseController"></span>
-</span>
-
+<span ng-controller="FootController"></span>
+<span ng-controller="CommonBaseController"></span>
 <!--
 <div class="page-footer" ng-controller="FootController" style="text-align: center;background-color: #369">
     <div class="page-footer-inner text-center">
@@ -475,6 +478,12 @@
             <div class="modal-body">
                 <form class="form-horizontal" role="form" style="padding-right: 30px;" autocomplete="off">
                     <div class="form-body">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label required">手机号码</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" ng-model="phone" placeholder="请输入新手机号!" autocomplete="off" disableautocomplete>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label class="col-md-3 control-label required">新的密码</label>
                             <div class="col-md-9">
@@ -641,6 +650,8 @@
 <script charset="utf-8" src="/m/global/plugins/bootstrap-toastr/toastr.min.js"></script>
 <script charset="utf-8" src="/m/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script charset="utf-8" src="/m/global/plugins/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+<script charset="utf-8" src="/m/global/plugins/bootstrap-daterangepicker/moment.min.js"></script>
+<script charset="utf-8" src="/m/global/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
 
 <!-- 输入框联想补全 -->
 <link href="/m/global/plugins/jQuery-Autocomplete-master/content/styles.css" rel="stylesheet"/>
@@ -650,6 +661,8 @@
 <script type="text/javascript" src="/m/global/plugins/jQuery-Autocomplete-master/scripts/demo.js"></script>
 <!-- 汉字转拼音 -->
 <script type="text/javascript" src="/assets/js/Convert_Pinyin.js"></script>
+<!-- 选择city -->
+<script type="text/javascript" src="/assets/jquery-city-master/js/jquery.city.js"></script>
 <!-- 加水印 -->
 <script type="text/javascript" src="/assets/js/canvaswm.js"></script>
 

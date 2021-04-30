@@ -89,7 +89,7 @@
   vertical-align: middle;
   margin: 0 0 10px 0;
   padding: 0 6px;
-  width: 74px;
+  width: 78px;
 }
 
 .daterangepicker .ranges ul {
@@ -279,7 +279,7 @@
 }
 
 .daterangepicker_end_input {
-  float: left; 
+  float: left;
   padding-left: 11px
 }
 

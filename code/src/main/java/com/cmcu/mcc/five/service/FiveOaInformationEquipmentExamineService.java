@@ -7,6 +7,7 @@ import com.cmcu.act.service.TaskHandleService;
 import com.cmcu.common.dto.CommonCodeDto;
 import com.cmcu.common.service.BaseService;
 import com.cmcu.common.service.CommonCodeService;
+import com.cmcu.common.service.CommonDirService;
 import com.cmcu.common.util.BeanValidator;
 import com.cmcu.common.util.ModelUtil;
 import com.cmcu.common.util.MyDateUtil;
@@ -69,6 +70,8 @@ public class FiveOaInformationEquipmentExamineService extends BaseService {
     FiveOaInformationEquipmentApplyService fiveOaInformationEquipmentApplyService;
     @Resource
     FiveAssetComputerMapper fiveAssetComputerMapper;
+    @Resource
+    CommonDirService commonDirService;
 
     public void remove(int id,String userLogin){
        FiveOaInformationEquipmentExamine item = fiveOaInformationEquipmentExamineMapper.selectByPrimaryKey(id);
@@ -221,7 +224,12 @@ public class FiveOaInformationEquipmentExamineService extends BaseService {
        item.setProcessInstanceId(processInstanceId);
        item.setBusinessKey(businessKey);
        fiveOaInformationEquipmentExamineMapper.updateByPrimaryKey(item);
-       return item.getId();
+
+        //生成默认文件夹
+        commonDirService.newDir(businessKey,"发票",0,userLogin);
+        commonDirService.newDir(businessKey,"实物照片",0,userLogin);
+
+        return item.getId();
    }
 
     public PageInfo<Object> listPagedData(Map<String,Object> params, String userLogin, String uiSref,int pageNum, int pageSize) {
@@ -292,13 +300,13 @@ public class FiveOaInformationEquipmentExamineService extends BaseService {
         List<ActHistoryDto> actHistoryDtos = actService.listPassedHistoryDto(item.getProcessInstanceId());
         for (ActHistoryDto dto:actHistoryDtos){
 
-            if ("行政事务部人员(设备台帐)".equals(dto.getActivityName())&&dto.getActivityName()!=null){
+            if ("行政事务部(设备台帐岗)".equals(dto.getActivityName())&&dto.getActivityName()!=null){
                 data.put("startMan",dto);
             }
             if ("行政事务部负责人".equals(dto.getActivityName())&&dto.getActivityName()!=null){
                 data.put("affairMan",dto);
             }
-            if ("信息化建设与管理部".equals(dto.getActivityName())&&dto.getActivityName()!=null){
+            if ("信息化建设与管理部（设备岗）".equals(dto.getActivityName())&&dto.getActivityName()!=null){
                 data.put("technologyMan",dto);
             }
             if (StringUtils.isNotBlank(dto.getActivityName())){
@@ -350,7 +358,7 @@ public class FiveOaInformationEquipmentExamineService extends BaseService {
         DecimalFormat mFormat = new DecimalFormat("000");
         String format = mFormat.format(seq+1);
         String computerNo=eqNo+year+format;
-        //如果验收表设备编号为空 生成 否走不重新生成合同号
+        //如果验收表设备编号为空 生成 否则不重新生成合同号
        if (!StringUtils.isNotBlank(modelById.getFormNo())){//null  "" " "都判断是没有编号
            modelById.setFormNo(computerNo);//设备编号
            modelById.setGmtModified(new Date());
