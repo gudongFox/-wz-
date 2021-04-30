@@ -1,0 +1,50 @@
+﻿<span ng-controller="CommonActActionController">
+    <a href="javascript:;" class="btn btn-sm btn-default" ng-click="showTakeTask();"
+       ng-show="processInstance.takeAble"><i
+            class="fa fa-refresh"></i> 接受任务 </a>
+    <a href="javascript:;" class="btn btn-sm btn-default" ng-click="showFetchTask();"
+       ng-show="processInstance.fetchAble" title="发起者取回未开始处理的流程"><i
+            class="fa fa-send-o"></i> 取回任务 </a>
+    <a href="javascript:;" class="btn btn-sm btn-default" ng-click="showSendTask(true);"
+       ng-show="processInstance.sendAble"><i
+            class="fa fa-send"></i> {{processInstance.firstTask?'提交审批':'同意通过'}} </a>
+    <a href="javascript:;" class="btn btn-sm btn-default" ng-click="showSendTask(false);"
+       ng-show="processInstance.backAble"><i
+            class="fa fa-reply"></i> 打回任务 </a>
+    <a href="javascript:;" class="btn btn-sm btn-default" ng-click="showDelegateTask();" title="任务托付给他人处理，完成后任务返回自己"
+       ng-show="processInstance.delegateAble"><i class="fa icon-arrow-right"></i> 委托任务 </a>
+
+    <a href="javascript:;" class="btn btn-sm btn-default" ng-click="showTransferTask();" title="把任务移交给他人全权负责办理，任务变成是他人"
+       ng-show="processInstance.transferAble"><i class=" fa icon-share"></i> 移交任务 </a>
+
+    <a href="javascript:;" class="btn btn-sm btn-default" ng-click="showResolveTask();"
+       ng-show="processInstance.resolveAble"><i
+            class="fa fa-send"></i> 完成任务 </a>
+
+    <a href="javascript:;" class="btn btn-sm btn-default" ng-click="showCcFinishTask();"
+       ng-show="processInstance.ccFinishAble"><i
+            class="fa fa-send"></i> 办结抄送 </a>
+
+    <!--    <a href="javascript:;" class="btn btn-sm btn-default" ng-click="toggleStar();"-->
+    <!--           ng-show="!processInstance.finished||processInstance.stared">-->
+    <!--        <i ng-class="{true:'fa fa-star',false:'fa fa-star-o'}[processInstance.stared]" >-->
+    <!--            <span ng-bind="progressInstance.stared?' 取消关注':' 关注流程'"></span>-->
+    <!--        </i>-->
+    <!--    </a>-->
+  <a href="javascript:;" class="btn btn-sm btn-default" ng-click="toggleStar();"
+     ng-show="processInstance&&!processInstance.finished&&processInstance.stared"><i
+          class="fa fa-star"></i> 取消关注
+    </a>
+
+    <a href="javascript:;" class="btn btn-sm btn-default" ng-click="toggleStar();"
+       ng-show="processInstance&&!processInstance.finished&&!processInstance.stared"><i
+            class="fa fa-star-o"></i> 关注流程
+    </a>
+
+
+   <a href="javascript:;" class="btn btn-sm btn-default" ng-click="adminRemoveProcess();"
+      ng-show="processInstance&&!processInstance.finished&&user.adminMode"><i
+           class="fa fa-trash"></i> 管理员删除
+   </a>
+
+</span>

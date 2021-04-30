@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.common.dao.CommonWxMessageMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.common.entity.CommonWxMessage">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="tenet_id" jdbcType="VARCHAR" property="tenetId" />
+    <result column="msg_type" jdbcType="VARCHAR" property="msgType" />
+    <result column="task_id" jdbcType="VARCHAR" property="taskId" />
+    <result column="msg_title" jdbcType="VARCHAR" property="msgTitle" />
+    <result column="msg_url" jdbcType="VARCHAR" property="msgUrl" />
+    <result column="to_user" jdbcType="LONGVARCHAR" property="toUser" />
+    <result column="is_sended" jdbcType="BIT" property="sended" />
+    <result column="try_count" jdbcType="INTEGER" property="tryCount" />
+    <result column="try_time" jdbcType="TIMESTAMP" property="tryTime" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="msg_data" jdbcType="LONGVARCHAR" property="msgData" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from common_wx_message
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.common.entity.CommonWxMessage">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into common_wx_message (tenet_id, msg_type, task_id, 
+      msg_title, msg_url, to_user, 
+      is_sended, try_count, try_time, 
+      gmt_create, gmt_modified, remark, 
+      msg_data)
+    values (#{tenetId,jdbcType=VARCHAR}, #{msgType,jdbcType=VARCHAR}, #{taskId,jdbcType=VARCHAR}, 
+      #{msgTitle,jdbcType=VARCHAR}, #{msgUrl,jdbcType=VARCHAR}, #{toUser,jdbcType=LONGVARCHAR},
+      #{sended,jdbcType=BIT}, #{tryCount,jdbcType=INTEGER}, #{tryTime,jdbcType=TIMESTAMP}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, 
+      #{msgData,jdbcType=LONGVARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.common.entity.CommonWxMessage">
+    update common_wx_message
+    set tenet_id = #{tenetId,jdbcType=VARCHAR},
+      msg_type = #{msgType,jdbcType=VARCHAR},
+      task_id = #{taskId,jdbcType=VARCHAR},
+      msg_title = #{msgTitle,jdbcType=VARCHAR},
+      msg_url = #{msgUrl,jdbcType=VARCHAR},
+      to_user = #{toUser,jdbcType=LONGVARCHAR},
+      is_sended = #{sended,jdbcType=BIT},
+      try_count = #{tryCount,jdbcType=INTEGER},
+      try_time = #{tryTime,jdbcType=TIMESTAMP},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      msg_data = #{msgData,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, tenet_id, msg_type, task_id, msg_title, msg_url, to_user, is_sended, try_count, 
+    try_time, gmt_create, gmt_modified, remark, msg_data
+    from common_wx_message
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, tenet_id, msg_type, task_id, msg_title, msg_url, to_user, is_sended, try_count, 
+    try_time, gmt_create, gmt_modified, remark, msg_data
+    from common_wx_message
+    <include refid="Base_Where_List" />
+    <include refid="Base_Where_List1" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null and isLikeSelect==null">
+         AND id = #{id}
+      </if>
+      <if test="tenetId != null and isLikeSelect==null and tenetId != ''">
+         AND tenet_id = #{tenetId}
+      </if>
+      <if test="msgType != null and isLikeSelect==null and msgType != ''">
+         AND msg_type = #{msgType}
+      </if>
+      <if test="taskId != null and isLikeSelect==null and taskId != ''">
+         AND task_id = #{taskId}
+      </if>
+      <if test="msgTitle != null and isLikeSelect==null and msgTitle != ''">
+         AND msg_title = #{msgTitle}
+      </if>
+      <if test="msgUrl != null and isLikeSelect==null and msgUrl != ''">
+         AND msg_url = #{msgUrl}
+      </if>
+      <if test="toUser != null and isLikeSelect==null and toUser != ''">
+         AND to_user = #{toUser}
+      </if>
+      <if test="sended != null and isLikeSelect==null">
+         AND is_sended = #{sended}
+      </if>
+      <if test="tryCount != null and isLikeSelect==null">
+         AND try_count = #{tryCount}
+      </if>
+      <if test="tryTime != null and isLikeSelect==null">
+         AND try_time = #{tryTime}
+      </if>
+      <if test="gmtCreate != null and isLikeSelect==null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null and isLikeSelect==null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="remark != null and isLikeSelect==null and remark != ''">
+         AND remark = #{remark}
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_Where_List1">
+    <where>
+      <if test="tenetId != null and isLikeSelect!= null and tenetId != '' ">
+         AND tenet_id like  CONCAT('%',#{tenetId},'%')
+      </if>
+      <if test="msgType != null and isLikeSelect!= null and msgType != '' ">
+         AND msg_type like  CONCAT('%',#{msgType},'%')
+      </if>
+      <if test="taskId != null and isLikeSelect!= null and taskId != '' ">
+         AND task_id like  CONCAT('%',#{taskId},'%')
+      </if>
+      <if test="msgTitle != null and isLikeSelect!= null and msgTitle != '' ">
+         AND msg_title like  CONCAT('%',#{msgTitle},'%')
+      </if>
+      <if test="msgUrl != null and isLikeSelect!= null and msgUrl != '' ">
+         AND msg_url like  CONCAT('%',#{msgUrl},'%')
+      </if>
+      <if test="toUser != null and isLikeSelect!= null and toUser != '' ">
+         AND to_user like  CONCAT('%',#{toUser},'%')
+      </if>
+      <if test="remark != null and isLikeSelect!= null and remark != '' ">
+         AND remark like  CONCAT('%',#{remark},'%')
+      </if>
+      <if test="gmtModified != null and isLikeSelect!=null">
+        AND gmt_modified = #{gmtModified}
+      </if>
+    </where>
+  </sql>
+
+
+
+  <select id="getLatestTryMessage"  resultMap="BaseResultMap">
+    select *  from common_wx_message
+    where msg_title=#{msgTitle} and msg_type=#{msgType} and msg_url=#{msgUrl} and to_user=#{toUser}
+    order by try_time desc
+    limit 1
+  </select>
+
+
+</mapper>

@@ -918,6 +918,23 @@
             return deferred.promise;
         };
 
+        var listHistoricTaskMap = function (processInstanceId) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: '/act/taskQuery/listHistoricTaskMap.json',
+                params: {
+                    processInstanceId:processInstanceId
+                }
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+
         var getHistoricTaskInstanceByInstanceId = function (processInstanceId,enLogin) {
             var deferred = $q.defer();
             return $http({
@@ -959,6 +976,9 @@
             },
             listHistoricTaskInstanceByTaskId: function (taskId, enLogin) {
                 return listHistoricTaskInstanceByTaskId(taskId, enLogin);
+            },
+            listHistoricTaskMap: function (processInstanceId) {
+                return listHistoricTaskMap(processInstanceId);
             },
             listHistoricTaskInstanceByInstanceId: function (processInstanceId, enLogin) {
                 return listHistoricTaskInstanceByInstanceId(processInstanceId, enLogin);

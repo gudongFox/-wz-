@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.common.dao.CommonDirMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.common.entity.CommonDir">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="cn_name" jdbcType="VARCHAR" property="cnName" />
+    <result column="major_name" jdbcType="VARCHAR" property="majorName" />
+    <result column="build_id" jdbcType="INTEGER" property="buildId" />
+    <result column="build_name" jdbcType="VARCHAR" property="buildName" />
+    <result column="size" jdbcType="BIGINT" property="size" />
+    <result column="size_name" jdbcType="VARCHAR" property="sizeName" />
+    <result column="seq" jdbcType="INTEGER" property="seq" />
+    <result column="editable_tag" jdbcType="VARCHAR" property="editableTag" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from common_dir
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.common.entity.CommonDir">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into common_dir (business_key, parent_id, cn_name, 
+      major_name, build_id,build_name, size,
+      size_name, seq, editable_tag, 
+      is_deleted, creator, creator_name, 
+      gmt_create, gmt_modified, remark
+      )
+    values (#{businessKey,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, #{cnName,jdbcType=VARCHAR}, 
+      #{majorName,jdbcType=VARCHAR}, #{buildId,jdbcType=INTEGER},#{buildName,jdbcType=VARCHAR},  #{size,jdbcType=BIGINT},
+      #{sizeName,jdbcType=VARCHAR}, #{seq,jdbcType=INTEGER}, #{editableTag,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=BIT}, #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.common.entity.CommonDir">
+    update common_dir
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      cn_name = #{cnName,jdbcType=VARCHAR},
+      major_name = #{majorName,jdbcType=VARCHAR},
+      build_id = #{buildId,jdbcType=INTEGER},
+      build_name = #{buildName,jdbcType=INTEGER},
+      size = #{size,jdbcType=BIGINT},
+      size_name = #{sizeName,jdbcType=VARCHAR},
+      seq = #{seq,jdbcType=INTEGER},
+      editable_tag = #{editableTag,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select  * from common_dir
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByCnName" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select *
+    from common_dir
+    where  business_key = #{businessKey,jdbcType=VARCHAR} and  parent_id = #{parentId,jdbcType=INTEGER} and   cn_name = #{cnName,jdbcType=VARCHAR}
+    limit 1
+  </select>
+
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select  *
+    from common_dir
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+
+  <select id="selectChildSizeByBusinessKey" parameterType="java.util.Map" resultType="java.lang.Long">
+    select IFNULL(sum(size),0) as size from common_dir
+    where business_key=#{businessKey} and  parent_id = #{parentId,jdbcType=INTEGER}  and is_deleted=0
+  </select>
+
+
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="parentId != null">
+         AND parent_id = #{parentId}
+      </if>
+      <if test="cnName != null and cnName != ''">
+         AND cn_name = #{cnName}
+      </if>
+      <if test="majorName != null and majorName != ''">
+         AND major_name = #{majorName}
+      </if>
+      <if test="buildId != null">
+         AND build_id = #{buildId}
+      </if>
+      <if test="buildName != null and buildName != ''">
+        AND build_name = #{buildName}
+      </if>
+      <if test="size != null">
+         AND size = #{size}
+      </if>
+      <if test="sizeName != null and sizeName != ''">
+         AND size_name = #{sizeName}
+      </if>
+      <if test="seq != null">
+         AND seq = #{seq}
+      </if>
+      <if test="editableTag != null and editableTag != ''">
+         AND editable_tag = #{editableTag}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+    </where>
+  </sql>
+</mapper>

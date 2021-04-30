@@ -1,0 +1,205 @@
+<br/>
+<link rel="stylesheet" href="/assets/jquery-file-upload/css/jquery.fileupload.css" type="text/css"/>
+<link rel="stylesheet" href="/assets/jquery-file-upload/css/jquery.fileupload-ui.css" type="text/css"/>
+
+
+<div class="kt-container  kt-grid__item kt-grid__item--fluid">
+
+    <div class="kt-portlet">
+        <div class="kt-portlet__head kt-portlet__head--lg">
+            <div class="kt-portlet__head-label">
+                                                    <span class="kt-portlet__head-icon">
+                                                        <i class="fa fa-comment"></i>
+                                                    </span>
+                <h3 class="kt-portlet__head-title">
+                    校审意见库
+                </h3>
+            </div>
+
+            <div class="kt-portlet__head-toolbar">
+                <div class="kt-portlet__head-wrapper">
+                    <div class="kt-portlet__head-actions">
+                        <div class="kt-subheader">
+                            <div class="kt-subheader__toolbar">
+                                <div class="kt-subheader__wrapper">
+                                    <button type="button" class="btn btn-sm btn-secondary fileinput-button btn-label-linkedin" style="margin: 5px;" ng-click="newData();">
+                                        <i class="fa fa-plus"></i> 新增数据
+                                    </button>
+
+                                    <button type="button" class="btn btn-sm btn-secondary fileinput-button btn-label-linkedin" style="margin: 5px;">
+                                        <i class="fa fa-upload"></i> 上传文件
+                                        <input id="uploadFile" type="file" name="file" multiple accept="application/vnd.ms-excel" />
+                                    </button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="kt-portlet__body">
+            <!--begin: Datatable -->
+            <div class="dataTables_wrapper dt-bootstrap4">
+                <div class="row">
+                    <div class="col-md-8 text-left">
+                        <div class="dataTables_filter">
+                            <label> <input type="search" id="searchKey"
+                                                                         class="form-control form-control-sm"
+                                                                         placeholder="输入关键信息检索" ng-model="params.q"/></label>
+
+                            <label>
+                                <select ng-options="s.codeValue as s.name for s in commonCodes | filter:{codeCatalog:'设计专业'}:true"
+                                        ng-model="params.majorName" class="form-control form-control-sm"></select></label>
+
+                            <label>
+                                <select ng-options="s.codeValue as s.name for s in commonCodes | filter:{codeCatalog:'校审意见类型'}:true"
+                                        ng-model="params.questionLv" class="form-control form-control-sm"></select></label>
+
+                            <a class="btn btn-sm btn-label-linkedin" ng-click="queryData();"><i class="fa fa-search"></i>查询</a>
+
+                            <a class="btn btn-sm btn-label-linkedin" ng-click="downloadData();"><i class="fa fa-download"></i>下载</a>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-bordered table-hover dataTable">
+
+                            <thead>
+                            <tr>
+                                <th style="width: 25px;">#</th>
+                                <th style="width: 30px;">客户</th>
+                                <th style="width: 40px;">专业</th>
+                                <th style="width: 240px;">意见类型</th>
+                                <th>意见内容</th>
+                                <th style="width: 80px;" class="hidden-md">创建时间</th>
+                                <th style="width: 45px;">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in pageInfo.list">
+                                <td ng-bind="$index+pageInfo.startRow"></td>
+                                <td ng-bind="item.tenetId"></td>
+                                <td><strong ng-bind="item.majorName"></strong></td>
+                                <td ng-bind="item.questionLv"></td>
+                                <td ng-bind="item.questionContent"></td>
+                                <td ng-bind="item.gmtCreate|date:'yyyy-MM-dd'" class="hidden-md"></td>
+                                <td>
+                                    <i class="fa fa-edit"  style="margin-left: 5px;cursor: pointer;" title="编辑" ng-click="showDetail(item.id);"></i>
+                                    <i class="fa fa-trash" style="margin-left: 5px;cursor: pointer;" title="删除" ng-show="item.creator==user.enLogin" ng-click="remove(item.id);"></i>
+                                </td>
+                            </tr>
+                            </tbody>
+
+                        </table>
+                        <my-pager data-page-info="pageInfo" on-load="loadPagedData()"></my-pager>
+                    </div>
+                </div>
+            </div>
+            <!--end: Datatable -->
+        </div>
+    </div>
+
+    <div class="modal" id="itemModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">意见详情</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group  row" style="margin-bottom: 0.5rem;">
+                        <div class="col-md-6" style="margin-bottom: 0.5rem;">
+                            <label>专业<span style="color: red;margin-left: 2px;">*</span></label>
+                            <select ng-options="s.codeValue as s.name for s in commonCodes | filter:{codeCatalog:'设计专业'}:true"
+                                    ng-model="item.majorName" class="form-control"></select>
+                        </div>
+                        <div class="col-md-6" style="margin-bottom: 0.5rem;">
+                            <label>意见类型<span style="color: red;margin-left: 2px;">*</span></label>
+                            <select ng-options="s.codeValue as s.name for s in commonCodes | filter:{codeCatalog:'校审意见类型'}:true"
+                                    ng-model="item.questionLv" class="form-control"></select>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group  row" style="margin-bottom: 0.5rem;">
+                        <div class="col-md-12">
+                            <label>意见内容<span style="color: red;margin-left: 2px;">*</span></label>
+                            <textarea rows="3" class="form-control" ng-model="item.questionContent"
+                                      placeholder=""/>
+                        </div>
+                    </div>
+                    <div class="form-group  row" style="margin-bottom: 0.5rem;">
+                        <div class="col-md-6" style="margin-bottom: 0.5rem;">
+                            <label>设计类别</label>
+                            <input type="text" class="form-control" ng-model="item.questionScope" required="true">
+                        </div>
+                        <div class="col-md-6" style="margin-bottom: 0.5rem;">
+                            <label>对应图名</label>
+                            <input type="text" class="form-control" ng-model="item.questionCategory" required="true">
+                        </div>
+                    </div>
+                    <div class="form-group  row" style="margin-bottom: 0.5rem;">
+                        <div class="col-md-6" style="margin-bottom: 0.5rem;">
+                            <label>条文号</label>
+                            <input type="text" class="form-control"
+                                   ng-model="item.questionNo" >
+                        </div>
+                        <div class="col-md-6" style="margin-bottom: 0.5rem;">
+                            <label>关键字</label>
+                            <input type="text" class="form-control"
+                                   ng-model="item.keyWord" >
+                        </div>
+                    </div>
+                    <div class="form-group  row" style="margin-bottom: 0.5rem;">
+                        <div class="col-md-6" style="margin-bottom: 0.5rem;">
+                            <label>规范号</label>
+                            <input type="text" class="form-control"
+                                   ng-model="item.standardNo" >
+                        </div>
+                        <div class="col-md-6" style="margin-bottom: 0.5rem;">
+                            <label>规范名称</label>
+                            <input type="text" class="form-control"
+                                   ng-model="item.standardDesc" >
+                        </div>
+                    </div>
+                    <div class="form-group  row" style="margin-bottom: 0.5rem;">
+                        <div class="col-md-6" style="margin-bottom: 0.5rem;">
+                            <label>创建人</label>
+                            <input type="text" class="form-control"
+                                   ng-model="item.creatorName" disabled="disabled" >
+                        </div>
+                        <div class="col-md-6" style="margin-bottom: 0.5rem;">
+                            <label>修改时间</label>
+                            <input type="text" class="form-control"
+                                   ng-value="item.gmtModified|date:'yyyy-MM-dd HH:mm:ss'" disabled="disabled">
+                        </div>
+
+                    </div>
+                    <div class="form-group  row" style="margin-bottom: 0.5rem;">
+                        <div class="col-md-12" style="margin-bottom: 0.5rem;">
+                            <label>备注</label>
+                            <input type="text" class="form-control"
+                                   ng-model="item.remark" >
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" ng-click="save();" ng-show="item.creator==user.enLogin">保存</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+</div>
+
+<script src="/assets/jquery-file-upload/js/vendor/jquery.ui.widget.js"></script>
+<script src="/assets/jquery-file-upload/js/jquery.iframe-transport.js"></script>
+<script src="/assets/jquery-file-upload/js/jquery.fileupload.js"></script>
+<script src="/assets/jquery-file-upload/js/jquery.fileupload-process.js"></script>
+<script src="/assets/jquery-file-upload/js/jquery.fileupload-validate.js"></script>

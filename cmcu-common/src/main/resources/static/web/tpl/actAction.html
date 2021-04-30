@@ -1,0 +1,43 @@
+﻿<span ng-controller="CommonActActionController">
+
+
+<a class="btn kt-subheader__btn-primary btn-icon" title="接受任务" ng-show="processInstance.takeAble"
+   ng-click="showTakeTask();">
+    <i class="flaticon2-accept"></i>
+</a>
+<a class="btn kt-subheader__btn-primary btn-icon" title="取回任务" ng-show="processInstance.fetchAble"
+    ng-click="showFetchTask();">
+    <i class="flaticon2-refresh-arrow"></i>
+</a>
+<a class="btn kt-subheader__btn-primary btn-icon" title="提交任务11" ng-show="processInstance.sendAble"
+   ng-click="showSendTask(true);">
+    <i class="flaticon2-check-mark"></i>
+</a>
+<a class="btn kt-subheader__btn-primary btn-icon" title="打回任务" ng-show="processInstance.backAble"
+   ng-click="showSendTask(false);">
+    <i class="flaticon2-cancel"></i>
+</a>
+<a class="btn kt-subheader__btn-primary btn-icon" title="委托任务" ng-show="processInstance.delegateAble"
+     ng-click="showDelegateTask();">
+    <i class="flaticon2-user-1"></i>
+</a>
+<a class="btn kt-subheader__btn-primary btn-icon" title="移交任务" ng-show="processInstance.transferAble"
+   ng-click="showTransferTask();">
+    <i class="flaticon-rotate"></i>
+</a>
+<a class="btn kt-subheader__btn-primary btn-icon" title="完成任务" ng-show="processInstance.resolveAble"
+   ng-click="showResolveTask(false);">
+    <i class="flaticon2-correct"></i>
+</a>
+    <a class="btn kt-subheader__btn-primary btn-icon" title="完成任务" ng-show="processInstance.ccFinishAble"
+    ng-click="showCcFinishTask();">
+      <i class="flaticon2-correct"></i>
+    </a>
+
+
+     <a class="btn kt-subheader__btn-primary btn-icon" title="{{progressInstance.stared?'取消关注':'关注流程'}}" ng-show="!processInstance.finished||processInstance.stared"
+        ng-click="toggleStar();">
+     <i ng-class="{true:'fa fa-star',false:'fa fa-star-half-alt'}[processInstance.stared]"></i>
+    </a>
+
+</span>

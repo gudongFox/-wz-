@@ -1,0 +1,4 @@
+﻿<div class="checkbox-list" style="padding-left: 20px;">
+	<label class="checkbox-inline" ng-repeat="_item in dataSource track by $index">
+		<input type="checkbox" ng-click="checkItem(_item);" ng-model="_item.checked" ng-value="_item.code" ng-disabled="_item.disabled" ng-checked="_item.checked"> <span ng-bind="_item.name"></span> </label>
+</div>

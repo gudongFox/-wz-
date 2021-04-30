@@ -51,21 +51,20 @@
           $rootScope.commonDownload('/common/attach/download/'+id,undefined);
         }
 
-        $rootScope.loadNewProcessInstance=function(processInstanceId) {
+        $rootScope.loadNewProcessInstance=function(processInstanceId,businessKey) {
 
             $rootScope.refreshTime = new Date().getTime();
             $rootScope.tasks = [];
             $rootScope.tplConfig = {};
             $rootScope.processInstanceId = processInstanceId;
-            if (processInstanceId) {
-                commonFormDataService.getTplConfig(processInstanceId, "", user.enLogin).then(function (value) {
+            if (processInstanceId||businessKey) {
+                commonFormDataService.getTplConfig(processInstanceId, businessKey, user.enLogin).then(function (value) {
                     $rootScope.tplConfig = value.data.data;
-
                 });
-                actTaskQueryService.listHistoricTaskInstanceByInstanceId(processInstanceId, user.enLogin).then(function (value) {
+                actTaskQueryService.listHistoricTaskMap(processInstanceId).then(function (value) {
                     $rootScope.tasks = value.data.data;
                 });
-                actProcessQueryService.getCustomProcessInstance(processInstanceId, "", user.enLogin).then(function (value) {
+                actProcessQueryService.getCustomProcessInstance(processInstanceId, businessKey, user.enLogin).then(function (value) {
                     $rootScope.processInstance = value.data.data;
                 });
             }
@@ -416,6 +415,7 @@
 
         $rootScope.showSendTask=function (send) {
 
+            debugger;
             //拥有保存权限、尝试提交任务,则判断对应数据是否有正确填写
             if($scope.tplConfig.saveAble) {
                 var errorList=$rootScope.checkFormValidate();
@@ -443,7 +443,7 @@
                         }, function () {
                             return true;
                         }, function (processInstanceId) {
-                            $scope.refresh();
+                            $scope.back();
                         });
                     }
                 })
@@ -456,7 +456,7 @@
                 }, function () {
                     return true;
                 }, function (processInstanceId) {
-                    $scope.refresh();
+                    $scope.back();
                 });
             }
         }
@@ -497,7 +497,7 @@
             }, function () {
                 return true;
             }, function (processInstanceId) {
-                $scope.refresh();
+                $scope.back();
             });
         }
 
@@ -509,7 +509,7 @@
             }, function () {
                 return true;
             }, function (processInstanceId) {
-                $scope.refresh();
+                $scope.back();
             });
         }
 
@@ -521,19 +521,18 @@
                 }, function () {
                     return true;
                 }, function (processInstanceId) {
-                    $scope.refresh();
+                    $scope.back();
                 });
         }
 
         $rootScope.showCcFinishTask=function() {
-
-            bootbox.confirm("你要完成该抄送任务吗？", function (result) {
+            bootbox.confirm("你要办结该抄送任务吗？", function (result) {
                 if(result) {
                     var taskId=$rootScope.processInstance.ccTaskId;
                     actTaskHandleService.ccFinishTask(taskId,result.value).then(function (value) {
                         if (value.data.ret) {
                             toastr.success("已办结抄送任务!");
-                            $scope.refresh();
+                            $scope.back();
                         }
                     });
                 }

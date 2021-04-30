@@ -1,0 +1,97 @@
+﻿<style type="text/css">
+
+    #taskTable td {
+        line-height: 1.7;
+    }
+
+</style>
+
+<div class="table-scrollable">
+    <table class="table table-striped table-bordered table-advance table-hover" id="taskTable">
+        <thead>
+        <tr>
+            <th style="width:35px;">#</th>
+            <th style="width:100px;">办理人</th>
+            <th style="width:200px;">任务名称</th>
+            <th style="width:150px;">开始时间</th>
+            <th style="width:150px;" class="hidden-md hidden-sm hidden-xs">接收时间</th>
+            <th style="width:150px;">结束时间</th>
+            <th>处理意见</th>
+            <th style="width: 240px;" ng-if="adminMode&&!actProcessInstance.instance.endTime">处理任务</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr role="row"  ng-repeat="task in tasks">
+            <td ng-bind="$index+1"></td>
+            <td>
+                <img alt="" class="img-circle"
+                     ng-src="{{'/common/user/head/'+task.assignee}}"
+                     onerror="this.src='/assets/img/avatar.jpg'"
+                     style="height: 22px;width: 22px;margin-top: -5px;"/>
+                <span ng-bind="task.assigneeName" title="{{task.ownerName}}"></span>
+            </td>
+            <td>
+                <i class="fa fa-clock-o" ng-if="!task.endTime" style="color: blue;"></i>
+                <span ng-if="task.endTime">
+                     <i class="fa fa-check font-green" title="通过" ng-if="task.passed"></i>
+                     <i class="fa fa-times font-red" title="打回" ng-if="!task.passed"></i>
+                </span>
+
+                <span ng-if="task.ccTask">
+                      <span ng-bind="task.name" style="font-weight: bold;"></span>
+
+                    <span ng-if="task.ccFinishAble"
+                          ng-click="showCcFinishActTaskModal(task.id);" style="color: blue;cursor: pointer;">完成</span>
+                </span>
+                <span ng-if="!task.ccTask">
+                     <span ng-if="!adminMode" ng-bind="task.name" style="font-weight: bold;"></span>
+                     <span ng-if="adminMode" ng-bind="task.name"
+                           style="cursor: pointer;font-weight: bold;"
+                           ng-click="showActTaskModal(task.id);"></span>
+                </span>
+            </td>
+            <td ng-bind="task.startTime|date:'yyyy-MM-dd HH:mm'"></td>
+            <td ng-bind="task.claimTime|date:'yyyy-MM-dd HH:mm'" class="hidden-md hidden-sm hidden-xs"></td>
+            <td ng-bind="task.endTime|date:'yyyy-MM-dd HH:mm'"></td>
+            <td>
+                                                        <span ng-if="task.endTime">
+                                                              <span ng-if="task.passed"
+                                                                    style="color: green;font-weight: bold;">通过 | </span>
+                                                              <span ng-if="!task.passed"
+                                                                    style="color: red;font-weight: bold;">打回 | </span>
+                                                        </span>
+                <span ng-bind="task.latestComment" ng-click="showActCommentModal(task.id);" style="cursor: pointer;"></span>
+            </td>
+            <td ng-if="adminMode&&!actProcessInstance.instance.endTime">
+                <span ng-if="!task.endTime"
+                      style="color: blue;font-weight: bold;cursor: pointer;">
+
+                                                                <span ng-if="task.takeAble"
+                                                                      ng-click="showTakeActTaskModal(task.id);">接受</span>
+
+                                                               <span ng-if="task.fetchAble"
+                                                                     ng-click="showFecthActTaskModal(task.id);">取回</span>
+
+                                                             <span ng-if="task.sendAble"
+                                                                   ng-click="showSendActTaskModal(task.id);"
+                                                                   ng-bind="task.firstTask?'提交':'同意'"></span>
+
+                                                             <span ng-if="task.backAble "
+                                                                   ng-click="showBackActTaskModal(task.id);">打回</span>
+
+                                                              <span ng-if="task.delegateAble"
+                                                                    ng-click="showDelegateActTaskModal(task.id);">委托</span>
+
+                                                              <span ng-if="task.transferAble"
+                                                                    ng-click="showTransferActTaskModal(task.id);">移交</span>
+
+                                                             <span ng-if="task.resolveAble"
+                                                                   ng-click="showResolveActTaskModal(task.id);">完成</span>
+                                                        </span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+

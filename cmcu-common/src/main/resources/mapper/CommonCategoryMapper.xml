@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.common.dao.CommonCategoryMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.common.entity.CommonCategory">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="tenet_id" jdbcType="VARCHAR" property="tenetId" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="tree_icon" jdbcType="VARCHAR" property="treeIcon" />
+    <result column="js_icon" jdbcType="VARCHAR" property="jsIcon" />
+    <result column="seq" jdbcType="INTEGER" property="seq" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="owner_level" jdbcType="VARCHAR" property="ownerLevel" />
+    <result column="owner_name" jdbcType="VARCHAR" property="ownerName" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from common_category
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.common.entity.CommonCategory">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into common_category (tenet_id, business_key, name, 
+      parent_id, tree_icon, js_icon, 
+      seq, is_deleted, gmt_create, 
+      gmt_modified, owner_level, owner_name, 
+      remark)
+    values (#{tenetId,jdbcType=VARCHAR}, #{businessKey,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{parentId,jdbcType=INTEGER}, #{treeIcon,jdbcType=VARCHAR}, #{jsIcon,jdbcType=VARCHAR}, 
+      #{seq,jdbcType=INTEGER}, #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{ownerLevel,jdbcType=VARCHAR}, #{ownerName,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.common.entity.CommonCategory">
+    update common_category
+    set tenet_id = #{tenetId,jdbcType=VARCHAR},
+      business_key = #{businessKey,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      tree_icon = #{treeIcon,jdbcType=VARCHAR},
+      js_icon = #{jsIcon,jdbcType=VARCHAR},
+      seq = #{seq,jdbcType=INTEGER},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      owner_level = #{ownerLevel,jdbcType=VARCHAR},
+      owner_name = #{ownerName,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, tenet_id, business_key, name, parent_id, tree_icon, js_icon, seq, is_deleted, 
+    gmt_create, gmt_modified, owner_level, owner_name, remark
+    from common_category
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, tenet_id, business_key, name, parent_id, tree_icon, js_icon, seq, is_deleted, 
+    gmt_create, gmt_modified, owner_level, owner_name, remark
+    from common_category
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="tenetId != null and tenetId != ''">
+         AND tenet_id = #{tenetId}
+      </if>
+      <if test="businessKey != null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="name != null and name != ''">
+         AND name = #{name}
+      </if>
+      <if test="parentId != null">
+         AND parent_id = #{parentId}
+      </if>
+      <if test="treeIcon != null and treeIcon != ''">
+         AND tree_icon = #{treeIcon}
+      </if>
+      <if test="jsIcon != null and jsIcon != ''">
+         AND js_icon = #{jsIcon}
+      </if>
+      <if test="seq != null">
+         AND seq = #{seq}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="ownerLevel != null and ownerLevel != ''">
+         AND owner_level = #{ownerLevel}
+      </if>
+      <if test="ownerName != null and ownerName != ''">
+         AND owner_name = #{ownerName}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+    </where>
+  </sql>
+</mapper>

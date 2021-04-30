@@ -555,7 +555,8 @@ function setCacheParams(key, params, pageInfo) {
         taskId: "",
         modalId: "_actSendTaskModal_" + new Date().getSeconds(),
         title: "",
-        comment:'处理任务'
+        comment:'处理任务',
+        forceClose:false
     };
     var options;
     var task;
@@ -567,12 +568,11 @@ function setCacheParams(key, params, pageInfo) {
             $(this).remove();
         })
 
-
         defaults.modalId = "_actTaskModal_" + new Date().getSeconds();
         if (beforeCall()) {
 
             options = $.extend({}, defaults, config);
-            options.comment = options.send ? "同意" : "请检查后重新提交!";
+            options.comment = options.send ? "已阅，同意。" : "请检查后重新提交!";
             var modalDialog = "<div class=\"modal actTaskModal fade\" id=\"" + options.modalId + "\">\n" +
                 "    <div class=\"modal-dialog\">\n" +
                 "        <div class=\"modal-content\">\n" +
@@ -629,16 +629,43 @@ function setCacheParams(key, params, pageInfo) {
                 sendTask(true, closeCallback);
             });
             $("#" + options.modalId + "_save").on('click', function () {
-                sendTask(false, closeCallback);
+                sendTask(false,closeCallback);
             });
 
 
             $("#" + options.modalId + "_cc").on('click', function () {
-                jQuery.showJsTreeSelectUserModal({multiple: true, selects: task.ccUser,enLogin:user.enLogin}, function (selectedUsers,enLoginList,cnNameList) {
+                jQuery.showJsTreeSelectUserModal({
+                    multiple: true,
+                    selects: task.ccUser,
+                    enLogin: user.enLogin
+                }, function (selectedUsers, enLoginList, cnNameList) {
                     task.ccUser = enLoginList;
                     task.ccUserName = cnNameList;
                     $("#" + options.modalId + "_cc_txt").val(task.ccUserName);
                 });
+            });
+
+            $("#" + options.modalId).on('hidden.bs.modal', function () {
+                if(!options.forceClose) {
+                    var comment = $("#" + options.modalId + "_comment").val();
+                    if(comment) {
+                        jQuery.ajax({
+                            type: "POST",
+                            url: '/act/taskHandle/setComment.json',
+                            data: {
+                                taskId: options.taskId,
+                                enLogin: options.enLogin,
+                                comment: comment,
+                                agent: 'pc'
+                            },
+                            traditional: true,
+                            success: function (data) {
+                                if (!data.ret) {
+                                }
+                            }
+                        });
+                    }
+                }
             });
 
             loadCandidate();
@@ -656,6 +683,7 @@ function setCacheParams(key, params, pageInfo) {
             toastr.error("办理意见不能为空!");
             return;
         }
+        options.forceClose=true;
         $("#" + options.modalId).modal("hide");
         setTimeout(function () {
             $("#" + options.modalId).remove();
@@ -681,10 +709,11 @@ function setCacheParams(key, params, pageInfo) {
                 if (data.ret) {
                     if (completeTask) {
                         toastr.success("处理成功");
+                        closeCallback(task.processInstanceId,{completeTask:completeTask,processInstanceId:task.processInstanceId});
                     } else {
                         toastr.success("保存成功");
                     }
-                    closeCallback(task.processInstanceId,{completeTask:completeTask,processInstanceId:task.processInstanceId});
+
                 } else {
                     toastr.error(data.msg);
                 }
@@ -732,8 +761,6 @@ function setCacheParams(key, params, pageInfo) {
                 }
             }
         });
-
-
     }
 
     var loadCandidate = function () {
@@ -1054,7 +1081,7 @@ function setCacheParams(key, params, pageInfo) {
             traditional: true,
             success: function (data) {
                 if (data.ret) {
-                    toastr.success("保存成功");
+                    toastr.success("委托成功");
                     closeCallback(task.processInstanceId);
                 } else {
                     toastr.error(data.msg);
@@ -1209,7 +1236,7 @@ function setCacheParams(key, params, pageInfo) {
             traditional: true,
             success: function (data) {
                 if (data.ret) {
-                    toastr.success("保存成功");
+                    toastr.success("移交成功");
                     closeCallback(task.processInstanceId);
                 } else {
                     toastr.error(data.msg);

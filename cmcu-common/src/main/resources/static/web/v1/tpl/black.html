@@ -1,0 +1,149 @@
+﻿<span  ng-controller="CommonBlackController">
+
+    <div class="page-bar ng-scope" id="pageBar">
+        <ul class="page-breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a ui-sref="dashboard" href="#/dashboard">首页</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <span>系统管理</span>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <span>黑白名单设置</span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="row col-md-12">
+        <div class="portlet blue box">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-lock"></i> 数据列表
+                </div>
+                <div class="actions">
+
+                    <a href="javascript:;" class="btn btn-sm btn-default" ng-click="loadData();">
+                        <i class="fa fa-refresh"></i> 刷新 </a>
+
+                    <a href="javascript:;" class="btn btn-sm btn-default" ng-click="newData();">
+                        <i class="fa fa-plus"></i> 新增 </a>
+
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="dataTables_wrapper no-footer">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>
+                                <input type="text" class="form-control" placeholder="目标用户"
+                                       ng-model="targetUser"/>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="table-scrollable">
+                        <table class="table table-striped table-hover table-bordered table-advance no-footer">
+                            <thead>
+                            <tr>
+                                <th style="width: 40px;">#</th>
+                                <th style="width: 70px;">客户</th>
+                                <th style="width: 100px;">目标用户</th>
+                                <th style="width: 150px;">目标地址</th>
+                                <th style="width: 100px;">设定类型</th>
+                                <th style="width: 170px;">创建时间</th>
+                                <th style="width: 170px;">失效时间</th>
+                                <th class="hidden-md">备注</th>
+                                <th style="width: 60px;">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in list|filter:{targetUser:targetUser}">
+                                <td ng-bind="$index+1"></td>
+                                <td ng-bind="item.tenetId"></td>
+                                <td ng-bind="item.targetUser"></td>
+                                <td ng-bind="item.targetIp"></td>
+                                <td>
+                                    <span class="label label-danger" ng-show="item.forbidden">禁止登录</span>
+                                    <span class="label label-success" ng-show="!item.forbidden">允许登录</span>
+                                </td>
+                                <td ng-bind="item.gmtCreate|date:'yyyy-MM-dd HH:mm'"></td>
+                                <td ng-bind="item.gmtExpired|date:'yyyy-MM-dd HH:mm'"></td>
+                                <td ng-bind="item.remark" class="hidden-md"></td>
+                                <td>
+                                    <i class="fa fa-pencil font-blue" title="详情" ng-click="showDetail(item.id);"></i>
+                                    <i style="margin-right: 5px;"></i>
+                                    <i class="fa fa-trash font-red" title="删除" ng-click="remove(item.id);"></i>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal" id="itemModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">详细信息</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="padding-bottom: 5px;padding-top: 10px;">
+                    <div class="form-group" style="margin-bottom: 0.5rem;">
+                        <label>目标用户<span style="color: red;margin-left: 2px;">*</span></label>
+                        <input type="text" class="form-control" ng-model="item.targetUser"
+                               placeholder="*/单用户名">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 0.5rem;">
+                        <label>目标地址<span style="color: red;margin-left: 2px;">*</span></label>
+                        <input type="text" class="form-control" ng-model="item.targetIp"
+                               placeholder="*/单目标地址">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 0.5rem;" ng-init="forbiddenList=[{code:false,name:'允许登录'},{code:true,name:'禁止登录'}]">
+                        <label>设定类型<span style="color: red;margin-left: 2px;">*</span> </label>
+                        <select class="form-control" ng-options="s.code as s.name for s in forbiddenList" ng-model="item.forbidden">
+                        </select>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 0.5rem;">
+                        <label>修改时间</label>
+                        <input type="text" class="form-control"
+                               ng-value="item.gmtModified|date:'yyyy-MM-dd HH:mm:ss'" disabled="disabled">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 0.5rem;">
+<!--                        <label>失效时间</label>
+                        <input type="text" class="form-control " id="gmtExpired"
+                               ng-model="item.gmtExpired" >-->
+                        <label>失效时间</label>
+                        <div class="input-group date form_datetime" >
+                            <input type="text" class="form-control"
+                                   ng-model="item.gmtExpired"  value="{{item.gmtExpired|date:'yyyy-MM-dd HH:mm'}}"  required="true" >
+                            <span class="input-group-btn">
+                                <button class="btn default date-set" type="button" ><i class="fa fa-calendar"></i></button>
+                            </span>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group" style="margin-bottom: 0.5rem;">
+                        <label>备注</label>
+                        <input type="text" class="form-control" ng-model="item.remark"
+                               placeholder="">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" ng-click="save();">保存</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+</span>

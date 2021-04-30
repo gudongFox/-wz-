@@ -1,0 +1,46 @@
+﻿<div class="portlet box blue">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="{{vm.treeData.icon}}"></i> <span ng-bind="vm.treeData.nodeName"></span>
+        </div>
+        <div class="actions">
+            <a href="javascript:;" class="btn btn-sm btn-default" ng-click="vm.loadData();">
+                <i class="fa fa-refresh"></i> 刷新 </a>
+            <a href="javascript:;" class="btn btn-sm btn-default" ng-click="vm.newData();">
+                <i class="fa fa-plus"></i> 新建 </a>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="row col-md-12">
+            <label>
+                <input type="search"
+                       class="form-control input-inline input-sm"
+                       placeholder="关键字"
+                       ng-model="vm.q"></label>
+        </div>
+
+        <div class="table-scrollable">
+            <table class="table table-striped table-hover table-bordered table-advance no-footer">
+                <thead>
+                <tr>
+                    <th style="width: 40px;">#</th>
+                    <th ng-repeat="head in vm.data.heads track by $index" ng-bind="head.text" ng-style="head.style"></th>
+                    <th style="width: 65px;">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr role="row"  ng-repeat="item in vm.data.list">
+                    <td ng-bind="$index+1"></td>
+                    <td ng-repeat="property in item.propertyList  track by $index" >
+                        <span ng-bind="property.text" ng-style="property.style"></span>
+                    </td>
+                    <td>
+                        <i class="fa fa-pencil margin-right-5" ng-click="vm.showDetail(item.id);" title="详情"></i>
+                        <i class="fa fa-trash-o" ng-click="vm.remove(item.id);" title="删除"></i>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

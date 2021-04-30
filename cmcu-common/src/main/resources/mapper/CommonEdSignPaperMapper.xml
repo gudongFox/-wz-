@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.common.dao.CommonEdSignPaperMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.common.entity.CommonEdSignPaper">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="tenet_id" jdbcType="VARCHAR" property="tenetId" />
+    <result column="sign_id" jdbcType="VARCHAR" property="signId" />
+    <result column="file_id" jdbcType="INTEGER" property="fileId" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="drawing_name" jdbcType="VARCHAR" property="drawingName" />
+    <result column="drawing_no" jdbcType="VARCHAR" property="drawingNo" />
+    <result column="charge_name" jdbcType="VARCHAR" property="chargeName" />
+    <result column="proofread_name" jdbcType="VARCHAR" property="proofreadName" />
+    <result column="audit_name" jdbcType="VARCHAR" property="auditName" />
+    <result column="other_data" jdbcType="VARCHAR" property="otherData" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from common_ed_sign_paper
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.common.entity.CommonEdSignPaper">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into common_ed_sign_paper (tenet_id, sign_id, file_id, 
+      project_name, drawing_name, drawing_no, 
+      charge_name,proofread_name, audit_name, other_data,
+      creator, creator_name, is_deleted, 
+      gmt_create, gmt_modified)
+    values (#{tenetId,jdbcType=VARCHAR}, #{signId,jdbcType=VARCHAR}, #{fileId,jdbcType=INTEGER}, 
+      #{projectName,jdbcType=VARCHAR}, #{drawingName,jdbcType=VARCHAR}, #{drawingNo,jdbcType=VARCHAR}, 
+      #{chargeName,jdbcType=VARCHAR}, #{proofreadName,jdbcType=VARCHAR}, #{auditName,jdbcType=VARCHAR}, #{otherData,jdbcType=VARCHAR},
+      #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.common.entity.CommonEdSignPaper">
+    update common_ed_sign_paper
+    set tenet_id = #{tenetId,jdbcType=VARCHAR},
+      sign_id = #{signId,jdbcType=VARCHAR},
+      file_id = #{fileId,jdbcType=INTEGER},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      drawing_name = #{drawingName,jdbcType=VARCHAR},
+      drawing_no = #{drawingNo,jdbcType=VARCHAR},
+      charge_name = #{chargeName,jdbcType=VARCHAR},
+      proofread_name = #{proofreadName,jdbcType=VARCHAR},
+      audit_name = #{auditName,jdbcType=VARCHAR},
+      other_data = #{otherData,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select *
+    from common_ed_sign_paper
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select *
+    from common_ed_sign_paper
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="tenetId != null and tenetId != ''">
+         AND tenet_id = #{tenetId}
+      </if>
+      <if test="signId != null and signId != ''">
+         AND sign_id = #{signId}
+      </if>
+      <if test="fileId != null">
+         AND file_id = #{fileId}
+      </if>
+      <if test="projectName != null and projectName != ''">
+         AND project_name = #{projectName}
+      </if>
+      <if test="drawingName != null and drawingName != ''">
+         AND drawing_name = #{drawingName}
+      </if>
+      <if test="drawingNo != null and drawingNo != ''">
+         AND drawing_no = #{drawingNo}
+      </if>
+      <if test="chargeName != null and chargeName != ''">
+         AND charge_name = #{chargeName}
+      </if>
+      <if test="proofreadName != null and proofreadName != ''">
+        AND proofread_name = #{proofreadName}
+      </if>
+      <if test="auditName != null and auditName != ''">
+         AND audit_name = #{auditName}
+      </if>
+      <if test="otherData != null and otherData != ''">
+         AND other_data = #{otherData}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+    </where>
+  </sql>
+</mapper>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.common.dao.CommonEdDwgStdMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.common.entity.CommonEdDwgStd">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="tenet_id" jdbcType="VARCHAR" property="tenetId" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="major_name" jdbcType="VARCHAR" property="majorName" />
+    <result column="std_name" jdbcType="VARCHAR" property="stdName" />
+    <result column="std_desc" jdbcType="VARCHAR" property="stdDesc" />
+    <result column="attach_id" jdbcType="VARCHAR" property="attachId" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="is_standard" jdbcType="BIT" property="standard" />
+    <result column="seq" jdbcType="INTEGER" property="seq" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from common_ed_dwg_std
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.common.entity.CommonEdDwgStd">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into common_ed_dwg_std (tenet_id, dept_id, dept_name, 
+      major_name, std_name, std_desc, 
+      attach_id, creator, creator_name, 
+      is_standard, seq, is_deleted, 
+      gmt_create, gmt_modified, remark
+      )
+    values (#{tenetId,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, 
+      #{majorName,jdbcType=VARCHAR}, #{stdName,jdbcType=VARCHAR}, #{stdDesc,jdbcType=VARCHAR}, 
+      #{attachId,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, 
+      #{standard,jdbcType=BIT}, #{seq,jdbcType=INTEGER}, #{deleted,jdbcType=BIT}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.common.entity.CommonEdDwgStd">
+    update common_ed_dwg_std
+    set tenet_id = #{tenetId,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      major_name = #{majorName,jdbcType=VARCHAR},
+      std_name = #{stdName,jdbcType=VARCHAR},
+      std_desc = #{stdDesc,jdbcType=VARCHAR},
+      attach_id = #{attachId,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      is_standard = #{standard,jdbcType=BIT},
+      seq = #{seq,jdbcType=INTEGER},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, tenet_id, dept_id, dept_name, major_name, std_name, std_desc, attach_id, 
+    creator, creator_name, is_standard, seq, is_deleted, gmt_create, gmt_modified, remark
+    from common_ed_dwg_std
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, tenet_id, dept_id, dept_name, major_name, std_name, std_desc, attach_id, 
+    creator, creator_name, is_standard, seq, is_deleted, gmt_create, gmt_modified, remark
+    from common_ed_dwg_std
+    <include refid="Base_Where_List" />
+     order by seq asc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="tenetId != null and tenetId != ''">
+         AND tenet_id = #{tenetId}
+      </if>
+      <if test="deptId != null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="majorName != null and majorName != ''">
+         AND major_name = #{majorName}
+      </if>
+      <if test="stdName != null and stdName != ''">
+         AND std_name = #{stdName}
+      </if>
+      <if test="stdDesc != null and stdDesc != ''">
+         AND std_desc = #{stdDesc}
+      </if>
+      <if test="attachId != null and attachId != ''">
+         AND attach_id = #{attachId}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="standard != null">
+         AND is_standard = #{standard}
+      </if>
+      <if test="seq != null">
+         AND seq = #{seq}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="q != null and q != '' ">
+        AND (
+        std_name like CONCAT('%',#{q},'%') or
+        std_desc like CONCAT('%',#{q},'%')
+        )
+      </if>
+    </where>
+  </sql>
+</mapper>

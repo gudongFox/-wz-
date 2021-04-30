@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html ng-app="wuzhouApp" ng-controller="TaskDetailController">
+<head>
+    <meta charset="utf-8">
+    <title>任务详情</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="/h5/mui/css/mui.min.css">
+    <link rel="stylesheet" href="/h5/mui/css/mui.picker.min.css">
+    <link rel="stylesheet" href="/assets/jstree-3.3.8/dist/themes/default/style.min.css">
+    <link rel="shortcut icon" href="/m/favicon.ico"/>
+    <style type="text/css">
+        .mui-card{
+            margin: 0 !important;
+        }
+    </style>
+</head>
+<body>
+
+    <span id="mainContent" >
+        <div ui-view></div>
+    </span>
+
+    <span ng-controller="CommonBaseController"></span>
+    <script src="/h5/mui/js/mui.min.js" type="text/javascript"></script>
+    <script src="/h5/mui/js/mui.picker.min.js" type="text/javascript"></script>
+    <script src="/assets/js/jquery.min.js" type="text/javascript"></script>
+    <script src="/assets/js/jquery-validation-1.19.0/dist/jquery.validate.js" type="text/javascript"></script>
+    <script src="/assets/jstree-3.3.8/dist/jstree.min.js" type="text/javascript"></script>
+
+    <script>
+        var enLogin = window.localStorage.getItem("enLogin");
+        if (!enLogin) {
+            window.localStorage.setItem("h5PreUrl", window.location.href);
+            window.location.replace("/h5/login.html");
+        }
+
+        function GetQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]);
+            return null;
+        }
+
+        var businessKey = GetQueryString("businessKey");
+        var openTypeList=["oaStampApplyOffice","fiveOaSelfCarApply"];
+
+        var wxJsEnable=false;
+    </script>
+
+    <script src="/assets/js/angular.js" type="text/javascript"></script>
+    <script src="/assets/js/angular-ui-router.min.js" type="text/javascript"></script>
+    <script src="/editor-app/custom/js/services.act.js" type="text/javascript"></script>
+    <script src="/h5/js/jquery.cmcu.h5.js" type="text/javascript"></script>
+    <script src="/assets/page/services.common.js" type="text/javascript"></script>
+    <script src="/h5/js/controllers.task.js?version=99" type="text/javascript"></script>
+
+    <script src="/h5/js/taskApp.js?v=2" type="text/javascript"></script>
+
+<!--    <script src="//res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>-->
+<!--    <script>-->
+<!--        $.ajax({-->
+<!--            type: "POST",-->
+<!--            dataType: "json",-->
+<!--            url: "/wx/jsApiConfig.json",-->
+<!--            success: function (data) {-->
+<!--                if(data.ret) {-->
+<!--                    wx.config(data.data);-->
+<!--                }-->
+<!--            }-->
+<!--        });-->
+
+<!--        wx.ready(function(){-->
+<!--            wxJsEnable=true;-->
+<!--            wx.checkJsApi({-->
+<!--                jsApiList: ['previewFile'], // 需要检测的JS接口列表，所有JS接口列表见附录2,-->
+<!--                success: function(res) {-->
+<!--                    // 以键值对的形式返回，可用的api值true，不可用为false-->
+<!--                    // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}-->
+<!--                    alert(JSON.stringify(res));-->
+<!--                },-->
+<!--                fail:function (res2) {-->
+<!--                    alert(JSON.stringify(res2));-->
+<!--                }-->
+<!--            });-->
+
+<!--            // var url="http://co2.cmcubim.com/common/attach/download/file/700?enLogin=luodong";-->
+<!--            // wx.previewFile({-->
+<!--            //     url: url,-->
+<!--            //     name: "1.jpg",-->
+<!--            //     size: 22222-->
+<!--            // });-->
+<!--        });-->
+
+<!--        wx.error(function(res){-->
+<!--        });-->
+<!--    </script>-->
+
+</body>
+</html>

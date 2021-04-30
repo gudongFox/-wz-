@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.common.dao.CommonRequestMapper">
+    <resultMap id="BaseResultMap" type="com.cmcu.common.entity.CommonRequest">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="tenet_id" jdbcType="VARCHAR" property="tenetId"/>
+        <result column="request_name" jdbcType="VARCHAR" property="requestName"/>
+        <result column="request_method" jdbcType="VARCHAR" property="requestMethod"/>
+        <result column="request_url" jdbcType="VARCHAR" property="requestUrl"/>
+        <result column="finish_time" jdbcType="TIMESTAMP" property="finishTime"/>
+        <result column="request_second" jdbcType="DECIMAL" property="requestSecond"/>
+        <result column="request_parameter" jdbcType="VARCHAR" property="requestParameter"/>
+        <result column="request_host" jdbcType="VARCHAR" property="requestHost"/>
+        <result column="request_ip" jdbcType="VARCHAR" property="requestIp"/>
+        <result column="request_login" jdbcType="VARCHAR" property="requestLogin"/>
+        <result column="user_agent" jdbcType="VARCHAR" property="userAgent"/>
+        <result column="referer" jdbcType="VARCHAR" property="referer"/>
+        <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate"/>
+        <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from common_request
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="com.cmcu.common.entity.CommonRequest">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into common_request (tenet_id,request_name,request_method, request_url, finish_time,
+        request_second, request_parameter, request_host,
+        request_ip, request_login, user_agent,
+        referer, gmt_create, gmt_modified,
+        remark)
+        values (#{tenetId,jdbcType=VARCHAR},#{requestName,jdbcType=VARCHAR},#{requestMethod,jdbcType=VARCHAR},
+        #{requestUrl,jdbcType=VARCHAR}, #{finishTime,jdbcType=TIMESTAMP},
+        #{requestSecond,jdbcType=DECIMAL}, #{requestParameter,jdbcType=VARCHAR}, #{requestHost,jdbcType=VARCHAR},
+        #{requestIp,jdbcType=VARCHAR}, #{requestLogin,jdbcType=VARCHAR}, #{userAgent,jdbcType=VARCHAR},
+        #{referer,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP},
+        #{remark,jdbcType=VARCHAR})
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="com.cmcu.common.entity.CommonRequest">
+    update common_request
+    set
+      tenet_id = #{tenetId,jdbcType=VARCHAR},
+      request_name = #{requestName,jdbcType=VARCHAR},
+      request_name = #{requestName,jdbcType=VARCHAR},
+      request_method = #{requestMethod,jdbcType=VARCHAR},
+      request_url = #{requestUrl,jdbcType=VARCHAR},
+      finish_time = #{finishTime,jdbcType=TIMESTAMP},
+      request_second = #{requestSecond,jdbcType=DECIMAL},
+      request_parameter = #{requestParameter,jdbcType=VARCHAR},
+      request_host = #{requestHost,jdbcType=VARCHAR},
+      request_ip = #{requestIp,jdbcType=VARCHAR},
+      request_login = #{requestLogin,jdbcType=VARCHAR},
+      user_agent = #{userAgent,jdbcType=VARCHAR},
+      referer = #{referer,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select *
+    from common_request
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select *
+        from common_request
+        <include refid="Base_Where_List"/>
+        order by id desc
+    </select>
+    <sql id="Base_Where_List">
+        <where>
+            <if test="id != null">
+                AND id = #{id}
+            </if>
+            <if test="tenetId != null and tenetId != ''">
+                AND tenet_id = #{tenetId}
+            </if>
+            <if test="requestName != null and requestName != ''">
+                AND request_name like CONCAT('%',#{requestName},'%')
+            </if>
+            <if test="requestMethod != null and requestMethod != ''">
+                AND request_method = #{requestMethod}
+            </if>
+            <if test="requestUrl != null and requestUrl != ''">
+                AND request_url like CONCAT('%',#{requestUrl},'%')
+            </if>
+            <if test="finishTime != null">
+                AND finish_time = #{finishTime}
+            </if>
+            <if test="requestSecond != null">
+                AND request_second = #{requestSecond}
+            </if>
+            <if test="requestParameter != null and requestParameter != ''">
+                AND request_parameter = #{requestParameter}
+            </if>
+            <if test="requestHost != null and requestHost != ''">
+                AND request_host = #{requestHost}
+            </if>
+            <if test="requestIp != null and requestIp != ''">
+                AND request_ip like CONCAT('%',#{requestIp},'%')
+            </if>
+            <if test="requestLogin != null and requestLogin != ''">
+                AND request_login = #{requestLogin}
+            </if>
+            <if test="userAgent != null and userAgent != ''">
+                AND user_agent = #{userAgent}
+            </if>
+            <if test="referer != null and referer != ''">
+                AND referer = #{referer}
+            </if>
+            <if test="gmtCreate != null">
+                AND gmt_create = #{gmtCreate}
+            </if>
+            <if test="gmtModified != null">
+                AND gmt_modified = #{gmtModified}
+            </if>
+            <if test="remark != null and remark != ''">
+                AND remark = #{remark}
+            </if>
+            <if test="startTime != null and startTime !='' ">
+                AND gmt_create  &gt;= CONCAT('','${startTime}',' ')
+            </if>
+            <if test="endTime != null and endTime !='' ">
+                AND gmt_create  &lt;= CONCAT('','${endTime}',' ')
+            </if>
+            <if test="requestLoginUrl != null and requestLoginUrl != ''">
+                AND request_url = #{requestLoginUrl}
+            </if>
+            <if test="q != null and q != ''">
+                AND  (request_url like CONCAT('%',#{q},'%') or request_login like  CONCAT('%',#{q},'%') or request_ip like  CONCAT('%',#{q},'%'))
+            </if>
+
+        </where>
+    </sql>
+
+
+  <select id="listIdentifiedRequestName"  resultMap="BaseResultMap" parameterType="java.lang.String">
+    SELECT request_name,request_url,request_method FROM common_request
+    where length(request_name)>0 and length(request_url) and tenet_id=#{tenetId}
+    group by request_name,request_url,request_method
+  </select>
+
+</mapper>

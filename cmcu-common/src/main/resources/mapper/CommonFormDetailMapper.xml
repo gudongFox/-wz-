@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.common.dao.CommonFormDetailMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.common.entity.CommonFormDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="form_id" jdbcType="INTEGER" property="formId" />
+    <result column="group_name" jdbcType="VARCHAR" property="groupName" />
+    <result column="input_type" jdbcType="VARCHAR" property="inputType" />
+    <result column="input_code" jdbcType="VARCHAR" property="inputCode" />
+    <result column="input_text" jdbcType="VARCHAR" property="inputText" />
+    <result column="input_tip" jdbcType="VARCHAR" property="inputTip" />
+    <result column="input_size" jdbcType="INTEGER" property="inputSize" />
+    <result column="input_config" jdbcType="VARCHAR" property="inputConfig" />
+    <result column="data_source" jdbcType="VARCHAR" property="dataSource" />
+    <result column="editable_tag" jdbcType="VARCHAR" property="editableTag" />
+    <result column="show_tag" jdbcType="VARCHAR" property="showTag" />
+    <result column="max_length" jdbcType="INTEGER" property="maxLength" />
+    <result column="is_list_hidden" jdbcType="BIT" property="listHidden" />
+    <result column="is_editable" jdbcType="BIT" property="editable" />
+    <result column="is_disabled" jdbcType="BIT" property="disabled" />
+    <result column="is_multiple" jdbcType="BIT" property="multiple" />
+    <result column="is_required" jdbcType="BIT" property="required" />
+    <result column="is_detail_hidden" jdbcType="BIT" property="detailHidden" />
+    <result column="is_variable" jdbcType="BIT" property="variable" />
+    <result column="list_seq" jdbcType="INTEGER" property="listSeq" />
+    <result column="detail_seq" jdbcType="INTEGER" property="detailSeq" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from common_form_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.common.entity.CommonFormDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into common_form_detail (form_id, group_name, input_type,
+    input_code, input_text, input_tip,
+    input_size, input_config, data_source,
+    editable_tag,show_tag,max_length, is_list_hidden,
+    is_editable,is_disabled, is_multiple, is_required,
+    is_detail_hidden, is_variable, list_seq,
+    detail_seq, is_deleted, gmt_create,
+    gmt_modified, remark)
+    values (#{formId,jdbcType=INTEGER}, #{groupName,jdbcType=VARCHAR}, #{inputType,jdbcType=VARCHAR},
+    #{inputCode,jdbcType=VARCHAR}, #{inputText,jdbcType=VARCHAR}, #{inputTip,jdbcType=VARCHAR},
+    #{inputSize,jdbcType=INTEGER}, #{inputConfig,jdbcType=VARCHAR}, #{dataSource,jdbcType=VARCHAR},
+    #{editableTag,jdbcType=VARCHAR},#{showTag,jdbcType=VARCHAR}, #{maxLength,jdbcType=INTEGER}, #{listHidden,jdbcType=BIT},
+    #{editable,jdbcType=BIT}, #{disabled,jdbcType=BIT}, #{multiple,jdbcType=BIT}, #{required,jdbcType=BIT},
+    #{detailHidden,jdbcType=BIT}, #{variable,jdbcType=BIT}, #{listSeq,jdbcType=INTEGER},
+    #{detailSeq,jdbcType=INTEGER}, #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP},
+    #{gmtModified,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.common.entity.CommonFormDetail">
+    update common_form_detail
+    set form_id = #{formId,jdbcType=INTEGER},
+      group_name = #{groupName,jdbcType=VARCHAR},
+      input_type = #{inputType,jdbcType=VARCHAR},
+      input_code = #{inputCode,jdbcType=VARCHAR},
+      input_text = #{inputText,jdbcType=VARCHAR},
+      input_tip = #{inputTip,jdbcType=VARCHAR},
+      input_size = #{inputSize,jdbcType=INTEGER},
+      input_config = #{inputConfig,jdbcType=VARCHAR},
+      data_source = #{dataSource,jdbcType=VARCHAR},
+      editable_tag = #{editableTag,jdbcType=VARCHAR},
+      show_tag = #{showTag,jdbcType=VARCHAR},
+      max_length = #{maxLength,jdbcType=INTEGER},
+      is_list_hidden = #{listHidden,jdbcType=BIT},
+      is_editable = #{editable,jdbcType=BIT},
+      is_disabled = #{disabled,jdbcType=BIT},
+      is_multiple = #{multiple,jdbcType=BIT},
+      is_required = #{required,jdbcType=BIT},
+      is_detail_hidden = #{detailHidden,jdbcType=BIT},
+      is_variable = #{variable,jdbcType=BIT},
+      list_seq = #{listSeq,jdbcType=INTEGER},
+      detail_seq = #{detailSeq,jdbcType=INTEGER},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select *
+    from common_form_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select *
+    from common_form_detail
+    <include refid="Base_Where_List" />
+    order by detail_seq asc
+  </select>
+
+
+  <select id="listDataByFormId" resultMap="BaseResultMap">
+    select * from common_form_detail  where is_deleted=0 and form_id = #{formId}
+    order by detail_seq asc
+  </select>
+
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+        AND id = #{id}
+      </if>
+      <if test="formId != null">
+        AND form_id = #{formId}
+      </if>
+      <if test="groupName != null and groupName != ''">
+        AND group_name = #{groupName}
+      </if>
+      <if test="inputType != null and inputType != ''">
+        AND input_type = #{inputType}
+      </if>
+      <if test="inputCode != null and inputCode != ''">
+        AND input_code = #{inputCode}
+      </if>
+      <if test="inputText != null and inputText != ''">
+        AND input_text = #{inputText}
+      </if>
+      <if test="inputTip != null and inputTip != ''">
+        AND input_tip = #{inputTip}
+      </if>
+      <if test="inputSize != null">
+        AND input_size = #{inputSize}
+      </if>
+      <if test="inputConfig != null and inputConfig != ''">
+        AND input_config = #{inputConfig}
+      </if>
+      <if test="dataSource != null and dataSource != ''">
+        AND data_source = #{dataSource}
+      </if>
+      <if test="editableTag != null and editableTag != ''">
+        AND editable_tag = #{editableTag}
+      </if>
+      <if test="showTag != null and showTag != ''">
+        AND show_tag = #{showTag}
+      </if>
+      <if test="maxLength != null">
+        AND max_length = #{maxLength}
+      </if>
+      <if test="listHidden != null">
+        AND is_list_hidden = #{listHidden}
+      </if>
+      <if test="disabled != null">
+        AND is_disabled = #{disabled}
+      </if>
+      <if test="editable != null">
+        AND is_editable = #{editable}
+      </if>
+      <if test="multiple != null">
+        AND is_multiple = #{multiple}
+      </if>
+      <if test="required != null">
+        AND is_required = #{required}
+      </if>
+      <if test="detailHidden != null">
+        AND is_detail_hidden = #{detailHidden}
+      </if>
+      <if test="variable != null">
+        AND is_variable = #{variable}
+      </if>
+      <if test="listSeq != null">
+        AND list_seq = #{listSeq}
+      </if>
+      <if test="detailSeq != null">
+        AND detail_seq = #{detailSeq}
+      </if>
+      <if test="deleted != null">
+        AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null">
+        AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+        AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="remark != null and remark != ''">
+        AND remark = #{remark}
+      </if>
+    </where>
+  </sql>
+</mapper>

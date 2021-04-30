@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.common.dao.CommonBlockAttrMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.common.entity.CommonBlockAttr">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="block_id" jdbcType="INTEGER" property="blockId" />
+    <result column="attr_name" jdbcType="VARCHAR" property="attrName" />
+    <result column="attr_value" jdbcType="VARCHAR" property="attrValue" />
+    <result column="unit_type" jdbcType="VARCHAR" property="unitType" />
+    <result column="attr_type" jdbcType="VARCHAR" property="attrType" />
+    <result column="seq" jdbcType="INTEGER" property="seq" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from common_block_attr
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.common.entity.CommonBlockAttr">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into common_block_attr (block_id, attr_name, attr_value, 
+      unit_type, attr_type, seq, 
+      is_deleted, remark)
+    values (#{blockId,jdbcType=INTEGER}, #{attrName,jdbcType=VARCHAR}, #{attrValue,jdbcType=VARCHAR}, 
+      #{unitType,jdbcType=VARCHAR}, #{attrType,jdbcType=VARCHAR}, #{seq,jdbcType=INTEGER}, 
+      #{deleted,jdbcType=BIT}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.common.entity.CommonBlockAttr">
+    update common_block_attr
+    set block_id = #{blockId,jdbcType=INTEGER},
+      attr_name = #{attrName,jdbcType=VARCHAR},
+      attr_value = #{attrValue,jdbcType=VARCHAR},
+      unit_type = #{unitType,jdbcType=VARCHAR},
+      attr_type = #{attrType,jdbcType=VARCHAR},
+      seq = #{seq,jdbcType=INTEGER},
+      is_deleted = #{deleted,jdbcType=BIT},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, block_id, attr_name, attr_value, unit_type, attr_type, seq, is_deleted, 
+    remark
+    from common_block_attr
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, block_id, attr_name, attr_value, unit_type, attr_type, seq, is_deleted, 
+    remark
+    from common_block_attr
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="blockId != null">
+         AND block_id = #{blockId}
+      </if>
+      <if test="attrName != null and attrName != ''">
+         AND attr_name = #{attrName}
+      </if>
+      <if test="attrValue != null and attrValue != ''">
+         AND attr_value = #{attrValue}
+      </if>
+      <if test="unitType != null and unitType != ''">
+         AND unit_type = #{unitType}
+      </if>
+      <if test="attrType != null and attrType != ''">
+         AND attr_type = #{attrType}
+      </if>
+      <if test="seq != null">
+         AND seq = #{seq}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+    </where>
+  </sql>
+</mapper>

@@ -1,0 +1,237 @@
+﻿
+<style>
+    .cssFont{
+        font-size: 14px;
+        width: calc(100% - 120px);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .cssDate{
+
+        min-width: 100px;
+        font-size: 14px;
+    }
+    .cssCaptionFont{
+        font-size: 14px;
+    }
+    .cssShadow {
+        box-shadow:1px 1px 1px 1px rgba(0,0,0,0.1);
+    }
+</style>
+
+
+
+<div class="page-bar" id="pageBar">
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="fa fa-home"></i>
+            <a ui-sref="dashboard" href="#/dashboard">首页</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <span>系统管理</span>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <span>企业微信消息</span>
+        </li>
+    </ul>
+</div>
+
+<div class="portlet box blue">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-lock"></i> 企业微信消息
+        </div>
+        <div class="actions">
+            <a href="javascript:;" class="btn btn-sm btn-default" ng-click="loadPagedData();">
+                <i class="fa fa-refresh"></i> 刷新 </a>
+        </div>
+    </div>
+
+    <div class="portlet-body">
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <label style="margin-left: 10px;right: 5px;">接受人:<input type="search"
+                                                                        class="form-control input-inline input-sm"
+                                                                        placeholder="接受人"
+                                                                        ng-model="params.userName"></label>
+                <label style="margin-left: 10px;right: 5px;">消息标题:<input type="search"
+                                                                         class="form-control input-inline input-sm"
+                                                                         placeholder="消息标题"
+                                                                         ng-model="params.msgTitle"></label>
+                <label style="margin-left: 10px;right: 5px;">发送时间:<input type="search"
+                                                                         class="form-control input-inline input-sm"
+                                                                         placeholder="发送时间2021-01-01"
+                                                                         ng-model="params.gmtCreate"></label>
+
+                <a class="btn green btn-sm" ng-click="queryData();"><i class="fa fa-search"></i> 查询 </a>
+
+
+            </div>
+
+        </div>
+
+        <div class="table-scrollable">
+            <table class="table table-striped table-hover table-bordered table-advance no-footer" style="table-layout: fixed" >
+                <thead>
+
+                <tr>
+                    <th style="width: 35px;">#</th>
+                    <th style="width: 90px;">消息类型</th>
+                    <th style="width: 250px;">流程ID</th>
+                    <th style="width: 300px;">接受人</th>
+                    <th style="width: 300px;">消息标题</th>
+                    <th style="width: 100px;">是否发送</th>
+                    <th style="width: 170px;">创建时间</th>
+                    <th >备注</th>
+                    <th style="width: 60px;">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in pageInfo.list">
+                    <td ng-bind="$index+pageInfo.startRow"></td>
+                    <td>
+                        <span class="label label-danger" ng-show="item.msgType=='news'">简报|通知</span>
+                        <span class="label label-success" ng-show="item.msgType=='textcard'">流程消息</span>
+                    </td>
+                    <td ng-bind="item.taskId" style="color: blue" ng-click="showDetail(item.id);"></td>
+
+                    <td class="cssFont desc" style="width: 300px;line-height: 2;vertical-align:bottom" ng-bind="item.toUserName"></td>
+                    <td ng-bind="item.msgTitle"></td>
+                    <td>
+                        <span class="label label-danger" ng-show="item.sended">是</span>
+                        <span class="label label-success" ng-show="!item.sended">否</span>
+                    </td>
+                    <td ng-bind="item.gmtCreate|date:'yyyy-MM-dd HH:mm'"></td>
+                    <td ng-bind="item.remark" ></td>
+                    <td>
+                        <i class="fa fa-pencil font-blue" title="详情" ng-click="showDetail(item.id);"></i>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <my-pager data-page-info="pageInfo" on-load="loadPagedData()"></my-pager>
+    </div>
+</div>
+
+
+<div class="modal fade" id="itemModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title margin-right-10">数据详情</h4>
+
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form" style="padding-right: 30px;" id="detail_form">
+                    <div class="form-body">
+
+                        <div class="form-group"   >
+                            <label class="col-md-3 control-label ">消息类型<span style="color: red;margin-left: 2px;"></span></label>
+                            <div class="col-md-9">
+                                <select ng-model="item.msgType" class="form-control" disabled>
+                                    <option value="news" >简报|通知</option>
+                                    <option value="textcard" >流程消息</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="form-group" >
+                            <label class="col-md-3 control-label ">流程ID<span style="margin-left: 2px;"></span></label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" ng-model="item.taskId" disabled>
+                            </div>
+
+                        </div>
+                        <div class="form-group" >
+                            <label class="col-md-3 control-label ">接受人wxId<span style="margin-left: 2px;"></span></label>
+                            <div class="col-md-9">
+                                <textarea type="texte" rows="3" class="form-control" ng-model="item.toUser" disabled></textarea>
+                            </div>
+
+                        </div>
+                        <div class="form-group" >
+                            <label class="col-md-3 control-label ">接受人名称<span style="margin-left: 2px;"></span></label>
+                            <div class="col-md-9">
+                                <textarea type="texte" rows="3" class="form-control" ng-model="item.toUserName" disabled></textarea>
+                            </div>
+
+                        </div>
+                        <div class="form-group" >
+                            <label class="col-md-3 control-label ">消息名称<span style="margin-left: 2px;"></span></label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" ng-model="item.msgTitle" disabled>
+                            </div>
+
+                        </div>
+                        <div class="form-group" >
+                            <label class="col-md-3 control-label ">消息地址<span style="margin-left: 2px;"></span></label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" ng-model="item.msgUrl" disabled>
+                            </div>
+
+                        </div>
+                        <div class="form-group" >
+                            <label class="col-md-3 control-label ">消息内容<span style="margin-left: 2px;"></span></label>
+                            <div class="col-md-9">
+                                <textarea type="texte" rows="3" class="form-control" ng-model="item.msgData" disabled></textarea>
+                            </div>
+
+                        </div>
+                        <div class="form-group"  >
+                            <label class="col-md-3 control-label ">是否发送<span style="color: red;margin-left: 2px;"></span></label>
+                            <div class="col-md-9">
+                                <select ng-model="item.sended" class="form-control" disabled>
+                                    <option ng-selected="item.sended" value="true" >是</option>
+                                    <option ng-selected="!item.sended" value="false" >否</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" >
+                            <label class="col-md-3 control-label ">发送次数<span style="margin-left: 2px;"></span></label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" ng-model="item.tryCount" disabled>
+                            </div>
+
+                        </div>
+                        <div class="form-group" >
+                            <label class="col-md-3 control-label ">修改时间</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control"
+                                       ng-value="item.gmtModified|date:'yyyy-MM-dd HH:mm:ss'" disabled="disabled">
+                            </div>
+
+                        </div>
+                        <div class="form-group" >
+                            <label class="col-md-3 control-label ">点击时间</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control"
+                                       ng-model="item.tryTime"  value="{{item.tryTime|date:'yyyy-MM-dd HH:mm'}}"  disabled="" >
+                            </div>
+
+                        </div>
+                        <div class="form-group" >
+                            <label class="col-md-3 control-label ">备注</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" ng-model="item.remark"
+                                       placeholder="">
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn default" ng-click="" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+</div>

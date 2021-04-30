@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.common.dao.CommonFileMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.common.entity.CommonFile">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="dir_id" jdbcType="INTEGER" property="dirId" />
+    <result column="file_type" jdbcType="VARCHAR" property="fileType" />
+    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+    <result column="file_property" jdbcType="VARCHAR" property="fileProperty" />
+    <result column="attach_id" jdbcType="INTEGER" property="attachId" />
+    <result column="source_id" jdbcType="INTEGER" property="sourceId" />
+    <result column="extract_id" jdbcType="INTEGER" property="extractId" />
+    <result column="seq" jdbcType="INTEGER" property="seq" />
+    <result column="is_locked" jdbcType="BIT" property="locked" />
+    <result column="locked_login" jdbcType="VARCHAR" property="lockedLogin" />
+    <result column="locked_name" jdbcType="VARCHAR" property="lockedName" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="attach_id_list" jdbcType="VARCHAR" property="attachIdList" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from common_file
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.common.entity.CommonFile">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into common_file (business_key, dir_id, file_type, 
+      file_name, file_property, attach_id, 
+      source_id,extract_id, seq, is_locked,
+      locked_login, locked_name, creator, 
+      creator_name, attach_id_list, is_deleted, 
+      gmt_create, gmt_modified, remark
+      )
+    values (#{businessKey,jdbcType=VARCHAR}, #{dirId,jdbcType=INTEGER}, #{fileType,jdbcType=VARCHAR}, 
+      #{fileName,jdbcType=VARCHAR}, #{fileProperty,jdbcType=VARCHAR}, #{attachId,jdbcType=INTEGER}, 
+      #{sourceId,jdbcType=INTEGER},  #{extractId,jdbcType=INTEGER},#{seq,jdbcType=INTEGER}, #{locked,jdbcType=BIT},
+      #{lockedLogin,jdbcType=VARCHAR}, #{lockedName,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{creatorName,jdbcType=VARCHAR}, #{attachIdList,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.common.entity.CommonFile">
+    update common_file
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      dir_id = #{dirId,jdbcType=INTEGER},
+      file_type = #{fileType,jdbcType=VARCHAR},
+      file_name = #{fileName,jdbcType=VARCHAR},
+      file_property = #{fileProperty,jdbcType=VARCHAR},
+      attach_id = #{attachId,jdbcType=INTEGER},
+      source_id = #{sourceId,jdbcType=INTEGER},
+      extract_id = #{extractId,jdbcType=INTEGER},
+      seq = #{seq,jdbcType=INTEGER},
+      is_locked = #{locked,jdbcType=BIT},
+      locked_login = #{lockedLogin,jdbcType=VARCHAR},
+      locked_name = #{lockedName,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      attach_id_list = #{attachIdList,jdbcType=VARCHAR},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select *
+    from common_file
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+
+
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select *
+    from common_file
+    <include refid="Base_Where_List" />
+     order by gmt_modified desc
+  </select>
+
+  <select id="selectByFileName" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select *
+    from common_file
+    where  business_key = #{businessKey,jdbcType=VARCHAR} and  dir_id = #{dirId,jdbcType=INTEGER} and  file_name = #{fileName,jdbcType=VARCHAR}
+    limit 1
+  </select>
+
+
+  <select id="selectLatestByBusinessKey" resultMap="BaseResultMap">
+    select *
+    from common_file
+    where is_deleted=0 and business_key=#{businessKey}
+    order by gmt_create desc
+    limit 1
+  </select>
+
+
+  <select id="selectSizeByBusinessKey" parameterType="java.util.Map" resultType="java.lang.Long">
+    select IFNULL(sum(b.size),0) as size from common_file a
+    left join common_attach b on a.attach_id=b.id
+    where a.business_key=#{businessKey} and a.dir_id=#{dirId}  and a.is_deleted=0
+  </select>
+
+
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="businessKey != null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="businessKeyList != null and businessKeyList.size() >0">
+        AND business_key in
+        <foreach collection="businessKeyList" open="(" close=")" separator="," item="businessKey" index="i">
+          #{businessKey}
+        </foreach>
+      </if>
+      <if test="dirId != null">
+         AND dir_id = #{dirId}
+      </if>
+      <if test="fileType != null and fileType != ''">
+         AND file_type = #{fileType}
+      </if>
+      <if test="fileName != null and fileName != ''">
+         AND file_name = #{fileName}
+      </if>
+      <if test="fileProperty != null and fileProperty != ''">
+         AND file_property = #{fileProperty}
+      </if>
+      <if test="attachId != null">
+         AND attach_id = #{attachId}
+      </if>
+      <if test="sourceId != null">
+         AND source_id = #{sourceId}
+      </if>
+      <if test="extractId != null">
+        AND extract_id = #{extractId}
+      </if>
+      <if test="seq != null">
+         AND seq = #{seq}
+      </if>
+      <if test="locked != null">
+         AND is_locked = #{locked}
+      </if>
+      <if test="lockedLogin != null and lockedLogin != ''">
+         AND locked_login = #{lockedLogin}
+      </if>
+      <if test="lockedName != null and lockedName != ''">
+         AND locked_name = #{lockedName}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="attachIdList != null and attachIdList != ''">
+         AND attach_id_list = #{attachIdList}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+    </where>
+  </sql>
+</mapper>

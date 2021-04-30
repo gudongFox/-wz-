@@ -1,0 +1,96 @@
+﻿<span id="contentForm">
+    <div >
+        <div id="segmentedControl" class="mui-segmented-control">
+            <a class="mui-control-item mui-active">基础信息</a>
+            <a class="mui-control-item">流程信息</a>
+            <a class="mui-control-item">流程图</a>
+        </div>
+    </div>
+    <div >
+        <div class="mui-control-content mui-active">
+
+            <div class="mui-card">
+                <div class="mui-card-header" >
+                    <a class="mui-icon mui-icon-left-nav mui-pull-left" ng-click="vm.backUrl();" style="font-size:17px;">返回</a>
+                 </div>
+                <div class="mui-card-header">
+                    <span ng-bind="'1.基础信息'"></span>
+                </div>
+                <!--内容区-->
+                <div class="mui-card-content">
+                    <form class="mui-input-group" id="detail_form">
+                            <div class="mui-input-row">
+                                <label style="color: black">标题</label>
+                                <input type="text" ng-model="vm.item.title" name="title" required="true"  ng-disabled="!processInstance.firstTask"/>
+                            </div>
+                          <div class="mui-input-row">
+                                <label style="color: black">正文</label>
+                                <a style="text-align: center;line-height:100%" ng-click="vm.openRead(vm.redheadFile.redhead.id);" ng-bind="vm.redheadFile.redhead.fileName"></a>
+                            </div>
+                         <div class="mui-input-row">
+                                <label style="color: black">发文</label>
+                                <input type="text" ng-model="vm.item.dispatch" name="dispatch"  required="true"  ng-disabled="processInstance.myRunningTaskName.indexOf('部门负责人-审批文号')==-1"/>
+                            </div>
+                         <div class="mui-input-row" >
+                                <label style="color: black">拟稿人</label>
+                                <input type="text" ng-model="vm.item.drafterName" name="drafterName" required ng-focus="vm.showUserModal('drafter','',false,vm.item.drafter)" ng-disabled="!processInstance.firstTask"/>
+                         </div>
+                         <div class="mui-input-row" >
+                                <label style="color: black">核稿人</label>
+                                <input type="text" ng-model="vm.item.checkManName" name="checkManName" required ng-focus="vm.showUserModal('checkMan','',false,vm.item.checkMan)" ng-disabled="!processInstance.firstTask"/>
+                         </div>
+
+                         <div class="mui-input-row">
+                                <label style="color: black">主题词</label>
+                                <input type="text" ng-model="vm.item.subjectTerm" name="subjectTerm" required="true"   ng-disabled="!processInstance.firstTask"/>
+                         </div>
+                         <div class="mui-input-row">
+                                <label style="color: black">主办单位</label>
+                                <input type="text" ng-model="vm.item.deptName" name="deptName" required ng-focus="vm.showDeptModal('deptId','',false,vm.item.deptId);" ng-disabled="!processInstance.firstTask" />
+                            </div>
+                         <div class="mui-input-row">
+                                <label style="color: black">主送</label>
+                                <input type="text" ng-model="vm.item.realSendManName" name="realSendManName" required ng-focus="vm.showDeptModal('realSendMan','',true,vm.item.realSendMan);" ng-disabled="!processInstance.firstTask"/>
+                            </div>
+                        <div class="mui-input-row">
+                                <label style="color: black">抄送</label>
+                            <input type="text" ng-model="vm.item.copySendManName" name="copySendManName" required ng-focus="vm.showDeptModal('copySendMan','',true,vm.item.copySendMan)"  ng-disabled="!processInstance.firstTask"/>
+                        </div>
+
+                         <div class="mui-input-row">
+                                <label style="color: black">创建人</label>
+                                <input type="text" ng-model="vm.item.creatorName" disabled/>
+                        </div>
+                         <div class="mui-input-row">
+                                <label style="color: black">创建时间</label>
+                                <input type="text" value="{{vm.item.gmtCreate|date:'yyyy-MM-dd HH:mm'}}" disabled/>
+                        </div>
+                </form>
+                </div>
+                <!--页脚，放置补充信息或支持的操作-->
+            </div>
+
+            <span ng-include="'/h5/tpl/businessFile.html'" ng-init="fileTplTitle='2.业务附件'"></span>
+
+            <div style="height: 40px;">&nbsp;</div>
+        </div>
+         <div class="mui-control-content">
+             <span ng-include="'/h5/tpl/taskHistory.html'"></span>
+        </div>
+        <div class="mui-control-content" style="overflow-x: auto;">
+             <span ng-include="'/h5/tpl/taskPicture.html'"></span>
+        </div>
+        <div style="height: 50px;">&nbsp;</div>
+    </div>
+
+</span>
+
+<span ng-include="'/h5/tpl/taskAction.html'"></span>
+<span ng-include="'/h5/tpl/selectUser.html'"></span>
+
+
+
+
+
+
+

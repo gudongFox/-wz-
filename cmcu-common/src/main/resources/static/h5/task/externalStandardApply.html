@@ -1,0 +1,112 @@
+﻿<span id="contentForm">
+    <div >
+        <div id="segmentedControl" class="mui-segmented-control">
+            <a class="mui-control-item mui-active">基础信息</a>
+            <a class="mui-control-item">流程信息</a>
+            <a class="mui-control-item">流程图</a>
+        </div>
+    </div>
+    <div >
+        <div class="mui-control-content mui-active">
+
+            <div class="mui-card">
+                 <div class="mui-card-header" >
+                    <a class="mui-icon mui-icon-left-nav mui-pull-left" ng-click="vm.backUrl();" style="font-size:17px;">返回</a>
+                 </div>
+                <div class="mui-card-header">
+                    <span ng-bind="'1.基础信息'"></span>
+                </div>
+                <!--外部标准规范、图集项目申请-->
+                <div class="mui-card-content">
+                    <form class="mui-input-group" id="detail_form">
+                        <div class="mui-input-row">
+                           <label >课题名称</label>
+                            <input type="text"  ng-model="vm.item.projectName" name="projectName"  ng-disabled="!processInstance.firstTask" />
+                        </div>
+                         <div class="mui-input-row">
+                                <label style="color: black">申请单位</label>
+                                <input type="text" ng-model="vm.item.deptName" disabled/>
+                        </div>
+                         <div class="mui-input-row">
+                                <label style="color: black">开工日期</label>
+                                <input type="text" ng-model="vm.item.startTime" disabled/>
+                        </div>
+                        <div class="mui-input-row">
+                                <label style="color: black">完工日期</label>
+                                <input type="text" ng-model="vm.item.endTime" disabled/>
+                        </div>
+                         <div class="mui-input-row">
+                                <label style="color: black">课题负责人</label>
+                                <input type="text" ng-model="vm.item.chargeMenName" disabled/>
+                        </div>
+                         <div class="mui-input-row">
+                                <label style="color: black">主要参加人</label>
+                                <input type="text" ng-model="vm.item.attenderName" disabled/>
+                        </div>
+                         <div class="mui-input-row">
+                                <label style="color: black">外拨款（万元）</label>
+                                <input type="text"  ng-model="vm.item.outsidePayment" name="outsidePayment"  ng-disabled="!processInstance.firstTask" />
+
+                        </div>
+                        <div class="mui-input-row">
+                                <label style="color: black">本年度预计拨付（万元）</label>
+                                <input type="text"  ng-model="vm.item.yearExceptPayment" name="yearExceptPayment"  ng-disabled="!processInstance.firstTask" />
+
+                        </div>
+                         <div class="mui-input-row" >
+                               <label >专家委员会常委</label>
+                                    <input type="text"  ng-model="vm.item.scientificFirstTrialName" ng-disabled="processInstance.myRunningTaskName.indexOf('科研与技术质量部')==-1"
+                                           ng-focus="vm.showUserModal('scientificFirstTrial','candidateUser_0156,1924,0166,2601,1202,1202,0392,1448,1461,1543',true,vm.item.scientificFirstTrial)"  required="true" />
+                        </div>
+                          <span   style="color: red" >由科研与技术质量部填写</span>
+                        <div class="mui-input-row">
+                                <label style="color: black">主要研究内容</label>
+                                <input type="text" ng-model="vm.item.projectContent" disabled/>
+                        </div>
+                        <div class="mui-input-row">
+                                <label style="color: black">成果形式及预期效益</label>
+                                <input type="text" ng-model="vm.item.achievement" disabled/>
+                        </div>
+
+                        <div class="mui-input-row">
+                                <label style="color: black">备注</label>
+                                <input type="text" ng-model="vm.item.remark" disabled/>
+                        </div>
+                        <div class="mui-input-row">
+                                <label style="color: black">创建人</label>
+                                <input type="text" ng-model="vm.item.creatorName" disabled/>
+                        </div>
+                         <div class="mui-input-row">
+                                <label style="color: black">创建时间</label>
+                                <input type="text" value="{{vm.item.gmtCreate|date:'yyyy-MM-dd HH:mm'}}" disabled/>
+                        </div>
+
+                </form>
+                </div>
+                <!--页脚，放置补充信息或支持的操作-->
+            </div>
+
+            <span ng-include="'/h5/tpl/businessFile.html'" ng-init="fileTplTitle='2.业务附件'"></span>
+
+            <div style="height: 40px;">&nbsp;</div>
+        </div>
+         <div class="mui-control-content">
+             <span ng-include="'/h5/tpl/taskHistory.html'"></span>
+        </div>
+        <div class="mui-control-content" style="overflow-x: auto;">
+             <span ng-include="'/h5/tpl/taskPicture.html'"></span>
+        </div>
+        <div style="height: 50px;">&nbsp;</div>
+    </div>
+
+
+</span>
+<span ng-include="'/h5/tpl/taskAction.html'"></span>
+<span ng-include="'/h5/tpl/selectUser.html'"></span>
+
+
+
+
+
+
+

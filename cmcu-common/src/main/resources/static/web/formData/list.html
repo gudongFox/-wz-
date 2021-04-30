@@ -1,0 +1,76 @@
+<br/>
+
+<div class="kt-container  kt-grid__item kt-grid__item--fluid">
+
+    <div class="kt-portlet">
+    <div class="kt-portlet__head kt-portlet__head--lg">
+        <div class="kt-portlet__head-label">
+												<span class="kt-portlet__head-icon">
+													<i class="{{vm.data.template.formIcon}}"></i>
+												</span>
+            <h3 class="kt-portlet__head-title" ng-bind="vm.data.template.formDesc">
+            </h3>
+        </div>
+
+        <div class="kt-portlet__head-toolbar">
+            <div class="kt-portlet__head-wrapper">
+                <div class="kt-portlet__head-actions">
+                    <div class="kt-subheader">
+                        <div class="kt-subheader__toolbar">
+                            <div class="kt-subheader__wrapper">
+
+                                <a class="btn kt-subheader__btn-primary btn-icon" title="新增数据" ng-click="vm.newData();">
+                                    <i class="flaticon2-plus"></i>
+                                </a>
+                                <a class="btn kt-subheader__btn-primary btn-icon" title="刷新数据" ng-click="vm.loadData();">
+                                    <i class="flaticon2-refresh"></i>
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="kt-portlet__body">
+        <!--begin: Datatable -->
+        <div class="dataTables_wrapper dt-bootstrap4">
+            <div class="row">
+                <div class="col-sm-6 text-left">
+                    <div class="dataTables_filter"><label> <input type="search" id="searchKey"
+                                                                     class="form-control form-control-sm"
+                                                                     placeholder="输入关键信息检索" ng-model="vm.q"/></label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table table-bordered table-hover dataTable">
+                        <thead>
+                        <tr>
+                            <th style="width: 20px;">#</th>
+                            <th ng-repeat="head in vm.data.heads track by $index" ng-bind="head.text" ng-style="head.style"></th>
+                            <th style="width: 50px;">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr role="row" class="odd" ng-repeat="item in vm.data.list">
+                            <td ng-bind="$index+1"></td>
+                            <td ng-repeat="property in item.propertyList  track by $index" ng-bind="property.text" ng-style="property.style"></td>
+                            <td>
+                                <i class="fa fa-edit" style="margin-left: 5px;cursor: pointer;" title="编辑" ng-click="vm.showDetail(item.id);"/>
+                                <i class="fa fa-trash" style="margin-left: 5px;cursor: pointer;" title="删除" ng-click="vm.remove(item.id);" ng-show="!item.processEnd"/>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--end: Datatable -->
+    </div>
+</div>
+
+</div>

@@ -122,7 +122,7 @@
         return vm;
     })
 
-    .controller("ActHistoryTaskController", function ($state, $scope, $http, actModelService) {
+    .controller("ActHistoryTaskController", function ($state, $scope, $http, actModelService,actTaskQueryService) {
         $scope.showTaskComments=function (task) {
             $scope.task=task;
             $('#commentsModal').modal('show');

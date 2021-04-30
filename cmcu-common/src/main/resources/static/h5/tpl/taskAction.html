@@ -1,0 +1,125 @@
+﻿<span ng-controller="TaskActionController">
+
+        <nav class="mui-bar mui-bar-tab" style="height: 40px;" >
+
+            <a class="mui-tab-item" style="height: 40px;" ng-click="save()"
+               ng-show="tplConfig.saveAble">
+                <span class="mui-icon mui-icon-compose" style="top: 0px;"></span> 保存
+            </a>
+
+            <a class="mui-tab-item" style="height: 40px;" ng-show="processInstance.takeAble"
+               ng-click="showTakeTask();">
+                <span class="mui-icon mui-icon-checkmarkempty" style="top: 0px;"></span> 接受
+            </a>
+
+            <a class="mui-tab-item" style="height: 40px;" ng-show="processInstance.fetchAble"
+               ng-click="showFetchTask();">
+                <span class="mui-icon mui-icon-undo" style="top: 0px;"></span> 取回
+            </a>
+            <a class="mui-tab-item" href="#" style="height: 40px;"
+               ng-show="processInstance.delegateAble"
+               ng-click="showDelegateTask();">
+                <span class="mui-icon mui-icon-personadd" style="top: 0px;"></span> 委托
+            </a>
+            <a class="mui-tab-item" href="#" style="height: 40px;"
+               ng-show="processInstance.transferAble"
+               ng-click="showTransferTask();">
+                <span class="mui-icon mui-icon-personadd" style="top: 0px;"></span> 移交
+            </a>
+            <a class="mui-tab-item" style="height: 40px;" ng-show="processInstance.sendAble"
+               ng-click="showSendTask(true);">
+                <span class="mui-icon mui-icon-paperplane" style="top: 0px;"></span>
+                <span ng-bind="processInstance.firstTask?'提交':'同意'"></span>
+            </a>
+            <a class="mui-tab-item" style="height: 40px;" ng-show="processInstance.backAble"
+               ng-click="showSendTask(false);">
+                <span class="mui-icon mui-icon-redo" style="top: 0px;"></span> 打回
+            </a>
+            <a class="mui-tab-item" style="height: 40px;" ng-show="processInstance.resolveAble"
+               ng-click="showResolveTask(false);">
+                <span class="mui-icon mui-icon-checkmarkempty" style="top: 0px;"></span> 完成
+            </a>
+            <a class="mui-tab-item" style="height: 40px;" ng-show="processInstance.ccFinishAble"
+               ng-click="showCcFinishTask();">
+                <span class="mui-icon mui-icon-checkmarkempty" style="top: 0px;"></span> 办结抄送
+            </a>
+
+        </nav>
+
+        <span id="transferModal" class="actionModal" style="display: none;">
+            <div class="mui-card">
+                         <div class="mui-card-content" style="padding: 10px;">
+                             <h5>移交用户：<span style="color: red;">*</span><span class="mui-icon mui-icon-personadd"
+                                                                             style="color: blue;" ng-click="showSelectUser('transferModal');"></span></h5>
+                            <div class="mui-input-row">
+                                <input type="text" disabled="disabled" style="font-weight: bold;"
+                                       ng-model="handleTask.newUserName" placeholder="请点击上方按钮,选择用户.">
+                            </div>
+                             <h5>处理意见：<span style="color: red;">*</span></h5>
+                                <div class="mui-input-row">
+                                <textarea rows="3" placeholder="请填写您的处理意见." ng-model="handleTask.comment"></textarea>
+                            </div>
+                            <div class="mui-button-row transfer-delegate">
+                                <button type="button" class="mui-btn mui-btn-primary btn-ok" ng-click="doTransferTask();">确认</button>&nbsp;&nbsp;
+                                <button type="button" class="mui-btn mui-btn-danger btn-cancel" ng-click="backShowMain();">取消</button>
+                            </div>
+                         </div>
+                     </div>
+        </span>
+
+        <span id="delegateModal" class="actionModal" style="display: none;">
+             <div class="mui-card">
+                 <div class="mui-card-content" style="padding: 10px;">
+                     <h5>委托用户：<span style="color: red;">*</span><span class="mui-icon mui-icon-personadd"
+                                                                     style="color: blue;" ng-click="showSelectUser('delegateModal');"></span></h5>
+                    <div class="mui-input-row">
+					    <input type="text" disabled="disabled" style="font-weight: bold;"
+                               ng-model="handleTask.newUserName" placeholder="请点击上方按钮,选择用户.">
+			    	</div>
+                     <h5>处理意见：<span style="color: red;">*</span></h5>
+                     	<div class="mui-input-row">
+						<textarea rows="3" placeholder="请填写您的处理意见." ng-model="handleTask.comment"></textarea>
+					</div>
+					<div class="mui-button-row transfer-delegate">
+						<button type="button" class="mui-btn mui-btn-primary btn-ok" ng-click="doDelegateTask();">确认</button>&nbsp;&nbsp;
+					     <button type="button" class="mui-btn mui-btn-danger btn-cancel" ng-click="backShowMain();">取消</button>
+					</div>
+                 </div>
+             </div>
+
+        </span>
+
+        <span id="actSelectUserModal" class="actionModal" style="display: none;">
+            <div class="mui-content-padded" style="margin: 5px;">
+<!--				<div class="mui-input-row mui-search">-->
+                <!--					<input type="search" class="mui-input-clear" placeholder="">-->
+                <!--				</div>-->
+                <ul class="mui-table-view mui-table-view-chevron">
+
+                     <li class="mui-table-view-cell" ng-click="loadUser(currentDept.parentId);"
+                         ng-show="currentDept.id>0">
+                         <a class="mui-icon mui-icon-left-nav mui-pull-left"
+                            style="font-size: 16px;">返回</a>
+                     </li>
+
+                    <li class="mui-table-view-cell mui-media" ng-repeat="dept in depts" ng-click="loadUser(dept.id);"
+                        ng-show="(dept.userCount+dept.deptCount)>0">
+                        <a class="mui-navigate-right">
+                          	<img class="mui-media-object mui-pull-left" src="/assets/img/dir_blue.png"
+                                 style="width: 30px;height: 30px;line-height: 30px;"/>
+                            <div class="mui-media-body" style="line-height: 30px;" ng-bind="dept.name"></div>
+                        </a>
+				    </li>
+
+                    <li class="mui-table-view-cell mui-media" ng-repeat="user in users" ng-click="doSelectUser(user);">
+                        <img class="mui-media-object mui-pull-left" src="/assets/img/tab_person.png"
+                             style="width: 30px;height: 30px;line-height: 30px;"/>
+                        <div class="mui-media-body" style="line-height: 30px;" ng-bind="user.cnName"></div>
+				    </li>
+		    	</ul>
+            </div>
+
+
+
+        </span>
+</span>

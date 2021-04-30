@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.common.dao.CommonFormDataMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.common.entity.CommonFormData">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="tenet_id" jdbcType="VARCHAR" property="tenetId" />
+    <result column="refer_type" jdbcType="VARCHAR" property="referType" />
+    <result column="refer_id" jdbcType="INTEGER" property="referId" />
+    <result column="business_key" jdbcType="VARCHAR" property="businessKey" />
+    <result column="form_key" jdbcType="VARCHAR" property="formKey" />
+    <result column="form_version" jdbcType="INTEGER" property="formVersion" />
+    <result column="seq" jdbcType="INTEGER" property="seq" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="is_process_end" jdbcType="BIT" property="processEnd" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="form_data" jdbcType="LONGVARCHAR" property="formData" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from common_form_data
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+
+
+
+
+  <insert id="insert" parameterType="com.cmcu.common.entity.CommonFormData">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into common_form_data (tenet_id, refer_type, refer_id, 
+      business_key, form_key, form_version, 
+      seq, is_deleted, creator, 
+      creator_name, dept_id, dept_name, 
+      gmt_create, gmt_modified, process_instance_id, 
+      is_process_end, remark, form_data
+      )
+    values (#{tenetId,jdbcType=VARCHAR}, #{referType,jdbcType=VARCHAR}, #{referId,jdbcType=INTEGER}, 
+      #{businessKey,jdbcType=VARCHAR}, #{formKey,jdbcType=VARCHAR}, #{formVersion,jdbcType=INTEGER}, 
+      #{seq,jdbcType=INTEGER}, #{deleted,jdbcType=BIT}, #{creator,jdbcType=VARCHAR}, 
+      #{creatorName,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{processInstanceId,jdbcType=VARCHAR}, 
+      #{processEnd,jdbcType=BIT}, #{remark,jdbcType=VARCHAR}, #{formData,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.common.entity.CommonFormData">
+    update common_form_data
+    set tenet_id = #{tenetId,jdbcType=VARCHAR},
+      refer_type = #{referType,jdbcType=VARCHAR},
+      refer_id = #{referId,jdbcType=INTEGER},
+      business_key = #{businessKey,jdbcType=VARCHAR},
+      form_key = #{formKey,jdbcType=VARCHAR},
+      form_version = #{formVersion,jdbcType=INTEGER},
+      seq = #{seq,jdbcType=INTEGER},
+      is_deleted = #{deleted,jdbcType=BIT},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      is_process_end = #{processEnd,jdbcType=BIT},
+      remark = #{remark,jdbcType=VARCHAR},
+      form_data = #{formData,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, tenet_id, refer_type, refer_id, business_key, form_key, form_version, 
+    seq, is_deleted, creator, creator_name, dept_id, dept_name, gmt_create, gmt_modified, 
+    process_instance_id, is_process_end, remark, form_data
+    from common_form_data
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByBusinessKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select *
+    from common_form_data
+    where business_key = #{businessKey,jdbcType=VARCHAR}
+    limit 1
+  </select>
+
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, tenet_id, refer_type, refer_id, business_key, form_key, form_version, 
+    seq, is_deleted, creator, creator_name, dept_id, dept_name, gmt_create, gmt_modified, 
+    process_instance_id, is_process_end, remark, form_data
+    from common_form_data
+    <include refid="Base_Where_List" />
+     order by gmt_create desc
+  </select>
+
+  <select id="selectBusinessKey" resultType="java.lang.String">
+    select  business_key
+    from common_form_data
+    <include refid="Base_Where_List" />
+    order by gmt_create desc
+  </select>
+
+
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="tenetId != null and tenetId != ''">
+         AND tenet_id = #{tenetId}
+      </if>
+      <if test="referType != null and referType != ''">
+         AND refer_type = #{referType}
+      </if>
+      <if test="referTypeList != null and referTypeList.size() >0">
+        AND refer_type in
+        <foreach collection="referTypeList" open="(" close=")" separator="," item="referType" index="i">
+          #{referType}
+        </foreach>
+      </if>
+      <if test="referIdList != null and referIdList.size() >0">
+        AND refer_id in
+        <foreach collection="referIdList" open="(" close=")" separator="," item="referId" index="i">
+          #{referId}
+        </foreach>
+      </if>
+      <if test="referId != null and referId > 0">
+         AND refer_id = #{referId}
+      </if>
+      <if test="businessKey != null and businessKey != ''">
+         AND business_key = #{businessKey}
+      </if>
+      <if test="formKey != null and formKey != ''">
+         AND form_key = #{formKey}
+      </if>
+      <if test="formVersion != null">
+         AND form_version = #{formVersion}
+      </if>
+      <if test="seq != null">
+         AND seq = #{seq}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="deptId != null">
+         AND dept_id = #{deptId}
+      </if>
+      <if test="deptName != null and deptName != ''">
+         AND dept_name = #{deptName}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="processInstanceId != null and processInstanceId != ''">
+         AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="processEnd != null">
+         AND is_process_end = #{processEnd}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="q != null and q != ''">
+        AND form_data like CONCAT('%',#{q},'%')
+      </if>
+    </where>
+  </sql>
+</mapper>

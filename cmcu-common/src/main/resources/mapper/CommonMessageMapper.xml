@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.common.dao.CommonMessageMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.common.entity.CommonMessage">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="tenet_id" jdbcType="VARCHAR" property="tenetId" />
+    <result column="sender" jdbcType="VARCHAR" property="sender" />
+    <result column="sender_name" jdbcType="VARCHAR" property="senderName" />
+    <result column="receiver" jdbcType="VARCHAR" property="receiver" />
+    <result column="receiver_name" jdbcType="VARCHAR" property="receiverName" />
+    <result column="msg_type" jdbcType="VARCHAR" property="msgType" />
+    <result column="msg_caption" jdbcType="VARCHAR" property="msgCaption" />
+    <result column="msg_text" jdbcType="VARCHAR" property="msgText" />
+    <result column="msg_url" jdbcType="VARCHAR" property="msgUrl" />
+    <result column="msg_btn_txt" jdbcType="VARCHAR" property="msgBtnTxt" />
+    <result column="msg_image_key" jdbcType="VARCHAR" property="msgImageKey" />
+    <result column="is_received" jdbcType="BIT" property="received" />
+    <result column="is_handled" jdbcType="BIT" property="handled" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_received" jdbcType="TIMESTAMP" property="gmtReceived" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from common_message
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.common.entity.CommonMessage">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into common_message (tenet_id, sender, sender_name, 
+      receiver, receiver_name, msg_type, 
+      msg_caption, msg_text, msg_url,
+    msg_btn_txt, msg_image_key, is_received,
+      is_handled, is_deleted, gmt_create, 
+      gmt_received, remark)
+    values (#{tenetId,jdbcType=VARCHAR}, #{sender,jdbcType=VARCHAR}, #{senderName,jdbcType=VARCHAR}, 
+      #{receiver,jdbcType=VARCHAR}, #{receiverName,jdbcType=VARCHAR}, #{msgType,jdbcType=VARCHAR}, 
+      #{msgCaption,jdbcType=VARCHAR}, #{msgText,jdbcType=VARCHAR}, #{msgUrl,jdbcType=VARCHAR},
+      #{msgBtnTxt,jdbcType=VARCHAR}, #{msgImageKey,jdbcType=VARCHAR}, #{received,jdbcType=BIT},
+      #{handled,jdbcType=BIT}, #{deleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtReceived,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.common.entity.CommonMessage">
+    update common_message
+    set tenet_id = #{tenetId,jdbcType=VARCHAR},
+      sender = #{sender,jdbcType=VARCHAR},
+      sender_name = #{senderName,jdbcType=VARCHAR},
+      receiver = #{receiver,jdbcType=VARCHAR},
+      receiver_name = #{receiverName,jdbcType=VARCHAR},
+      msg_type = #{msgType,jdbcType=VARCHAR},
+      msg_caption = #{msgCaption,jdbcType=VARCHAR},
+      msg_text = #{msgText,jdbcType=VARCHAR},
+      msg_url = #{msgUrl,jdbcType=VARCHAR},
+
+      msg_btn_txt = #{msgBtnTxt,jdbcType=VARCHAR},
+      msg_image_key = #{msgImageKey,jdbcType=VARCHAR},
+      is_received = #{received,jdbcType=BIT},
+      is_handled = #{handled,jdbcType=BIT},
+      is_deleted = #{deleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_received = #{gmtReceived,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select *
+    from common_message
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="listLastFiveNoReceived" resultMap="BaseResultMap" parameterType="java.lang.String">
+     select * from common_message where is_deleted=0 and is_received=0 and  receiver = #{receiver,jdbcType=VARCHAR}
+     order by id asc limit 5
+  </select>
+
+
+  <select id="markReceived" parameterType="java.lang.Integer">
+     update common_message set is_received=1,gmt_received=now() where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <update id="autoCoMarkReceived">
+    update common_message set is_received=1,gmt_received=now() where  is_received=0 and msg_type='协同设计'
+    and
+    <![CDATA[  gmt_create< DATE_FORMAT(DATE_SUB(NOW(),INTERVAL 3 DAY),'%Y-%m-%d %h:%i:%s')  ]]>
+  </update>
+
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, tenet_id, sender, sender_name, receiver, receiver_name, msg_type, msg_caption, 
+    msg_text, msg_url, msg_btn_txt, msg_image_key, is_received, is_handled, is_deleted, 
+    gmt_create, gmt_received, remark
+    from common_message
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="tenetId != null and tenetId != ''">
+         AND tenet_id = #{tenetId}
+      </if>
+      <if test="sender != null and sender != ''">
+         AND sender = #{sender}
+      </if>
+      <if test="senderName != null and senderName != ''">
+         AND sender_name = #{senderName}
+      </if>
+      <if test="receiver != null and receiver != ''">
+         AND receiver = #{receiver}
+      </if>
+      <if test="receiverName != null and receiverName != ''">
+         AND receiver_name = #{receiverName}
+      </if>
+      <if test="msgType != null and msgType != ''">
+         AND msg_type = #{msgType}
+      </if>
+      <if test="msgCaption != null and msgCaption != ''">
+         AND msg_caption = #{msgCaption}
+      </if>
+      <if test="msgText != null and msgText != ''">
+         AND msg_text = #{msgText}
+      </if>
+      <if test="msgUrl != null and msgUrl != ''">
+         AND msg_url = #{msgUrl}
+      </if>
+
+      <if test="msgBtnTxt != null and msgBtnTxt != ''">
+         AND msg_btn_txt = #{msgBtnTxt}
+      </if>
+      <if test="msgImageKey != null and msgImageKey != ''">
+         AND msg_image_key = #{msgImageKey}
+      </if>
+      <if test="received != null">
+         AND is_received = #{received}
+      </if>
+      <if test="handled != null">
+         AND is_handled = #{handled}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtReceived != null">
+         AND gmt_received = #{gmtReceived}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+      <if test="q != null and q != ''">
+        AND (msg_text like CONCAT('%',#{q},'%') or msg_caption like CONCAT('%',#{q},'%'))
+      </if>
+    </where>
+  </sql>
+</mapper>

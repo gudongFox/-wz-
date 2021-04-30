@@ -1,0 +1,24 @@
+﻿<div class="mui-card" ng-repeat="task in tasks">
+    <div class="mui-card-header" style="color: {{!task.endTime?'blue':''}}">
+        <span ng-bind="task.name+'-'+task.assigneeName" ng-if="task.assigneeName"></span>
+        <span ng-bind="task.name" ng-if="!task.assigneeName"></span>
+        <img ng-src="{{task.avatar}}" onerror="this.src='/assets/img/avatar.jpg'"
+             style="width: 30px;height: 30px;"/>
+    </div>
+    <div class="mui-card-content">
+        <div class="mui-card-content-inner">
+                                                    <span ng-show="!task.endTime">
+                                                        <span ng-show="task.claimTime">待处理</span>
+                                                        <span ng-show="!task.claimTime" style="color: grey;">待接收</span>
+                                                    </span>
+            <span ng-show="task.endTime">
+                                                        <span ng-bind="task.passed?'通过':'打回'"
+                                                              style="color: {{task.passed?'green':'red'}};font-weight: bold;"></span>
+                                                        <span ng-bind="task.latestComment"></span>
+                                                    </span>
+        </div>
+    </div>
+    <div class="mui-card-footer">
+        <span ng-bind="(task.startTime|date:'yyyy-MM-dd HH:mm')+(task.endTime?' > ':'')+  (task.endTime|date:'yyyy-MM-dd HH:mm')"></span>
+    </div>
+</div>

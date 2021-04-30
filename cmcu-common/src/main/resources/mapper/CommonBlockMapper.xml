@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcu.common.dao.CommonBlockMapper">
+  <resultMap id="BaseResultMap" type="com.cmcu.common.entity.CommonBlock">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="tenet_id" jdbcType="VARCHAR" property="tenetId" />
+    <result column="category_id" jdbcType="INTEGER" property="categoryId" />
+    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+    <result column="attach_id" jdbcType="INTEGER" property="attachId" />
+    <result column="thumb_id" jdbcType="INTEGER" property="thumbId" />
+    <result column="owner" jdbcType="VARCHAR" property="owner" />
+    <result column="owner_name" jdbcType="VARCHAR" property="ownerName" />
+    <result column="owner_level" jdbcType="VARCHAR" property="ownerLevel" />
+    <result column="min_version" jdbcType="INTEGER" property="minVersion" />
+    <result column="max_version" jdbcType="INTEGER" property="maxVersion" />
+    <result column="insert_layer" jdbcType="VARCHAR" property="insertLayer" />
+    <result column="other_data" jdbcType="VARCHAR" property="otherData" />
+    <result column="seq" jdbcType="INTEGER" property="seq" />
+    <result column="is_deleted" jdbcType="BIT" property="deleted" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from common_block
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cmcu.common.entity.CommonBlock">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into common_block (tenet_id, category_id, file_name, 
+      attach_id, thumb_id,owner,owner_name,
+      owner_level, min_version, max_version, 
+      insert_layer, other_data, seq, 
+      is_deleted, creator, creator_name, 
+      gmt_create, gmt_modified, remark
+      )
+    values (#{tenetId,jdbcType=VARCHAR}, #{categoryId,jdbcType=INTEGER}, #{fileName,jdbcType=VARCHAR}, 
+      #{attachId,jdbcType=INTEGER}, #{thumbId,jdbcType=INTEGER}, #{owner,jdbcType=VARCHAR},  #{ownerName,jdbcType=VARCHAR},
+      #{ownerLevel,jdbcType=VARCHAR}, #{minVersion,jdbcType=INTEGER}, #{maxVersion,jdbcType=INTEGER}, 
+      #{insertLayer,jdbcType=VARCHAR}, #{otherData,jdbcType=VARCHAR}, #{seq,jdbcType=INTEGER}, 
+      #{deleted,jdbcType=BIT}, #{creator,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cmcu.common.entity.CommonBlock">
+    update common_block
+    set tenet_id = #{tenetId,jdbcType=VARCHAR},
+      category_id = #{categoryId,jdbcType=INTEGER},
+      file_name = #{fileName,jdbcType=VARCHAR},
+      attach_id = #{attachId,jdbcType=INTEGER},
+      thumb_id = #{thumbId,jdbcType=INTEGER},
+      owner = #{owner,jdbcType=VARCHAR},
+      owner_name = #{ownerName,jdbcType=VARCHAR},
+      owner_level = #{ownerLevel,jdbcType=VARCHAR},
+      min_version = #{minVersion,jdbcType=INTEGER},
+      max_version = #{maxVersion,jdbcType=INTEGER},
+      insert_layer = #{insertLayer,jdbcType=VARCHAR},
+      other_data = #{otherData,jdbcType=VARCHAR},
+      seq = #{seq,jdbcType=INTEGER},
+      is_deleted = #{deleted,jdbcType=BIT},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select *
+    from common_block
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select *
+    from common_block
+    <include refid="Base_Where_List" />
+     order by id desc
+  </select>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="id != null">
+         AND id = #{id}
+      </if>
+      <if test="tenetId != null and tenetId != ''">
+         AND tenet_id = #{tenetId}
+      </if>
+      <if test="categoryId != null">
+         AND category_id = #{categoryId}
+      </if>
+      <if test="fileName != null and fileName != ''">
+         AND file_name = #{fileName}
+      </if>
+      <if test="attachId != null">
+         AND attach_id = #{attachId}
+      </if>
+      <if test="thumbId != null">
+         AND thumb_id = #{thumbId}
+      </if>
+      <if test="owner != null and owner != ''">
+        AND owner = #{owner}
+      </if>
+      <if test="ownerName != null and ownerName != ''">
+         AND owner_name = #{ownerName}
+      </if>
+      <if test="ownerLevel != null and ownerLevel != ''">
+         AND owner_level = #{ownerLevel}
+      </if>
+      <if test="minVersion != null">
+         AND min_version = #{minVersion}
+      </if>
+      <if test="maxVersion != null">
+         AND max_version = #{maxVersion}
+      </if>
+      <if test="insertLayer != null and insertLayer != ''">
+         AND insert_layer = #{insertLayer}
+      </if>
+      <if test="otherData != null and otherData != ''">
+         AND other_data = #{otherData}
+      </if>
+      <if test="seq != null">
+         AND seq = #{seq}
+      </if>
+      <if test="deleted != null">
+         AND is_deleted = #{deleted}
+      </if>
+      <if test="creator != null and creator != ''">
+         AND creator = #{creator}
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+         AND creator_name = #{creatorName}
+      </if>
+      <if test="gmtCreate != null">
+         AND gmt_create = #{gmtCreate}
+      </if>
+      <if test="gmtModified != null">
+         AND gmt_modified = #{gmtModified}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark}
+      </if>
+    </where>
+  </sql>
+</mapper>

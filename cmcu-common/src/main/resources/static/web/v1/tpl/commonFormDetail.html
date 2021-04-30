@@ -1,0 +1,332 @@
+﻿<div class="page-bar" id="pageBar">
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="fa fa-home"></i>
+            <a >首页</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <span>流程引擎</span>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <span>表单配置</span>
+        </li>
+    </ul>
+</div>
+
+<div class="portlet  box blue">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-note"></i><span >表单配置</span>
+        </div>
+        <div class="actions">
+            <a href="javascript:;" class="btn btn-sm btn-default" ng-click="loadData();">
+                <i class="fa fa-refresh"></i> 刷新 </a>
+            <a href="javascript:;" class="btn btn-sm btn-default" ng-click="update();">
+                <i class="fa fa-save"></i> 保存 </a>
+            <a href="javascript:;" class="btn btn-sm btn-default"  style="font-size: 14px;line-height: 1.6"
+               ng-click="back();"><i class="fa fa-arrow-left"></i> 返回 </a>
+        </div>
+    </div>
+    <div class="portlet-body">
+
+        <div class="tabbable-line">
+            <ul class="nav nav-tabs ">
+                <li class="active">
+                    <a href="#tab_15_1" data-toggle="tab" aria-expanded="true">
+                        基础信息 </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_15_1"
+                     style="min-height: 240px;overflow-y: auto;overflow-x: hidden;">
+                    <form class="form-horizontal form" role="form" id="detail_form">
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label required">表单编号</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="item.formKey" name="formKey" required="true"    />
+                                </div>
+                                <label class="col-md-2 control-label required">表单图标</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="item.formIcon" name="formIcon" required="true"  />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label required">表单类型</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="item.formCategory" name="formCatgory" required="true"    />
+                                </div>
+                                <label class="col-md-2 control-label required">表单说明</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="item.formDesc" name="formDesc" required="true"  />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label required">表单版本</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="item.formVersion" name="formVersion" required="true"    />
+                                </div>
+                                <label class="col-md-2 control-label required">是否发布</label>
+                                <div class="col-md-4">
+                                    <select ng-options="s.codeValue as s.name for s in commonCodes | filter:{codeCatalog:'是否'}:true"
+                                            ng-model="item.published" class="form-control form-control-sm"></select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label ">内容配置</label>
+                                <div class="col-md-10">
+                                    <textarea rows="3" class="form-control" ng-model="item.otherTplConfig" name="otherTplConfig" placeholder="" ></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">创建人</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="item.creatorName"
+                                           disabled="disabled"/>
+                                </div>
+                                <label class="col-md-2 control-label">创建时间</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control"
+                                           value="{{item.gmtCreate|date:'yyyy-MM-dd HH:mm'}}" disabled="disabled"/>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="portlet light">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-file"></i>表单详情
+        </div>
+        <div class="actions" >
+            <a  class="btn btn-sm default fileinput-button"
+                ng-click="addDetail();">
+                <i class="fa fa-plus"></i> 新增</a>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="table-scrollable" style="max-height: 500px;overflow-y: auto;">
+            <table class="table table-striped table-hover table-bordered table-advance no-footer">
+                <thead>
+                <tr>
+                    <th style="width: 35px;">#</th>
+                    <th style="width:120px ">组名</th>
+                    <th>字段类型</th>
+                    <th>字段编码</th>
+                    <th>字段名称</th>
+                    <th>字段大小</th>
+                    <th style="width: 75px;">是否编辑</th>
+                    <th>编辑节点</th>
+                    <th style="width: 75px;">列表展示</th>
+                    <th style="width: 75px;">流程变量</th>
+                    <th style="width: 55px;">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="detail in listDetail">
+                    <td class="dt-right" ng-bind="$index+1"></td>
+                    <td ng-bind="detail.groupName" ng-click="showDetail(detail.id);" style="color: blue;"></td>
+                    <td ng-bind="detail.inputType"></td>
+                    <td ng-bind="detail.inputCode"></td>
+                    <td ng-bind="detail.inputText"></td>
+                    <td ng-bind="detail.inputSize"></td>
+                    <td >
+                        <span ng-if="detail.editable">是</span>
+                        <span ng-if="!detail.editable">否</span>
+                    </td>
+                    <td ng-bind="detail.editableTag"></td>
+                    <td >
+                        <span ng-if="detail.listHidden">是</span>
+                        <span ng-if="!detail.listHidden">否</span>
+                    </td>
+                    <td >
+                        <span ng-if="detail.variable">是</span>
+                        <span ng-if="!detail.variable">否</span>
+                    </td>
+                    <td>
+                        <i class="fa fa-edit margin-right-5" ng-click="showDetail(detail.id);"
+                           title="详情"></i>
+                        <i class="fa fa-trash"  ng-click="removeDetail(detail.id);" title="删除" ></i>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="detailModel" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title margin-right-10">详情</h4>
+
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form" style="padding-right: 30px;" id="detailModel_form">
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label required">组名</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" ng-model="detail.groupName"  required="true"
+                                   name="groupName" placeholder="">
+                        </div>
+                        <label class="col-md-2 control-label required">字段类型</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" ng-model="detail.inputType"  required="true"
+                                   name="inputType" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label required">字段编码</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" ng-model="detail.inputCode"  required="true"
+                                   name="inputCode" placeholder="">
+                        </div>
+                        <label class="col-md-2 control-label required">字段名称</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" ng-model="detail.inputText"  required="true"
+                                   name="inputText" placeholder="" >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label ">字段提示</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" ng-model="detail.inputTip"
+                                   name="inputTip" placeholder="">
+                        </div>
+                        <label class="col-md-2 control-label required">字段大小</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" ng-model="detail.inputSize"  required="true"
+                                   name="inputSize" placeholder="">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">其他配置</label>
+                        <div class="col-md-10">
+                            <textarea rows="3" class="form-control" ng-model="detail.inputConfig" name="inputConfig"  placeholder="" ></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">是否编辑</label>
+                        <div class="col-md-4">
+                            <select ng-options="s.codeValue as s.name for s in commonCodes | filter:{codeCatalog:'是否'}:true"
+                                    ng-model="detail.editable" class="form-control form-control-sm"></select>
+                        </div>
+                        <label class="col-md-2 control-label" required>可编辑阶段</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" ng-model="detail.editableTag"  required="true"
+                                   name="editableTag" placeholder="">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">数据长度</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" ng-model="detail.maxLength"
+                                   name="maxLength" placeholder="">
+                        </div>
+                        <label class="col-md-2 control-label">数据来源</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" ng-model="detail.dataSource" placeholder="code_数据字典类型"
+                                   name="dataSource" placeholder="">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">列表隐藏</label>
+                        <div class="col-md-4">
+                            <select ng-options="s.codeValue as s.name for s in commonCodes | filter:{codeCatalog:'是否'}:true"
+                                    ng-model="detail.listHidden" class="form-control form-control-sm"></select>
+                            <span style="color: red">是:list页隐藏;否:list页展示</span>
+                        </div>
+
+                        <label class="col-md-2 control-label required">列表排序</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" ng-model="detail.listSeq"  required="true"
+                                   name="listSeq" placeholder="">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">详情隐藏</label>
+                        <div class="col-md-4">
+                            <select ng-options="s.codeValue as s.name for s in commonCodes | filter:{codeCatalog:'是否'}:true"
+                                    ng-model="detail.detailHidden" class="form-control form-control-sm"></select>
+                        <span style="color: red">是:详情页隐藏;否:详情页展示</span>
+                        </div>
+
+                        <label class="col-md-2 control-label required">详情顺序</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" ng-model="detail.detailSeq"  required="true"
+                                   name="detailSeq" placeholder="">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">是否验证</label>
+                        <div class="col-md-4">
+                            <select ng-options="s.codeValue as s.name for s in commonCodes | filter:{codeCatalog:'是否'}:true"
+                                    ng-model="detail.required" class="form-control form-control-sm"></select>
+                        </div>
+                        <label class="col-md-2 control-label">是否多选</label>
+                        <div class="col-md-4">
+                            <select ng-options="s.codeValue as s.name for s in commonCodes | filter:{codeCatalog:'是否'}:true"
+                                    ng-model="detail.multiple" class="form-control form-control-sm"></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">流程变量</label>
+                        <div class="col-md-4">
+                            <select ng-options="s.codeValue as s.name for s in commonCodes | filter:{codeCatalog:'是否'}:true"
+                                    ng-model="detail.variable" class="form-control form-control-sm"></select>
+                        </div>
+                        <label class="col-md-2 control-label">备注</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" ng-model="detail.remark"
+                                   name="remark" placeholder="">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">创建时间</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control"  ng-value="detail.gmtCreate|date:'yyyy-MM-dd HH:mm:ss'" required="true"
+                                   >
+                        </div>
+                        <label class="col-md-2 control-label">修改时间</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" ng-value="detail.gmtModified|date:'yyyy-MM-dd HH:mm:ss'"  required="true"
+                                   >
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn default" ng-click="" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn blue" ng-click="updateDetail();" >保存</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div ng-include="'/web/v1/tpl/cloudDirAndFile.html'"  ng-init="fileTplTitle='业务附件'"></div>
+
+
+
